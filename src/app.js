@@ -3,6 +3,6 @@ import "./css/app-base.pcss";
 import "./css/app-components.pcss";
 import "./css/app-utilities.pcss";
 
-import Layout from "./view/components/test.jsx"
+import Footer from "./view/components/Footer.jsx"
 
-m.render(Layout)
+m.mount(document.querySelector('body'), Footer);
