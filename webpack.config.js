@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -9,6 +10,9 @@ module.exports = {
     filename: "build.js",
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      m: "mithril", //Global access
+    }),
     new MiniCssExtractPlugin({ filename: "bundle.css" }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
@@ -40,7 +44,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
