@@ -1,3 +1,4 @@
+import Dashboard from "./components/Dashboard.jsx";
 import Footer from "./components/Footer.jsx";
 import watermark from "../images/wm2.png";
 
@@ -40,12 +41,26 @@ export default function () {
           </div>
         </header>
         <main class="flex flex-col z-10 flex-auto bg-balance-hero">
-          <section class="pb-8 flex-none sm:h-96 md:h-72 lg:h-96 hero">
-            <h1>Find your infinity</h1>
-            <p>Drill down (or soar up) and <br class="hidden lg:block"/> leverage the power <br class="hidden md:block"/>of incremental behavioural change.</p>
+          <section class="py-4 flex-none h-auto md:h-72 lg:h-1/2 hero">
+            <header>
+              <h1>Find your infinity</h1>
+              <p>Drill down (or soar up) and <br class="hidden lg:block"/> leverage the power <br class="hidden md:block"/>of incremental behavioural change.</p>
+            </header>
           </section>
+          <div class="call-to-action bg-gradient-to-b from-transparent to-balance-lightbg">
+              <h2 class="text-center">Choose a life domain:</h2>
+              <div class="domain-pills">
+                { ['Physical Health', 'Mental Health', 'Spirituality', 'Giving', 'Career'].map(domain => 
+                  <button class="domain-create">
+                  <div class="flex items-center justify-between rounded-full shadow-md bg-gray-700 text-gray-200 p-4 my-4">
+                    {domain}
+                  </div>
+                </button>
+                )}
+              </div>
+            </div>
           <section class="cards flex-1 bg-white">
-            
+          <Dashboard></Dashboard>
           </section>
         </main>
         <Footer></Footer>
