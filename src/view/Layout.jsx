@@ -4,12 +4,8 @@ import watermark from "../images/wm2.png";
 export default function () {
   return {
     view: (vnode) => (
-      // <Nav />
-      // <HeroSection />
-      // <CardSection />
-      // <Footer/>
-      <div id="app" class="min-h-screen">
-        <header class="bg-balance py-2">
+      <div id="app" class="min-h-screen flex flex-col justify-between">
+        <header class="bg-balance-heavyblue py-2 flex-none">
           <div class="flex justify-between items-start">
             <a class="logo block w-8 h-8">
             <svg  id="logo"
@@ -26,7 +22,7 @@ export default function () {
                 </svg>
               </label>
               <input type="checkbox" id="hamburger" class="hidden" />
-              <nav class="absolute w-full top-12 left-0 hidden lg:flex lg:justify-end lg:items-center lg:static flex-col lg:flex-row bg-balance-lightprimary lg:bg-balance">
+              <nav class="bg-balance-darkprimary z-20 absolute w-full top-12 left-0 hidden lg:flex lg:justify-end lg:items-center lg:static flex-col lg:flex-row bg-balance-heavyblue-lightprimary lg:bg-balance-heavyblue">
                 <div class="p-4 lg:p-0 border-b-2 lg:border-0 lg:mr-8 lg:flex lg:flex-1 lg:justify-end border-t-2 border-balance justify-between">
                   <div class="flex mt-2 lg:mt-0 lg:mr-2 lg:text-balance-lightgray nav-label-primary">Domain</div>
                   <div class="flex mt-2 lg:mt-0 lg:mr-2 lg:text-balance-lightgray nav-label-primary">Date</div>
@@ -43,10 +39,20 @@ export default function () {
           </div>
           </div>
         </header>
+        <main class="flex flex-col z-10 flex-auto bg-balance-hero">
+          <section class="flex-none h-48 md:h-64 lgd:h-72 hero">
+          </section>
+          <section class="cards flex-1 bg-white"></section>
+        </main>
+        <Footer></Footer>
       </div>
     ),
   };
 }
+      // <Nav />
+      // <HeroSection />
+      // <CardSection />
+      // <Footer/>
 
       // <div class="container w- h-full flex flex-col justify-between">
       //   <nav class="container flex justify-between items-center flex-none h-12">
