@@ -1,7 +1,23 @@
 html, body {
-  @apply h-full;
+  @apply h-full antialiased;
 }
 
 main {
   @apply mx-0;
+}
+
+#app > header {
+  
+}
+
+.hamburger, .logo {
+  @apply my-1 px-2 flex-none;
+}
+
+.hamburger input:checked~nav {
+  display: flex;
+}
+
+span.nav-label-primary {
+  @apply leading-tight mb-2 font-semibold;
 }
