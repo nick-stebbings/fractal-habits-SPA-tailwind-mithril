@@ -27,7 +27,16 @@ module.exports = {
         use: ["html-loader"],
       },
       {
-        test: /\.(svg|png)$/,
+        test: /icons\/.*\.(svg|png)$/i,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "url-loader",
+          },
+        ],
+      },
+      {
+        test: /images\/.*\.(svg|png)$/,
         exclude: /node_modules/,
         use: [
           {
@@ -72,7 +81,6 @@ module.exports = {
               },
             },
           },
-
         ],
       },
       {
