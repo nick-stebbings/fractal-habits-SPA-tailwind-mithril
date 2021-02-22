@@ -40,9 +40,13 @@ export default function () {
           </div>
         </header>
         <main class="flex flex-col z-10 flex-auto bg-balance-hero">
-          <section class="flex-none h-48 md:h-64 lgd:h-72 hero">
+          <section class="pb-8 flex-none sm:h-96 md:h-72 lg:h-96 hero">
+            <h1>Find your infinity</h1>
+            <p>Drill down (or soar up) and <br class="hidden lg:block"/> leverage the power <br class="hidden md:block"/>of incremental behavioural change.</p>
           </section>
-          <section class="cards flex-1 bg-white"></section>
+          <section class="cards flex-1 bg-white">
+            
+          </section>
         </main>
         <Footer></Footer>
       </div>
