@@ -4,27 +4,6 @@ import Footer from "./components/Footer.jsx";
 
 const Routes = [
   {
-    label: "Objectives",
-    hrefs: {
-      "obj/list": {
-        title: "List Objectives",
-        description: "A flat list of all objectives for your perusal.",
-        icon: "objective-completion",
-      },
-      "obj/new": {
-        title: "Add Objective",
-        description: "Create a completely blank objective.",
-        icon: "objective-mountain",
-      },
-      "obj/edit": {
-        title: "Compose Objective Habits",
-        description:
-          "Link existing behaviors to a new objective, or move habits from one objective to the other.",
-        icon: "objective-compose",
-      },
-    },
-  },
-  {
     label: "Habits",
     hrefs: {
       "habits/list": {
@@ -42,6 +21,27 @@ const Routes = [
         description:
           "Link existing behaviors to a new habit, or move habits from one Habit to the other.",
         icon: "fa-tree",
+      },
+    },
+  },
+  {
+    label: "Objectives",
+    hrefs: {
+      "obj/list": {
+        title: "List Objectives",
+        description: "A flat list of all objectives for your perusal.",
+        icon: "objective-completion",
+      },
+      "obj/new": {
+        title: "Add Objective",
+        description: "Create a completely blank objective.",
+        icon: "objective-mountain",
+      },
+      "obj/edit": {
+        title: "Compose Objective Habits",
+        description:
+          "Link existing behaviors to a new objective, or move habits from one objective to the other.",
+        icon: "objective-compose",
       },
     },
   },
@@ -80,7 +80,7 @@ export default function () {
   return {
     view: (vnode) => (
       <div id="app" class="min-h-screen flex flex-col justify-between">
-        <header class="bg-balance-dp h-24 py-2 flex-none">
+        <header class="bg-balance-dp h-14 pb-2 flex-none">
           <div class="flex justify-between items-start">
             <a class="logo block w-8 h-8">
               <svg
@@ -117,30 +117,30 @@ export default function () {
                 </label>
               </div>
               <input type="checkbox" id="hamburger" class="hidden" />
-              <nav class="bg-balance-mint z-20 border-b-4 lg:border-b-0 shadow-lg absolute w-full top-14 left-0 hidden lg:flex lg:justify-end lg:items-center lg:static flex-col lg:flex-row bg-balance-dp lg:bg-balance-dp">
-                <div class="p-4 lg:p-0 sm:max-w-1/2 sm:mx-auto border-b-2 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end justify-between lg:flex-row-reverse">
+              <nav class="bg-balance-mint z-20 border-b-4 lg:border-b-0 shadow-lg absolute w-full top-14 left-0 hidden lg:flex lg:justify-end lg:items-center lg:static flex-col lg:flex-row bg-balance-dp lg:bg-transparent">
+                <div class="mt-4 p-4 lg:p-0 sm:max-w-1/2 sm:mx-auto border-b-2 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end justify-between lg:flex-row-reverse">
                   <div class="flex justify-between max-w-12 items-center bg-gradient-to-l from-balance-mint to-balance-hero rounded-full text-balance-blacktext-sm mt-2 lg:mt-0 lg:mr-2">
-                    <span class="block mx-4 py-1 uppercase font-bold tracking-wider">
+                    <span class="block mx-4 py-0 uppercase font-bold tracking-wider">
                       Domain
                     </span>
                     <div class="nav-label-primary h-full text-s border-2 rounded-full bg-balance-lmint border-balance-dg">
-                      <span class="block py-2 mx-4 text-balance-secondary font-semibold tracking-wide">
+                      <span class="block py-1 mx-4 text-balance-secondary font-semibold tracking-wide">
                         Physical Health
                       </span>
                     </div>
                   </div>
                   <div class="nav-label-primary flex justify-between max-w-12 items-center bg-gradient-to-l from-balance-mint to-balance-hero rounded-full text-balance-blacktext-sm mt-2 lg:mt-0 lg:mr-2">
-                    <span class="block mx-4 py-1 uppercase font-bold tracking-wider">
+                    <span class="block mx-4 py-0 uppercase font-bold tracking-wider">
                       Domain
                     </span>
                     <div class="nav-label-primary h-full text-s border-2 rounded-full bg-balance-lmint border-balance-dg">
-                      <span class="block py-2 mx-4 text-balance-secondary font-semibold tracking-wide">
+                      <span class="block py-1 mx-4 text-balance-secondary font-semibold tracking-wide">
                         Physical Health
                       </span>
                     </div>
                   </div>
                 </div>
-                <div class="text-xs px-4 lg:p-0 lg:flex-row py-4 flex flex-wrap justify-around items-center">
+                <div class="mt-4 text-xs px-4 lg:p-0 lg:flex-row py-2 flex flex-wrap justify-around items-center">
                   <div class="mr-1 border-2 border-balance-lg flex justify-between items-center lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp pl-4 py-2 lg:py-0 rounded-full">
                     <img
                       class="lg:border-1 lg:border-balance-hero flex-none h-10 w-10 object-cover rounded-full border-1 border-balance-lmint"
@@ -167,7 +167,7 @@ export default function () {
             <NavBar routes={Routes}></NavBar>
           </div>
         </header>
-        <main class="flex flex-col z-10 flex-auto bg-balance-hero">
+        <main class="w-full flex flex-col z-10 flex-auto bg-balance-hero">
           <div id="hero">
             <section class="flex-none h-auto md:h-56 lg:h-1/2">
               <header>
@@ -211,8 +211,8 @@ export default function () {
             <h1>Your Tracking Data</h1>
             <Dashboard></Dashboard>
           </section>
+          <Footer></Footer>
         </main>
-        <Footer></Footer>
       </div>
     ),
   };

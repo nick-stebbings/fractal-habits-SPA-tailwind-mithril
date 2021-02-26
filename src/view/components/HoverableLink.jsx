@@ -6,6 +6,7 @@ const HoverableLink = {
       <a id={`${attrs.id}`}>{attrs.label}</a>
       <div class="mega-menu">
         <div class="mega-menu-wrapper">
+          <div class="inset-wrapper"></div>
           <div class="hero-message">
             <h2>Main Hero Message for the menu section</h2>
             <p>
