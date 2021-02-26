@@ -14,26 +14,29 @@ module.exports = {
     extend: {
       colors: {
         balance: {
-          alert: "#F25042",
-          success: "#80E055",
-          info: "#56CCF2",
-          darkprimary: "#CFDC4F",
-          lightprimary: "#E8F18F",
-          darkbg: "#50442E",
-          lightbg: "#8C7851",
-          darkgray: "#E2E1E1",
-          lightgray: "#F1EDEB",
-          lilac: "#EDD3F8",
-          hero: "#c5e1a5",
-          heavyblue: "#121428",
+          dp: "#261C15",
+          lp: "#423124",
+          secondary: "#db7f0f",
+          dg: "#E2E1E1",
+          lg: "#eaddcf",
+          hero: "#d7dbc5",
+          lmint: "#fffffe",
+          mint: "#bfd395",
+          black: "#1A140E",
         },
       },
+      boxShadow: {
+        button: "0 0 0 1px #fffffe",
+      },
       outline: {
-        light: "2px solid #0000ff",
+        light: "2px solid #fffffe; outline-offset:1px; outline-style: dashed",
       },
     },
     // Replace the default Tailwind config here
   },
   corePlugins: {},
-  plugins: [require("tailwindcss-gradients")],
+  plugins: [
+    require("@tailwindcss/custom-forms"),
+    require("tailwindcss-gradients"),
+  ],
 };

@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   @apply h-full antialiased;
 }
 
@@ -6,34 +7,24 @@ main {
   @apply mx-0;
 }
 
-#app > header {
-  
-}
-section.hero > * {
+#hero > section > * {
   @apply px-6 sm:px-12 md:px-16;
 }
 
-section.hero h1 {
-  font-family: 'Palanquin Dark',
-  sans-serif;
-  @apply mt-4 sm:mt-12 text-6xl md:text-7xl lg:text-8xl md:text-center font-semibold tracking-wider text-balance-heavyblue;
+#hero > section h1 {
+  font-family: "Palanquin Dark", sans-serif;
+  @apply mt-4 sm:mt-12 text-6xl md:text-7xl lg:text-8xl md:text-center font-semibold tracking-wider text-balance-dp;
 }
-div.call-to-action h2{
-  font-family: 'Palanquin Dark',
-  sans-serif;
+#call-to-action h2 {
+  font-family: "Palanquin Dark", sans-serif;
   @apply font-bold uppercase tracking-widest text-center text-gray-800;
 }
-section.hero h2 {
-  @apply mt-8 mb-4 md:mb-6 md:mt-8 text-2xl md:text-3xl lg:text-4xl md:text-center font-semibold text-balance-darkbg;
-}section.hero em {
-  @apply text-balance-info;
+#hero > section h2 {
+  @apply mt-8 mb-4 md:mb-6 md:mt-8 text-2xl md:text-3xl lg:text-4xl md:text-center font-semibold text-balance-dp;
 }
 
-div.call-to-action {
-  @apply mt-6 md:mt-12 pb-4 md:pb-12 sm:mt-4 md:mt-12 px-12 flex flex-col lg:space-x-4;
-}
 div.domain-pills {
-  @apply mt-2 flex flex-wrap justify-around lg:justify-center items-center px-4 ;
+  @apply mt-2 flex flex-wrap justify-around lg:justify-center items-center px-4;
 }
 
 section.cards {
@@ -41,17 +32,16 @@ section.cards {
 }
 
 section.cards h1 {
-  font-family: 'Nunito',
-  sans-serif;
-  @apply mt-4 pl-4 font-bold uppercase block border-l-8 border-balance-info;
+  font-family: "Nunito", sans-serif;
+  @apply mt-4 pl-4 font-bold uppercase block border-l-8 border-balance-hero;
 }
 
-
-.hamburger, .logo {
+#hamburger-wrapper,
+.logo {
   @apply my-1 px-2 flex-none;
 }
 
-.hamburger input:checked~nav {
+#hamburger-wrapper input:checked ~ nav {
   display: flex;
 }
 
