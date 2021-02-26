@@ -40,7 +40,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "file-loader",
+            loader: "url-loader",
             options: {
               query: {
                 name: "assets/[name].[ext]",
@@ -66,7 +66,28 @@ module.exports = {
         ],
       },
       {
-        test: /\.(sc|c|pc)ss$/,
+        test: /\.(sc|c)ss$/,
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader", // translates CSS into CommonJS modules
+          },
+          {
+            loader: "postcss-loader", // Run post css actions
+            options: {
+              postcssOptions: {
+                config: path.resolve(__dirname, "postcss.config.js"),
+              },
+            },
+          },
+          {
+            loader: "sass-loader", // compiles Sass to CSS
+          },
+        ],
+      },
+      {
+        test: /\.pcss$/,
         exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
