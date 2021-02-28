@@ -4,27 +4,6 @@ import Footer from "./components/Footer.jsx";
 
 const Routes = [
   {
-    label: "Habits",
-    hrefs: {
-      "habits/list": {
-        title: "List Habits",
-        description: "A flat list of all Habits for your perusal.",
-        icon: "fa-tree",
-      },
-      "habits/new": {
-        title: "Add Habit",
-        description: "Create a completely blank habit.",
-        icon: "fa-tree",
-      },
-      "habits/edit": {
-        title: "Link Habits",
-        description:
-          "Link existing behaviors to a new habit, or move habits from one Habit to the other.",
-        icon: "fa-tree",
-      },
-    },
-  },
-  {
     label: "Objectives",
     hrefs: {
       "obj/list": {
@@ -74,6 +53,27 @@ const Routes = [
       },
     },
   },
+  {
+    label: "Habits",
+    hrefs: {
+      "habits/list": {
+        title: "List Habits",
+        description: "A flat list of all Habits for your perusal.",
+        icon: "fa-tree",
+      },
+      "habits/new": {
+        title: "Add Habit",
+        description: "Create a completely blank habit.",
+        icon: "fa-tree",
+      },
+      "habits/edit": {
+        title: "Link Habits",
+        description:
+          "Link existing behaviors to a new habit, or move habits from one Habit to the other.",
+        icon: "fa-tree",
+      },
+    },
+  },
 ];
 
 export default function () {
@@ -117,37 +117,37 @@ export default function () {
                 </label>
               </div>
               <input type="checkbox" id="hamburger" class="hidden" />
-              <nav class="bg-balance-mint z-20 border-b-4 lg:border-b-0 shadow-lg absolute w-full top-14 left-0 hidden lg:flex lg:justify-end lg:items-center lg:static flex-col lg:flex-row bg-balance-dp lg:bg-transparent">
-                <div class="mt-4 p-4 lg:p-0 sm:max-w-1/2 sm:mx-auto border-b-2 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end justify-between lg:flex-row-reverse">
-                  <div class="flex justify-between max-w-12 items-center bg-gradient-to-l from-balance-mint to-balance-hero rounded-full text-balance-blacktext-sm mt-2 lg:mt-0 lg:mr-2">
-                    <span class="block mx-4 py-0 uppercase font-bold tracking-wider">
+              <nav class="lg:-mt-4 lg:border-balance-lg bg-balance-mint z-20 border-b-4 lg:border-0 shadow-lg absolute w-full top-14 left-0 hidden lg:flex lg:justify-end lg:items-center lg:static flex-col lg:flex-row bg-balance-dp lg:bg-transparent">
+                <div class="mt-3 p-4 lg:p-0 sm:max-w-1/2 sm:mx-auto border-b-2 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end justify-between lg:flex-row-reverse">
+                  <div class="nav-label-primary lg:border-2 border-balance-hero flex justify-between max-w-12 items-center bg-gradient-to-l from-balance-mint to-balance-hero rounded-full lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm mt-2 lg:-mt-2 lg:mr-2">
+                    <span class="mb-1 block mx-2 py-0 uppercase font-semibold tracking-wide">
                       Domain
                     </span>
-                    <div class="nav-label-primary h-full text-s border-2 rounded-full bg-balance-lmint border-balance-dg">
-                      <span class="block py-1 mx-4 text-balance-secondary font-semibold tracking-wide">
+                    <div class="nav-label-primary h-full text-s border-2 rounded-full lg:rounded-3xl lg:rounded-t-none bg-balance-lmint border-balance-dg">
+                      <span class="mb-1 block py-1 mx-4 text-balance-secondary font-semibold tracking-wide">
                         Physical Health
                       </span>
                     </div>
                   </div>
-                  <div class="nav-label-primary flex justify-between max-w-12 items-center bg-gradient-to-l from-balance-mint to-balance-hero rounded-full text-balance-blacktext-sm mt-2 lg:mt-0 lg:mr-2">
-                    <span class="block mx-4 py-0 uppercase font-bold tracking-wider">
-                      Domain
+                  <div class="nav-label-primary lg:border-2 border-balance-hero flex justify-between max-w-12 items-center bg-gradient-to-l from-balance-mint to-balance-hero rounded-full lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm mt-2 lg:-mt-2 lg:mr-2">
+                    <span class="mb-1 block mx-2 py-0 uppercase font-semibold tracking-wide">
+                      Date
                     </span>
-                    <div class="nav-label-primary h-full text-s border-2 rounded-full bg-balance-lmint border-balance-dg">
-                      <span class="block py-1 mx-4 text-balance-secondary font-semibold tracking-wide">
+                    <div class="nav-label-primary h-full text-s border-2 rounded-full lg:rounded-3xl lg:rounded-t-none bg-balance-lmint border-balance-dg">
+                      <span class="mb-1 block py-1 mx-4 text-balance-secondary font-semibold tracking-wide">
                         Physical Health
                       </span>
                     </div>
                   </div>
                 </div>
-                <div class="mt-4 text-xs px-4 lg:p-0 lg:flex-row py-2 flex flex-wrap justify-around items-center">
-                  <div class="mr-1 border-2 border-balance-lg flex justify-between items-center lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp pl-4 py-2 lg:py-0 rounded-full">
+                <div class="mt-3 lg:mt-1.5 text-md px-4 lg:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
+                  <div class="mr-1 border-2 lg:border-1 border-balance-lg flex justify-between items-center lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp pl-4 py-2 lg:py-0 rounded-full lg:rounded-3xl lg:rounded-t-none">
                     <img
-                      class="lg:border-1 lg:border-balance-hero flex-none h-10 w-10 object-cover rounded-full border-1 border-balance-lmint"
+                      class="lg:border-1 lg:border-balance-hero flex-none h-10 w-10 object-cover rounded-full lg:rounded-3xl lg:rounded-t-none border-1 border-balance-lmint"
                       src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"
                       alt=""
                     />
-                    <span class="nav-label lg:text-balance-mint text-balance-dp mx-4 lg:ml-0 lg:mr-4 font-semibold">
+                    <span class="nav-label py-1 lg:text-balance-mint text-balance-dp mx-4 lg:ml-0 lg:mr-4 lg:mb-1 font-semibold">
                       Your Name Is Dave
                     </span>
                   </div>

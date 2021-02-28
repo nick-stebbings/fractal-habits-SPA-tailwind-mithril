@@ -14,16 +14,10 @@ nav.nav {
 }
 
 .nav-links {
-  @apply w-1/3 pl-2;
+  @apply w-1/3 pl-8 flex flex-row-reverse justify-end;
 }
 
 li.hoverable {
-  @apply px-2 -ml-1 bg-balance-lp font-light border-2 rounded-b-lg;
-
-  > a {
-    @apply text-sm font-bold leading-10;
-  }
-
   > div.mega-menu {
     @apply w-full absolute inset-x-0 z-10;
 
@@ -35,7 +29,7 @@ li.hoverable {
     }
     .inset-wrapper {
       background: repeat-x url(../../images/wm1.png);
-      @apply h-full z-0 absolute bg-white;
+      @apply z-0 absolute bg-white;
       bottom: 0;
       right: 0;
       max-height: 220px;
@@ -69,14 +63,45 @@ li.hoverable {
   @apply bg-balance-secondary grid grid-cols-4 mt-5 px-2 gap-2 grid-rows-1 pr-4 w-2/3 z-40;
 }
 
+/* Hoverable Menu */
 .inset,
 .mega-menu {
   display: none;
 }
 
+.hoverable:hover .inset {
+  display: grid;
+}
+
 .hoverable:hover .mega-menu {
   display: block;
 }
+
+/* SubNav */
+.nav-links > li.hoverable {
+  @apply pl-9 -ml-8 mr-2 pr-4 bg-balance-lp font-light border-2 rounded-full;
+
+  > a {
+    @apply text-sm font-semibold leading-9 tracking-wider;
+  }
+}
+
+body[class^="scroll"] .nav-links > li.hoverable.active {
+  @apply pl-28;
+  min-width: 12rem;
+  order: 1; /* Send it to the front of the flex row to display */
+}
+
+.nav-links > li.hoverable {
+  width: 7.25rem;
+  padding-left: 1.75rem;
+  @apply bg-gradient-to-r from-balance-dp to-transparent;
+}
+.nav-links > li.hoverable:last-of-type {
+  @apply pl-14;
+}
+
+/* Slash effect next to logo*/
 .nav-links > li.hoverable:first-of-type::before {
   display: block;
   content: " ";
@@ -90,13 +115,24 @@ li.hoverable {
   left: 28px;
   color: white;
 }
-.nav-links > li.hoverable:first-of-type {
-  @apply w-28 pl-12 bg-gradient-to-r from-balance-dp to-transparent;
+
+/*'Not at top of page' behaviour */
+body[class^="scroll"] .nav-links .mega-menu {
+  display: none;
+}
+
+body[class^="scroll"] .nav-links > li.hoverable.active {
+  @apply text-balance-secondary;
+}
+
+body[class^="scroll"] .nav-links > li.hoverable.inactive {
+  order: 2;
+  padding: 0;
+  width: 0;
+  transition: width 200ms;
+  overflow: hidden;
 }
 
 .nav-links > li.hoverable:hover {
-  @apply text-balance-lmint;
-}
-.nav-links > .active > a {
   @apply text-balance-lmint;
 }

@@ -3,6 +3,8 @@ import "./css/app-base.pcss";
 import "./css/app-components.pcss";
 import "./css/app-utilities.pcss";
 
-import Layout from "./view/Layout.jsx"
+import animate from "./animations.js";
 
-m.mount(document.querySelector('body'), Layout);
+import Layout from "./view/Layout.jsx";
+
+m.mount(document.querySelector("body"), Layout);
