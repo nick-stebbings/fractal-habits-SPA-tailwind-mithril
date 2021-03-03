@@ -1,4 +1,4 @@
-import NavBar from "./components/SubNav.jsx";
+import DropdownNav from "./components/DropdownNav.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import Footer from "./components/Footer.jsx";
 
@@ -94,7 +94,7 @@ export default function () {
         <div id="app" class="flex flex-col justify-between min-h-screen">
           <div class="mask-wrapper">
             <header class="bg-balance-dp z-10 flex-none h-12">
-              <div class="flex items-start justify-between">
+              <div id="responsive-nav" class="flex items-start justify-between">
                 <a class="logo block w-8 h-8">
                   <svg
                     id="logo"
@@ -176,29 +176,27 @@ export default function () {
                   </nav>
                 </div>
               </div>
-              <div id="subnav">
-                <NavBar routes={Routes}></NavBar>
-              </div>
+              <nav id="subnav">
+                <DropdownNav routes={Routes}></DropdownNav>
+              </nav>
             </header>
           </div>
           <main class="bg-balance-hero z-10 flex flex-col flex-auto w-full">
             <div id="hero">
-              <section class="md:h-56 lg:h-1/2 flex-none h-auto">
-                <header>
-                  <h1 class="sm:flex sm:justify-center">
-                    Find{" "}
-                    <em class="text-balance-secondary sm:px-4 md:px-8 px-2">
-                      your
-                    </em>{" "}
-                    infinity
-                  </h1>
-                  <h2>
-                    Drill down (or soar up) and <br class="lg:block hidden" />{" "}
-                    leverage the power <br class="lg:block hidden" />
-                    of incremental behavioural change.
-                  </h2>
-                </header>
-              </section>
+              <header class="md:h-56 lg:h-1/2 flex-none h-auto">
+                <h1 class="sm:flex sm:justify-center">
+                  Find{" "}
+                  <em class="text-balance-secondary sm:px-4 md:px-8 px-2">
+                    your
+                  </em>{" "}
+                  infinity
+                </h1>
+                <h2>
+                  Drill down (or soar up) and <br class="lg:block hidden" />{" "}
+                  leverage the power <br class="lg:block hidden" />
+                  of incremental behavioural change.
+                </h2>
+              </header>
               <div
                 id="call-to-action"
                 class="md:mt-12 md:pb-12 sm:mt-4 lg:space-x-4 bg-gradient-to-b from-transparent to-balance-dg flex flex-col px-12 pb-4 mt-6"

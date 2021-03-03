@@ -8,6 +8,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "dist"),
     filename: "build.js",
+    publicPath: "/",
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -43,7 +44,7 @@ module.exports = {
             loader: "url-loader",
             options: {
               query: {
-                name: "assets/[name].[ext]",
+                name: "[name].[ext]",
               },
             },
           },

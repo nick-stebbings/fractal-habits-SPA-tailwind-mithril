@@ -1,11 +1,11 @@
 import HoverableLink from "./HoverableLink.jsx";
-import "./nav-styles.scss";
 
-const NavBar = {
+import "../../css/components/partials/dropdown-nav.scss";
+
+const DropdownNav = {
   view: (vnode) => (
     <nav class="nav">
       <div class="nav-container">
-        {/* <div class="nav-title">{vnode.attrs.routes.selected} Data:</div> */}
         <ul class="nav-links">
           {vnode.attrs.routes.map((route, index) => {
             return (
@@ -29,4 +29,4 @@ const NavBar = {
   ),
 };
 
-export default NavBar;
+export default DropdownNav;
