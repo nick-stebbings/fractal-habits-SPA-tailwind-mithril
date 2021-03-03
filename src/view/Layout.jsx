@@ -1,5 +1,6 @@
 import DropdownNav from "./components/DropdownNav.jsx";
 import Dashboard from "./components/Dashboard.jsx";
+import CreateForm from "./components/CreateForm.jsx";
 import Footer from "./components/Footer.jsx";
 
 const Routes = [
@@ -182,7 +183,7 @@ export default function () {
             </header>
           </div>
           <main class="bg-balance-hero z-10 flex flex-col flex-auto w-full">
-            <div id="hero">
+            <section id="hero">
               <header class="md:h-56 lg:h-1/2 flex-none h-auto">
                 <h1 class="sm:flex sm:justify-center">
                   Find{" "}
@@ -218,13 +219,14 @@ export default function () {
                   ))}
                 </div>
               </div>
-            </div>
+            </section>
             <section class="cards flex-1 bg-white">
               <h1>Your Tracking Data</h1>
-              <Dashboard></Dashboard>
+              {/* <Dashboard></Dashboard> */}
+              <CreateForm></CreateForm>
             </section>
-            <Footer></Footer>
           </main>
+          <Footer></Footer>
         </div>
       </div>
     ),

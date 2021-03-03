@@ -72,7 +72,10 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader", // translates CSS into CommonJS modules
+            loader: "css-loader?sourceMap", // translates CSS into CommonJS modules
+          },
+          {
+            loader: "resolve-url-loader",
           },
           {
             loader: "postcss-loader", // Run post css actions
@@ -83,7 +86,7 @@ module.exports = {
             },
           },
           {
-            loader: "sass-loader", // compiles Sass to CSS
+            loader: "sass-loader?sourceMap", // compiles Sass to CSS
           },
         ],
       },
