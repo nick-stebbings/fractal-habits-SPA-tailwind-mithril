@@ -1,10 +1,25 @@
-#subnav {
+.mask-wrapper {
+  @apply relative z-40 overflow-hidden;
   mask: no-repeat 10px -20px url("../../images/fibonacci-mask-long.svg");
-  @apply -mt-11 hidden lg:block h-full w-full fixed;
+}
+body[class^="scroll"] .mask-wrapper {
+  mask: initial;
+}
+body[class^="scroll"] #subnav {
+  mask: no-repeat 10px -20px url("../../images/fibonacci-mask-long.svg");
+}
+
+.mask-wrapper:hover {
+  height: 346px;
+}
+
+#subnav {
+  @apply -mt-11 lg:block fixed hidden w-full;
+  height: 5.75rem;
 }
 
 nav.nav {
-  @apply h-16 w-full text-balance-lg h-12;
+  @apply text-balance-lg w-full h-8;
 }
 
 .nav-title,
@@ -14,22 +29,21 @@ nav.nav {
 }
 
 .nav-links {
-  @apply w-1/3 pl-8 flex flex-row-reverse justify-end;
+  @apply flex flex-row-reverse justify-end w-1/3 pl-8;
 }
 
 li.hoverable {
   > div.mega-menu {
-    @apply w-full absolute inset-x-0 z-10;
+    @apply absolute inset-x-0 z-10 w-full;
 
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -3.25rem url(../../images/wm1.png);
-      height: 288px;
-      @apply bg-gray-800 flex;
-      margin-top: 1.14rem;
+      height: 346px;
+      @apply flex mt-4 bg-gray-800;
     }
     .inset-wrapper {
       background: repeat-x url(../../images/wm1.png);
-      @apply z-0 absolute bg-white;
+      @apply absolute z-0 bg-white;
       bottom: 0;
       right: 0;
       max-height: 220px;
@@ -41,16 +55,16 @@ li.hoverable {
 }
 
 #app > main {
-  @apply absolute top-12;
-  z-index: -1;
+  @apply top-12 absolute;
+  z-index: 0;
   overflow: auto;
 }
 
 .hero-message {
-  @apply w-1/3 text-white px-4 mb-8 text-right;
+  @apply w-1/3 px-4 mb-8 text-right text-white;
 
   h2 {
-    @apply font-bold text-2xl py-4;
+    @apply py-4 text-2xl font-bold;
   }
 
   p {
@@ -60,7 +74,7 @@ li.hoverable {
 }
 
 .inset {
-  @apply bg-balance-secondary grid grid-cols-4 mt-5 px-2 gap-2 grid-rows-1 pr-4 w-2/3 z-40;
+  @apply bg-balance-secondary grid w-2/3 grid-cols-4 grid-rows-1 gap-2 px-2 pr-4 mt-5;
 }
 
 /* Hoverable Menu */
@@ -79,11 +93,16 @@ li.hoverable {
 
 /* SubNav */
 .nav-links > li.hoverable {
-  @apply pl-9 -ml-8 mr-2 pr-4 bg-balance-lp font-light border-2 rounded-full;
+  @apply bg-balance-lp z-20 pl-6 font-light border-2 rounded-full;
+  margin-left: -1.3rem;
 
   > a {
     @apply text-sm font-semibold leading-9 tracking-wider;
   }
+}
+
+body[class^="scroll"] .nav-links > li.hoverable {
+  border: none;
 }
 
 body[class^="scroll"] .nav-links > li.hoverable.active {
@@ -93,28 +112,28 @@ body[class^="scroll"] .nav-links > li.hoverable.active {
 }
 
 .nav-links > li.hoverable {
-  width: 7.25rem;
-  padding-left: 1.75rem;
-  @apply bg-gradient-to-r from-balance-dp to-transparent;
+  @apply bg-gradient-to-r from-balance-dp to-transparent pr-2;
 }
 .nav-links > li.hoverable:last-of-type {
   @apply pl-14;
 }
 
 /* Slash effect next to logo*/
-.nav-links > li.hoverable:first-of-type::before {
-  display: block;
-  content: " ";
-  background-image: url("../../images/slash-tick.svg");
-  transform: rotate(-6deg) scale(8);
-  position: fixed;
-  background-size: 28px 28px;
-  height: 28px;
-  width: 28px;
-  top: -18px;
-  left: 28px;
-  color: white;
-}
+// .nav-links ::before {
+//   display: block;
+//   content: " ";
+//   background-image: url("../../images/slash-tick.svg");
+//   transform: rotate(-6deg) scale(8);
+//   position: fixed;
+//   background-size: 28px 28px;
+//   background-color: transparent;
+//   height: 28px;
+//   width: 28px;
+//   top: -18px;
+//   left: 28px;
+//   color: white;
+//   z-index: -1;
+// }
 
 /*'Not at top of page' behaviour */
 body[class^="scroll"] .nav-links .mega-menu {

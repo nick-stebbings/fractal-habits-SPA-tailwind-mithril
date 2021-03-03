@@ -1,15 +1,9 @@
-html,
 body {
-  @apply h-full antialiased;
-  font-size: 14px;
+  @apply antialiased;
 }
 
-main {
-  @apply mx-0;
-}
-
-#hero > section > * {
-  @apply sm:px-12 md:px-16 px-6;
+span.nav-label-primary {
+  @apply mb-2 font-semibold leading-tight;
 }
 
 #hero > section h1 {
@@ -23,29 +17,7 @@ main {
 #hero > section h2 {
   @apply md:mb-6 md:mt-8 md:text-3xl lg:text-4xl md:text-center text-balance-dp mt-8 mb-4 text-2xl font-semibold;
 }
-
-div.domain-pills {
-  @apply lg:justify-center flex flex-wrap items-center justify-around px-4 mt-2;
-}
-
-section.cards {
-  @apply px-10;
-}
-
 section.cards h1 {
   font-family: "Nunito", sans-serif;
   @apply border-balance-hero block pl-4 mt-4 font-bold uppercase border-l-8;
-}
-
-#hamburger-wrapper,
-.logo {
-  @apply flex-none px-2 my-1;
-}
-
-#hamburger-wrapper input:checked ~ nav {
-  display: flex;
-}
-
-span.nav-label-primary {
-  @apply mb-2 font-semibold leading-tight;
 }
