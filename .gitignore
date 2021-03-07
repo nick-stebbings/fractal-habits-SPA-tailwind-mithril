@@ -1,2 +1,6 @@
 node_modules
 .ds_store
+Gemfile.lock
+package-lock.json
+.gitignore
+package-lock.json

@@ -7,10 +7,6 @@ module.exports = {
       "50%": "50%",
       "40%": "40%",
     },
-    // linearGradientColors: (theme) => theme("colors"),
-    // radialGradientColors: (theme) => theme("colors"),
-    // conicGradientColors: (theme) => theme("colors"),
-    // Extend the default Tailwind config here
     extend: {
       colors: {
         balance: {
@@ -35,8 +31,5 @@ module.exports = {
     // Replace the default Tailwind config here
   },
   corePlugins: {},
-  plugins: [
-    require("@tailwindcss/custom-forms"),
-    require("tailwindcss-gradients"),
-  ],
+  plugins: [require("@tailwindcss/custom-forms")],
 };
