@@ -3,4 +3,3 @@ node_modules
 Gemfile.lock
 package-lock.json
 .gitignore
-package-lock.json

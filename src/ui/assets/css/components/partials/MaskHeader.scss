@@ -2,19 +2,23 @@ $maskimage: url("../../../images/fib-mask-1800.svg");
 $watermarkimage: url("../../../images/watermark.png");
 
 /* Masking */
+
+div.mask-wrapper {
+  @apply relative z-40 overflow-hidden;
+  mask: no-repeat 10px -20px $maskimage;
+}
+body[class^="scroll"] #subnav {
+  mask: no-repeat 10px -20px $maskimage;
+}
+
 body[class^="scroll"] .mask-wrapper {
   mask: initial;
 }
 
 @media (max-width: 1024px) {
   div.mask-wrapper {
-    @apply relative z-40 overflow-hidden;
-    mask: no-repeat 10px -20px $maskimage;
+    mask: initial;
   }
-}
-
-body[class^="scroll"] #subnav {
-  mask: no-repeat 10px -20px $maskimage;
 }
 
 .mask-wrapper:hover {
@@ -45,7 +49,7 @@ li.hoverable {
     @apply absolute inset-x-0 z-10 w-full;
 
     .mega-menu-wrapper {
-      background: no-repeat 0.5rem -3.25rem url($watermarkimage);
+      background: no-repeat 0.5rem -3.25rem $watermarkimage;
       height: 346px;
       @apply flex mt-4 bg-gray-800;
     }
@@ -72,7 +76,7 @@ li.hoverable {
 /* Hoverable Menu Activation */
 .inset,
 .mega-menu {
-  // display: none;
+  display: none;
 }
 
 .hoverable:hover .inset {
@@ -102,32 +106,30 @@ li.hoverable {
 }
 
 /* ---  Scroll behaviour --- */
-body[class^="scroll"] .nav-links > li.hoverable {
+body[class^="scroll"] #subnav .nav-links > li.hoverable {
   border: none;
+  padding: 0;
 }
 
-body[class^="scroll"] .nav-links > li.hoverable.active {
-  @apply pl-28;
+body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
+  @apply pl-28 text-balance-secondary;
   min-width: 12rem;
   order: 1; /* Send it to the front of the flex row to display */
-}
-
-body[class^="scroll"] .nav-links .mega-menu {
-  display: none;
-}
-
-body[class^="scroll"] .nav-links > li.hoverable.active {
-  @apply text-balance-secondary;
+  margin-left: -1.3rem;
 }
 
 body[class^="scroll"] .nav-links > li.hoverable.inactive {
   order: 2;
   padding: 0;
   width: 0;
-  transition: width 200ms;
+  transition: width 500ms;
   overflow: hidden;
 }
 
 #subnav .nav-links > li.hoverable:hover {
   @apply text-balance-lmint;
+}
+
+body[class^="scroll"] #subnav .nav-links .mega-menu {
+  display: none;
 }

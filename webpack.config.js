@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/app.js",
+  entry: "./src/index.js",
   output: {
     path: path.join(__dirname, "dist"),
     filename: "build.js",
@@ -20,6 +20,28 @@ module.exports = {
       filename: "./index.html",
     }),
   ],
+  devServer: {
+    open: true,
+    hot: true,
+    contentBase: "/",
+    // Send API requests on localhost to API server get around CORS.
+    proxy: {
+      "/api": {
+        target: {
+          host: "0.0.0.0",
+          protocol: "http:",
+          port: 9393,
+        },
+        pathRewrite: {
+          // '^/api': ''
+        },
+      },
+    },
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  },
+  watch: true,
   module: {
     rules: [
       {
@@ -28,54 +50,26 @@ module.exports = {
         use: ["html-loader"],
       },
       {
-        test: /icons\/.*\.(svg|png)$/i,
+        test: /\.(png|svg|jpg|gif)$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: "url-loader",
-          },
-        ],
-      },
-      {
-        test: /images\/.*\.(svg|png)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: "url-loader",
+            loader: "file-loader",
             options: {
-              query: {
-                name: "[name].[ext]",
-              },
-            },
-          },
-          {
-            loader: "image-webpack-loader",
-            options: {
-              query: {
-                mozjpeg: {
-                  progressive: true,
-                },
-                gifsicle: {
-                  interlaced: true,
-                },
-                optipng: {
-                  optimizationLevel: 7,
-                },
-              },
+              name: "[name].[ext]",
+              outputPath: "img",
+              esModule: false,
             },
           },
         ],
       },
       {
-        test: /\.(sc|c)ss$/,
+        test: /\.s[ca]ss$/,
         exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader?sourceMap", // translates CSS into CommonJS modules
-          },
-          {
-            loader: "resolve-url-loader",
           },
           {
             loader: "postcss-loader", // Run post css actions
@@ -84,6 +78,9 @@ module.exports = {
                 config: path.resolve(__dirname, "postcss.config.js"),
               },
             },
+          },
+          {
+            loader: "resolve-url-loader",
           },
           {
             loader: "sass-loader?sourceMap", // compiles Sass to CSS
@@ -95,9 +92,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader", // translates CSS into CommonJS modules
-          },
+          "css-loader",
           {
             loader: "postcss-loader", // Run post css actions
             options: {
@@ -117,5 +112,4 @@ module.exports = {
       },
     ],
   },
-  watch: true,
 };

@@ -13,7 +13,7 @@
     "@babel/core": "^7.12.17",
     "@babel/preset-env": "^7.12.17",
     "@tailwindcss/custom-forms": "^0.2.1",
-    "auto-prefixer": "^0.4.2",
+    "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "css-loader": "^0.28.7",
@@ -30,20 +30,16 @@
     "postcss-preset-env": "^6.7.0",
     "resolve-url-loader": "^3.1.2",
     "sass-loader": "^10.1.1",
-    "static-site-generator-webpack-plugin": "^3.4.2",
     "style-loader": "^0.19.0",
-    "svg-inline-loader": "^0.8.2",
-    "svg-url-loader": "^7.1.1",
     "tailwindcss": "^2.0.2",
     "tailwindcss-gradients": "^3.0.0",
-    "url-loader": "^0.6.2",
-    "webpack": "^4.5.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "-": "0.0.1",
     "mithril": "^2.0.4"
   }
 }

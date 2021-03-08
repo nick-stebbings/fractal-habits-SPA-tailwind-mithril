@@ -2,7 +2,7 @@
 import DropdownNav from "./Nav/DropdownNav.jsx";
 
 import "../../../assets/css/components/partials/MaskHeader.scss";
-
+import Icon from "./mountain.png";
 const MaskHeader = {
   view: ({ attrs, children }) => (
     <div class="mask-wrapper">
