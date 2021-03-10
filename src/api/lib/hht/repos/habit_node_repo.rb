@@ -1,19 +1,20 @@
 # frozen_string_literal: true
-
+require 'pry'
 module Hht
   module Repos
     class HabitNodeRepo < ROM::Repository[:habit_nodes]
       include Import['persistence.container']
-      
       struct_namespace Entities
-      commands :create, update: :by_pk
+      commands update: :by_pk
+
+      def create(parent)
+        Hht::Transactions::HabitNodes::Create.new.call(parent)
+      end
 
       def delete(pk)
-        # contract = Hht::Contracts::HabitNodes::Delete.new
-        # contract.call(pk)
-        t = Hht::Transactions::HabitNodes::Delete.new
-        binding.pry 
+        Hht::Transactions::HabitNodes::Delete.new.call(pk)
       end
+
       # restrict by passed criteria
       def query(criteria)
         habit_nodes.where(criteria)

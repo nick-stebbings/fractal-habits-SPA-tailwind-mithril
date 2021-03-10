@@ -21,7 +21,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    open: true,
+    // open: true,
     hot: true,
     contentBase: "/",
     // Send API requests on localhost to API server get around CORS.
@@ -30,7 +30,7 @@ module.exports = {
         target: {
           host: "0.0.0.0",
           protocol: "http:",
-          port: 9393,
+          port: 9292,
         },
         pathRewrite: {
           // '^/api': ''

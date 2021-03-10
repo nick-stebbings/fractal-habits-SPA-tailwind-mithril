@@ -24,13 +24,13 @@ module Hht
         def persist(result)
           parent_id = result.values.data[:parent_id]
           if parent_id.nil? # i.e. it is a new root node
-            Success(habit_node_repo.create(root_node_attributes))
+            Success(habit_node_repo.habit_nodes.insert(root_node_attributes))
           else
             siblings = habit_node_repo.children_of_parent(parent_id).to_a
             # Find siblings to append after, else append after parent.
             rgt = !siblings.empty? ? siblings.last.rgt :  (habit_node_repo.by_id(parent_id).one.rgt - 1)
             modified = habit_node_repo.modify_nodes_after(rgt, :add, parent_id)
-            modified ? Success(habit_node_repo.create(modified)) : Failure('Could not modify other nodes. Cannot create new node.')
+            modified ? Success(habit_node_repo.habit_nodes.insert(modified)) : Failure('Could not modify other nodes. Cannot create new node.')
           end
         end
 

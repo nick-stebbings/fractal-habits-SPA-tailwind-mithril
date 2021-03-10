@@ -3,6 +3,9 @@ import MaskHeader from "./components/layout/MaskHeader.jsx";
 import MainStage from "./components/layout/MainStage.jsx";
 import Footer from "./components/layout/Footer.jsx";
 
+import CreateForm from "./components/pages/forms/CreateForm.jsx";
+import HabitNodeList from "./components/pages/HabitNodeList.jsx";
+
 export default {
   view: (vnode) => (
     <div id="layout" class="w-full h-full">
@@ -11,7 +14,8 @@ export default {
         {<MaskHeader />}
         {<MainStage />}
       </div>
-      {<Footer />}
+      {<CreateForm></CreateForm>}
+      {<HabitNodeList />}
     </div>
   ),
 };

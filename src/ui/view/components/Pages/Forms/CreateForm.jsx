@@ -1,4 +1,5 @@
 // src/ui/view/components/CreateForm.jsx
+import NodeStore from "../../../../store/habit-node-store.js";
 
 import FormHeader from "./FormHeader.jsx";
 import FormContainer from "./FormContainer.jsx";
@@ -15,6 +16,30 @@ const CreateForm = {
           title={"Create a Habit"}
           description={"A way of keeping track of your daily behaviours"}
         ></FormHeader>
+        {m(FormContainer, [
+          m(InputGroup, { label: "Parent" }, [
+            m("input[type=text]", {
+              class: "form-input ",
+              id: "parent",
+            }),
+            m("input[type=submit]", {
+              value: "Submit Root",
+              onclick: (event) => {
+                event.preventDefault();
+                NodeStore.submit(null);
+              },
+            }),
+            m("input[type=submit]", {
+              value: "Submit",
+              onclick: (event) => {
+                event.preventDefault();
+                NodeStore.submit(
+                  Number(document.querySelector("#parent").value)
+                );
+              },
+            }),
+          ]),
+        ])}
         {/* {m(FormContainer, [
           m(
             InputGroup,

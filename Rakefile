@@ -1,5 +1,4 @@
-require_relative 'system/environment'
-require_relative 'system/hht/container'
+require_relative 'src/api/system/boot'
 require 'rom-sql'
 require 'rom/sql/rake_task'
 require 'rspec/core/rake_task'
