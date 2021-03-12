@@ -7,4 +7,4 @@ require 'bundler'
 Bundler.setup(:default, ENV['APP_ENV'])
 
 require 'dotenv'
-Dotenv.load("./.env.#{ENV['APP_ENV']}")
+Dotenv.load(File.join(APP_ROOT, "config", ".env.#{ENV['APP_ENV']}"))

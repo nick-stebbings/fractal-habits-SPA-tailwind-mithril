@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'pry'
+
 module Hht
   module Repos
     class HabitNodeRepo < ROM::Repository[:habit_nodes]
@@ -114,13 +114,12 @@ module Hht
       # into a minimum number of update queries
       def mptt_node_adjust!(nodes, operation)
         direction = nodes.shift; # Which 'direction' needs updating, (lft/rgt)
-
         raise ArgumentError if nodes.empty? || nodes[0].length == 1 || nodes[0].length > 3
         if direction == :both
           nodes.each do |node_details|
             id, lft, rgt = node_details
             new_attribs = [lft, rgt].map { |attrib| operation == :add ? (attrib + 2) : (attrib - 2)}
-            update(id, [[:lft, :rgt], new_attribs].to_h)
+            update(id, [:lft, :rgt].zip(new_attribs).to_h)
           end
         else  # It is just a lft/rgt atttrib update
           nodes.each do |node_details|

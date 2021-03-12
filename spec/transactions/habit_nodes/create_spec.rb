@@ -48,7 +48,6 @@ RSpec.describe Hht::Transactions::HabitNodes::Create do
         end
 
         it 'updates the lft & rgt values of the root node' do
-          binding.pry
           expect(resource['lft']).to eq 1
           expect(resource['rgt']).to eq 2
         end

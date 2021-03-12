@@ -12,13 +12,9 @@ module Hht
         ]
 
         def call(input)
-          values = validate(input)
-          if values.is_a? Success
-            habit_node = remove(values.flatten)
-            Success(habit_node)
-          elsif values.is_a? Failure(Dry::Validation::Result)
-            return values
-          end
+          values = yield validate(input)
+          habit_node = yield remove(values)
+          Success(habit_node)
         end
 
         def validate(input)
@@ -26,13 +22,17 @@ module Hht
         end
 
         def remove(result)
-          parent_id = result.values.data[:parent_id]
-          if parent_id.nil? # i.e. it is a root node
-            Success(habit_node_repo.delete_one(result[:id]))
-          else
-            rgt = result.values[:rgt]
+          resource = habit_node_repo.by_id(result.values.data[:id]).one  # TODO Change this to be an input later
+          parent_id = resource.parent_id
+          if !parent_id.nil? # i.e. it is not a root node
+            rgt = resource[:rgt]
             modified = habit_node_repo.modify_nodes_after(rgt, :del, parent_id)
-            modified ? Success(habit_node_repo.delete(result.values[:id])) : Failure('Could not modify other nodes. Cannot delete node.')
+          end
+
+          begin
+            Success(habit_node_repo.by_id(resource[:id]).delete)
+          rescue
+            Failure(modified ? 'Modified other nodes but could not delete node.' : 'Did not modify other nodes. Cannot delete node.')
           end
         end
       end

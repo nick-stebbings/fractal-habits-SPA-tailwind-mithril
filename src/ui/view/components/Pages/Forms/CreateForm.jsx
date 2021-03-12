@@ -38,6 +38,15 @@ const CreateForm = {
                 );
               },
             }),
+            m("input[type=submit]", {
+              value: "Delete",
+              onclick: (event) => {
+                event.preventDefault();
+                NodeStore.runDelete(
+                  Number(document.querySelector("#parent").value)
+                );
+              },
+            }),
           ]),
         ])}
         {/* {m(FormContainer, [

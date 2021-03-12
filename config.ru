@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'src/api/system/boot'
-require 'pry' if ENV['APP_ENV'] == 'development'
+
 require 'rack/cors'
 
 use Rack::Cors do

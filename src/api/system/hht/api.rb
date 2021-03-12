@@ -80,14 +80,13 @@ module Hht
       post '' do
         habit_node = MultiJson.load(request.body.read, :symbolize_keys => true)
 
-        # TODO: Use contract to verify payload
-        #       MODIFIED PREORDER TRAVERSAL
         created = habit_node_repo.create(habit_node)
-
-        url = "http://localhost:9393/habit_trees/nodes/#{created[:id]}"
-        response.headers['Location'] = url
-        status 201
-        json created.attributes
+        if created.success?
+          url = "http://localhost:9393/habit_trees/nodes/#{created.flatten[:id]}"
+          response.headers['Location'] = url
+          status 201
+          json created.attributes
+        end
       end
 
       get '/:node_id' do |node_id|
@@ -127,7 +126,7 @@ module Hht
         node = habit_node_repo.as_json(node_id)
         halt(404, { message:'Node Not Found'}.to_json) unless node
 
-        habit_node_repo.delete(node_id.to_i)
+        habit_node_repo.delete({ id: node_id.to_i})
         status 204
       end
     end
