@@ -16,6 +16,7 @@ module Hht
 
     configure :development, :test do
       register Sinatra::Reloader
+      
       set :protection, :except => :json_csrf
     end
     before do
@@ -23,7 +24,6 @@ module Hht
     end
 
     set :root, APP_ROOT
-    set :public_folder, (proc { File.join(APP_ROOT, 'public') })
 
     include Import[
       'repos.domain_repo',

@@ -3,19 +3,15 @@ import MaskHeader from "./components/layout/MaskHeader.jsx";
 import MainStage from "./components/layout/MainStage.jsx";
 import Footer from "./components/layout/Footer.jsx";
 
-import CreateForm from "./components/pages/forms/CreateForm.jsx";
-import HabitNodeList from "./components/pages/HabitNodeList.jsx";
-
 export default {
-  view: (vnode) => (
+  view: ({ children: [mainPage] }) => (
     <div id="layout" class="w-full h-full">
-      {<LogoLink />}
+      <LogoLink />
       <div id="app" class="flex flex-col justify-between min-h-screen">
-        {<MaskHeader />}
-        {<MainStage />}
+        <MaskHeader />
+        <MainStage>{mainPage}</MainStage>
       </div>
-      {<CreateForm></CreateForm>}
-      {<HabitNodeList />}
+      <Footer></Footer>
     </div>
   ),
 };

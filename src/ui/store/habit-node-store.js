@@ -1,6 +1,11 @@
 import clientRoutes from "./client";
 import stream from "mithril/stream";
 
+import axios from "axios";
+axios.defaults.baseURL = "/api";
+axios.defaults.withCredentials = true;
+axios.defaults.headers.post["Content-Type"] = "application/json;charset=utf-8";
+
 const basePath = "/habit_trees/nodes";
 
 const NodeStore = Object.assign(clientRoutes(basePath), {
@@ -17,7 +22,9 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
         console.log(err);
       });
   },
-
+  tree: () => {
+    return axios.get("/habit_trees");
+  },
   submit: (attrs) => {
     NodeStore.create(attrs)
       .then(NodeStore.current)

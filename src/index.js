@@ -4,7 +4,7 @@ import "./ui/assets/css/app-components.pcss";
 import "./ui/assets/css/app-utilities.pcss";
 
 import animate from "./ui/assets/scripts/animations.js";
+import { DefaultRoute, Routes } from "./ui/routes";
 
-import Layout from "./ui/view/Layout.jsx";
-
-m.mount(document.querySelector("body"), Layout);
+const $root = document.querySelector("body");
+m.route($root, DefaultRoute, Routes);

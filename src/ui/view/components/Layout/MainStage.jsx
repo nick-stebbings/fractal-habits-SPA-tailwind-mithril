@@ -1,7 +1,5 @@
-// src/view/components/Layout/MainStage.jsx
-
 const MainStage = {
-  view: ({ attrs, children }) => (
+  view: ({ children: [mainPage] }) => (
     <main class="bg-balance-hero z-10 flex flex-col flex-auto w-full">
       <section id="hero">
         <header class="md:h-56 lg:h-1/2 flex-none h-auto">
@@ -39,9 +37,8 @@ const MainStage = {
         </div>
       </section>
       <section class="cards flex-1 bg-white">
-        <h1>Your Tracking Data</h1>
-        {/* <Dashboard></Dashboard> */}
-        {/* <CreateForm></CreateForm> */}
+        <h1>{mainPage.attrs.heading}</h1>
+        {mainPage}
       </section>
     </main>
   ),
