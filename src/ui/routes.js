@@ -1,17 +1,24 @@
 // // Layouts
 import Layout from "./view/Layout.jsx";
 
-// // Individual Component Pages
+// Components
+import HeroSection from "./view/components/layout/HeroSection.jsx";
 import CreateForm from "./view/components/pages/forms/CreateForm.jsx";
 
+// Pages
 import HabitNodeList from "./view/components/pages/HabitNodeList.jsx";
 import HabitTree from "./view/components/pages/visualisations/HabitTree.jsx";
 import RadialTree from "./view/components/pages/visualisations/RadialTree.jsx";
 
-// Libraries
+// Utils
 import { d3visPageMaker } from "./assets/scripts/utilities";
 
 const Routes = {
+  "/": {
+    render: function () {
+      return m(Layout, { index: true }, m(HeroSection));
+    },
+  },
   "/habits/list": {
     render: function () {
       return m(
@@ -37,6 +44,6 @@ const Routes = {
   },
 };
 
-const DefaultRoute = "/habits/list";
+const DefaultRoute = "/";
 
 export { Routes, DefaultRoute };
