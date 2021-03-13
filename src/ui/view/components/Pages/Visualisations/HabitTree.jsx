@@ -3,9 +3,6 @@ import TreeStore from "../../../../store/habit-tree-store.js";
 // import "./tree-style.scss";
 import * as d3 from "d3";
 
-const svgWidth = 960;
-const svgHeight = 1000;
-
 const HabitTree = {
   type: "vis",
   view: (vnode) => (
@@ -14,28 +11,25 @@ const HabitTree = {
     </div>
   ),
   content(svg) {
-    let margin = { top: 40, right: 200, bottom: 20, left: 200 },
-      width = svgWidth - margin.right - margin.left,
-      height = svgHeight - margin.top - margin.bottom;
+    const container = document.getElementById("vis");
+    const { width, height } = container.getBoundingClientRect();
+
+    let margin = { top: 50, right: 0, bottom: 50, left: 0 };
+    let canvasWidth = width - margin.right - margin.left;
+    let canvasHeight = height - margin.top - margin.bottom;
 
     let canvas = svg
       .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr(
+        "transform",
+        "translate(" + (margin.left + width / 2) + "," + margin.top + ")"
+      );
 
-    var handleEvents = function (selection) {
+    let handleEvents = function (selection) {
       selection
         .on("mouseover", function () {
           let g = d3.select(this);
           let n = g.select(".the-node");
-
-          if (n.classed("solid")) {
-            n.transition()
-              .duration(400)
-              .style("fill", "rgba(211,0,0,0.8)")
-              .attr("r", 18);
-          } else {
-            n.transition().duration(400).style("fill", "rgba(211,0,0,0.8)");
-          }
 
           g.select(".label").transition().duration(700).style("fill", "white");
         })
@@ -43,11 +37,6 @@ const HabitTree = {
           let g = d3.select(this);
           let n = g.select(".the-node");
 
-          if (n.classed("solid")) {
-            n.transition().duration(400).style("fill", "#696969").attr("r", 14);
-          } else {
-            n.transition().duration(400).style("fill", "rgba(255,255,255,0.2)");
-          }
           g.select(".label").transition().duration(700).style("fill", "black");
         });
     };
@@ -55,8 +44,10 @@ const HabitTree = {
     let fetchTreeData = TreeStore.get();
     fetchTreeData.then(function (response) {
       const root = d3.hierarchy(response.data);
-      const dy = width / 6;
-      const dx = height / 6;
+      const scaleFactor = 2;
+
+      const dy = (canvasWidth / 10) * scaleFactor;
+      const dx = (canvasHeight / 15) * scaleFactor;
       // console.log(root, 'root at first');
       // root.y0 = dy / 2;
       // root.x0 = 0;
@@ -66,7 +57,10 @@ const HabitTree = {
       //   if (d.depth && d.data.name.length !== 7) d.children = null;
       // });
 
-      const treeLayout = d3.tree().size(width, height).nodeSize([dy, dx]);
+      const treeLayout = d3
+        .tree()
+        .size(canvasWidth, canvasHeight)
+        .nodeSize([dy, dx]);
 
       treeLayout(root);
       console.log(response);
@@ -114,7 +108,7 @@ const HabitTree = {
         .attr("dx", 15)
         .attr("dy", 5)
         .text((d) => d.data.name);
-      enteringNodes.append("circle").attr("r", 6);
+      enteringNodes.append("circle").attr("r", 6 * scaleFactor);
 
       //     var link = gLink.selectAll("path.link")
       //                 .data(links, function (d) {
