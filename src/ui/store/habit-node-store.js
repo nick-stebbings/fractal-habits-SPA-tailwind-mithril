@@ -1,19 +1,26 @@
 import clientRoutes from "./client";
 import stream from "mithril/stream";
 
-import axios from "axios";
-axios.defaults.baseURL = "/api";
-axios.defaults.withCredentials = true;
-axios.defaults.headers.post["Content-Type"] = "application/json;charset=utf-8";
-
 const basePath = "/habit_trees/nodes";
 
 const NodeStore = Object.assign(clientRoutes(basePath), {
-  current: stream({ message: "Waiting" }),
-  list: stream([]),
-  clear: () => {
-    // NodeStore.current = {};
+  current: stream({}),
+
+  get: (id) => {
+    return NodeStore.show_one(id)
+      .then((response) => JSON.parse(response.data))
+      .then(NodeStore.current)
+      .catch((err) => {
+        console.log(err);
+      });
   },
+
+  clear: () => {
+    NodeStore.current = {};
+  },
+
+  list: stream([]),
+
   index: () => {
     return NodeStore.show_all()
       .then((response) => JSON.parse(response.data).habit_nodes)
@@ -22,9 +29,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
         console.log(err);
       });
   },
-  tree: () => {
-    return axios.get("/habit_trees");
-  },
+
   submit: (attrs) => {
     NodeStore.create(attrs)
       .then(NodeStore.current)
@@ -37,11 +42,17 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
       });
   },
 
-  // runUpdate: (id, value) => {
-  //   NodeStore.update(id, value).catch((e) => {
-  //     Flash.warning("Could not update note: " + e.response.message);
-  //   });
-  // },
+  runReplace: (id, value) => {
+    NodeStore.replace(id, value).catch((e) => {
+      // TODO update list/current
+    });
+  },
+
+  runUpdate: (id, value) => {
+    NodeStore.update(id, value).catch((e) => {
+      // TODO update list/current
+    });
+  },
 
   runDelete: (id) => {
     NodeStore.delete(id)
@@ -55,4 +66,5 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
       });
   },
 });
+
 export default NodeStore;

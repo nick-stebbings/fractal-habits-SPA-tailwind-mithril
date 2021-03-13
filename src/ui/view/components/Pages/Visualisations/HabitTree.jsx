@@ -1,4 +1,4 @@
-import NodeStore from "../../../../store/habit-node-store.js";
+import TreeStore from "../../../../store/habit-tree-store.js";
 
 // import "./tree-style.scss";
 import * as d3 from "d3";
@@ -52,10 +52,10 @@ const HabitTree = {
         });
     };
 
-    let fetchTreeData = NodeStore.tree();
+    let fetchTreeData = TreeStore.get(1);
     fetchTreeData.then(function (response) {
       const root = d3.hierarchy(response.data);
-
+      console.log(root);
       const dy = width / 6;
       const dx = height / 6;
       // console.log(root, 'root at first');

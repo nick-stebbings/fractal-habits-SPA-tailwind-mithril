@@ -8,7 +8,7 @@ import RadialTree from "./view/components/pages/visualisations/RadialTree.jsx";
 const MenuRoutes = [
   // {
   //   label: "Objectives",
-  //   hrefs: {
+  //   subpaths: {
   //     "obj/list": {
   //       title: "List Objectives",
   //       description: "A flat list of all objectives for your perusal.",
@@ -29,7 +29,8 @@ const MenuRoutes = [
   // },
   {
     label: "Habits",
-    hrefs: {
+    path: "/habits",
+    subpaths: {
       "/habits/list": {
         title: "Habit Node List",
         description: "A flat list of all Habits for your perusal.",
@@ -50,7 +51,8 @@ const MenuRoutes = [
   },
   {
     label: "Visualise",
-    hrefs: {
+    path: "/vis",
+    subpaths: {
       "/vis/habit-tree": {
         title: "Habit Tree",
         description:

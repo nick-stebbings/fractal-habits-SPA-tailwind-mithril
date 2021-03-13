@@ -19,9 +19,6 @@ module Hht
       
       set :protection, :except => :json_csrf
     end
-    before do
-      # halt 200 if request.request_method == 'OPTIONS'
-    end
 
     set :root, APP_ROOT
 
@@ -82,10 +79,9 @@ module Hht
 
         created = habit_node_repo.create(habit_node)
         if created.success?
-          url = "http://localhost:9393/habit_trees/nodes/#{created.flatten[:id]}"
+          url = "http://localhost:9393/habit_trees/nodes/#{created.flatten}"
           response.headers['Location'] = url
-          status 201
-          json created.attributes
+          status 204
         end
       end
 

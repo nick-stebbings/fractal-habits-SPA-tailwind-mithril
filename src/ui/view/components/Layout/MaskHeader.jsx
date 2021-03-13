@@ -1,5 +1,7 @@
 // src/view/components/Layout/MaskHeader.jsx
+import ResponsiveNavGroup from "./Nav/ResponsiveNavGroup.jsx";
 import DropdownNav from "./Nav/DropdownNav.jsx";
+import MenuRoutes from "../../../menu-routes";
 
 import "../../../assets/css/components/partials/MaskHeader.scss";
 
@@ -86,11 +88,27 @@ const MaskHeader = {
                   </a>
                 </div>
               </div>
+              <ul class="lg:hidden">
+                {MenuRoutes.map((route) => (
+                  // <li>{route.label}</li>
+                  <ResponsiveNavGroup
+                    id={`nav-${route.label.toLowerCase()}`}
+                    class={
+                      MenuRoutes.selected === route.label
+                        ? "active"
+                        : "inactive"
+                    }
+                    url={`${route.path}`}
+                  >
+                    {route.subpaths}
+                  </ResponsiveNavGroup>
+                ))}
+              </ul>
             </nav>
           </div>
         </div>
         <nav id="subnav">
-          <DropdownNav></DropdownNav>
+          <DropdownNav routes={MenuRoutes}></DropdownNav>
         </nav>
       </header>
     </div>

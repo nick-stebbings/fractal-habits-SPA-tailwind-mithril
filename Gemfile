@@ -24,7 +24,7 @@ group :development do
 end
 
 group :test do
-  gem 'database_cleaner'
+  gem 'database_cleaner-sequel'
   gem 'json_spec'
   gem 'rack-test'
   gem "factory_bot"

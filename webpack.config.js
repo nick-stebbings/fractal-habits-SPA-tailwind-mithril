@@ -24,7 +24,7 @@ module.exports = {
     // open: true,
     hot: true,
     contentBase: "/",
-    // Send API requests on localhost to API server get around CORS.
+    // Send API requests on localhost to API server
     proxy: {
       "/api": {
         target: {

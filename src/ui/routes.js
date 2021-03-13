@@ -9,7 +9,7 @@ import { d3visPageMaker } from "./assets/scripts/utilities";
 
 const Routes = MenuRoutes.reduce(
   (newRoutes, menuSection) => {
-    let links = menuSection.hrefs;
+    let links = menuSection.subpaths;
 
     Object.keys(links).forEach((path) => {
       let title = links[path]["title"];

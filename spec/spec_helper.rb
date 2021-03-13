@@ -2,13 +2,13 @@
 
 ENV['APP_ENV'] = 'test'
 require_relative '../src/api/system/boot'
-Dir.glob(File.join(__dir__, 'support', 'db', '*.rb')).sort.each { |file| require file }
+require_relative 'support/db/helpers'
 
 # Require test libraries
 require 'rspec'
 require 'json_spec'
 require 'rack/test'
-require 'database_cleaner'
+require 'database_cleaner-sequel'
 require 'factory_bot'
 require 'faker'
 # require 'capybara/rspec'
@@ -46,16 +46,16 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.find_definitions
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner[:sequel].clean_with(:truncation)
   end
 
   config.before(:each) do
-    DatabaseCleaner.start
+    DatabaseCleaner[:sequel].strategy = :truncation
+    DatabaseCleaner[:sequel].start
   end
 
   config.after(:each) do
-    DatabaseCleaner.clean
+    DatabaseCleaner[:sequel].clean
   end
 end
 
