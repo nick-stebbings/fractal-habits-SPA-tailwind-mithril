@@ -1,6 +1,12 @@
 $maskimage: url("../../../images/fib-mask-1800.svg");
 $watermarkimage: url("../../../images/watermark.png");
 
+.logo-link {
+  @apply fixed z-50 hidden lg:block;
+  top: 1px;
+  left: 1px;
+}
+
 /* Masking */
 
 div.mask-wrapper {
@@ -50,26 +56,25 @@ li.hoverable {
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -3.25rem $watermarkimage;
       height: 346px;
-      @apply flex mt-4 bg-gray-800;
+      @apply flex mt-2 bg-balance-dp;
     }
   }
 }
 
 .hero-message {
-  @apply w-1/3 px-4 mb-8 text-right text-white;
+  @apply w-1/3 pt-1 pl-4 mb-8 text-right text-white bg-gradient-to-r from-transparent to-gray-500;
 
   h2 {
-    @apply py-4 text-2xl font-bold;
+    @apply p-4 w-2/3 mt-2 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-40;
   }
 
   p {
-    width: 50%;
-    float: right;
+    @apply float-right w-1/2 bg-gray-900 rounded-2xl rounded-t-none p-6 pt-0 bg-opacity-40;
   }
 }
 
 .inset {
-  @apply bg-balance-secondary grid w-2/3 grid-cols-4 grid-rows-1 gap-2 px-2 pr-4 mt-5;
+  @apply bg-gray-500 grid w-2/3 grid-cols-4 grid-rows-1 gap-2 p-3;
 }
 
 /* Hoverable Menu Activation */
@@ -95,14 +100,10 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 #subnav .nav-links > li.hoverable {
   @apply bg-balance-lp z-20 pl-6 font-light border-2 rounded-full;
   margin-left: -1.3rem;
-
-  > a {
-    @apply text-lg font-semibold leading-9 tracking-wider leading-10;
-  }
 }
 
 #subnav .nav-links > li.hoverable {
-  @apply bg-gradient-to-r from-balance-dp to-transparent pr-2;
+  @apply bg-gradient-to-r from-balance-lp to-transparent pr-2;
 }
 #subnav .nav-links > li.hoverable:last-of-type {
   @apply pl-14;
@@ -111,11 +112,10 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 /* ---  Scroll behaviour --- */
 body[class^="scroll"] #subnav .nav-links > li.hoverable {
   border: none;
-  padding: 0;
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
-  @apply pl-28 text-balance-secondary;
+  @apply pl-24 text-balance-lmint;
   min-width: 12rem;
   order: 1; /* Send it to the front of the flex row to display */
   margin-left: -1.3rem;
@@ -124,8 +124,9 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
 body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {
   order: 2;
   width: 0;
-  transition: width 500ms;
+  transition: width 1000ms;
   overflow: hidden;
+  margin-left: -6rem;
 }
 
 #subnav .nav-links > li.hoverable:hover {

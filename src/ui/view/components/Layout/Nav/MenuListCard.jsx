@@ -1,21 +1,23 @@
 const MenuListCard = {
   view: ({ attrs }) => (
     <div>
-      <div>
-        <h3 class="font-bold text-xl text-gray-100 text-bold mb-2">
+      <div class="text-balance-black bg-gray-200 rounded-2xl px-6 py-3">
+        <h3 class="text-center font-bold text-xl text-balance-black text-bold my-2">
           {attrs.title}
         </h3>
-        <span class="flex justify-end py-3 text-white">
+        <span class="flex justify-end py-3 text-balance-black">
           {/* <Icon id={attrs.icon} string={mountain} /> */}
         </span>
+        <p class="text-lg">{attrs.subtitle}</p>
+        {m(
+          m.route.Link,
+          {
+            selector: "a",
+            href: attrs.url,
+          },
+          "Take Me"
+        )}
       </div>
-      <p class="text-gray-100 text-sm">{attrs.subtitle}</p>
-      <a
-        href={attrs.url}
-        class="text-gray-100 bold border-b-2 border-pastel-hover hover:text-pastel-hover"
-      >
-        Find out more...
-      </a>
     </div>
   ),
 };

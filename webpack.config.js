@@ -104,6 +104,16 @@ module.exports = {
         ],
       },
       {
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            name: "[name].[ext]",
+            outputPath: "fonts/",
+          },
+        },
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
