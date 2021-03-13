@@ -14,7 +14,7 @@ const HeroSection = {
       </header>
       <div
         id="call-to-action"
-        class="md:mt-20 md:pb-12 sm:mt-4 lg:space-x-4 bg-gradient-to-b from-transparent to-balance-lp flex flex-col px-12 pb-4 mt-6"
+        class="md:mt-20 md:pb-12 sm:mt-4 lg:space-x-4 bg-gradient-to-b from-transparent to-balance-lmint flex flex-col px-12 pb-4 mt-6"
       >
         <h2>Choose a life domain:</h2>
         <div class="domain-pills">

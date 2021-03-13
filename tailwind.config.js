@@ -1,18 +1,11 @@
 module.exports = {
   theme: {
-    backgroundSize: {
-      auto: "auto",
-      cover: "cover",
-      contain: "contain",
-      "50%": "50%",
-      "40%": "40%",
-    },
     extend: {
       colors: {
         balance: {
           dp: "#261C15",
           lp: "#423124",
-          secondary: "#db7f0f",
+          secondary: "#ef9323",
           dg: "#E2E1E1",
           lg: "#eaddcf",
           hero: "#d7dbc5",
@@ -28,6 +21,8 @@ module.exports = {
         light: "2px solid #fffffe; outline-offset:1px; outline-style: dashed",
       },
       fontFamily: {
+        pal: '"Palanquin Dark"',
+        silka: "Silka",
         sans: [
           "Nunito",
           "Inter",
