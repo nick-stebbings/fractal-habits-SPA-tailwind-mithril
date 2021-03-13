@@ -26,7 +26,7 @@ const MaskHeader = {
             </svg>
           </a>
           <div id="hamburger-wrapper" class="h-10 md:h-8 lg:flex-auto flex">
-            <div class="active:outline-light focus:outline-light hover:bg-balance-lp flex items-center justify-center h-10 md:w-8 w-10 md:h-8 rounded-md">
+            <div class="active:outline-light focus:outline-light hover:bg-balance-lp flex items-center justify-center w-10 md:w-8 h-10 md:h-8 rounded-md">
               <label
                 for="hamburger"
                 class="text-balance-secondary border-1 lg:hidden block w-8 md:w-6 h-8 md:h-6"
@@ -48,45 +48,45 @@ const MaskHeader = {
               </label>
             </div>
             <input type="checkbox" id="hamburger" class="hidden" />
-            <nav class="lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 top-14 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent absolute left-0 z-20 flex-col hidden w-full border-b-4 shadow-lg">
-              <div class="lg:p-0 sm:max-w-1/2 sm:mx-auto lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 mt-3 border-b-2">
-                <div class="nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
-                  <span class="block py-0 mx-2 mb-1 font-semibold tracking-wide uppercase">
+            <nav class="lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 top-14 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent absolute left-0 z-20 flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap hidden w-full border-b-4 shadow-lg">
+              <div class="sm:pl-8 sm:w-1/3 lgq:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 mt-3 border-b-2">
+                <div class="sm:flex-col-reverse lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
+                  <span class="block pt-2 pb-0 mx-4 mb-1 font-semibold tracking-wide uppercase">
                     Domain
                   </span>
-                  <div class="nav-label-primary text-s lg:rounded-3xl lg:rounded-t-none bg-balance-lmint border-balance-dg h-full border-2 rounded-full">
-                    <span class="text-balance-secondary block py-1 mx-4 mb-1 font-semibold tracking-wide">
+                  <div class="text-s lg:rounded-3xl lg:rounded-t-none bg-balance-lmint border-balance-dg h-full border-2 rounded-full">
+                    <span class="pt-2 text-balance-secondary block mx-4 mb-1 font-semibold tracking-wide">
                       Physical Health
                     </span>
                   </div>
                 </div>
-                <div class="nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
-                  <span class="block py-0 mx-2 mb-1 font-semibold tracking-wide uppercase">
+                <div class="sm:flex-col-reverse lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
+                  <span class="block pt-2 pb-0 mx-4 mb-1 font-semibold tracking-wide uppercase">
                     Date
                   </span>
-                  <div class="nav-label-primary text-s lg:rounded-3xl lg:rounded-t-none bg-balance-lmint border-balance-dg h-full border-2 rounded-full">
-                    <span class="text-balance-secondary block py-1 mx-4 mb-1 font-semibold tracking-wide">
+                  <div class="text-s lg:rounded-3xl lg:rounded-t-none bg-balance-lmint border-balance-dg h-full border-2 rounded-full">
+                    <span class="pt-2 text-balance-secondary block mx-4 mb-1 font-semibold tracking-wide">
                       Physical Health
                     </span>
                   </div>
                 </div>
               </div>
-              <div class="mt-3 lg:mt-1.5 text-md px-4 lg:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
+              <div class="sm:w-2/3 lg:w-auto mt-3 lg:mt-1.5 text-md px-4 lg:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
                 <div class="lg:border-1 border-balance-lg lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp lg:py-0 lg:rounded-3xl lg:rounded-t-none flex items-center justify-between py-2 pl-4 mr-1 border-2 rounded-full">
                   <img
                     class="lg:border-1 lg:border-balance-hero lg:rounded-3xl lg:rounded-t-none border-1 border-balance-lmint flex-none object-cover w-10 h-10 rounded-full"
                     src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"
                     alt=""
                   />
-                  <span class="nav-label lg:text-balance-mint text-balance-dp lg:ml-0 lg:mr-4 lg:mb-1 py-1 mx-4 font-semibold">
+                  <span class="nav-label lg:text-balance-mint text-balance-dp lg:ml-0 lg:mr-4 lg:mb-1 px-2 lg:px-0 py-4 lg:pt-2 lg:pb-1 mx-4 font-semibold text-2xl lg:text-base">
                     Your Name Is Dave
                   </span>
                 </div>
                 <div class="lg:hidden flex flex-col p-4 font-bold tracking-wide">
-                  <a class="nav-label-primary hover:underline mt-2 text-xl uppercase">
+                  <a class="hover:underline mt-2 text-l font-semibold font-sans uppercase">
                     Account Details
                   </a>
-                  <a class="nav-label-primary hover:underline mt-2 text-xl uppercase">
+                  <a class="hover:underline mt-2 text-l font-semibold font-sans uppercase">
                     Logout
                   </a>
                 </div>
