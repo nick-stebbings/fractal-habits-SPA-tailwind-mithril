@@ -4,17 +4,14 @@ import stream from "mithril/stream";
 const basePath = "/habit_trees";
 
 const TreeStore = Object.assign(
-  { show_one: clientRoutes(basePath)["show_one"] },
+  { show_all: clientRoutes(basePath)["show_all"] },
   {
     current: stream({}),
 
-    get: (parent_id) => {
-      return TreeStore.show_one(parent_id)
-        .then((response) => response.data)
-        .then(TreeStore.current)
-        .catch((err) => {
-          console.log(err);
-        });
+    get: () => {
+      return TreeStore.show_all().catch((err) => {
+        console.log(err);
+      });
     },
 
     clear: () => {

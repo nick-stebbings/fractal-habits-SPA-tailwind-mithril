@@ -8,9 +8,9 @@ const svgHeight = 1000;
 
 const HabitTree = {
   type: "vis",
-  view: ({ children }) => (
+  view: (vnode) => (
     <div id="vis" class="h-full mx-auto w-3/4">
-      {children}
+      {vnode.children}
     </div>
   ),
   content(svg) {
@@ -52,10 +52,9 @@ const HabitTree = {
         });
     };
 
-    let fetchTreeData = TreeStore.get(1);
+    let fetchTreeData = TreeStore.get();
     fetchTreeData.then(function (response) {
       const root = d3.hierarchy(response.data);
-      console.log(root);
       const dy = width / 6;
       const dx = height / 6;
       // console.log(root, 'root at first');
@@ -70,6 +69,7 @@ const HabitTree = {
       const treeLayout = d3.tree().size(width, height).nodeSize([dy, dx]);
 
       treeLayout(root);
+      console.log(response);
 
       const gLink = canvas
         .append("g")
