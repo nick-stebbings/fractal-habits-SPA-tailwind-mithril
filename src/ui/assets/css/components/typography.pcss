@@ -2,7 +2,9 @@ body {
   @apply antialiased;
 }
 
-.nav-label-primary span {
+.nav-label-primary span,
+.responsive-nav-group a {
+  font-family: Nunito, Silka, sans-serif;
   @apply font-bold leading-tight;
 }
 
@@ -13,12 +15,14 @@ body {
 #hero > header h1 {
   font-size: 4.75rem;
   line-height: 5.5rem;
-  @apply sm:mt-12 font-pal md:text-7xl lg:text-8xl md:text-center text-balance-dp mt-4 md:mt-16 lg:mt-24 font-semibold tracking-wider;
+  font-family: "Palanquin Dark", sans-serif;
+  @apply sm:mt-12 md:text-7xl lg:text-8xl md:text-center text-balance-dp mt-4 md:mt-16 lg:mt-24 font-semibold tracking-wider;
 }
 
 #call-to-action h2 {
-  font-family: 'Silka, "Palanquin Dark", sans-serif';
-  @apply font-bold tracking-widest text-center text-xl text-gray-800 uppercase;
+  font-family: Silka, "Palanquin Dark", sans-serif;
+  font-weight: 600;
+  @apply tracking-widest text-center text-xl text-gray-800 uppercase;
 }
 
 #hero > header h2 {
@@ -31,7 +35,8 @@ section.cards h1 {
 }
 
 .domain-pills {
-  @apply text-gray-200 tracking-widest text-lg md:text-xl;
+  font-family: Nunito, Silka, sans-serif;
+  @apply text-gray-200 tracking-widest text-xl;
 }
 
 #subnav .nav-links > li.hoverable a {

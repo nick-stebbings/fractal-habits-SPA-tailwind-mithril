@@ -11,7 +11,7 @@ const MaskHeader = {
       <header class="bg-balance-dp z-10 flex-none h-16 md:h-12">
         <div
           id="responsive-nav"
-          class="flex h-16 md:h-10 px-4 md:px-2 lg:px-0 items-center justify-between"
+          class="flex h-16 md:h-12 px-4 md:px-2 lg:px-0 items-center justify-between"
         >
           <a class="logo block h-10 md:h-8">
             <svg
@@ -47,9 +47,9 @@ const MaskHeader = {
                 </svg>
               </label>
             </div>
-            <input type="checkbox" id="hamburger" class="hidden" />
-            <nav class="lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 top-14 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent absolute left-0 z-20 flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap hidden w-full border-b-4 shadow-lg">
-              <div class="sm:pl-8 sm:w-1/3 lgq:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 mt-3 border-b-2">
+            <input type="checkbox" id="hamburger" class="hidden" checked />
+            <nav class="lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 top-16 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent absolute left-0 z-20 flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap hidden w-full border-b-4 shadow-lg">
+              <div class="sm:pl-8 sm:w-1/3 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 mt-3 border-b-2">
                 <div class="sm:flex-col-reverse lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
                   <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Domain
@@ -71,7 +71,7 @@ const MaskHeader = {
                   </div>
                 </div>
               </div>
-              <div class="sm:w-2/3 lg:w-auto mt-3 lg:mt-1.5 text-md px-4 lg:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
+              <div class="sm:w-2/3 sm:border-b-2 lg:w-auto mt-3 lg:mt-1 text-md px-4 lg:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
                 <div class="lg:border-1 border-balance-lg lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp lg:py-0 lg:rounded-3xl lg:rounded-t-none flex items-center justify-between py-2 pl-4 mr-1 border-2 rounded-full">
                   <img
                     class="lg:border-1 lg:border-balance-hero lg:rounded-3xl lg:rounded-t-none border-1 border-balance-lmint flex-none object-cover w-10 h-10 rounded-full"
@@ -91,7 +91,7 @@ const MaskHeader = {
                   </a>
                 </div>
               </div>
-              <ul class="flex-col flex lg:hidden">
+              <ul class="w-full flex-col flex lg:hidden">
                 {MenuRoutes.map((route) => (
                   <ResponsiveNavGroup
                     id={`nav-${route.label.toLowerCase()}`}

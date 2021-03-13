@@ -42,7 +42,7 @@ body[class^="scroll"] .mask-wrapper {
 #subnav .nav-title,
 #subnav .nav-links,
 #subnav .nav-links > li > a {
-  @apply flex;
+  @apply flex lg:-mt-1.5;
 }
 
 #subnav .nav-links {
@@ -50,6 +50,9 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 li.hoverable {
+  a {
+    @apply pt-1;
+  }
   > div.mega-menu {
     @apply absolute inset-x-0 z-10 w-full;
 

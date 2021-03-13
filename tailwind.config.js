@@ -21,9 +21,8 @@ module.exports = {
         light: "2px solid #fffffe; outline-offset:1px; outline-style: dashed",
       },
       fontFamily: {
-        pal: '"Palanquin Dark"',
-        silka: "Silka",
         sans: [
+          "Silka",
           "Nunito",
           "Inter",
           "system-ui",
