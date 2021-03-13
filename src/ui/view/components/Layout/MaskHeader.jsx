@@ -88,9 +88,8 @@ const MaskHeader = {
                   </a>
                 </div>
               </div>
-              <ul class="lg:hidden">
+              <ul class="flex-col flex lg:hidden">
                 {MenuRoutes.map((route) => (
-                  // <li>{route.label}</li>
                   <ResponsiveNavGroup
                     id={`nav-${route.label.toLowerCase()}`}
                     class={

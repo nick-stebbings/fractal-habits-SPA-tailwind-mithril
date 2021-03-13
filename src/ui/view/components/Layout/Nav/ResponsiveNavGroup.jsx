@@ -2,9 +2,9 @@ import ResponsiveNavLink from "./ResponsiveNavLink.jsx";
 
 const ResponsiveNavGroup = {
   view: ({ attrs, children }) => (
-    <li class="responsive-nav-group" id={attrs.id}>
+    <li class="flex h-12 responsive-nav-group" id={attrs.id}>
       <a href={attrs.url}>{attrs.label}</a>
-      <ul class="responsive-nav-link">
+      <ul class="flex flex-col h-12 responsive-nav-link">
         {children.map((link) => (
           <ResponsiveNavLink>{link.title}</ResponsiveNavLink>
         ))}

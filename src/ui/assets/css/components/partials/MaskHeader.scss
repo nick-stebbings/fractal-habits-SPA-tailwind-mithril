@@ -4,8 +4,7 @@ $watermarkimage: url("../../../images/watermark.png");
 /* Masking */
 
 div.mask-wrapper {
-  @apply relative z-40 overflow-hidden;
-  mask: no-repeat 10px -20px $maskimage;
+  mask: initial;
 }
 body[class^="scroll"] #subnav {
   mask: no-repeat 10px -20px $maskimage;
@@ -15,14 +14,14 @@ body[class^="scroll"] .mask-wrapper {
   mask: initial;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 1024px) {
   div.mask-wrapper {
-    mask: initial;
+    @apply relative z-40 overflow-hidden;
+    mask: no-repeat 10px -20px $maskimage;
   }
-}
-
-.mask-wrapper:hover {
-  height: 346px;
+  div.mask-wrapper:hover {
+    height: 346px;
+  }
 }
 
 #subnav {
