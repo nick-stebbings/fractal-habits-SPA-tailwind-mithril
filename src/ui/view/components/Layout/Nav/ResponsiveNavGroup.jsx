@@ -1,12 +1,16 @@
 import ResponsiveNavLink from "./ResponsiveNavLink.jsx";
 
 const ResponsiveNavGroup = {
-  view: ({ attrs, children }) => (
-    <li class="flex h-12 responsive-nav-group" id={attrs.id}>
-      <a href={attrs.url}>{attrs.label}</a>
-      <ul class="flex flex-col h-12 responsive-nav-link">
-        {children.map((link) => (
-          <ResponsiveNavLink>{link.title}</ResponsiveNavLink>
+  view: ({ attrs, children: [subpaths] }) => (
+    <li class="responsive-nav-group flex h-12" id={attrs.id}>
+      {m(
+        m.route.Link,
+        { href: attrs.url, id: attrs.id, class: attrs.class },
+        attrs.label
+      )}
+      <ul class="flex flex-col responsive-nav-link">
+        {Object.keys(subpaths).map((path) => (
+          <ResponsiveNavLink url={path} details={subpaths[path]} />
         ))}
       </ul>
     </li>

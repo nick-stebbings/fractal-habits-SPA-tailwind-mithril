@@ -13,7 +13,7 @@ namespace :db do
   desc 'seed the database with some dummy data'
   task :seed do
     connection = Hht::Container['db.connection']
-    queries = File.read(File.join(APP_ROOT, 'db', 'sample-queries.sql'))
+    queries = File.read(File.join('db', 'sample-queries.sql'))
     connection.run(queries)
   end
 end

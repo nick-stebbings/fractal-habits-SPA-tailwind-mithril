@@ -1,7 +1,7 @@
 const ResponsiveNavLink = {
-  view: ({ attrs, children }) => (
+  view: ({ attrs: { url, details } }) => (
     <li class="h-12 flex resp-nav-link">
-      <a href={attrs.link}>{children}</a>
+      {m(m.route.Link, { href: url }, details.title)}
     </li>
   ),
 };

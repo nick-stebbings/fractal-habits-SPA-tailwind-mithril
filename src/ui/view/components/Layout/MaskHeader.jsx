@@ -97,6 +97,7 @@ const MaskHeader = {
                         ? "active"
                         : "inactive"
                     }
+                    label={route.label}
                     url={`${route.path}`}
                   >
                     {route.subpaths}
