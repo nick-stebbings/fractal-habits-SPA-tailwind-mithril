@@ -3,7 +3,7 @@
 const FormHeader = {
   view: ({ attrs }) => (
     <div class="flex items-center space-x-5">
-      <div class="h-14 w-14 bg-balance-lg flex items-center justify-center flex-shrink-0 font-mono text-2xl rounded-full">
+      <div class="flex flex-shrink-0 justify-center items-center w-14 h-14 font-mono text-2xl rounded-full bg-balance-lg">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -19,7 +19,7 @@ const FormHeader = {
           />
         </svg>
       </div>
-      <div class="self-start block pl-2 text-xl font-semibold text-gray-700">
+      <div class="block self-start pl-2 text-xl font-semibold text-gray-700">
         <h2 class="leading-relaxed">{attrs.title}</h2>
         <p class="text-sm font-normal leading-relaxed text-gray-500">
           {attrs.description}

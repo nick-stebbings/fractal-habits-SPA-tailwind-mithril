@@ -1,6 +1,6 @@
 const MainStage = {
   view: ({ attrs: { index }, children: [mainPage] }) => (
-    <main class="bg-balance-hero z-10 flex flex-col flex-auto w-full h-full">
+    <main class="flex z-10 flex-col flex-auto w-screen h-full bg-balance-hero">
       {index
         ? mainPage
         : m("section.cards.flex-1.bg-white h-full", [

@@ -1,28 +1,24 @@
 const MenuListCard = {
   view: ({ attrs }) => (
     <div
-      class="text-balance-black rounded-2xl bg-gray-100"
-      py-3
-      px-6
-      bg-gray-200
+      class="menu-card h-full bg-gray-100 rounded-2xl shadow-xl text-balance-black"
     >
-      <div class="flex justify-between">
-        <h3 class="text-center text-balance-black text-bold text-xl">
-          {attrs.title}
-        </h3>
-        <span class="flex text-balance-mint py-3 px-2">
-          {m.trust(attrs.icon)}
-        </span>
+      <div class="h-1/3 flex justify-between px-3">
+        <h3 class="flex my-auto">{attrs.title}</h3>
+        <div class="flex h-24 w-24 text-balance-dp">{m.trust(attrs.icon)}</div>
       </div>
-      <p class="text-lg">{attrs.subtitle}</p>
-      {m(
-        m.route.Link,
-        {
-          selector: "a",
-          href: attrs.url,
-        },
-        "Take Me"
-      )}
+      <div class="flex flex-col items-center" style="flex-basis: 33%">
+        {m(
+          m.route.Link,
+          {
+            selector: "button",
+            href: attrs.url,
+            class: "menu-card-button absolute top-32 mt-12",
+          },
+          "Let's Go"
+          )}
+          <p class="text-lg">{attrs.subtitle}</p>
+      </div>
     </div>
   ),
 };

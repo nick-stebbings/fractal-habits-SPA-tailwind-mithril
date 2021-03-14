@@ -16,7 +16,7 @@ const ResponsiveNavGroup = {
         },
         attrs.label
       )}
-      <ul class="responsive-nav-link flex flex-wrap justify-around h-full ">
+      <ul class="flex flex-wrap justify-around h-full responsive-nav-link ">
         {Object.keys(subpaths).map((path) => (
           <ResponsiveNavLink url={path} details={subpaths[path]} />
         ))}

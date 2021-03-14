@@ -1,4 +1,4 @@
-$maskimage: url("../../../images/fib-mask-1800.svg");
+$maskimage: url("../../../images/fib-mask-1900-380.svg");
 $watermarkimage: url("../../../images/watermark.png");
 
 .logo-link {
@@ -11,6 +11,7 @@ $watermarkimage: url("../../../images/watermark.png");
 
 div.mask-wrapper {
   mask: initial;
+  height: 1000px;
 }
 body[class^="scroll"] #subnav {
   mask: no-repeat 10px -20px $maskimage;
@@ -26,17 +27,17 @@ body[class^="scroll"] .mask-wrapper {
     mask: no-repeat 10px -20px $maskimage;
   }
   div.mask-wrapper:hover {
-    height: 346px;
+    height: 1346px;
   }
 }
 
 #subnav {
   @apply -mt-11 lg:block fixed hidden w-full;
-  height: 5.75rem;
+  height: 15.75rem;
 }
 
 #subnav nav.nav {
-  @apply text-balance-lg w-full h-8;
+  @apply w-full h-8;
 }
 
 #subnav .nav-title,
@@ -58,17 +59,17 @@ li.hoverable {
 
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -3.25rem $watermarkimage;
-      height: 340px;
+      height: 344px;
       @apply flex mt-2 bg-balance-dp;
     }
   }
 }
 
 .hero-message {
-  @apply w-1/3 pt-1 pl-4 mb-8 text-right text-white bg-gradient-to-r from-transparent to-gray-500;
+  @apply w-1/4 pt-1 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
 
   h2 {
-    @apply p-4 w-2/3 mt-2 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-40;
+    @apply p-8 w-2/3 mt-2 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-40;
   }
 
   p {
@@ -76,14 +77,25 @@ li.hoverable {
   }
 }
 
+.menu-card {
+  @apply flex flex-col justify-around mb-8 px-3;
+  h3 {
+    line-height: 3rem;
+  }
+
+  p {
+    @apply px-4;
+  }
+}
+
 .inset {
-  @apply bg-gray-500 grid w-2/3 grid-cols-4 grid-rows-1 gap-2 p-3;
+  @apply bg-balance-hero grid w-3/4 grid-cols-4 grid-rows-1 gap-2 p-3;
 }
 
 /* Hoverable Menu Activation */
 .inset,
 .mega-menu {
-  display: none;
+  display: grid;
 }
 
 .hoverable:hover .inset {

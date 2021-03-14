@@ -68,12 +68,12 @@ const CreateForm = {
         {/* <div class="flex items-center space-x-4">
                 <div class="flex flex-col">
                   <label class="leading-loose">Initiation Date</label>
-                  <div class="focus-within:text-gray-600 relative text-gray-400">
+                  <div class="relative text-gray-400 focus-within:text-gray-600">
                     {m("input[type=date]", {
                       class:
                         "pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600",
                     })}
-                    <div class="left-3 top-2 absolute">
+                    <div class="absolute top-2 left-3">
                       <svg
                         class="w-6 h-6"
                         fill="none"
@@ -94,9 +94,9 @@ const CreateForm = {
               </div> */}
 
         {/* <div class="flex items-center pt-4 space-x-4">
-              <button class="focus:outline-none flex items-center justify-center w-full px-4 py-3 text-gray-900 rounded-md">
+              <button class="flex justify-center items-center py-3 px-4 w-full text-gray-900 rounded-md focus:outline-none">
                 <svg
-                  class="w-6 h-6 mr-3"
+                  class="mr-3 w-6 h-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -111,7 +111,7 @@ const CreateForm = {
                 </svg>{" "}
                 Cancel
               </button>
-              <button class="focus:outline-none flex items-center justify-center w-full px-4 py-3 text-white bg-blue-500 rounded-md">
+              <button class="flex justify-center items-center py-3 px-4 w-full text-white bg-blue-500 rounded-md focus:outline-none">
                 Create
               </button>
             </div> */}
