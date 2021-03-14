@@ -11,7 +11,6 @@ $watermarkimage: url("../../../images/watermark.png");
 
 div.mask-wrapper {
   mask: initial;
-  height: 1000px;
 }
 body[class^="scroll"] #subnav {
   mask: no-repeat 10px -20px $maskimage;
@@ -27,7 +26,7 @@ body[class^="scroll"] .mask-wrapper {
     mask: no-repeat 10px -20px $maskimage;
   }
   div.mask-wrapper:hover {
-    height: 1346px;
+    height: 346px;
   }
 }
 
@@ -55,7 +54,7 @@ li.hoverable {
     @apply pt-1;
   }
   > div.mega-menu {
-    @apply absolute inset-x-0 z-10 w-full;
+    @apply absolute inset-x-0 z-10 pt-2 w-full;
 
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -3.25rem $watermarkimage;
@@ -66,21 +65,21 @@ li.hoverable {
 }
 
 .hero-message {
-  @apply w-1/4 pt-1 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
+  @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
 
   h2 {
-    @apply p-8 w-2/3 mt-2 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-40;
+    @apply p-6 w-2/3 mt-1 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-40;
   }
 
   p {
-    @apply float-right w-1/2 bg-gray-900 rounded-2xl rounded-t-none p-6 pt-0 bg-opacity-40;
+    @apply float-right w-48 bg-gray-900 rounded-2xl rounded-t-none p-4 pt-0 bg-opacity-40;
   }
 }
 
 .menu-card {
-  @apply flex flex-col justify-around mb-8 px-3;
+  @apply flex flex-col justify-around mb-6 px-3;
   h3 {
-    line-height: 3rem;
+    line-height: 2rem;
   }
 
   p {
@@ -89,13 +88,13 @@ li.hoverable {
 }
 
 .inset {
-  @apply bg-balance-hero grid w-3/4 grid-cols-4 grid-rows-1 gap-2 p-3;
+  @apply bg-balance-hero grid w-3/4 grid-cols-4 grid-rows-1 gap-2 p-2 pt-1;
 }
 
 /* Hoverable Menu Activation */
 .inset,
 .mega-menu {
-  display: grid;
+  display: none;
 }
 
 .hoverable:hover .inset {
@@ -113,15 +112,32 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 /* Fixed Nav Links in top-left */
 /* --------------------------- */
 #subnav .nav-links > li.hoverable {
-  @apply bg-balance-lp z-20 pl-6 font-light border-2 rounded-full;
+  @apply bg-balance-hero z-20 pl-6 font-light border-2 rounded-full;
   margin-left: -1.3rem;
 }
 
 #subnav .nav-links > li.hoverable {
-  @apply bg-gradient-to-r from-balance-lp to-transparent pr-2;
+  @apply bg-balance-hero pr-2;
 }
+
+#subnav .nav-links > li.hoverable:hover {
+  @apply bg-gradient-to-r from-balance-lg to-transparent;
+}
+
 #subnav .nav-links > li.hoverable:last-of-type {
   @apply pl-14;
+}
+
+#subnav .nav-links > li.hoverable:last-of-type::before {
+  content:url('../../../images/icons/slash.svg');
+  position:absolute;
+  z-index:100;
+  left: 62px;
+  top: -10px;
+  width: 4px;
+  height: 4px;
+  transform: rotate(39deg) scale(0.6);
+
 }
 
 /* ---  Scroll behaviour --- */
@@ -130,11 +146,16 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable {
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
-  @apply pl-24 text-balance-lmint;
+  @apply text-balance-lmint bg-balance-lp;
+  padding-left: 11rem;
   min-width: 12rem;
   order: 1; /* Send it to the front of the flex row to display */
   margin-left: -1.3rem;
 }
+
+body[class^="scroll"] #subnav .nav-links > li.hoverable.active a {
+  @apply pl-2;
+} 
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {
   order: 2;
@@ -144,6 +165,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {
   margin-left: -6rem;
 }
 
-#subnav .nav-links > li.hoverable:hover {
-  @apply text-balance-lmint;
+#subnav .nav-links > li.hoverable:hover a,
+#subnav .nav-links > li.hoverable.active:hover a {
+  @apply text-balance-secondary;
 }

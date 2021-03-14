@@ -8,10 +8,9 @@ const HoverableLink = {
         <div class="mega-menu-wrapper">
           <div class="inset-wrapper"></div>
           <div class="hero-message">
-            <h2>Main Hero Message for the menu section</h2>
+            <h2>View your Habits and Objectives</h2>
             <p>
-              Sub-hero message, not too long and not too short. Make it just
-              right!
+              Take control of your behaviour with one of these views...
             </p>
           </div>
           <div class="inset">{<MenuList>{children}</MenuList>}</div>
