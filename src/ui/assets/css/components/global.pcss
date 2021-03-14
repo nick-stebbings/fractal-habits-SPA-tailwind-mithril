@@ -11,7 +11,7 @@ main {
 #app > main {
   @apply top-16 md:top-12 absolute;
   z-index: 0;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #hero > header {
@@ -38,5 +38,8 @@ section.cards {
 @media (min-width: 640px) {
   nav > ul > li:first-of-type {
     border: 0;
+  }
+  #app > main {
+    overflow: auto;
   }
 }

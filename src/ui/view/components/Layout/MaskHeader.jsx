@@ -49,8 +49,8 @@ const MaskHeader = {
             </div>
             <input type="checkbox" id="hamburger" class="hidden" checked />
             <nav class="lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 top-16 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent absolute left-0 z-20 flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap hidden w-full border-b-4 shadow-lg">
-              <div class="sm:pl-8 sm:w-1/3 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 mt-3 border-b-2">
-                <div class="sm:flex-col-reverse lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
+              <div class="sm:pl-8 sm:w-1/3 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 border-b-2">
+                <div class="sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
                   <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Domain
                   </span>
@@ -60,7 +60,7 @@ const MaskHeader = {
                     </span>
                   </div>
                 </div>
-                <div class="sm:flex-col-reverse lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
+                <div class="sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 bg-gradient-to-l from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
                   <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Date
                   </span>
@@ -71,14 +71,14 @@ const MaskHeader = {
                   </div>
                 </div>
               </div>
-              <div class="sm:w-2/3 sm:border-b-2 lg:w-auto mt-3 lg:mt-1 text-md px-4 lg:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
+              <div class="sm:w-2/3 sm:border-b-2 lg:border-none lg:w-auto mt-3 lg:mt-1 text-md px-4 lg:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
                 <div class="lg:border-1 border-balance-lg lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp lg:py-0 lg:rounded-3xl lg:rounded-t-none flex items-center justify-between py-2 pl-4 mr-1 border-2 rounded-full">
                   <img
                     class="lg:border-1 lg:border-balance-hero lg:rounded-3xl lg:rounded-t-none border-1 border-balance-lmint flex-none object-cover w-10 h-10 rounded-full"
                     src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"
                     alt=""
                   />
-                  <span class="nav-label lg:ml-0 lg:mr-4 lg:mb-1 px-2 lg:px-0 py-4 lg:pt-2 lg:pb-1 mx-4">
+                  <span class="nav-label lg:text-balance-lmint lg:ml-0 lg:mr-4 lg:mb-1 px-2 lg:px-0 lg:pb-1 mx-4">
                     Your Name Is Dave
                   </span>
                 </div>
