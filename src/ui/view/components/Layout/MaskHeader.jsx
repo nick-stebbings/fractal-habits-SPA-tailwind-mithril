@@ -3,7 +3,7 @@ import ResponsiveNavGroup from "./Nav/ResponsiveNavGroup.jsx";
 import DropdownNav from "./Nav/DropdownNav.jsx";
 import MenuRoutes from "../../../menu-routes";
 
-import "../../../assets/css/components/partials/MaskHeader.scss";
+import "../../../assets/css/components/MaskHeader.scss";
 
 const MaskHeader = {
   view: ({ attrs, children }) => (
@@ -50,7 +50,7 @@ const MaskHeader = {
             <input type="checkbox" id="hamburger" class="hidden" checked />
             <nav class="hidden absolute left-0 top-16 z-20 flex-col w-full border-b-4 shadow-lg lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap">
               <div class="sm:pl-8 sm:w-1/3 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 border-b-2">
-                <div class="flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
+                <div class="flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
                   <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Domain
                   </span>
@@ -60,7 +60,7 @@ const MaskHeader = {
                     </span>
                   </div>
                 </div>
-                <div class="flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-hero max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
+                <div class="flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
                   <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Date
                   </span>
@@ -71,14 +71,14 @@ const MaskHeader = {
                   </div>
                 </div>
               </div>
-              <div class="sm:w-2/3 sm:border-b-2 lg:border-none lg:w-auto mt-3 lg:mt-1 text-md px-4 lg:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
+              <div class="sm:w-2/3 sm:border-b-2 lg:border-none lg:w-auto mt-3 lg:mt-1 text-md px-4 md:px-0 xl:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
                 <div class="flex justify-between items-center py-2 pl-4 mr-1 rounded-full border-2 lg:border-1 border-balance-lg lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp lg:py-0 lg:rounded-3xl lg:rounded-t-none">
                   <img
                     class="object-cover flex-none w-10 h-10 rounded-full lg:border-1 lg:border-balance-hero lg:rounded-3xl lg:rounded-t-none border-1 border-balance-lmint"
                     src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"
                     alt=""
                   />
-                  <span class="px-2 mx-4 nav-label lg:text-balance-lmint lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 lg:pb-1">
+                  <span class="nav-label lg:text-balance-lmint px-2 sm:px-0 mx-4 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 lg:pb-1">
                     Your Name Is Dave
                   </span>
                 </div>

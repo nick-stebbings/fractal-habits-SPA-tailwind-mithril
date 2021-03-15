@@ -12,10 +12,7 @@ const LogoLink = {
         class: "logo-link",
       },
       <svg
-        enable-background="new 0 0 40 40 "
-        height="40px"
-        viewBox="5 5 40 40"
-        width="44px"
+        viewBox="0 0 48 48"
       >
         <path
           class="fill-current"

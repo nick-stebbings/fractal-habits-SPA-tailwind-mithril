@@ -1,10 +1,10 @@
-$maskimage: url("../../../images/fib-mask-1900-380.svg");
-$watermarkimage: url("../../../images/watermark.png");
+$maskimage: url("../../images/fib-mask-1900-380.svg");
+$watermarkimage: url("../../images/watermark.png");
 
 .logo-link {
-  @apply fixed z-50 hidden lg:block;
+  @apply fixed z-50 w-12 hidden lg:block;
   top: 1px;
-  left: 1px;
+  left: 10px;
 }
 
 /* Masking */
@@ -50,9 +50,12 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 li.hoverable {
+  cursor: pointer;
+
   a {
     @apply pt-1;
   }
+
   > div.mega-menu {
     @apply absolute inset-x-0 z-10 pt-2 w-full;
 
@@ -60,35 +63,35 @@ li.hoverable {
       background: no-repeat 0.5rem -3.25rem $watermarkimage;
       height: 344px;
       @apply flex mt-2 bg-balance-dp;
+
+      .hero-message {
+        @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
+
+        h2 {
+          @apply p-6 w-2/3 mt-1 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-40;
+        }
+
+        p {
+          @apply float-right w-48 bg-gray-900 rounded-2xl rounded-t-none p-4 pt-0 bg-opacity-40;
+        }
+      }
+
+      .inset {
+        @apply bg-balance-hero grid w-3/4 grid-cols-4 grid-rows-1 gap-2 p-2 pt-1;
+        
+        .menu-card {
+          @apply flex flex-col justify-around mb-6 px-3;
+          h3 {
+            line-height: 2rem;
+          }
+
+          p {
+            @apply px-4;
+          }
+        }
+      }
     }
   }
-}
-
-.hero-message {
-  @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
-
-  h2 {
-    @apply p-6 w-2/3 mt-1 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-40;
-  }
-
-  p {
-    @apply float-right w-48 bg-gray-900 rounded-2xl rounded-t-none p-4 pt-0 bg-opacity-40;
-  }
-}
-
-.menu-card {
-  @apply flex flex-col justify-around mb-6 px-3;
-  h3 {
-    line-height: 2rem;
-  }
-
-  p {
-    @apply px-4;
-  }
-}
-
-.inset {
-  @apply bg-balance-hero grid w-3/4 grid-cols-4 grid-rows-1 gap-2 p-2 pt-1;
 }
 
 /* Hoverable Menu Activation */
@@ -114,6 +117,7 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 #subnav .nav-links > li.hoverable {
   @apply bg-balance-hero z-20 pl-6 font-light border-2 rounded-full;
   margin-left: -1.3rem;
+  transition: margin-left .2s ease-out;
 }
 
 #subnav .nav-links > li.hoverable {
@@ -128,10 +132,11 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
   @apply pl-14;
 }
 
+/* 'Slash' SVG between logo and nav-link */
 #subnav .nav-links > li.hoverable:last-of-type::before {
-  content:url('../../../images/icons/slash.svg');
+  content:url('../../images/icons/slash.svg');
   position:absolute;
-  z-index:100;
+  z-index:40;
   left: 62px;
   top: -10px;
   width: 4px;
@@ -141,31 +146,38 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 }
 
 /* ---  Scroll behaviour --- */
-body[class^="scroll"] #subnav .nav-links > li.hoverable {
-  border: none;
-}
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
-  @apply text-balance-lmint bg-balance-lp;
+  @apply text-balance-lmint bg-balance-lp border-0;
   padding-left: 11rem;
+  margin-left: -1.3rem;
   min-width: 12rem;
   order: 1; /* Send it to the front of the flex row to display */
-  margin-left: -1.3rem;
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active a {
-  @apply pl-2;
+  @apply pr-2 my-1 pl-0;
 } 
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {
   order: 2;
-  width: 0;
-  transition: width 1000ms;
+  transition: width 2s ease-in, margin-left 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  width: 0%;
   overflow: hidden;
   margin-left: -6rem;
 }
 
+body[class^="scroll"] #subnav .nav-links {
+  @apply mt-0.5;
+}
+
+/* ---  Hover States --- */
+
+body[class^="scroll"] #subnav .nav-links > li.hoverable:hover {
+  @apply bg-gradient-to-r from-balance-black to-transparent;
+}
+
 #subnav .nav-links > li.hoverable:hover a,
-#subnav .nav-links > li.hoverable.active:hover a {
+body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover a {
   @apply text-balance-secondary;
 }
