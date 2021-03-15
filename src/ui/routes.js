@@ -2,19 +2,21 @@
 import MenuRoutes from "./menu-routes";
 // Layouts
 import Layout from "./view/Layout.jsx";
+// Models
+import DomainStore from "./store/domain-store";
 // Components
 import HeroSection from "./view/components/layout/HeroSection.jsx";
 // Utils
 import { d3visPageMaker } from "./assets/scripts/utilities";
 
 const Routes = MenuRoutes.reduce(
-  (newRoutes, menuSection) => {
+  (newRoutesObject, menuSection) => {
     let links = menuSection.subpaths;
 
     Object.keys(links).forEach((path) => {
       let title = links[path]["title"];
       let page = links[path]["page"];
-      newRoutes[path] = {
+      newRoutesObject[path] = {
         render: () =>
           menuSection["label"] === "Visualise"
             ? m(d3visPageMaker(Layout, page), {
@@ -26,10 +28,16 @@ const Routes = MenuRoutes.reduce(
       };
     });
 
-    return newRoutes;
+    return newRoutesObject;
   },
   {
     "/": {
+      onmatch: function () {
+        DomainStore.index()
+          .then(() => {
+            m.redraw();
+          });
+      },
       render: function () {
         return m(Layout, { index: true }, m(HeroSection));
       },
@@ -37,6 +45,6 @@ const Routes = MenuRoutes.reduce(
   }
 );
 
-const DefaultRoute = "/vis/habit-tree";
+const DefaultRoute = "/";
 
 export { Routes, DefaultRoute };

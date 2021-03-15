@@ -1,5 +1,9 @@
 // src/view/components/Layout/MaskHeader.jsx
+
+import DomainStore from "../../../store/domain-store";
+
 import ResponsiveNavGroup from "./Nav/ResponsiveNavGroup.jsx";
+import DomainOption from "./Nav/DomainOption.jsx";
 import DropdownNav from "./Nav/DropdownNav.jsx";
 import MenuRoutes from "../../../menu-routes";
 
@@ -55,32 +59,21 @@ const MaskHeader = {
             </div>
             <input type="checkbox" id="hamburger" class="hidden" />
             <nav class="hidden absolute left-0 top-16 z-20 flex-col w-full border-b-4 shadow-lg lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap">
-              <div class="sm:pl-8 sm:w-1/3 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 border-b-2">
+              <div class="sm:pl-16 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 border-b-2">
                 <div class="flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
                   <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Domain
                   </span>
                   <div class="h-full bg-white rounded-full border-2 text-sm lg:rounded-3xl lg:rounded-t-none border-balance-dg">
                     <span class="block pt-0 pt-2 mx-4 mb-1 text-balance-secondary">
+                      {console.log(DomainStore.list())}
                       {m(
                         "select.form-select",
                         {
                           class:
                             "form-select w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
                         },
-                        [
-                          m(
-                            "option",
-                            {
-                              value: "Mental Health",
-                              selected: "selected",
-                            },
-                            "Mental Health"
-                          ),
-                          m("option", { value: "" }, "Spirituality"),
-                          m("option", { value: "" }, "Mindfulness"),
-                        ]
-                      )}
+                        DomainStore.list().map((domain, idx) => m(DomainOption, {value: domain.name, selected: !idx}, domain.name)))}
                     </span>
                   </div>
                 </div>
@@ -99,7 +92,7 @@ const MaskHeader = {
                   </div>
                 </div>
               </div>
-              <div class="sm:w-2/3 sm:border-b-2 lg:border-none lg:w-auto mt-3 lg:mt-1 text-md px-4 md:px-0 xl:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
+              <div class="sm:w-3/5 sm:border-b-2 lg:border-none lg:w-auto mt-3 lg:mt-1 text-md px-4 md:px-0 xl:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
                 <div class="flex justify-between items-center py-2 pl-4 mr-1 rounded-full border-2 lg:border-1 border-balance-lg lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp lg:py-0 lg:rounded-3xl lg:rounded-t-none">
                   <img
                     class="object-cover flex-none w-10 h-10 rounded-full lg:border-1 lg:border-balance-hero lg:rounded-3xl lg:rounded-t-none border-1 border-balance-lmint"
