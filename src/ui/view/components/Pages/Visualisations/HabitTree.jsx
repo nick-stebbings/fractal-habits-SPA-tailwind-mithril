@@ -1,3 +1,4 @@
+import {debounce} from "../../../../assets/scripts/utilities"
 import TreeStore from "../../../../store/habit-tree-store.js";
 
 // import "./tree-style.scss";
@@ -5,6 +6,11 @@ import * as d3 from "d3";
 
 const HabitTree = {
   type: "vis",
+  oncreate: () => {
+    window.onresize = debounce(function() {
+      m.redraw();
+    }, 50);
+  },
   view: (vnode) => (
     <div id="vis" class="h-full mx-auto w-3/4">
       {vnode.children}

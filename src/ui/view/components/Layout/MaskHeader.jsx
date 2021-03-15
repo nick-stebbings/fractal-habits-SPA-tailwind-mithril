@@ -53,7 +53,7 @@ const MaskHeader = {
                 </svg>
               </label>
             </div>
-            <input type="checkbox" id="hamburger" class="hidden" checked />
+            <input type="checkbox" id="hamburger" class="hidden" />
             <nav class="hidden absolute left-0 top-16 z-20 flex-col w-full border-b-4 shadow-lg lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap">
               <div class="sm:pl-8 sm:w-1/3 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 border-b-2">
                 <div class="flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">

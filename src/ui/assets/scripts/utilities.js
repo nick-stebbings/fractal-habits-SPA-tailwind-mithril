@@ -26,4 +26,12 @@ const d3visPageMaker = function (layoutView, pageView) {
   return page;
 };
 
-export { d3visPageMaker };
+const debounce = function (func, delay) {
+  let timeout;
+  return (...args) => {
+    if (timeout) { clearTimeout(timeout) }
+    timeout = setTimeout(() => func.apply(null, args), delay);
+  };
+};
+
+export { d3visPageMaker, debounce };

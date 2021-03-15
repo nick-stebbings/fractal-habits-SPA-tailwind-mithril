@@ -1,5 +1,6 @@
 const MenuListCard = {
   oncreate: () => {
+    // Apply active state classes to card matching route
     const navButtons = document.querySelectorAll("button.menu-card-button");
       Array.from(navButtons).forEach(
         (menuCard) => {
