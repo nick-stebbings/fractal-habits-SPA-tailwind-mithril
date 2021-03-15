@@ -5,7 +5,14 @@ body {
 .nav-label-primary > span,
 .responsive-nav-group > a {
   font-family: Nunito, Silka, sans-serif;
-  @apply font-bold leading-tight uppercase hover:text-balance-lp;
+  @apply font-bold leading-tight uppercase text-balance-lp text-xl;
+}
+
+.nav-label-primary > span:hover,
+.responsive-nav-group > a:hover {
+  text-decoration: underline;
+  text-decoration-color: #ef9323;
+	-webkit-text-decoration-color: #ef9323;
 }
 
 .nav-label {
@@ -61,7 +68,7 @@ nav .menu-card p {
 }
 
 .resp-nav-link {
-  @apply font-semibold;
+  @apply font-semibold text-2xl;
 }
 
 .resp-nav-link:active::before,

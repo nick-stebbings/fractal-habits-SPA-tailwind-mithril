@@ -1,17 +1,13 @@
 html,
 body {
-  @apply h-full;
+  @apply h-full w-full;
   font-size: 14px;
 }
 
-main {
-  @apply mx-0;
-}
-
 #app > main {
-  @apply top-16 md:top-12 absolute;
+  @apply mx-0 w-full top-16 md:top-12 absolute w-full;
   z-index: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 #hero > header {
@@ -38,8 +34,5 @@ section.cards {
 @media (min-width: 640px) {
   nav > ul > li:first-of-type {
     border: 0;
-  }
-  #app > main {
-    overflow: auto;
   }
 }

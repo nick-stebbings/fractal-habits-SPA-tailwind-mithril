@@ -7,7 +7,7 @@ const MenuList = {
         title={children[0][route].title}
         id={index}
         subtitle={children[0][route].description}
-        url={`#!/${route}`}
+        url={`${route}`}
         icon={children[0][route].icon}
       />
     )),

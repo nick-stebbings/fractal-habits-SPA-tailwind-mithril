@@ -13,7 +13,13 @@ const MaskHeader = {
           id="responsive-nav"
           class="flex justify-between items-center px-4 h-16 md:h-12 md:px-2 lg:px-0"
         >
-          <a class="block h-10 logo md:h-8">
+        {m(
+          m.route.Link,
+          {
+            selector: "span",
+            href: "/",
+            class: "block h-10 logo md:h-8",
+          },
             <svg
               id="logo"
               class="w-10 h-10 text-gray-100 fill-current stroke-current hover:text-balance-lmint md:ml-1 md:w-8 md:h-8"
@@ -24,7 +30,7 @@ const MaskHeader = {
             >
               <path d="M15.34,45.5C8.26,45.5,2.5,39.74,2.5,32.66s5.76-12.84,12.84-12.84h1.31v8.37l-1.31,0c-2.47,0-4.47,2.01-4.47,4.47  c0,2.47,2.01,4.48,4.47,4.48c2.47,0,4.47-2.01,4.47-4.48l0-1.92v-15.4c0-7.08,5.76-12.84,12.84-12.84c7.08,0,12.84,5.76,12.84,12.84  s-5.76,12.84-12.84,12.84h-1.31v-8.37l1.31,0c2.47,0,4.47-2.01,4.47-4.47c0-2.47-2.01-4.47-4.47-4.47c-2.47,0-4.47,2.01-4.47,4.47  l0,1.92v15.4C28.18,39.74,22.42,45.5,15.34,45.5z" />
             </svg>
-          </a>
+          )},
           <div id="hamburger-wrapper" class="flex h-10 md:h-8 lg:flex-auto">
             <div class="flex justify-center items-center w-10 h-10 rounded-md active:outline-light focus:outline-light hover:bg-balance-lp md:w-8 md:h-8">
               <label
@@ -60,7 +66,7 @@ const MaskHeader = {
                         "select.form-select",
                         {
                           class:
-                            "form-select w-40 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
+                            "form-select w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
                         },
                         [
                           m(
@@ -86,7 +92,7 @@ const MaskHeader = {
                     <span class="block lg:pt-2 mx-4 mb-1 text-balance-secondary">
                       {m("input.form-input", {
                         class:
-                          "w-40 text-center text-xl lg:pt-2 -mr-2 py-1 px-0",
+                          "w-48 text-center text-xl lg:pt-2 -mr-2 py-1 px-0",
                         type: "date",
                       })}
                     </span>
