@@ -54,19 +54,41 @@ const MaskHeader = {
                   <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Domain
                   </span>
-                  <div class="h-full bg-white rounded-full border-2 text-s lg:rounded-3xl lg:rounded-t-none border-balance-dg">
-                    <span class="block pt-2 mx-4 mb-1 tracking-wide text-balance-secondary">
-                      Physical Health
+                  <div class="h-full bg-white rounded-full border-2 text-sm lg:rounded-3xl lg:rounded-t-none border-balance-dg">
+                    <span class="block pt-0 pt-2 mx-4 mb-1 text-balance-secondary">
+                      {m(
+                        "select.form-select",
+                        {
+                          class:
+                            "form-select w-40 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
+                        },
+                        [
+                          m(
+                            "option",
+                            {
+                              value: "Mental Health",
+                              selected: "selected",
+                            },
+                            "Mental Health"
+                          ),
+                          m("option", { value: "" }, "Spirituality"),
+                          m("option", { value: "" }, "Mindfulness"),
+                        ]
+                      )}
                     </span>
                   </div>
                 </div>
                 <div class="flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
-                  <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
+                  <span class="block pt-0 md:pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Date
                   </span>
-                  <div class="h-full bg-white rounded-full border-2 text-s lg:rounded-3xl lg:rounded-t-none border-balance-dg">
-                    <span class="block pt-2 mx-4 mb-1 tracking-wide text-balance-secondary">
-                      Physical Health
+                  <div class="h-full bg-white rounded-full border-2 text-sm lg:rounded-3xl lg:rounded-t-none border-balance-dg">
+                    <span class="block lg:pt-2 mx-4 mb-1 text-balance-secondary">
+                      {m("input.form-input", {
+                        class:
+                          "w-40 text-center text-xl lg:pt-2 -mr-2 py-1 px-0",
+                        type: "date",
+                      })}
                     </span>
                   </div>
                 </div>
@@ -78,17 +100,17 @@ const MaskHeader = {
                     src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"
                     alt=""
                   />
-                  <span class="nav-label lg:text-balance-lmint px-2 sm:px-0 mx-4 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 lg:pb-1">
+                  <span class="nav-label font-light lg:text-balance-lmint px-2 sm:px-0 mx-4 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 lg:pb-1">
                     Your Name Is Dave
                   </span>
                 </div>
                 <div class="flex flex-col p-4 font-bold tracking-wide lg:hidden">
-                  <a class="mt-2 font-sans text-lg font-semibold text-center uppercase hover:underline">
+                  <button class="mt-2 p-4 font-sans text-lg font-semibold text-center uppercase active:outline hover:text-balance-lp">
                     Account Details
-                  </a>
-                  <a class="mt-2 font-sans text-lg font-semibold text-center uppercase hover:underline">
+                  </button>
+                  <button class="mt-2 p-4 font-sans text-lg font-semibold text-center uppercase active:outline hover:text-balance-lp">
                     Logout
-                  </a>
+                  </button>
                 </div>
               </div>
               <ul class="flex flex-col w-full lg:hidden">

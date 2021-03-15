@@ -2,10 +2,10 @@ body {
   @apply antialiased;
 }
 
-.nav-label-primary span,
-.responsive-nav-group a {
+.nav-label-primary > span,
+.responsive-nav-group > a {
   font-family: Nunito, Silka, sans-serif;
-  @apply font-bold leading-tight;
+  @apply font-bold leading-tight uppercase hover:text-balance-lp;
 }
 
 .nav-label {
@@ -49,7 +49,7 @@ nav .hero-message > h2 {
 }
 
 nav .hero-message p {
-  @apply text-xl leading-8 text-gray-50 font-sans font-light text-right;
+  @apply sm:text-base xl:text-xl leading-8 text-gray-50 font-sans font-light text-right;
 }
 
 nav .menu-card h3 {
@@ -58,4 +58,21 @@ nav .menu-card h3 {
 
 nav .menu-card p {
   @apply text-base text-balance-black font-light tracking-wide font-serif;
+}
+
+.resp-nav-link {
+  @apply font-semibold;
+}
+
+.resp-nav-link:active::before,
+.resp-nav-link:hover::before {
+  @apply text-balance-lp;
+  content:url('../images/icons/slash.svg');
+  position: relative;
+  z-index: -1;
+  left: 0.5rem;
+  top: -0.5rem;
+  width: 4px;
+  height: 4px;
+  transform: rotate(39deg) scale(0.35);
 }

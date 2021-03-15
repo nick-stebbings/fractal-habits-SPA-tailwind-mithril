@@ -6,6 +6,10 @@ $watermarkimage: url("../../images/watermark.png");
   left: 8px;
 }
 
+.logo-link, nav span {
+  cursor: pointer;
+}
+
 .logo-link:hover {
   @apply text-balance-secondary;
 }
@@ -75,11 +79,11 @@ li.hoverable {
         @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
 
         h2 {
-          @apply p-6 w-2/3 mt-1 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-40;
+          @apply p-6 w-2/3 mt-1 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
         }
 
         p {
-          @apply float-right w-48 bg-gray-900 rounded-2xl rounded-t-none p-4 pt-0 bg-opacity-40;
+          @apply float-right sm:w-1/2 xl:w-48 bg-gray-900 rounded-2xl rounded-t-none p-4 pt-0 bg-opacity-60;
         }
       }
 
