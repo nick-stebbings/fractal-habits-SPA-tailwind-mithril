@@ -42,6 +42,7 @@ const openModal = function (value) {
       modalCl.remove("opacity-0");
       modalCl.remove("-translate-y-full");
       modalCl.remove("scale-150");
+      modal.style['z-index'] = 101;
       document.documentElement.style.overflow = "hidden";
     }, 100);
   } else {
@@ -49,6 +50,7 @@ const openModal = function (value) {
     setTimeout(() => {
       modalCl.add("opacity-0");
       modalCl.add("scale-150");
+      modal.style["z-index"] = -101;
       document.documentElement.style.overflow = "initial";
     }, 100);
     setTimeout(() => overlayCl.classList.add("hidden"), 300);

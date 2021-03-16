@@ -11,7 +11,6 @@ const Modal = {
   view: ({ attrs }) => (
     <div
       id="modal"
-      style="z-index:101;"
       class="absolute opacity-0 transform -translate-y-full scale-150  h-1/3 inset-1/4 inset-y-24 md:h-1/2 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
     >
       {/* Modal Tailwind Component originally by Huda Damar */}

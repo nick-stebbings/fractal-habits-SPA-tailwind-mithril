@@ -9,8 +9,7 @@ export default {
     <div id="layout" class="w-full h-full">
       <div
         id="modal_overlay"
-        style="z-index:100;"
-        class="absolute hidden inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0"
+        class="absolute hidden inset-0 z-50 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0"
       ></div>
       <Modal />
       <LogoLink />
