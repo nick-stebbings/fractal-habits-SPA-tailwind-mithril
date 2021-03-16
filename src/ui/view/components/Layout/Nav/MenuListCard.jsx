@@ -5,7 +5,7 @@ const MenuListCard = {
       Array.from(navButtons).forEach(
         (menuCard) => {
           const currentPath = window.location.href.split("/#!")[1];
-          if (menuCard.getAttribute("href").includes(currentPath)) {
+          if (menuCard.getAttribute("href").endsWith(currentPath)) {
             menuCard.parentNode.parentNode.classList.add('active');
             menuCard.classList.add('active');
             menuCard.textContent = 'YOU ARE HERE';

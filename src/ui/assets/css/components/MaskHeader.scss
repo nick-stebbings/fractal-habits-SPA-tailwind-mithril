@@ -3,7 +3,7 @@ $watermarkimage: url("../../images/watermark.png");
 
 .logo-link {
   @apply fixed text-transparent z-50 w-12 hidden lg:block;
-  left: 8px;
+  left: 5px;
 }
 
 .logo-link, nav span {
@@ -74,7 +74,7 @@ li.hoverable {
       background: no-repeat 0.5rem -3.25rem $watermarkimage;
       height: 344px;
       margin-top: 0.65rem;
-      @apply flex pr-5 bg-balance-dp;
+      @apply flex pr-3 bg-balance-dp;
 
       .hero-message {
         @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
@@ -129,7 +129,7 @@ li.hoverable {
 /* Hoverable Menu Activation */
 .inset,
 .mega-menu {
-  display: block;
+  display: none;
 }
 
 .hoverable:hover .inset {

@@ -59,14 +59,13 @@ const MaskHeader = {
             </div>
             <input type="checkbox" id="hamburger" class="hidden" />
             <nav class="hidden absolute left-0 top-16 z-20 flex-col w-full border-b-4 shadow-lg lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap">
-              <div class="sm:pl-16 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 border-b-2">
+              <div class="sm:pl-28 sm:mt-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 border-b-2">
                 <div class="flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row nav-label-primary lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
                   <span class="block pt-2 pb-0 mx-4 mb-1 tracking-wide uppercase">
                     Domain
                   </span>
                   <div class="h-full bg-white rounded-full border-2 text-sm lg:rounded-3xl lg:rounded-t-none border-balance-dg">
                     <span class="block pt-0 pt-2 mx-4 mb-1 text-balance-secondary">
-                      {console.log(DomainStore.list())}
                       {m(
                         "select.form-select",
                         {
@@ -92,7 +91,7 @@ const MaskHeader = {
                   </div>
                 </div>
               </div>
-              <div class="sm:w-3/5 sm:border-b-2 lg:border-none lg:w-auto mt-3 lg:mt-1 text-md px-4 md:px-0 xl:p-2 lg:flex-row py-4 flex flex-wrap justify-around items-center">
+              <div class="sm:w-3/5 sm:border-b-2 lg:border-none lg:w-auto mt-3 lg:mt-1 text-md px-4 md:px-0 lg:flex-row py-4 flex flex-wrap justify-around items-center">
                 <div class="flex justify-between items-center py-2 pl-4 mr-1 rounded-full border-2 lg:border-1 border-balance-lg lg:flex-row-reverse bg-balance-lmint lg:bg-balance-lp lg:py-0 lg:rounded-3xl lg:rounded-t-none">
                   <img
                     class="object-cover flex-none w-10 h-10 rounded-full lg:border-1 lg:border-balance-hero lg:rounded-3xl lg:rounded-t-none border-1 border-balance-lmint"
