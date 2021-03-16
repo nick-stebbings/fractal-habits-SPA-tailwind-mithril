@@ -1,3 +1,5 @@
+import DomainPill from "./DomainPill.jsx"
+
 const HeroSection = {
   view: () => (
     <section id="hero">
@@ -24,13 +26,10 @@ const HeroSection = {
             "Spirituality",
             "Giving",
             "Career",
-          ].map((domain) => (
-            <button class="pr-3 domain-create">
-              <div class="flex justify-between items-center p-4 my-4 bg-gray-700 rounded-full shadow-md">
-                {domain}
-              </div>
-            </button>
-          ))}
+          ].map((domain, idx) => m(DomainPill, {
+            name: domain,
+            rank: idx
+          }))}
         </div>
       </div>
     </section>

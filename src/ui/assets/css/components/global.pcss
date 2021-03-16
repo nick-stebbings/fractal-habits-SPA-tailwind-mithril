@@ -4,10 +4,8 @@ body {
   font-size: 14px;
 }
 
-#app > main {
-  @apply mx-0 w-full top-16 md:top-12 absolute w-full;
+#app > main {;
   z-index: 0;
-  overflow: auto;
 }
 
 #hero > header {
@@ -15,8 +13,16 @@ body {
 }
 
 div.domain-pills {
-  @apply lg:justify-center flex flex-wrap items-center justify-around px-4 mt-2;
+  @apply lg:justify-center flex flex-wrap items-center justify-around mx-4 mt-6 p-2;
 }
+
+div.domain-pills button.domain-create {
+  @apply px-2;
+}
+
+div.domain-pills button.domain-create div:hover { 
+  @apply text-balance-lmint bg-gradient-to-b from-gray-500 to-transparent;
+} 
 
 section.cards {
   @apply px-10;

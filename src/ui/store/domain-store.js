@@ -34,11 +34,10 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
   },
 
   submit: (attrs) => {
-    DomainStore.create(attrs)
+    return DomainStore.create(attrs)
       .then(DomainStore.current)
       .then(() => {
-        DomainStore.index();
-        DomainStore.clear();
+        DomainStore.list(DomainStore.list().push(DomainStore.current()));
       })
       .catch((err) => {
         console.log(err);
@@ -46,19 +45,19 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
   },
 
   runReplace: (id, value) => {
-    DomainStore.replace(id, value).catch((e) => {
+    return DomainStore.replace(id, value).catch((e) => {
       // TODO update list/current
     });
   },
 
   runUpdate: (id, value) => {
-    DomainStore.update(id, value).catch((e) => {
+    return DomainStore.update(id, value).catch((e) => {
       // TODO update list/current
     });
   },
 
   runDelete: (id) => {
-    DomainStore.delete(id)
+    return DomainStore.delete(id)
       .then(() => {
         DomainStore.list = DomainStore.list.filter((i) => {
           return i.id !== id;

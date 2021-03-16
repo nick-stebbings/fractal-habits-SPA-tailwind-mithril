@@ -3,6 +3,7 @@ import stream from "mithril/stream";
 
 const basePath = "/habit_trees/nodes";
 
+    // create: (parent) => axios.post(basePath, { parent_id: parent }),
 const NodeStore = Object.assign(clientRoutes(basePath), {
   current: stream({}),
 

@@ -10,7 +10,7 @@ import MenuRoutes from "../../../menu-routes";
 import "../../../assets/css/components/MaskHeader.scss";
 
 const MaskHeader = {
-  view: ({ attrs, children }) => (
+  view: () => (
     <div class="mask-wrapper">
       <header class="z-10 flex-none h-16 bg-balance-dp md:h-12">
         <div
@@ -71,7 +71,7 @@ const MaskHeader = {
                         "select.form-select",
                         {
                           class:
-                            "form-select w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
+                            "w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
                         },
                         DomainStore.list().map((domain, idx) => m(DomainOption, {value: domain.name, selected: !idx}, domain.name)))}
                     </span>
