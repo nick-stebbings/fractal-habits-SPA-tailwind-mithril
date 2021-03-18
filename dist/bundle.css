@@ -1130,12 +1130,6 @@ form {
   margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)))
 }
 
-.space-x-6 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))
-}
-
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgba(0, 0, 0, var(--tw-bg-opacity))
@@ -1592,10 +1586,6 @@ form {
   height: auto
 }
 
-.h-1\/3 {
-  height: 33.333333%
-}
-
 .h-full {
   height: 100%
 }
@@ -1706,10 +1696,6 @@ form {
 
 .mt-6 {
   margin-top: 1.5rem
-}
-
-.mb-6 {
-  margin-bottom: 1.5rem
 }
 
 .mt-8 {
@@ -1834,11 +1820,6 @@ form {
   padding-right: 1rem
 }
 
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem
-}
-
 .px-12 {
   padding-left: 3rem;
   padding-right: 3rem
@@ -1950,8 +1931,8 @@ form {
   top: 4rem
 }
 
-.top-28 {
-  top: 7rem
+.top-20 {
+  top: 5rem
 }
 
 .-top-3 {
@@ -2933,7 +2914,7 @@ li.hoverable>div.mega-menu{
 
 li.hoverable>div.mega-menu .mega-menu-wrapper{
   background:no-repeat .5rem -3.25rem url(img/watermark.png);
-  height:344px;
+  height:330px;
   margin-top:.4rem;
   --tw-bg-opacity:1;
   background-color:rgba(38, 28, 21, var(--tw-bg-opacity));
@@ -3007,11 +2988,7 @@ li.hoverable>div.mega-menu .mega-menu-wrapper .inset{
 
 li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card{
   display:flex;
-  flex-direction:column;
-  justify-content:space-around;
-  margin-bottom:1.5rem;
-  padding-left:0.75rem;
-  padding-right:0.75rem
+  margin-bottom:1.5rem
 }
 
 li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card h3{
@@ -3025,7 +3002,7 @@ li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card button{
   margin-top:3rem;
   padding:0.75rem;
   position:absolute;
-  top:7rem;
+  top:5rem;
   --tw-text-opacity:1;
   color:rgba(38, 28, 21, var(--tw-text-opacity));
   text-transform:uppercase
@@ -3064,7 +3041,7 @@ li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card.active button:ho
 }
 
 .inset,.mega-menu{
-  display:block
+  display:none
 }
 
 .hoverable:hover .inset{

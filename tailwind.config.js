@@ -2,6 +2,10 @@ module.exports = {
   purge: ["./src/ui/**/*.html", "./src/ui/**/*.scss", "./src/ui/**/*.pcss", "./src/ui/**/*.jsx"],
   theme: {
     extend: {
+       width: {
+         '15': '3.6rem',
+         '17': '4.25rem',
+       },
       colors: {
         balance: {
           dp: "#261C15",
