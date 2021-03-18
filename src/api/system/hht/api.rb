@@ -14,9 +14,16 @@ module Hht
   class Api < Sinatra::Base
     register Sinatra::Namespace
 
+    before do
+         content_type :json    
+          headers 'Access-Control-Allow-Origin' => '*', 
+                    'Access-Control-Allow-Credentials' => true
+    end
+
     configure :development, :test do
       register Sinatra::Reloader
-      
+      register Sinatra::CrossOrigin
+      enable :cross_origin
       set :protection, :except => :json_csrf
     end
 

@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -44,7 +45,7 @@ module.exports = {
       "Access-Control-Allow-Origin": "*",
     },
   },
-  // watch: true,
+  watch: true,
   module: {
     rules: [
       {

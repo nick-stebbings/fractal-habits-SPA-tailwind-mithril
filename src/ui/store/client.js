@@ -1,13 +1,13 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "/api";
+axios.defaults.baseURL = "http://127.0.0.1:9292/api";
 axios.defaults.headers.common["Accept"] = "application/json;charset=utf-8";
 axios.defaults.headers.common["Content-Type"] =
   "application/json;charset=utf-8";
 
-// Indicates whether or not cross-site Access-Control requests
-// should be made using credentials
-axios.defaults.withCredentials = true;
+  // Indicates whether or not cross-site Access-Control requests
+  // should be made using credentials
+  axios.defaults.withCredentials = true;
 
 let clientRoutes = function (basePath) {
   return {

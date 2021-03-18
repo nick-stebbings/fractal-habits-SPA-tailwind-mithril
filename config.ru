@@ -6,9 +6,7 @@ require 'rack/cors'
 
 use Rack::Cors do
   allow do
-    origins 'localhost:5500', '127.0.0.1:5500'
-
-    # Only allow a request for a specific host
+    origins 'http://127.0.0.1:5500'
     resource '/api/*',
         methods: [:get, :post, :delete, :put, :patch, :options, :head],
         headers: :any

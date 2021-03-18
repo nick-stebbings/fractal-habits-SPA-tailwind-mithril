@@ -9,10 +9,11 @@ gem 'rake'
 # Frameworks
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors'
 
 group :production do
   gem 'puma'
+  gem "sinatra-cross_origin"
 end
 
 group :development do
@@ -20,7 +21,6 @@ group :development do
   gem 'racksh'
   gem 'rubocop'
   gem 'shotgun'
-  gem "sinatra-cross_origin"
 end
 
 group :test do
