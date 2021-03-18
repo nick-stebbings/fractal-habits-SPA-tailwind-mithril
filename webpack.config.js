@@ -8,7 +8,6 @@ module.exports = {
   output: {
     path: path.join(__dirname, "dist"),
     filename: "build.js",
-    publicPath: "/",
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -20,28 +19,32 @@ module.exports = {
       filename: "./index.html",
     }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
   devServer: {
-    // open: true,
-    hot: true,
+    open: true,
+    // hot: true,
     contentBase: "/",
     // Send API requests on localhost to API server
-    proxy: {
-      "/api": {
-        target: {
-          host: "0.0.0.0",
-          protocol: "http:",
-          port: 9292,
-        },
-        pathRewrite: {
-          // '^/api': ''
-        },
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: {
+    //       host: "0.0.0.0",
+    //       protocol: "http:",
+    //       port: 9292,
+    //     },
+    //     pathRewrite: {
+    //       // '^/api': ''
+    //     },
+    //   },
+    // },
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
   },
-  watch: true,
+  // watch: true,
   module: {
     rules: [
       {
@@ -116,7 +119,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: "babel-loader?cacheDirectory",
         },
       },
     ],

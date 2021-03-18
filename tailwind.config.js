@@ -1,4 +1,5 @@
 module.exports = {
+  purge: ["./src/ui/**/*.html", "./src/ui/**/*.scss", "./src/ui/**/*.pcss", "./src/ui/**/*.jsx"],
   theme: {
     extend: {
       colors: {
@@ -14,7 +15,7 @@ module.exports = {
           black: "#1A140E",
         },
       },
-      
+
       boxShadow: {
         button: "0 0 0 1px #fffffe",
       },
