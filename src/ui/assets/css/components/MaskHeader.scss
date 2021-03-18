@@ -166,8 +166,9 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 
 /* 'Slash' SVG between logo and nav-link */
 body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
-  top: -11px;
-  left: 66px;
+  top: 54px;
+  left: 29px;
+  transform: rotate(218deg) scale(0.9);
 }
 
 #subnav .nav-links > li.hoverable:last-of-type::before {
@@ -204,8 +205,9 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {
   margin-left: -6rem;
 }
 
-body[class^="scroll"] #subnav .nav-links {
-  margin-top: 0;
+body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
+  margin-top: -1px;
+  @apply h-12;
 }
 
 /* ---  Hover States --- */

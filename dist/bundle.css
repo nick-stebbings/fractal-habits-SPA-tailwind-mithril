@@ -1049,8 +1049,7 @@ form {
 
 #modal input[type="text"], input[type="date"]{
   border-radius: 0.375rem;
-  border-width: 1px;
-  margin-bottom: 0.5rem;
+  border-width: 2px;
 }
 
 #modal input[type="text"]:focus, input[type="date"]:focus{
@@ -1080,6 +1079,10 @@ form {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
+}
+
+.mask-wrapper input[type="date"] {
+  border-width: 0px;
 }
 
 /**
@@ -1160,11 +1163,6 @@ form {
 .bg-gray-900 {
   --tw-bg-opacity: 1;
   background-color: rgba(17, 24, 39, var(--tw-bg-opacity))
-}
-
-.bg-red-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(254, 226, 226, var(--tw-bg-opacity))
 }
 
 .bg-red-500 {
@@ -1772,6 +1770,10 @@ form {
   outline-offset: 0
 }
 
+.overflow-y-scroll {
+  overflow-y: scroll
+}
+
 .p-0 {
   padding: 0px
 }
@@ -1921,18 +1923,14 @@ form {
   left: 0px
 }
 
+.inset-y-8 {
+  top: 2rem;
+  bottom: 2rem
+}
+
 .inset-x-12 {
   right: 3rem;
   left: 3rem
-}
-
-.inset-y-32 {
-  top: 8rem;
-  bottom: 8rem
-}
-
-.bottom-0 {
-  bottom: 0px
 }
 
 .left-0 {
@@ -2447,11 +2445,6 @@ form {
     padding-left: 7rem
   }
 
-  .sm\:inset-y-36 {
-    top: 9rem;
-    bottom: 9rem
-  }
-
   .sm\:tracking-tight {
     letter-spacing: -0.025em
   }
@@ -2474,6 +2467,10 @@ form {
 }
 
 @media (min-width: 768px) {
+  .md\:hidden {
+    display: none
+  }
+
   .md\:items-center {
     align-items: center
   }
@@ -2558,6 +2555,11 @@ form {
 
   .md\:pb-12 {
     padding-bottom: 3rem
+  }
+
+  .md\:inset-y-24 {
+    top: 6rem;
+    bottom: 6rem
   }
 
   .md\:inset-x-1\/4 {
@@ -2787,6 +2789,10 @@ form {
 }
 
 @media (min-width: 1280px) {
+  .xl\:block {
+    display: block
+  }
+
   .xl\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem
@@ -2795,11 +2801,6 @@ form {
   .xl\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem
-  }
-
-  .xl\:inset-y-48 {
-    top: 12rem;
-    bottom: 12rem
   }
 
   .xl\:w-48 {
@@ -3111,8 +3112,9 @@ body[class^=scroll] #subnav .nav-links .mega-menu{
 }
 
 body[class^=scroll] #subnav .nav-links>li.hoverable:last-of-type::before{
-  top:-11px;
-  left:66px
+  top:54px;
+  left:29px;
+  transform:rotate(218deg) scale(0.9)
 }
 
 #subnav .nav-links>li.hoverable:last-of-type::before{
@@ -3153,8 +3155,9 @@ body[class^=scroll] #subnav .nav-links>li.hoverable.inactive{
   margin-left:-6rem
 }
 
-body[class^=scroll] #subnav .nav-links{
-  margin-top:0
+body[class^=scroll] #subnav .nav-links>li.hoverable.active{
+  margin-top:-1px;
+  height:3rem
 }
 
 body[class^=scroll] #subnav .nav-links>li.hoverable:hover{

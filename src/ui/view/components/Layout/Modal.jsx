@@ -22,7 +22,7 @@ const Modal = {
       {/* Modal Tailwind Component originally by Huda Damar */}
       <div
         id="modal"
-        class="flex flex-col items-center absolute opacity-0 transform -translate-y-full scale-150 inset-x-12 md:inset-x-1/4 inset-y-32 sm:inset-y-36 xl:inset-y-48 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
+        class="flex absolute opacity-0 transform -translate-y-full scale-150 inset-x-12 md:inset-x-1/4 inset-y-8 md:inset-y-24 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
       >
         <button
           id="close-modal-x"
@@ -44,23 +44,30 @@ const Modal = {
           </svg>
         </button>
 
-        <div class="px-4 py-3 border-b border-gray-200">
-          <h2 class="text-xl font-semibold text-gray-600 mt-2 text-center">Create a new habit under the life domain</h2>
-          <h3 class="text-2xl font-bold text-center mt-2">{DomainStore.current().name || 'Waiting'}</h3>
-        </div>
-
-        <CreateForm resourceName="Habit" resourceDescription="A way of keeping track of your daily behaviours"></CreateForm>
-
-        <div class="absolute bottom-0 left-0 px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
-          <button class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none">
-            Start Tracking
-          </button>
-          <button
-            id="close-modal"
-            class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none"
-          >
-            Forget It
-          </button>
+        <div class="overflow-y-scroll flex flex-col items-center w-full">
+          <div class="px-4 py-3 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-600 mt-2 text-center">
+              Create a new habit under the life domain
+            </h2>
+            <h3 class="text-2xl font-bold text-center mt-2">
+              {DomainStore.current().name || "Waiting"}
+            </h3>
+          </div>
+          <CreateForm
+            resourceName="Habit"
+            resourceDescription="A way of keeping track of your daily behaviours"
+          ></CreateForm>
+          <div class="px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
+            <button class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none">
+              Start Tracking
+            </button>
+            <button
+              id="close-modal"
+              class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none"
+            >
+              Forget It
+            </button>
+          </div>
         </div>
       </div>
     </div>
