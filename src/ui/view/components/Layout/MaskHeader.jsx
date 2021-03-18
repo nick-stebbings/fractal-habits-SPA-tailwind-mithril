@@ -61,7 +61,7 @@ const MaskHeader = {
             <input type="checkbox" id="hamburger" class="hidden" />
             <nav class="hidden absolute left-0 top-16 z-20 flex-col w-full border-b-4 shadow-lg lg:-mt-4 lg:border-balance-lg bg-balance-mint lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-dp lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap">
               <div class="flex flex-col content-center justify-around md:pl-16 sm:pl-24 sm:mt-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:ml-8 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse justify-between p-4 border-b-2">
-                <div class="nav-label-primary flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
+                <div class="nav-label-primary flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-3 lg:mr-2">
                   <span class="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
                     Domain
                   </span>
@@ -84,7 +84,7 @@ const MaskHeader = {
                     </span>
                   </div>
                 </div>
-                <div class="nav-label-primary flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-2 lg:mr-2">
+                <div class="nav-label-primary flex justify-between items-center mt-2 bg-gradient-to-l rounded-full sm:flex-col lg:flex-row lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-3 lg:mr-2">
                   <span class="lg:hidden xl:block pt-0 md:pt-2 pb-0 mx-4 mb-1">
                     Date
                   </span>

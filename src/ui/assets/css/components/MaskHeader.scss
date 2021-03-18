@@ -71,10 +71,11 @@ li.hoverable {
     @apply absolute inset-x-0 z-10 pt-2 w-full;
 
     .mega-menu-wrapper {
-      background: no-repeat 0.5rem -3.25rem $watermarkimage;
+      background: no-repeat 0.5rem -0.25rem $watermarkimage;
       height: 330px;
       margin-top: 0.4rem;
-      @apply flex pr-3 bg-balance-dp;
+      padding-right: 0.6em;
+      @apply flex bg-balance-dp;
 
       .hero-message {
         @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
@@ -97,13 +98,18 @@ li.hoverable {
             line-height: 2rem;
           }
 
-          button {
-            @apply absolute top-20 mt-12 p-3 rounded-xl bg-gray-400 text-balance-dp uppercase;
+          .menu-card-button {
+            @apply absolute top-20 mt-12 p-3 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
+          }
 
-          }
-          button:hover {
-            @apply text-balance-lmint border-2 border-balance-dp;
-          }
+          .menu-card-button:hover { 
+            @apply text-balance-lmint bg-gradient-to-b from-gray-500 to-transparent;
+          } 
+
+          .menu-card-button.active:hover {
+            --tw-gradient-from: #db7f0f;
+            @apply text-white;
+          } 
 
           p {
             @apply px-4;
@@ -129,7 +135,7 @@ li.hoverable {
 /* Hoverable Menu Activation */
 .inset,
 .mega-menu {
-  display: none;
+  display: grid;
 }
 
 .hoverable:hover .inset {

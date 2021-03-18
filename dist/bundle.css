@@ -823,7 +823,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable a {
   -webkit-text-decoration-color: #ef9323;
 }
 
-.domain-pills, .user-nav-label {
+.domain-pills, .user-nav-label, .menu-card-button {
   font-family: B612, Lato, Nunito, sans;
   font-weight: 300;
 }
@@ -902,6 +902,7 @@ nav .menu-card p {
   font-weight: 300;
   font-size: 1rem;
   line-height: 1.5rem;
+  text-align: center;
   --tw-text-opacity: 1;
   color: rgba(26, 20, 14, var(--tw-text-opacity));
   letter-spacing: 0.025em;
@@ -1148,11 +1149,6 @@ form {
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgba(243, 244, 246, var(--tw-bg-opacity))
-}
-
-.bg-gray-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(156, 163, 175, var(--tw-bg-opacity))
 }
 
 .bg-gray-700 {
@@ -1847,10 +1843,6 @@ form {
 
 .pl-2 {
   padding-left: 0.5rem
-}
-
-.pr-3 {
-  padding-right: 0.75rem
 }
 
 .pr-4 {
@@ -2709,8 +2701,8 @@ form {
     margin-top: -0.25rem
   }
 
-  .lg\:-mt-2 {
-    margin-top: -0.5rem
+  .lg\:-mt-3 {
+    margin-top: -0.75rem
   }
 
   .lg\:-mt-4 {
@@ -2913,13 +2905,13 @@ li.hoverable>div.mega-menu{
 }
 
 li.hoverable>div.mega-menu .mega-menu-wrapper{
-  background:no-repeat .5rem -3.25rem url(img/watermark.png);
+  background:no-repeat .5rem -0.25rem url(img/watermark.png);
   height:330px;
   margin-top:.4rem;
+  padding-right:.6em;
   --tw-bg-opacity:1;
   background-color:rgba(38, 28, 21, var(--tw-bg-opacity));
-  display:flex;
-  padding-right:0.75rem
+  display:flex
 }
 
 li.hoverable>div.mega-menu .mega-menu-wrapper .hero-message{
@@ -2995,25 +2987,35 @@ li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card h3{
   line-height:2rem
 }
 
-li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card button{
+li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card .menu-card-button{
   --tw-bg-opacity:1;
-  background-color:rgba(156, 163, 175, var(--tw-bg-opacity));
-  border-radius:0.75rem;
+  background-color:rgba(55, 65, 81, var(--tw-bg-opacity));
+  border-radius:9999px;
   margin-top:3rem;
   padding:0.75rem;
   position:absolute;
   top:5rem;
+  --tw-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:0 0 rgba(0,0,0,0), 0 0 rgba(0,0,0,0), var(--tw-shadow);
+  box-shadow:var(--tw-ring-offset-shadow, 0 0 rgba(0,0,0,0)), var(--tw-ring-shadow, 0 0 rgba(0,0,0,0)), var(--tw-shadow);
   --tw-text-opacity:1;
-  color:rgba(38, 28, 21, var(--tw-text-opacity));
+  color:rgba(249, 250, 251, var(--tw-text-opacity));
   text-transform:uppercase
 }
 
-li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card button:hover{
-  --tw-border-opacity:1;
-  border-color:rgba(38, 28, 21, var(--tw-border-opacity));
-  border-width:2px;
+li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card .menu-card-button:hover{
+  background-image:linear-gradient(to bottom, var(--tw-gradient-stops));
+  --tw-gradient-from:#6b7280;
+  --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to, rgba(107, 114, 128, 0));
+  --tw-gradient-to:transparent;
   --tw-text-opacity:1;
   color:rgba(241, 255, 199, var(--tw-text-opacity))
+}
+
+li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card .menu-card-button.active:hover{
+  --tw-gradient-from: #db7f0f;
+  --tw-text-opacity:1;
+  color:rgba(255, 255, 255, var(--tw-text-opacity))
 }
 
 li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card p{
@@ -3041,7 +3043,7 @@ li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card.active button:ho
 }
 
 .inset,.mega-menu{
-  display:none
+  display:grid
 }
 
 .hoverable:hover .inset{
