@@ -73,7 +73,7 @@ li.hoverable {
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -3.25rem $watermarkimage;
       height: 344px;
-      margin-top: 0.65rem;
+      margin-top: 0.4rem;
       @apply flex pr-3 bg-balance-dp;
 
       .hero-message {
@@ -98,7 +98,7 @@ li.hoverable {
           }
 
           button {
-            @apply absolute top-32 mt-12 p-3 rounded-xl bg-gray-400 text-balance-dp uppercase;
+            @apply absolute top-28 mt-12 p-3 rounded-xl bg-gray-400 text-balance-dp uppercase;
 
           }
           button:hover {
@@ -129,7 +129,7 @@ li.hoverable {
 /* Hoverable Menu Activation */
 .inset,
 .mega-menu {
-  display: none;
+  display: block;
 }
 
 .hoverable:hover .inset {
@@ -147,13 +147,13 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 /* Fixed Nav Links in top-left */
 /* --------------------------- */
 #subnav .nav-links > li.hoverable {
-  @apply bg-balance-hero z-20 pl-6 font-light border-2 rounded-full;
+  @apply bg-balance-hero z-20 pl-2 font-light border-2 rounded-full;
   margin-left: -1.3rem;
   transition: margin-left .2s ease-out;
 }
 
 #subnav .nav-links > li.hoverable {
-  @apply bg-balance-hero pr-2;
+  @apply bg-balance-hero pr-0;
 }
 
 #subnav .nav-links > li.hoverable:hover {
@@ -165,11 +165,6 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 }
 
 /* 'Slash' SVG between logo and nav-link */
-body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
-  top: 54px;
-  left: 29px;
-  transform: rotate(218deg) scale(0.9);
-}
 
 #subnav .nav-links > li.hoverable:last-of-type::before {
   content:url('../../images/icons/slash.svg');
@@ -180,7 +175,13 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
   width: 4px;
   height: 4px;
   transform: rotate(39deg) scale(0.6);
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
 
+body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
+  top: 54px;
+  left: 29px;
+  transform: rotate(-142deg) scale(0.9);
 }
 
 /* ---  Scroll behaviour --- */
@@ -194,7 +195,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active a {
-  @apply pr-2 my-1 pl-0;
+  @apply pr-2 mb-1 mt-2 pl-0;
 } 
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {

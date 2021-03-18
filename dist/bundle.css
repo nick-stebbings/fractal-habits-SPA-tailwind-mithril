@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap);
 @import url(https://fonts.googleapis.com/css2?family=Palanquin+Dark&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=B612:wght@400;700&display=swap);
 /**
  * This injects Tailwind's base styles, which is a combination of
  * Normalize.css and some additional base styles.
@@ -671,44 +672,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.nav-label-primary > span,
-.responsive-nav-group > a {
-  font-family: Nunito, Silka, sans-serif;
-}
-
-.nav-label-primary > span, .responsive-nav-group > a{
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  line-height: 1.25;
-  --tw-text-opacity: 1;
-  color: rgba(66, 49, 36, var(--tw-text-opacity));
-  text-transform: uppercase;
-}
-
-.nav-label-primary > span:hover,
-.responsive-nav-group > a:hover {
-  text-decoration: underline;
-  text-decoration-color: #ef9323;
-  -webkit-text-decoration-color: #ef9323;
-}
-
-.nav-label {
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  --tw-text-opacity: 1;
-  color: rgba(38, 28, 21, var(--tw-text-opacity));
-  letter-spacing: 0.05em;
-}
-
-@media (min-width: 1024px){
-  .nav-label{
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-}
-
 #hero > header h1 {
   font-size: 4.75rem;
   line-height: 5.5rem;
@@ -807,36 +770,16 @@ section.cards h1 {
   text-transform: uppercase;
 }
 
-.domain-pills {
-  font-family: Nunito, Silka, sans-serif;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  --tw-text-opacity: 1;
-  color: rgba(229, 231, 235, var(--tw-text-opacity));
-  letter-spacing: 0.1em;
-}
-
 #subnav .nav-links > li.hoverable a {
-  font-weight: 600;
   line-height: 2.5rem;
-  letter-spacing: 0.025em;
-}
-
-@media (min-width: 640px){
-  #subnav .nav-links > li.hoverable a{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    line-height: 2.5rem;
-    padding-left: 0px;
-    padding-right: 0px;
-    letter-spacing: -0.025em;
-  }
+  padding-top: 0.5rem;
+  text-transform: uppercase;
 }
 
 @media (min-width: 1024px){
   #subnav .nav-links > li.hoverable a{
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
     line-height: 2.25rem;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -850,31 +793,92 @@ section.cards h1 {
   }
 }
 
+#subnav .nav-links > li.hoverable a{
+  font-family: B612, Lato, Nunito, sans;
+  font-weight: 700;
+}
+
+body[class^="scroll"] #subnav .nav-links > li.hoverable a {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.nav-label-primary > span, .user-nav-label span
+.responsive-nav-group > a {
+  font-family: Nunito, Silka, sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  line-height: 1.25;
+  --tw-text-opacity: 1;
+  color: rgba(66, 49, 36, var(--tw-text-opacity));
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.nav-label-primary > span:hover,
+.responsive-nav-group > a:hover {
+  text-decoration: underline;
+  text-decoration-color: #ef9323;
+  -webkit-text-decoration-color: #ef9323;
+}
+
+.domain-pills, .user-nav-label {
+  font-family: B612, Lato, Nunito, sans;
+  font-weight: 300;
+}
+
+.user-nav-label span {
+  font-weight: 700;
+}
+
+.domain-pills {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  --tw-text-opacity: 1;
+  color: rgba(229, 231, 235, var(--tw-text-opacity));
+  letter-spacing: 0.1em;
+}
+
+.user-nav-label {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  --tw-text-opacity: 1;
+  color: rgba(38, 28, 21, var(--tw-text-opacity));
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 1024px){
+  .user-nav-label{
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
 nav .hero-message > h2 {
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 2rem;
-  line-height: 2.5rem;
-  text-align: right;
+  line-height: 1.5rem;
   --tw-text-opacity: 1;
   color: rgba(249, 250, 251, var(--tw-text-opacity));
-  letter-spacing: 0.05em;
+  letter-spacing: 0.025em;
+}
+
+@media (min-width: 1280px){
+  nav .hero-message > h2{
+    line-height: 2.5rem;
+  }
 }
 
 nav .hero-message p {
   font-family: Silka, Nunito, Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 300;
-  line-height: 2rem;
+  line-height: 1.5rem;
   text-align: right;
   --tw-text-opacity: 1;
   color: rgba(249, 250, 251, var(--tw-text-opacity));
-}
-
-@media (min-width: 640px){
-  nav .hero-message p{
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
 }
 
 @media (min-width: 1280px){
@@ -894,7 +898,7 @@ nav .menu-card h3 {
 }
 
 nav .menu-card p {
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: Montserrat, serif;
   font-weight: 300;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -1050,6 +1054,8 @@ form {
 #modal input[type="text"], input[type="date"]{
   border-radius: 0.375rem;
   border-width: 2px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 #modal input[type="text"]:focus, input[type="date"]:focus{
@@ -1074,10 +1080,10 @@ form {
   color: rgba(75, 85, 99, var(--tw-text-opacity));
 }
 
-@media (min-width: 640px){
+@media (min-width: 1024px){
   #modal input[type="text"], input[type="date"]{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 
@@ -1478,6 +1484,10 @@ form {
   align-items: center
 }
 
+.content-center {
+  align-content: center
+}
+
 .self-start {
   align-self: flex-start
 }
@@ -1624,12 +1634,8 @@ form {
   line-height: 2.25rem
 }
 
-.leading-8 {
-  line-height: 2rem
-}
-
-.leading-10 {
-  line-height: 2.5rem
+.leading-6 {
+  line-height: 1.5rem
 }
 
 .leading-tight {
@@ -1651,11 +1657,6 @@ form {
 .mx-0 {
   margin-left: 0px;
   margin-right: 0px
-}
-
-.my-1 {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem
 }
 
 .my-4 {
@@ -1887,8 +1888,8 @@ form {
   padding-right: 1.5rem
 }
 
-.pl-6 {
-  padding-left: 1.5rem
+.pr-8 {
+  padding-right: 2rem
 }
 
 .pt-10 {
@@ -1949,8 +1950,8 @@ form {
   top: 4rem
 }
 
-.top-32 {
-  top: 8rem
+.top-28 {
+  top: 7rem
 }
 
 .-top-3 {
@@ -2159,10 +2160,6 @@ form {
   letter-spacing: 0.025em
 }
 
-.tracking-wider {
-  letter-spacing: 0.05em
-}
-
 .tracking-widest {
   letter-spacing: 0.1em
 }
@@ -2193,10 +2190,6 @@ form {
 
 .w-24 {
   width: 6rem
-}
-
-.w-48 {
-  width: 12rem
 }
 
 .w-1\/2 {
@@ -2401,15 +2394,6 @@ form {
     line-height: 1.25rem
   }
 
-  .sm\:text-base {
-    font-size: 1rem;
-    line-height: 1.5rem
-  }
-
-  .sm\:leading-10 {
-    line-height: 2.5rem
-  }
-
   .sm\:mt-2 {
     margin-top: 0.5rem
   }
@@ -2441,12 +2425,8 @@ form {
     padding-right: 3rem
   }
 
-  .sm\:pl-28 {
-    padding-left: 7rem
-  }
-
-  .sm\:tracking-tight {
-    letter-spacing: -0.025em
+  .sm\:pl-24 {
+    padding-left: 6rem
   }
 
   .sm\:w-1\/2 {
@@ -2464,13 +2444,13 @@ form {
   .sm\:w-3\/5 {
     width: 60%
   }
+
+  .sm\:w-full {
+    width: 100%
+  }
 }
 
 @media (min-width: 768px) {
-  .md\:hidden {
-    display: none
-  }
-
   .md\:items-center {
     align-items: center
   }
@@ -2555,6 +2535,10 @@ form {
 
   .md\:pb-12 {
     padding-bottom: 3rem
+  }
+
+  .md\:pl-16 {
+    padding-left: 4rem
   }
 
   .md\:inset-y-24 {
@@ -2688,6 +2672,11 @@ form {
     line-height: 1.5rem
   }
 
+  .lg\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem
+  }
+
   .lg\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem
@@ -2766,8 +2755,8 @@ form {
     padding-right: 1rem
   }
 
-  .lg\:pb-1 {
-    padding-bottom: 0.25rem
+  .lg\:pr-0 {
+    padding-right: 0px
   }
 
   .lg\:pt-2 {
@@ -2781,6 +2770,10 @@ form {
   .lg\:text-balance-lmint {
     --tw-text-opacity: 1;
     color: rgba(241, 255, 199, var(--tw-text-opacity))
+  }
+
+  .lg\:w-48 {
+    width: 12rem
   }
 
   .lg\:w-auto {
@@ -2801,6 +2794,10 @@ form {
   .xl\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem
+  }
+
+  .xl\:leading-10 {
+    line-height: 2.5rem
   }
 
   .xl\:w-48 {
@@ -2937,7 +2934,7 @@ li.hoverable>div.mega-menu{
 li.hoverable>div.mega-menu .mega-menu-wrapper{
   background:no-repeat .5rem -3.25rem url(img/watermark.png);
   height:344px;
-  margin-top:.65rem;
+  margin-top:.4rem;
   --tw-bg-opacity:1;
   background-color:rgba(38, 28, 21, var(--tw-bg-opacity));
   display:flex;
@@ -3028,7 +3025,7 @@ li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card button{
   margin-top:3rem;
   padding:0.75rem;
   position:absolute;
-  top:8rem;
+  top:7rem;
   --tw-text-opacity:1;
   color:rgba(38, 28, 21, var(--tw-text-opacity));
   text-transform:uppercase
@@ -3067,7 +3064,7 @@ li.hoverable>div.mega-menu .mega-menu-wrapper .inset .menu-card.active button:ho
 }
 
 .inset,.mega-menu{
-  display:none
+  display:block
 }
 
 .hoverable:hover .inset{
@@ -3088,7 +3085,7 @@ body[class^=scroll] #subnav .nav-links .mega-menu{
   border-radius:9999px;
   border-width:2px;
   font-weight:300;
-  padding-left:1.5rem;
+  padding-left:0.5rem;
   z-index:20;
   margin-left:-1.3rem;
   transition:margin-left .2s ease-out
@@ -3097,7 +3094,7 @@ body[class^=scroll] #subnav .nav-links .mega-menu{
 #subnav .nav-links>li.hoverable{
   --tw-bg-opacity:1;
   background-color:rgba(215, 219, 197, var(--tw-bg-opacity));
-  padding-right:0.5rem
+  padding-right:0px
 }
 
 #subnav .nav-links>li.hoverable:hover{
@@ -3111,12 +3108,6 @@ body[class^=scroll] #subnav .nav-links .mega-menu{
   padding-left:3.5rem
 }
 
-body[class^=scroll] #subnav .nav-links>li.hoverable:last-of-type::before{
-  top:54px;
-  left:29px;
-  transform:rotate(218deg) scale(0.9)
-}
-
 #subnav .nav-links>li.hoverable:last-of-type::before{
   content:url(img/slash.svg);
   position:absolute;
@@ -3125,7 +3116,14 @@ body[class^=scroll] #subnav .nav-links>li.hoverable:last-of-type::before{
   top:-10px;
   width:4px;
   height:4px;
-  transform:rotate(39deg) scale(0.6)
+  transform:rotate(39deg) scale(0.6);
+  transition:transform .8s cubic-bezier(0.19, 1, 0.22, 1)
+}
+
+body[class^=scroll] #subnav .nav-links>li.hoverable:last-of-type::before{
+  top:54px;
+  left:29px;
+  transform:rotate(-142deg) scale(0.9)
 }
 
 body[class^=scroll] #subnav .nav-links>li.hoverable.active{
@@ -3141,8 +3139,8 @@ body[class^=scroll] #subnav .nav-links>li.hoverable.active{
 }
 
 body[class^=scroll] #subnav .nav-links>li.hoverable.active a{
-  margin-top:0.25rem;
   margin-bottom:0.25rem;
+  margin-top:0.5rem;
   padding-left:0px;
   padding-right:0.5rem
 }

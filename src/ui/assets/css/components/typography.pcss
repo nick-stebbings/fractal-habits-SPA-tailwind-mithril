@@ -2,23 +2,6 @@ body {
   @apply antialiased;
 }
 
-.nav-label-primary > span,
-.responsive-nav-group > a {
-  font-family: Nunito, Silka, sans-serif;
-  @apply font-bold leading-tight uppercase text-balance-lp text-xl;
-}
-
-.nav-label-primary > span:hover,
-.responsive-nav-group > a:hover {
-  text-decoration: underline;
-  text-decoration-color: #ef9323;
-	-webkit-text-decoration-color: #ef9323;
-}
-
-.nav-label {
-  @apply text-balance-dp font-bold text-2xl lg:text-base tracking-wider;
-}
-
 #hero > header h1 {
   font-size: 4.75rem;
   line-height: 5.5rem;
@@ -41,22 +24,54 @@ section.cards h1 {
   @apply font-sans border-balance-hero block pl-4 mt-4 font-bold uppercase border-l-8;
 }
 
-.domain-pills {
+#subnav .nav-links > li.hoverable a {
+  @apply uppercase pt-2 lg:px-4 xl:text-2xl lg:text-xl lg:leading-9 leading-10;
+  font-family: B612, Lato, Nunito, sans;
+  font-weight: 700;
+  
+}
+
+body[class^="scroll"] #subnav .nav-links > li.hoverable a {
+  @apply text-2xl; 
+}
+
+.nav-label-primary > span, .user-nav-label span
+.responsive-nav-group > a {
   font-family: Nunito, Silka, sans-serif;
+  font-weight: 700;
+  @apply leading-tight uppercase text-balance-lp text-xl tracking-wide;
+}
+
+.nav-label-primary > span:hover,
+.responsive-nav-group > a:hover {
+  text-decoration: underline;
+  text-decoration-color: #ef9323;
+	-webkit-text-decoration-color: #ef9323;
+}
+
+.domain-pills, .user-nav-label {
+  font-family: B612, Lato, Nunito, sans;
+  font-weight: 300;
+}
+
+.user-nav-label span {
+  font-weight: 700;
+}
+
+.domain-pills {
   @apply text-gray-200 tracking-widest text-xl;
 }
 
-#subnav .nav-links > li.hoverable a {
-  font-weight: 600;
-  @apply sm:text-sm sm:px-0 lg:px-4 xl:text-2xl lg:text-base sm:leading-10 lg:leading-9 sm:tracking-tight tracking-wide leading-10;
+.user-nav-label {
+  @apply text-balance-dp font-bold text-2xl lg:text-base tracking-wider;
 }
 
 nav .hero-message > h2 {
-  @apply leading-10 tracking-wider text-2xl font-bold text-right text-gray-50;
+  @apply leading-6 xl:leading-10 tracking-wide text-2xl font-bold text-gray-50;
 }
 
 nav .hero-message p {
-  @apply sm:text-base xl:text-xl leading-8 text-gray-50 font-sans font-light text-right;
+  @apply xl:text-xl leading-6 text-gray-50 font-sans font-light text-right;
 }
 
 nav .menu-card h3 {
@@ -64,7 +79,8 @@ nav .menu-card h3 {
 }
 
 nav .menu-card p {
-  @apply text-base text-balance-black font-light tracking-wide font-serif;
+  font-family: Montserrat, serif;
+  @apply text-base text-balance-black font-light tracking-wide;
 }
 
 .resp-nav-link {
