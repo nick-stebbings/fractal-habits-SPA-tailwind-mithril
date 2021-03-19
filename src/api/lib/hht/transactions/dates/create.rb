@@ -2,19 +2,19 @@
 
 module Hht
   module Transactions
-    module Habits
+    module Dates
       class Create
         include Dry::Monads[:result]
         include Dry::Monads::Do.for(:call)
         include Import[
-          'contracts.habits.create',
-          'repos.habit_repo',
+          'contracts.dates.create',
+          'repos.date_repo',
         ]
 
         def call(input)
           values = yield validate(input)
-          habit = yield persist(values)
-          Success(habit)
+          date = yield persist(values)
+          Success(date)
         end
 
         def validate(input)
@@ -22,9 +22,7 @@ module Hht
         end
 
         def persist(result)
-          # Check the initiation date
-          # If the dates inbetween then and today do not exist, add them.
-          Success(habit_repo.habits.insert(result.values.data))
+          Success(date_repo.dates.insert(result.values.data))
         end
       end
     end
