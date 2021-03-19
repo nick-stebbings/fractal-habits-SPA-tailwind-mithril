@@ -21,6 +21,6 @@ end
 RSpec::Core::RakeTask.new(:spec) do |t|
   ROM::SQL::RakeSupport.env = Hht::Container['db.config']
   # t.pattern = Dir.glob('spec/api/habit_nodes/*_spec.rb')
-  # t.pattern = Dir.glob('spec/api/domains/**/*_spec.rb')
+  t.pattern = Dir.glob('spec/api/domains/**/*_spec.rb')
 end
 task default: :spec
