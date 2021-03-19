@@ -96,7 +96,7 @@ const MenuRoutes = [
           "Link existing behaviors to a new objective, or move habits from one objective to the other.",
         page: HabitNodeList,
         icon:
-          '<svg class="text-balance-lp w-14 mt-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:none;stroke-linecap:round; stroke-width: 1px;stroke-linejoin:round;}</style></defs><title/><polyline class="cls-1" points="14.63 20.5 14.63 12.5 20.63 12.5 18.63 14.5 20.63 16.5 16.63 16.5"/><path class="stroke-current cls-1" d="M6.75,4.5H10.1c6,0,6.53,2.94,1.21,6.53L6.94,14C1.62,17.56,2.17,20.5,8.15,20.5h4.22"/><circle class="cls-1" cx="5" cy="4.5" r="1.5"/></svg>',
+          '<svg class="text-balance-lp w-14 pl-2 mt-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:none;stroke-linecap:round; stroke-width: 1px;stroke-linejoin:round;}</style></defs><title/><polyline class="cls-1" points="14.63 20.5 14.63 12.5 20.63 12.5 18.63 14.5 20.63 16.5 16.63 16.5"/><path class="stroke-current cls-1" d="M6.75,4.5H10.1c6,0,6.53,2.94,1.21,6.53L6.94,14C1.62,17.56,2.17,20.5,8.15,20.5h4.22"/><circle class="cls-1" cx="5" cy="4.5" r="1.5"/></svg>',
       },
     },
   },

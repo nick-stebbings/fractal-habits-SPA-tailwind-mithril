@@ -22,7 +22,7 @@ const Modal = {
       {/* Modal Tailwind Component originally by Huda Damar */}
       <div
         id="modal"
-        class="flex absolute opacity-0 transform -translate-y-full scale-150 inset-x-12 md:inset-x-1/4 rounded-2xl inset-y-8 md:inset-y-24 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
+        class="flex absolute opacity-0 transform -translate-y-full scale-150 inset-1 sm:inset-x-12 md:inset-x-1/4 rounded-2xl sm:inset-y-8 md:inset-y-24 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
       >
         <button
           id="close-modal-x"

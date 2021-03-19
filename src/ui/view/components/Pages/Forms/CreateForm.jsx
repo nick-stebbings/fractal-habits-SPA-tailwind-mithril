@@ -38,7 +38,7 @@ const CreateForm = {
             InputGroup,
             { label: "Initiation Date" },
             m("input[type=date]", {
-              class: "form-input w-1/2",
+              class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
             })
           ),
         ])}
