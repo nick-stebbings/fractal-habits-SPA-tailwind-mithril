@@ -3,7 +3,7 @@
 const InputGroup = {
   view: ({ attrs, children }) => (
     <div class="flex flex-col">
-      <label class="leading-loose">{attrs.label}</label>
+      <label class="leading-loose" for={attrs.name}>{attrs.label}</label>
       {children}
     </div>
   ),

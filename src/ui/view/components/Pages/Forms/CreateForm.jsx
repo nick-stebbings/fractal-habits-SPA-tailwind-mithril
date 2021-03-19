@@ -6,6 +6,13 @@ import FormContainer from "./FormContainer.jsx";
 import InputGroup from "./FormInputGroup.jsx";
 
 const CreateForm = {
+  oncreate: () => {
+    document.querySelector("form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      let data = new FormData(e.target);
+      console.log(data);
+    });
+  },
   view: ({ attrs, children }) => (
     <div class="md:max-w-1/2 lg:max-w-1/3 sm:w-2/3 flex flex-col justify-between w-full px-4 sm:px-0 my-8">
       <form>
@@ -20,30 +27,69 @@ const CreateForm = {
         {m(FormContainer, [
           m(
             InputGroup,
-            { label: "Habit Title" },
+            {
+              name: "habit-title",
+              label: "Habit Title",
+            },
             m("input[type=text]", {
+              id: "habit-title",
+              name: "habit-title",
               class: "form-input",
               placeholder: "Hydrate in the A.M.",
             })
           ),
           m(
             InputGroup,
-            { label: "Habit Description" },
+            {
+              name: "habit-description",
+              label: "Habit Description",
+            },
             m("input[type=text]", {
+              id: "habit-description",
+              name: "habit-description",
               class: "form-input",
               placeholder: "Drinking water each day after waking",
             })
           ),
           m(
             InputGroup,
-            { label: "Initiation Date" },
+            {
+              name: "initiation-date",
+              label: "Initiation Date",
+            },
             m("input[type=date]", {
+              id: "initiation-date",
+              name: "initiation-date",
               class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
             })
           ),
         ])}
 
-        {/* Initiation Date */}
+        <div class="px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
+          <button
+            name="submit"
+            value="submit"
+            type="submit"
+            class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none"
+          >
+            Start Tracking
+          </button>
+          <button
+            name="close-modal"
+            type="button"
+            id="close-modal"
+            class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none"
+          >
+            Forget It
+          </button>
+          <button
+            name="reset"
+            type="reset"
+            class="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white focus:outline-none"
+          >
+            Reset
+          </button>
+        </div>
         {/* <div class="flex items-center space-x-4">
                 <div class="flex flex-col">
                   <label class="leading-loose">Initiation Date</label>
