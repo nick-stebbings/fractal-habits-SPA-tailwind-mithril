@@ -13,11 +13,10 @@ require File.join(APP_ROOT, 'lib', 'subtree')
 module Hht
   class Api < Sinatra::Base
     register Sinatra::Namespace
-
     before do
-         content_type :json    
-          headers 'Access-Control-Allow-Origin' => '*', 
-                    'Access-Control-Allow-Credentials' => true
+      content_type :json    
+      headers 'Access-Control-Allow-Origin' => '*', 
+              'Access-Control-Allow-Credentials' => true
     end
 
     configure :development, :test do
@@ -280,7 +279,8 @@ module Hht
         halt(404, { message:'Habit Not Found'}.to_json) unless habit
 
         habit_repo.delete(id.to_i)
-        status 20
+        status 204
+      end
     end
     
     # RESOURCES TO BE DESCRIBED LATER

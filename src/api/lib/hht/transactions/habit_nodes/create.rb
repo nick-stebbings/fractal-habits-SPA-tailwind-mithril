@@ -33,8 +33,10 @@ module Hht
             modified ? Success(habit_node_repo.habit_nodes.insert(modified)) : Failure('Could not modify other nodes. Cannot create new node.')
           end
         end
+        
+        private
 
-        def root_node_attributes()
+        def root_node_attributes
           { 
             parent_id: nil,
             lft: 1,

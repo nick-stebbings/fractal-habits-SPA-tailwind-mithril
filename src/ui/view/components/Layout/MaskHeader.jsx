@@ -7,7 +7,7 @@ import DomainOption from "./Nav/DomainOption.jsx";
 import DropdownNav from "./Nav/DropdownNav.jsx";
 import MenuRoutes from "../../../menu-routes";
 
-import "../../../assets/css/components/MaskHeader.scss";
+import "../../../assets/styles/components/MaskHeader.scss";
 
 const MaskHeader = {
   view: () => (
