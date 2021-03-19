@@ -169,6 +169,11 @@ module Hht
         status 200
         json domain_list
       end
+        
+      get '/:domain_id' do |id|
+        status 200
+        json domain_repo.as_json(id)
+      end
   
       post '' do
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)
@@ -181,11 +186,6 @@ module Hht
         
         status 201
         json created.attributes
-      end
-
-      get '/:domain_id' do |id|
-        status 200
-        json domain_repo.as_json(id)
       end
 
       put '/:domain_id' do |id|
@@ -223,11 +223,67 @@ module Hht
       end
     end
 
-    # RESOURCES TO BE DESCRIBED LATER
     namespace '/api/habits' do
+      get '' do
+        habit_list = habit_repo.all_as_json
+        halt(404, { message:'No Habits Found'}.to_json) unless habit_list
+
+        status 200
+        json habit_list
+      end
+
+      get '/:habit_id' do |id|
+        status 200
+        json habit_repo.as_json(id)
+      end
+
+      post '' do
+        habit = MultiJson.load(request.body.read, :symbolize_keys => true)
+        # TODO: Use contract to verify payload
+        created = habit_repo.create(habit)
+        # If returns success monad, we know it persisted
+        # So redirect
+        url = "http://localhost:9393/habits/#{created[:id]}"
+        response.headers['Location'] = url
+        
+        status 201
+        json created.attributes
+      end
+
+      # put '/:domain_id' do |id|
+      #   domain = MultiJson.load(request.body.read, :symbolize_keys => true)
+      #   # TODO: Use contract to validate payload is a full domain resource
+      #   existing = domain_repo.by_id(id)
+      #   halt(404, { message:'Domain Not Found'}.to_json) unless existing
+
+      #   domain_repo.update(id, domain)
+      #   # TODO: If returns success monad, we know it persisted
+      #   # So redirect
+      #   url = "http://localhost:9393/domains/#{id}"
+      #   response.headers['Location'] = url
+      #   status 204
+      # end
+
+      # patch '/:domain_id' do |id|
+      #   domain_client = MultiJson.load(request.body.read, :symbolize_keys => true)
+      #   domain_server = domain_repo.as_json(id)
+      #   halt(404, { message:'Domain Not Found'}.to_json) unless domain_server
+
+      #   domain_client.each do |key, value|
+      #     domain_server[key.to_sym] = value
+      #   end
+      #   domain_repo.update(id, domain_server)
+      #   status 204
+      # end
+      delete '/:habit_id' do |id|
+        habit = habit_repo.as_json(id)
+        halt(404, { message:'Habit Not Found'}.to_json) unless habit
+
+        habit_repo.delete(id.to_i)
+        status 20
     end
-    namespace '/api/dates' do
-    end
+    
+    # RESOURCES TO BE DESCRIBED LATER
     namespace '/api/habit_dates' do
     end
   end
