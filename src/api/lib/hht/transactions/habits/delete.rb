@@ -2,19 +2,19 @@
 
 module Hht
   module Transactions
-    module Domains
+    module Habits
       class Delete
         include Dry::Monads[:result]
         include Dry::Monads::Do.for(:call)
         include Import[
-          'contracts.domains.delete',
-          'repos.domain_repo',
+          'contracts.habits.delete',
+          'repos.habit_repo',
         ]
 
         def call(input)
           values = yield validate(input)
-          domain = yield remove(values)
-          Success(domain)
+          habit = yield remove(values)
+          Success(habit)
         end
 
         def validate(input)
@@ -22,8 +22,7 @@ module Hht
         end
 
         def remove(result)
-          resource = domain_repo.by_id(result.values.data[:id]).one
-          Success(domain_repo.by_id(resource[:id]).delete)
+          Success(habit_repo.by_id(result.values.data[:id]).delete)
         end
       end
     end

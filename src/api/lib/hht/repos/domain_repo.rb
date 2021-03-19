@@ -14,7 +14,7 @@ module Hht
       end
 
       def by_id(id)
-        domains.by_pk(id).one
+        domains.by_pk(id)
       end
 
       def as_json(id)
