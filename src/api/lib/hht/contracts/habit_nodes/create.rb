@@ -6,7 +6,7 @@ module Hht
       class Create < Dry::Validation::Contract
         include Import['repos.habit_node_repo']
         params do
-          required(:parent_id)
+          required(:parent_id).maybe(:integer)
         end
 
         rule(:parent_id) do

@@ -91,7 +91,7 @@ RSpec.describe Hht::Transactions::HabitNodes::Create do
         let(:parent_resource) { habit_node_repo.as_json(updated_parent[:id]).to_json }
 
         it 'it persists a node' do
-          persisted_node_id = transaction.flatten[:id]
+          persisted_node_id = transaction.flatten
           child_resource = habit_node_repo.as_json(persisted_node_id).to_json
 
           expect(transaction).to return_success_monad
@@ -104,7 +104,7 @@ RSpec.describe Hht::Transactions::HabitNodes::Create do
         end
 
         it 'updates the lft & rgt values of the child' do 
-          persisted_node_id = transaction.flatten[:id]
+          persisted_node_id = transaction.flatten
           child_resource = habit_node_repo.as_json(persisted_node_id)
           expect(child_resource['lft']).to eq 2
           expect(child_resource['rgt']).to eq 3
