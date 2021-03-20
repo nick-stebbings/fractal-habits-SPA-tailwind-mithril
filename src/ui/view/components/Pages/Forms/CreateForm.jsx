@@ -65,7 +65,7 @@ const CreateForm = {
           ),
         ])}
 
-        <div class="px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
+        <div class="button-container px-4 py-3 border-t border-gray-200">
           <button
             name="submit"
             value="submit"
