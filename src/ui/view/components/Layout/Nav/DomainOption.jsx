@@ -1,6 +1,6 @@
 const DomainOption = {
   view: ({attrs}) => (
-    <option value={attrs.value}>
+    <option class="text-center" value={attrs.value}>
       {attrs.value}
     </option>
   ),

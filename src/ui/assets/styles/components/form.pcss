@@ -1,6 +1,10 @@
 form {
-  @apply w-full flex flex-col items-center space-y-2;
+  @apply w-full flex flex-col items-center px-4 pt-6 pb-20;
 }
+
+ .form-header {
+   @apply text-xl md:text-2xl;
+ }
 
 .input-container {
   @apply xl:w-3/4 w-full mt-4 text-xl;
@@ -11,7 +15,7 @@ label {
 }
 
 .button-container {
-  @apply w-full h-16 text-sm fixed bottom-0 gap-3 flex flex-row justify-end items-center;
+  @apply rounded-2xl rounded-top-none w-full h-24 sm:h-16 text-sm fixed bottom-0 gap-3 flex flex-row justify-end items-center inset-x-0;
 }
 
 .button-container > button {
@@ -19,7 +23,7 @@ label {
 }
 
 .mask-wrapper input[type="date"] {
-  @apply border-0 pl-0;
+  @apply border-0 pl-0 mt-0;
 }
 
 #modal input[type="text"], input[type="date"] {

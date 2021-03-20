@@ -24,27 +24,27 @@ module.exports = {
     minimize: false,
     // minimizer: [new TerserPlugin()],
   },
-  devServer: {
-    open: true,
-    // hot: true,
-    contentBase: "/",
-    // Send API requests on localhost to API server
-    // proxy: {
-    //   "/api": {
-    //     target: {
-    //       host: "0.0.0.0",
-    //       protocol: "http:",
-    //       port: 9292,
-    //     },
-    //     pathRewrite: {
-    //       // '^/api': ''
-    //     },
-    //   },
-    // },
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  },
+  // devServer: {
+  //   open: true,
+  //   hot: true,
+  //   contentBase: "/",
+  //   // Send API requests on localhost to API server
+  //   proxy: {
+  //     "/api": {
+  //       target: {
+  //         host: "0.0.0.0",
+  //         protocol: "http:",
+  //         port: 3000,
+  //       },
+  //       pathRewrite: {
+  //         // '^/api': ''
+  //       },
+  //     },
+  //   },
+  //   headers: {
+  //     "Access-Control-Allow-Origin": "*",
+  //   },
+  // },
   watch: true,
   module: {
     rules: [

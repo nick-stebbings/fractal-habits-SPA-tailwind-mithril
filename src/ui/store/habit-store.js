@@ -10,7 +10,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
     return HabitStore.show_one(id)
       .then((response) => JSON.parse(response.data))
       .then(HabitStore.current)
-      .catch(window.FlashMessage.error);
+      .catch(handleAndRethrow);
   },
 
   clear: () => {

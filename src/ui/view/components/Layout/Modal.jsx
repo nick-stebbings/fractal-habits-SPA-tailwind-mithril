@@ -17,16 +17,16 @@ const Modal = {
   view: ({ attrs }) => (
     <div
       id="modal_overlay"
-      class="absolute hidden inset-0 z-50 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0"
+      class="fixed overflow-auto hidden z-50 bg-black bg-opacity-30 w-full h-full flex justify-center items-start md:items-center"
     >
       {/* Modal Tailwind Component originally by Huda Damar */}
       <div
         id="modal"
-        class="flex absolute opacity-0 transform -translate-y-full scale-150inset-2 sm:inset-x-12 md:inset-x-1/4 rounded-2xl sm:inset-y-8 md:inset-y-24 bg-white rounded shadow-lg transition-opacity transition-transform duration-300  bottom-auto"
+        class="flex absolute opacity-0 transform -translate-y-full scale-150 inset-4 sm:inset-12 md:inset-1/4 rounded-2xl bg-white shadow-lg transition-opacity transition-transform duration-300 bottom-auto"
       >
         <button
           id="close-modal-x"
-          class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white"
+          class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-2xl focus:outline-none text-white"
         >
           <svg
             class="w-6 h-6 mx-auto"
@@ -44,7 +44,7 @@ const Modal = {
           </svg>
         </button>
 
-        <div class="overflow-y-scroll flex flex-col items-center w-full">
+        <div class="flex flex-col items-center w-full rounded-2xl">
           <div class="px-4 py-3 border-b border-gray-200">
             <h2 class="text-xl font-semibold text-gray-600 mt-2 text-center">
               Create a new habit under the life domain

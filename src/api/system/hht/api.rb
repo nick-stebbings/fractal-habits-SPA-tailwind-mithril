@@ -3,8 +3,8 @@
 require 'sinatra/base'
 require 'sinatra/namespace'
 require 'sinatra/reloader'
-require 'sinatra/json'
 require 'sinatra/cross_origin'
+require 'sinatra/json'
 require 'multi_json'
 
 require_relative 'container'
@@ -12,25 +12,28 @@ require File.join(APP_ROOT, 'lib', 'subtree')
 
 module Hht
   class Api < Sinatra::Base
-    register Sinatra::Namespace
     before do
-      content_type :json    
-      headers 'Access-Control-Allow-Origin' => '*', 
-              'Access-Control-Allow-Credentials' => true
+      content_type :json
+      headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Credentials' => true
     end
 
     configure :development, :test do
       register Sinatra::Reloader
-      register Sinatra::CrossOrigin
-      enable :cross_origin
       set :protection, :except => :json_csrf
     end
 
-    set :root, APP_ROOT
+    configure do
+      register Sinatra::Namespace
+      register Sinatra::CrossOrigin
+      enable :cross_origin
+      set :root, APP_ROOT
+    end
 
     include Import[
       'repos.domain_repo',
       'repos.habit_node_repo',
+      'repos.habit_repo',
+      'repos.date_repo',
     ]
 
     helpers do

@@ -11,11 +11,16 @@ const CreateForm = {
     document.querySelector("form").addEventListener("submit", (e) => {
       e.preventDefault();
       let data = new FormData(e.target);
-      HabitStore.submit(data);
+      HabitStore.submit(data)
+        .catch((err) => {
+          err.status
+            ? window.FlashMessage.error(err.status)
+            : window.FlashMessage.error("Unable to add Habit");
+        });
     });
   },
   view: ({ attrs }) => (
-    <div class="md:max-w-1/2 lg:max-w-1/3 sm:w-2/3 flex flex-col justify-between w-full px-4 sm:px-0 my-8">
+    <div class="md:max-w-1/2 lg:max-w-1/3 sm:w-2/3 flex flex-col justify-between w-full px-4 sm:px-0 mb-16">
       <form id={`create-${attrs.resourceName}`} action="" method="">
         <FormHeader
           iconPath={
@@ -66,15 +71,7 @@ const CreateForm = {
           ),
         ])}
 
-        <div class="button-container px-4 py-3 border-t border-gray-200">
-          <button
-            name="submit"
-            value="submit"
-            type="submit"
-            class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none"
-          >
-            Start Tracking
-          </button>
+        <div class="button-container bg-white px-4 py-3 border-t border-gray-200">
           <button
             name="close-modal"
             type="button"
@@ -89,6 +86,14 @@ const CreateForm = {
             class="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white focus:outline-none"
           >
             Reset
+          </button>
+          <button
+            name="submit"
+            value="submit"
+            type="submit"
+            class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none"
+          >
+            Start Tracking
           </button>
         </div>
         {/* <div class="flex items-center space-x-4">
