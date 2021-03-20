@@ -13,10 +13,10 @@ const DomainPill = {
         .then(() => {
           m.redraw();
         })
+        .then(openModal)
         .catch((err) => {
           err.status ? window.FlashMessage.error(err.status) : window.FlashMessage.error("Unable to add Domain");
         });
-        openModal();
       }
     );
   },

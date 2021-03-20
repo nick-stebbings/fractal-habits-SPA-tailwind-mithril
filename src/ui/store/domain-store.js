@@ -21,10 +21,6 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
   index: () => {
     return DomainStore.show_all()
       .then((response) => JSON.parse(response.data).domains)
-      .then((r) => {
-        console.log(DomainStore.current(), "current!");
-        return r
-      })
       .then(DomainStore.list)
       .then((list) => {
         return DomainStore.current(list[0]);

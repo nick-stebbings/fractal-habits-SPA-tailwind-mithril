@@ -13,14 +13,12 @@ const CreateForm = {
       let data = {};
       let FD = new FormData(e.target)
 
-      FD.forEach((value, key) => data[key] = value);
+      FD.forEach((value, key) => (data[key.replace(/\-/g, "_")] = value)); // Assign values while swapping for snake_case
       data['domain_id'] = attrs.domain().id;
       data['habit_node_id'] = 0;
-      console.log(data, 'DATA');
 
       HabitStore.submit(data)
         .catch((err) => {
-          console.log(err);
           err.status
             ? window.FlashMessage.error(err.status)
             : window.FlashMessage.error(data);

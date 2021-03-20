@@ -1,10 +1,14 @@
 import axios from "axios";
 import { handleAndRethrow } from "../assets/scripts/utilities";
 
-axios.defaults.baseURL = "http://127.0.0.1:9292/api";
+axios.defaults.baseURL = "http://127.0.0.1:9393/api";
 axios.defaults.headers.common["Accept"] = "application/json;charset=utf-8";
 axios.defaults.headers.common["Content-Type"] =
   "application/json;charset=utf-8";
+axios.interceptors.response.use(
+  (res) => res,
+  handleAndRethrow
+);
 
   // Indicates whether or not cross-site Access-Control requests
   // should be made using credentials

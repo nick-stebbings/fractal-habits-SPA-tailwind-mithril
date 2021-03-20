@@ -31,10 +31,12 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
 
   submit: (attrs) => {
     return HabitStore.create(attrs)
-      .then(HabitStore.current)
-      .then(() => {
-        HabitStore.list(HabitStore.list().push(HabitStore.current()));
+      .then((response) => {
+        let habit = response.data;
+        HabitStore.index(); //Could save a DB call here
+        return habit;
       })
+      .then(HabitStore.current)
       .catch(handleAndRethrow);
   },
 

@@ -35,7 +35,8 @@ const debounce = function (func, delay) {
 };
 
 const handleAndRethrow = function (err) {
-  if (!err.status) {
+  console.log(err);
+  if (!err.response.status) {
     console.log(err.stack);
     window.FlashMessage.error("Network Error. API is unavailable.");
   } else {

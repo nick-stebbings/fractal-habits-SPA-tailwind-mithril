@@ -179,15 +179,16 @@ module Hht
   
       post '' do
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)
-        # TODO: Use contract to verify payload
         created = domain_repo.create(domain)
-        # If returns success monad, we know it persisted
-        # So redirect
-        url = "http://localhost:9393/domains/#{created[:id]}"
-        response.headers['Location'] = url
         
-        status 201
-        json created.attributes
+        binding.pry
+        if created.success?
+          url = "http://localhost:9393/habit_trees/nodes/#{created.flatten}"
+          response.headers['Location'] = url
+          status 204
+        else
+          status 400
+        end
       end
 
       put '/:domain_id' do |id|

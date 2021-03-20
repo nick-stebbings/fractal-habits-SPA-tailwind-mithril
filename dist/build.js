@@ -128,9 +128,12 @@ module.exports = m
 
 
 
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = "http://127.0.0.1:9292/api";
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = "http://127.0.0.1:9393/api";
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Accept"] = "application/json;charset=utf-8";
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Content-Type"] = "application/json;charset=utf-8"; // Indicates whether or not cross-site Access-Control requests
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Content-Type"] = "application/json;charset=utf-8";
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function (res) {
+  return res;
+}, _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_1__[/* handleAndRethrow */ "c"]); // Indicates whether or not cross-site Access-Control requests
 // should be made using credentials
 
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.withCredentials = true;
@@ -584,9 +587,6 @@ var DomainStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* c
   index: function index() {
     return DomainStore.show_all().then(function (response) {
       return JSON.parse(response.data).domains;
-    }).then(function (r) {
-      console.log(DomainStore.current(), "current!");
-      return r;
     }).then(DomainStore.list).then(function (list) {
       return DomainStore.current(list[0]);
     })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
@@ -715,13 +715,12 @@ var CreateForm = {
       var data = {};
       var FD = new FormData(e.target);
       FD.forEach(function (value, key) {
-        return data[key] = value;
-      });
+        return data[key.replace(/\-/g, "_")] = value;
+      }); // Assign values while swapping for snake_case
+
       data['domain_id'] = attrs.domain().id;
       data['habit_node_id'] = 0;
-      console.log(data, 'DATA');
       _store_habit_store_js__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].submit(data)["catch"](function (err) {
-        console.log(err);
         err.status ? window.FlashMessage.error(err.status) : window.FlashMessage.error(data);
       });
     });
@@ -874,7 +873,9 @@ var debounce = function debounce(func, delay) {
 };
 
 var handleAndRethrow = function handleAndRethrow(err) {
-  if (!err.status) {
+  console.log(err);
+
+  if (!err.response.status) {
     console.log(err.stack);
     window.FlashMessage.error("Network Error. API is unavailable.");
   } else {
@@ -7695,9 +7696,12 @@ var HabitStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cl
     })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
   },
   submit: function submit(attrs) {
-    return HabitStore.create(attrs).then(HabitStore.current).then(function () {
-      HabitStore.list(HabitStore.list().push(HabitStore.current()));
-    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    return HabitStore.create(attrs).then(function (response) {
+      var habit = response.data;
+      HabitStore.index(); //Could save a DB call here
+
+      return habit;
+    }).then(HabitStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
   },
   runReplace: function runReplace(id, value) {
     return HabitStore.replace(id, value)["catch"](function (e) {// TODO update list/current
@@ -8484,10 +8488,9 @@ var DomainPill = {
         hashtag: "#".concat(vnode.attrs.name)
       }).then(function () {
         m.redraw();
-      })["catch"](function (err) {
+      }).then(_assets_scripts_animations__WEBPACK_IMPORTED_MODULE_1__[/* openModal */ "a"])["catch"](function (err) {
         err.status ? window.FlashMessage.error(err.status) : window.FlashMessage.error("Unable to add Domain");
       });
-      Object(_assets_scripts_animations__WEBPACK_IMPORTED_MODULE_1__[/* openModal */ "a"])();
     });
   },
   view: function view(_ref) {

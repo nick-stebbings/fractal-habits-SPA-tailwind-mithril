@@ -31,10 +31,7 @@ var DateStore = {
           return i.id !== id;
         });
       })
-      .catch((err) => {
-        console.log(err);
-        // Flash.warning("Could not delete: " + err.response.message);
-      });
+      .catch(handleAndRethrow);
   },
 };
 

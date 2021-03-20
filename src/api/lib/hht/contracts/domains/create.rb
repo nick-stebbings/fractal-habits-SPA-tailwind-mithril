@@ -8,9 +8,10 @@ module Hht
         include Import['repos.domain_repo']
 
         params do
-          required(:name).filled(:integer)
-          required(:description).filled(:string)
+          required(:name).value(:string)
+          required(:description).value(:string)
         end
+
         rule(:name) do
           key.failure('Domain already exists') unless domain_repo.query(name: value).to_a.empty?
         end
