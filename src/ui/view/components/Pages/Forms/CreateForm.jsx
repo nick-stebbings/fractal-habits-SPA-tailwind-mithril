@@ -1,5 +1,6 @@
 // src/ui/view/components/CreateForm.jsx
 import NodeStore from "../../../../store/habit-node-store.js";
+import HabitStore from "../../../../store/habit-store.js";
 
 import FormHeader from "./FormHeader.jsx";
 import FormContainer from "./FormContainer.jsx";
@@ -10,12 +11,12 @@ const CreateForm = {
     document.querySelector("form").addEventListener("submit", (e) => {
       e.preventDefault();
       let data = new FormData(e.target);
-      console.log(data);
+      HabitStore.submit(data);
     });
   },
-  view: ({ attrs, children }) => (
+  view: ({ attrs }) => (
     <div class="md:max-w-1/2 lg:max-w-1/3 sm:w-2/3 flex flex-col justify-between w-full px-4 sm:px-0 my-8">
-      <form>
+      <form id={`create-${attrs.resourceName}`} action="" method="">
         <FormHeader
           iconPath={
             "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"

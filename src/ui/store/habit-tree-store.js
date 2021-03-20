@@ -1,4 +1,4 @@
-import clientRoutes from "./client";
+import {clientRoutes} from "./client";
 import stream from "mithril/stream";
 
 const basePath = "/habit_trees";

@@ -1049,6 +1049,8 @@ form{
 }
 
 label {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   line-height: 2;
 }
 
@@ -1058,6 +1060,8 @@ label {
   align-items: center;
   justify-content: flex-end;
   height: 4rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   position: fixed;
   bottom: 0px;
   width: 100%;
@@ -1934,13 +1938,6 @@ label {
   left: 0px
 }
 
-.inset-1 {
-  top: 0.25rem;
-  right: 0.25rem;
-  bottom: 0.25rem;
-  left: 0.25rem
-}
-
 .inset-x-0 {
   right: 0px;
   left: 0px
@@ -1968,6 +1965,10 @@ label {
 
 .top-20 {
   top: 5rem
+}
+
+.bottom-auto {
+  bottom: auto
 }
 
 .-top-3 {
@@ -2271,11 +2272,6 @@ label {
   --tw-scale-x: 1;
   --tw-scale-y: 1;
   transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-}
-
-.scale-150 {
-  --tw-scale-x: 1.5;
-  --tw-scale-y: 1.5
 }
 
 .-translate-y-full {
@@ -2949,7 +2945,7 @@ label {
 
 .flash-container .flash-message.flash-danger:after,.flash-container .flash-message.flash-error:after{
   color:rgba(255,65,54,.5);
-  content:"\F06A"
+  content:url(img/error.svg)
 }
 
 .flash-container .flash-message.flash-info .flash-progress{

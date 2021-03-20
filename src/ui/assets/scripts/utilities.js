@@ -34,4 +34,14 @@ const debounce = function (func, delay) {
   };
 };
 
-export { d3visPageMaker, debounce };
+const handleAndRethrow = function (err) {
+  if (!err.status) {
+    console.log(err.stack);
+    window.FlashMessage.error("Network Error. API is unavailable.");
+  } else {
+    window.FlashMessage.error(err.status);
+  }
+  throw err;
+};
+
+export { d3visPageMaker, debounce, handleAndRethrow };

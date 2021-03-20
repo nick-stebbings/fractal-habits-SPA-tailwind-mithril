@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleAndRethrow } from "../assets/scripts/utilities";
 
 axios.defaults.baseURL = "http://127.0.0.1:3000/api";
 axios.defaults.headers.common["Accept"] = "application/json;charset=utf-8";
@@ -20,4 +21,4 @@ let clientRoutes = function (basePath) {
   };
 };
 
-export default clientRoutes;
+export { clientRoutes, handleAndRethrow };

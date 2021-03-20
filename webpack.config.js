@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+// const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -21,8 +21,8 @@ module.exports = {
     }),
   ],
   optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin()],
+    minimize: false,
+    // minimizer: [new TerserPlugin()],
   },
   devServer: {
     open: true,

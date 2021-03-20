@@ -29,7 +29,7 @@ const registerEventListeners = (function () {
   });
 })();
 
-const openModal = function (value) {
+const openModal = function (value = true) {
   const modal_overlay = document.querySelector("#modal_overlay");
   const modal = document.querySelector("#modal");
 
