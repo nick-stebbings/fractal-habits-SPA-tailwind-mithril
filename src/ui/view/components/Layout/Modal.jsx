@@ -1,8 +1,7 @@
 import { openModal } from "../../../assets/scripts/animations";
-import CreateForm from "../pages/forms/CreateForm.jsx"
+import CreateForm from "../Pages/forms/CreateForm.jsx"
 
 import DomainStore from "../../../store/domain-store";
-import NodeStore from "../../../store/habit-node-store";
 
 const Modal = {
   oncreate: () => {
@@ -14,7 +13,7 @@ const Modal = {
       }
     );
   },
-  view: ({ attrs }) => (
+  view: (vnode) => (
     <div
       id="modal_overlay"
       class="fixed overflow-auto hidden z-50 bg-black bg-opacity-30 w-full h-full flex justify-center items-start md:items-center"
@@ -22,7 +21,7 @@ const Modal = {
       {/* Modal Tailwind Component originally by Huda Damar */}
       <div
         id="modal"
-        class="flex absolute opacity-0 transform -translate-y-full scale-150 inset-4 sm:inset-12 md:inset-1/4 rounded-2xl bg-white shadow-lg transition-opacity transition-transform duration-300 bottom-auto"
+        class="flex absolute opacity-0 transform -translate-y-full scale-150 inset-4 sm:inset-12 rounded-2xl bg-white shadow-lg transition-opacity transition-transform duration-300 bottom-auto"
       >
         <button
           id="close-modal-x"
@@ -50,11 +49,12 @@ const Modal = {
               Create a new habit under the life domain
             </h2>
             <h3 class="text-2xl font-bold text-center mt-2">
-              {DomainStore.current().name || "Waiting"}
+              {DomainStore.current().name || 'PH'}
             </h3>
           </div>
           <CreateForm
             resourceName="Habit"
+            domain={DomainStore.current}
             resourceDescription="A way of keeping track of your daily behaviours"
           ></CreateForm>
         </div>

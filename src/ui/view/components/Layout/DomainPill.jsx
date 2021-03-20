@@ -10,10 +10,13 @@ const DomainPill = {
           rank: vnode.attrs.rank + 2,
           hashtag: `#${vnode.attrs.name}`,
         })
-        .then(openModal)
+        .then(() => {
+          m.redraw();
+        })
         .catch((err) => {
           err.status ? window.FlashMessage.error(err.status) : window.FlashMessage.error("Unable to add Domain");
         });
+        openModal();
       }
     );
   },

@@ -13,13 +13,13 @@ var DateStore = {
         DateStore.clear();
       })
       .catch((err) => {
-        Flash.warning(err.response.message);
+        // Flash.warning(err.response.message);
       });
   },
 
   runUpdate: (id, value) => {
     DateStore.update(id, value).catch((e) => {
-      Flash.warning("Could not update note: " + e.response.message);
+      // Flash.warning("Could not update note: " + e.response.message);
     });
   },
 
@@ -33,7 +33,7 @@ var DateStore = {
       })
       .catch((err) => {
         console.log(err);
-        Flash.warning("Could not delete: " + err.response.message);
+        // Flash.warning("Could not delete: " + err.response.message);
       });
   },
 };

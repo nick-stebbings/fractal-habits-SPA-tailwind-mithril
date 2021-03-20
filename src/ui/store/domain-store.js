@@ -20,20 +20,27 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
 
   index: () => {
     return DomainStore.show_all()
-    .then((response) => JSON.parse(response.data).domains)
+      .then((response) => JSON.parse(response.data).domains)
+      .then((r) => {
+        console.log(DomainStore.current(), "current!");
+        return r
+      })
       .then(DomainStore.list)
       .then((list) => {
-        DomainStore.current(list[0])
+        return DomainStore.current(list[0]);
       })
       .catch(handleAndRethrow);
   },
 
   submit: (attrs) => {
     return DomainStore.create(attrs)
+      .then((response) => {
+        let domain = response.data;
+        DomainStore.index(); //Could save a DB call here
+        return domain;
+      })
       .then(DomainStore.current)
-      .then(() => {
-        DomainStore.list(DomainStore.list().push(DomainStore.current()));
-      });
+      .catch(handleAndRethrow);;
   },
 
   runReplace: (id, value) => {

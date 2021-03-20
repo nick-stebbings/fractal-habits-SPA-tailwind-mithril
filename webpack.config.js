@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -15,6 +16,7 @@ module.exports = {
       m: "mithril", //Global access
     }),
     new MiniCssExtractPlugin({ filename: "bundle.css" }),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "./index.html",
@@ -24,27 +26,27 @@ module.exports = {
     minimize: false,
     // minimizer: [new TerserPlugin()],
   },
-  // devServer: {
-  //   open: true,
-  //   hot: true,
-  //   contentBase: "/",
-  //   // Send API requests on localhost to API server
-  //   proxy: {
-  //     "/api": {
-  //       target: {
-  //         host: "0.0.0.0",
-  //         protocol: "http:",
-  //         port: 3000,
-  //       },
-  //       pathRewrite: {
-  //         // '^/api': ''
-  //       },
-  //     },
-  //   },
-  //   headers: {
-  //     "Access-Control-Allow-Origin": "*",
-  //   },
-  // },
+  devServer: {
+    open: true,
+    hot: true,
+    contentBase: "/",
+    // Send API requests on localhost to API server
+    // proxy: {
+    //   "/api": {
+    //     target: {
+    //       host: "0.0.0.0",
+    //       protocol: "http:",
+    //       port: 3000,
+    //     },
+    //     pathRewrite: {
+    //       // '^/api': ''
+    //     },
+    //   },
+    // },
+    // headers: {
+    //   "Access-Control-Allow-Origin": "*",
+    // },
+  },
   watch: true,
   module: {
     rules: [

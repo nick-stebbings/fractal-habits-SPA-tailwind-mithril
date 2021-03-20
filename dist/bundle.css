@@ -1064,9 +1064,7 @@ label {
 }
 
 .button-container {
-  border-radius: 1.5rem;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
+  border-radius: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1148,7 +1146,7 @@ label {
 /**
  * Include styles for individual pages
  *
- // @import './pages/homepage.pcss';
+ // @import './Pages/homepage.pcss';
  */
 
 @media (min-width: 640px){
@@ -1441,10 +1439,6 @@ label {
 
 .rounded-2xl {
   border-radius: 1rem
-}
-
-.rounded-3xl {
-  border-radius: 1.5rem
 }
 
 .rounded-full {
@@ -2483,8 +2477,10 @@ label {
     padding-left: 6rem
   }
 
-  .sm\:inset-x-12 {
+  .sm\:inset-12 {
+    top: 3rem;
     right: 3rem;
+    bottom: 3rem;
     left: 3rem
   }
 
@@ -2594,11 +2590,6 @@ label {
 
   .md\:pl-16 {
     padding-left: 4rem
-  }
-
-  .md\:inset-x-1\/4 {
-    right: 25%;
-    left: 25%
   }
 
   .md\:top-12 {

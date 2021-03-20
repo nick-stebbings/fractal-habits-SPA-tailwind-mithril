@@ -1,9 +1,9 @@
-import CreateForm from "./view/components/pages/forms/CreateForm.jsx";
+import CreateForm from "./view/components/Pages/forms/CreateForm.jsx";
 
 // Pages
-import HabitNodeList from "./view/components/pages/HabitNodeList.jsx";
-import HabitTree from "./view/components/pages/visualisations/HabitTree.jsx";
-import RadialTree from "./view/components/pages/visualisations/RadialTree.jsx";
+import HabitNodeList from "./view/components/Pages/HabitNodeList.jsx";
+import HabitTree from "./view/components/Pages/visualisations/HabitTree.jsx";
+import RadialTree from "./view/components/Pages/visualisations/RadialTree.jsx";
 
 const MenuRoutes = [
   {

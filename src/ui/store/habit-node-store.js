@@ -32,7 +32,6 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
       .then(NodeStore.current)
       .then(() => {
         NodeStore.index();
-        NodeStore.clear();
       })
       .catch(handleAndRethrow);
   },

@@ -1,8 +1,10 @@
 import LogoLink from "./components/layout/LogoLink.jsx";
-import Modal from "./components/layout/Modal.jsx";
-import MaskHeader from "./components/layout/MaskHeader.jsx";
-import MainStage from "./components/layout/MainStage.jsx";
-import Footer from "./components/layout/Footer.jsx";
+import Modal from "./components/Layout/Modal.jsx";
+import MaskHeader from "./components/Layout/MaskHeader.jsx";
+import MainStage from "./components/Layout/MainStage.jsx";
+import Footer from "./components/Layout/Footer.jsx";
+
+import DomainStore from "../store/domain-store";
 
 export default {
   view: ({ attrs, children: [mainPage] }) => (

@@ -24,7 +24,6 @@ module Hht
         def persist(result)
           # Check the initiation date
           # If the dates inbetween then and today do not exist, add them.
-          binding.pry
           Success(habit_repo.habits.insert(result.values.data))
         end
       end

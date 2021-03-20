@@ -1,5 +1,4 @@
 // src/ui/view/components/CreateForm.jsx
-import NodeStore from "../../../../store/habit-node-store.js";
 import HabitStore from "../../../../store/habit-store.js";
 
 import FormHeader from "./FormHeader.jsx";
@@ -7,15 +6,24 @@ import FormContainer from "./FormContainer.jsx";
 import InputGroup from "./FormInputGroup.jsx";
 
 const CreateForm = {
-  oncreate: () => {
+  oncreate: ({attrs}) => {
     document.querySelector("form").addEventListener("submit", (e) => {
       e.preventDefault();
-      let data = new FormData(e.target);
+
+      let data = {};
+      let FD = new FormData(e.target)
+
+      FD.forEach((value, key) => data[key] = value);
+      data['domain_id'] = attrs.domain().id;
+      data['habit_node_id'] = 0;
+      console.log(data, 'DATA');
+
       HabitStore.submit(data)
         .catch((err) => {
+          console.log(err);
           err.status
             ? window.FlashMessage.error(err.status)
-            : window.FlashMessage.error("Unable to add Habit");
+            : window.FlashMessage.error(data);
         });
     });
   },
@@ -34,12 +42,12 @@ const CreateForm = {
           m(
             InputGroup,
             {
-              name: "habit-title",
-              label: "Habit Title",
+              name: "habit-name",
+              label: "Habit Name",
             },
             m("input[type=text]", {
+              name: "name",
               id: "habit-title",
-              name: "habit-title",
               class: "form-input",
               placeholder: "Hydrate in the A.M.",
             })
@@ -51,8 +59,8 @@ const CreateForm = {
               label: "Habit Description",
             },
             m("input[type=text]", {
+              name: "description",
               id: "habit-description",
-              name: "habit-description",
               class: "form-input",
               placeholder: "Drinking water each day after waking",
             })
@@ -60,7 +68,7 @@ const CreateForm = {
           m(
             InputGroup,
             {
-              name: "initiation-date",
+              name: "initiation_date",
               label: "Initiation Date",
             },
             m("input[type=date]", {
