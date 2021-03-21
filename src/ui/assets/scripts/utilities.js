@@ -64,5 +64,6 @@ const handleErrorType = function (err, type = 'warning') {
       window.FlashMessage.error(String(err.response));
       break;
   }
+  throw err;
 };
 export { d3visPageMaker, debounce, handleAndRethrow, handleErrorType };

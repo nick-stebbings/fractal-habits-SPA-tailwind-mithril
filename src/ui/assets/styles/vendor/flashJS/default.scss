@@ -98,7 +98,7 @@
 					&:before{ background-color: $error; }
 					&:after{
 						color: rgba($error, .5);
-						content: url('./heroicons/error.svg');
+						content: '\f1e2';
 					}
 			}
 			&.flash-info {
