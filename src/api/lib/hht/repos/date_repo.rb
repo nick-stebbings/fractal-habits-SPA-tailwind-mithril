@@ -43,29 +43,30 @@ module Hht
         input[:h_date].split("-").map(&:to_i)
       end
 
-      def insert_upto_today(start_date = DATE_INSERTION_STARTPOINT, end_date = 'NOW()')
-query = <<-SQL.chomp
-  WITH last_date_entry AS (
-  SELECT
-    DISTINCT h_date
-  FROM
-    dates
-  ORDER BY h_date DESC
-  LIMIT 1
-  )
-  INSERT INTO
-    dates (h_date)
-  SELECT
-    generate_series
-  FROM
-    generate_series(
-      (
-        #{start_date}
-      ),
-      #{end_date},
-      '1 day' :: interval
-    );
-SQL
+      def insert_upto_today!(start_date = DATE_INSERTION_STARTPOINT, end_date = 'NOW()')
+        query = <<-SQL.chomp
+          WITH last_date_entry AS (
+          SELECT
+            DISTINCT h_date
+          FROM
+            dates
+          ORDER BY h_date DESC
+          LIMIT 1
+          )
+          INSERT INTO
+            dates (h_date)
+          SELECT
+            generate_series
+          FROM
+            generate_series(
+              (
+                #{start_date}
+              ),
+              #{end_date},
+              '1 day' :: interval
+            );
+        SQL
+        # puts query
         connection.run(query)
       end
     end

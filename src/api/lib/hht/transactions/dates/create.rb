@@ -18,37 +18,49 @@ module Hht
         end
 
         def validate(input)
-          binding.pry
-          is_valid = create.call(input).to_monad
-          if(is_valid.success?)
-            sql_query_start_timestamp = "\'#{input[:h_date]}\' :: timestamptz" 
-            sql_query_end_timestamp = "\'#{date_a_day_before_earliest}\' :: timestamptz" 
+          # TODO: Find out why the duplications are happening.
+          
+          is_valid_input = create.call(input).to_monad
+          if(is_valid_input.success?)
+            # The date doesn't exist, find out if it will be the oldest date
+            oldest = before_records_began?(input)
 
-            before_records_began(input) 
-              ? date_repo.insert_upto_today(sql_query_start_timestamp, sql_query_end_timestamp) 
-              : date_repo.insert_upto_today
-            Success("Dates inserted upto current habit tracking day.")
+            # The dates are already persisted
+            return is_valid_input if !oldest && input[:h_date].to_time > date_repo.earliest.h_date
+
+            if oldest
+              # Formulate strings to be interpolated into raw SQL statement from DateRepo
+              sql_query_start_timestamp = (Date.today != input[:h_date]) ? "\'#{input[:h_date]}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW())' 
+              
+              end_point = date_a_day_before_earliest
+              sql_query_end_timestamp = end_point ? "\'#{date_a_day_before_earliest}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW())' 
+              # If the input date is older than the oldest recorded date, 
+              # query will fill in from there to the current oldest date, exclusive.
+              # Use NOW() as a fallback in case this is the first tuple.
+              date_repo.insert_upto_today!(sql_query_start_timestamp, sql_query_end_timestamp)
+            else
+              date_repo.insert_upto_today!
+            end
+            is_valid_input
           else
             Failure("Couldn't insert the interim dates.")
           end
         end
 
         def persist(result)
-          Success(date_repo.dates.insert(result.values.data))
+          Success(date_repo.dates.insert(result.values.to_h))
         end
 
         private
 
-        def before_records_began(date)
-          test_date = {h_date: Date.new(*date_repo.parse(date))}
-
+        def before_records_began?(date)
           first_record = date_repo.earliest
-          !first_record || test_date[:h_date].to_time < first_record[:h_date]
+          !first_record || date[:h_date].to_time < first_record[:h_date]
         end
 
         def date_a_day_before_earliest
-          first_record = date_repo.earliest
-          first_record ? first_record.h_date.to_date - 1 : 'DATE_TRUNC(\'day\', now())'
+          first_recorded = date_repo.earliest
+          first_recorded ? first_recorded.h_date.to_date - 1 : nil
         end
       end
     end

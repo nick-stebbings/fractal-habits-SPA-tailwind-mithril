@@ -9,7 +9,7 @@ module Hht
       commands update: :by_pk
 
       def create(data)
-        binding.pry
+        # binding.pry
         Hht::Transactions::Habits::Create.new.call(data)
       end
 

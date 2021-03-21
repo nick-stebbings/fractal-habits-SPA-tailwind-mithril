@@ -243,7 +243,6 @@ module Hht
         habit = MultiJson.load(request.body.read, :symbolize_keys => true)
 
         created = habit_repo.create(habit)
-        binding.pry
         if created.success?
           url = "http://localhost:9393/habits/#{created.flatten}"
           response.headers['Location'] = url
