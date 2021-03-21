@@ -4,9 +4,16 @@ import MaskHeader from "./components/Layout/MaskHeader.jsx";
 import MainStage from "./components/Layout/MainStage.jsx";
 import Footer from "./components/Layout/Footer.jsx";
 
-import DomainStore from "../store/domain-store";
+import DateStore from "../store/date-store";
 
 export default {
+  oninit: () => {
+    const todaysDate = new Date().toDateInputValue();
+    DateStore.current(todaysDate)
+  },
+  oncreate: () => {
+    document.getElementById("initiation-date");
+  },
   view: ({ attrs, children: [mainPage] }) => (
     <div id="layout" class="w-full h-full">
       <Modal />

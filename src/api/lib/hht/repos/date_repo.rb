@@ -9,15 +9,15 @@ module Hht
       commands update: :by_pk
 
       def create(data)
-        binding.pry
-        Hht::Transactions::Dates::Create.new.call(data)
+        date = Date.new(*data[:date].split("-").map(&:to_i))
+        Hht::Transactions::Dates::Create.new.call({h_date: date})
       end
 
       def delete(pk)
         Hht::Transactions::Dates::Delete.new.call(pk)
       end
 
-      def query(conditions); dates.where(conditions); end
+      def find(given_date); dates.where(h_date: given_date); end
 
       def as_json(id)
         date = dates.by_pk(id).one

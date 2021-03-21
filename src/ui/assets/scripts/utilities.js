@@ -1,5 +1,11 @@
 import { select } from "d3-selection";
 
+Date.prototype.toDateInputValue = function () {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 10);
+};
+
 const d3visPageMaker = function (layoutView, pageView) {
   let page = {
     view: () => m(layoutView, m(pageView)),

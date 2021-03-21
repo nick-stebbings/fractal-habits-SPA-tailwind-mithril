@@ -15,7 +15,7 @@ const TreeStore = Object.assign(
     },
 
     clear: () => {
-      TreeStore.current = {};
+      TreeStore.current =  stream({});
     },
 
     // list: stream([]),

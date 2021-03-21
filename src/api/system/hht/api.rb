@@ -245,7 +245,7 @@ module Hht
         created = habit_repo.create(habit)
         binding.pry
         if created.success?
-          url = "http://localhost:9393/habit_trees/nodes/#{created.flatten}"
+          url = "http://localhost:9393/habits/#{created.flatten}"
           response.headers['Location'] = url
           status 204
         else
@@ -289,6 +289,34 @@ module Hht
     
     # RESOURCES TO BE DESCRIBED LATER
     namespace '/api/habit_dates' do
+    end
+
+    namespace '/api/dates' do
+      get '' do
+        date_list = date_repo.all_as_json
+        halt(404, { message:'No Dates Found'}.to_json) unless date_list
+
+        status 200
+        json date_list
+      end
+        
+      get '/:date_id' do |id|
+        status 200
+        json date_repo.as_json(id)
+      end
+  
+      post '' do
+        date = MultiJson.load(request.body.read, :symbolize_keys => true)
+        created = date_repo.create(date)
+        
+        if created.success?
+          url = "http://localhost:9393/dates/#{created.flatten}"
+          response.headers['Location'] = url
+          status 204
+        else
+          status 400
+        end
+      end
     end
   end
 end

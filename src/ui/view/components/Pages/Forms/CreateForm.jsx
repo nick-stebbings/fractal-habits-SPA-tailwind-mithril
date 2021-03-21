@@ -7,6 +7,8 @@ import InputGroup from "./FormInputGroup.jsx";
 
 const CreateForm = {
   oncreate: ({attrs}) => {
+    document.getElementById("initiation-date").value = new Date().toDateInputValue();
+
     document.querySelector("form").addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -47,7 +49,7 @@ const CreateForm = {
               name: "name",
               id: "habit-title",
               class: "form-input",
-              placeholder: "Hydrate in the A.M.",
+              placeholder: "e.g. Hydrate in the A.M.",
             })
           ),
           m(
@@ -60,7 +62,7 @@ const CreateForm = {
               name: "description",
               id: "habit-description",
               class: "form-input",
-              placeholder: "Drinking water each day after waking",
+              placeholder: "e.g. Drinking water each day after waking",
             })
           ),
           m(
@@ -85,13 +87,6 @@ const CreateForm = {
             class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none"
           >
             Forget It
-          </button>
-          <button
-            name="reset"
-            type="reset"
-            class="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white focus:outline-none"
-          >
-            Reset
           </button>
           <button
             name="submit"

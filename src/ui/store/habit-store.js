@@ -14,7 +14,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
   },
 
   clear: () => {
-    HabitStore.current = {};
+    HabitStore.current =  stream({});
   },
 
   list: stream([]),

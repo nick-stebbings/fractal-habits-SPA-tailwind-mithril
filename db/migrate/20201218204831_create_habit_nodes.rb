@@ -7,7 +7,6 @@ ROM::SQL.migration do
       column :parent_id, Integer, on_delete: :cascade
       column :lft, Integer, null: false
       column :rgt, Integer, null: false
-      column :habit_id, Integer
 
       foreign_key [:parent_id], :habit_nodes, name: 'fk_parent_child_linkage', on_delete: :cascade
     end

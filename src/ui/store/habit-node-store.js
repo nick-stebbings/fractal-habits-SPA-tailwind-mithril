@@ -15,7 +15,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
   },
 
   clear: () => {
-    NodeStore.current = {};
+    NodeStore.current =  stream({});
   },
 
   list: stream([]),

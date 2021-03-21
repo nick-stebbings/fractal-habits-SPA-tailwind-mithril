@@ -13,10 +13,10 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
   },
 
   clear: () => {
-    DomainStore.current = {};
+    DomainStore.current =  stream({});
   },
 
-  list: stream([]),
+  list: stream([{name: 'No Domains Registered'}]),
 
   index: () => {
     return DomainStore.show_all()

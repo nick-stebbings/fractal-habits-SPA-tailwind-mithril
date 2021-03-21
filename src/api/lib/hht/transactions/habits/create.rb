@@ -20,9 +20,9 @@ module Hht
 
         def validate(input)
           parent_node_id = input[:habit_node_id];
-          domain_has_root = !!habit_repo.restrict_on_domain_id_combine_with_root_node_of_domain(input[:domain])
-          
-          input[:habit_node_id] = habit_node_repo.create(domain_has_route ? parent_node_id : nil).flatten
+          domain_root = habit_repo.restrict_on_domain_id_combine_with_root_node_of_domain(input[:domain_id]).one
+          binding.pry
+          input[:habit_node_id] = habit_node_repo.create(parent_id: (domain_root ? parent_node_id : nil)).flatten
 
           create.call(input).to_monad
         end

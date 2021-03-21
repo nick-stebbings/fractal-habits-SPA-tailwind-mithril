@@ -10,7 +10,7 @@ module Hht
         end
 
         rule(:h_date) do
-          key.failure('Must not be in the future.') if value >= Date.today
+          key.failure('Must not be in the future.') if value > Date.today
         end
       end
     end

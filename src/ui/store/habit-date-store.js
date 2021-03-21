@@ -2,7 +2,7 @@ var DateStore = {
   current: {},
   list: [],
   clear: () => {
-    DateStore.current = {};
+    DateStore.current =  stream({});
   },
   submit: () => {
     DateStore.create()

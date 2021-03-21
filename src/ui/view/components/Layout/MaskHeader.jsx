@@ -1,6 +1,7 @@
 // src/view/components/Layout/MaskHeader.jsx
 
 import DomainStore from "../../../store/domain-store";
+import DateStore from "../../../store/date-store";
 
 import ResponsiveNavGroup from "./Nav/ResponsiveNavGroup.jsx";
 import DomainOption from "./Nav/DomainOption.jsx";
@@ -94,7 +95,8 @@ const MaskHeader = {
                         class:
                           "w-full lg:w-48 text-center text-xl lg:pt-2 -mr-2 py-1 px-0",
                         type: "date",
-                      })}
+                      },
+                      DateStore.current())}
                     </span>
                   </div>
                 </div>
