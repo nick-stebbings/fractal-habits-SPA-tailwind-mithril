@@ -32,6 +32,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
   submit: (attrs) => {
     return DateStore.create(attrs)
       .then((response) => {
+        console.log(response);
         let date = response.data;
         DateStore.index(); //Could save a DB call here
         return date;

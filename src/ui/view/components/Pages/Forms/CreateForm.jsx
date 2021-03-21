@@ -1,6 +1,7 @@
-// src/ui/view/components/CreateForm.jsx
 import HabitStore from "../../../../store/habit-store.js";
+import DateStore from "../../../../store/date-store.js";
 
+import { openModal } from "../../../../assets/scripts/animations";
 import FormHeader from "./FormHeader.jsx";
 import FormContainer from "./FormContainer.jsx";
 import InputGroup from "./FormInputGroup.jsx";
@@ -20,10 +21,10 @@ const CreateForm = {
       data['habit_node_id'] = 1;
 
       HabitStore.submit(data)
+        .then(() => DateStore.submit({h_date: data['initiation_date']}) )
+        .then(() => resolve(openModal(false)) )
         .catch((err) => {
-          err.status
-            ? window.FlashMessage.error(err.status)
-            : window.FlashMessage.error(data);
+          window.FlashMessage.error(err);
         });
     });
   },

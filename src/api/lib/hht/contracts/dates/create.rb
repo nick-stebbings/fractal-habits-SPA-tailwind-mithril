@@ -14,7 +14,7 @@ module Hht
         end
 
         rule(:h_date) do
-          key.failure('Date already exists.') if date_repo.find(value).to_a.size > 0
+          key.failure('Date already exists.') if date_repo.find(value).exist?
         end
       end
     end
