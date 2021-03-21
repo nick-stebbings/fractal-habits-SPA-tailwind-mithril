@@ -12,8 +12,8 @@ module Persistence
         primary_key :id
 
         associations do
-          belongs_to :domain
-          has_many :habit_nodes
+          belongs_to :habit_nodes, as: :habit_node
+          belongs_to :domains, as: :domain
           has_many :habit_dates
           has_many :dates, through: :habit_dates
         end

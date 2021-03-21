@@ -13,7 +13,7 @@ module Persistence
         # attribute :habit_id, Types::ForeignKey(:habits)
 
         associations do
-          belongs_to :habits, as: :habit_tree_node
+          belongs_to :habits, as: :habit_node
           belongs_to :habit_nodes, as: :parent
         end
       end

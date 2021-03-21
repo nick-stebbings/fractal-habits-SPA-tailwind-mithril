@@ -121,14 +121,14 @@ module.exports = m
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return clientRoutes; });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "b", function() { return _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_1__["c"]; });
 
 
 
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = "http://127.0.0.1:9393/api";
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = "http://127.0.0.1:9292/api";
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Accept"] = "application/json;charset=utf-8";
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Content-Type"] = "application/json;charset=utf-8";
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function (res) {
@@ -550,6 +550,12 @@ module.exports = {
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(130);
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -557,18 +563,12 @@ module.exports = __webpack_require__(147)
 
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(130);
-
-/***/ }),
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mithril_stream__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -698,6 +698,73 @@ var xhtml = "http://www.w3.org/1999/xhtml";
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(m) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return d3visPageMaker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return debounce; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return handleAndRethrow; });
+/* harmony import */ var d3_selection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
+
+
+var d3visPageMaker = function d3visPageMaker(layoutView, pageView) {
+  var page = {
+    view: function view() {
+      return m(layoutView, m(pageView));
+    }
+  }; // Create a visualisation-containing div element with random ID
+
+  var divId = "svg_container_" + Math.floor(Math.random() * 1000000000) + 1;
+
+  page.view = function () {
+    // Pass a selector to the vis component, representing the div element where D3 can mutate the DOM
+    var d3Canvas = m("div", {
+      id: divId
+    });
+    return m(layoutView, m(pageView, d3Canvas));
+  };
+
+  page.oncreate = function () {
+    // Pass an appended SVG selection to the vis component to consume
+    pageView.content(Object(d3_selection__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])("div#" + divId).classed("h-full", true).append("svg").attr("width", "100%").attr("height", "100%"));
+  };
+
+  return page;
+};
+
+var debounce = function debounce(func, delay) {
+  var timeout;
+  return function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    timeout = setTimeout(function () {
+      return func.apply(null, args);
+    }, delay);
+  };
+};
+
+var handleAndRethrow = function handleAndRethrow(err) {
+  if (!err.response) {
+    console.log(err.stack);
+    window.FlashMessage.error("Network Error. API is unavailable.");
+  } else {
+    window.FlashMessage.error("Error: ".concat(err.response.status, " code received."));
+  }
+
+  throw err;
+};
+
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(m) {/* harmony import */ var _store_habit_store_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
 /* harmony import */ var _FormHeader_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(58);
 /* harmony import */ var _FormContainer_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(59);
@@ -719,7 +786,7 @@ var CreateForm = {
       }); // Assign values while swapping for snake_case
 
       data['domain_id'] = attrs.domain().id;
-      data['habit_node_id'] = 0;
+      data['habit_node_id'] = 1;
       _store_habit_store_js__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].submit(data)["catch"](function (err) {
         err.status ? window.FlashMessage.error(err.status) : window.FlashMessage.error(data);
       });
@@ -819,76 +886,7 @@ var CreateForm = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
-/* 11 */,
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(m) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return d3visPageMaker; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return debounce; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return handleAndRethrow; });
-/* harmony import */ var d3_selection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
-
-
-var d3visPageMaker = function d3visPageMaker(layoutView, pageView) {
-  var page = {
-    view: function view() {
-      return m(layoutView, m(pageView));
-    }
-  }; // Create a visualisation-containing div element with random ID
-
-  var divId = "svg_container_" + Math.floor(Math.random() * 1000000000) + 1;
-
-  page.view = function () {
-    // Pass a selector to the vis component, representing the div element where D3 can mutate the DOM
-    var d3Canvas = m("div", {
-      id: divId
-    });
-    return m(layoutView, m(pageView, d3Canvas));
-  };
-
-  page.oncreate = function () {
-    // Pass an appended SVG selection to the vis component to consume
-    pageView.content(Object(d3_selection__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])("div#" + divId).classed("h-full", true).append("svg").attr("width", "100%").attr("height", "100%"));
-  };
-
-  return page;
-};
-
-var debounce = function debounce(func, delay) {
-  var timeout;
-  return function () {
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-
-    timeout = setTimeout(function () {
-      return func.apply(null, args);
-    }, delay);
-  };
-};
-
-var handleAndRethrow = function handleAndRethrow(err) {
-  console.log(err);
-
-  if (!err.response.status) {
-    console.log(err.stack);
-    window.FlashMessage.error("Network Error. API is unavailable.");
-  } else {
-    window.FlashMessage.error(err.status);
-  }
-
-  throw err;
-};
-
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
-
-/***/ }),
+/* 12 */,
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1898,7 +1896,7 @@ Selection.prototype = selection_selection.prototype = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _view_components_Pages_forms_CreateForm_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _view_components_Pages_forms_CreateForm_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
 /* harmony import */ var _view_components_Pages_HabitNodeList_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
 /* harmony import */ var _view_components_Pages_visualisations_HabitTree_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(61);
 /* harmony import */ var _view_components_Pages_visualisations_RadialTree_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(63);
@@ -6118,7 +6116,7 @@ var InputGroup = {
 
 "use strict";
 /* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mithril_stream__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -6358,7 +6356,7 @@ module.exports = function(url) {
 /* harmony import */ var _view_Layout_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
 /* harmony import */ var _store_domain_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 /* harmony import */ var _view_components_layout_HeroSection_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(76);
-/* harmony import */ var _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+/* harmony import */ var _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10);
 // MegaMenu Routes
  // Layouts
 
@@ -7672,7 +7670,7 @@ module.exports = Cancel;
 
 "use strict";
 /* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mithril_stream__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -7793,7 +7791,7 @@ var FormContainer = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(m) {/* harmony import */ var _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* WEBPACK VAR INJECTION */(function(m) {/* harmony import */ var _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
 /* harmony import */ var _store_habit_tree_store_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(62);
 /* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
 
@@ -7909,7 +7907,7 @@ var HabitTree = {
 
 "use strict";
 /* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var mithril_stream__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mithril_stream__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -7989,7 +7987,7 @@ var LogoLink = {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(m) {/* harmony import */ var _assets_scripts_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
-/* harmony import */ var _Pages_forms_CreateForm_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _Pages_forms_CreateForm_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
 /* harmony import */ var _store_domain_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 
 

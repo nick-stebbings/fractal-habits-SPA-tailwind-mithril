@@ -42,6 +42,13 @@ module Hht
       def all_as_json
         { :habits => habits.all }.to_json
       end
+
+      def restrict_on_domain_id_combine_with_root_node_of_domain(domain_id)
+        habits
+          .combine(:habit_nodes)
+          .node(:habit_node) { |hn| hn.where(lft: 1) }
+          .where{ domain_id == domain_id && habit_node.nil? }
+      end
     end
   end
 end

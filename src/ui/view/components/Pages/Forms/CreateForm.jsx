@@ -15,7 +15,7 @@ const CreateForm = {
 
       FD.forEach((value, key) => (data[key.replace(/\-/g, "_")] = value)); // Assign values while swapping for snake_case
       data['domain_id'] = attrs.domain().id;
-      data['habit_node_id'] = 0;
+      data['habit_node_id'] = 1;
 
       HabitStore.submit(data)
         .catch((err) => {
