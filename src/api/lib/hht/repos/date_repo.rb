@@ -43,7 +43,7 @@ module Hht
         input[:h_date].split("-").map(&:to_i)
       end
 
-      def insert_upto_today(start_date = DATE_INSERTION_STARTPOINT)
+      def insert_upto_today(start_date = DATE_INSERTION_STARTPOINT, end_date = 'NOW()')
 query = <<-SQL.chomp
   WITH last_date_entry AS (
   SELECT
@@ -62,7 +62,7 @@ query = <<-SQL.chomp
       (
         #{start_date}
       ),
-      now(),
+      #{end_date},
       '1 day' :: interval
     );
 SQL

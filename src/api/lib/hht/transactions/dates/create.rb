@@ -21,7 +21,12 @@ module Hht
           binding.pry
           is_valid = create.call(input).to_monad
           if(is_valid.success?)
-            before_records_began(input) ? date_repo.insert_upto_today(input[:h_date]) :  date_repo.insert_upto_today
+            sql_query_start_timestamp = "\'#{input[:h_date]}\' :: timestamptz" 
+            sql_query_end_timestamp = "\'#{date_a_day_before_earliest}\' :: timestamptz" 
+
+            before_records_began(input) 
+              ? date_repo.insert_upto_today(sql_query_start_timestamp, sql_query_end_timestamp) 
+              : date_repo.insert_upto_today
             Success("Dates inserted upto current habit tracking day.")
           else
             Failure("Couldn't insert the interim dates.")
@@ -32,11 +37,18 @@ module Hht
           Success(date_repo.dates.insert(result.values.data))
         end
 
-        # private
+        private
 
         def before_records_began(date)
           test_date = {h_date: Date.new(*date_repo.parse(date))}
-          test_date[:h_date].to_time < date_repo.earliest[:h_date]
+
+          first_record = date_repo.earliest
+          !first_record || test_date[:h_date].to_time < first_record[:h_date]
+        end
+
+        def date_a_day_before_earliest
+          first_record = date_repo.earliest
+          first_record ? first_record.h_date.to_date - 1 : 'DATE_TRUNC(\'day\', now())'
         end
       end
     end
