@@ -1,15 +1,48 @@
 # frozen_string_literal: true
 
+DATE_INSERTION_QUERY = <<-SQL.chomp
+  WITH last_date_entry AS (
+  SELECT
+    DISTINCT h_date
+  FROM
+    dates
+  ORDER BY h_date DESC
+  LIMIT 1
+  )
+  INSERT INTO
+    dates (h_date)
+  SELECT
+    generate_series
+  FROM
+    generate_series(
+      (
+        select
+          (h_date + '1 day' :: interval)
+        FROM
+          last_date_entry
+      ),
+      now(),
+      '1 day' :: interval
+    );
+SQL
 module Hht
   module Repos
     class DateRepo < ROM::Repository[:dates]
-      include Import['persistence.container']
+      include Import['persistence.container', 'db.connection']
       struct_namespace Entities
 
       commands update: :by_pk
 
+      def parse(input)
+        data[:date].split("-").map(&:to_i)
+      end
+
+      def insert_upto_today
+        connection.run(DATE_INSERTION_QUERY)
+      end
+
       def create(data)
-        date = Date.new(*data[:date].split("-").map(&:to_i))
+        date = Date.new(*parse(date))
         Hht::Transactions::Dates::Create.new.call({h_date: date})
       end
 

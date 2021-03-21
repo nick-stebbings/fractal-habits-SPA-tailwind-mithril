@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module Hht
   module Transactions
     module Habits
@@ -10,6 +9,7 @@ module Hht
           'contracts.habits.create',
           'repos.habit_repo',
           'repos.habit_node_repo',
+          'repos.date_repo'
         ]
 
         def call(input)
@@ -20,9 +20,14 @@ module Hht
 
         def validate(input)
           parent_node_id = input[:habit_node_id];
+          parsed_date = Date.new(*date_repo.parse(input[:initiation_date]))
           domain_root = habit_repo.restrict_on_domain_id_combine_with_root_node_of_domain(input[:domain_id]).to_a
+
           input[:habit_node_id] = habit_node_repo.create(parent_id: (domain_root ? parent_node_id : nil)).flatten
 
+          if(parsed_date != Date.today())
+
+          end
           create.call(input).to_monad
         end
 

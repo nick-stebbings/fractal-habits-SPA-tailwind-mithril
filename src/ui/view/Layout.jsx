@@ -12,8 +12,7 @@ export default {
     DateStore.current(todaysDate)
   },
   oncreate: () => {
-    document.getElementById("date-today").value = todaysDate;
-    // m.redraw();
+    document.getElementById("date-today").value = DateStore.current();
   },
   view: ({ attrs, children: [mainPage] }) => (
     <div id="layout" class="w-full h-full">
