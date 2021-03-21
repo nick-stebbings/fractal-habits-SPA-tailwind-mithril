@@ -1,4 +1,4 @@
-import {clientRoutes, handleAndRethrow} from "./client";
+import {clientRoutes, handleErrorType} from "./client";
 import stream from "mithril/stream";
 
 const basePath = "/dates";
@@ -10,7 +10,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
     return DateStore.show_one(id)
       .then((response) => JSON.parse(response.data))
       .then(DateStore.current)
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 
   clear: () => {
@@ -26,7 +26,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
       .then((list) => {
         DateStore.current(list[list.length - 1])
       })
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 
   submit: (attrs) => {
@@ -37,7 +37,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
         return date;
       })
       .then(DateStore.current)
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 });
 

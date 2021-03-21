@@ -126,7 +126,7 @@ module.exports = m
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "b", function() { return _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_1__["c"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "b", function() { return _assets_scripts_utilities__WEBPACK_IMPORTED_MODULE_1__["d"]; });
 
 
 
@@ -174,6 +174,7 @@ var clientRoutes = function clientRoutes(basePath) {
 /* WEBPACK VAR INJECTION */(function(m) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return d3visPageMaker; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return debounce; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return handleAndRethrow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return handleErrorType; });
 /* harmony import */ var d3_selection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
 
 
@@ -228,12 +229,31 @@ var debounce = function debounce(func, delay) {
 var handleAndRethrow = function handleAndRethrow(err) {
   if (!err.response) {
     console.log(err.stack);
-    window.FlashMessage.error("Network Error. API is unavailable.");
+    window.FlashMessage.error("Network Error: API is unavailable");
   } else {
-    window.FlashMessage.error("Error: ".concat(err.response.status, " code received."));
+    window.FlashMessage.info("".concat(err.response.status, " code returned"));
   }
 
   throw err;
+};
+
+var handleErrorType = function handleErrorType(err) {
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'warning';
+
+  switch (type) {
+    // TODO: Catrgorise by status code.
+    case 'info':
+      window.FlashMessage.info(err.response.body);
+      break;
+
+    case 'warning':
+      window.FlashMessage.warning(err.response.body);
+      break;
+
+    default:
+      window.FlashMessage.error(err.response.body);
+      break;
+  }
 };
 
 
@@ -9088,7 +9108,7 @@ var NodeStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cli
   get: function get(id) {
     return NodeStore.show_one(id).then(function (response) {
       return JSON.parse(response.data);
-    }).then(NodeStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    }).then(NodeStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   clear: function clear() {
     NodeStore.current = mithril_stream__WEBPACK_IMPORTED_MODULE_1___default()({});
@@ -9097,12 +9117,12 @@ var NodeStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cli
   index: function index() {
     return NodeStore.show_all().then(function (response) {
       return JSON.parse(response.data).habit_nodes;
-    }).then(NodeStore.list)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    }).then(NodeStore.list)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   submit: function submit(attrs) {
     NodeStore.create(attrs).then(NodeStore.current).then(function () {
       NodeStore.index();
-    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   runReplace: function runReplace(id, value) {
     NodeStore.replace(id, value)["catch"](function (e) {// TODO update list/current
@@ -9117,7 +9137,7 @@ var NodeStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cli
       NodeStore.list = NodeStore.list.filter(function (i) {
         return i.id !== id;
       });
-    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   }
 });
 /* harmony default export */ __webpack_exports__["a"] = (NodeStore);
@@ -10890,7 +10910,7 @@ var DateStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cli
   get: function get(id) {
     return DateStore.show_one(id).then(function (response) {
       return JSON.parse(response.data);
-    }).then(DateStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    }).then(DateStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   clear: function clear() {
     DateStore.current = mithril_stream__WEBPACK_IMPORTED_MODULE_1___default()({});
@@ -10901,7 +10921,7 @@ var DateStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cli
       return JSON.parse(response.data).dates;
     }).then(DateStore.list).then(function (list) {
       DateStore.current(list[list.length - 1]);
-    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   submit: function submit(attrs) {
     return DateStore.create(attrs).then(function (response) {
@@ -10909,7 +10929,7 @@ var DateStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cli
       DateStore.index(); //Could save a DB call here
 
       return date;
-    }).then(DateStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    }).then(DateStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   }
 });
 /* harmony default export */ __webpack_exports__["a"] = (DateStore);
@@ -11090,7 +11110,7 @@ var HabitStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cl
   get: function get(id) {
     return HabitStore.show_one(id).then(function (response) {
       return JSON.parse(response.data);
-    }).then(HabitStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    }).then(HabitStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   clear: function clear() {
     HabitStore.current = mithril_stream__WEBPACK_IMPORTED_MODULE_1___default()({});
@@ -11101,7 +11121,7 @@ var HabitStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cl
       return JSON.parse(response.data).habits;
     }).then(HabitStore.list).then(function (list) {
       HabitStore.current(list[0]);
-    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   submit: function submit(attrs) {
     return HabitStore.create(attrs).then(function (response) {
@@ -11109,7 +11129,7 @@ var HabitStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cl
       HabitStore.index(); //Could save a DB call here
 
       return habit;
-    }).then(HabitStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    }).then(HabitStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   runReplace: function runReplace(id, value) {
     return HabitStore.replace(id, value)["catch"](function (e) {// TODO update list/current
@@ -11124,7 +11144,7 @@ var HabitStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* cl
       HabitStore.list = HabitStore.list.filter(function (i) {
         return i.id !== id;
       });
-    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   }
 });
 /* harmony default export */ __webpack_exports__["a"] = (HabitStore);
@@ -11201,7 +11221,7 @@ var DomainStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* c
   get: function get(id) {
     return DomainStore.show_one(id).then(function (response) {
       return JSON.parse(response.data);
-    }).then(DomainStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    }).then(DomainStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   clear: function clear() {
     DomainStore.current = mithril_stream__WEBPACK_IMPORTED_MODULE_1___default()({});
@@ -11214,7 +11234,7 @@ var DomainStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* c
       return JSON.parse(response.data).domains;
     }).then(DomainStore.list).then(function (list) {
       return DomainStore.current(list[0]);
-    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   },
   submit: function submit(attrs) {
     return DomainStore.create(attrs).then(function (response) {
@@ -11222,7 +11242,7 @@ var DomainStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* c
       DomainStore.index(); //Could save a DB call here
 
       return domain;
-    }).then(DomainStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    }).then(DomainStore.current)["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
     ;
   },
   runReplace: function runReplace(id, value) {
@@ -11238,7 +11258,7 @@ var DomainStore = Object.assign(Object(_client__WEBPACK_IMPORTED_MODULE_0__[/* c
       DomainStore.list = DomainStore.list.filter(function (i) {
         return i.id !== id;
       });
-    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleAndRethrow */ "b"]);
+    })["catch"](_client__WEBPACK_IMPORTED_MODULE_0__[/* handleErrorType */ "b"]);
   }
 });
 /* harmony default export */ __webpack_exports__["a"] = (DomainStore);

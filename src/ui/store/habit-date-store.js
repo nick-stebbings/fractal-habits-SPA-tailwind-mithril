@@ -31,7 +31,7 @@ var DateStore = {
           return i.id !== id;
         });
       })
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 };
 

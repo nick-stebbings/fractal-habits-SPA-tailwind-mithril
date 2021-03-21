@@ -43,11 +43,25 @@ const debounce = function (func, delay) {
 const handleAndRethrow = function (err) {
   if (!err.response) {
     console.log(err.stack);
-    window.FlashMessage.error("Network Error. API is unavailable.");
+    window.FlashMessage.error("Network Error: API is unavailable");
   } else {
-    window.FlashMessage.error(`Error: ${err.response.status} code received.`);
+    window.FlashMessage.info(`${err.response.status} code returned`);
   }
   throw err;
 };
 
-export { d3visPageMaker, debounce, handleAndRethrow };
+const handleErrorType = function (err, type = 'warning') {
+  switch (type) {
+    // TODO: Catrgorise by status code.
+    case 'info':
+      window.FlashMessage.info(err.response.body);
+      break;
+    case 'warning':
+      window.FlashMessage.warning(err.response.body);
+      break;
+    default:
+      window.FlashMessage.error(err.response.body);
+      break;
+  }
+};
+export { d3visPageMaker, debounce, handleAndRethrow, handleErrorType };

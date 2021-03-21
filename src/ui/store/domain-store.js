@@ -1,4 +1,4 @@
-import {clientRoutes, handleAndRethrow} from "./client";
+import {clientRoutes, handleErrorType} from "./client";
 import stream from "mithril/stream";
 const basePath = "/domains";
 
@@ -9,7 +9,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
     return DomainStore.show_one(id)
       .then((response) => JSON.parse(response.data))
       .then(DomainStore.current)
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 
   clear: () => {
@@ -25,7 +25,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .then((list) => {
         return DomainStore.current(list[0]);
       })
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 
   submit: (attrs) => {
@@ -36,7 +36,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
         return domain;
       })
       .then(DomainStore.current)
-      .catch(handleAndRethrow);;
+      .catch(handleErrorType);;
   },
 
   runReplace: (id, value) => {
@@ -58,7 +58,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
           return i.id !== id;
         });
       })
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 });
 

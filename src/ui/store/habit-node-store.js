@@ -1,4 +1,4 @@
-import {clientRoutes, handleAndRethrow} from "./client";
+import {clientRoutes, handleErrorType} from "./client";
 import stream from "mithril/stream";
 
 const basePath = "/habit_trees/nodes";
@@ -11,7 +11,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
     return NodeStore.show_one(id)
       .then((response) => JSON.parse(response.data))
       .then(NodeStore.current)
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 
   clear: () => {
@@ -24,7 +24,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
     return NodeStore.show_all()
       .then((response) => JSON.parse(response.data).habit_nodes)
       .then(NodeStore.list)
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 
   submit: (attrs) => {
@@ -33,7 +33,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
       .then(() => {
         NodeStore.index();
       })
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 
   runReplace: (id, value) => {
@@ -55,7 +55,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
           return i.id !== id;
         });
       })
-      .catch(handleAndRethrow);
+      .catch(handleErrorType);
   },
 });
 
