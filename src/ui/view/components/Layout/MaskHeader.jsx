@@ -95,6 +95,7 @@ const MaskHeader = {
                         class:
                           "w-full lg:w-48 text-center text-xl lg:pt-2 -mr-2 py-1 px-0",
                         type: "date",
+                        id: "date-today"
                       },
                       DateStore.current())}
                     </span>

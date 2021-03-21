@@ -5,14 +5,15 @@ import MainStage from "./components/Layout/MainStage.jsx";
 import Footer from "./components/Layout/Footer.jsx";
 
 import DateStore from "../store/date-store";
+const todaysDate = new Date().toDateInputValue();
 
 export default {
   oninit: () => {
-    const todaysDate = new Date().toDateInputValue();
     DateStore.current(todaysDate)
   },
   oncreate: () => {
-    document.getElementById("initiation-date");
+    document.getElementById("date-today").value = todaysDate;
+    // m.redraw();
   },
   view: ({ attrs, children: [mainPage] }) => (
     <div id="layout" class="w-full h-full">
