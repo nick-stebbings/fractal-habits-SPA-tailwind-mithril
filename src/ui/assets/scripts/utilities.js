@@ -51,16 +51,17 @@ const handleAndRethrow = function (err) {
 };
 
 const handleErrorType = function (err, type = 'warning') {
+  console.log(err);
   switch (type) {
     // TODO: Catrgorise by status code.
     case 'info':
-      window.FlashMessage.info(err.response.body);
+      window.FlashMessage.info(String(err.response));
       break;
     case 'warning':
-      window.FlashMessage.warning(err.response.body);
+      window.FlashMessage.warning(String(err.response));
       break;
     default:
-      window.FlashMessage.error(err.response.body);
+      window.FlashMessage.error(String(err.response));
       break;
   }
 };
