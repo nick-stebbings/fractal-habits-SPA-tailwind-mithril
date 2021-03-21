@@ -8,6 +8,14 @@ module Hht
         params do
           required(:id).filled(:integer)
         end
+        
+        rule(:id) do
+          key.failure('Must be a positive integer.') unless (value.is_a? Integer) && value > 0
+        end
+
+        rule(:id) do
+          key.failure('Date does not exist.') unless date_repo.dates.by_pk(value).one
+        end
       end
     end
   end

@@ -287,15 +287,11 @@ module Hht
       end
     end
     
-    # RESOURCES TO BE DESCRIBED LATER
-    namespace '/api/habit_dates' do
-    end
-
     namespace '/api/dates' do
       get '' do
         date_list = date_repo.all_as_json
         halt(404, { message:'No Dates Found'}.to_json) unless date_list
-
+        
         status 200
         json date_list
       end
@@ -304,7 +300,7 @@ module Hht
         status 200
         json date_repo.as_json(id)
       end
-  
+      
       post '' do
         date = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = date_repo.create(date)
@@ -317,6 +313,10 @@ module Hht
           status 400
         end
       end
+    end
+
+    # RESOURCES TO BE DESCRIBED LATER
+    namespace '/api/habit_dates' do
     end
   end
 end

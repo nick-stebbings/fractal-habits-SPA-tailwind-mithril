@@ -22,8 +22,7 @@ module Hht
         end
 
         def remove(result)
-          resource = date_repo.by_id(result.values.data[:id]).one
-          Success(date_repo.by_id(resource[:id]).delete)
+          Success(date_repo.dates.by_pk(result[:id]).delete)
         end
       end
     end

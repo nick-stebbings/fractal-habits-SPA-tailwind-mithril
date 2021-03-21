@@ -14,7 +14,7 @@ module Hht
         end
 
         rule(:id) do
-          key.failure('Node does not exist.') unless habit_node_repo.by_id(value).one
+          key.failure('Domain does not exist.') unless domain_repo.by_id(value).one
         end
       end
     end
