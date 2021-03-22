@@ -8,7 +8,6 @@ module Hht
       commands update: :by_pk
 
       def create(parent)
-        # binding.pry
         Hht::Transactions::HabitNodes::Create.new.call(parent)
       end
 

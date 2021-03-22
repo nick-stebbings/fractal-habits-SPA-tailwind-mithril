@@ -15,7 +15,6 @@ module Hht
       commands update: :by_pk
 
       def create(data)
-        binding.pry
         Hht::Transactions::Dates::Create.new.call({h_date: Date.new(*parse(data))})
       end
 

@@ -1,31 +1,31 @@
-import { select } from "d3-selection";
+import { select } from 'd3-selection';
 
 Date.prototype.toDateInputValue = function () {
-  var local = new Date(this);
+  const local = new Date(this);
   local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
   return local.toJSON().slice(0, 10);
 };
 
 const d3visPageMaker = function (layoutView, pageView) {
-  let page = {
+  const page = {
     view: () => m(layoutView, m(pageView)),
   };
 
   // Create a visualisation-containing div element with random ID
-  const divId = "svg_container_" + Math.floor(Math.random() * 1000000000) + 1;
+  const divId = `svg_container_${Math.floor(Math.random() * 1000000000)}${1}`;
   page.view = () => {
     // Pass a selector to the vis component, representing the div element where D3 can mutate the DOM
-    const d3Canvas = m("div", { id: divId });
+    const d3Canvas = m('div', { id: divId });
     return m(layoutView, m(pageView, d3Canvas));
   };
   page.oncreate = function () {
     // Pass an appended SVG selection to the vis component to consume
     pageView.content(
-      select("div#" + divId)
-        .classed("h-full", true)
-        .append("svg")
-        .attr("width", "100%")
-        .attr("height", "100%")
+      select(`div#${divId}`)
+        .classed('h-full', true)
+        .append('svg')
+        .attr('width', '100%')
+        .attr('height', '100%'),
     );
   };
 
@@ -35,7 +35,7 @@ const d3visPageMaker = function (layoutView, pageView) {
 const debounce = function (func, delay) {
   let timeout;
   return (...args) => {
-    if (timeout) { clearTimeout(timeout) }
+    if (timeout) { clearTimeout(timeout); }
     timeout = setTimeout(() => func.apply(null, args), delay);
   };
 };
@@ -43,27 +43,34 @@ const debounce = function (func, delay) {
 const handleAndRethrow = function (err) {
   if (!err.response) {
     console.log(err.stack);
-    window.FlashMessage.error("Network Error: API is unavailable");
+    window.FlashMessage.error('Network Error: API is unavailable');
   } else {
     window.FlashMessage.info(`${err.response.status} code returned`);
   }
   throw err;
 };
 
+const messages = {
+  400: 'Bad Request.',
+  404: 'Resource could not be found.',
+  422: 'Unprocessable entity.',
+};
+
 const handleErrorType = function (err, type = 'warning') {
   console.log(err);
   switch (type) {
-    // TODO: Catrgorise by status code.
     case 'info':
-      window.FlashMessage.info(String(err.response));
+      window.FlashMessage.info(messages[err.response]);
       break;
     case 'warning':
-      window.FlashMessage.warning(String(err.response));
+      window.FlashMessage.warning(messages[err.response]);
       break;
     default:
-      window.FlashMessage.error(String(err.response));
+      window.FlashMessage.error(messages[err.response]);
       break;
   }
   throw err;
 };
-export { d3visPageMaker, debounce, handleAndRethrow, handleErrorType };
+export {
+  d3visPageMaker, debounce, handleAndRethrow, handleErrorType,
+};

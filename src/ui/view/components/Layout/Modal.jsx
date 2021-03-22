@@ -1,62 +1,63 @@
-import { openModal } from "../../../assets/scripts/animations";
-import CreateForm from "../Pages/forms/CreateForm.jsx"
+import { openModal } from '../../../assets/scripts/animations';
+import CreateForm from '../Pages/Forms/CreateForm.jsx';
 
-import DomainStore from "../../../store/domain-store";
+import DomainStore from '../../../store/domain-store';
 
 const Modal = {
   oncreate: () => {
-    Array.from(document.querySelectorAll("button[id^=close-modal]")).forEach(
+    Array.from(document.querySelectorAll('button[id^=close-modal]')).forEach(
       (button) => {
-        button.addEventListener("click", () => {
+        button.addEventListener('click', () => {
           openModal(false);
         });
-      }
+      },
     );
   },
-  view: (vnode) => (
+  view: () => (
     <div
       id="modal_overlay"
-      class="fixed overflow-auto hidden z-50 bg-black bg-opacity-30 w-full h-full flex justify-center items-start md:items-center"
+      className="bg-opacity-30 md:items-center fixed z-50 flex items-start justify-center hidden w-full h-full overflow-auto bg-black"
     >
       {/* Modal Tailwind Component originally by Huda Damar */}
       <div
         id="modal"
-        class="flex absolute opacity-0 transform -translate-y-full scale-150 inset-4 sm:inset-12 rounded-2xl bg-white shadow-lg transition-opacity transition-transform duration-300 bottom-auto"
+        className="inset-4 sm:inset-12 rounded-2xl absolute bottom-auto flex transition-opacity transition-transform duration-300 transform scale-150 -translate-y-full bg-white shadow-lg opacity-0"
       >
         <button
           id="close-modal-x"
-          class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-2xl focus:outline-none text-white"
+          type="button"
+          className="-top-3 -right-3 hover:bg-red-600 focus:outline-none absolute w-10 h-10 text-2xl text-white bg-red-500 rounded-full"
         >
           <svg
-            class="w-6 h-6 mx-auto"
+            className="w-6 h-6 mx-auto"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
               d="M6 18L18 6M6 6l12 12"
-            ></path>
+            />
           </svg>
         </button>
 
-        <div class="flex flex-col items-center w-full rounded-2xl">
-          <div class="px-4 py-3 border-b border-gray-200">
-            <h2 class="text-xl font-semibold text-gray-600 mt-2 text-center">
+        <div className="rounded-2xl flex flex-col items-center w-full">
+          <div className="px-4 py-3 border-b border-gray-200">
+            <h2 className="mt-2 text-xl font-semibold text-center text-gray-600">
               Create a new habit under the life domain
             </h2>
-            <h3 class="text-2xl font-bold text-center mt-2">
-              {DomainStore.current().name || 'PH'}
+            <h3 className="mt-2 text-2xl font-bold text-center">
+              {DomainStore.current().name}
             </h3>
           </div>
           <CreateForm
             resourceName="Habit"
             domain={DomainStore.current}
             resourceDescription="A way of keeping track of your daily behaviours"
-          ></CreateForm>
+          />
         </div>
       </div>
     </div>
