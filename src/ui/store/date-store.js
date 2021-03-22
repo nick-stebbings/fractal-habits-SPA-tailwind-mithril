@@ -33,6 +33,9 @@ const DateStore = Object.assign(clientRoutes(basePath), {
       return date;
     })
     .then(DateStore.current)
+    .then(() => {
+      window.FlashMessage.success('Dates were added to the database!');
+    })
     .catch(handleErrorType),
 });
 

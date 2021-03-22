@@ -10,11 +10,6 @@ const CreateForm = {
   oncreate: ({ attrs }) => {
     document.getElementById('initiation-date').value = new Date().toDateInputValue();
 
-    const button = document.querySelector('button[name=submit]');
-    button.addEventListener('click', () => {
-      openModal(false);
-    });
-
     document.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();
 

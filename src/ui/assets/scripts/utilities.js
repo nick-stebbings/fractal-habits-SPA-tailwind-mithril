@@ -1,4 +1,4 @@
-import { select } from 'd3-selection';
+import { select } from 'd3';
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -50,21 +50,25 @@ const handleAndRethrow = function (err) {
 };
 
 const messages = {
-  400: 'Bad Request.',
+  400: 'Bad Request: There may have been something wrong with your input.',
   404: 'Resource could not be found.',
-  422: 'Unprocessable entity.',
+  422: 'Unprocessable entity: There may have been something wrong with your input.',
+  499: 'This is a demo app, and you can only add the 5 domains given to you. Please try another.',
 };
 
 const handleErrorType = function (err, type = 'warning') {
+  if (err.response.config.url === '/domains') {
+    err.response.status = 499;
+  }
   switch (type) {
     case 'info':
-      window.FlashMessage.info(messages[Number(err.response)]);
+      window.FlashMessage.info(messages[Number(err.response.status)]);
       break;
     case 'warning':
-      window.FlashMessage.warning(messages[Number(err.response)]);
+      window.FlashMessage.warning(messages[Number(err.response.status)]);
       break;
     default:
-      window.FlashMessage.error(messages[Number(err.response)]);
+      window.FlashMessage.error(messages[Number(err.response.status)]);
       break;
   }
   throw err;
