@@ -1,10 +1,10 @@
+
 require 'rom'
 require 'pry'
 require 'rom-yaml'
 path = "dummyData.yml"
 
 config = ROM::Configuration.new(:yaml, path)
-
 class Domain < ROM::Relation[:yaml]
   schema(:domains) do
     attribute :id, ROM::Types::String
@@ -30,23 +30,39 @@ end
 # config.register_relation(Habit)
 
 config.register_relation(Domain)
-rom = ROM.container(config) 
-# do |setup|
-#   setup.relation(Domain)
-#   setup.relation(Habit)
+rom = ROM.container(config) do |setup|
+  setup.relation(Domain)
 
-#   define(:domains) do
-#     register_as :entity
+  define(:domains) do
+    register_as :entity
 
-#     model name: 'Domain'
-#     attribute :id, Types::Integer
-#     attribute :name, Types::String
+    model name: 'Domain'
+    attribute :id, Types::Integer
+    attribute :name, Types::String
 
-#     embedded :sports, type: :hash do
-#       attribute :name, from: 'name'
-#     end
-#   end
-# end
+    embedded :habits, type: :hash do
+      attribute :name, from: 'name'
+    end
+  end
+end
+
+module Entities
+  class HabitNode < ROM::Struct
+    attr_reader :attributes
+
+    def initialize(attributes)
+      @attributes = attributes
+    end
+
+  end
+end
+class HabitNodeRepo < ROM::Repository[:domains]
+  struct_namespace Entities
+  commands update: :by_pk
+end
+hnrep = HabitNodeRepo.new(rom)
+
+
 
 Pry.start
 # puts rom.relations[:domains].by_name('sports').first
