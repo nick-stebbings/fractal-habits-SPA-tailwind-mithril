@@ -1,0 +1,266 @@
+domains:
+  - name: Do Martial Arts
+    id: 1
+    habits:
+      - name: Take up Karate
+        children:
+          - name: Try to set aside time every day to practice.
+            children: []
+          - name: Watch online video tutorials for some guidance while you practice.
+            children:
+              - name: >-
+                  Search online karate courses for interactive instruction and
+                  online dojos!
+                children: []
+          - name: >-
+              Wear comfortable clothes like baggy shorts or sweatpants with a
+              T-shirt.
+            children: []
+          - name: >-
+              Purchase a body opponent bag so it's easier to practice on your
+              own.
+            children: []
+          - name: Stretch
+            children: []
+          - name: ' and workout before your training starts to prepare your body.'
+            children: []
+          - name: >-
+              Warm up with your stance before you begin practicing specific
+              technique.
+            children: []
+          - name: Practice lowering your center of gravity.
+            children:
+              - name: >-
+                  Every time you block an attack, be sure that you are not
+                  falling off balance. If you are, this is a sign that you are
+                  not lowering your center of gravity effectively.
+                children: []
+              - name: >-
+                  If you have a body opponent bag, push it away from you while
+                  maintaining your center of gravity. As it moves back toward
+                  you, practice blocking it while keeping your center of
+                  gravity.
+                children: []
+          - name: >-
+              High block by bringing either arm across your body to your
+              forehead.
+            children: []
+          - name: Forward block by touching the opposing shoulder with either arm.
+            children: []
+          - name: Cross block by moving either arm to your ear and across your face.
+            children: []
+          - name: >-
+              Downward circle block by bringing the opponent's arm down past
+              you.
+            children:
+              - name: Guide the opponent's punch by using their force against them.
+                children: []
+              - name: Use this block to defend a punch coming into the stomach.
+                children: []
+          - name: Learn how to throw basic Karate punches.
+            children:
+              - name: >-
+                  Always tilt your wrist downward so you are hitting with your
+                  first 2 knuckles, also known as the unit knuckles. This also
+                  prevents you from hyperextending your elbow.
+                children: []
+              - name: >-
+                  Twist your wrist back to facing upward as you draw the punch
+                  back to release your locked elbow.
+                children: []
+          - name: Practice snap kicking motions and progress your speed.
+            children:
+              - name: >-
+                  Start by practicing waist-level snap kicks before progressing
+                  higher.
+                children: []
+              - name: >-
+                  If you practice on a friend, be sure that you are hitting them
+                  with the instep of your foot to the blade of your foot.
+                children: []
+              - name: >-
+                  Use these kicks to lighten up your opponent and throw them off
+                  balance.
+                children: []
+          - name: Practice thrust kicks to push your opponent back.
+            children:
+              - name: >-
+                  Practice thrust kicks on a punching bag and increase their
+                  force as you get more comfortable.
+                children: []
+              - name: >-
+                  Once you're comfortable with your kicks, practice on a friend
+                  that knows Karate and is comfortable blocking.
+                children: []
+  - name: Do Martial Arts
+    id: 2
+    habits:
+      - name: Take up Tai Chi
+        children:
+          - name: Master the moves by understanding the philosophy and its makers.
+            children:
+              - name: >-
+                  The art of Tai Chi is said to improve the flow of Chi (Qi),
+                  the traditional Chinese concept of a physically intangible
+                  energy or life force. In scientific studies, Tai Chi has been
+                  proven to improve a host of medical conditions including, but
+                  not limited to: muscular pain, headaches, fibromyalgia,
+                  cardiovascular problems, arthritis, multiple sclerosis,
+                  Parkinson's, Alzheimer's, Diabetes and ADHD. Though its
+                  low-impact workout is especially helpful to seniors, Tai Chi
+                  is for everyone and is deceptively simple in appearance.
+                children: []
+              - name: "The thing to keep in mind about Taoism is that it is about an attunement with nature. Not just nature outside of us, but also the nature within us. This principle is called Tzu Jan, or Ziran in pinyin, and it is the principle of being \"self-so\"\x9D or embodying one's \"self-nature\"\x9D. So beyond the health benefits and stress relief, Tai Chi Chuan is also  a means to tap into one's inner self.[5]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                children: []
+          - name: Think about more than just doing the move.
+            children: []
+          - name: Try the single whip move.
+            children: []
+          - name: Do the white crane spreads wings move.
+            children: []
+          - name: Practice "pouring.
+            children: []
+          - name: Do arm circles.
+            children:
+              - name: >-
+                  Do leg cycling, too! Sit down and work from your toes to your
+                  thighs, bending your knees when you need to. Be sure to go
+                  both clockwise and counterclockwise.
+                children: []
+          - name: Master the "snake creeps down" move.
+            children:
+              - name: >-
+                  Once you're there, test your balance with your arms. Move them
+                  around on different planes and at different speeds. Can you
+                  hold it?
+                children: []
+          - name: Go from short form to long form.
+            children: []
+          - name: Warm up with proper breathing and centering.
+            children:
+              - name: 'Put your feet up to shoulder width apart, no further.'
+                children: []
+              - name: >-
+                  Place your hand on your lower abdomen, about 2 inches (5 cm)
+                  below your navel. Push in lightly.
+                children: []
+              - name: >-
+                  Breathe in and out through your nose slowly (lips loosely
+                  together) from this area of your abdomen. If you can't feel
+                  this area moving, push in with your hand a bit more.
+                children: []
+          - name: Concentrate on all parts of your body one at a time.
+            children: []
+          - name: Root yourself.
+            children: []
+          - name: Think about your frame.
+            children:
+              - name: >-
+
+                  Small frame style. In this style (usually Wu or Hao versions)
+                  aren't very expansive. The movements are smaller (big
+                  surprise, huh?) and there's less extension in general. The
+                  focus is on correct internal energy to form correct movements
+                  and transitions.
+                children: []
+              - name: >
+
+                  Large frame style. The large frame style (Chen and Yang)
+                  involves low and high stances, more dramatic postures, and
+                  swinging arms. It emphasizes correct positioning of the body
+                  and alignment to channel energy.
+
+                  There is a medium frame style, but it's really just in between
+                  the two. If you have questions, ask your teacher!
+                children: []
+          - name: Experiment with different styles.
+            children: []
+          - name: Choose a style of Tai Chi that fits your needs and interests.
+            children: []
+          - name: Make sure you're physically ready for it.
+            children: []
+          - name: Find a knowledgeable teacher who is right for you.
+            children: []
+          - name: Pick a style of instruction.
+            children: []
+          - name: Practice.
+            children: []
+          - name: Commit to practicing for 12 weeks minimum.
+            children: []
+          - name: Keep distractions out of your practice zone.
+            children:
+              - name: >-
+
+                  Relax. Tensing your body is the best way to prevent getting
+                  any benefit from Tai Chi. However, relax does not mean turn
+                  into a wet noodle. Retain proper posture without excess
+                  tension. Classic Tai Chi literature often describes this as
+                  standing "as if one were suspended on a string on the top of
+                  the head".
+                children: []
+              - name: "\nBreathe. Part of the secret of Tai Chi's health benefits comes from deep, abdominal breathing.[21]\n\tX\n\t\tExpert Source\n\n\t\t\n\t\t\tFrank BlaneyCertified Tai Chi & Qigong Instructor\n\n\t\tExpert Interview.  19 May 2020.\n\n\n The majority of styles teach \"abdominal breathing\", in which one breathes in, expanding the abdominal area (not the chest) and exhales by contracting the abs. All inhalation is done through the nose; exhalation through the mouth and the tongue should touch the roof of the mouth, stimulating salivary function."
+                children: []
+              - name: >-
+                  Live in the moment. Develop the Tai Chi mental discipline to
+                  live in the moment rather than focusing on anxieties.
+                children: []
+          - name: Practice in stressful situations.
+            children:
+              - name: >-
+                  As a form of meditation, Tai Chi is able to help you learn to
+                  understand yourself better and thereby deal with others more
+                  effectively. Thus, when stressful situations arise, Tai Chi
+                  learning will help you to be assertive and respectful of
+                  others, as well as staying in the present and dealing with the
+                  situation before you with calmness. Tai Chi helps you learn to
+                  merge the opposing forces of yin and yang, self and the world
+                  to achieve a natural balance for physical and spiritual
+                  well-being. This balance is represented by the Tai Chi symbol.
+                children: []
+          - name: Expand your repertoire.
+            children: []
+          - name: Read deeply about Tai Chi.
+            children: []
+  - name: Do Martial Arts
+    id: 3
+    habits:
+      - name: Take up Grappling
+        children:
+          - name: Find a local studio that offers Judo lessons.
+            children: []
+          - name: Get the kit.
+            children: []
+          - name: Learn the breakfalls.
+            children: []
+          - name: 'Work on learning a few moves, and perfecting them.'
+            children: []
+          - name: Drill!
+            children: []
+          - name: Learn groundwork techniques.
+            children: []
+          - name: Learn some Japanese names.
+            children: []
+          - name: Learn the rules.
+            children: []
+          - name: Train regularly.
+            children: []
+          - name: Eat and drink healthily and have an active lifestyle.
+            children: []
+          - name: Don't be afraid to ask questions.
+            children: []
+          - name: >-
+              Learn counterattacks to basic judo throws, then when your opponent
+              does a certain throw, you'll be able to use it to your advantage,
+              particularly if you are small framed and often have a certain move
+              used against you.
+            children: []
+          - name: Practice both left- and right-handed techniques.
+            children: []
+          - name: Learn combinations.
+            children: []
+          - name: >-
+              Practice transitions from standing techniques (tachi-waza) to
+              ground techniques (ne-waza).
+            children: []
+          - name: Learn and understand the etiquette and history of judo.
+            children: []

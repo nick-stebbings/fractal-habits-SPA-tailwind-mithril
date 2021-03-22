@@ -1,31 +1,27 @@
-import {clientRoutes, handleErrorType} from "./client";
-import stream from "mithril/stream";
+import stream from 'mithril/stream';
+import { clientRoutes, handleErrorType } from './client';
 
-const basePath = "/habit_trees/nodes";
+const basePath = '/habit_trees/nodes';
 
-    // create: (parent) => axios.post(basePath, { parent_id: parent }),
+// create: (parent) => axios.post(basePath, { parent_id: parent }),
 const NodeStore = Object.assign(clientRoutes(basePath), {
   current: stream({}),
 
-  get: (id) => {
-    return NodeStore.show_one(id)
-      .then((response) => JSON.parse(response.data))
-      .then(NodeStore.current)
-      .catch(handleErrorType);
-  },
+  get: (id) => NodeStore.show_one(id)
+    .then((response) => JSON.parse(response.data))
+    .then(NodeStore.current)
+    .catch(handleErrorType),
 
   clear: () => {
-    NodeStore.current =  stream({});
+    NodeStore.current = stream({});
   },
 
   list: stream([]),
 
-  index: () => {
-    return NodeStore.show_all()
-      .then((response) => JSON.parse(response.data).habit_nodes)
-      .then(NodeStore.list)
-      .catch(handleErrorType);
-  },
+  index: () => NodeStore.show_all()
+    .then((response) => JSON.parse(response.data).habit_nodes)
+    .then(NodeStore.list)
+    .catch(handleErrorType),
 
   submit: (attrs) => {
     NodeStore.create(attrs)
@@ -51,9 +47,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
   runDelete: (id) => {
     NodeStore.delete(id)
       .then(() => {
-        NodeStore.list = NodeStore.list.filter((i) => {
-          return i.id !== id;
-        });
+        NodeStore.list = NodeStore.list.filter((i) => i.id !== id);
       })
       .catch(handleErrorType);
   },

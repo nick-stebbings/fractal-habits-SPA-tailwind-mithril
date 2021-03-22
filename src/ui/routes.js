@@ -1,50 +1,49 @@
 // MegaMenu Routes
-import MenuRoutes from "./menu-routes";
+import MenuRoutes from './menu-routes';
 // Layouts
-import Layout from "./view/Layout.jsx";
+import Layout from './view/Layout.jsx';
 // Models
-import DomainStore from "./store/domain-store";
+import DomainStore from './store/domain-store';
 // Components
-import HeroSection from "./view/components/layout/HeroSection.jsx";
+import HeroSection from './view/components/layout/HeroSection.jsx';
 // Utils
-import { d3visPageMaker } from "./assets/scripts/utilities";
+import { d3visPageMaker } from './assets/scripts/utilities';
 
 const Routes = MenuRoutes.reduce(
   (newRoutesObject, menuSection) => {
-    let links = menuSection.subpaths;
+    const links = menuSection.subpaths;
 
     Object.keys(links).forEach((path) => {
-      let title = links[path]["title"];
-      let page = links[path]["page"];
+      const { title } = links[path];
+      const { page } = links[path];
       newRoutesObject[path] = {
-        render: () =>
-          menuSection["label"] === "Visualise"
-            ? m(d3visPageMaker(Layout, page), {
-                heading: title,
-              })
-            : m(Layout, m(page), {
-                heading: title,
-              }),
+        render: () => (menuSection.label === 'Visualise'
+          ? m(d3visPageMaker(Layout, page), {
+            heading: title,
+          })
+          : m(Layout, m(page), {
+            heading: title,
+          })),
       };
     });
 
     return newRoutesObject;
   },
   {
-    "/": {
-      onmatch: function () {
+    '/': {
+      onmatch() {
         DomainStore.index()
           .then(() => {
             m.redraw();
           });
       },
-      render: function () {
+      render() {
         return m(Layout, { index: true }, m(HeroSection));
       },
     },
-  }
+  },
 );
 
-const DefaultRoute = "/";
+const DefaultRoute = '/';
 
 export { Routes, DefaultRoute };

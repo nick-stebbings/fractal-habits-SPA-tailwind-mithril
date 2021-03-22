@@ -1,33 +1,30 @@
-import {clientRoutes} from "./client";
-import stream from "mithril/stream";
+import stream from 'mithril/stream';
+import { clientRoutes } from './client';
 
-const basePath = "/habit_trees";
+const basePath = '/habit_trees';
 
-const TreeStore = Object.assign(
-  { show_all: clientRoutes(basePath)["show_all"] },
-  {
-    current: stream({}),
+const TreeStore = {
+  show_all: clientRoutes(basePath).show_all,
+  current: stream({}),
 
-    get: () => {
-      return TreeStore.show_all().catch((err) => {
-        console.log(err);
-      });
-    },
+  get: () => TreeStore.show_all().catch((err) => {
+    console.log(err);
+  }),
 
-    clear: () => {
-      TreeStore.current =  stream({});
-    },
+  clear: () => {
+    TreeStore.current = stream({});
+  },
 
-    // list: stream([]),
+  // list: stream([]),
 
-    // index: () => {
-    //   return TreeStore.show_all()
-    //     .then((response) => JSON.parse(response.data).habit_nodes)
-    //     .then(TreeStore.list)
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-  }
-);
+  // index: () => {
+  //   return TreeStore.show_all()
+  //     .then((response) => JSON.parse(response.data).habit_nodes)
+  //     .then(TreeStore.list)
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // },
+
+};
 export default TreeStore;

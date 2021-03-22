@@ -1,4 +1,6 @@
-const habits = [sportHabits, mindHabits, healthHabits, givingHabits, careerHabits];
+const habits = {
+  sports: sportHabits, mind: mindHabits, health: healthHabits, giving: givingHabits, career: careerHabits,
+};
 
 var sportHabits = [{
   name: 'Do Martial Arts',
