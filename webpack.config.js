@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   entry: "./src/index.js",
@@ -17,6 +18,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({ filename: "bundle.css" }),
     new CleanWebpackPlugin(),
+    new ESLintPlugin(),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "./index.html",
