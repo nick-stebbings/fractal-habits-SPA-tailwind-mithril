@@ -14,7 +14,7 @@ const d3visPageMaker = function (layoutView, pageView) {
   // Create a visualisation-containing div element with random ID
   const divId = `svg_container_${Math.floor(Math.random() * 1000000000)}${1}`;
   page.view = () => {
-    // Pass a selector to the vis component, representing the div element where D3 can mutate the DOM
+    // Pass selector to the vis component, representing the div element where D3 can mutate the DOM
     const d3Canvas = m('div', { id: divId });
     return m(layoutView, m(pageView, d3Canvas));
   };
@@ -42,7 +42,6 @@ const debounce = function (func, delay) {
 
 const handleAndRethrow = function (err) {
   if (!err.response) {
-    console.log(err.stack);
     window.FlashMessage.error('Network Error: API is unavailable');
   } else {
     window.FlashMessage.info(`${err.response.status} code returned`);
@@ -57,16 +56,15 @@ const messages = {
 };
 
 const handleErrorType = function (err, type = 'warning') {
-  console.log(err);
   switch (type) {
     case 'info':
-      window.FlashMessage.info(messages[err.response]);
+      window.FlashMessage.info(messages[Number(err.response)]);
       break;
     case 'warning':
-      window.FlashMessage.warning(messages[err.response]);
+      window.FlashMessage.warning(messages[Number(err.response)]);
       break;
     default:
-      window.FlashMessage.error(messages[err.response]);
+      window.FlashMessage.error(messages[Number(err.response)]);
       break;
   }
   throw err;

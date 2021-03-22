@@ -1,38 +1,39 @@
-var DateStore = {
+import stream from 'mithril/stream';
+import { clientRoutes, handleErrorType } from './client';
+
+var HabitDateStore = {
   current: {},
   list: [],
   clear: () => {
-    DateStore.current =  stream({});
+    HabitDateStore.current = stream({});
   },
   submit: () => {
-    DateStore.create()
+    HabitDateStore.create()
       .then(() => {
-        Flash.success("Note created.");
+        Flash.success('Note created.');
         // This could be optimized instead of reloading.
-        DateStore.load();
-        DateStore.clear();
+        HabitDateStore.load();
+        HabitDateStore.clear();
       })
       .catch((err) => {
         // Flash.warning(err.response.message);
       });
   },
 
-  runUpdate: (id, value) => {
-    DateStore.update(id, value).catch((e) => {
-      // Flash.warning("Could not update note: " + e.response.message);
+  runUpHabitdate: (id, value) => {
+    HabitDateStore.upHabitdate(id, value).catch((e) => {
+      // Flash.warning("Could not upHabitdate note: " + e.response.message);
     });
   },
 
   runDelete: (id) => {
-    DateStore.delete(id)
+    HabitDateStore.delete(id)
       .then(() => {
-        Flash.success("Note deleted.");
-        DateStore.list = DateStore.list.filter((i) => {
-          return i.id !== id;
-        });
+        Flash.success('Note deleted.');
+        HabitDateStore.list = HabitDateStore.list.filter((i) => i.id !== id);
       })
       .catch(handleErrorType);
   },
 };
 
-export default DateStore;
+export default HabitDateStore;

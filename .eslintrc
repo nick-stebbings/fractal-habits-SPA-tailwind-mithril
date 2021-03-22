@@ -10,5 +10,9 @@
     "react/jsx-filename-extension": "off",
     "import/extensions" : "off",
     "react/react-in-jsx-scope" : "off",
+    "react/prop-types" : "off",
+    "no-undef" : "off",
+    "no-extend-native" : "off",
+    "func-names" : "off"
   }
 }

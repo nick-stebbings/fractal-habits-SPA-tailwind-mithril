@@ -1,20 +1,19 @@
-import axios from "axios";
-import { handleAndRethrow, handleErrorType } from "../assets/scripts/utilities";
+import axios from 'axios';
+import { handleAndRethrow, handleErrorType } from '../assets/scripts/utilities';
 
-axios.defaults.baseURL = "http://127.0.0.1:9292/api";
-axios.defaults.headers.common["Accept"] = "application/json;charset=utf-8";
-axios.defaults.headers.common["Content-Type"] =
-  "application/json;charset=utf-8";
+axios.defaults.baseURL = 'http://127.0.0.1:9292/api';
+axios.defaults.headers.common.Accept = 'application/json;charset=utf-8';
+axios.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
 axios.interceptors.response.use(
   (res) => res,
-  handleAndRethrow
+  handleAndRethrow,
 );
 
-  // Indicates whether or not cross-site Access-Control requests
-  // should be made using credentials
-  axios.defaults.withCredentials = true;
+// Indicates whether or not cross-site Access-Control requests
+// should be made using credentials
+axios.defaults.withCredentials = true;
 
-let clientRoutes = function (basePath) {
+function clientRoutes(basePath) {
   return {
     show_all: () => axios.get(basePath),
     show_one: (id) => axios.get(`${basePath}/${id}`),
@@ -23,6 +22,6 @@ let clientRoutes = function (basePath) {
     replace: (id, update) => axios.put(`${basePath}/${id}`, update),
     update: (id, update) => axios.patch(`${basePath}/${id}`, update),
   };
-};
+}
 
 export { clientRoutes, handleErrorType };

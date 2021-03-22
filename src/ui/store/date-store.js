@@ -1,17 +1,15 @@
-import {clientRoutes, handleErrorType} from "./client";
-import stream from "mithril/stream";
+import stream from 'mithril/stream';
+import { clientRoutes, handleErrorType } from './client';
 
-const basePath = "/dates";
+const basePath = '/dates';
 
 const DateStore = Object.assign(clientRoutes(basePath), {
   current: stream({}),
 
-  get: (id) => {
-    return DateStore.show_one(id)
-      .then((response) => JSON.parse(response.data))
-      .then(DateStore.current)
-      .catch(handleErrorType);
-  },
+  get: (id) => DateStore.show_one(id)
+    .then((response) => JSON.parse(response.data))
+    .then(DateStore.current)
+    .catch(handleErrorType),
 
   clear: () => {
     DateStore.current = stream({});
@@ -19,27 +17,23 @@ const DateStore = Object.assign(clientRoutes(basePath), {
 
   list: stream([]),
 
-  index: () => {
-    return DateStore.show_all()
+  index: () => DateStore.show_all()
     .then((response) => JSON.parse(response.data).dates)
-      .then(DateStore.list)
-      .then((list) => {
-        DateStore.current(list[list.length - 1])
-      })
-      .catch(handleErrorType);
-  },
+    .then(DateStore.list)
+    .then((list) => {
+      DateStore.current(list[list.length - 1]);
+    })
+    .catch(handleErrorType),
 
-  submit: (attrs) => {
-    return DateStore.create(attrs)
-      .then((response) => {
-        console.log(response);
-        let date = response.data;
-        DateStore.index(); //Could save a DB call here
-        return date;
-      })
-      .then(DateStore.current)
-      .catch(handleErrorType);
-  },
+  submit: (attrs) => DateStore.create(attrs)
+    .then((response) => {
+      // console.log(response);
+      const date = response.data;
+      DateStore.index(); // Could save a DB call here
+      return date;
+    })
+    .then(DateStore.current)
+    .catch(handleErrorType),
 });
 
-export default DateStore; 
+export default DateStore;
