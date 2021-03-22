@@ -35,7 +35,6 @@ const openModal = function (value = true) {
 
   const modalCl = modal.classList;
   const overlayCl = modalOverlay;
-  debugger;
   if (value) {
     overlayCl.classList.remove('hidden');
     setTimeout(() => {

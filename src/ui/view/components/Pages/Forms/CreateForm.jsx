@@ -27,12 +27,10 @@ const CreateForm = {
 
       HabitStore.submit(data)
         .then(() => DateStore.submit({ h_date: data.initiation_date }))
-        .then((response) => console.log(response))
         .then(() => openModal(false))
         .catch((err) => {
           window.FlashMessage.error(err);
         });
-      openModal(false);
     });
   },
   view: ({ attrs }) => (

@@ -18,7 +18,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({ filename: 'bundle.css' }),
     new CleanWebpackPlugin({ verbose: true }),
-    new ESLintPlugin(),
+    // new ESLintPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',
@@ -31,23 +31,18 @@ module.exports = {
   devServer: {
     open: true,
     hot: true,
-    contentBase: '/',
-    // Send API requests on localhost to API server
-    // proxy: {
-    //   "/api": {
-    //     target: {
-    //       host: "0.0.0.0",
-    //       protocol: "http:",
-    //       port: 3000,
-    //     },
-    //     pathRewrite: {
-    //       // '^/api': ''
-    //     },
-    //   },
-    // },
-    // headers: {
-    //   "Access-Control-Allow-Origin": "*",
-    // },
+    // contentBase: '/',
+    proxy: {
+      '/api': {
+        target: {
+          host: 'localhost',
+          protocol: 'http:',
+          port: 3000,
+        },
+
+      },
+    },
+
   },
   watch: true,
   module: {

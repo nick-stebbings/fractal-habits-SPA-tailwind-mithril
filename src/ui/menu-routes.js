@@ -1,4 +1,4 @@
-import CreateForm from "./view/components/Pages/forms/CreateForm.jsx";
+import CreateForm from "./view/components/Pages/Forms/CreateForm.jsx";
 
 // Pages
 import HabitNodeList from "./view/components/Pages/HabitNodeList.jsx";
