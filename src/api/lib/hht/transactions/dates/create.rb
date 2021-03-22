@@ -17,38 +17,23 @@ module Hht
           Success(date)
         end
 
-        def validate(input)
-          # TODO: Find out why the duplications are happening.
-          
-          is_valid_input = create.call(input).to_monad
-          if(is_valid_input.success?)
-            # The date doesn't exist, find out if it will be the oldest date
-            oldest = before_records_began?(input)
-
-            # The dates are already persisted
-            return is_valid_input if !oldest && input[:h_date].to_time > date_repo.earliest.h_date
-
-            if oldest
-              # Formulate strings to be interpolated into raw SQL statement from DateRepo
-              sql_query_start_timestamp = (Date.today != input[:h_date]) ? "\'#{input[:h_date]}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW())' 
-              
-              end_point = date_a_day_before_earliest
-              sql_query_end_timestamp = end_point ? "\'#{date_a_day_before_earliest}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW())' 
-              # If the input date is older than the oldest recorded date, 
-              # query will fill in from there to the current oldest date, exclusive.
-              # Use NOW() as a fallback in case this is the first tuple.
-              date_repo.insert_upto_today!(sql_query_start_timestamp, sql_query_end_timestamp)
-            else
-              date_repo.insert_upto_today!
-            end
-            is_valid_input
-          else
-            Failure("Couldn't insert the interim dates.")
-          end
+        def validate(input)   
+          create.call(input).to_monad
         end
 
         def persist(result)
-          Success(date_repo.dates.insert(result.values.to_h))
+          date = result[:h_date]
+          # Find out if it will be the oldest date:
+          oldest = before_records_began?(result)
+          return Success('The necessary dates are already persisted.') if !oldest && date.to_time > date_repo.earliest.h_date
+          # Return if the dates are already persisted
+
+          begin
+            oldest ? date_repo.send("insert_upto_today!", sql_query_start_timestamp(date), sql_query_end_timestamp(date)) : date_repo.insert_upto_today!
+            Success('Dates were inserted with raw SQL')
+          rescue => e
+            Failure(e)
+          end
         end
 
         private
@@ -61,6 +46,18 @@ module Hht
         def date_a_day_before_earliest
           first_recorded = date_repo.earliest
           first_recorded ? first_recorded.h_date.to_date - 1 : nil
+        end
+
+        def sql_query_start_timestamp(date)
+          Date.today != date ? "\'#{date}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW())' 
+        end
+
+        def sql_query_end_timestamp(date)
+          # If the input date is older than the oldest recorded date,
+          # query will fill in from there to the current oldest date, exclusive.
+          # Use NOW() as a fallback in case this will be the first tuple.
+          end_point = date_a_day_before_earliest
+          sql_query_end_timestamp = end_point ? "\'#{date_a_day_before_earliest}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW())'
         end
       end
     end
