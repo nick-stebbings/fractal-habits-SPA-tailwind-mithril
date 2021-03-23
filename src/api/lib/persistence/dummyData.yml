@@ -1727,3 +1727,4 @@ domains:
               children: []
             - name: Upload a proof of degree.
               children: []
+habits:

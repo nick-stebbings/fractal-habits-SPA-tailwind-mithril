@@ -1,37 +1,33 @@
 const MenuListCard = {
-  oncreate: () => {
-    // Apply active state classes to card matching route
-    const navButtons = document.querySelectorAll("button.menu-card-button");
-      Array.from(navButtons).forEach(
-        (menuCard) => {
-          const currentPath = window.location.href.split("#!")[1];
-          if (menuCard.getAttribute("href").endsWith(currentPath)) {
-            menuCard.parentNode.parentNode.classList.add('active');
-            menuCard.classList.add('active');
-            menuCard.textContent = 'YOU ARE HERE';
-          }
-        }
-      );
+  oncreate: ({ attrs, dom }) => {
+    if (attrs.enabled) {
+      dom.classList.add('enabled');
+      dom.classList.toggle('disabled');
+    }
+    console.log('dom :>> ', dom);
   },
   view: ({ attrs }) => (
-    <div
-      class="menu-card h-full bg-gray-100 rounded-2xl shadow-xl text-balance-black flex flex-col justify-between"
-    >
-      <div class="flex items-center justify-center">
-        <h3 class="flex mb-auto mt-6 pl-2">{attrs.title}</h3>
-        <div class="flex items-center justify-center h-24 w-24 text-balance-dp">{m.trust(attrs.icon)}</div>
+    <div className="menu-card disabled rounded-2xl text-balance-black flex flex-col justify-between h-full bg-gray-100 shadow-xl">
+      <div className="overlay flex items-center justify-center">
+        <h3>Under Construction</h3>
       </div>
-      <div class="flex flex-col items-center" style="flex-basis: 50%">
+      <div className="flex items-center justify-center">
+        <h3 className="flex pl-2 mt-6 mb-auto">{attrs.title}</h3>
+        <div className="text-balance-dp flex items-center justify-center w-24 h-24">
+          {m.trust(attrs.icon)}
+        </div>
+      </div>
+      <div className="flex flex-col items-center" style="flex-basis: 50%">
         {m(
           m.route.Link,
           {
-            selector: "button",
+            selector: 'button',
             href: attrs.url,
-            class: "menu-card-button",
+            class: 'menu-card-button',
           },
-          "Let's Go"
-          )}
-          <p class="text-lg">{attrs.subtitle}</p>
+          "Let's Go",
+        )}
+        <p className="text-lg">{attrs.subtitle}</p>
       </div>
     </div>
   ),

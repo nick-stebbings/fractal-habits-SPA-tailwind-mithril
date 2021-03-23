@@ -74,8 +74,12 @@ nav .hero-message p {
   @apply xl:text-xl leading-6 text-gray-50 font-sans font-light text-right;
 }
 
-nav .menu-card h3 {
+nav .menu-card.enabled h3 {
   @apply text-xl text-center text-balance-black font-bold;
+}
+
+nav .menu-card.disabled .overlay h3 {
+  @apply text-xl text-center text-gray-100 font-bold;
 }
 
 nav .menu-card p {

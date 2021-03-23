@@ -11,6 +11,7 @@ const MenuRoutes = [
     path: '/vis',
     subpaths: {
       '/vis/habit-tree': {
+        status: 'enabled',
         title: 'Habit Tree',
         description:
           'Traditional hierarchical Tree diagram showing habit nodes.',
@@ -50,6 +51,7 @@ const MenuRoutes = [
     subpaths: {
       '/habits/list': {
         title: 'Habit Node List',
+        status: 'enabled',
         description: 'A flat list of all Habits for your perusal.',
         page: HabitNodeList,
         icon:
@@ -57,6 +59,7 @@ const MenuRoutes = [
       },
       '/habits/new': {
         title: 'Create Form',
+        status: 'enabled',
         description: 'Create a completely blank habit.',
         page: CreateForm,
         icon:

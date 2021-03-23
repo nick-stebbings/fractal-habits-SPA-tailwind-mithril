@@ -9,12 +9,13 @@ require 'multi_json'
 
 require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
+require File.join(APP_ROOT, 'lib', 'persistence', 'yaml_demo')
 
 module Hht
   class Api < Sinatra::Base
     before do
       content_type :json
-      headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Credentials' => true
+      headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Credentials' => 'true'
     end
 
     configure :development, :test do
@@ -143,12 +144,28 @@ module Hht
         end
       end
 
-      # Get root node tree
+      # Get root node tree. Take a query string parameter to decide if to read from Demo (YAML memory)
       get '' do
-        root_id = habit_node_repo.root_node.one.id
-        tree = generate_subtree(root_id)
+        tree = nil
+        demo = params[:demo] == 'true'
+
+        if(demo)
+          domain = Demo::ROM_CONTAINER
+            .relations
+            .domains
+            .to_a[params[:domain_id].to_i]
+
+          tree = { 
+            name: domain.name,
+            children: domain.habits
+          }
+        else
+          root_id = habit_node_repo.root_node.one.id
+          tree = generate_subtree(root_id)
+        end
+
         status 200
-        json Subtree.as_json(tree)
+        demo ? tree.to_json : (json Subtree.as_json(tree))
       end
 
       post '' do
