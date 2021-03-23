@@ -67,7 +67,6 @@ const MaskHeader = {
                     Domain
                   </span>
                   <div className="sm:w-full lg:pr-0 lg:rounded-3xl lg:rounded-t-none border-balance-dg w-2/3 h-full pr-4 text-sm bg-white border-2 rounded-full">
-                    {console.log(DomainStore.list(), 'DOMAIN LIST')}
                     <span className="text-balance-secondary block w-full pt-2 mx-4 mb-1">
                       {m(
                         'select.form-select',

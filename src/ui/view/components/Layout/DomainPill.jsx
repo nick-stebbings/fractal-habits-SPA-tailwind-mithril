@@ -11,7 +11,6 @@ const DomainPill = {
         hashtag: `#${vnode.attrs.name}`,
       })
         .then(() => {
-          console.log(DomainStore.current(), 'current after submit domain');
           m.redraw();
         })
         .then(openModal)

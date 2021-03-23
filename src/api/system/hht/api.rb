@@ -253,10 +253,9 @@ module Hht
       post '' do
         habit = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = habit_repo.create(habit)
-        binding.pry
         if created.success?
           url = "http://localhost:9393/habits/#{created.flatten}"
-          headers 'Location' => url
+          headers 'Location' => url # Due to CORS this is not being received by client. TODO figure out why and don't send back
           status 204
         else
           status 422

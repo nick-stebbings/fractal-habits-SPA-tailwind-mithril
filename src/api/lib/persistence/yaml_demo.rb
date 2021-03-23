@@ -67,7 +67,7 @@ end
 
 
 
-Pry.start
+# Pry.start
 # puts rom.relations[:domains].by_name('sports').first
 
 #     users:

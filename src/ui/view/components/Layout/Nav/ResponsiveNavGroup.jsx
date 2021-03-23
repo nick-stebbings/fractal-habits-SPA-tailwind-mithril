@@ -6,7 +6,6 @@ const ResponsiveNavGroup = {
       if (e.target.tagName === 'A') {
         // Collapse responsive menu when you click active link
         document.getElementById('hamburger').checked = false;
-        console.log('g');
       }
     });
   },
