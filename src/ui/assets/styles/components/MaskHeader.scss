@@ -115,7 +115,12 @@ li.hoverable {
           }
 
           .menu-card-button {
-            @apply absolute top-20 mt-12 p-3 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
+            top: 4.5rem;
+            @apply absolute border-2 mt-12 p-3 m-2 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
+          }
+
+          .menu-card-button:focus, .menu-card-button:active {
+            @apply outline-none border-balance-dp;
           }
 
           .menu-card-button:hover { 
@@ -242,4 +247,11 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:hover {
 #subnav .nav-links > li.hoverable:hover a,
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover a {
   @apply text-balance-secondary;
+}
+
+
+
+#subnav .nav-links a[id^=nav]:focus, 
+#subnav .nav-links a[id^=nav]:active {
+  // TODO: add active/ focus on nav
 }

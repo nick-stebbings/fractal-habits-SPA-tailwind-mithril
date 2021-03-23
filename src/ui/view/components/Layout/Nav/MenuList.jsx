@@ -1,20 +1,9 @@
 import MenuListCard from './MenuListCard.jsx';
+import { addActiveMenuStyles } from '../../../../assets/scripts/utilities';
 
 const MenuList = {
-  oncreate: () => {
-    // Apply active state classes to card matching route
-    const navButtons = document.querySelectorAll('button.menu-card-button');
-    const currentPath = window.location.href.split('#!')[1];
-
-    Array.from(navButtons).forEach((menuCardButton) => {
-      const menuCard = menuCardButton.parentNode.parentNode;
-      if (menuCardButton.getAttribute('href').endsWith(currentPath)) {
-        menuCard.classList.add('active');
-        menuCardButton.classList.add('active');
-        menuCardButton.textContent = 'YOU ARE HERE';
-      }
-    });
-  },
+  oncreate: addActiveMenuStyles,
+  onupdate: addActiveMenuStyles,
   view: ({ children }) => Object.keys(children[0]).map((route, index) => (
     <MenuListCard
       id={`menu-list-card-${index}`}

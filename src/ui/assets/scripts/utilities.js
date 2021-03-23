@@ -6,6 +6,25 @@ Date.prototype.toDateInputValue = function () {
   return local.toJSON().slice(0, 10);
 };
 
+const addActiveMenuStyles = function () {
+  // Apply active state classes to card matching route
+  const navButtons = document.querySelectorAll('button.menu-card-button');
+  const currentPath = window.location.href.split('#!')[1];
+
+  Array.from(navButtons).forEach((menuCardButton) => {
+    const menuCard = menuCardButton.parentNode.parentNode;
+    if (menuCardButton.getAttribute('href').endsWith(currentPath)) {
+      menuCard.classList.add('active');
+      menuCardButton.classList.add('active');
+      menuCardButton.textContent = 'YOU ARE HERE';
+    } else if (menuCard.classList.contains('active')) {
+      menuCard.classList.toggle('active');
+      menuCardButton.classList.toggle('active');
+      menuCardButton.textContent = "LET'S GO";
+    }
+  });
+};
+
 const d3visPageMaker = function (layoutView, pageView) {
   const page = {
     view: () => m(layoutView, m(pageView)),
@@ -74,5 +93,9 @@ const handleErrorType = function (err, type = 'warning') {
   throw err;
 };
 export {
-  d3visPageMaker, debounce, handleAndRethrow, handleErrorType,
+  d3visPageMaker,
+  debounce,
+  handleAndRethrow,
+  handleErrorType,
+  addActiveMenuStyles,
 };
