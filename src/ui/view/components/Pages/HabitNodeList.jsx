@@ -1,15 +1,15 @@
-import NodeStore from "../../../store/habit-node-store.js";
+import NodeStore from '../../../store/habit-node-store.js';
 
-import ListCard from "../layout/ListCard.jsx";
+import ListCard from '../layout/ListCard.jsx';
 
 const HabitNodeList = function () {
-  NodeStore.list(["Waiting"]);
+  NodeStore.list(['Waiting']);
 
   return {
-    oninit: (vnode) => {
+    oninit: () => {
       NodeStore.index().then(() => m.redraw());
     },
-    view: (vnode) => NodeStore.list().map((n) => m(ListCard, { value: n })),
+    view: () => NodeStore.list().map((n) => m(ListCard, { value: n })),
   };
 };
 

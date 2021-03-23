@@ -76,8 +76,10 @@ const messages = {
 };
 
 const handleErrorType = function (err, type = 'warning') {
-  if (err.response.config.url === '/domains') {
-    err.response.status = 499;
+  if (err.response) {
+    if (err.response.config.url === '/domains') {
+      err.response.status = 499;
+    }
   }
   switch (type) {
     case 'info':

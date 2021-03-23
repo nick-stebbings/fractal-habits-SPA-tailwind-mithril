@@ -29,7 +29,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
     .then((response) => {
       // console.log(response);
       const date = response.data;
-      DateStore.index(); // Could save a DB call here
+      console.log('date response', response);
       return date;
     })
     .then(DateStore.current)

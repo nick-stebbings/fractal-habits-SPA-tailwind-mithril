@@ -50,7 +50,7 @@ const Modal = {
               Create a new habit under the life domain
             </h2>
             <h3 className="mt-2 text-2xl font-bold text-center">
-              {DomainStore.current().name}
+              { m('span', DomainStore.current() ? DomainStore.current().name : 'Placeholder') }
             </h3>
           </div>
           <CreateForm

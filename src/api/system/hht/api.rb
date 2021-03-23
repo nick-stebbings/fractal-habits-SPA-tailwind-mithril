@@ -15,7 +15,7 @@ module Hht
   class Api < Sinatra::Base
     before do
       content_type :json
-      headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Credentials' => 'true'
+      headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Credentials' => 'true' 
     end
 
     configure :development, :test do
@@ -197,14 +197,8 @@ module Hht
       post '' do
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = domain_repo.create(domain)
-        
-        if created.success?
-          url = "http://localhost:9393/habit_trees/nodes/#{created.flatten}"
-          response.headers['Location'] = url
-          status 204
-        else
-          status 400
-        end
+        body = created.success? ? JSON.generate({id: created.flatten.to_s}) : ''
+        [(created.success? ? 201 : 400), { 'Location' => 'https://google.com'} , body]
       end
 
       put '/:domain_id' do |id|
@@ -258,11 +252,11 @@ module Hht
 
       post '' do
         habit = MultiJson.load(request.body.read, :symbolize_keys => true)
-
         created = habit_repo.create(habit)
+        binding.pry
         if created.success?
           url = "http://localhost:9393/habits/#{created.flatten}"
-          response.headers['Location'] = url
+          headers 'Location' => url
           status 204
         else
           status 422

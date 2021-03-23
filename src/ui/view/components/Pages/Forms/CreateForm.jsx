@@ -19,6 +19,7 @@ const CreateForm = {
       FD.forEach((value, key) => { data[key.replace(/-/g, '_')] = value; }); // Assign values while swapping for snake_case
       data.domain_id = attrs.domain().id;
       data.habit_node_id = 1;
+      data.parent_node_id = null;
 
       HabitStore.submit(data)
         .then(() => DateStore.submit({ h_date: data.initiation_date }))

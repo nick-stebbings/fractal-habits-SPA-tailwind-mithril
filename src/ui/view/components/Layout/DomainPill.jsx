@@ -1,31 +1,31 @@
-import DomainStore from "../../../store/domain-store";
-import {openModal} from "../../../assets/scripts/animations";
+import DomainStore from '../../../store/domain-store';
+import { openModal } from '../../../assets/scripts/animations';
 
 const DomainPill = {
   oncreate: (vnode) => {
     vnode.dom.addEventListener('click', (event) => {
-        DomainStore.submit({
-          name: vnode.attrs.name,
-          description: vnode.attrs.name,
-          rank: vnode.attrs.rank + 2,
-          hashtag: `#${vnode.attrs.name}`,
-        })
+      DomainStore.submit({
+        name: vnode.attrs.name,
+        description: vnode.attrs.name,
+        rank: vnode.attrs.rank + 2,
+        hashtag: `#${vnode.attrs.name}`,
+      })
         .then(() => {
+          console.log(DomainStore.current(), 'current after submit domain');
           m.redraw();
         })
         .then(openModal)
         .catch((err) => {
-          err.status ? window.FlashMessage.error(err.status) : window.FlashMessage.error("Unable to add Domain");
+          err.status ? window.FlashMessage.error(err.status) : window.FlashMessage.error('Unable to add Domain');
         });
-      }
-    );
+    });
   },
   view: ({ attrs }) => (
-      <button class="domain-create">
-        <div class="flex justify-between items-center p-4 my-4 bg-gray-700 rounded-full shadow-md">
-          {attrs.name}
-        </div>
-      </button>
+    <button className="domain-create">
+      <div className="flex items-center justify-between p-4 my-4 bg-gray-700 rounded-full shadow-md">
+        {attrs.name}
+      </div>
+    </button>
   ),
 };
 

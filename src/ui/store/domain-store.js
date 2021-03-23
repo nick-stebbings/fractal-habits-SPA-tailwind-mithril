@@ -12,7 +12,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
     .catch(handleErrorType),
 
   clear: () => {
-    DomainStore.current = stream({});
+    DomainStore.current = stream({ name: 'Placeholder' });
   },
 
   list: stream([{ name: 'No Domains Registered' }]),
@@ -24,11 +24,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
     .catch(handleErrorType),
 
   submit: (attrs) => DomainStore.create(attrs)
-    .then((response) => {
-      const domain = response.data;
-      DomainStore.index(); // Could save a DB call here
-      return domain;
-    })
+    .then((response) => ({ ...response.data, ...JSON.parse(response.config.data) }))
     .then(DomainStore.current)
     .catch(handleErrorType),
 
