@@ -1,5 +1,5 @@
 import stream from 'mithril/stream';
-import { clientRoutes } from './client';
+import { clientRoutes, handleErrorType } from './client';
 
 const basePath = '/habit_trees';
 
@@ -7,9 +7,12 @@ const TreeStore = {
   show_all: clientRoutes(basePath).show_all,
   current: stream({}),
 
-  get: () => TreeStore.show_all().catch((err) => {
-    console.log(err);
-  }),
+  get: (useDemoData, domainId) => {
+    if (useDemoData) {
+      return clientRoutes(`/habit_trees?demo=true&domain_id=${domainId}`).show_all();
+    }
+    return TreeStore.show_all();
+  },
 
   clear: () => {
     TreeStore.current = stream({});
