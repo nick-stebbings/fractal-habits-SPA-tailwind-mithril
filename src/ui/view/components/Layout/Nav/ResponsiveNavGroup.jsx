@@ -1,24 +1,28 @@
-import ResponsiveNavLink from "./ResponsiveNavLink.jsx";
+import ResponsiveNavLink from './ResponsiveNavLink.jsx';
 
 const ResponsiveNavGroup = {
   view: ({ attrs, children: [subpaths] }) => (
     <li
-      class="responsive-nav-group active:outline-light hover:outline-light flex mt-2 w-3/4 mx-auto flex-wrap py-4 border-t-2"
+      className="responsive-nav-group active:outline-light hover:outline-light flex flex-wrap w-3/4 py-4 mx-auto mt-2 border-t-2"
       id={attrs.id}
     >
       {m(
         m.route.Link,
         {
-          href: attrs.url,
           id: attrs.id,
           class: attrs.class,
-          style: "flex-basis: 100%",
+          href: attrs.url,
+          style: 'flex-basis: 100%',
         },
-        attrs.label
+        attrs.label,
       )}
-      <ul class="responsive-nav-link flex flex-wrap justify-around h-full">
+      <ul className="responsive-nav-link flex flex-wrap justify-around h-full">
         {Object.keys(subpaths).map((path) => (
-          <ResponsiveNavLink url={path} details={subpaths[path]} />
+          <ResponsiveNavLink
+            url={path}
+            enabled={!!subpaths[path].status}
+            details={subpaths[path]}
+          />
         ))}
       </ul>
     </li>

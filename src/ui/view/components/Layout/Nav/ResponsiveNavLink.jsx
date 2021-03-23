@@ -1,10 +1,10 @@
 const ResponsiveNavLink = {
-  view: ({ attrs: { url, details } }) => (
+  view: ({ attrs: { url, details, enabled } }) => (
     <li
-      class="resp-nav-link hover:underline flex px-4 mt-4 w-full"
-      style="flex-basis: 100%"
+      className="resp-nav-link hover:underline flex w-full px-4 mt-4"
+      style={`${!enabled ? 'color: gray; ' : ''}flex-basis: 100%`}
     >
-      {m(m.route.Link, { href: url }, details.title)}
+      {enabled ? m(m.route.Link, { href: url }, details.title) : details.title}
     </li>
   ),
 };
