@@ -1,6 +1,6 @@
-module Hht
-  module Demo
-    module Relations
+module Persistence
+  module YamlDemo
+  module Relations
       class Habit < ROM::Relation[:yaml]
         schema(:habits) do
           attribute :id, Types::Integer
