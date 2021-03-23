@@ -1,6 +1,15 @@
 import ResponsiveNavLink from './ResponsiveNavLink.jsx';
 
 const ResponsiveNavGroup = {
+  oncreate: () => {
+    document.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        // Collapse responsive menu when you click active link
+        document.getElementById('hamburger').checked = false;
+        console.log('g');
+      }
+    });
+  },
   view: ({ attrs, children: [subpaths] }) => (
     <li
       className="responsive-nav-group active:outline-light hover:outline-light flex flex-wrap w-3/4 py-4 mx-auto mt-2 border-t-2"

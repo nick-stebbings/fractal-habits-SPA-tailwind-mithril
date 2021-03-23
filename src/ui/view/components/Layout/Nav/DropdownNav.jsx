@@ -1,30 +1,28 @@
-import HoverableLink from "./HoverableLink.jsx";
+import HoverableLink from './HoverableLink.jsx';
 
 const DropdownNav = (function () {
   return {
     view: ({ attrs: { routes } }) => (
-      <nav class="nav">
-        <div class="nav-container">
-          <ul class="nav-links">
-            {routes.map((route, index) => {
-              return (
-                <HoverableLink
-                  label={`${route.label}`}
-                  class={
-                    routes.selected === route.label ? "active" : "inactive"
+      <nav className="nav">
+        <div className="nav-container">
+          <ul className="nav-links">
+            {routes.map((route, index) => (
+              <HoverableLink
+                label={`${route.label}`}
+                class={
+                    routes.selected === route.label ? 'active' : 'inactive'
                   }
-                  id={`nav-${route.label.toLowerCase()}`}
-                  subpaths={`${route.subpaths}`}
-                >
-                  {routes[index].subpaths}
-                </HoverableLink>
-              );
-            })}
+                id={`nav-${route.label.toLowerCase()}`}
+                subpaths={`${route.subpaths}`}
+              >
+                {routes[index].subpaths}
+              </HoverableLink>
+            ))}
           </ul>
         </div>
       </nav>
     ),
   };
-})();
+}());
 
 export default DropdownNav;
