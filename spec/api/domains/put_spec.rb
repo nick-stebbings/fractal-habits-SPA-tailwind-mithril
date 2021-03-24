@@ -5,9 +5,10 @@ RSpec.describe 'Feature: domains resource' do
     before do
       @domain = valid_domain
       @domain_id = @domain[:id]
-      @domain_as_json = @domain.to_json
-      
       domain_repo.create(@domain)
+
+      @domain2 = valid_domain
+      @domain_as_json = @domain2.to_json
     end
     
     describe 'When #put to /api/domains/:domain_id' do
@@ -20,6 +21,8 @@ RSpec.describe 'Feature: domains resource' do
 
       describe 'And it persisted the new domain json' do
         it do
+          
+          binding.pry
           expect(domain_repo.as_json(@domain_id)).to eq (parse_json @domain_as_json)
         end
       end

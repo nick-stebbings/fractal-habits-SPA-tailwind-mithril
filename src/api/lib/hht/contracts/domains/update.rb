@@ -3,7 +3,7 @@
 module Hht
   module Contracts
     module Domains
-      class Create < Dry::Validation::Contract
+      class Update < Dry::Validation::Contract
         include Dry::Monads[:result]
         include Import['repos.domain_repo']
 
@@ -12,10 +12,6 @@ module Hht
           required(:description).value(:string)
           required(:rank).value(:integer)
           required(:hashtag).value(:string)
-        end
-
-        rule(:name) do
-          key.failure('Domain already exists') unless domain_repo.query(name: value).to_a.empty?
         end
       end
     end

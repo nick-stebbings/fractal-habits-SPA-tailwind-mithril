@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :domain, class: 'Hht::Repos::DomainRepo' do
-    sequence :id { |n| n }
+    sequence :id { 1 }
     name { Faker::Name.unique.name }
     description { Faker::ChuckNorris.fact }
     rank { 1 }

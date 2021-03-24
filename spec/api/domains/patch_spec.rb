@@ -5,7 +5,7 @@ RSpec.describe 'Feature: domains resource' do
     let(:resource) { JSON.load response.body }
 
     before do
-      @domain_update = { id: 3, name: 'Mental Wellbeing' }
+      @domain_update = { name: 'Mental Wellbeing' }
       
       @domain = valid_domain
       domain_repo.create(@domain)
@@ -21,7 +21,7 @@ RSpec.describe 'Feature: domains resource' do
 
       it 'And it patched the domain' do
         updated_attributes = @domain.merge(@domain_update).to_json
-        expect(domain_repo.as_json(3)).to eq (parse_json updated_attributes)
+        expect(domain_repo.as_json(@domain_id)).to eq (parse_json updated_attributes)
       end
     end
   end

@@ -5,7 +5,7 @@ import DomainStore from '../../../../store/domain-store.js';
 
 const HabitTree = (function () {
   let demoData = false;
-  let selectedDomain;
+  let selectedDomain = 1;
 
   DomainStore.index().then(() => {
     m.redraw();
@@ -22,7 +22,7 @@ const HabitTree = (function () {
         m.redraw();
       });
       document.querySelector('select').addEventListener('change', (e) => {
-        selectedDomain = String(e.target.selectedIndex);
+        selectedDomain = String(e.target.selectedIndex + 1);
         m.redraw();
       });
     },

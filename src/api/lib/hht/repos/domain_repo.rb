@@ -7,11 +7,15 @@ module Hht
       include Dry::Monads[:result, :do]
 
       struct_namespace Entities
-      commands delete: :by_pk, update: :by_pk
 
       def create(data)
         created_unique_domain = yield Hht::Transactions::Domains::Create.new.call(data)
         Success(created_unique_domain)
+      end
+
+      def update(id, data)
+        updated_domain = yield Hht::Transactions::Domains::Update.new.call(data)
+        Success(updated_domain)
       end
 
       def query(conditions); domains.where(conditions); end

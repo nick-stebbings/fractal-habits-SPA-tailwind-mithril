@@ -209,28 +209,34 @@ module Hht
 
       put '/:domain_id' do |id|
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)
-        # TODO: Use contract to validate payload is a full domain resource
         existing = domain_repo.by_id(id)
         halt(404, { message:'Domain Not Found'}.to_json) unless existing
 
-        domain_repo.update(id, domain)
-        # TODO: If returns success monad, we know it persisted
-        # So redirect
-        url = "http://localhost:9393/domains/#{id}"
-        response.headers['Location'] = url
-        status 204
+        updated = domain_repo.update(id, domain)
+        if updated.success?
+          url = "http://localhost:9393/domains/#{id}"
+          response.headers['Location'] = url
+          status 204
+        else
+          status 422
+        end
       end
 
       patch '/:domain_id' do |id|
         domain_client = MultiJson.load(request.body.read, :symbolize_keys => true)
         domain_server = domain_repo.as_json(id)
         halt(404, { message:'Domain Not Found'}.to_json) unless domain_server
+        
+        domain_client.each { |key, value| domain_server[key.to_sym] = value }
+        updated = domain_repo.update(id, domain_server)
 
-        domain_client.each do |key, value|
-          domain_server[key.to_sym] = value
+        if updated.success?
+          url = "http://localhost:9393/domains/#{id}"
+          response.headers['Location'] = url
+          status 204
+        else
+          status 422
         end
-        domain_repo.update(id, domain_server)
-        status 204
       end
 
       delete '/:domain_id' do |id|

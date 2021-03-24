@@ -22,7 +22,6 @@ module Hht
         end
 
         def persist(result)
-          id = result.values.data[:id]
           Success(domain_repo.domains.insert(result.values.data))
         end
       end
