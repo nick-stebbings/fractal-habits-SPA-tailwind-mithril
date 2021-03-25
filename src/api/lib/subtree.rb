@@ -17,7 +17,7 @@ class Subtree
       parent_id = node.parent_id
       new_tree_node = node.to_tree_node
       node_dict[id.to_s] = new_tree_node
-      node_dict[parent_id.to_s] << new_tree_node
+      (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
     end
     @root_node = node_dict[root_id]
   end

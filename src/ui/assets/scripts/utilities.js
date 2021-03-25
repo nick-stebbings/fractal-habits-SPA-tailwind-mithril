@@ -1,5 +1,3 @@
-import { select } from 'd3';
-
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
   local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -33,22 +31,22 @@ const d3visPageMaker = function (layoutView, pageView) {
   // Create a visualisation-containing div element with random ID
   const divId = `svg_container_${Math.floor(Math.random() * 1000000000)}${1}`;
   page.view = () => {
-    // Pass selector to the vis component, representing the div element where D3 can mutate the DOM
+    // Pass uniqe selection id to the vis component for d3 selection
     const d3Canvas = m('div', { id: divId });
-    return m(layoutView, m(pageView, d3Canvas));
-  };
-  page.oncreate = function () {
-    // Pass an appended SVG selection to the vis component to consume
-    pageView.content(
-      select(`div#${divId}`)
-        .classed('h-full', true)
-        .append('svg')
-        .attr('width', '100%')
-        .attr('height', '100%'),
-    );
-  };
 
+    return m(layoutView, m(pageView, { divId }, d3Canvas));
+  };
   return page;
+};
+
+const d3SetupCanvas = function (document, margin) {
+  const container = document.getElementById('vis');
+  const { width, height } = container.getBoundingClientRect();
+
+  const canvasWidth = width - margin.right - margin.left;
+  const canvasHeight = height - margin.top - margin.bottom;
+
+  return { canvasWidth, canvasHeight };
 };
 
 const debounce = function (func, delay) {
@@ -96,6 +94,7 @@ const handleErrorType = function (err, type = 'warning') {
 };
 export {
   d3visPageMaker,
+  d3SetupCanvas,
   debounce,
   handleAndRethrow,
   handleErrorType,

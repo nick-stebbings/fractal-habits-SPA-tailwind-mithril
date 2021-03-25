@@ -35,7 +35,7 @@ module Hht
       'repos.habit_node_repo',
       'repos.habit_repo',
       'repos.date_repo',
-      'yaml.container'
+      'yaml.container' # For the 'dummy data' Yaml loader
     ]
 
     helpers do
@@ -151,7 +151,7 @@ module Hht
         demo = params[:demo] == 'true'
         
         if(demo)
-          domain = Demo::ROM_CONTAINER
+          domain = container
           .relations
           .domains
             .to_a[params[:domain_id].to_i]
@@ -162,13 +162,13 @@ module Hht
             }
         else
           if(habit_node_repo.root_node.exist?)
-            root_id = habit_node_repo.root_node.one.id
+            root_id = habit_node_repo.root_node.first.id
             tree= generate_subtree(root_id)
           else
             return status 404
           end
         end
-        binding.pry
+        # binding.pry
 
         status 200
         demo ? tree.to_json : (json Subtree.as_json(tree))
