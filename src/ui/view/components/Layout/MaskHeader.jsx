@@ -11,6 +11,12 @@ import MenuRoutes from '../../../menu-routes';
 import '../../../assets/styles/components/MaskHeader.scss';
 
 const MaskHeader = {
+  oncreate: () => {
+    const domainSelector = document.getElementById('domain-selector');
+    domainSelector.options.selectedIndex = DomainStore.list().indexOf(
+      DomainStore.current(),
+    );
+  },
   view: () => (
     <div className="mask-wrapper">
       <header className="bg-balance-dp md:h-12 z-10 flex-none h-16">
@@ -69,7 +75,7 @@ const MaskHeader = {
                   <div className="sm:w-full lg:pr-0 lg:rounded-3xl lg:rounded-t-none border-balance-dg w-2/3 h-full pr-4 text-sm bg-white border-2 rounded-full">
                     <span className="text-balance-secondary block w-full pt-2 mx-4 mb-1">
                       {m(
-                        'select.form-select',
+                        'select.form-select#domain-selector',
                         {
                           class:
                             'w-full text-center lg:w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl',

@@ -1,14 +1,16 @@
 import stream from 'mithril/stream';
-import * as d3 from 'd3';
-import { debounce, d3SetupCanvas } from '../../../../assets/scripts/utilities';
+import { select, hierarchy, tree } from 'd3';
+import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/utilities';
+
 import TreeStore from '../../../../store/habit-tree-store.js';
 import DomainStore from '../../../../store/domain-store.js';
 
 const HabitTree = (function () {
   let demoData = false;
-  const debounceInterval = 150;
   let canvasWidth; let
     canvasHeight;
+
+  const debounceInterval = 150;
   const margin = {
     top: 150,
     right: 0,
@@ -16,11 +18,8 @@ const HabitTree = (function () {
     left: 0,
   };
 
-  let selectedDomain = 0;
-  DomainStore.index().then(() => {
-    m.redraw();
-  });
-
+  const selectedDomain = stream(0);
+  DomainStore.index().then(redraw);
   const root = stream({});
 
   function render(svg, canvasWidth, canvasHeight) {
@@ -32,7 +31,7 @@ const HabitTree = (function () {
     const handleEvents = function (selection) {
       selection
         .on('mouseover', function () {
-          const g = d3.select(this);
+          const g = select(this);
           const n = g.select('.the-node');
 
           g.select('.label')
@@ -41,7 +40,7 @@ const HabitTree = (function () {
             .style('opacity', '1');
         })
         .on('mouseout', function () {
-          const g = d3.select(this);
+          const g = select(this);
           const n = g.select('.the-node');
 
           g.select('.label')
@@ -63,8 +62,7 @@ const HabitTree = (function () {
     //   if (d.depth && d.data.name.length !== 7) d.children = null;
     // });
     const rootData = root();
-    const treeLayout = d3
-      .tree()
+    const treeLayout = tree()
       .size(canvasWidth, canvasHeight)
       .nodeSize([dy, dx]);
 
@@ -136,7 +134,10 @@ const HabitTree = (function () {
   return {
     type: 'vis',
     oncreate: ({ attrs }) => {
-      const svg = d3.select(`div#${attrs.divId}`)
+      const domainSelector = document.getElementById('domain-selector');
+      // domainSelector.options.selectedIndex = DomainStore.list().indexOf(DomainStore.current());
+
+      const svg = select(`div#${attrs.divId}`)
         .classed('h-full', true)
         .classed('w-full', true)
         .append('svg')
@@ -144,8 +145,8 @@ const HabitTree = (function () {
         .attr('height', '100%');
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
 
-      TreeStore.get(demoData, selectedDomain)
-        .then((response) => d3.hierarchy(response.data))
+      TreeStore.get(demoData, selectedDomain())
+        .then((response) => hierarchy(response.data))
         .then(root)
         .then(() => {
           render(svg, canvasWidth, canvasHeight);
@@ -161,9 +162,20 @@ const HabitTree = (function () {
         m.redraw();
       });
 
-      document.querySelector('select').addEventListener('change', (e) => {
-        selectedDomain = String(e.target.selectedIndex);
-      });
+      domainSelector.onchange = (e) => {
+        // Update Demo data domain reference AND DomainStore
+        selectedDomain(String(e.target.selectedIndex));
+        DomainStore.current(DomainStore.list()[e.target.selectedIndex]);
+
+        TreeStore.get(demoData, selectedDomain())
+          .then((response) => hierarchy(response.data))
+          .then(root)
+          .then(() => {
+            render(svg, canvasWidth, canvasHeight);
+          })
+          .then(redraw);
+      };
+      domainSelector.onfocus = (e) => { e.target.selectedIndex = -1; };
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">

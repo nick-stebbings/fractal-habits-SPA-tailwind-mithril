@@ -17,6 +17,11 @@ const Routes = MenuRoutes.reduce(
       const { title } = links[path];
       const { page } = links[path];
       newRoutesObject[path] = {
+        onmatch() {
+          DomainStore.index().then(() => {
+            m.redraw();
+          });
+        },
         render: () => (menuSection.label === 'Visualise'
           ? m(d3visPageMaker(Layout, page), {
             heading: title,

@@ -57,6 +57,10 @@ const debounce = function (func, delay) {
   };
 };
 
+const redraw = () => {
+  m.redraw();
+};
+
 const handleAndRethrow = function (err) {
   if (!err.response) {
     window.FlashMessage.error('Network Error: API is unavailable');
@@ -99,4 +103,5 @@ export {
   handleAndRethrow,
   handleErrorType,
   addActiveMenuStyles,
+  redraw,
 };
