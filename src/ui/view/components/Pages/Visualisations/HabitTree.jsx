@@ -5,6 +5,8 @@ import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/util
 import TreeStore from '../../../../store/habit-tree-store.js';
 import DomainStore from '../../../../store/domain-store.js';
 
+import '../../../../assets/styles/components/d3vis.scss';
+
 const HabitTree = (function () {
   let demoData = false;
   let canvasWidth; let
@@ -131,12 +133,11 @@ const HabitTree = (function () {
     //     });
   }
 
+  // TODO:  Figure out how to stop the second API call on the non-demo trees
+
   return {
     type: 'vis',
     oncreate: ({ attrs }) => {
-      const domainSelector = document.getElementById('domain-selector');
-      // domainSelector.options.selectedIndex = DomainStore.list().indexOf(DomainStore.current());
-
       const svg = select(`div#${attrs.divId}`)
         .classed('h-full', true)
         .classed('w-full', true)
@@ -157,13 +158,16 @@ const HabitTree = (function () {
         render(svg, canvasWidth, canvasHeight);
       }, debounceInterval);
 
-      document.getElementById('activate-demo').addEventListener('click', () => {
+      const domainSelector = document.getElementById('domain-selector');
+      const demoButton = document.getElementById('activate-demo');
+
+      demoButton.addEventListener('click', (e) => {
         demoData = !demoData;
         m.redraw();
       });
 
-      domainSelector.onchange = (e) => {
-        // Update Demo data domain reference AND DomainStore
+      domainSelector.addEventListener('change', (e) => {
+        // Update Demo data domain reference
         selectedDomain(String(e.target.selectedIndex));
         DomainStore.current(DomainStore.list()[e.target.selectedIndex]);
 
@@ -174,8 +178,14 @@ const HabitTree = (function () {
             render(svg, canvasWidth, canvasHeight);
           })
           .then(redraw);
-      };
+      });
       domainSelector.onfocus = (e) => { e.target.selectedIndex = -1; };
+    },
+    onupdate: () => {
+      // # TODO
+      const demoButton = document.getElementById('activate-demo');
+      demoButton.setAttribute('class', demoData ? 'active' : 'inactive');
+      console.log(demoButton);
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">

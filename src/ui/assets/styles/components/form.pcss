@@ -26,6 +26,14 @@ label {
   @apply border-0 pl-0 mt-0;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
 #modal input[type="text"], input[type="date"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
   @apply focus:ring-balance-secondary focus:border-balance-secondary border-2 text-sm lg:text-xl focus:outline-none px-4 py-2 text-gray-600 border-gray-300 rounded-md;
 }

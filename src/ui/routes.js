@@ -8,6 +8,7 @@ import DomainStore from './store/domain-store';
 import HeroSection from './view/components/layout/HeroSection.jsx';
 // Utils
 import { d3visPageMaker } from './assets/scripts/utilities';
+import DateStore from './store/date-store';
 
 const Routes = MenuRoutes.reduce(
   (newRoutesObject, menuSection) => {
