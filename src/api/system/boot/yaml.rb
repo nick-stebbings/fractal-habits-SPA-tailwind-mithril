@@ -8,7 +8,7 @@ Hht::Container.boot(:yaml, namespace: true) do |app|
     path = File.join(APP_ROOT, 'lib', 'persistence', 'dummyData.yml')
     config = ROM::Configuration.new(:yaml, path)
     # config.auto_registration(app.root.join('lib/persistence/yamldemo'))
-    config.auto_registration(app.root.join('lib'))
+    config.auto_registration(app.root.join('lib/persistence/yamldemo'))
 
     container = ROM.container(config) do |setup|
       def query(conditions)

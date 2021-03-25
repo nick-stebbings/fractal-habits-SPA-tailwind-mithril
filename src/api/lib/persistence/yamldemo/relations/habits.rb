@@ -1,7 +1,7 @@
-module Persistence
-  module YamlDemo
+
+  module Yamldemo
   module Relations
-      class Habit < ROM::Relation[:yaml]
+      class Habits < ROM::Relation[:yaml]
         schema(:habits) do
           attribute :id, Types::Integer
           attribute :name, Types::String
@@ -11,4 +11,3 @@ module Persistence
       end
     end
   end
-end

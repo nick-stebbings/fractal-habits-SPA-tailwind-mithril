@@ -3,15 +3,18 @@
 require 'tree'
 require 'rom/transformer'
 
-module Hht
+module Yamldemo
   module Mappers
     # Subtree made of RubyTree nodes
     class Subtree < ROM::Transformer
-      relation :habit_nodes
+      relation :habits
       register_as :subtree
 
-      def initialize
-        'hello world'
+      def call(relation)
+        relation.each do |tuple|
+          puts tuple.id
+        end
+        []
       end
     end
   end

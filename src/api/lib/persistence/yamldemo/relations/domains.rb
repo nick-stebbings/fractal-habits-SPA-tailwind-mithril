@@ -1,7 +1,6 @@
-module Persistence
-  module YamlDemo
+  module Yamldemo
   module Relations
-    class Domain < ROM::Relation[:yaml]
+    class Domains < ROM::Relation[:yaml]
       schema(:domains) do
         attribute :id, ROM::Types::String
         attribute :name, ROM::Types::String
@@ -16,4 +15,3 @@ module Persistence
     end
     end
   end
-end

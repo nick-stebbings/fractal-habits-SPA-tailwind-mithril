@@ -35,7 +35,7 @@ module Hht
       'repos.habit_node_repo',
       'repos.habit_repo',
       'repos.date_repo',
-      # 'yaml.container'
+      'yaml.container'
     ]
 
     helpers do
@@ -147,28 +147,28 @@ module Hht
 
       # Get root node tree. Take a query string parameter to decide if to read from Demo (YAML memory)
       get '' do
-        # binding.pry
         tree = nil
         demo = params[:demo] == 'true'
-
+        
         if(demo)
           domain = Demo::ROM_CONTAINER
-            .relations
-            .domains
+          .relations
+          .domains
             .to_a[params[:domain_id].to_i]
-
-          tree = { 
-            name: domain.name,
-            children: domain.habits
-          }
+            
+            tree = { 
+              name: domain.name,
+              children: domain.habits
+            }
         else
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.one.id
-            tree = generate_subtree(root_id)
+            tree= generate_subtree(root_id)
           else
             return status 404
           end
         end
+        binding.pry
 
         status 200
         demo ? tree.to_json : (json Subtree.as_json(tree))

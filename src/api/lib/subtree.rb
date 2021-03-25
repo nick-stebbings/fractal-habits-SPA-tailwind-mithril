@@ -32,4 +32,12 @@ class Subtree
                     end
     new_json.merge(children_json)
   end
+
+  def self.hash_to_tree(hash)
+    root_id = habit_node_repo.create({parent_id: nil}).or(nil)
+    if(root_id)
+      root = habit_node_repo.by_id(root_id.flatten).first.to_tree_node
+    end
+
+  end
 end
