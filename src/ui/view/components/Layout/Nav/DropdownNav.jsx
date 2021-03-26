@@ -3,10 +3,11 @@ import DomainStore from '../../../../store/domain-store';
 import HabitStore from '../../../../store/habit-store';
 
 const DropdownNav = (function () {
-  DomainStore.indexHabitsOf(9).then(() => {
-    console.log(HabitStore.list());
-    console.log(HabitStore.current());
-  });
+  // TODO change this from hard-coded. Extract to a parent component for multiuse?
+  // DomainStore.indexHabitsOf(9).then(() => {
+  //   console.log(HabitStore.list());
+  //   console.log(HabitStore.current());
+  // });
   return {
     view: ({ attrs: { routes } }) => (
       <nav className="nav">
