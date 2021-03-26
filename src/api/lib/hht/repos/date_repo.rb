@@ -28,6 +28,8 @@ module Hht
 
       def earliest; dates.order(:h_date).first; end
 
+      def all_after(given_date); dates.where{ h_date >= given_date }; end
+
       def as_json(id)
         date = dates.by_pk(id).one
         { 

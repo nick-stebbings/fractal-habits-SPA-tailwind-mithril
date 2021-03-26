@@ -8,7 +8,9 @@ module Hht
         include Import[
           'contracts.habits.create',
           'repos.habit_repo',
-          'repos.habit_node_repo'
+          'repos.date_repo',
+          'repos.habit_node_repo',
+          'repos.habit_date_repo'
         ]
 
         def call(input)
@@ -29,7 +31,19 @@ module Hht
         end
 
         def persist(result)
-          Success(habit_repo.habits.insert(result.values.data))
+          # Add habit_date entries from initiation date to present
+          habit_dates_to_insert = date_repo.all_after(result.values.data[:initiation_date]).map{ |tuple| tuple[:id] }
+          puts result
+          
+          habit_creation = Success(habit_repo.habits.insert(result.values.data))
+          binding.pry
+          habit_id = habit_creation.flatten
+
+          habit_dates_to_insert.reduce([]) do |monads_array, date_id|
+            habit_date = { habit_id: habit_id, date_id: date_id}
+            monads_array.push(Success(habit_date_repo.create(habit_date)))
+          end
+          habit_creation
         end
       end
     end
