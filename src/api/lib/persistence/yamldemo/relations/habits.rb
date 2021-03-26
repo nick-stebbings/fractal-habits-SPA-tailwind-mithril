@@ -64,3 +64,58 @@ def ternarise_json_tree(json)
     # map_children_to(root, json['children'])
   end
 end
+
+def each_after(callback, json_node)
+    hash_node = JSON.parse(json_node)
+    node = Tree::TreeNode.new(hash_node['name'], hash_node['children'])
+    nodes = [node]
+    next_nodes = []
+
+    while (node = nodes.pop())
+      next_nodes.push(node)
+      if ((node.content) && (children = node.content) && !children.empty?)
+        children.each do |child|
+          nodes.push(Tree::TreeNode.new(child['name'], child['children']))
+        end
+      end
+    end
+
+    next_nodes.each do |node|
+      
+      children = node.content
+      if (!children.empty?)
+        children.each do |child|
+        child_to_append = next_nodes.find{|potential| child['name'] == potential.name }
+        node << child_to_append
+      end
+    end
+end
+
+
+# export default function(callback, that) {
+#   var node = this, nodes = [node], next = [], children, i, n, index = -1;
+#   while (node = nodes.pop()) {
+#     next.push(node);
+#     if (children = node.children) {
+#       for (i = 0, n = children.length; i < n; ++i) {
+#         nodes.push(children[i]);
+#       }
+#     }
+#   }
+#   while (node = next.pop()) {
+#     callback.call(that, node, ++index, this);
+#   }
+#   return this;
+# }
+# function count(node) {
+#   var sum = 0,
+#       children = node.children,
+#       i = children && children.length;
+#   if (!i) sum = 1;
+#   else while (--i >= 0) sum += children[i].value;
+#   node.value = sum;
+# }
+
+# export default function() {
+#   return this.eachAfter(count);
+# }

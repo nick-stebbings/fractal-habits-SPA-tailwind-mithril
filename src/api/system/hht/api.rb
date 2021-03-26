@@ -166,11 +166,11 @@ module Hht
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.first.id
             tree= generate_subtree(root_id)
+            binding.pry
           else
             return status 404
           end
         end
-        # binding.pry
 
         status 200
         demo ? tree.to_json : (json Subtree.as_json(tree))
