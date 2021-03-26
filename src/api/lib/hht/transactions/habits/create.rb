@@ -31,18 +31,21 @@ module Hht
         end
 
         def persist(result)
-          # Add habit_date entries from initiation date to present
-          habit_dates_to_insert = date_repo.all_after(result.values.data[:initiation_date]).map{ |tuple| tuple[:id] }
-          puts result
+          # Insert habit_date entries from initiation date to present.
+          # First get the relevant date IDs
+          habit_dates_to_insert = date_repo.all_after(result.values.data[:initiation_date] - 1).map{ |tuple| tuple[:id] }
           
+          # Insert the habit, store the ID
           habit_creation = Success(habit_repo.habits.insert(result.values.data))
-          binding.pry
           habit_id = habit_creation.flatten
-
-          habit_dates_to_insert.reduce([]) do |monads_array, date_id|
-            habit_date = { habit_id: habit_id, date_id: date_id}
+          
+          # binding.pry
+          # Validate and insert each habit_date
+          insertions = habit_dates_to_insert.reduce([]) do |monads_array, date_id|
+            habit_date = { habit_id: habit_id, date_id: date_id, completed_status: 'f'}
             monads_array.push(Success(habit_date_repo.create(habit_date)))
           end
+          # TODO combine all monads
           habit_creation
         end
       end
