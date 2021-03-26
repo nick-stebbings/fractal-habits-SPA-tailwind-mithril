@@ -6,6 +6,8 @@ require 'sinatra/reloader'
 require 'sinatra/cross_origin'
 require 'sinatra/json'
 require 'multi_json'
+require 'tree'
+require 'pry'
 
 require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
@@ -168,7 +170,7 @@ module Hht
             return status 404
           end
         end
-        # binding.pry
+        binding.pry
 
         status 200
         demo ? tree.to_json : (json Subtree.as_json(tree))

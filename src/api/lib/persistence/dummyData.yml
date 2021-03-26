@@ -1729,12 +1729,3 @@ domains:
               children: []
 habits: []
 habit_nodes: []
-
-# Algorithm for (tidying tree) adding habits with domain id.
-# Iterate through the domains, for each domain:
- # convert the domain[habits] habit_tree into a Tree (rubygem)
- 
-  # FOR EACH Tree node
-   # CREATE a habit in the habit_repo, 
-   # CREATE a habit_node attached to it.
- # 

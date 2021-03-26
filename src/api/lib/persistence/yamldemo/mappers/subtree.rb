@@ -11,10 +11,11 @@ module Yamldemo
       register_as :subtree
 
       def call(relation)
-        relation.each do |tuple|
-          puts tuple.id
+        id = 0
+        relation.map do |tuple|
+          id += 1
+          Tree::TreeNode.new(tuple[:name])
         end
-        []
       end
     end
   end

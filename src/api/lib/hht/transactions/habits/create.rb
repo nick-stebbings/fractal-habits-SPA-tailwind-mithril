@@ -19,10 +19,11 @@ module Hht
 
         def validate(input)
           parent_node_id = input[:habit_node_id];
-          domain_root = habit_repo.restrict_on_domain_id_combine_with_root_node_of_domain(input[:domain_id]).to_a
+          domain_root_node = habit_repo.restrict_on_domain_id_combine_with_root_node_of_domain(input[:domain_id]).to_a
           
-          input[:habit_node_id] = habit_node_repo.create(parent_id: (domain_root ? nil : parent_node_id)).flatten
-          
+          # Create a habit_node for this habit TODO: move this to persist method
+          input[:habit_node_id] = habit_node_repo.create(parent_id: (domain_root_node ? nil : parent_node_id)).flatten
+
           create.call(input).to_monad
         end
 
