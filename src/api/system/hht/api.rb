@@ -199,6 +199,15 @@ module Hht
         status 200
         json domain_repo.as_json(id)
       end
+        
+      get '/:domain_id/habits' do |id|
+        status 200
+        habits = domain_repo
+          .by_id_nest_with_habits(id)
+          .one.habits
+          .map(&:to_h)
+        json ({ habits: habits }.to_json)
+      end
   
       post '' do
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)

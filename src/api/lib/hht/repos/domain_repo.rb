@@ -28,6 +28,10 @@ module Hht
         domains.by_pk(id)
       end
 
+      def by_id_nest_with_habits(id)
+        by_id(id).combine(:habits)
+      end
+
       def as_json(id)
         domain = domains.by_pk(id).one
         { 

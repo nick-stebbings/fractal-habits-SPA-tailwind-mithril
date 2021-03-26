@@ -23,8 +23,18 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
     .then((list) => DomainStore.current(list[0]))
     .catch(handleErrorType),
 
+  indexHabits: (domain_id) => clientRoutes(`${basePath}/${domain_id}/habits`)
+    .show_all()
+    .then((response) => JSON.parse(response.data).habits)
+    .then(DomainStore.list)
+    .then((list) => DomainStore.current(list[list.length - 1]))
+    .catch(handleErrorType),
+
   submit: (attrs) => DomainStore.create(attrs)
-    .then((response) => ({ ...response.data, ...JSON.parse(response.config.data) }))
+    .then((response) => ({
+      ...response.data,
+      ...JSON.parse(response.config.data),
+    }))
     .then(DomainStore.current)
     .catch(handleErrorType),
 

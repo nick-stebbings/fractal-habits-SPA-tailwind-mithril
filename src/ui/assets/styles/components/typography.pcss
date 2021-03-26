@@ -24,15 +24,19 @@ section.cards h1 {
   @apply font-sans border-balance-hero block pl-4 mt-4 font-bold uppercase border-l-8;
 }
 
-#subnav .nav-links > li.hoverable a, .nav-container a {
+#subnav .nav-links > li.hoverable a, .nav-container span:first-child {
   @apply uppercase pt-2 lg:px-4 xl:text-2xl lg:text-xl lg:leading-9 leading-10;
   font-family: B612, Lato, Nunito, sans;
   font-weight: 700;
-  
+}
+
+#subnav > .nav-container > div span {
+  /*  TODO: make text smallerTODO */
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable a {
   @apply text-2xl; 
+  line-height: 1.5rem;
 }
 
 .nav-label-primary > span, .user-nav-label span

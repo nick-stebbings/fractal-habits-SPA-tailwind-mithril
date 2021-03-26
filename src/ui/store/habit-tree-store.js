@@ -11,7 +11,7 @@ const TreeStore = {
     if (useDemoData) {
       return clientRoutes(`/habit_trees?demo=true&domain_id=${domainId}`).show_all();
     }
-    return TreeStore.show_all();
+    return TreeStore.show_all().catch(handleErrorType);
   },
 
   clear: () => {

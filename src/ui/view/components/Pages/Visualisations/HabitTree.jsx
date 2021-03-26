@@ -169,7 +169,6 @@ const HabitTree = (function () {
       domainSelector.addEventListener('change', (e) => {
         // Update Demo data domain reference
         selectedDomain(String(e.target.selectedIndex));
-        DomainStore.current(DomainStore.list()[e.target.selectedIndex]);
 
         TreeStore.get(demoData, selectedDomain())
           .then((response) => hierarchy(response.data))

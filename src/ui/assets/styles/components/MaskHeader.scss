@@ -173,7 +173,7 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 
 /* Fixed Nav Links in top-left */
 /* --------------------------- */
-#subnav .nav-links > li.hoverable {
+#subnav .nav-links > li.hoverable, #subnav .nav-container > div {
   @apply bg-balance-hero z-20 pl-2 font-light border-2 rounded-full;
   margin-left: -1.3rem;
   transition: margin-left .2s ease-out;
@@ -219,6 +219,10 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
   margin-left: -1.3rem;
   min-width: 12rem;
   order: 1; /* Send it to the front of the flex row to display */
+}
+
+body[class^="scroll"] #subnav .nav-container > div {
+  @apply pl-8;
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active a {

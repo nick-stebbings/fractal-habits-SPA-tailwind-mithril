@@ -1,6 +1,7 @@
 // src/view/components/Layout/MaskHeader.jsx
 
 import DomainStore from '../../../store/domain-store';
+import HabitStore from '../../../store/habit-store';
 import DateStore from '../../../store/date-store';
 
 import ResponsiveNavGroup from './Nav/ResponsiveNavGroup.jsx';
@@ -19,7 +20,13 @@ const MaskHeader = function () {
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');
       const dateSelector = document.getElementById('date-today');
-      domainSelector.options.selectedIndex = currentDateIndex;
+
+      domainSelector.addEventListener('change', (e) => {
+        DomainStore.current(DomainStore.list()[e.target.selectedIndex]);
+        HabitStore.current({ name: 'I changed' });
+        console.log(HabitStore.current());
+        m.redraw();
+      });
 
       const nextDate = document.getElementById('next-date-selector');
       const prevDate = document.getElementById('prev-date-selector');
@@ -127,16 +134,14 @@ const MaskHeader = function () {
                           className="fa fa-chevron-circle-left pr-1"
                           aria-hidden="true"
                         />
-                        {m(
-                          'input.form-input',
-                          {
-                            class:
-                              'w-full lg:w-48 text-center text-xl lg:pt-2 -mr-2 py-1 px-0',
-                            type: 'date',
-                            id: 'date-today',
-                            value: DateStore.currentDate(),
-                          },
-                        )}
+                        {m('input.form-input', {
+                          class:
+                            'w-full lg:w-48 text-center text-xl lg:pt-2 -mr-2 py-1 px-0',
+                          type: 'date',
+                          id: 'date-today',
+                          max: DateStore.currentDate(),
+                          value: DateStore.currentDate(),
+                        })}
                         <i
                           id="next-date-selector"
                           className="fa fa-chevron-circle-right pl-1"
