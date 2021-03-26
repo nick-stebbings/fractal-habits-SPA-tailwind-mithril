@@ -1,8 +1,12 @@
 import HoverableLink from './HoverableLink.jsx';
+import DomainStore from '../../../../store/domain-store';
 import HabitStore from '../../../../store/habit-store';
 
 const DropdownNav = (function () {
-  HabitStore.index();
+  DomainStore.indexHabitsOf(9).then(() => {
+    console.log(HabitStore.list());
+    console.log(HabitStore.current());
+  });
   return {
     view: ({ attrs: { routes } }) => (
       <nav className="nav">
@@ -19,12 +23,11 @@ const DropdownNav = (function () {
               </HoverableLink>
             ))}
           </ul>
-          {console.log(HabitStore.current())}
-          <div className="top-12 left-8 bg-balance-lp absolute w-3/12 pl-12 mt-2">
-            <span id="current-habit" className=" text-sm">
-              Current Habit:
+          <div>
+            <span id="current-habit">
+              Selected:
             </span>
-            {m('span', HabitStore.current().name)}
+            {m('span', HabitStore.current() ? HabitStore.current().name : 'No Habits Registered')}
           </div>
         </div>
       </nav>

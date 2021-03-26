@@ -20,12 +20,13 @@ const MaskHeader = function () {
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');
       const dateSelector = document.getElementById('date-today');
+      const selectedHabitLabel = document.querySelector('#current-habit ~ span');
 
       domainSelector.addEventListener('change', (e) => {
         DomainStore.current(DomainStore.list()[e.target.selectedIndex]);
-        HabitStore.current({ name: 'I changed' });
-        console.log(HabitStore.current());
-        m.redraw();
+        DomainStore.indexHabitsOf(DomainStore.current().id).then(() => {
+          selectedHabitLabel.value = HabitStore.current();
+        }).then(redraw);
       });
 
       const nextDate = document.getElementById('next-date-selector');

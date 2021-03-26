@@ -24,14 +24,16 @@ section.cards h1 {
   @apply font-sans border-balance-hero block pl-4 mt-4 font-bold uppercase border-l-8;
 }
 
-#subnav .nav-links > li.hoverable a, .nav-container span:first-child {
+#subnav .nav-links > li.hoverable a {
   @apply uppercase pt-2 lg:px-4 xl:text-2xl lg:text-xl lg:leading-9 leading-10;
   font-family: B612, Lato, Nunito, sans;
   font-weight: 700;
 }
 
-#subnav > .nav-container > div span {
-  /*  TODO: make text smallerTODO */
+.nav-container span:first-child {
+  @apply uppercase lg:px-4 lg:pl-6 xl:text-xl lg:px-4 lg:leading-9 leading-10;
+  font-family: B612, Lato, Nunito, sans;
+  font-weight: 700;
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable a {
@@ -39,6 +41,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable a {
   line-height: 1.5rem;
 }
 
+/* Domain selector and Date selector labels */
 .nav-label-primary > span, .user-nav-label span
 .responsive-nav-group > a {
   font-family: Nunito, Silka, sans-serif;
@@ -51,6 +54,15 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable a {
   text-decoration: underline;
   text-decoration-color: #ef9323;
 	-webkit-text-decoration-color: #ef9323;
+}
+
+.nav-label-primary div span i{
+  /* Date Picker arrows */
+  @apply text-2xl mt-2;
+}
+  
+.nav-label-primary div span {
+  user-select: none;
 }
 
 .domain-pills, .user-nav-label, .menu-card-button {
@@ -71,11 +83,11 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable a {
 }
 
 nav .hero-message > h2 {
-  @apply leading-6 xl:leading-10 tracking-wide text-2xl font-bold text-gray-50;
+  @apply leading-6 xl:leading-10 tracking-wide text-xl font-bold text-gray-50;
 }
 
 nav .hero-message p {
-  @apply xl:text-xl leading-6 text-gray-50 font-sans font-light text-right;
+  @apply xl:text-base leading-6 xl:leading-10 text-gray-50 font-sans font-light text-right;
 }
 
 nav .menu-card.enabled h3 {

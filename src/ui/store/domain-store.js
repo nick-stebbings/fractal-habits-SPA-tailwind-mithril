@@ -1,4 +1,5 @@
 import stream from 'mithril/stream';
+import HabitStore from './habit-store';
 import { clientRoutes, handleErrorType } from './client';
 
 const basePath = '/domains';
@@ -23,11 +24,11 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
     .then((list) => DomainStore.current(list[0]))
     .catch(handleErrorType),
 
-  indexHabits: (domain_id) => clientRoutes(`${basePath}/${domain_id}/habits`)
+  indexHabitsOf: (domain_id) => clientRoutes(`${basePath}/${domain_id}/habits`)
     .show_all()
     .then((response) => JSON.parse(response.data).habits)
-    .then(DomainStore.list)
-    .then((list) => DomainStore.current(list[list.length - 1]))
+    .then(HabitStore.list)
+    .then((list) => HabitStore.current(list[list.length - 1]))
     .catch(handleErrorType),
 
   submit: (attrs) => DomainStore.create(attrs)
