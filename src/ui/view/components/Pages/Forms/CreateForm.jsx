@@ -32,11 +32,13 @@ const CreateForm = {
   view: ({ attrs }) => (
     <div className="md:max-w-1/2 lg:max-w-1/3 sm:w-2/3 sm:px-0 flex flex-col justify-between w-full px-4 mb-16">
       <form id={`create-${attrs.resourceName}`} action="" method="">
-        <FormHeader
-          iconPath="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-          title={`Create a ${attrs.resourceName}`}
-          description={attrs.resourceDescription}
-        />
+        { attrs.addHeader ? (
+          <FormHeader
+            iconPath="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            title={`Create a ${attrs.resourceName}`}
+            description={attrs.resourceDescription}
+          />
+        ) : ''}
 
         {m(FormContainer, [
           m(

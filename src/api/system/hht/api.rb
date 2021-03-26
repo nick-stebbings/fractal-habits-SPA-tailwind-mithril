@@ -170,7 +170,7 @@ module Hht
             return status 404
           end
         end
-        binding.pry
+        # binding.pry
 
         status 200
         demo ? tree.to_json : (json Subtree.as_json(tree))

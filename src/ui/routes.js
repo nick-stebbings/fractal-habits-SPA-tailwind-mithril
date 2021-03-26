@@ -15,8 +15,7 @@ const Routes = MenuRoutes.reduce(
     const links = menuSection.subpaths;
 
     Object.keys(links).forEach((path) => {
-      const { title } = links[path];
-      const { page } = links[path];
+      const { title, page } = links[path];
       newRoutesObject[path] = {
         onmatch() {
           DomainStore.index().then(() => {
@@ -27,9 +26,9 @@ const Routes = MenuRoutes.reduce(
           ? m(d3visPageMaker(Layout, page), {
             heading: title,
           })
-          : m(Layout, m(page), {
+          : m(Layout, m(page, {
             heading: title,
-          })),
+          }))),
       };
     });
 
@@ -38,10 +37,12 @@ const Routes = MenuRoutes.reduce(
   {
     '/': {
       onmatch() {
-        DomainStore.index()
-          .then(() => {
-            m.redraw();
-          });
+        // DomainStore.index()
+        //   .then(() => {
+        //     HabitStore.index().then(() => {
+        //       m.redraw();
+        //     });
+        //   });
       },
       render() {
         return m(Layout, { index: true }, m(HeroSection));

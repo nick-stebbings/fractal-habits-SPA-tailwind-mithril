@@ -14,10 +14,9 @@ const todaysDate = new Date().toDateInputValue();
 export default {
   oninit: () => {
     DateStore.current(todaysDate);
-    console.log(DateStore.current(), 'CURRENT DATESTORE');
   },
   oncreate: () => {
-    document.getElementById('date-today').value = DateStore.current();// ? DateStore.current().h_date : todaysDate;
+    document.getElementById('date-today').value = DateStore.current();
   },
   view: ({ attrs, children: [mainPage] }) => (
     <div id="layout" className="w-full h-full">

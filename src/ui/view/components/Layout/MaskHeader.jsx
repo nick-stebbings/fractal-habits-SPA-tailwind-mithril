@@ -20,13 +20,17 @@ const MaskHeader = function () {
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');
       const dateSelector = document.getElementById('date-today');
-      const selectedHabitLabel = document.querySelector('#current-habit ~ span');
+      const selectedHabitLabel = document.querySelector(
+        '#current-habit ~ span',
+      );
 
       domainSelector.addEventListener('change', (e) => {
         DomainStore.current(DomainStore.list()[e.target.selectedIndex]);
-        DomainStore.indexHabitsOf(DomainStore.current().id).then(() => {
-          selectedHabitLabel.value = HabitStore.current();
-        }).then(redraw);
+        DomainStore.indexHabitsOf(DomainStore.current().id)
+          .then(() => {
+            selectedHabitLabel.value = HabitStore.current();
+          })
+          .then(redraw);
       });
 
       const nextDate = document.getElementById('next-date-selector');
@@ -105,7 +109,7 @@ const MaskHeader = function () {
                 <div className="md:pl-16 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between px-4 pt-1 pb-2">
                   <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
-                      Domain
+                      <label htmlFor="domain-selector">Domain</label>
                     </span>
                     <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-none border-balance-dg h-full px-6 text-sm bg-white border-2 rounded-full">
                       <span className="text-balance-secondary block w-full pt-2 mx-4 mb-1">
@@ -126,7 +130,7 @@ const MaskHeader = function () {
                   </div>
                   <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row lg:border-2 border-balance-dp max-w-12 from-balance-mint to-balance-hero lg:rounded-3xl lg:rounded-t-none text-balance-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
                     <span className="lg:hidden xl:block md:pt-2 pt-0 pb-0 mx-4 mb-1">
-                      Date
+                      <label htmlFor="date-today">Date</label>
                     </span>
                     <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-none border-balance-dg h-full bg-white border-2 rounded-full">
                       <span className="lg:pt-2 text-balance-secondary block w-full mx-4 mb-1">
@@ -136,8 +140,7 @@ const MaskHeader = function () {
                           aria-hidden="true"
                         />
                         {m('input.form-input', {
-                          class:
-                            'w-full text-xl lg:pt-2 -mr-8 px-2',
+                          class: 'w-full text-xl lg:pt-2 -mr-8 px-2',
                           type: 'date',
                           id: 'date-today',
                           max: DateStore.currentDate(),

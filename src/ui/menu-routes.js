@@ -76,34 +76,34 @@ const MenuRoutes = [
       },
     },
   },
-  {
-    label: 'Objectives',
-    path: '/obj',
-    subpaths: {
-      '/obj/list': {
-        title: 'List Objectives',
-        description: 'A flat list of all objectives for your perusal.',
-        page: HabitNodeList,
-        icon:
-          '<svg class="w-14 pl-2 mt-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1,.cls-2,.cls-3{fill:none;stroke:#000;stroke-linecap:round; stroke-width: 1px;}.cls-1,.cls-2{stroke-linejoin:round;}.cls-3{stroke-miterlimit:10;stroke-width:0.94px;}</style></defs><title/><path class="stroke-current cls-1" d="M15,5.5a2,2,0,0,0-2-2,2,2,0,0,0-4,0,2,2,0,0,0-2,2v1h8Z"/><path class="stroke-current cls-1" d="M18.5,20.5a1,1,0,0,1-1,1H4.5a1,1,0,0,1-1-1V5.5a1,1,0,0,1,1-1h1"/><path class="stroke-current cls-1" d="M16.5,4.5h1a1,1,0,0,1,1,1v3"/><polyline class="cls-2" points="16.57 14.29 17.97 16 20.43 13"/><circle class="cls-3" cx="18.5" cy="14.5" r="4.5"/><line class="cls-2" x1="6.5" x2="13" y1="10.5" y2="10.5"/><line class="cls-2" x1="6.5" x2="11.5" y1="13.5" y2="13.5"/><line class="cls-2" x1="6.5" x2="12" y1="16.5" y2="16.5"/></svg>',
-      },
-      '/obj/new': {
-        title: 'New Objective',
-        description: 'Create a completely blank objective.',
-        page: HabitNodeList,
-        icon:
-          '<svg class="w-14 pl-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:none;stroke-linecap:round; stroke-width: 1px;stroke-linejoin:round;}</style></defs><title/><path class="stroke-current cls-1" d="M8.79,11.93l3.82-6.48a.76.76,0,0,1,1.44,0l9,15.21"/><path class="stroke-current cls-1" d="M11.05,16l1.42-1.43a1.21,1.21,0,0,1,1.71,0l1.92,1.92a1.21,1.21,0,0,0,1.71,0L19.37,15"/><path class="stroke-current cls-1" d="M1,20.66l4.85-8.24c.21-.37.56-.37.78,0l4.85,8.24"/><path class="stroke-current cls-1" d="M3,17.57l.85.85a.65.65,0,0,0,.93,0l1-1a.66.66,0,0,1,.92,0l1,1a.65.65,0,0,0,.93,0l.84-.85"/><path class="stroke-current cls-1" d="M8.45,6.34a1.22,1.22,0,0,0-1,1.38"/><path class="stroke-current cls-1" d="M7.42,7.72A1.21,1.21,0,0,0,6,6.7"/><path class="stroke-current cls-1" d="M5.45,3.34a1.22,1.22,0,0,0-1,1.38"/><path class="stroke-current cls-1" d="M4.42,4.72A1.21,1.21,0,0,0,3,3.7"/></svg>',
-      },
-      '/obj/edit': {
-        title: 'Compose with Habits',
-        description:
-          'Link existing behaviors to a new objective, or move habits from one objective to the other.',
-        page: HabitNodeList,
-        icon:
-          '<svg class="w-14 pl-2 mt-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:none;stroke-linecap:round; stroke-width: 1px;stroke-linejoin:round;}</style></defs><title/><polyline class="cls-1" points="14.63 20.5 14.63 12.5 20.63 12.5 18.63 14.5 20.63 16.5 16.63 16.5"/><path class="stroke-current cls-1" d="M6.75,4.5H10.1c6,0,6.53,2.94,1.21,6.53L6.94,14C1.62,17.56,2.17,20.5,8.15,20.5h4.22"/><circle class="cls-1" cx="5" cy="4.5" r="1.5"/></svg>',
-      },
-    },
-  },
+  // {
+  //   label: 'Objectives',
+  //   path: '/obj',
+  //   subpaths: {
+  //     '/obj/list': {
+  //       title: 'List Objectives',
+  //       description: 'A flat list of all objectives for your perusal.',
+  //       page: HabitNodeList,
+  //       icon:
+  //         '<svg class="w-14 pl-2 mt-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1,.cls-2,.cls-3{fill:none;stroke:#000;stroke-linecap:round; stroke-width: 1px;}.cls-1,.cls-2{stroke-linejoin:round;}.cls-3{stroke-miterlimit:10;stroke-width:0.94px;}</style></defs><title/><path class="stroke-current cls-1" d="M15,5.5a2,2,0,0,0-2-2,2,2,0,0,0-4,0,2,2,0,0,0-2,2v1h8Z"/><path class="stroke-current cls-1" d="M18.5,20.5a1,1,0,0,1-1,1H4.5a1,1,0,0,1-1-1V5.5a1,1,0,0,1,1-1h1"/><path class="stroke-current cls-1" d="M16.5,4.5h1a1,1,0,0,1,1,1v3"/><polyline class="cls-2" points="16.57 14.29 17.97 16 20.43 13"/><circle class="cls-3" cx="18.5" cy="14.5" r="4.5"/><line class="cls-2" x1="6.5" x2="13" y1="10.5" y2="10.5"/><line class="cls-2" x1="6.5" x2="11.5" y1="13.5" y2="13.5"/><line class="cls-2" x1="6.5" x2="12" y1="16.5" y2="16.5"/></svg>',
+  //     },
+  //     '/obj/new': {
+  //       title: 'New Objective',
+  //       description: 'Create a completely blank objective.',
+  //       page: HabitNodeList,
+  //       icon:
+  //         '<svg class="w-14 pl-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:none;stroke-linecap:round; stroke-width: 1px;stroke-linejoin:round;}</style></defs><title/><path class="stroke-current cls-1" d="M8.79,11.93l3.82-6.48a.76.76,0,0,1,1.44,0l9,15.21"/><path class="stroke-current cls-1" d="M11.05,16l1.42-1.43a1.21,1.21,0,0,1,1.71,0l1.92,1.92a1.21,1.21,0,0,0,1.71,0L19.37,15"/><path class="stroke-current cls-1" d="M1,20.66l4.85-8.24c.21-.37.56-.37.78,0l4.85,8.24"/><path class="stroke-current cls-1" d="M3,17.57l.85.85a.65.65,0,0,0,.93,0l1-1a.66.66,0,0,1,.92,0l1,1a.65.65,0,0,0,.93,0l.84-.85"/><path class="stroke-current cls-1" d="M8.45,6.34a1.22,1.22,0,0,0-1,1.38"/><path class="stroke-current cls-1" d="M7.42,7.72A1.21,1.21,0,0,0,6,6.7"/><path class="stroke-current cls-1" d="M5.45,3.34a1.22,1.22,0,0,0-1,1.38"/><path class="stroke-current cls-1" d="M4.42,4.72A1.21,1.21,0,0,0,3,3.7"/></svg>',
+  //     },
+  //     '/obj/edit': {
+  //       title: 'Compose with Habits',
+  //       description:
+  //         'Link existing behaviors to a new objective, or move habits from one objective to the other.',
+  //       page: HabitNodeList,
+  //       icon:
+  //         '<svg class="w-14 pl-2 mt-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:none;stroke-linecap:round; stroke-width: 1px;stroke-linejoin:round;}</style></defs><title/><polyline class="cls-1" points="14.63 20.5 14.63 12.5 20.63 12.5 18.63 14.5 20.63 16.5 16.63 16.5"/><path class="stroke-current cls-1" d="M6.75,4.5H10.1c6,0,6.53,2.94,1.21,6.53L6.94,14C1.62,17.56,2.17,20.5,8.15,20.5h4.22"/><circle class="cls-1" cx="5" cy="4.5" r="1.5"/></svg>',
+  //     },
+  //   },
+  // },
 ];
 
 MenuRoutes.selected = 'Habits'; // Default Page

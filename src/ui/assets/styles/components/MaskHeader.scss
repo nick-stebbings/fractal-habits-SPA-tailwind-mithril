@@ -103,7 +103,7 @@ li.hoverable {
       }
 
       .inset {
-        @apply bg-balance-hero grid rounded-xl rounded-l-none w-3/4 grid-cols-4 grid-rows-1 gap-2 p-0 pr-2 pt-2;
+        @apply bg-balance-hero grid rounded-xl rounded-l-none w-3/4 grid-cols-4 grid-rows-1 gap-2 p-0 pr-2 pt-2 mb-8;
         
         .menu-card.disabled {
           p, button {

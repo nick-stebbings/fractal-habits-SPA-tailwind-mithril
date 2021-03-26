@@ -5,9 +5,9 @@ import HabitList from './HabitList.jsx';
 
 const CreateHabit = function () {
   return {
-    view: () => m('div#habit-create-form', { class: 'flex justify-between' }, [
-      m(HabitList),
-      m(CreateForm, { resourceName: 'Habit', domain: null, resourceDescription: 'A way of keeping track of your daily behaviours' }),
+    view: () => m('div#habit-create-form', [
+      m('div', m('h2', 'Choose a habit to be the parent', m(HabitList))),
+      m(CreateForm, { addHeader: false, resourceName: 'HabitChild' }),
     ]),
   };
 };

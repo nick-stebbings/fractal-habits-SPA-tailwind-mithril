@@ -7,7 +7,7 @@ const registerEventListeners = (function () {
 
     window.addEventListener('scroll', () => {
       const currentScroll = window.pageYOffset;
-      if (currentScroll <= 0) {
+      if (currentScroll <= 50) {
         body.classList.remove(scrollUp);
         return;
       }
