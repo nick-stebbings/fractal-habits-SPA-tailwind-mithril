@@ -32,6 +32,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   z-index: 1;
 }
 
+@media (max-width: 1024px) {
+  
+  select#domain-selector {
+    min-width: 10rem;
+    padding: 0 !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* TODO: fix this */
+    -ms-word-break: normal;
+    word-break: normal;
+  }
+}
+
 #modal input[type="text"], input[type="date"] {
   -moz-appearance: none;
   -webkit-appearance: none;

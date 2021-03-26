@@ -139,7 +139,7 @@ const HabitTree = (function () {
     type: 'vis',
     oncreate: ({ attrs }) => {
       const svg = select(`div#${attrs.divId}`)
-        .classed('h-full', true)
+        .classed('h-screen', true)
         .classed('w-full', true)
         .append('svg')
         .attr('width', '100%')
@@ -189,7 +189,7 @@ const HabitTree = (function () {
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
         <button type="button" id="activate-demo">
-          Switch To Demo Data
+          Toggle Demo Data
         </button>
         {vnode.children}
       </div>

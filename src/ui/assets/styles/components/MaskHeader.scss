@@ -61,14 +61,15 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 .nav-container > div:last-child {
-  @apply top-12 left-3 bg-balance-lp absolute flex items-center w-3/12 mt-2;
+  @apply top-12 left-3 bg-balance-lp absolute flex items-center w-3/12 mt-2 rounded-sm;
+  pointer-events: none;
 }
 
 .nav-container > div span:last-child {
   @apply my-2;
 }
 
-.nav-label-primary > div {
+.nav-label-primary > div, .nav-label-primary > div > span {
   @apply flex items-center;
 }
 
@@ -234,7 +235,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
 }
 
 body[class^="scroll"] #subnav .nav-container > div {
-  @apply pl-8;
+  // # TODO
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active a {
