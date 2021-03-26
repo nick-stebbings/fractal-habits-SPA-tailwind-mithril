@@ -137,7 +137,7 @@ const MaskHeader = function () {
                         />
                         {m('input.form-input', {
                           class:
-                            'w-full text-xl lg:pt-2 -mr-2 px-0',
+                            'w-full text-xl lg:pt-2 -mr-8 px-2',
                           type: 'date',
                           id: 'date-today',
                           max: DateStore.currentDate(),

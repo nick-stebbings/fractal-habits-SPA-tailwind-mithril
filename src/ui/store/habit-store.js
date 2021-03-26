@@ -4,7 +4,7 @@ import { clientRoutes, handleErrorType } from './client';
 const basePath = '/habits';
 
 const HabitStore = Object.assign(clientRoutes(basePath), {
-  current: stream({ name: 'PlaceHolder' }),
+  current: stream({ name: 'No Domain/Habits Loaded' }),
 
   get: (id) => HabitStore.show_one(id)
     .then((response) => JSON.parse(response.data))

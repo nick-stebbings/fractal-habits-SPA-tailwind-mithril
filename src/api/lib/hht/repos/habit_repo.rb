@@ -9,7 +9,6 @@ module Hht
       commands update: :by_pk
 
       def create(data)
-        binding.pry
         Hht::Transactions::Habits::Create.new.call(data)
       end
 
@@ -49,6 +48,14 @@ module Hht
           .combine(:habit_nodes)
           .node(:habit_node) { |hn| hn.where(lft: 1) }
           .where{ !habit_node.nil? }
+      end
+
+      def combine_with_habit_date_restrict_by_habit_date_status_completion(completed_string)
+        habits
+          .combine(:habit_dates)
+          .node(:habit_dates) {|date| date.where(completed_status: completed_string) }
+          .where{ !habit_dates.nil?}
+          # TODO: finish restriction.
       end
     end
   end
