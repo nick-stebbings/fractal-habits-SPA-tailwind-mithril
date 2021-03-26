@@ -16,26 +16,29 @@ const MaskHeader = function () {
   let currentDateIndex = -1;
 
   return {
-    onupdate: (vnode) => {
-    },
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');
+      const dateSelector = document.getElementById('date-today');
       domainSelector.options.selectedIndex = currentDateIndex;
 
       const nextDate = document.getElementById('next-date-selector');
       const prevDate = document.getElementById('prev-date-selector');
 
       prevDate.addEventListener('click', () => {
-        DateStore.current(currentDateIndex === -(DateStore.list().length)
-          ? DateStore.list()[0]
-          : DateStore.list().slice(--currentDateIndex)[0]);
-        console.log(DateStore.current());
+        DateStore.current(
+          currentDateIndex === -DateStore.list().length
+            ? DateStore.list()[0]
+            : DateStore.list().slice(--currentDateIndex)[0],
+        );
+        m.redraw();
       });
       nextDate.addEventListener('click', () => {
-        DateStore.current(currentDateIndex === -1
-          ? DateStore.list().slice(currentDateIndex)[0]
-          : DateStore.list().slice(++currentDateIndex)[0]);
-        console.log(DateStore.current());
+        DateStore.current(
+          currentDateIndex === -1
+            ? DateStore.list().slice(currentDateIndex)[0]
+            : DateStore.list().slice(++currentDateIndex)[0],
+        );
+        m.redraw();
       });
     },
     view: () => (
@@ -102,7 +105,7 @@ const MaskHeader = function () {
                           'select.form-select#domain-selector',
                           {
                             class:
-                             'w-full text-center lg:w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl',
+                              'w-full text-center lg:w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl',
                           },
                           DomainStore.list().map((domain, idx) => m(
                             DomainOption,
@@ -128,11 +131,11 @@ const MaskHeader = function () {
                           'input.form-input',
                           {
                             class:
-                             'w-full lg:w-48 text-center text-xl lg:pt-2 -mr-2 py-1 px-0',
+                              'w-full lg:w-48 text-center text-xl lg:pt-2 -mr-2 py-1 px-0',
                             type: 'date',
                             id: 'date-today',
+                            value: DateStore.currentDate(),
                           },
-                          DateStore.current(),
                         )}
                         <i
                           id="next-date-selector"
@@ -170,10 +173,10 @@ const MaskHeader = function () {
                     <ResponsiveNavGroup
                       id={`nav-${route.label.toLowerCase()}`}
                       class={
-                       MenuRoutes.selected === route.label
-                         ? 'active'
-                         : 'inactive'
-                     }
+                        MenuRoutes.selected === route.label
+                          ? 'active'
+                          : 'inactive'
+                      }
                       label={route.label}
                       url={`${route.path}`}
                     >

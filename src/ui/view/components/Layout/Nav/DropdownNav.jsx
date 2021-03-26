@@ -1,4 +1,5 @@
 import HoverableLink from './HoverableLink.jsx';
+import HabitStore from '../../../../store/habit-store';
 
 const DropdownNav = (function () {
   return {
@@ -19,6 +20,7 @@ const DropdownNav = (function () {
               </HoverableLink>
             ))}
           </ul>
+          <a id="current-habit">Habit Name</a>
         </div>
       </nav>
     ),

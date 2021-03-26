@@ -3,8 +3,14 @@ import { clientRoutes, handleErrorType } from './client';
 
 const basePath = '/dates';
 
+function sanitiseForValueChange(date) {
+  return (typeof date() === 'object' && typeof date().h_date === 'string')
+    ? date().h_date.split(' ')[0]
+    : new Date().toDateInputValue();
+}
+
 const DateStore = Object.assign(clientRoutes(basePath), {
-  current: stream({}),
+  current: stream(),
 
   get: (id) => DateStore.show_one(id)
     .then((response) => JSON.parse(response.data))
@@ -27,7 +33,6 @@ const DateStore = Object.assign(clientRoutes(basePath), {
 
   submit: (attrs) => DateStore.create(attrs)
     .then((response) => {
-      // console.log(response);
       const date = response.data;
       console.log('date response', response);
       return date;
@@ -39,4 +44,9 @@ const DateStore = Object.assign(clientRoutes(basePath), {
     .catch(handleErrorType),
 });
 
+DateStore.currentDate = stream.combine(
+  sanitiseForValueChange,
+  [DateStore.current,
+  ],
+);
 export default DateStore;
