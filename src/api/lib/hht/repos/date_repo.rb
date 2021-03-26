@@ -22,6 +22,8 @@ module Hht
         Hht::Transactions::Dates::Delete.new.call(pk)
       end
 
+      def by_id(id); dates.by_pk(id); end
+
       def find(given_date); dates.where(h_date: given_date); end
 
       def earliest; dates.order(:h_date).first; end

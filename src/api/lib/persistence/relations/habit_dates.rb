@@ -6,7 +6,7 @@ module Persistence
       schema(:habit_dates) do
         attribute :habit_id, Types::Integer
         attribute :date_id, Types::Integer
-        attribute :status_completed, Types::Nominal::Bool
+        attribute :completed_status, Types::Nominal::Bool
 
         associations do
           belongs_to :date

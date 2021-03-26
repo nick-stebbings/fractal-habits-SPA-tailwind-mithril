@@ -21,7 +21,8 @@ module Hht
           parent_node_id = input[:habit_node_id];
           domain_root_node = habit_repo.restrict_on_domain_id_combine_with_root_node_of_domain(input[:domain_id]).to_a
           
-          # Create a habit_node for this habit TODO: move this to persist method
+          # Create a habit_node for this habit 
+          # TODO: move this to persist method
           input[:habit_node_id] = habit_node_repo.create(parent_id: (domain_root_node ? nil : parent_node_id)).flatten
 
           create.call(input).to_monad
