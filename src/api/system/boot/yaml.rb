@@ -6,7 +6,7 @@ Hht::Container.boot(:yaml, namespace: true) do |app|
     require 'rom-yaml'
     
     path = File.join(APP_ROOT, 'lib', 'persistence', 'yamldemo', 'dummyData.yml')
-    config = ROM::Configuration.new(:yaml, path)
+    config = ROM::Configuration.new(default: [:yaml, path])#, db: 'postgres://localhost/task_master
     config.auto_registration(app.root.join('lib/persistence/yamldemo'))
 
     container = ROM.container(config) do |setup|

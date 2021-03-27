@@ -40,16 +40,35 @@ module Hht
     ]
 
     helpers do
-      def populate_relations
-        domains = yaml_container.relations.domains.to_a
-        habits = yaml_container.relations.habits.to_a
-        date_range = ((Date.today- 30) .. Date.today)
-        dates = date_range.map { |date, i| {h_date: date, id: i + 1}}
-        habit_list = nil
+      def populate_relations(days_to_track)
+        #TODO refactor
+        domains = yaml_container.relations.domains
+        habits = yaml_container.relations.habits
+        dates = yaml_container.relations.dates
+        habit_dates = yaml_container.relations.habit_dates
 
-        domain_list = domains.each_with_object([]) do |list, domain|
-          list.push({ id: domain.id, name: domain.name }
-          habit_list = domain.habits.each_with_object([]) { |list, habit, i| list.push(habit) }
+        date_range = ((Date.today- days_to_track -1) .. Date.today)
+        date_structs = date_range.each_with_index { |date, i| yaml_container.relations.dates.insert({h_date: date, id: i + 1})}
+
+        domain_habit_lists = []
+        habit_id = 1
+
+        domain_list = domains.each_with_object([]) do |domain, list|
+          list.push({ id: domain.id, name: domain.name })
+          domain_habit_lists << domain.habits.each_with_object([]) do |habit, list|
+            habit = { id: habit_id, domain_id: domain[:id] }.merge(habit)
+            list << habit
+            
+            habits.insert(habit)
+            habit_id += 1
+          end
+        end
+        domain_habit_lists.each do |habit_list|
+          habit_list.each do |habit|
+            dates.map do |date|
+              habit_dates.insert({habit_id: habit[:id], date_id: date[:id]})
+            end
+          end
         end
       end
     end
@@ -64,7 +83,7 @@ module Hht
 
     namespace '/demo' do
       get '' do
-        demo_data_payload = populate_relations
+        demo_data_payload = populate_relations(31)
         status 200
         json demo_data_payload
       end
