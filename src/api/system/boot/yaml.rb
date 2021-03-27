@@ -5,9 +5,8 @@ Hht::Container.boot(:yaml, namespace: true) do |app|
     require 'rom'
     require 'rom-yaml'
     
-    path = File.join(APP_ROOT, 'lib', 'persistence', 'dummyData.yml')
+    path = File.join(APP_ROOT, 'lib', 'persistence', 'yamldemo', 'dummyData.yml')
     config = ROM::Configuration.new(:yaml, path)
-    # config.auto_registration(app.root.join('lib/persistence/yamldemo'))
     config.auto_registration(app.root.join('lib/persistence/yamldemo'))
 
     container = ROM.container(config) do |setup|
@@ -27,6 +26,6 @@ Hht::Container.boot(:yaml, namespace: true) do |app|
       end
     end
     register('config', ROM::Configuration.new(:yaml, path))
-    register('container', container)
+    register('yaml_container', container)
   end
 end

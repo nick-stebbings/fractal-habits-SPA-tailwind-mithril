@@ -6,8 +6,6 @@ module Hht
       include Import['persistence.container']
       include Dry::Monads[:result, :do]
 
-      struct_namespace Entities
-
       def create(data)
         created_unique_domain = yield Hht::Transactions::Domains::Create.new.call(data)
         Success(created_unique_domain)

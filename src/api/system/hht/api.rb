@@ -10,8 +10,7 @@ require 'tree'
 require 'pry'
 
 require_relative 'container'
-# require File.join(APP_ROOT, 'lib', 'subtree')
-require File.join(APP_ROOT, 'lib', 'persistence', 'yaml_demo')
+require File.join(APP_ROOT, 'lib', 'subtree')
 
 module Hht
   class Api < Sinatra::Base
@@ -37,7 +36,7 @@ module Hht
       'repos.habit_node_repo',
       'repos.habit_repo',
       'repos.date_repo',
-      'yaml.container' # For the 'dummy data' Yaml loader
+      'yaml.yaml_container' # For the 'dummy data' Yaml loader
     ]
 
     helpers do
@@ -125,7 +124,7 @@ module Hht
         demo = params[:demo] == 'true'
         
         if(demo)
-          domain = container
+          domain = yaml_container
           .relations
           .domains
             .to_a[params[:domain_id].to_i]
@@ -134,18 +133,18 @@ module Hht
               name: domain.name,
               children: domain.habits
             }
-            binding.pry
+            # binding.pry
         else
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.first.id
-            tree= Mappers::Subtree.generate(root_id)
+            tree= Subtree.generate(root_id, habit_node_repo)
           else
             return status 404
           end
         end
 
         status 200
-        demo ? tree.to_json : (json Mappers::Subtree.as_json(tree))
+        demo ? tree.to_json : (json Subtree.as_json(tree))
       end
 
       post '' do
@@ -154,9 +153,9 @@ module Hht
 
       # Get subtree by root node id
       get '/:root_id' do |root_id|
-        tree = Mappers::Subtree.generate(root_id)
+        tree = Subtree.generate(root_id)
         status tree ? 404 : 200
-        json Mappers::Subtree.as_json(tree)
+        json Subtree.as_json(tree)
       end
     end
 

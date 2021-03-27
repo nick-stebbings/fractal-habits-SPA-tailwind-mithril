@@ -4,7 +4,6 @@ module Hht
   module Repos
     class HabitRepo < ROM::Repository[:habits]
       include Import['persistence.container']
-      struct_namespace Entities
 
       commands update: :by_pk
 

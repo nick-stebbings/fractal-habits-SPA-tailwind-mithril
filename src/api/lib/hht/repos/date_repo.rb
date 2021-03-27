@@ -10,7 +10,6 @@ module Hht
   module Repos
     class DateRepo < ROM::Repository[:dates]
       include Import['persistence.container', 'db.connection']
-      struct_namespace Entities
 
       commands update: :by_pk
 
