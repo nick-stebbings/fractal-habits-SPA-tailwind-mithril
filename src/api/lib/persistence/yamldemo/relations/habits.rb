@@ -30,42 +30,34 @@
  
 require 'tree'
 
-def map_children_to(parent, child_node_array)
+def ternarise(child_node_array)
   subpart_counter = 0
-  new_sub_parts = Tree::TreeNode.new
+  new_parent = Tree::TreeNode.new(child_node_array.first.parent.name)
 
   child_node_array.each_slice(3) do |sub_array|
     subpart_name = 'Sub-Habit ' + subpart_counter.to_s
     new_subpart = Tree::TreeNode.new(subpart_name)
-    puts new_subpart
+    binding.pry
     # TODO: create a new habit here, link it to the node-id
-
     append_children_to(new_subpart, sub_array)
-    new_sub_parts << subpart
+    parent << new_subpart
 
     subpart_counter += 1
   end
-  new_sub_parts
+  new_parent
 end
 
 def append_children_to(parent, child_node_array)
-  child_node_array.reduce(parent) { |root, child| root << ternarise_json_tree(child); return root }
+  child_node_array.each { |child| root << child }
+   return root
 end
 
-def ternarise_json_tree(json)
-  root = Tree::TreeNode.new(json['name']) # map to tree node JSON.parse(json)['name']
-  if (json['children'] && json['children'].empty?)
-    root
-  # elsif (json['children'].size <= 3)
-  #   Pry.start
-  #   append_children_to(root, json['children'])
-  else # GIVE ME BACK A SUBTREE THAT IS ALREADY TERNARISED
-    Pry.start
-    # map_children_to(root, json['children'])
-  end
+def ternarise_json_tree(json_node)
+  # root = Tree::TreeNode.new(json_node['name']) # map to tree node JSON.parse(json)['name']
+  each_after(json_node) { }
 end
 
-def each_after(callback, json_node)
+def each_after(json_node)
     hash_node = JSON.parse(json_node)
     node = Tree::TreeNode.new(hash_node['name'], hash_node['children'])
     nodes = [node]
@@ -81,41 +73,14 @@ def each_after(callback, json_node)
     end
 
     next_nodes.each do |node|
-      
       children = node.content
       if (!children.empty?)
         children.each do |child|
-        child_to_append = next_nodes.find{|potential| child['name'] == potential.name }
+        child_to_append = next_nodes.find{ |potential| child['name'] == potential.name }
+
+        yield node if block_given?
         node << child_to_append
       end
     end
+  end
 end
-
-
-# export default function(callback, that) {
-#   var node = this, nodes = [node], next = [], children, i, n, index = -1;
-#   while (node = nodes.pop()) {
-#     next.push(node);
-#     if (children = node.children) {
-#       for (i = 0, n = children.length; i < n; ++i) {
-#         nodes.push(children[i]);
-#       }
-#     }
-#   }
-#   while (node = next.pop()) {
-#     callback.call(that, node, ++index, this);
-#   }
-#   return this;
-# }
-# function count(node) {
-#   var sum = 0,
-#       children = node.children,
-#       i = children && children.length;
-#   if (!i) sum = 1;
-#   else while (--i >= 0) sum += children[i].value;
-#   node.value = sum;
-# }
-
-# export default function() {
-#   return this.eachAfter(count);
-# }

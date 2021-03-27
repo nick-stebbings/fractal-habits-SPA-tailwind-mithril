@@ -10,7 +10,7 @@ require 'tree'
 require 'pry'
 
 require_relative 'container'
-require File.join(APP_ROOT, 'lib', 'subtree')
+# require File.join(APP_ROOT, 'lib', 'subtree')
 require File.join(APP_ROOT, 'lib', 'persistence', 'yaml_demo')
 
 module Hht
@@ -41,34 +41,6 @@ module Hht
     ]
 
     helpers do
-      def map_immediate_children_to_tree_nodes(parent_id)
-        habit_node_repo
-          .nest_parent_with_immediate_child_nodes(parent_id)
-          .to_a
-          .reject { |node| node.parent.nil? }
-          .map(&:to_tree_node)
-      end
-
-      def map_node_and_immediate_children_to_tree_nodes(parent_id)
-        habit_node_repo
-          .nest_parent_with_immediate_child_nodes(parent_id)
-          .to_a
-          .select { |node| !node.parent.nil? || node.id == parent_id }
-          .map(&:to_tree_node)
-      end
-
-      def map_node_and_descendants_to_struct_nodes(root_id)
-        root = habit_node_repo.by_id(root_id).one
-        habit_node_repo
-          .nest_parent_with_descendant_nodes_between_lr(root.lft, root.rgt)
-          .to_a
-      end
-
-      def generate_subtree(root_id)
-        nodes_array = map_node_and_descendants_to_struct_nodes(root_id)
-        root_node = nodes_array.shift
-        Subtree.new(root_node.to_tree_node, nodes_array).build
-      end
     end
 
     namespace '/api' do
@@ -162,18 +134,18 @@ module Hht
               name: domain.name,
               children: domain.habits
             }
+            binding.pry
         else
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.first.id
-            tree= generate_subtree(root_id)
-            binding.pry
+            tree= Mappers::Subtree.generate(root_id)
           else
             return status 404
           end
         end
 
         status 200
-        demo ? tree.to_json : (json Subtree.as_json(tree))
+        demo ? tree.to_json : (json Mappers::Subtree.as_json(tree))
       end
 
       post '' do
@@ -182,9 +154,9 @@ module Hht
 
       # Get subtree by root node id
       get '/:root_id' do |root_id|
-        tree = generate_subtree(root_id)
+        tree = Mappers::Subtree.generate(root_id)
         status tree ? 404 : 200
-        json Subtree.as_json(tree)
+        json Mappers::Subtree.as_json(tree)
       end
     end
 

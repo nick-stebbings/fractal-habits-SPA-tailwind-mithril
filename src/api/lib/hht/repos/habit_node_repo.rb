@@ -89,8 +89,28 @@ module Hht
           .combine(habit_nodes: :parent)
       end
 
-    ## Modified preorder traversal queries:
+    ## Subtree Mappings
+      def map_node_and_descendants_to_struct_nodes(root_id)
+        root = by_id(root_id).exist? ? by_id(root_id).one : nil
+        nest_parent_with_descendant_nodes_between_lr(root.lft, root.rgt) unless root.nil?
+      end
+    
+    ## Tree::TreeNode Mappings
+      def map_immediate_children_to_tree_nodes(parent_id)
+        nest_parent_with_immediate_child_nodes(parent_id)
+          .to_a
+          .reject { |node| node.parent.nil? }
+          .map(&:to_tree_node)
+      end
 
+      def map_node_and_immediate_children_to_tree_nodes(parent_id)
+        nest_parent_with_immediate_child_nodes(parent_id)
+          .to_a
+          .select { |node| !node.parent.nil? || node.id == parent_id }
+          .map(&:to_tree_node)
+      end
+
+    ## Modified preorder traversal queries:
       # For adjusting 'further right than candidate' nodes
       def nodes_to_adjust_both_values(val)
         habit_nodes
