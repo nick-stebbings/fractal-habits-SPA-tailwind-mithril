@@ -13,7 +13,6 @@ import { redraw } from '../../../assets/scripts/utilities';
 import '../../../assets/styles/components/MaskHeader.scss';
 
 const MaskHeader = function () {
-  DateStore.index();
   let currentDateIndex = -1;
 
   return {

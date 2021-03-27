@@ -17,6 +17,7 @@ const CreateForm = {
       const FD = new FormData(e.target);
 
       FD.forEach((value, key) => { data[key.replace(/-/g, '_')] = value; }); // Assign values while swapping for snake_case
+      console.log(attrs.domain(), "DOMAIn")
       data.domain_id = attrs.domain().id;
       data.habit_node_id = 1;
       data.parent_node_id = null;
@@ -24,9 +25,7 @@ const CreateForm = {
       HabitStore.submit(data)
         .then(() => DateStore.submit({ h_date: data.initiation_date }))
         .then(() => openModal(false))
-        .catch((err) => {
-          window.FlashMessage.error(err);
-        });
+        .then(() => m.redraw())
     });
   },
   view: ({ attrs }) => (

@@ -28,7 +28,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
   submit: (attrs) => HabitStore.create(attrs)
     .then((response) => {
       const habit = response.data;
-      HabitStore.index(); // Could save a DB call here
+      // HabitStore.index(); // Could save a DB call here
       return habit;
     })
     .then(HabitStore.current)

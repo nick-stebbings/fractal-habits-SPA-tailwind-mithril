@@ -40,10 +40,36 @@ module Hht
     ]
 
     helpers do
+      def populate_relations
+        domains = yaml_container.relations.domains.to_a
+        habits = yaml_container.relations.habits.to_a
+        date_range = ((Date.today- 30) .. Date.today)
+        dates = date_range.map { |date, i| {h_date: date, id: i + 1}}
+        habit_list = nil
+
+        domain_list = domains.each_with_object([]) do |list, domain|
+          list.push({ id: domain.id, name: domain.name }
+          habit_list = domain.habits.each_with_object([]) { |list, habit, i| list.push(habit) }
+        end
+      end
     end
 
     namespace '/api' do
       [:get, :post, :put, :patch, :delete].each do |method|
+        send(method, '') do
+          halt(405, { message:'Verb Not Permitted'}.to_json)
+        end
+      end
+    end
+
+    namespace '/demo' do
+      get '' do
+        demo_data_payload = populate_relations
+        status 200
+        json demo_data_payload
+      end
+
+      [:post, :put, :patch, :delete].each do |method|
         send(method, '') do
           halt(405, { message:'Verb Not Permitted'}.to_json)
         end

@@ -19,6 +19,8 @@ const Routes = MenuRoutes.reduce(
       newRoutesObject[path] = {
         onmatch() {
           DomainStore.index().then(() => {
+            DateStore.index()
+          }).then(() => {
             m.redraw();
           });
         },

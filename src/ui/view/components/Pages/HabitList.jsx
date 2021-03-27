@@ -4,7 +4,8 @@ import HabitStore from '../../../store/habit-store.js';
 import ListCard from '../layout/ListCard.jsx';
 
 const HabitNodeList = function () {
-  DomainStore.indexHabitsOf(9).then(() => {
+  DomainStore.indexHabitsOf(DomainStore.current()).then(() => {
+    m.redraw();
   });
 
   return {

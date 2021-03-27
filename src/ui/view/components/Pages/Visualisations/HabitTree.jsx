@@ -169,14 +169,6 @@ const HabitTree = (function () {
       domainSelector.addEventListener('change', (e) => {
         // Update Demo data domain reference
         selectedDomain(String(e.target.selectedIndex));
-
-        TreeStore.get(demoData, selectedDomain())
-          .then((response) => hierarchy(response.data))
-          .then(root)
-          .then(() => {
-            render(svg, canvasWidth, canvasHeight);
-          })
-          .then(redraw);
       });
       domainSelector.onfocus = (e) => { e.target.selectedIndex = -1; };
     },
