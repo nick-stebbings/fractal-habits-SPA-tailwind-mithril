@@ -37,6 +37,8 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
     })
     .catch(handleErrorType),
 
+  runFilter: (domain_id) => HabitStore.list(HabitStore.list().filter((habit) => habit.domain_id == domain_id)),
+
   runReplace: (id, value) => HabitStore.replace(id, value).catch((e) => {
     // TODO update list/current
   }),

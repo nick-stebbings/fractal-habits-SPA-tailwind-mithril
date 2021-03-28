@@ -2,7 +2,7 @@ import stream from 'mithril/stream';
 import { select, hierarchy, tree } from 'd3';
 import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/utilities';
 
-import {importData} from '../../../../store/populateDummyData.js';
+import importData from '../../../../store/populateDummyData.js';
 import TreeStore from '../../../../store/habit-tree-store.js';
 import DomainStore from '../../../../store/domain-store.js';
 
@@ -53,9 +53,9 @@ const HabitTree = (function () {
         });
     };
 
-    const scaleFactor = 2;
-    const dy = (canvasWidth / 10) * scaleFactor;
-    const dx = (canvasHeight / 15) * scaleFactor;
+    const scaleFactor = 1.5;
+    const dy = (canvasWidth / 50) * scaleFactor;
+    const dx = (canvasHeight / 10) * scaleFactor;
     // console.log(root, 'root at first');
     // root.y0 = dy / 2;
     // root.x0 = 0;
@@ -164,7 +164,10 @@ const HabitTree = (function () {
 
       demoButton.addEventListener('click', (e) => {
         demoData = !demoData;
-        m.redraw();
+        importData.then((e) => {
+          console.log(e);
+          m.redraw();
+        })
       });
 
       domainSelector.addEventListener('change', (e) => {
@@ -177,7 +180,6 @@ const HabitTree = (function () {
       // # TODO
       const demoButton = document.getElementById('activate-demo');
       demoButton.setAttribute('class', demoData ? 'active' : 'inactive');
-      console.log(demoButton);
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">

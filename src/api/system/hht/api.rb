@@ -115,6 +115,7 @@ module Hht
       get '' do
         demo_data_payload = populate_yaml_relations(31)
         status 200
+        # binding.pry
         json demo_data_payload
       end
 

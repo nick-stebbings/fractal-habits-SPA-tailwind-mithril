@@ -1,6 +1,4 @@
-import stream from "mithril/stream";
 import { clientRoutes, handleErrorType } from "./client";
-
 
 import DateStore from "./date-store.js";
 import DomainStore from "./domain-store.js";
@@ -17,13 +15,21 @@ const importData = clientRoutes(basePath).show_all()
     HabitDateStore.list(response.data.habit_dates)
     HabitStore.list(response.data.habits)
     NodeStore.list(response.data.nodes)
-
-    DateStore.current(DateStore.list[DateStore.list.length - 1])
-    DomainStore.current(DomainStore.list[0])
-    HabitDateStore.current(HabitDateStore.list[HabitDateStore.list.length - 1])
-    HabitStore.current(HabitStore.list[0])
-    NodeStore.current(NodeStore.list[NodeStore.list.length - 1])
+    
+    DateStore.current(DateStore.list()[DateStore.list().length - 1])
+    DomainStore.current(DomainStore.list()[0])
+    
+    HabitStore.runFilter(DomainStore.current().id);
+    HabitStore.current(HabitStore.list()[0])
+    
+    HabitDateStore.runFilter(HabitStore.current().id);
+    HabitDateStore.current(HabitDateStore.list()[HabitDateStore.list().length - 1]);
+    
+    NodeStore.runFilter(HabitStore.current().id);
+    NodeStore.current(NodeStore.list()[NodeStore.list().length - 1])
   })
-  .catch(handleErrorType);
+  .catch((err) => {
+    console.log(err);
+  });
 
-export default {importData};
+export default importData;

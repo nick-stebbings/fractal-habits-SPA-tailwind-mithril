@@ -10,7 +10,7 @@ function sanitiseForValueChange(date) {
 }
 
 const DateStore = Object.assign(clientRoutes(basePath), {
-  current: stream(),
+  current: stream({}),
 
   get: (id) => DateStore.show_one(id)
     .then((response) => JSON.parse(response.data))

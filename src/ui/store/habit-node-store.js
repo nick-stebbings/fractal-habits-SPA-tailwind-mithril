@@ -7,10 +7,11 @@ const basePath = '/habit_trees/nodes';
 const NodeStore = Object.assign(clientRoutes(basePath), {
   current: stream({}),
 
-  get: (id) => NodeStore.show_one(id)
-    .then((response) => JSON.parse(response.data))
-    .then(NodeStore.current)
-    .catch(handleErrorType),
+  get: (id) =>
+    NodeStore.show_one(id)
+      .then((response) => JSON.parse(response.data))
+      .then(NodeStore.current)
+      .catch(handleErrorType),
 
   clear: () => {
     NodeStore.current = stream({});
@@ -18,10 +19,11 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
 
   list: stream([]),
 
-  index: () => NodeStore.show_all()
-    .then((response) => JSON.parse(response.data).habit_nodes)
-    .then(NodeStore.list)
-    .catch(handleErrorType),
+  index: () =>
+    NodeStore.show_all()
+      .then((response) => JSON.parse(response.data).habit_nodes)
+      .then(NodeStore.list)
+      .catch(handleErrorType),
 
   submit: (attrs) => {
     NodeStore.create(attrs)
@@ -31,6 +33,11 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
       // })
       .catch(handleErrorType);
   },
+
+  runFilter: (habit_id) =>
+    NodeStore.list(
+      NodeStore.list().filter((node) => node.id == habit_id)
+    ),
 
   runReplace: (id, value) => {
     NodeStore.replace(id, value).catch((e) => {
