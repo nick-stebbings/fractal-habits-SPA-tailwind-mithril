@@ -26,9 +26,9 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
   submit: (attrs) => {
     NodeStore.create(attrs)
       .then(NodeStore.current)
-      .then(() => {
-        NodeStore.index();
-      })
+      // .then(() => {
+      //   NodeStore.index();
+      // })
       .catch(handleErrorType);
   },
 

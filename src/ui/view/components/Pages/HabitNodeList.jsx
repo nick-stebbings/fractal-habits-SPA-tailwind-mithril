@@ -7,7 +7,7 @@ const HabitNodeList = function () {
 
   return {
     oninit: () => {
-      NodeStore.index().then(() => m.redraw());
+      // NodeStore.index().then(() => m.redraw());
     },
     view: () => m('div#habit-list', NodeStore.list().map((n) => m(ListCard, { value: n }))),
   };

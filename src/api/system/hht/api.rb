@@ -10,8 +10,6 @@ require 'multi_json'
 require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
 
-require 'pry'
-
 module Hht
   class Api < Sinatra::Base
     before do
@@ -91,7 +89,7 @@ module Hht
       end
 
       # { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: all_domains, habits: habits.to_a }
-      { nodes: habit_nodes_list, dates: dates_list, habit_dates: habit_dates_list, domains: all_domains, habits: habit_list }
+      { nodes: habit_nodes_list, dates: dates_list, habit_dates: habit_dates_list, domains: domain_list, habits: habit_list, domain_habits: domain_habit_lists}
     end
 
     def yield_mptt_values(node)
@@ -197,7 +195,6 @@ module Hht
 
       # Get root node tree. Take a query string parameter to decide if to read from Demo (YAML memory)
       get '' do
-        binding.pry
         tree = nil
         demo = params[:demo] == 'true'
         

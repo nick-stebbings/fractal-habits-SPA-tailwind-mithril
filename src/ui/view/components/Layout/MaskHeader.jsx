@@ -25,11 +25,11 @@ const MaskHeader = function () {
 
       domainSelector.addEventListener('change', (e) => {
         DomainStore.current(DomainStore.list()[e.target.selectedIndex]);
-        DomainStore.indexHabitsOf(DomainStore.current().id)
-          .then(() => {
-            selectedHabitLabel.value = HabitStore.current();
-          })
-          .then(redraw);
+        // DomainStore.indexHabitsOf(DomainStore.current().id)
+        //   .then(() => {
+        //     selectedHabitLabel.value = HabitStore.current();
+        //   })
+        //   .then(redraw);
       });
 
       const nextDate = document.getElementById('next-date-selector');

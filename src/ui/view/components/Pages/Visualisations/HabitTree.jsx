@@ -2,6 +2,7 @@ import stream from 'mithril/stream';
 import { select, hierarchy, tree } from 'd3';
 import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/utilities';
 
+import {importData} from '../../../../store/populateDummyData.js';
 import TreeStore from '../../../../store/habit-tree-store.js';
 import DomainStore from '../../../../store/domain-store.js';
 
@@ -21,7 +22,7 @@ const HabitTree = (function () {
   };
 
   const selectedDomain = stream(0);
-  DomainStore.index().then(redraw);
+  // DomainStore.index().then(redraw);
   const root = stream({});
 
   function render(svg, canvasWidth, canvasHeight) {
@@ -167,7 +168,7 @@ const HabitTree = (function () {
       });
 
       domainSelector.addEventListener('change', (e) => {
-        // Update Demo data domain reference
+        // Update domain reference
         selectedDomain(String(e.target.selectedIndex));
       });
       domainSelector.onfocus = (e) => { e.target.selectedIndex = -1; };
