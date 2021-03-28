@@ -21,7 +21,7 @@ const Routes = MenuRoutes.reduce(
         onmatch({demo}) {
             if (!demo) { 
               DomainStore.index()
-                .then(DateStore.index)
+                .then(DateStore.index) //TODO filter by habit
                 .then(DomainStore.indexHabitsOf)
                 .then(redraw)
                 .catch(handleErrorType)

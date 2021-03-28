@@ -6,14 +6,8 @@ import Footer from './components/Layout/Footer.jsx';
 
 import DateStore from '../store/date-store';
 
-import DomainStore from '../store/domain-store';
-import HabitStore from '../store/habit-store';
-
-const todaysDate = new Date().toDateInputValue();
-
 export default {
   oninit: () => {
-    DateStore.current(todaysDate);
   },
   oncreate: () => {
     document.getElementById('date-today').value = DateStore.current();

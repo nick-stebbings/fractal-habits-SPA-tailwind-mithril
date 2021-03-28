@@ -35,7 +35,6 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .then((response) => JSON.parse(response.data).habits)
       .then(HabitStore.list)
       .then((list) => HabitStore.current(list[list.length - 1]))
-      .then(log)
       .catch(handleErrorType),
 
   submit: (attrs) =>
@@ -45,7 +44,16 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
         ...JSON.parse(response.config.data),
       }))
       .then(DomainStore.current)
-      .catch(handleErrorType),
+      .then((current) => {
+        let newList = DomainStore.list()
+        if (newList.length == 1 && newList[0].name == "No Domains Registered") newList.pop();
+        newList.push(current);
+        DomainStore.list(newList)
+        return current
+      })
+      .catch((err) => {
+        console.log(err);
+      }),
 
   runReplace: (id, value) =>
     DomainStore.replace(id, value).catch(() => {

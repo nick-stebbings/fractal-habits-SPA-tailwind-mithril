@@ -1,6 +1,9 @@
 import DomainStore from '../../../store/domain-store';
 import { openModal } from '../../../assets/scripts/animations';
-
+function log(res) {
+  console.log(res, "LOGGER");
+  return res;
+}
 const DomainPill = {
   oncreate: (vnode) => {
     vnode.dom.addEventListener('click', (event) => {
@@ -8,15 +11,23 @@ const DomainPill = {
         name: vnode.attrs.name,
         description: vnode.attrs.name,
         rank: vnode.attrs.rank + 2,
-        hashtag: `#${vnode.attrs.name}`,
+        hashtag: `#${vnode.attrs.name.toLowerCase().split(" ").join("-")}`,
       })
-        .then(() => {
-          m.redraw();
-        })
-        .then(openModal)
-        .catch((err) => {
-          err.status ? window.FlashMessage.error(err.status) : window.FlashMessage.error('Unable to add Domain');
-        });
+      .then(log)
+      .then(() => {
+        m.redraw();
+      })
+      .then(() => {
+        const domainInput = document.getElementById('domain-selector');
+        
+        console.log(DomainStore.list());
+      })
+      .then(openModal)
+      .catch((err) => {
+        err.status
+          ? window.FlashMessage.error(err.status)
+          : window.FlashMessage.error("Unable to add Domain");
+      });
     });
   },
   view: ({ attrs }) => (
