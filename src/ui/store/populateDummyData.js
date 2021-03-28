@@ -8,7 +8,8 @@ import NodeStore from "./habit-node-store.js";
 
 const basePath = "/demo";
 
-const importData = clientRoutes(basePath).show_all()
+const importData = function(){
+  clientRoutes(basePath).show_all()
   .then((response) => {
     DateStore.list(response.data.dates)
     DomainStore.list(response.data.domains)
@@ -31,5 +32,6 @@ const importData = clientRoutes(basePath).show_all()
   .catch((err) => {
     console.log(err);
   });
+};
 
 export default importData;

@@ -24,10 +24,10 @@ const DateStore = Object.assign(clientRoutes(basePath), {
   list: stream([]),
 
   index: () => DateStore.show_all()
-    .then((response) => JSON.parse(response.data).dates)
+    .then((response) => (JSON.parse(response.data).dates))
     .then(DateStore.list)
     .then((list) => {
-      DateStore.current(list[list.length - 1]);
+      return DateStore.current(list[list.length - 1]);
     })
     .catch(handleErrorType),
 

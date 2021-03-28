@@ -164,7 +164,7 @@ const HabitTree = (function () {
 
       demoButton.addEventListener('click', (e) => {
         demoData = !demoData;
-        importData.then((e) => {
+        importData().then((e) => {
           console.log(e);
           m.redraw();
         })

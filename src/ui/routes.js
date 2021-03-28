@@ -4,11 +4,12 @@ import MenuRoutes from './menu-routes';
 import Layout from './view/Layout.jsx';
 // Models
 import DomainStore from './store/domain-store';
+// import HabitStore from './store/habit-store';
+import DateStore from './store/date-store';
 // Components
 import HeroSection from './view/components/layout/HeroSection.jsx';
 // Utils
-import { d3visPageMaker } from './assets/scripts/utilities';
-import DateStore from './store/date-store';
+import { d3visPageMaker, redraw, handleErrorType } from './assets/scripts/utilities';
 
 const Routes = MenuRoutes.reduce(
   (newRoutesObject, menuSection) => {
@@ -18,13 +19,13 @@ const Routes = MenuRoutes.reduce(
       const { title, page } = links[path];
       newRoutesObject[path] = {
         onmatch({demo}) {
-          if (!demo) { 
-            DomainStore.index().then(() => {
-              DateStore.index()
-            }).then(() => {
-              m.redraw();
-            });
-          }
+            if (!demo) { 
+              DomainStore.index()
+                .then(DateStore.index)
+                .then(DomainStore.indexHabitsOf)
+                .then(redraw)
+                .catch(handleErrorType)
+            }
         },
         render: () => (menuSection.label === 'Visualise'
           ? m(d3visPageMaker(Layout, page), {

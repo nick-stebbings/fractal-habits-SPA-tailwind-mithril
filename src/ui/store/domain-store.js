@@ -3,9 +3,12 @@ import HabitStore from './habit-store';
 import { clientRoutes, handleErrorType } from './client';
 
 const basePath = '/domains';
-
+function log(res) {
+  console.log(res, 'LOGGER');
+  return res
+}
 const DomainStore = Object.assign(clientRoutes(basePath), {
-  current: stream({ name: " ", id: 1 }),
+  current: stream({ name: " ", id: "1" }),
 
   get: (id) =>
     DomainStore.show_one(id)
@@ -14,7 +17,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   clear: () => {
-    DomainStore.current = stream({ name: " ", id: 1 });
+    DomainStore.current = stream({ name: " ", id: "1" });
   },
 
   list: stream([{ name: "No Domains Registered" }]),
@@ -26,12 +29,13 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .then((list) => DomainStore.current(list[0]))
       .catch(handleErrorType),
 
-  indexHabitsOf: (domain_id) =>
-    clientRoutes(`${basePath}/${domain_id}/habits`)
+  indexHabitsOf: () =>
+    clientRoutes(`${basePath}/${DomainStore.current().id}/habits`)
       .show_all()
       .then((response) => JSON.parse(response.data).habits)
       .then(HabitStore.list)
       .then((list) => HabitStore.current(list[list.length - 1]))
+      .then(log)
       .catch(handleErrorType),
 
   submit: (attrs) =>

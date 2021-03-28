@@ -1,6 +1,9 @@
 import stream from 'mithril/stream';
 import { clientRoutes, handleErrorType } from './client';
-
+function log(res) {
+  console.log(res, "LOGGER");
+  return res;
+}
 const basePath = '/habit_trees/nodes';
 
 // create: (parent) => axios.post(basePath, { parent_id: parent }),
