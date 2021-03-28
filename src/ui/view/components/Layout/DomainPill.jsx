@@ -13,14 +13,8 @@ const DomainPill = {
         rank: vnode.attrs.rank + 2,
         hashtag: `#${vnode.attrs.name.toLowerCase().split(" ").join("-")}`,
       })
-      .then(log)
       .then(() => {
         m.redraw();
-      })
-      .then(() => {
-        const domainInput = document.getElementById('domain-selector');
-        
-        console.log(DomainStore.list());
       })
       .then(openModal)
       .catch((err) => {

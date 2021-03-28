@@ -18,18 +18,16 @@ const MaskHeader = function () {
   return {
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');
-      const dateSelector = document.getElementById('date-today');
       const selectedHabitLabel = document.querySelector(
         '#current-habit ~ span',
       );
-
       domainSelector.addEventListener('change', (e) => {
-        DomainStore.current(DomainStore.list()[e.target.selectedIndex]);
-        // DomainStore.indexHabitsOf(DomainStore.current().id)
-        //   .then(() => {
-        //     selectedHabitLabel.value = HabitStore.current();
-        //   })
-        //   .then(redraw);
+        DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
+        DomainStore.indexHabitsOf(DomainStore.current().id)
+          .then(() => {
+            selectedHabitLabel.value = HabitStore.current();
+          })
+          .then(redraw);
       });
 
       const nextDate = document.getElementById('next-date-selector');
@@ -142,7 +140,7 @@ const MaskHeader = function () {
                           class: 'w-full text-xl lg:pt-2 -mr-8 px-2',
                           type: 'date',
                           id: 'date-today',
-                          max: DateStore.currentDate(),
+                          max: DateStore.currentDate(), //#TODO
                           value: DateStore.currentDate(),
                         })}
                         <i

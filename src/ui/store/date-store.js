@@ -37,9 +37,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
   submit: (attrs) =>
     DateStore.create(attrs)
       .then((response) => {
-        const date = response.data;
-        console.log("date response", response);
-        return date;
+        return response.data;
       })
       .then(DateStore.current)
       .then(() => {

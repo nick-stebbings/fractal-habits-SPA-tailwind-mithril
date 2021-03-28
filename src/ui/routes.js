@@ -42,12 +42,11 @@ const Routes = MenuRoutes.reduce(
   {
     '/': {
       onmatch() {
-        // DomainStore.index()
-        //   .then(() => {
-        //     HabitStore.index().then(() => {
-        //       m.redraw();
-        //     });
-        //   });
+              DomainStore.index()
+                .then(DateStore.index) //TODO filter by habit, refactor this
+                .then(DomainStore.indexHabitsOf)
+                .then(redraw)
+                .catch(handleErrorType);
       },
       render() {
         return m(Layout, { index: true }, m(HeroSection));

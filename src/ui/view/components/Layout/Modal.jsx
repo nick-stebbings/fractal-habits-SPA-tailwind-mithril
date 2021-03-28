@@ -54,7 +54,7 @@ const Modal = {
                 'span',
                 DomainStore.current()
                   ? DomainStore.current().name
-                  : 'Placeholder',
+                  : '',
               )}
             </h3>
           </div>
