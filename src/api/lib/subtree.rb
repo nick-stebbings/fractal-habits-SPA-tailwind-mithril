@@ -65,7 +65,7 @@ class Subtree
       parent
     end
 
-    def each_after(json_node, parent = nil)
+    def each_after(json_node, parent = nil, lower_list_limit = 12)
       hash_node = JSON.parse(json_node)
       # Create a new parent node and store the JSON as 'content' in the TreeNode
       node = Tree::TreeNode.new(hash_node['name'], hash_node['children'])
@@ -85,7 +85,7 @@ class Subtree
         children = node.content
 
         if (!children.empty?)
-          if(children.size > 9)
+          if(children.size > lower_list_limit)
             node.replace_with(listify(node,children))
           elsif(children.size > 3)
             node.parent ? node.replace_with(ternarise(node, children)) : node 

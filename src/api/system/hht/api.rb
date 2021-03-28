@@ -63,18 +63,29 @@ module Hht
           end
         end
         
-        all_domain_habits = domains.map { |d|  d.habits[0] }
         
         habit_dates_list = []
         domain_habit_lists.each do |habit_list|
           habit_list.each do |habit|
             dates.map do |date|
-              habit_dates.insert({habit_id: habit[:id], date_id: date[:id], status_completed: false})
+              habit_dates_list.push({habit_id: habit[:id], date_id: date[:id], status_completed: false})
             end
           end
         end
-        all_domain_subtrees = Subtree.json_each_after(all_domain_habits[0].to_json) do |node|
-          
+        all_domains = domains.map { |d|  d.habits[0] }
+        all_domains.each do |domain|
+          tree = Subtree.each_after(domain[0].to_json)
+          subtree
+        end
+      end
+
+      def add_mptt_values(node)
+        left_counter = 1
+        node.preordered_each do |n|
+          lft = left_counter
+          rgt = node.size == 1 ? (lft + 1) : (lft + 2 * node.size - 1)
+          lft += 1
+          n.content = "L#{lft}R#{rgt}"
         end
       end
     end
@@ -184,7 +195,6 @@ module Hht
               name: domain.name,
               children: domain.habits
             }
-            # binding.pry
         else
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.first.id
