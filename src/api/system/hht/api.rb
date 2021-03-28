@@ -6,11 +6,11 @@ require 'sinatra/reloader'
 require 'sinatra/cross_origin'
 require 'sinatra/json'
 require 'multi_json'
-require 'tree'
-require 'pry'
 
 require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
+
+require 'pry-byebug'
 
 module Hht
   class Api < Sinatra::Base
@@ -40,35 +40,41 @@ module Hht
     ]
 
     helpers do
-      def populate_relations(days_to_track)
+      def populate_yaml_relations(days_to_track)
         #TODO refactor
         domains = yaml_container.relations.domains
         habits = yaml_container.relations.habits
         dates = yaml_container.relations.dates
         habit_dates = yaml_container.relations.habit_dates
 
+        dates_list = []
         date_range = ((Date.today- days_to_track -1) .. Date.today)
-        date_structs = date_range.each_with_index { |date, i| yaml_container.relations.dates.insert({h_date: date, id: i + 1})}
+        date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
 
-        domain_habit_lists = []
         habit_id = 1
-
+        
+        domain_habit_lists = []
         domain_list = domains.each_with_object([]) do |domain, list|
           list.push({ id: domain.id, name: domain.name })
           domain_habit_lists << domain.habits.each_with_object([]) do |habit, list|
             habit = { id: habit_id, domain_id: domain[:id] }.merge(habit)
             list << habit
-            
-            habits.insert(habit)
             habit_id += 1
           end
         end
+        
+        all_domain_habits = domains.map { |d|  d.habits[0] }
+        
+        habit_dates_list = []
         domain_habit_lists.each do |habit_list|
           habit_list.each do |habit|
             dates.map do |date|
-              habit_dates.insert({habit_id: habit[:id], date_id: date[:id]})
+              habit_dates.insert({habit_id: habit[:id], date_id: date[:id], status_completed: false})
             end
           end
+        end
+        all_domain_subtrees = Subtree.json_each_after(all_domain_habits[0].to_json) do |node|
+          
         end
       end
     end
@@ -81,9 +87,9 @@ module Hht
       end
     end
 
-    namespace '/demo' do
+    namespace '/api/demo' do
       get '' do
-        demo_data_payload = populate_relations(31)
+        demo_data_payload = populate_yaml_relations(31)
         status 200
         json demo_data_payload
       end

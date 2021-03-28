@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Yamldemo
   module Relations
     class HabitNodes < ROM::Relation[:yaml]

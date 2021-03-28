@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+require_relative './list'
 
 class Subtree
   attr_reader :root_node
@@ -25,32 +28,75 @@ class Subtree
       new_json.merge(children_json)
     end
 
-    def json_each_after(json_node)
+    def to_json(hash)
+       as_json(hash).to_json
+    end
+
+    # Perform a 'ternarising' iteration on a Tree::TreeNode
+    def ternarise_treenode(node)
+      each_after(to_json(node))
+    end
+
+    # Split a long list of node children into subparts of at most 3 child nodes
+    def ternarise(parent, child_node_array)
+      subpart_counter = 1
+      new_parent = Tree::TreeNode.new(parent.name)
+
+      child_node_array.each_slice(3) do |sub_array|
+        subpart_name = 'Sub-Habit ' + subpart_counter.to_s
+        new_subpart = Tree::TreeNode.new(subpart_name, sub_array)
+        # TODO: create a new habit here, link it to the node-id
+        map_to_treenode_append_children_to(new_subpart, sub_array)
+        new_parent << new_subpart
+
+        subpart_counter += 1
+      end
+      new_parent
+    end
+
+    # Make child nodes into a simple list
+    def listify(parent, child_node_array)
+      Tree::TreeNode.new(parent.name, List.new(child_node_array, 'name').list)
+    end
+
+    # Works in double-recursion with each_after to ternarise
+    def map_to_treenode_append_children_to(parent, child_node_array)
+      child_node_array.each { |child| parent << each_after(child.to_json, parent) }
+      parent
+    end
+
+    def each_after(json_node, parent = nil)
       hash_node = JSON.parse(json_node)
+      # Create a new parent node and store the JSON as 'content' in the TreeNode
       node = Tree::TreeNode.new(hash_node['name'], hash_node['children'])
+
       nodes = [node]
       next_nodes = []
-      
+
+      # Map ALL json nodes to singleton TreeNodes
       while (node = nodes.pop())
         next_nodes.push(node)
-        if ((node.content) && (children = node.content) && !children.empty?)
-          children.each do |child|
-            nodes.push(Tree::TreeNode.new(child['name'], child['children']))
-          end
+        if (node.content && (children = node.content) && !children.empty?)
+          children.each { |child| nodes.push(Tree::TreeNode.new(child['name'], child['children']))}
         end
       end
-      
-      next_nodes.each do |node|
+
+      next_nodes.sort_by{ |node| node.name.to_i }.each do |node|
         children = node.content
+
         if (!children.empty?)
-          children.each do |child|
-            child_to_append = next_nodes.find{ |potential| child['name'] == potential.name }
-            
-            yield node if block_given?
-            node << child_to_append
+          if(children.size > 9)
+            node.replace_with(listify(node,children))
+          elsif(children.size > 3)
+            node.parent ? node.replace_with(ternarise(node, children)) : node 
           end
+          children.each do |child|
+            node << next_nodes.find{ |next_child| child['name'] == next_child.name }
+          end
+          yield node if block_given?
         end
       end
+      next_nodes.first
     end
   end
 
