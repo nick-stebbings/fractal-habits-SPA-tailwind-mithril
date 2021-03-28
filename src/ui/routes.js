@@ -17,12 +17,14 @@ const Routes = MenuRoutes.reduce(
     Object.keys(links).forEach((path) => {
       const { title, page } = links[path];
       newRoutesObject[path] = {
-        onmatch() {
-          // DomainStore.index().then(() => {
-          //   DateStore.index()
-          // }).then(() => {
-          //   m.redraw();
-          // });
+        onmatch({demo}) {
+          if (!demo) { 
+            DomainStore.index().then(() => {
+              DateStore.index()
+            }).then(() => {
+              m.redraw();
+            });
+          }
         },
         render: () => (menuSection.label === 'Visualise'
           ? m(d3visPageMaker(Layout, page), {
