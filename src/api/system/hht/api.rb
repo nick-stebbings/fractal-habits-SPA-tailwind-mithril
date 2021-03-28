@@ -10,7 +10,7 @@ require 'multi_json'
 require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
 
-require 'pry-byebug'
+require 'pry'
 
 module Hht
   class Api < Sinatra::Base
@@ -39,54 +39,69 @@ module Hht
       'yaml.yaml_container' # For the 'dummy data' Yaml loader
     ]
 
-    helpers do
-      def populate_yaml_relations(days_to_track)
-        #TODO refactor
-        domains = yaml_container.relations.domains
-        habits = yaml_container.relations.habits
-        dates = yaml_container.relations.dates
-        habit_dates = yaml_container.relations.habit_dates
+    def populate_yaml_relations(days_to_track)
+      #TODO refactor
+      domains = yaml_container.relations.domains
+      habits = yaml_container.relations.habits
+      dates = yaml_container.relations.dates
+      habit_dates = yaml_container.relations.habit_dates
+      habit_nodes = yaml_container.relations.habit_nodes
 
-        dates_list = []
-        date_range = ((Date.today- days_to_track -1) .. Date.today)
-        date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
+      dates_list = []
+      date_range = ((Date.today- days_to_track -1) .. Date.today)
+      date_structs = date_range.each_with_index { |date, i| dates_list.push({h_date: date, id: i + 1})}
 
-        habit_id = 1
+      all_domains = domains.map { |d|  d.habits[0] }
+
+      domain_habit_lists = []
+      habit_list = []
+      habit_id = 1
+      domain_list = domains.to_a.each_with_object([]) do |domain, list|
+        list.push({ id: domain.id, name: domain.name })
+        habit_names = domain.habits.to_s.scan(/:name=>"(.*?)"/) #.gsub(/(\\|\\n|\\t)/, '')
         
-        domain_habit_lists = []
-        domain_list = domains.each_with_object([]) do |domain, list|
-          list.push({ id: domain.id, name: domain.name })
-          domain_habit_lists << domain.habits.each_with_object([]) do |habit, list|
-            habit = { id: habit_id, domain_id: domain[:id] }.merge(habit)
-            list << habit
-            habit_id += 1
-          end
-        end
-        
-        
-        habit_dates_list = []
-        domain_habit_lists.each do |habit_list|
-          habit_list.each do |habit|
-            dates.map do |date|
-              habit_dates_list.push({habit_id: habit[:id], date_id: date[:id], status_completed: false})
-            end
-          end
-        end
-        all_domains = domains.map { |d|  d.habits[0] }
-        all_domains.each do |domain|
-          tree = Subtree.each_after(domain[0].to_json)
-          subtree
+        domain_habit_lists << habit_names.each_with_object([]) do |habit_name, list|
+          habit = { id: habit_id, domain_id: domain[:id], name: habit_name.first }
+          list << habit
+          habit_list << habit
+          habit_id += 1
         end
       end
 
-      def add_mptt_values(node)
-        left_counter = 1
-        node.preordered_each do |n|
-          lft = left_counter
-          rgt = node.size == 1 ? (lft + 1) : (lft + 2 * node.size - 1)
-          lft += 1
-          n.content = "L#{lft}R#{rgt}"
+      habit_node_id = 1
+      habit_nodes_list = []
+      all_domains.each_with_index do |domain, index|
+        tree = Subtree.json_each_after(domain.to_json, nil, 12)
+        yield_mptt_values(tree) do |vals, name|
+          habit_nodes_list.push({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
+          found = habit_list.find { |habit| habit[:name] == name}
+          next unless found
+          found[:habit_node_id] = habit_node_id
+          habit_node_id += 1
         end
+      end
+
+      habit_dates_list = []
+      domain_habit_lists.each do |habit_list|
+        habit_list.each do |habit|
+          dates_list.each do |date|
+            habit_dates_list.push({habit_id: habit[:id], date_id: date[:id], status_completed: false})
+          end
+        end
+      end
+
+      # { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: all_domains, habits: habits.to_a }
+      { nodes: habit_nodes_list, dates: dates_list, habit_dates: habit_dates_list, domains: all_domains, habits: habit_list }
+    end
+
+    def yield_mptt_values(node)
+      left_counter = 1
+      node.preordered_each do |n, i|
+        lft = left_counter
+        rgt = (n.size == 1 ? (lft + 1) : (lft + 2 * n.size - 1))
+        left_counter = n.size == 1 ? (left_counter + 2) : (left_counter + 1)
+        # yield("L#{lft}R#{rgt}") if block_given?
+        yield({id: i, lft: lft, rgt: rgt}, n.name) if block_given?
       end
     end
 
@@ -182,6 +197,7 @@ module Hht
 
       # Get root node tree. Take a query string parameter to decide if to read from Demo (YAML memory)
       get '' do
+        binding.pry
         tree = nil
         demo = params[:demo] == 'true'
         

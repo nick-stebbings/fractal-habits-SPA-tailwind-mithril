@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './list'
+DEFAULT_MIN_LIST_LENGTH = 15
 
 class Subtree
   attr_reader :root_node
@@ -29,15 +30,16 @@ class Subtree
     end
 
     def to_json(hash)
-       as_json(hash).to_json
+      as_json(hash).to_json
     end
 
     # Perform a 'ternarising' iteration on a Tree::TreeNode
     def ternarise_treenode(node)
-      each_after(to_json(node))
+      json_each_after(to_json(node), nil, DEFAULT_MIN_LIST_LENGTH)
     end
 
-    # Split a long list of node children into subparts of at most 3 child nodes
+    # Split a long list of node children into subparts of at most 3 child nodes.
+    # Node children arrays of size > lower_list_limit will be added to node content as a List
     def ternarise(parent, child_node_array)
       subpart_counter = 1
       new_parent = Tree::TreeNode.new(parent.name)
@@ -61,11 +63,11 @@ class Subtree
 
     # Works in double-recursion with each_after to ternarise
     def map_to_treenode_append_children_to(parent, child_node_array)
-      child_node_array.each { |child| parent << each_after(child.to_json, parent) }
+      child_node_array.each { |child| parent << json_each_after(child.to_json, parent, DEFAULT_MIN_LIST_LENGTH) }
       parent
     end
 
-    def each_after(json_node, parent = nil, lower_list_limit = 12)
+    def json_each_after(json_node, parent = nil, lower_list_limit = DEFAULT_MIN_LIST_LENGTH)
       hash_node = JSON.parse(json_node)
       # Create a new parent node and store the JSON as 'content' in the TreeNode
       node = Tree::TreeNode.new(hash_node['name'], hash_node['children'])
