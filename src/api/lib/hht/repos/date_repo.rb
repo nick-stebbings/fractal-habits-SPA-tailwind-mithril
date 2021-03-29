@@ -38,7 +38,7 @@ module Hht
       end
 
       def all_as_json
-        { :dates => dates.all }.to_json
+        { :dates => dates.order(:h_date).to_a }.to_json
       end
 
       def parse(input)

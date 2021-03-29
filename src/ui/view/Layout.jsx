@@ -5,10 +5,15 @@ import MainStage from './components/Layout/MainStage.jsx';
 import Footer from './components/Layout/Footer.jsx';
 
 import DateStore from '../store/date-store';
+import DomainStore from '../store/domain-store';
 
 export default {
   oncreate: () => {
     document.getElementById('date-today').value = DateStore.currentDate();
+    console.log(DateStore.currentDate(), 'CD');
+    document.getElementById(
+      "domain-selector"
+    ).selectedIndex = DomainStore.list().indexOf(DomainStore.current());
   },
   view: ({ attrs, children: [mainPage] }) => (
     <div id="layout" className="w-full h-full">

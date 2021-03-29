@@ -34,4 +34,4 @@ const importData = function(){
   });
 };
 
-export {importData};
+export default { importData };

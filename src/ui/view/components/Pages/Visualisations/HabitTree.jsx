@@ -139,6 +139,8 @@ const HabitTree = function () {
   return {
     type: 'vis',
     oncreate: ({ attrs }) => {
+      const domainSelector = document.getElementById("domain-selector");
+      const demoButton = document.getElementById("activate-demo");
       const svg = select(`div#${attrs.divId}`)
         .classed('h-screen', true)
         .classed('w-full', true)
@@ -159,8 +161,6 @@ const HabitTree = function () {
         render(svg, canvasWidth, canvasHeight);
       }, debounceInterval);
 
-      const domainSelector = document.getElementById('domain-selector');
-      const demoButton = document.getElementById('activate-demo');
 
       demoButton.addEventListener('click', (e) => {
         demoData = !demoData;
@@ -174,13 +174,13 @@ const HabitTree = function () {
       domainSelector.addEventListener('change', (e) => {
         // Update domain reference
         selectedDomain(String(e.target.selectedIndex));
-        console.log(DateStore.currentDate(), 'cd')
+        console.log(selectedDomain(), 'seleceted!');
       });
       domainSelector.onfocus = (e) => { e.target.selectedIndex = -1; };
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
-        <button type="button" id="activate-demo">
+        <button type="button" id="activate-demo" class="z-50">
           Toggle Demo Data
         </button>
         {vnode.children}
