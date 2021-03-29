@@ -7,15 +7,15 @@ form {
  }
 
 .input-container {
-  @apply xl:w-3/4 w-full mt-4 text-xl;
+  @apply px-8 xl:w-3/4 w-full mt-4 text-xl;
 }
 
 #modal .input-container {
-  @apply overflow-auto absolute inset-y-20;
+  @apply overflow-y-auto absolute bottom-auto;
 }
 
 label {
-   @apply leading-loose text-sm;
+  @apply leading-loose text-sm;
 }
 
 .button-container {
@@ -23,7 +23,7 @@ label {
 }
 
 .button-container > button {
-  @apply h-full;
+  @apply h-full rounded-3xl;
 }
 
 .mask-wrapper input[type="date"] {
