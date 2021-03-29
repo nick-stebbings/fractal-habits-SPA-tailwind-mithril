@@ -1,9 +1,6 @@
 import DomainStore from '../../../store/domain-store';
 import { openModal } from '../../../assets/scripts/animations';
-function log(res) {
-  console.log(res, "LOGGER");
-  return res;
-}
+
 const DomainPill = {
   oncreate: (vnode) => {
     vnode.dom.addEventListener('click', (event) => {

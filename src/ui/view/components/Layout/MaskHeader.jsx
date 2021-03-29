@@ -14,18 +14,22 @@ import '../../../assets/styles/components/MaskHeader.scss';
 
 const MaskHeader = function () {
   let currentDateIndex = -1;
+  let maxDate;
 
   return {
     onupdate: () => {
       document.getElementById("date-today").value = DateStore.currentDate();
-      const domainSelector = document.getElementById("domain-selector");
-            console.log(domainSelector.selectedIndex);
+       document.getElementById("domain-selector");
     },
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');
       const selectedHabitLabel = document.querySelector(
         '#current-habit ~ span',
       );
+      
+      domainSelector.onfocus = (e) => {
+        e.target.selectedIndex = -1;
+      };
       domainSelector.addEventListener('change', (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         DomainStore.indexHabitsOf(DomainStore.current().id)
@@ -37,6 +41,7 @@ const MaskHeader = function () {
 
       const nextDate = document.getElementById('next-date-selector');
       const prevDate = document.getElementById('prev-date-selector');
+      maxDate = String(DateStore.currentDate()) || '';
 
       prevDate.addEventListener('click', () => {
         DateStore.current(
@@ -145,7 +150,7 @@ const MaskHeader = function () {
                           class: 'w-full text-xl lg:pt-2 -mr-8 px-2',
                           type: 'date',
                           id: 'date-today',
-                          max: DateStore.currentDate(), //#TODO
+                          max: maxDate, //#TODO
                           value: DateStore.currentDate(),
                         })}
                         <i

@@ -4,8 +4,6 @@ import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/util
 
 // import {importData} from '../../../../store/populateDummyData.js';
 import TreeStore from '../../../../store/habit-tree-store.js';
-import DomainStore from '../../../../store/domain-store.js';
-import DateStore from '../../../../store/date-store.js';
 
 import '../../../../assets/styles/components/d3vis.scss';
 
@@ -170,13 +168,15 @@ const HabitTree = function () {
         // })
         document.getElementById('activate-demo').setAttribute('class', demoData ? 'active' : 'inactive');
       });
-
+      
+      // domainSelector.onfocus = (e) => {
+      //   e.target.selectedIndex = -1;
+      // };
       domainSelector.addEventListener('change', (e) => {
         // Update domain reference
+        console.log(e.target.selectedIndex, 'SELECTED INDEX');
         selectedDomain(String(e.target.selectedIndex));
-        console.log(selectedDomain(), 'seleceted!');
       });
-      domainSelector.onfocus = (e) => { e.target.selectedIndex = -1; };
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">

@@ -10,10 +10,11 @@ import DomainStore from '../store/domain-store';
 export default {
   oncreate: () => {
     document.getElementById('date-today').value = DateStore.currentDate();
-    console.log(DateStore.currentDate(), 'CD');
+    console.log(DomainStore.list().indexOf(DomainStore.current()), 'cDOMAIN');
+    console.log(DomainStore.list(), 'listDOMAIN');
     document.getElementById(
       "domain-selector"
-    ).selectedIndex = DomainStore.list().indexOf(DomainStore.current());
+    ).selectedIndex = Math.max(0, DomainStore.list().indexOf(DomainStore.current()));
   },
   view: ({ attrs, children: [mainPage] }) => (
     <div id="layout" className="w-full h-full">

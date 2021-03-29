@@ -6,9 +6,12 @@ import FormHeader from './FormHeader.jsx';
 import FormContainer from './FormContainer.jsx';
 import InputGroup from './FormInputGroup.jsx';
 
+let maxDate;
+
 const CreateForm = {
   oncreate: ({ attrs }) => {
     document.getElementById('initiation-date').value = new Date().toDateInputValue();
+    maxDate = String(DateStore.currentDate());    
 
     document.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -17,15 +20,16 @@ const CreateForm = {
       const FD = new FormData(e.target);
 
       FD.forEach((value, key) => { data[key.replace(/-/g, '_')] = value; }); // Assign values while swapping for snake_case
-      console.log(attrs.domain(), "DOMAIn")
       data.domain_id = attrs.domain().id;
       data.habit_node_id = 1;
       data.parent_node_id = null;
 
-      HabitStore.submit(data)
-        .then(() => DateStore.submit({ h_date: data.initiation_date }))
-        .then(() => openModal(false))
+      DateStore.submit({ h_date: data.initiation_date })
+        .then(() => HabitStore.submit(data))
+        .then(DateStore.index)
+        .then(indexHabitsOf)
         .then(() => m.redraw())
+        .then(() => openModal(false));
     });
   },
   view: ({ attrs }) => (
@@ -76,6 +80,7 @@ const CreateForm = {
               id: 'initiation-date',
               name: 'initiation-date',
               class: 'form-input w-3/4 sm:w-2/3 md:w-1/2',
+              max: maxDate,
             }),
           ),
         ])}

@@ -8,7 +8,7 @@ function log(res) {
   return res
 }
 const DomainStore = Object.assign(clientRoutes(basePath), {
-  current: stream({ name: " ", id: "1" }),
+  current: stream({ name: "No Domains Registered", id: "-1" }),
 
   get: (id) =>
     DomainStore.show_one(id)
@@ -17,10 +17,10 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   clear: () => {
-    DomainStore.current = stream({ name: " ", id: "1" });
+    DomainStore.current = stream({ name: "No Domains Registered", id: "-1" });
   },
 
-  list: stream([{ name: "No Domains Registered" }]),
+  list: stream([{ name: "No Domains Registered", id: "-1" }]),
 
   index: () =>
     DomainStore.show_all()
