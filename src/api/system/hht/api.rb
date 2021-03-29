@@ -45,7 +45,6 @@ module Hht
       habit_dates = yaml_container.relations.habit_dates
       habit_nodes = yaml_container.relations.habit_nodes
 
-      dates_list = []
       date_range = ((Date.today- days_to_track -1) .. Date.today)
       date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
 
@@ -62,6 +61,7 @@ module Hht
           habit = { id: habit_id, domain_id: domain[:id], name: habit_name.first }
           list << habit
           habit_list << habit
+          habits.insert(habit)
           habit_id += 1
         end
       end
@@ -78,11 +78,10 @@ module Hht
           habit_node_id += 1
         end
       end
-
       habit_dates_list = []
       domain_habit_lists.each do |habit_list|
         habit_list.each do |habit|
-          dates_list.each do |date|
+          dates.to_a.each do |date|
             habit_dates.insert({habit_id: habit[:id], date_id: date[:id], status_completed: false})
           end
         end
@@ -114,8 +113,8 @@ module Hht
     namespace '/api/demo' do
       get '' do
         demo_data_payload = populate_yaml_relations(31)
-        binding.pry
         status 200
+        binding.pry
         json demo_data_payload
       end
       

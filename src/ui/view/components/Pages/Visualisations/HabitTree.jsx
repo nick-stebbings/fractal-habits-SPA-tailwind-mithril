@@ -11,7 +11,7 @@ import HabitDateStore from '../../../../store/habit-date-store.js';
 import '../../../../assets/styles/components/d3vis.scss';
 
 const HabitTree = function () {
-  let demoData = true;
+  let demoData = false;
   let canvasWidth; let
     canvasHeight;
 
@@ -156,12 +156,12 @@ const HabitTree = function () {
           .attr('height', '100%');
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
 
-      // TreeStore.get(demoData, selectedDomain())
-      //   .then((response) => hierarchy(response.data))
-      //   .then(root)
-      //   .then(() => {
-      //     render(svg, canvasWidth, canvasHeight);
-      //   });
+      TreeStore.get(demoData, selectedDomain())
+        .then((response) => hierarchy(response.data))
+        .then(root)
+        .then(() => {
+          render(svg, canvasWidth, canvasHeight);
+        });
 
       window.onresize = debounce(() => {
         ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
@@ -171,7 +171,7 @@ const HabitTree = function () {
 
       demoButton.addEventListener('click', (e) => {
         demoData = !demoData;
-        TreeStore.getForDomain("1")
+        TreeStore.getForDomain(String(selectedDomain()))
           .then((response) => hierarchy(response.data))
           .then(root)
           .then(() => {

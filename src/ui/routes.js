@@ -14,11 +14,11 @@ import { d3visPageMaker, redraw, handleErrorType } from './assets/scripts/utilit
 
 function populateStores({demo}) {
   if (!demo) {
-    DomainStore.index()
-    .then(DateStore.index) //TODO filter by habit, refactor this
-    .then(DomainStore.indexHabitsOf)
-    .then(redraw)
-    .catch(handleErrorType);
+    // DomainStore.index()
+    // .then(DateStore.index) //TODO filter by habit, refactor this
+    // .then(DomainStore.indexHabitsOf)
+    // .then(redraw)
+    // .catch(handleErrorType);
   } else {
     displayDemoData().then(redraw).catch(handleErrorType);
   }
