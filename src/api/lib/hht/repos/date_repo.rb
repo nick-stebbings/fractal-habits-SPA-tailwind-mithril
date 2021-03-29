@@ -38,7 +38,13 @@ module Hht
       end
 
       def all_as_json
-        { :dates => dates.order(:h_date).to_a }.to_json
+        { :dates => dates.order(:h_date).map{ |date|
+            { 
+            'id' => date.fetch(:id),
+            'h_date' => date.fetch(:h_date), # habit_date
+            }
+          }
+        }.to_json
       end
 
       def parse(input)
