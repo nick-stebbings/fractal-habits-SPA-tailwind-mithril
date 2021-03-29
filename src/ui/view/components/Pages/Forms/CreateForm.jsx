@@ -11,7 +11,7 @@ let maxDate;
 const CreateForm = {
   oncreate: ({ attrs }) => {
     document.getElementById('initiation-date').value = new Date().toDateInputValue();
-    maxDate = String(DateStore.currentDate());    
+    maxDate = String(DateStore.currentDate());
 
     document.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();

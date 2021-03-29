@@ -2,13 +2,16 @@ import stream from 'mithril/stream';
 import { select, hierarchy, tree } from 'd3';
 import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/utilities';
 
-// import {importData} from '../../../../store/populateDummyData.js';
+import {displayDemoData} from '../../../../store/populateDummyData.js';
 import TreeStore from '../../../../store/habit-tree-store.js';
+import DomainStore from '../../../../store/domain-store.js';
+import DateStore from '../../../../store/date-store.js';
+import HabitDateStore from '../../../../store/habit-date-store.js';
 
 import '../../../../assets/styles/components/d3vis.scss';
 
 const HabitTree = function () {
-  let demoData = false;
+  let demoData = true;
   let canvasWidth; let
     canvasHeight;
 
@@ -133,26 +136,32 @@ const HabitTree = function () {
   }
 
   // TODO:  Figure out how to stop the second API call on the non-demo trees
+  // displayDemoData();
 
   return {
     type: 'vis',
+    oninit: ({ attrs }) => {
+      console.log(DomainStore.list());
+      console.log(DateStore.list());
+      console.log(HabitDateStore.list());
+    },
     oncreate: ({ attrs }) => {
       const domainSelector = document.getElementById("domain-selector");
       const demoButton = document.getElementById("activate-demo");
       const svg = select(`div#${attrs.divId}`)
-        .classed('h-screen', true)
-        .classed('w-full', true)
+          .classed('h-screen', true)
+          .classed('w-full', true)
         .append('svg')
-        .attr('width', '100%')
-        .attr('height', '100%');
+          .attr('width', '100%')
+          .attr('height', '100%');
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
 
-      TreeStore.get(demoData, selectedDomain())
-        .then((response) => hierarchy(response.data))
-        .then(root)
-        .then(() => {
-          render(svg, canvasWidth, canvasHeight);
-        });
+      // TreeStore.get(demoData, selectedDomain())
+      //   .then((response) => hierarchy(response.data))
+      //   .then(root)
+      //   .then(() => {
+      //     render(svg, canvasWidth, canvasHeight);
+      //   });
 
       window.onresize = debounce(() => {
         ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
@@ -162,11 +171,12 @@ const HabitTree = function () {
 
       demoButton.addEventListener('click', (e) => {
         demoData = !demoData;
-        // importData().then((e) => {
-          console.log(importData());
-          // m.redraw();
-        // })
-        document.getElementById('activate-demo').setAttribute('class', demoData ? 'active' : 'inactive');
+        TreeStore.getForDomain("1")
+          .then((response) => hierarchy(response.data))
+          .then(root)
+          .then(() => {
+            render(svg, canvasWidth, canvasHeight);
+          });;
       });
       
       // domainSelector.onfocus = (e) => {
