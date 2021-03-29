@@ -2,13 +2,14 @@ import stream from 'mithril/stream';
 import { select, hierarchy, tree } from 'd3';
 import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/utilities';
 
-import importData from '../../../../store/populateDummyData.js';
+// import {importData} from '../../../../store/populateDummyData.js';
 import TreeStore from '../../../../store/habit-tree-store.js';
 import DomainStore from '../../../../store/domain-store.js';
+import DateStore from '../../../../store/date-store.js';
 
 import '../../../../assets/styles/components/d3vis.scss';
 
-const HabitTree = (function () {
+const HabitTree = function () {
   let demoData = false;
   let canvasWidth; let
     canvasHeight;
@@ -22,7 +23,6 @@ const HabitTree = (function () {
   };
 
   const selectedDomain = stream(0);
-  // DomainStore.index().then(redraw);
   const root = stream({});
 
   function render(svg, canvasWidth, canvasHeight) {
@@ -164,22 +164,19 @@ const HabitTree = (function () {
 
       demoButton.addEventListener('click', (e) => {
         demoData = !demoData;
-        importData().then((e) => {
-          console.log(e);
-          m.redraw();
-        })
+        // importData().then((e) => {
+          console.log(importData());
+          // m.redraw();
+        // })
+        document.getElementById('activate-demo').setAttribute('class', demoData ? 'active' : 'inactive');
       });
 
       domainSelector.addEventListener('change', (e) => {
         // Update domain reference
         selectedDomain(String(e.target.selectedIndex));
+        console.log(DateStore.currentDate(), 'cd')
       });
       domainSelector.onfocus = (e) => { e.target.selectedIndex = -1; };
-    },
-    onupdate: () => {
-      // # TODO
-      const demoButton = document.getElementById('activate-demo');
-      demoButton.setAttribute('class', demoData ? 'active' : 'inactive');
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
@@ -190,6 +187,6 @@ const HabitTree = (function () {
       </div>
     ),
   };
-}());
+};
 
 export default HabitTree;

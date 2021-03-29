@@ -7,10 +7,8 @@ import Footer from './components/Layout/Footer.jsx';
 import DateStore from '../store/date-store';
 
 export default {
-  oninit: () => {
-  },
   oncreate: () => {
-    document.getElementById('date-today').value = DateStore.current();
+    document.getElementById('date-today').value = DateStore.currentDate();
   },
   view: ({ attrs, children: [mainPage] }) => (
     <div id="layout" className="w-full h-full">

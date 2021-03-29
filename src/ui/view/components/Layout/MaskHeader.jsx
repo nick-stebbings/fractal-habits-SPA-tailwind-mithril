@@ -16,6 +16,11 @@ const MaskHeader = function () {
   let currentDateIndex = -1;
 
   return {
+    onupdate: () => {
+      
+      document.getElementById("date-today").value = DateStore.currentDate();
+      // console.log("updated date!");
+    },
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');
       const selectedHabitLabel = document.querySelector(

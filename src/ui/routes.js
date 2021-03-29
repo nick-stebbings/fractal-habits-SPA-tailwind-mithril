@@ -26,6 +26,7 @@ const Routes = MenuRoutes.reduce(
                 .then(redraw)
                 .catch(handleErrorType)
             }
+            console.log(!demo);
         },
         render: () => (menuSection.label === 'Visualise'
           ? m(d3visPageMaker(Layout, page), {
@@ -41,12 +42,14 @@ const Routes = MenuRoutes.reduce(
   },
   {
     '/': {
-      onmatch() {
-              DomainStore.index()
-                .then(DateStore.index) //TODO filter by habit, refactor this
-                .then(DomainStore.indexHabitsOf)
-                .then(redraw)
-                .catch(handleErrorType);
+      onmatch({demo}) {
+        if (!demo) {
+          DomainStore.index()
+          .then(DateStore.index) //TODO filter by habit, refactor this
+          .then(DomainStore.indexHabitsOf)
+          .then(redraw)
+          .catch(handleErrorType);
+        }
       },
       render() {
         return m(Layout, { index: true }, m(HeroSection));
