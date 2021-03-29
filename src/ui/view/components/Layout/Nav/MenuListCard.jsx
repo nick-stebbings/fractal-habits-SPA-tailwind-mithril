@@ -1,8 +1,8 @@
 const MenuListCard = {
   oncreate: ({ attrs, dom }) => {
     if (attrs.enabled) {
-      dom.classList.add('enabled');
-      dom.classList.toggle('disabled');
+      dom.classList.add("enabled");
+      dom.classList.toggle("disabled");
     }
   },
   view: ({ attrs }) => (
@@ -16,15 +16,16 @@ const MenuListCard = {
           {m.trust(attrs.icon)}
         </div>
       </div>
+      {console.log(m.route.param("demo"), "PARAMS")}
       <div className="flex flex-col items-center" style="flex-basis: 50%">
         {m(
           m.route.Link,
           {
-            selector: 'button',
-            href: attrs.url,
-            class: 'menu-card-button',
+            selector: "button",
+            href: m.route.param("demo") ? attrs.url + "?demo=true" : attrs.url,
+            class: "menu-card-button",
           },
-          "Let's Go",
+          "Let's Go"
         )}
         <p className="text-lg">{attrs.subtitle}</p>
       </div>

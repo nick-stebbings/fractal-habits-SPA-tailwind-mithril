@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './list'
-DEFAULT_MIN_LIST_LENGTH = 15
+DEFAULT_MIN_LIST_LENGTH = 25
 
 class Subtree
   attr_reader :root_node

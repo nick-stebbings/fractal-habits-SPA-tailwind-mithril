@@ -5,10 +5,8 @@ const LogoLink = {
     m(
       m.route.Link,
       {
-        // Any hyperscript selector is valid here - it's literally passed as the
-        // first parameter to `m`.
         selector: "span",
-        href: "/",
+        href: "/?demo=true",
         class: "logo-link",
       },
       <svg viewBox="0 0 48 48">

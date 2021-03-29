@@ -37,7 +37,7 @@ module Hht
       'yaml.yaml_container' # For the 'dummy data' Yaml loader
     ]
 
-    def populate_yaml_relations(days_to_track)
+    def populate_yaml_relations(days_to_track = 28)
       #TODO refactor
       domains = yaml_container.relations.domains
       habits = yaml_container.relations.habits
@@ -45,7 +45,7 @@ module Hht
       habit_dates = yaml_container.relations.habit_dates
       habit_nodes = yaml_container.relations.habit_nodes
 
-      date_range = ((Date.today- days_to_track -1) .. Date.today)
+      date_range = ((Date.today- days_to_track -3) .. Date.today)
       date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
 
       domain_habit_lists = []
@@ -67,12 +67,14 @@ module Hht
       habit_node_id = 1
       habit_nodes_list = []
       domains.to_habit_trees.each_with_index do |domain, index|
-        tree = Subtree.json_each_after(domain.to_json, nil, 12)
-        yield_mptt_values(tree) do |vals, name|
+        tree = Subtree.json_each_after(domain.to_json)
+        yield_mptt_values(tree, index) do |vals, name|
+          new_habit = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
           habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
           found = habit_list.find { |habit| habit[:name] == name}
           next unless found
           found[:habit_node_id] = habit_node_id
+          
           habit_node_id += 1
         end
       end
@@ -86,17 +88,16 @@ module Hht
       end
 
       { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
-      # { nodes: habit_nodes_list, dates: dates_list, habit_dates: habit_dates_list, domains: domain_list, habits: habit_list, domain_habits: domain_habit_lists}
     end
 
-    def yield_mptt_values(node)
+    def yield_mptt_values(node, domain_index)
       left_counter = 1
       node.preordered_each do |n, i|
         lft = left_counter
         rgt = (n.size == 1 ? (lft + 1) : (lft + 2 * n.size - 1))
         left_counter = n.size == 1 ? (left_counter + 2) : (left_counter + 1)
-        # yield("L#{lft}R#{rgt}") if block_given?
         yield({id: i, lft: lft, rgt: rgt}, n.name) if block_given?
+        n.content = {id: "L#{lft}-R#{rgt}-D#{domain_index}", value: n.content, completed_status: 'f', level: n.node_depth}.to_json if block_given?
       end
     end
 
@@ -110,8 +111,7 @@ module Hht
 
     namespace '/api/demo' do
       get '' do
-        # binding.pry
-        demo_data_payload = populate_yaml_relations(31)
+        demo_data_payload = populate_yaml_relations(params['tracking_length'].to_i)
         status 200
         json demo_data_payload
       end
