@@ -2,7 +2,7 @@
 
 const FormContainer = {
   view: ({ children }) => (
-    <div class="input-container overflow-auto absolute inset-y-20">{children}</div>
+    <div class="input-container">{children}</div>
   ),
 };
 

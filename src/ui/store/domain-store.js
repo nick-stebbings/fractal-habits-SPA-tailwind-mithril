@@ -58,9 +58,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
         DomainStore.list(newList);
         return current;
       })
-      .catch((err) => {
-        console.log(err);
-      }),
+      .catch(handleErrorType),
 
   runReplace: (id, value) =>
     DomainStore.replace(id, value).catch(() => {

@@ -27,9 +27,9 @@ const MaskHeader = function () {
         '#current-habit ~ span',
       );
       
-      domainSelector.onfocus = (e) => {
-        e.target.selectedIndex = -1;
-      };
+      // domainSelector.onfocus = (e) => {
+      //   e.target.selectedIndex = -1;
+      // };
       domainSelector.addEventListener('change', (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         DomainStore.indexHabitsOf(DomainStore.current().id)

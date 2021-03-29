@@ -10,6 +10,10 @@ form {
   @apply xl:w-3/4 w-full mt-4 text-xl;
 }
 
+#modal .input-container {
+  @apply overflow-auto absolute inset-y-20;
+}
+
 label {
    @apply leading-loose text-sm;
 }
@@ -52,6 +56,10 @@ input[type="text"], input[type="date"] {
 
 #habit-create-form {
   @apply flex flex-wrap justify-between;
+}
+
+#habit-create-form #close-modal {
+  @apply hidden;
 }
 
 #habit-create-form > div:first-of-type {
