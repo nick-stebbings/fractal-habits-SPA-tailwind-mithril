@@ -20,9 +20,9 @@ var HabitDateStore = {
       });
   },
 
-  runFilter: (habit_id) =>
+  runFilter: (habitId) =>
     HabitDateStore.list(
-      HabitDateStore.list().filter((habitDate) => habitDate.habit_id == habit_id)
+      HabitDateStore.list().filter((habitDate) => habitDate.habit_id == habitId)
     ),
 
   runUpdate: (id, value) => {

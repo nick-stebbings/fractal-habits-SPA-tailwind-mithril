@@ -16,7 +16,6 @@ const MenuListCard = {
           {m.trust(attrs.icon)}
         </div>
       </div>
-      {console.log(m.route.param("demo"), "PARAMS")}
       <div className="flex flex-col items-center" style="flex-basis: 50%">
         {m(
           m.route.Link,

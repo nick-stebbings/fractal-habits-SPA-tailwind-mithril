@@ -13,15 +13,23 @@ import HeroSection from './view/components/layout/HeroSection.jsx';
 import { d3visPageMaker, redraw, handleErrorType } from './assets/scripts/utilities';
 
 function populateStores({demo}) {
-  // if (!demo) {
-    DomainStore.index()
-    .then(DateStore.index) //TODO filter by habit, refactor this
-    .then(DomainStore.indexHabitsOf)
-    .then(redraw)
-    .catch(handleErrorType);
-  // } else {
-    // displayDemoData().catch(handleErrorType);
-  // }
+  if (false) {
+    // DomainStore.index()
+    // .then(DateStore.index) //TODO filter by habit, refactor this
+    // .then(DomainStore.indexHabitsOf)
+    // .then(redraw)
+    // .catch(handleErrorType);
+  } else {
+    importData.init()
+    .then(() => {
+      console.log(DomainStore.list());
+      console.log(NodeStore.list());
+      console.log(HabitDateStore.list());
+      console.log(HabitDateStore.current());
+
+    })
+    .then(m.redraw).catch(handleErrorType);
+  }
 };
 
 const Routes = MenuRoutes.reduce(
