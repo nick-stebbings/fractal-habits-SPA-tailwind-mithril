@@ -29,7 +29,7 @@ const importData = {
         HabitDateStore.current(
           HabitDateStore.list()[HabitDateStore.list().length - 1]
         );
-
+        console.log(HabitStore.current(),' HAB CURR')
         NodeStore.runFilter(HabitStore.current().id);
         NodeStore.current(NodeStore.list()[NodeStore.list().length - 1]);
       })

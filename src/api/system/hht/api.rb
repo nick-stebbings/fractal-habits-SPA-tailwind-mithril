@@ -48,17 +48,15 @@ module Hht
       date_range = ((Date.today- days_to_track -1) .. Date.today)
       date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
 
-      all_domains = domains.map { |d|  d.habits[0] }
-
       domain_habit_lists = []
       habit_list = []
       habit_id = 1
       domain_list = domains.to_a.each_with_object([]) do |domain, list|
-        domains.insert({ id: domain.id, name: domain.name })
+        # domains.insert({ id: domain.id, name: domain.name, habits: [] })
         habit_names = domain.habits.to_s.scan(/:name=>"(.*?)"/) #.gsub(/(\\|\\n|\\t)/, '')
         
         domain_habit_lists << habit_names.each_with_object([]) do |habit_name, list|
-          habit = { id: habit_id, domain_id: domain[:id], name: habit_name.first }
+          habit = { id: habit_id, domain_id: domain.id, name: habit_name.first }
           list << habit
           habit_list << habit
           habits.insert(habit)
@@ -68,7 +66,7 @@ module Hht
 
       habit_node_id = 1
       habit_nodes_list = []
-      all_domains.each_with_index do |domain, index|
+      domains.to_habit_trees.each_with_index do |domain, index|
         tree = Subtree.json_each_after(domain.to_json, nil, 12)
         yield_mptt_values(tree) do |vals, name|
           habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
@@ -87,7 +85,7 @@ module Hht
         end
       end
 
-      { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: all_domains, habits: habits.to_a }
+      { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
       # { nodes: habit_nodes_list, dates: dates_list, habit_dates: habit_dates_list, domains: domain_list, habits: habit_list, domain_habits: domain_habit_lists}
     end
 
@@ -112,9 +110,9 @@ module Hht
 
     namespace '/api/demo' do
       get '' do
+        # binding.pry
         demo_data_payload = populate_yaml_relations(31)
         status 200
-        binding.pry
         json demo_data_payload
       end
       
@@ -126,7 +124,7 @@ module Hht
         
         tree = { 
           name: domain.name,
-          children: domain.habits
+          children: domain[:habits]
         }
         
         status 200
@@ -221,7 +219,7 @@ module Hht
             
             tree = { 
               name: domain.name,
-              children: domain.habits
+              children: domain[:habits]
             }
         else
           if(habit_node_repo.root_node.exist?)
