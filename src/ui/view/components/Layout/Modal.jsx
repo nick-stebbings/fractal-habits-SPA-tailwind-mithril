@@ -20,7 +20,7 @@ const Modal = {
     >
       {/* Modal Tailwind Component originally by Huda Damar */}
       {
-      !attrs.loaded ? (
+      attrs.spinnerNeeded() ? (
         <div class="loader"></div>
       ) : (
         <div

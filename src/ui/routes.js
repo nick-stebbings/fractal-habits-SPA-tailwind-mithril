@@ -8,6 +8,7 @@ import { importData, displayDemoData } from "./store/populateDummyData";
 import DomainStore from "./store/domain-store";
 import HabitStore from "./store/habit-store";
 import DateStore from "./store/date-store";
+import TreeStore from "./store/habit-tree-store";
 // Components
 import HeroSection from "./view/components/layout/HeroSection.jsx";
 // Utils
@@ -17,7 +18,7 @@ import {
   handleErrorType,
 } from "./assets/scripts/utilities";
 
-const closeSpinner = stream(false);
+const spinnerOpen = stream(true);
 
 function populateStores({ demo }) {
   if (!demo) {
@@ -27,13 +28,13 @@ function populateStores({ demo }) {
       .then(DateStore.index)
       .then(redraw)
       .then(() => {
-        closeSpinner(true)
+        spinnerOpen(false)
       })
       .catch(handleErrorType);
   } else {
     importData.init()
     .then(() => {
-      closeSpinner(true)
+      spinnerOpen(false)
     }).then(m.redraw).catch(handleErrorType);
   }
 }
@@ -48,12 +49,12 @@ const Routes = MenuRoutes.reduce(
         onmatch: populateStores,
         render: () =>
           menuSection.label === "Visualise"
-            ? m(d3visPageMaker(Layout, page), {
-                heading: title,
+            ? m(d3visPageMaker(Layout, page, spinnerOpen), {
+                heading: title
               })
             : m(
                 Layout,
-                { dataLoaded: closeSpinner() },
+                { spinnerState: spinnerOpen },
                 m(page, {
                   heading: title,
                 })
@@ -67,7 +68,7 @@ const Routes = MenuRoutes.reduce(
     "/": {
       onmatch: populateStores,
       render() {
-        return m(Layout, { dataLoaded: closeSpinner(), index: true }, m(HeroSection));
+        return m(Layout, { spinnerState: spinnerOpen, index: true }, m(HeroSection));
       },
     },
   }

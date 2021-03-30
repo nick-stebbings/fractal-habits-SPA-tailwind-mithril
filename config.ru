@@ -1,8 +1,7 @@
+#\ -s Puma -p 7001
 # frozen_string_literal: true
 
 require_relative 'src/api/system/boot'
-
-require 'rack/cors'
 
 # use Rack::Cors do
 #   allow do

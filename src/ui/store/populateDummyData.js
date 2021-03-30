@@ -1,3 +1,4 @@
+import stream from "mithril/stream";
 import { clientRoutes } from "./client";
 
 import DateStore from "./date-store.js";
@@ -5,10 +6,10 @@ import DomainStore from "./domain-store.js";
 import HabitDateStore from "./habit-date-store.js";
 import HabitStore from "./habit-store.js";
 import NodeStore from "./habit-node-store.js";
+import TreeStore from "./habit-tree-store";
 
-import stream from "mithril/stream";
 const basePath = "/demo?tracking_length=";
-const daysToTrack = 2;
+const daysToTrack = 280;
 
 const cache = stream([]);
 // cache().length === 0 && TODO
@@ -17,6 +18,7 @@ const importData = {
     return clientRoutes(basePath + String(length))
       .show_all()
       .then((response) => {
+        console.log(response, 'dlist from pop');
         DateStore.list(response.data.dates);
         DomainStore.list(response.data.domains);
         HabitDateStore.list(response.data.habit_dates);
@@ -35,6 +37,9 @@ const importData = {
           );
         NodeStore.runFilter(HabitStore.current().id);
         NodeStore.current(NodeStore.list()[NodeStore.list().length - 1]);
+
+        console.log(DomainStore.current());
+        console.log(TreeStore.root());
       })
       .catch((err) => {
         console.log(err);

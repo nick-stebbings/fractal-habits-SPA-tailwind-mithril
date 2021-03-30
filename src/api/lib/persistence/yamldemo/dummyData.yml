@@ -708,847 +708,847 @@ domains:
                   children: []
             - name: Journal when you need to heal.
               children: []
-  - name: Health
-    id: 3
-    habits:
-    - name: Do Health Conscious Actions
-      children:
-        - name: Take up Gratitude
-          children:
-            - name: Focus on the positives.
-              children:
-                - name: >-
-                    Periodically ask yourself something like “What am I grateful
-                    for right now?” or “What am I thankful for today?”
-                  children: []
-                - name: >-
-                    Be on the lookout for small compliments you might receive or
-                    little gestures of kindness from others.
-                  children: []
-                - name: >
-                    Focus on the positives, no matter how small they might seem.
-                    This could be a bunch of pretty flowers that you spot on the
-                    way to work, or a beautiful sunset in the sky on your walk
-                    home. Take a moment to appreciate the positives in your life,
-                    even if they seem insignificant.
-                  children: []
-            - name: Be grateful for the little things.
-              children:
-                - name: >-
-                    For example, a sunny day with warm weather might be something
-                    you're thankful for.
-                  children: []
-                - name: >-
-                    Even if it's a rainy day, you might be grateful for the chance
-                    to stay at home and clean or enjoy something indoors.
-                  children: []
-                - name: >-
-                    Things like having a clean pair of clothes to wear or a
-                    comfortable bed to sleep in might be little things you're
-                    grateful for.
-                  children: []
-            - name: Keep a balanced outlook.
-              children:
-                - name: >-
-                    Ignoring a serious issue may actually be detrimental.  Try
-                    being grateful that you were made aware of an issue or that
-                    you have the ability to meet a challenge.
-                  children: []
-                - name: >-
-                    You could try thinking about how grateful you are for the
-                    support of your friends or family during a tough time.
-                  children: []
-            - name: Be patient.
-              children:
-                - name: >-
-                    If you find yourself being resentful or overly negative, don't
-                    let it bother you.  Readjust your outlook, try to find at
-                    least one thing you are thankful for and resume your practice.
-                  children: []
-                - name: >-
-                    It can be difficult to settle into this new way of thinking. 
-                    Be patient with yourself and don't be too critical if you find
-                    yourself being more negative than you'd like.
-                  children: []
-            - name: Make a list.
-              children: []
-            - name: Set your intentions.
-              children: []
-            - name: Schedule time to be grateful.
-              children: []
-            - name: Reflect on your emotions.
-              children:
-                - name: >-
-                    If you aren't feeling grateful, try to think of a few things
-                    that you are thankful for.
-                  children: []
-                - name: >-
-                    Getting up, stretching and moving around a bit can all help
-                    you change your focus and get back to feeling thankful.
-                  children: []
-                - name: >-
-                    Try to remember a moment that caused you to feel extremely
-                    grateful and allow that feeling to return.
-                  children: []
-            - name: Savor the feeling.
-              children:
-                - name: >-
-                    Let yourself enjoy the feeling of gratitude whenever it comes
-                    up.
-                  children: []
-                - name: >-
-                    Don't be in a hurry or try to extend the moment of gratitude. 
-                    Instead, allow yourself to enjoy the feeling as long as it
-                    naturally lasts.
-                  children: []
-            - name: Write “thank you” notes.
-              children:
-                - name: Feel free to write your notes however you want.
-                  children: []
-                - name: >-
-                    Express yourself freely and explore what you love about a
-                    person or how much they mean to you.
-                  children: []
-                - name: >-
-                    You don't need to write notes about other people.  You can try
-                    writing yourself thank-you notes as well.
-                  children: []
-            - name: Communicate directly.
-              children:
-                - name: >-
-                    You can try calling someone on the phone, writing a letter or
-                    meeting face-to-face.
-                  children: []
-                - name: >-
-                    Try talking about something good they've done for you and
-                    discuss how it has impacted your life. You may say, "I really
-                    appreciate you being there for me during that difficult time.
-                    It helped me stay strong and feel supported. Thank you."
-                  children: []
-            - name: Offer prayers.
-              children:
-                - name: You can pray silently if it makes you feel more comfortable.
-                  children: []
-                - name: You can offer prayers of thanks before a meal.
-                  children: []
-            - name: Adopt new habits.
-              children:
-                - name: >-
-                    You can change the way in which you express your gratitude.
-                    You might journal the things you're thankful for and then try
-                    talking about them with a friend. Or you may channel your
-                    gratitude into doing good acts for others, such as community
-                    work, or spend time with a friend who needs support.
-                  children: []
-                - name: >-
-                    You can try changing the area of your life that you focus on. 
-                    For example, you can be grateful for the people in your life
-                    one week and then focus on the material things in your life
-                    the following week.
-                  children: []
-            - name: Appreciate yourself.
-              children:
-                - name: >-
-                    Spend a few minutes with your hand over your heart and thank
-                    yourself for your hard work and all the things you've done
-                    that day.
-                  children: []
-                - name: Try thinking about all the challenges you've met and overcome.
-                  children: []
-                - name: >-
-                    Take a few moments to look in the mirror and say some nice
-                    things to yourself.
-                  children: []
-        - name: Take up Lifestyle Diets
-          children:
-            - name: Eat mostly plant-based foods.
-              children:
-                - name: >-
-                    Plant-based foods include a wide variety of foods — some that
-                    are high in protein, fiber and many vitamins and minerals.
-                  children: []
-                - name: >-
-                    Eat mostly:  fruits, vegetables, whole grains, nuts, seeds,
-                    beans and lentils.  You should include one or more of these
-                    food groups at each meal and snack.
-                  children: []
-                - name: "Nuts and seeds are especially prevalent in the Mediterranean diet.  They contain a significant amount of protein, minerals and heart-healthy fats.  Include 1–2 tablespoons (14.8–29.6\_ml) per serving."
-                  children: []
-                - name: "Another prevalent plant-based food in the Mediterranean diet are citrus fruits.  Lemons, limes, oranges and grapefruits provide high amounts of Vitamin C, which has been shown to be a powerful antioxidant.[3]\n\tX\n\t\tTrustworthy Source\n\n\t\tPubMed Central\n\t\tJournal archive from the U.S. National Institutes of Health\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-            - name: Replace butter with heart-healthy oils.
-              children:
-                - name: "Butter is a less nutritious choice compared to olive oil because it's very high in saturated fat.  Some studies have linked higher amounts of saturated fat to heart disease.[5]\n\tX\n\t\tTrustworthy Source\n\n\t\tAmerican Heart Association\n\t\tLeading nonprofit that funds medical research and public education\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-                - name: >-
-                    Olive oil on the other hand is considered a superior and more
-                    nutritious type of fat.  It's very high in monounsaturated
-                    fats which have been associated with decreased risk of heart
-                    disease.
-                  children: []
-                - name: "Even though olive oil is a healthier choice of fat, it's still a fat and should be measured when you're using it.  One serving is one teaspoon and you should limit your servings to two to three per day.[6]\n\tX\n\t\tTrustworthy Source\n\n\t\tAmerican Heart Association\n\t\tLeading nonprofit that funds medical research and public education\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-            - name: Limit red meat.
-              children:
-                - name: "Red meat has been associated with a variety of negative health effects when eaten in large quantities (like heart disease and diabetes).  Recently, a study showed that high quantities of red meat are associated with a shortened life span.[8]\n\tX\n\t\tTrustworthy Source\n\n\t\tNational Institutes of Health\n\t\tU.S. government agency for biomedical and public health research\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-                - name: "Substituting other protein sources (like tofu, beans, nuts or eggs) has been associated with decreased risk of heart disease and diabetes.[9]\n\tX\n\t\tTrustworthy Source\n\n\t\tNational Institutes of Health\n\t\tU.S. government agency for biomedical and public health research\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-            - name: Include low-fat dairy products.
-              children: []
-            - name: Eat seafood at least two times a week.
-              children:
-                - name: >-
-                    Most Mediterranean-style diets recommend eating fish or
-                    shellfish at a minimum of twice per week.  Include a 3-4 oz
-                    serving of fish or shellfish at dinner.
-                  children: []
-                - name: "Many fish and shellfish are higher in omega-3 fats.  This particular type of fat has been associated with decreased risk of heart disease, lowering blood pressure, cholesterol and triglyceride levels.[13]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-                - name: >-
-                    Most seafood is a great choice, and fish like salmon, tuna,
-                    mackerel and sardines are particularly high in heart-healthy
-                    fats.
-                  children: []
-            - name: Cook with herbs and spices instead of salt.
-              children:
-                - name: >-
+  # - name: Health
+  #   id: 3
+  #   habits:
+  #   - name: Do Health Conscious Actions
+  #     children:
+  #       - name: Take up Gratitude
+  #         children:
+  #           - name: Focus on the positives.
+  #             children:
+  #               - name: >-
+  #                   Periodically ask yourself something like “What am I grateful
+  #                   for right now?” or “What am I thankful for today?”
+  #                 children: []
+  #               - name: >-
+  #                   Be on the lookout for small compliments you might receive or
+  #                   little gestures of kindness from others.
+  #                 children: []
+  #               - name: >
+  #                   Focus on the positives, no matter how small they might seem.
+  #                   This could be a bunch of pretty flowers that you spot on the
+  #                   way to work, or a beautiful sunset in the sky on your walk
+  #                   home. Take a moment to appreciate the positives in your life,
+  #                   even if they seem insignificant.
+  #                 children: []
+  #           - name: Be grateful for the little things.
+  #             children:
+  #               - name: >-
+  #                   For example, a sunny day with warm weather might be something
+  #                   you're thankful for.
+  #                 children: []
+  #               - name: >-
+  #                   Even if it's a rainy day, you might be grateful for the chance
+  #                   to stay at home and clean or enjoy something indoors.
+  #                 children: []
+  #               - name: >-
+  #                   Things like having a clean pair of clothes to wear or a
+  #                   comfortable bed to sleep in might be little things you're
+  #                   grateful for.
+  #                 children: []
+  #           - name: Keep a balanced outlook.
+  #             children:
+  #               - name: >-
+  #                   Ignoring a serious issue may actually be detrimental.  Try
+  #                   being grateful that you were made aware of an issue or that
+  #                   you have the ability to meet a challenge.
+  #                 children: []
+  #               - name: >-
+  #                   You could try thinking about how grateful you are for the
+  #                   support of your friends or family during a tough time.
+  #                 children: []
+  #           - name: Be patient.
+  #             children:
+  #               - name: >-
+  #                   If you find yourself being resentful or overly negative, don't
+  #                   let it bother you.  Readjust your outlook, try to find at
+  #                   least one thing you are thankful for and resume your practice.
+  #                 children: []
+  #               - name: >-
+  #                   It can be difficult to settle into this new way of thinking. 
+  #                   Be patient with yourself and don't be too critical if you find
+  #                   yourself being more negative than you'd like.
+  #                 children: []
+  #           - name: Make a list.
+  #             children: []
+  #           - name: Set your intentions.
+  #             children: []
+  #           - name: Schedule time to be grateful.
+  #             children: []
+  #           - name: Reflect on your emotions.
+  #             children:
+  #               - name: >-
+  #                   If you aren't feeling grateful, try to think of a few things
+  #                   that you are thankful for.
+  #                 children: []
+  #               - name: >-
+  #                   Getting up, stretching and moving around a bit can all help
+  #                   you change your focus and get back to feeling thankful.
+  #                 children: []
+  #               - name: >-
+  #                   Try to remember a moment that caused you to feel extremely
+  #                   grateful and allow that feeling to return.
+  #                 children: []
+  #           - name: Savor the feeling.
+  #             children:
+  #               - name: >-
+  #                   Let yourself enjoy the feeling of gratitude whenever it comes
+  #                   up.
+  #                 children: []
+  #               - name: >-
+  #                   Don't be in a hurry or try to extend the moment of gratitude. 
+  #                   Instead, allow yourself to enjoy the feeling as long as it
+  #                   naturally lasts.
+  #                 children: []
+  #           - name: Write “thank you” notes.
+  #             children:
+  #               - name: Feel free to write your notes however you want.
+  #                 children: []
+  #               - name: >-
+  #                   Express yourself freely and explore what you love about a
+  #                   person or how much they mean to you.
+  #                 children: []
+  #               - name: >-
+  #                   You don't need to write notes about other people.  You can try
+  #                   writing yourself thank-you notes as well.
+  #                 children: []
+  #           - name: Communicate directly.
+  #             children:
+  #               - name: >-
+  #                   You can try calling someone on the phone, writing a letter or
+  #                   meeting face-to-face.
+  #                 children: []
+  #               - name: >-
+  #                   Try talking about something good they've done for you and
+  #                   discuss how it has impacted your life. You may say, "I really
+  #                   appreciate you being there for me during that difficult time.
+  #                   It helped me stay strong and feel supported. Thank you."
+  #                 children: []
+  #           - name: Offer prayers.
+  #             children:
+  #               - name: You can pray silently if it makes you feel more comfortable.
+  #                 children: []
+  #               - name: You can offer prayers of thanks before a meal.
+  #                 children: []
+  #           - name: Adopt new habits.
+  #             children:
+  #               - name: >-
+  #                   You can change the way in which you express your gratitude.
+  #                   You might journal the things you're thankful for and then try
+  #                   talking about them with a friend. Or you may channel your
+  #                   gratitude into doing good acts for others, such as community
+  #                   work, or spend time with a friend who needs support.
+  #                 children: []
+  #               - name: >-
+  #                   You can try changing the area of your life that you focus on. 
+  #                   For example, you can be grateful for the people in your life
+  #                   one week and then focus on the material things in your life
+  #                   the following week.
+  #                 children: []
+  #           - name: Appreciate yourself.
+  #             children:
+  #               - name: >-
+  #                   Spend a few minutes with your hand over your heart and thank
+  #                   yourself for your hard work and all the things you've done
+  #                   that day.
+  #                 children: []
+  #               - name: Try thinking about all the challenges you've met and overcome.
+  #                 children: []
+  #               - name: >-
+  #                   Take a few moments to look in the mirror and say some nice
+  #                   things to yourself.
+  #                 children: []
+  #       - name: Take up Lifestyle Diets
+  #         children:
+  #           - name: Eat mostly plant-based foods.
+  #             children:
+  #               - name: >-
+  #                   Plant-based foods include a wide variety of foods — some that
+  #                   are high in protein, fiber and many vitamins and minerals.
+  #                 children: []
+  #               - name: >-
+  #                   Eat mostly:  fruits, vegetables, whole grains, nuts, seeds,
+  #                   beans and lentils.  You should include one or more of these
+  #                   food groups at each meal and snack.
+  #                 children: []
+  #               - name: "Nuts and seeds are especially prevalent in the Mediterranean diet.  They contain a significant amount of protein, minerals and heart-healthy fats.  Include 1–2 tablespoons (14.8–29.6\_ml) per serving."
+  #                 children: []
+  #               - name: "Another prevalent plant-based food in the Mediterranean diet are citrus fruits.  Lemons, limes, oranges and grapefruits provide high amounts of Vitamin C, which has been shown to be a powerful antioxidant.[3]\n\tX\n\t\tTrustworthy Source\n\n\t\tPubMed Central\n\t\tJournal archive from the U.S. National Institutes of Health\n\n\t\t\t\tGo to source\n\n\n"
+  #                 children: []
+  #           - name: Replace butter with heart-healthy oils.
+  #             children:
+  #               - name: "Butter is a less nutritious choice compared to olive oil because it's very high in saturated fat.  Some studies have linked higher amounts of saturated fat to heart disease.[5]\n\tX\n\t\tTrustworthy Source\n\n\t\tAmerican Heart Association\n\t\tLeading nonprofit that funds medical research and public education\n\n\t\t\t\tGo to source\n\n\n"
+  #                 children: []
+  #               - name: >-
+  #                   Olive oil on the other hand is considered a superior and more
+  #                   nutritious type of fat.  It's very high in monounsaturated
+  #                   fats which have been associated with decreased risk of heart
+  #                   disease.
+  #                 children: []
+  #               - name: "Even though olive oil is a healthier choice of fat, it's still a fat and should be measured when you're using it.  One serving is one teaspoon and you should limit your servings to two to three per day.[6]\n\tX\n\t\tTrustworthy Source\n\n\t\tAmerican Heart Association\n\t\tLeading nonprofit that funds medical research and public education\n\n\t\t\t\tGo to source\n\n\n"
+  #                 children: []
+  #           - name: Limit red meat.
+  #             children:
+  #               - name: "Red meat has been associated with a variety of negative health effects when eaten in large quantities (like heart disease and diabetes).  Recently, a study showed that high quantities of red meat are associated with a shortened life span.[8]\n\tX\n\t\tTrustworthy Source\n\n\t\tNational Institutes of Health\n\t\tU.S. government agency for biomedical and public health research\n\n\t\t\t\tGo to source\n\n\n"
+  #                 children: []
+  #               - name: "Substituting other protein sources (like tofu, beans, nuts or eggs) has been associated with decreased risk of heart disease and diabetes.[9]\n\tX\n\t\tTrustworthy Source\n\n\t\tNational Institutes of Health\n\t\tU.S. government agency for biomedical and public health research\n\n\t\t\t\tGo to source\n\n\n"
+  #                 children: []
+  #           - name: Include low-fat dairy products.
+  #             children: []
+  #           - name: Eat seafood at least two times a week.
+  #             children:
+  #               - name: >-
+  #                   Most Mediterranean-style diets recommend eating fish or
+  #                   shellfish at a minimum of twice per week.  Include a 3-4 oz
+  #                   serving of fish or shellfish at dinner.
+  #                 children: []
+  #               - name: "Many fish and shellfish are higher in omega-3 fats.  This particular type of fat has been associated with decreased risk of heart disease, lowering blood pressure, cholesterol and triglyceride levels.[13]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #                 children: []
+  #               - name: >-
+  #                   Most seafood is a great choice, and fish like salmon, tuna,
+  #                   mackerel and sardines are particularly high in heart-healthy
+  #                   fats.
+  #                 children: []
+  #           - name: Cook with herbs and spices instead of salt.
+  #             children:
+  #               - name: >-
 
-                    Basil: This herb is very high in essential oils and phenolic
-                    compounds that have  anti-inflammatory properties and may
-                    improve chronic inflammation such as arthritis. It is also
-                    high in beta-carotene, lutein, and vitamin A, which do an
-                    exceptional job of protecting the body from free radicals.
-                  children: []
-                - name: "\nMarjoram: This plant has been used for a wide variety of ailments including colds, relieving menopause symptoms, stomach cramps and gas.[15]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-                - name: >-
+  #                   Basil: This herb is very high in essential oils and phenolic
+  #                   compounds that have  anti-inflammatory properties and may
+  #                   improve chronic inflammation such as arthritis. It is also
+  #                   high in beta-carotene, lutein, and vitamin A, which do an
+  #                   exceptional job of protecting the body from free radicals.
+  #                 children: []
+  #               - name: "\nMarjoram: This plant has been used for a wide variety of ailments including colds, relieving menopause symptoms, stomach cramps and gas.[15]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #                 children: []
+  #               - name: >-
 
-                    Oregano: This herb has been associated with decreasing
-                    respiratory tract disorders, GI disorders, PMS symptoms and
-                    urinary tract infections.  It is also rich in iron, dietary
-                    fiber, calcium, manganese, vitamin c, A, and omega-3 fatty
-                    acids.
-                  children: []
-                - name: >-
+  #                   Oregano: This herb has been associated with decreasing
+  #                   respiratory tract disorders, GI disorders, PMS symptoms and
+  #                   urinary tract infections.  It is also rich in iron, dietary
+  #                   fiber, calcium, manganese, vitamin c, A, and omega-3 fatty
+  #                   acids.
+  #                 children: []
+  #               - name: >-
 
-                    Parsley:  This popular herb has been thought to help prevent
-                    cancer, diabetes, and improve bone health.  It also contains
-                    high amounts of Vitamin A, K and C.
-                  children: []
-                - name: "\nSage: This herb may reduce cognitive ailments like Alzheimer’s and dementia in addition to possibly lowering blood glucose and cholesterol levels.[16]\n\tX\n\t\tTrustworthy Source\n\n\t\tPubMed Central\n\t\tJournal archive from the U.S. National Institutes of Health\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-                - name: >-
+  #                   Parsley:  This popular herb has been thought to help prevent
+  #                   cancer, diabetes, and improve bone health.  It also contains
+  #                   high amounts of Vitamin A, K and C.
+  #                 children: []
+  #               - name: "\nSage: This herb may reduce cognitive ailments like Alzheimer’s and dementia in addition to possibly lowering blood glucose and cholesterol levels.[16]\n\tX\n\t\tTrustworthy Source\n\n\t\tPubMed Central\n\t\tJournal archive from the U.S. National Institutes of Health\n\n\t\t\t\tGo to source\n\n\n"
+  #                 children: []
+  #               - name: >-
 
-                    Thyme: This herb may be effective against fungal infection,
-                    particularly those around your toenails. It also may help to
-                    reduce acne, high blood pressure and certain types of cancer.
-                  children: []
-                - name: >-
+  #                   Thyme: This herb may be effective against fungal infection,
+  #                   particularly those around your toenails. It also may help to
+  #                   reduce acne, high blood pressure and certain types of cancer.
+  #                 children: []
+  #               - name: >-
 
-                    Mint: This plant may aid digestion, relieve seasonal
-                    allergies, prevent the common cold, and can help prevent
-                    bacteria growth in your mouth.
-                  children: []
-                - name: "\nRosemary: This herb may boost your immune system and can aid digestion. It has anti-inflammatory properties that can reduce the severity of asthma attacks and stimulates the flow of blood to your brain, which may improve cognitive issues.[17]\n\tX\n\t\tTrustworthy Source\n\n\t\tPubMed Central\n\t\tJournal archive from the U.S. National Institutes of Health\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-                - name: "\nGarlic: This spice has been implicated in numerous health benefits like:  decreased risk of heart disease and hardening of the arteries, decreasing high cholesterol, decreasing your risk for a heart attack and decreased risk of high blood pressure.[18]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Indulge in a glass of wine.
-              children: []
-            - name: Eat smaller portions.
-              children:
-                - name: >-
-                    The Mediterranean diet features smaller portions.  These
-                    smaller portions can help keep calories low and lead to weight
-                    loss or weight maintenance.
-                  children: []
-                - name: >-
-                    Measure portions of all foods.  You can use a food scale or
-                    measuring cups to stay on track.  Guesstimating or
-                    "eye-balling" portions generally leads to larger portions than
-                    necessary.
-                  children: []
-                - name: >-
-                    Protein foods should be 3-4 oz per portion, vegetables should
-                    be 1 cup or 2 cups of leafy greens, fruit should be 1/2 cup
-                    and grains should also be a 1/2 cup per serving.
-                  children: []
-            - name: Exercise regularly.
-              children: []
-            - name: Walk and move more throughout the day.
-              children: []
-            - name: Eat mindfully.
-              children:
-                - name: >-
-                    Mindful eating is a style of eating.  It's a way of eating
-                    that helps you become more aware of the types of foods you're
-                    eating, how much you're eating and how fast you're eating.
-                  children: []
-                - name: >-
-                    To eat more mindfully, try to:  take 20 minutes to eat your
-                    meal, remove distractions from your eating area (like TVs or
-                    cell phones), take smaller bites, chew more thoroughly and
-                    tune into your body's sense of satiation of fullness.
-                  children: []
-            - name: Manage stress.
-              children:
-                - name: >-
-                    Try to manage stress as best as you can.  Try: listening to
-                    music, taking a walk, meditating, doing yoga or talking to a
-                    friend or family member.
-                  children: []
-                - name: >-
-                    If stress is too difficult to manage or you're unsure on how
-                    to start managing stress, consider seeing a life coach or
-                    therapist for additional help.
-                  children: []
-        - name: Take up Better Sleeping
-          children:
-          - name: Keep your room clean.
-            children: []
-          - name: Make your bed comfortable.
-            children:
-              - name: >-
-                  A good comforter is one that's comfortable for you. Everyone
-                  has different preferences.
-                children: []
-              - name: "You may want to change your bedding with the seasons. For example, during winter, you may switch to cotton or jersey sheets, and add an extra blanket. You could also keep warm with a down blanket.[2]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                children: []
-              - name: "During summer, you might choose lighter weight options like cotton with a thread count between 250-500 or linen.[3]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n Switch out the down comforter for a light-weight cotton alternative."
-                children: []
-              - name: >-
-                  If a dog, child, or partner is hogging the bed, make them
-                  move. You deserve your space.
-                children: []
-          - name: Make sure your room is completely dark.
-            children:
-              - name: >-
-                  Don't sleep with the television on, as the flickering light
-                  will disrupt your sleep.
-                children: []
-              - name: "If you get up during the night, keep the lights dim.[5]\n\tX\n\t\tTrustworthy Source\n\n\t\tHelpGuide\n\t\tNonprofit organization dedicated to providing free, evidence-based mental health and wellness resources.\n\n\t\t\t\tGo to source\n\n\n"
-                children: []
-          - name: Block out noise.
-            children:
-              - name: >-
-                  You can invest in a white noise machine that offers different
-                  types of sounds that encourage sleep. However, a fan or a
-                  portable air purifier is often cheaper.
-                children: []
-              - name: You could also wear ear plugs.
-                children: []
-          - name: Adjust the thermostat to a cool temperature.
-            children:
-              - name: "Generally speaking, you'll be able to sleep best somewhere between 60 and 68\_°F (16 and 20\_°C).[8]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                children: []
-          - name: Stay away from screens for 1-2 hours before bed.
-            children: []
-          - name: Take a warm bath or shower.
-            children:
-              - name: 'Try adding calming scents, such as lavender.'
-                children: []
-          - name: Make sure longer hair is dried and pushed out of the way.
-            children: []
-          - name: Calm yourself with essential oils.
-            children: []
-          - name: Listen to calming music.
-            children:
-              - name: >-
-                  For example, you might choose classical music. Other good
-                  options might include slow jams, folk or bluegrass music, or
-                  slow country songs. Consider what you enjoy.
-                children: []
-              - name: >-
-                  Stay away from dance music or songs that get your heart
-                  pumping.
-                children: []
-          - name: Read by soft light.
-            children:
-              - name: >-
-                  If you have trouble putting your book down, try setting
-                  chapter limits. For example, read just 1 chapter a day.
-                children: []
-              - name: >-
-                  Choose a book that you find relaxing. If exciting books keep
-                  you awake, opt for a title that has a slower story line.
-                children: []
-          - name: Do yoga
-            children: []
-          - name: ' or stretch.'
-            children:
-              - name: >-
-                  For example, you could do 3-5 yoga poses or stretches each
-                  night to relax yourself.
-                children: []
-              - name: "Great poses for bedtime include the standing forward pose, supine spinal twist, reclining bound angle pose, and corpse pose.[16]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                children: []
-          - name: stretch
-            children: []
-          - name: Do a simple hobby that you enjoy.
-            children: []
-          - name: Meditate
-            children: []
-          - name: .
-            children:
-              - name: Try a meditation app like Calm or Headspace.
-                children: []
-              - name: Look for guided meditations online or on iTunes.
-                children: []
-              - name: >-
-                  Simply close your eyes and focus on your breath. When your
-                  mind wanders, redirect it back to your breath.
-                children: []
-              - name: "Prayer can have a similar effect to meditation.[18]\n\tX\n\t\tTrustworthy Source\n\n\t\tMayo Clinic\n\t\tEducational website from one of the world's leading hospitals\n\n\t\t\t\tGo to source\n\n\n"
-                children: []
-          - name: Use your bed for sleep and sex only.
-            children:
-              - name: >-
-                  Do work tasks or homework in another room. For example, you
-                  might use the dinner table as a workspace.
-                children: []
-              - name: "If you must work in your bedroom, use a desk instead of your bed. Keeping your sleeping area and working area separate can help your brain associate your bed with rest rather than work.[20]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                children: []
-          - name: Avoid caffeine
-            children: []
-          - name: ' after noon.'
-            children:
-              - name: >-
-                  If you need an afternoon boost, you could try going on a
-                  15-minute walk to energize yourself. It's especially helpful
-                  if you go outside!
-                children: []
-              - name: >-
-                  Everyone reacts to caffeine differently, so you may need to
-                  adjust your cut-off time, depending on your individual needs.
-                children: []
-          - name: Don't drink alcohol before bed.
-            children:
-              - name: >-
-                  If you enjoy drinking, stick to 1-2 drinks early in the
-                  evening.
-                children: []
-          - name: Quit smoking
-            children:
-              - name: >-
-                  Talk to your doctor for help quitting. You may be able to use
-                  a prescription medicine, such as Chantix, to stop smoking. You
-                  may also be able to use quitting aids, such as gum or patches.
-                children: []
-          - name: Get enough light during your day.
-            children: []
-          - name: Exercise for at least 30 minutes a day
-            children:
-              - name: >-
-                  For example, you could do 3 blocks of 10 minutes of exercise
-                  each day.
-                children: []
-              - name: "It's best to finish moderate to intense exercise earlier in the day, such as the morning or afternoon. If you enjoy exercising in the evening, finish at least 3 hours before bedtime. Low intensity exercises like yoga are okay before bed.[26]\n\tX\n\t\tTrustworthy Source\n\n\t\tHelpGuide\n\t\tNonprofit organization dedicated to providing free, evidence-based mental health and wellness resources.\n\n\t\t\t\tGo to source\n\n\n"
-                children: []
-          - name: Keep dinner light.
-            children:
-              - name: >-
-                  If you want a late-night snack, choose something light, such
-                  as cereal, yogurt, or a banana.
-                children: []
-          - name: Limit your consumption of simple sugars and carbs.
-            children:
-              - name: >-
-                  You don't have to give up carbs! Just stick to complex and
-                  whole-grain carbs. For example, choose brown rice over white
-                  rice.
-                children: []
-          - name: Take a magnesium supplement.
-            children:
-              - name: >-
-                  Talk to your doctor before taking any supplements, especially
-                  if you're already taking other supplements or medications.
-                children: []
-          - name: Try a melatonin supplement for a temporary solution.
-            children:
-              - name: >-
-                  Only take melatonin after you've talked to your doctor about
-                  it.
-                children: []
-              - name: You should only use the supplement for a short period of time.
-                children: []
-          - name: Manage your stress
-            children:
-              - name: |-
+  #                   Mint: This plant may aid digestion, relieve seasonal
+  #                   allergies, prevent the common cold, and can help prevent
+  #                   bacteria growth in your mouth.
+  #                 children: []
+  #               - name: "\nRosemary: This herb may boost your immune system and can aid digestion. It has anti-inflammatory properties that can reduce the severity of asthma attacks and stimulates the flow of blood to your brain, which may improve cognitive issues.[17]\n\tX\n\t\tTrustworthy Source\n\n\t\tPubMed Central\n\t\tJournal archive from the U.S. National Institutes of Health\n\n\t\t\t\tGo to source\n\n\n"
+  #                 children: []
+  #               - name: "\nGarlic: This spice has been implicated in numerous health benefits like:  decreased risk of heart disease and hardening of the arteries, decreasing high cholesterol, decreasing your risk for a heart attack and decreased risk of high blood pressure.[18]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #                 children: []
+  #           - name: Indulge in a glass of wine.
+  #             children: []
+  #           - name: Eat smaller portions.
+  #             children:
+  #               - name: >-
+  #                   The Mediterranean diet features smaller portions.  These
+  #                   smaller portions can help keep calories low and lead to weight
+  #                   loss or weight maintenance.
+  #                 children: []
+  #               - name: >-
+  #                   Measure portions of all foods.  You can use a food scale or
+  #                   measuring cups to stay on track.  Guesstimating or
+  #                   "eye-balling" portions generally leads to larger portions than
+  #                   necessary.
+  #                 children: []
+  #               - name: >-
+  #                   Protein foods should be 3-4 oz per portion, vegetables should
+  #                   be 1 cup or 2 cups of leafy greens, fruit should be 1/2 cup
+  #                   and grains should also be a 1/2 cup per serving.
+  #                 children: []
+  #           - name: Exercise regularly.
+  #             children: []
+  #           - name: Walk and move more throughout the day.
+  #             children: []
+  #           - name: Eat mindfully.
+  #             children:
+  #               - name: >-
+  #                   Mindful eating is a style of eating.  It's a way of eating
+  #                   that helps you become more aware of the types of foods you're
+  #                   eating, how much you're eating and how fast you're eating.
+  #                 children: []
+  #               - name: >-
+  #                   To eat more mindfully, try to:  take 20 minutes to eat your
+  #                   meal, remove distractions from your eating area (like TVs or
+  #                   cell phones), take smaller bites, chew more thoroughly and
+  #                   tune into your body's sense of satiation of fullness.
+  #                 children: []
+  #           - name: Manage stress.
+  #             children:
+  #               - name: >-
+  #                   Try to manage stress as best as you can.  Try: listening to
+  #                   music, taking a walk, meditating, doing yoga or talking to a
+  #                   friend or family member.
+  #                 children: []
+  #               - name: >-
+  #                   If stress is too difficult to manage or you're unsure on how
+  #                   to start managing stress, consider seeing a life coach or
+  #                   therapist for additional help.
+  #                 children: []
+  #       - name: Take up Better Sleeping
+  #         children:
+  #         - name: Keep your room clean.
+  #           children: []
+  #         - name: Make your bed comfortable.
+  #           children:
+  #             - name: >-
+  #                 A good comforter is one that's comfortable for you. Everyone
+  #                 has different preferences.
+  #               children: []
+  #             - name: "You may want to change your bedding with the seasons. For example, during winter, you may switch to cotton or jersey sheets, and add an extra blanket. You could also keep warm with a down blanket.[2]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #               children: []
+  #             - name: "During summer, you might choose lighter weight options like cotton with a thread count between 250-500 or linen.[3]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n Switch out the down comforter for a light-weight cotton alternative."
+  #               children: []
+  #             - name: >-
+  #                 If a dog, child, or partner is hogging the bed, make them
+  #                 move. You deserve your space.
+  #               children: []
+  #         - name: Make sure your room is completely dark.
+  #           children:
+  #             - name: >-
+  #                 Don't sleep with the television on, as the flickering light
+  #                 will disrupt your sleep.
+  #               children: []
+  #             - name: "If you get up during the night, keep the lights dim.[5]\n\tX\n\t\tTrustworthy Source\n\n\t\tHelpGuide\n\t\tNonprofit organization dedicated to providing free, evidence-based mental health and wellness resources.\n\n\t\t\t\tGo to source\n\n\n"
+  #               children: []
+  #         - name: Block out noise.
+  #           children:
+  #             - name: >-
+  #                 You can invest in a white noise machine that offers different
+  #                 types of sounds that encourage sleep. However, a fan or a
+  #                 portable air purifier is often cheaper.
+  #               children: []
+  #             - name: You could also wear ear plugs.
+  #               children: []
+  #         - name: Adjust the thermostat to a cool temperature.
+  #           children:
+  #             - name: "Generally speaking, you'll be able to sleep best somewhere between 60 and 68\_°F (16 and 20\_°C).[8]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #               children: []
+  #         - name: Stay away from screens for 1-2 hours before bed.
+  #           children: []
+  #         - name: Take a warm bath or shower.
+  #           children:
+  #             - name: 'Try adding calming scents, such as lavender.'
+  #               children: []
+  #         - name: Make sure longer hair is dried and pushed out of the way.
+  #           children: []
+  #         - name: Calm yourself with essential oils.
+  #           children: []
+  #         - name: Listen to calming music.
+  #           children:
+  #             - name: >-
+  #                 For example, you might choose classical music. Other good
+  #                 options might include slow jams, folk or bluegrass music, or
+  #                 slow country songs. Consider what you enjoy.
+  #               children: []
+  #             - name: >-
+  #                 Stay away from dance music or songs that get your heart
+  #                 pumping.
+  #               children: []
+  #         - name: Read by soft light.
+  #           children:
+  #             - name: >-
+  #                 If you have trouble putting your book down, try setting
+  #                 chapter limits. For example, read just 1 chapter a day.
+  #               children: []
+  #             - name: >-
+  #                 Choose a book that you find relaxing. If exciting books keep
+  #                 you awake, opt for a title that has a slower story line.
+  #               children: []
+  #         - name: Do yoga
+  #           children: []
+  #         - name: ' or stretch.'
+  #           children:
+  #             - name: >-
+  #                 For example, you could do 3-5 yoga poses or stretches each
+  #                 night to relax yourself.
+  #               children: []
+  #             - name: "Great poses for bedtime include the standing forward pose, supine spinal twist, reclining bound angle pose, and corpse pose.[16]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #               children: []
+  #         - name: stretch
+  #           children: []
+  #         - name: Do a simple hobby that you enjoy.
+  #           children: []
+  #         - name: Meditate
+  #           children: []
+  #         - name: .
+  #           children:
+  #             - name: Try a meditation app like Calm or Headspace.
+  #               children: []
+  #             - name: Look for guided meditations online or on iTunes.
+  #               children: []
+  #             - name: >-
+  #                 Simply close your eyes and focus on your breath. When your
+  #                 mind wanders, redirect it back to your breath.
+  #               children: []
+  #             - name: "Prayer can have a similar effect to meditation.[18]\n\tX\n\t\tTrustworthy Source\n\n\t\tMayo Clinic\n\t\tEducational website from one of the world's leading hospitals\n\n\t\t\t\tGo to source\n\n\n"
+  #               children: []
+  #         - name: Use your bed for sleep and sex only.
+  #           children:
+  #             - name: >-
+  #                 Do work tasks or homework in another room. For example, you
+  #                 might use the dinner table as a workspace.
+  #               children: []
+  #             - name: "If you must work in your bedroom, use a desk instead of your bed. Keeping your sleeping area and working area separate can help your brain associate your bed with rest rather than work.[20]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #               children: []
+  #         - name: Avoid caffeine
+  #           children: []
+  #         - name: ' after noon.'
+  #           children:
+  #             - name: >-
+  #                 If you need an afternoon boost, you could try going on a
+  #                 15-minute walk to energize yourself. It's especially helpful
+  #                 if you go outside!
+  #               children: []
+  #             - name: >-
+  #                 Everyone reacts to caffeine differently, so you may need to
+  #                 adjust your cut-off time, depending on your individual needs.
+  #               children: []
+  #         - name: Don't drink alcohol before bed.
+  #           children:
+  #             - name: >-
+  #                 If you enjoy drinking, stick to 1-2 drinks early in the
+  #                 evening.
+  #               children: []
+  #         - name: Quit smoking
+  #           children:
+  #             - name: >-
+  #                 Talk to your doctor for help quitting. You may be able to use
+  #                 a prescription medicine, such as Chantix, to stop smoking. You
+  #                 may also be able to use quitting aids, such as gum or patches.
+  #               children: []
+  #         - name: Get enough light during your day.
+  #           children: []
+  #         - name: Exercise for at least 30 minutes a day
+  #           children:
+  #             - name: >-
+  #                 For example, you could do 3 blocks of 10 minutes of exercise
+  #                 each day.
+  #               children: []
+  #             - name: "It's best to finish moderate to intense exercise earlier in the day, such as the morning or afternoon. If you enjoy exercising in the evening, finish at least 3 hours before bedtime. Low intensity exercises like yoga are okay before bed.[26]\n\tX\n\t\tTrustworthy Source\n\n\t\tHelpGuide\n\t\tNonprofit organization dedicated to providing free, evidence-based mental health and wellness resources.\n\n\t\t\t\tGo to source\n\n\n"
+  #               children: []
+  #         - name: Keep dinner light.
+  #           children:
+  #             - name: >-
+  #                 If you want a late-night snack, choose something light, such
+  #                 as cereal, yogurt, or a banana.
+  #               children: []
+  #         - name: Limit your consumption of simple sugars and carbs.
+  #           children:
+  #             - name: >-
+  #                 You don't have to give up carbs! Just stick to complex and
+  #                 whole-grain carbs. For example, choose brown rice over white
+  #                 rice.
+  #               children: []
+  #         - name: Take a magnesium supplement.
+  #           children:
+  #             - name: >-
+  #                 Talk to your doctor before taking any supplements, especially
+  #                 if you're already taking other supplements or medications.
+  #               children: []
+  #         - name: Try a melatonin supplement for a temporary solution.
+  #           children:
+  #             - name: >-
+  #                 Only take melatonin after you've talked to your doctor about
+  #                 it.
+  #               children: []
+  #             - name: You should only use the supplement for a short period of time.
+  #               children: []
+  #         - name: Manage your stress
+  #           children:
+  #             - name: |-
 
-                  Do yoga.
-                children: []
-              - name: Try a relaxing hobby.
-                children: []
-              - name: |-
+  #                 Do yoga.
+  #               children: []
+  #             - name: Try a relaxing hobby.
+  #               children: []
+  #             - name: |-
 
-                  Perform breathing exercises.
-                children: []
-              - name: Color in an adult coloring book or app.
-                children: []
-              - name: Go for a nature walk.
-                children: []
-              - name: Take a hot bath.
-                children: []
-              - name: Read.
-                children: []
-              - name: Journal.
-                children: []
-              - name: See a therapist.
-                children: []
-          - name: Go to bed and wake up at the same time each day.
-            children: []
-          - name: Avoid catching up on sleep over the weekend.
-            children:
-              - name: >-
-                  At first, you may want to schedule early morning activities on
-                  your weekend days so that you have an incentive to rise early.
-                  For example, make a plan with a friend or partner to go on an
-                  early morning hike.
-                children: []
-              - name: "Don't plan any late-night events on Friday or Saturday while you're trying to establish your sleep schedule. After you establish your sleep schedule, you can occasionally sleep in for 1-2 hours without disturbing your sleep schedule.[35]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                children: []
-              - name: "It can take weeks to establish your sleep schedule, depending on your current sleep and wake cycle. Plan to adjust your bedtime by just 15-30 minutes at a time.[36]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                children: []
-          - name: Make sure you're getting enough hours of sleep.
-            children: []
-          - name: Keep naps short and to a minimum.
-            children:
-              - name: You should only take 1 power nap per day.
-                children: []
-              - name: "The best time of day for a nap is in the afternoon, or about 2 hours after lunch. If you have a typical schedule, this means about 2:00-3:00 p.m. Napping later in the afternoon can interfere with your sleep schedule.[39]\n\tX\n\t\tTrustworthy Source\n\n\t\tMayo Clinic\n\t\tEducational website from one of the world's leading hospitals\n\n\t\t\t\tGo to source\n\n\n"
-                children: []
-          - name: Get active after dinner.
-            children:
-              - name: >-
-                  Go for a short after-dinner walk. You might even have a friend
-                  or pet join you.
-                children: []
-              - name: >-
-                  Sunset is a great time to go for a walk! It can decrease
-                  stress and help keep your body's circadian rhythms in sync.
-                children: []
-          - name: Don't agonize over sleep if you're tossing and turning.
-            children:
-              - name: >-
-                  Although it's a good idea to occupy your mind, don't choose an
-                  activity that can make you feel more awake, such as playing on
-                  your phone, watching TV, or using your computer.
-                children: []
-  - name: Giving
-    id: 4
-    habits:
-    - name: Do Fundraising and Charity
-      children:
-        - name: Take up Fundraising
-          children:
-            - name: Define a clear purpose.
-              children: []
-            - name: Get permission to raise funds or awareness.
-              children:
-                - name: >-
-                    Even if you are raising funds for an individual or family —
-                    for instance, holding a spaghetti dinner to benefit a family
-                    that lost its home to a fire — it is good practice to request
-                    and obtain permission first.  Most people appreciate charity
-                    when in need, but they deserve the right to be involved in and
-                    approve of the process.
-                  children: []
-            - name: Set a budget and a fundraising goal.
-              children: []
-            - name: Identify your target audience.
-              children:
-                - name: >-
-                    Consider the nature of the cause you are supporting and the
-                    potential donor base most apt to come out to support it.  If
-                    you are raising funds for the local symphony orchestra, for
-                    instance, a silent auction and dinner at a country club may be
-                    in order.  Or, if you are seeking to replace the playground
-                    equipment at the local park, a family-friendly street carnival
-                    may be your best bet.
-                  children: []
-                - name: >-
-                    Don’t be overly presumptuous, of course.  Make your event
-                    welcoming for anyone who wants to support the cause.  Simply
-                    make sure that the most likely target audience is served.
-                  children: []
-            - name: 'Establish a theme, design, or focus.'
-              children:
-                - name: >-
-                    Again, like a small business, you want to create a consistent
-                    “branding” to represent your marketing material and the actual
-                    set-up and presentation of the event.  Link it to the cause
-                    you are supporting.  For example, a superhero theme may be a
-                    good choice for a fundraiser benefitting a children’s
-                    hospital.
-                  children: []
-                - name: >-
-                    Be creative but budget-friendly, of course.  Remember the
-                    purpose of the event is to raise money and / or awareness for
-                    a good cause.
-                  children: []
-            - name: Attract sponsors.
-              children:
-                - name: >-
-                    Business get many requests for sponsorships and donations to
-                    charitable causes, so you need to make your effort stand out
-                    to improve your odds of success.  Don't just rely on the
-                    goodness of your cause; make a persuasive case why it will
-                    benefit the cause and the supporting business.
-                  children: []
-                - name: >-
-                    Present a written, detailed proposal that describes items such
-                    as:  the high-profile media / public / online attention your
-                    event will draw in; the high-quality event management team and
-                    sensible budget you have assembled; the specific nature of the
-                    recognition the company will receive, down to details like
-                    banner size and logo inclusions in the program.
-                  children: []
-                - name: >-
-                    Do some research beforehand on the companies you choose to
-                    approach.  How many charitable events have they sponsored /
-                    supported recently, and at what level?  Are there any patterns
-                    to the types of events or charities they tend to support? 
-                    What kind of recognition seems to appeal to them?  Come to
-                    your meeting as prepared as possible.  You may be a volunteer,
-                    but act like a professional.
-                  children: []
-            - name: Spread the word.
-              children:
-                - name: >-
-                    You can’t really start advertising too early.  Begin spreading
-                    the word as soon as you have the basics in place (when, where,
-                    why), then refine your marketing strategy as you fill in the
-                    details.
-                  children: []
-                - name: >-
-                    Even in today’s digital world, placing posters in the front
-                    window of local businesses will help raise awareness of your
-                    event.  Don’t be afraid to ask for help from local sources in
-                    advertising your fundraiser.  The same holds true for using
-                    social media — accept help whenever and wherever you can.
-                  children: []
-            - name: Don’t shortchange logistics.
-              children:
-                - name: >-
-                    Many businesses are willing to provide donated items or
-                    discounts for charitable events, but they also may get
-                    requests all the time and be wary of supporting yet another. 
-                    Be ready with a good “pitch” for the importance of your cause
-                    and the assistance they can provide, and also be ready to
-                    negotiate your best deal.  Offer more prominent signage
-                    thanking them for their donated equipment, for instance, or
-                    simply approach multiple vendors to work out your best price.
-                  children: []
-                - name: "The need for government permits or licenses will vary widely based on your location and the nature of your event.  If you are offering a raffle or games of chance, selling alcohol, or using public property (a park or a closed-off street, for instance), your odds of requiring government clearance will increase.  Contact your local government early in the process to determine what if any permits and licenses you will require.[11]\n\tX\n\t\tTrustworthy Source\n\n\t\tOfficial UK government website\n\t\tOfficial website for the public sector of the UK government\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-            - name: Assemble your best team.
-              children:
-                - name: >-
-                    You aren’t likely to have the luxury of being choosy about who
-                    your volunteers are, but you can be thoughtful about what
-                    roles to place them in.  Conduct informal interviews to
-                    determine which volunteers are better suited to up-front
-                    roles, and which are better for behind-the-scenes work.  Be
-                    clear to them (and yourself) that every role is critical to
-                    the success of the event.
-                  children: []
-                - name: "Depending upon the nature of your event, you may also be utilizing a “host committee,” which is usually a group of large donors and / or local celebrities who are primarily there to add some prestige to your event.  Use any advice they may offer judiciously, but also remember that they are only symbolic leaders for the event, while you are the one who needs to be in charge.[13]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Expect the unexpected.
-              children:
-                - name: >-
-                    Have a safety plan in place for emergencies, and consider
-                    whether you should provide security, especially if the event
-                    is open to the public and a large crowd is expected.  While
-                    probably not required by law, you may want to consider some
-                    version of “public liability insurance” as protection against
-                    major, unforeseen disruptions.
-                  children: []
-            - name: Follow up after your event.
-              children:
-                - name: "For tax and legal purposes, keep a detailed written record of every donation you receive.  You can also use these records as a contact list to keep people informed about and involved in the cause and any future events.[16]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-                - name: "Always spend some time after the event going through what worked and what did not.  Think about what you can learn from this event to make the next one even better.  Seek out the opinions of trusted volunteers and donors / supporters.[17]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-        - name: Take up Kindness
-          children:
-            - name: Act with good intentions.
-              children: []
-            - name: Try to see things from the perspective of others.
-              children: []
-            - name: Take a timeout when you feel yourself getting angry.
-              children: []
-            - name: Take responsibility for your actions.
-              children: []
-            - name: Understand the benefits of compassion practice.
-              children:
-                - name: >-
-                    Compassion practice is made up of mental exercises that you
-                    should try to do on a daily basis.
-                  children: []
-                - name: >-
-                    Studies have shown that compassion practice can reduce the
-                    hormones in your brain associated with stress.
-                  children: []
-            - name: Imagine a loved one in trouble.
-              children:
-                - name: >-
-                    This exercise will help you to appreciate the difficulties the
-                    people you love go through. Developing an understanding of
-                    your loved one's struggles will help you develop empathy
-                    toward others.
-                  children: []
-                - name: "You can also use this exercise to help you develop more compassion towards yourself. For example, after thinking about how you would treat a friend who was suffering or struggling with something, consider how you treat yourself when you are suffering or struggling. Are you kind to yourself? Do you show yourself compassion? Or do you refuse to acknowledge when you are struggling or suffering? If you treat yourself harshly, then consider the reasons why. What might change if you were kind to yourself?[3]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Focus on what you have in common with others.
-              children:
-                - name: “This person just wants to be happy… just like me.”
-                  children: []
-                - name: >-
-                    “This person is trying to avoid suffering in his or her life…
-                    just like me.”
-                  children: []
-                - name: >-
-                    “This person has been down, sad and depressed at times… just
-                    like me.”
-                  children: []
-            - name: Think about what kindness could do for people.
-              children:
-                - name: >-
-                    Think about how much it would mean just to know someone was
-                    hoping things would get better for you.
-                  children: []
-                - name: >-
-                    Focus on that joy you can imagine others experiencing. That
-                    feeling is the basis of compassion.
-                  children: []
-            - name: Put it to practice.
-              children:
-                - name: >-
-                    Start with small gestures, but from time to time take an
-                    opportunity to go out of your way for others.
-                  children: []
-                - name: >-
-                    Think about the way your kind gestures made people feel and
-                    reflect on the way your kindness affects others.
-                  children: []
-            - name: Be courteous and polite.
-              children:
-                - name: >-
-                    Small gestures can mean a great deal to a person that's having
-                    a difficult day. Change the toner in the photocopier because
-                    you coworker hates doing it, pay for a friend's coffee or tell
-                    a loved one that they're important to you today.
-                  children: []
-                - name: >-
-                    Kindness isn't about grand gestures as much as it's about
-                    thinking of others. Demonstrate your concern for others by
-                    treating them with respect.
-                  children: []
-            - name: Reach out to friends who seem down.
-              children:
-                - name: >-
-                    Send an e-mail, message or text to a friend that seems down
-                    and ask how they're doing. Let them know that you're there if
-                    they need you.
-                  children: []
-                - name: >-
-                    Volunteering is another great way to help yourself while
-                    helping others. Consider volunteering for a a non-profit
-                    organization to help people (or animals) who are in need of
-                    help. For example, you could volunteer for a soup kitchen,
-                    become a dog walker for a local animal shelter, or donate your
-                    time and talents to a homeless shelter.
-                  children: []
-            - name: Show gratitude.
-              children:
-                - name: >-
-                    Think about how much you appreciate being thanked when you go
-                    out of your way for someone.
-                  children: []
-                - name: >-
-                    When someone does something nice for you, it means they were
-                    thinking about you and cared enough to put forth the effort.
-                    Reciprocate that effort by making sure to show your
-                    appreciation.
-                  children: []
-            - name: Donate to charity.
-              children:
-                - name: Clean out your closet and donate old clothes to charity.
-                  children: []
-                - name: Give a few dollars to a charitable cause that you believe in.
-                  children: []
-                - name: Raise money for a cause.
-                  children: []
-            - name: Be kind anonymously.
-              children:
-                - name: >-
-                    Pay for the coffee of the person behind you at a drive
-                    through. This kind gesture can set off a chain reaction of
-                    kindness that can permeate throughout the day and a part of
-                    the community.
-                  children: []
-                - name: >-
-                    Throw a quarter in someone's parking meter to prevent them
-                    from getting a parking ticket.
-                  children: []
-        - name: Take up Generosity
-          children:
-          - name: Give from the heart.
-            children: []
-          - name: Know that being generous will make you happier.
-            children:
-              - name: >-
-                  If you're happier, then you'll have more of a positive outlook
-                  and more energy to do good in the world. The positive cycle
-                  will continue.
-                children: []
-          - name: Notice what would make someone's life easier.
-            children: []
-          - name: Be grateful for what you have.
-            children:
-              - name: "If you are able to appreciate all that you have, you'll be more likely to share some of those great things with others, to help them appreciate life as well.[5]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                children: []
-          - name: Don't forget to be generous to yourself.
-            children:
-              - name: >-
-                  It's not selfish to look for your own needs and to make
-                  yourself happy. It is selfish to only care about yourself and
-                  no one else, but there is a difference.
-                children: []
-          - name: Celebrate somebody.
-            children: []
-          - name: Be kind to strangers.
-            children: []
-          - name: Give your time to a friend.
-            children: []
-          - name: Give to a cause you believe in.
-            children: []
-          - name: Volunteer.
-            children: []
-          - name: Share your things.
-            children: []
-          - name: Give away something you love.
-            children: []
-          - name: Compliment someone.
-            children: []
-          - name: Send "thank you" cards.
-            children: []
-          - name: Call a friend who's having a hard time.
-            children: []
-          - name: Give up your seat.
-            children: []
-          - name: Give a generous tip.
-            children: []
-          - name: Leave positive comments for someone online.
-            children: []
-          - name: Hold the door for someone.
-            children: []
-          - name: Donate your stuff.
-            children: []
-          - name: Make someone smile.
-            children: []
+  #                 Perform breathing exercises.
+  #               children: []
+  #             - name: Color in an adult coloring book or app.
+  #               children: []
+  #             - name: Go for a nature walk.
+  #               children: []
+  #             - name: Take a hot bath.
+  #               children: []
+  #             - name: Read.
+  #               children: []
+  #             - name: Journal.
+  #               children: []
+  #             - name: See a therapist.
+  #               children: []
+  #         - name: Go to bed and wake up at the same time each day.
+  #           children: []
+  #         - name: Avoid catching up on sleep over the weekend.
+  #           children:
+  #             - name: >-
+  #                 At first, you may want to schedule early morning activities on
+  #                 your weekend days so that you have an incentive to rise early.
+  #                 For example, make a plan with a friend or partner to go on an
+  #                 early morning hike.
+  #               children: []
+  #             - name: "Don't plan any late-night events on Friday or Saturday while you're trying to establish your sleep schedule. After you establish your sleep schedule, you can occasionally sleep in for 1-2 hours without disturbing your sleep schedule.[35]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #               children: []
+  #             - name: "It can take weeks to establish your sleep schedule, depending on your current sleep and wake cycle. Plan to adjust your bedtime by just 15-30 minutes at a time.[36]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #               children: []
+  #         - name: Make sure you're getting enough hours of sleep.
+  #           children: []
+  #         - name: Keep naps short and to a minimum.
+  #           children:
+  #             - name: You should only take 1 power nap per day.
+  #               children: []
+  #             - name: "The best time of day for a nap is in the afternoon, or about 2 hours after lunch. If you have a typical schedule, this means about 2:00-3:00 p.m. Napping later in the afternoon can interfere with your sleep schedule.[39]\n\tX\n\t\tTrustworthy Source\n\n\t\tMayo Clinic\n\t\tEducational website from one of the world's leading hospitals\n\n\t\t\t\tGo to source\n\n\n"
+  #               children: []
+  #         - name: Get active after dinner.
+  #           children:
+  #             - name: >-
+  #                 Go for a short after-dinner walk. You might even have a friend
+  #                 or pet join you.
+  #               children: []
+  #             - name: >-
+  #                 Sunset is a great time to go for a walk! It can decrease
+  #                 stress and help keep your body's circadian rhythms in sync.
+  #               children: []
+  #         - name: Don't agonize over sleep if you're tossing and turning.
+  #           children:
+  #             - name: >-
+  #                 Although it's a good idea to occupy your mind, don't choose an
+  #                 activity that can make you feel more awake, such as playing on
+  #                 your phone, watching TV, or using your computer.
+  #               children: []
+  # - name: Giving
+  #   id: 4
+  #   habits:
+  #   - name: Do Fundraising and Charity
+  #     children:
+  #       - name: Take up Fundraising
+  #         children:
+  #           - name: Define a clear purpose.
+  #             children: []
+  #           - name: Get permission to raise funds or awareness.
+  #             children:
+  #               - name: >-
+  #                   Even if you are raising funds for an individual or family —
+  #                   for instance, holding a spaghetti dinner to benefit a family
+  #                   that lost its home to a fire — it is good practice to request
+  #                   and obtain permission first.  Most people appreciate charity
+  #                   when in need, but they deserve the right to be involved in and
+  #                   approve of the process.
+  #                 children: []
+  #           - name: Set a budget and a fundraising goal.
+  #             children: []
+  #           - name: Identify your target audience.
+  #             children:
+  #               - name: >-
+  #                   Consider the nature of the cause you are supporting and the
+  #                   potential donor base most apt to come out to support it.  If
+  #                   you are raising funds for the local symphony orchestra, for
+  #                   instance, a silent auction and dinner at a country club may be
+  #                   in order.  Or, if you are seeking to replace the playground
+  #                   equipment at the local park, a family-friendly street carnival
+  #                   may be your best bet.
+  #                 children: []
+  #               - name: >-
+  #                   Don’t be overly presumptuous, of course.  Make your event
+  #                   welcoming for anyone who wants to support the cause.  Simply
+  #                   make sure that the most likely target audience is served.
+  #                 children: []
+  #           - name: 'Establish a theme, design, or focus.'
+  #             children:
+  #               - name: >-
+  #                   Again, like a small business, you want to create a consistent
+  #                   “branding” to represent your marketing material and the actual
+  #                   set-up and presentation of the event.  Link it to the cause
+  #                   you are supporting.  For example, a superhero theme may be a
+  #                   good choice for a fundraiser benefitting a children’s
+  #                   hospital.
+  #                 children: []
+  #               - name: >-
+  #                   Be creative but budget-friendly, of course.  Remember the
+  #                   purpose of the event is to raise money and / or awareness for
+  #                   a good cause.
+  #                 children: []
+  #           - name: Attract sponsors.
+  #             children:
+  #               - name: >-
+  #                   Business get many requests for sponsorships and donations to
+  #                   charitable causes, so you need to make your effort stand out
+  #                   to improve your odds of success.  Don't just rely on the
+  #                   goodness of your cause; make a persuasive case why it will
+  #                   benefit the cause and the supporting business.
+  #                 children: []
+  #               - name: >-
+  #                   Present a written, detailed proposal that describes items such
+  #                   as:  the high-profile media / public / online attention your
+  #                   event will draw in; the high-quality event management team and
+  #                   sensible budget you have assembled; the specific nature of the
+  #                   recognition the company will receive, down to details like
+  #                   banner size and logo inclusions in the program.
+  #                 children: []
+  #               - name: >-
+  #                   Do some research beforehand on the companies you choose to
+  #                   approach.  How many charitable events have they sponsored /
+  #                   supported recently, and at what level?  Are there any patterns
+  #                   to the types of events or charities they tend to support? 
+  #                   What kind of recognition seems to appeal to them?  Come to
+  #                   your meeting as prepared as possible.  You may be a volunteer,
+  #                   but act like a professional.
+  #                 children: []
+  #           - name: Spread the word.
+  #             children:
+  #               - name: >-
+  #                   You can’t really start advertising too early.  Begin spreading
+  #                   the word as soon as you have the basics in place (when, where,
+  #                   why), then refine your marketing strategy as you fill in the
+  #                   details.
+  #                 children: []
+  #               - name: >-
+  #                   Even in today’s digital world, placing posters in the front
+  #                   window of local businesses will help raise awareness of your
+  #                   event.  Don’t be afraid to ask for help from local sources in
+  #                   advertising your fundraiser.  The same holds true for using
+  #                   social media — accept help whenever and wherever you can.
+  #                 children: []
+  #           - name: Don’t shortchange logistics.
+  #             children:
+  #               - name: >-
+  #                   Many businesses are willing to provide donated items or
+  #                   discounts for charitable events, but they also may get
+  #                   requests all the time and be wary of supporting yet another. 
+  #                   Be ready with a good “pitch” for the importance of your cause
+  #                   and the assistance they can provide, and also be ready to
+  #                   negotiate your best deal.  Offer more prominent signage
+  #                   thanking them for their donated equipment, for instance, or
+  #                   simply approach multiple vendors to work out your best price.
+  #                 children: []
+  #               - name: "The need for government permits or licenses will vary widely based on your location and the nature of your event.  If you are offering a raffle or games of chance, selling alcohol, or using public property (a park or a closed-off street, for instance), your odds of requiring government clearance will increase.  Contact your local government early in the process to determine what if any permits and licenses you will require.[11]\n\tX\n\t\tTrustworthy Source\n\n\t\tOfficial UK government website\n\t\tOfficial website for the public sector of the UK government\n\n\t\t\t\tGo to source\n\n\n"
+  #                 children: []
+  #           - name: Assemble your best team.
+  #             children:
+  #               - name: >-
+  #                   You aren’t likely to have the luxury of being choosy about who
+  #                   your volunteers are, but you can be thoughtful about what
+  #                   roles to place them in.  Conduct informal interviews to
+  #                   determine which volunteers are better suited to up-front
+  #                   roles, and which are better for behind-the-scenes work.  Be
+  #                   clear to them (and yourself) that every role is critical to
+  #                   the success of the event.
+  #                 children: []
+  #               - name: "Depending upon the nature of your event, you may also be utilizing a “host committee,” which is usually a group of large donors and / or local celebrities who are primarily there to add some prestige to your event.  Use any advice they may offer judiciously, but also remember that they are only symbolic leaders for the event, while you are the one who needs to be in charge.[13]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #                 children: []
+  #           - name: Expect the unexpected.
+  #             children:
+  #               - name: >-
+  #                   Have a safety plan in place for emergencies, and consider
+  #                   whether you should provide security, especially if the event
+  #                   is open to the public and a large crowd is expected.  While
+  #                   probably not required by law, you may want to consider some
+  #                   version of “public liability insurance” as protection against
+  #                   major, unforeseen disruptions.
+  #                 children: []
+  #           - name: Follow up after your event.
+  #             children:
+  #               - name: "For tax and legal purposes, keep a detailed written record of every donation you receive.  You can also use these records as a contact list to keep people informed about and involved in the cause and any future events.[16]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #                 children: []
+  #               - name: "Always spend some time after the event going through what worked and what did not.  Think about what you can learn from this event to make the next one even better.  Seek out the opinions of trusted volunteers and donors / supporters.[17]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #                 children: []
+  #       - name: Take up Kindness
+  #         children:
+  #           - name: Act with good intentions.
+  #             children: []
+  #           - name: Try to see things from the perspective of others.
+  #             children: []
+  #           - name: Take a timeout when you feel yourself getting angry.
+  #             children: []
+  #           - name: Take responsibility for your actions.
+  #             children: []
+  #           - name: Understand the benefits of compassion practice.
+  #             children:
+  #               - name: >-
+  #                   Compassion practice is made up of mental exercises that you
+  #                   should try to do on a daily basis.
+  #                 children: []
+  #               - name: >-
+  #                   Studies have shown that compassion practice can reduce the
+  #                   hormones in your brain associated with stress.
+  #                 children: []
+  #           - name: Imagine a loved one in trouble.
+  #             children:
+  #               - name: >-
+  #                   This exercise will help you to appreciate the difficulties the
+  #                   people you love go through. Developing an understanding of
+  #                   your loved one's struggles will help you develop empathy
+  #                   toward others.
+  #                 children: []
+  #               - name: "You can also use this exercise to help you develop more compassion towards yourself. For example, after thinking about how you would treat a friend who was suffering or struggling with something, consider how you treat yourself when you are suffering or struggling. Are you kind to yourself? Do you show yourself compassion? Or do you refuse to acknowledge when you are struggling or suffering? If you treat yourself harshly, then consider the reasons why. What might change if you were kind to yourself?[3]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #                 children: []
+  #           - name: Focus on what you have in common with others.
+  #             children:
+  #               - name: “This person just wants to be happy… just like me.”
+  #                 children: []
+  #               - name: >-
+  #                   “This person is trying to avoid suffering in his or her life…
+  #                   just like me.”
+  #                 children: []
+  #               - name: >-
+  #                   “This person has been down, sad and depressed at times… just
+  #                   like me.”
+  #                 children: []
+  #           - name: Think about what kindness could do for people.
+  #             children:
+  #               - name: >-
+  #                   Think about how much it would mean just to know someone was
+  #                   hoping things would get better for you.
+  #                 children: []
+  #               - name: >-
+  #                   Focus on that joy you can imagine others experiencing. That
+  #                   feeling is the basis of compassion.
+  #                 children: []
+  #           - name: Put it to practice.
+  #             children:
+  #               - name: >-
+  #                   Start with small gestures, but from time to time take an
+  #                   opportunity to go out of your way for others.
+  #                 children: []
+  #               - name: >-
+  #                   Think about the way your kind gestures made people feel and
+  #                   reflect on the way your kindness affects others.
+  #                 children: []
+  #           - name: Be courteous and polite.
+  #             children:
+  #               - name: >-
+  #                   Small gestures can mean a great deal to a person that's having
+  #                   a difficult day. Change the toner in the photocopier because
+  #                   you coworker hates doing it, pay for a friend's coffee or tell
+  #                   a loved one that they're important to you today.
+  #                 children: []
+  #               - name: >-
+  #                   Kindness isn't about grand gestures as much as it's about
+  #                   thinking of others. Demonstrate your concern for others by
+  #                   treating them with respect.
+  #                 children: []
+  #           - name: Reach out to friends who seem down.
+  #             children:
+  #               - name: >-
+  #                   Send an e-mail, message or text to a friend that seems down
+  #                   and ask how they're doing. Let them know that you're there if
+  #                   they need you.
+  #                 children: []
+  #               - name: >-
+  #                   Volunteering is another great way to help yourself while
+  #                   helping others. Consider volunteering for a a non-profit
+  #                   organization to help people (or animals) who are in need of
+  #                   help. For example, you could volunteer for a soup kitchen,
+  #                   become a dog walker for a local animal shelter, or donate your
+  #                   time and talents to a homeless shelter.
+  #                 children: []
+  #           - name: Show gratitude.
+  #             children:
+  #               - name: >-
+  #                   Think about how much you appreciate being thanked when you go
+  #                   out of your way for someone.
+  #                 children: []
+  #               - name: >-
+  #                   When someone does something nice for you, it means they were
+  #                   thinking about you and cared enough to put forth the effort.
+  #                   Reciprocate that effort by making sure to show your
+  #                   appreciation.
+  #                 children: []
+  #           - name: Donate to charity.
+  #             children:
+  #               - name: Clean out your closet and donate old clothes to charity.
+  #                 children: []
+  #               - name: Give a few dollars to a charitable cause that you believe in.
+  #                 children: []
+  #               - name: Raise money for a cause.
+  #                 children: []
+  #           - name: Be kind anonymously.
+  #             children:
+  #               - name: >-
+  #                   Pay for the coffee of the person behind you at a drive
+  #                   through. This kind gesture can set off a chain reaction of
+  #                   kindness that can permeate throughout the day and a part of
+  #                   the community.
+  #                 children: []
+  #               - name: >-
+  #                   Throw a quarter in someone's parking meter to prevent them
+  #                   from getting a parking ticket.
+  #                 children: []
+  #       - name: Take up Generosity
+  #         children:
+  #         - name: Give from the heart.
+  #           children: []
+  #         - name: Know that being generous will make you happier.
+  #           children:
+  #             - name: >-
+  #                 If you're happier, then you'll have more of a positive outlook
+  #                 and more energy to do good in the world. The positive cycle
+  #                 will continue.
+  #               children: []
+  #         - name: Notice what would make someone's life easier.
+  #           children: []
+  #         - name: Be grateful for what you have.
+  #           children:
+  #             - name: "If you are able to appreciate all that you have, you'll be more likely to share some of those great things with others, to help them appreciate life as well.[5]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+  #               children: []
+  #         - name: Don't forget to be generous to yourself.
+  #           children:
+  #             - name: >-
+  #                 It's not selfish to look for your own needs and to make
+  #                 yourself happy. It is selfish to only care about yourself and
+  #                 no one else, but there is a difference.
+  #               children: []
+  #         - name: Celebrate somebody.
+  #           children: []
+  #         - name: Be kind to strangers.
+  #           children: []
+  #         - name: Give your time to a friend.
+  #           children: []
+  #         - name: Give to a cause you believe in.
+  #           children: []
+  #         - name: Volunteer.
+  #           children: []
+  #         - name: Share your things.
+  #           children: []
+  #         - name: Give away something you love.
+  #           children: []
+  #         - name: Compliment someone.
+  #           children: []
+  #         - name: Send "thank you" cards.
+  #           children: []
+  #         - name: Call a friend who's having a hard time.
+  #           children: []
+  #         - name: Give up your seat.
+  #           children: []
+  #         - name: Give a generous tip.
+  #           children: []
+  #         - name: Leave positive comments for someone online.
+  #           children: []
+  #         - name: Hold the door for someone.
+  #           children: []
+  #         - name: Donate your stuff.
+  #           children: []
+  #         - name: Make someone smile.
+  #           children: []
   # - name: Career
   #   id: 5
   #   habits:

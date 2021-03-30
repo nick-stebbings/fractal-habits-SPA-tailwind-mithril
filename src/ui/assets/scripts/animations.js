@@ -29,22 +29,19 @@ const registerEventListeners = (function () {
   });
 }());
 
-const openSpinner = function () {
+const openSpinner = function (open = true) {
   const modalOverlay = document.querySelector('#modal_overlay');
-  modalOverlay.classList.remove("hidden");
+  open
+    ? modalOverlay.classList.remove("hidden")
+    : modalOverlay.classList.add("hidden");
 };
 
-const closeSpinner = function () {
-  const modalOverlay = document.querySelector('#modal_overlay');
-  modalOverlay.classList.add("hidden");
-};
-
-const openModal = function (value = true) {
+const openModal = function (open = true) {
   const modalOverlay = document.querySelector('#modal_overlay');
   const modal = document.querySelector('#modal');
 
   const modalCl = modal.classList;
-  if (value) {
+  if (open) {
     overlayCl.classList.remove('hidden');
     setTimeout(() => {
       modalCl.remove('opacity-0');
@@ -67,4 +64,4 @@ const openModal = function (value = true) {
   document.body.scrollTop = 0;
 };
 
-export { registerEventListeners, openModal, openSpinner, closeSpinner };
+export { registerEventListeners, openModal, openSpinner };

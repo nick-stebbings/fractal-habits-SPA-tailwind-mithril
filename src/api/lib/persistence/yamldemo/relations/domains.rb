@@ -9,12 +9,16 @@ module Yamldemo
         attribute :habits, ROM::Types::Array
       end
 
+      def by_id(id)
+        domains.to_a.select{|d| d.to_h[:id] == id }.first
+      end
+
       def to_habit_trees
         domains.to_a.map { |d| d[:habits][0] }
       end
 
       def without_habit_trees
-        domains.to_a.map{|a| a.to_h.select { |k, v| (k== :id )||(k== :name ) }}
+        domains.to_a.map{|d| d.to_h.select { |k, v| (k== :id )||(k== :name ) }}
       end
     end
   end

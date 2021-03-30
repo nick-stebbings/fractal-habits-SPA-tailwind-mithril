@@ -18,7 +18,7 @@ const HabitTree = function () {
     bottom: 50,
     left: 500,
   };
-  const root = stream({});
+
   const zoomer = zoom().scaleExtent([0.5, 2]).on("zoom", zooms);
 
   function render(svg, canvasWidth, canvasHeight) {
@@ -64,7 +64,7 @@ const HabitTree = function () {
     //   d._children = d.children;
     //   if (d.depth && d.data.name.length !== 7) d.children = null;
     // });
-    const rootData = root();
+    const rootData = TreeStore.root();
     const treeLayout = tree()
       .size(canvasWidth, canvasHeight)
       .nodeSize([dy, dx]);
@@ -160,17 +160,18 @@ const HabitTree = function () {
   return {
     type: 'vis',
     oninit: ({ attrs }) => {
-      !svg && TreeStore.get(demoData, DomainStore.current().id)
-        .then((response) => hierarchy(response.data))
-        .then(root)
-        .then(() => { svg && render(svg, canvasWidth, canvasHeight)});
-        let oldWindowWidth = stream(window.innerWidth);
-        function handleResize(e) {
-         
-        }
+      const oldWindowWidth = stream(window.innerWidth);
+      TreeStore.index(true, DomainStore.current().id)
+        .then(() => {
+          svg && render(svg, canvasWidth, canvasHeight);
+        });;
+      // !svg && TreeStore.get(demoData, String(+DomainStore.current().id - 1))
+      //   .then((response) => hierarchy(response.data))
+      //   .then(root)
+      //   .then(() => { svg && render(svg, canvasWidth, canvasHeight)});
         window.onresize = debounce((e) => {
           let factor = 1 - 1 / (window.innerWidth / oldWindowWidth());
-          console.log(factor, "f");
+          // console.log(factor, "f");
           zoomer.scaleBy(svg.transition().duration(250), 1 - factor);
           oldWindowWidth(document.body.getBoundingClientRect().width);
         }, debounceInterval);
@@ -189,21 +190,17 @@ const HabitTree = function () {
 
 
       render(svg, canvasWidth, canvasHeight);
-      
-      // domainSelector.onfocus = (e) => {
-      //   e.target.selectedIndex = -1;
-      // };
+
       domainSelector.addEventListener('change', (e) => {
         // Update domain reference
-        console.log(e.target.selectedIndex, 'SELECTED INDEX');
         selectedDomain(String(e.target.selectedIndex));
       });
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
-        <button type="button" id="activate-demo" class="z-50">
+        {/* <button type="button" id="activate-demo" class="z-50">
           Toggle Demo Data
-        </button>
+        </button> */}
         {vnode.children}
       </div>
     ),

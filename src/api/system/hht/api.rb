@@ -37,7 +37,7 @@ module Hht
       'yaml.yaml_container' # For the 'dummy data' Yaml loader
     ]
 
-    def populate_yaml_relations(days_to_track = 28)
+    def populate_yaml_relations(days_to_track)
       #TODO refactor
       domains = yaml_container.relations.domains
       habits = yaml_container.relations.habits
@@ -45,50 +45,51 @@ module Hht
       habit_dates = yaml_container.relations.habit_dates
       habit_nodes = yaml_container.relations.habit_nodes
 
-      return if habits.to_a.empty? && dates.to_a.empty?
+      if dates.to_a.empty?
+        date_range = ((Date.today- (days_to_track - 1)) .. Date.today)
+        date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
 
-      date_range = ((Date.today- days_to_track -3) .. Date.today)
-      date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
-
-      domain_habit_lists = []
-      habit_list = []
-      habit_id = 1
-      domain_list = domains.to_a.each_with_object([]) do |domain, list|
-        # domains.insert({ id: domain.id, name: domain.name, habits: [] })
-        habit_names = domain.habits.to_s.scan(/:name=>"(.*?)"/) #.gsub(/(\\|\\n|\\t)/, '')
-        
-        domain_habit_lists << habit_names.each_with_object([]) do |habit_name, list|
-          habit = { id: habit_id, domain_id: domain.id, name: habit_name.first }
-          list << habit
-          habit_list << habit
-          habits.insert(habit)
-          habit_id += 1
-        end
-      end
-
-      habit_node_id = 1
-      habit_nodes_list = []
-      domains.to_habit_trees.each_with_index do |domain, index|
-        tree = Subtree.json_each_after(domain.to_json)
-        yield_mptt_values(tree, index) do |vals, name|
-          new_habit = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
-          habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
-          found = habit_list.find { |habit| habit[:name] == name}
-          next unless found
-          found[:habit_node_id] = habit_node_id
+        domain_habit_lists = []
+        habit_list = []
+        habit_id = 1
+        domain_list = domains.to_a.each_with_object([]) do |domain, list|
+          # domains.insert({ id: domain.id, name: domain.name, habits: [] })
+          habit_names = domain.habits.to_s.scan(/:name=>"(.*?)"/) #.gsub(/(\\|\\n|\\t)/, '')
           
-          habit_node_id += 1
-        end
-      end
-      habit_dates_list = []
-      domain_habit_lists.each do |habit_list|
-        habit_list.each do |habit|
-          dates.to_a.each do |date|
-            habit_dates.insert({habit_id: habit[:id], date_id: date[:id], status_completed: false})
+          domain_habit_lists << habit_names.each_with_object([]) do |habit_name, list|
+            habit = { id: habit_id, domain_id: domain.id, name: habit_name.first }
+            list << habit
+            habit_list << habit
+            habits.insert(habit)
+            habit_id += 1
           end
         end
+
+        habit_node_id = 1
+        habit_nodes_list = []
+        domains.to_habit_trees.each_with_index do |domain, index|
+          tree = Subtree.json_each_after(domain.to_json)
+          yield_mptt_values(tree, index) do |vals, name|
+            new_habit = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
+            habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
+            found = habit_list.find { |habit| habit[:name] == name}
+            next unless found
+            found[:habit_node_id] = habit_node_id
+            
+            habit_node_id += 1
+          end
+        end
+        habit_dates_list = []
+        domain_habit_lists.each do |habit_list|
+          habit_list.each do |habit|
+            dates.to_a.each do |date|
+              habit_dates.insert({habit_id: habit[:id], date_id: date[:id], status_completed: false})
+            end
+          end
+        end
+        # binding.pry
       end
-      # binding.pry
+
       { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
     end
 
@@ -101,6 +102,15 @@ module Hht
         yield({id: i, lft: lft, rgt: rgt}, n.name) if block_given?
         n.content = {id: "L#{lft}-R#{rgt}-D#{domain_index}", value: n.content, completed_status: 'f', level: n.node_depth}.to_json if block_given?
       end
+    end
+
+    def domain_list_as_json(domain_relation, index)
+      domain = domain_relation
+        .by_id(index)
+        { 
+          name: domain.name,
+          children: domain[:habits]
+        }
     end
 
     namespace '/api' do
@@ -214,15 +224,7 @@ module Hht
         demo = params[:demo] == 'true'
         
         if(demo)
-          domain = yaml_container
-          .relations
-          .domains
-            .to_a[params[:domain_id].to_i]
-            
-            tree = { 
-              name: domain.name,
-              children: domain[:habits]
-            }
+          tree = domain_list_as_json(yaml_container.relations.domains, params[:domain_id].to_i)
         else
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.first.id
