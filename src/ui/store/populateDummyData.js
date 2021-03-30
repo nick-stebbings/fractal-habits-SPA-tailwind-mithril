@@ -16,13 +16,13 @@ const importData = {
         DateStore.list(response.data.dates);
         DomainStore.list(response.data.domains);
         HabitDateStore.list(response.data.habit_dates);
-        HabitStore.list(response.data.habits);
         NodeStore.list(response.data.nodes);
+        HabitStore.fullList(response.data.habits);
         
         DateStore.current(DateStore.list()[DateStore.list().length - 1]);
         DomainStore.current(DomainStore.list()[0]);
-        
-        HabitStore.runFilter('1'); //# TODO  un hardcode
+
+        HabitStore.runFilter(DomainStore.current().id);
         HabitStore.current(HabitStore.list()[0]);
         
         HabitDateStore.runFilter(HabitStore.current().id);

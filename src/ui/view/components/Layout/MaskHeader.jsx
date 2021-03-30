@@ -13,7 +13,6 @@ import { redraw } from '../../../assets/scripts/utilities';
 import '../../../assets/styles/components/MaskHeader.scss';
 
 const MaskHeader = function () {
-  let currentDateIndex = -1;
   let maxDate;
 
   return {
@@ -32,33 +31,14 @@ const MaskHeader = function () {
       // };
       domainSelector.addEventListener('change', (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
-        DomainStore.indexHabitsOf(DomainStore.current().id)
-          .then(() => {
-            selectedHabitLabel.value = HabitStore.current();
-          })
-          .then(redraw);
+        HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+        console.log('habstore.list() :>> ', HabitStore.list());
+        console.log("habstore.fulllist() :>> ", HabitStore.fullList());
+        console.log(HabitStore.current(), 'habstore current in event');
+        selectedHabitLabel.value = HabitStore.current();
+        m.redraw()
       });
 
-      const nextDate = document.getElementById('next-date-selector');
-      const prevDate = document.getElementById('prev-date-selector');
-      maxDate = String(DateStore.currentDate()) || '';
-
-      prevDate.addEventListener('click', () => {
-        DateStore.current(
-          currentDateIndex === -DateStore.list().length
-            ? DateStore.list()[0]
-            : DateStore.list().slice(--currentDateIndex)[0],
-        );
-        m.redraw();
-      });
-      nextDate.addEventListener('click', () => {
-        DateStore.current(
-          currentDateIndex === -1
-            ? DateStore.list().slice(currentDateIndex)[0]
-            : DateStore.list().slice(++currentDateIndex)[0],
-        );
-        m.redraw();
-      });
     },
     view: () => (
       <div className="mask-wrapper">

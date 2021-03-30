@@ -5,30 +5,35 @@ import Layout from './view/Layout.jsx';
 // Models
 import {importData, displayDemoData} from './store/populateDummyData';
 import DomainStore from './store/domain-store';
-// import HabitStore from './store/habit-store';
+import HabitDateStore from './store/habit-date-store';
+import HabitStore from './store/habit-store';
 import DateStore from './store/date-store';
+import NodeStore from './store/habit-node-store';
 // Components
 import HeroSection from './view/components/layout/HeroSection.jsx';
 // Utils
 import { d3visPageMaker, redraw, handleErrorType } from './assets/scripts/utilities';
 
 function populateStores({demo}) {
-  if (false) {
-    // DomainStore.index()
-    // .then(DateStore.index) //TODO filter by habit, refactor this
-    // .then(DomainStore.indexHabitsOf)
-    // .then(redraw)
-    // .catch(handleErrorType);
+  if (!demo) {
+    HabitStore.index()
+    .then(DomainStore.index) // Maybe do this selectively in future
+    .then((domain) => HabitStore.indexHabitsOfDomain(domain.id))
+    .then(DateStore.index)
+    .then(redraw)
+    .catch(handleErrorType);
   } else {
-    importData.init()
-    .then(() => {
-      console.log(DomainStore.list());
-      console.log(NodeStore.list());
-      console.log(HabitDateStore.list());
-      console.log(HabitDateStore.current());
-
-    })
-    .then(m.redraw).catch(handleErrorType);
+    importData
+      .init()
+      .then(m.redraw)
+      .then(() => {
+        console.log(HabitDateStore.list(), 'FROM ROUTES hab c l');
+        console.log(HabitDateStore.current(), 'FROM ROUTES hab c l');
+        console.log(HabitStore.list(), 'FROM ROUTES hab c l');
+        console.log(HabitStore.fullList(), 'FROM ROUTES hab c l');
+        console.log(HabitStore.current(), 'FROM ROUTES hab c l');
+      })
+      .catch((err) => console.log(err));
   }
 };
 

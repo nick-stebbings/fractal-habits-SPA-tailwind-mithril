@@ -86,7 +86,7 @@ module Hht
           end
         end
       end
-
+      # binding.pry
       { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
     end
 

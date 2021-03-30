@@ -14,7 +14,7 @@ module Yamldemo
       end
 
       def without_habit_trees
-        domains.to_a.select { |k, v| (k== :id )||(k== :name ) }
+        domains.to_a.map{|a| a.to_h.select { |k, v| (k== :id )||(k== :name ) }}
       end
     end
   end

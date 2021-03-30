@@ -29,19 +29,11 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .then((list) => DomainStore.current(list[0]))
       .catch(handleErrorType),
 
-  runFilterCurrent: (domainName) =>
-    DomainStore.current(
-      DomainStore.list().filter((domain) => domain.name == domainName)[0]
-    ),
+  filterByDomainName: (domainName) =>
+    DomainStore.list().filter((domain) => domain.name == domainName)[0],
 
-  indexHabitsOf: () =>
-    clientRoutes(`${basePath}/${DomainStore.current().id}/habits`)
-      .show_all()
-      .then((response) => JSON.parse(response.data).habits)
-      .then(HabitStore.list)
-      .then((list) => HabitStore.current(list[list.length - 1]))
-      .then(log)
-      .catch(handleErrorType),
+  runFilterCurrent: (domainName) =>
+    DomainStore.current(DomainStore.filterByDomainName(domainName)),
 
   submit: (attrs) =>
     DomainStore.create(attrs)
