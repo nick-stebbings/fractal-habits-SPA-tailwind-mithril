@@ -10,10 +10,10 @@ const DomainPill = {
         rank: vnode.attrs.rank + 2,
         hashtag: `#${vnode.attrs.name.toLowerCase().split(" ").join("-")}`,
       })
+      .then(openModal)
       .then(() => {
         m.redraw();
       })
-      .then(openModal)
       .catch((err) => {
         err.status
           ? window.FlashMessage.error(err.status)

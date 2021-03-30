@@ -45,7 +45,7 @@ module Hht
       habit_dates = yaml_container.relations.habit_dates
       habit_nodes = yaml_container.relations.habit_nodes
 
-      if dates.to_a.empty?
+      if dates.to_a.empty? && habit_dates.to_a.empty? && habit_nodes.to_a.empty?
         date_range = ((Date.today- (days_to_track - 1)) .. Date.today)
         date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
 

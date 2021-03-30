@@ -16,13 +16,19 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
     DomainStore.current = stream({ name: "No Domains Registered", id: "1" });
   },
 
-  list: stream([{ name: "No Domains Registered", id: "1" }]),
+  list: stream([]),
 
   index: () =>
     DomainStore.show_all()
       .then((response) => JSON.parse(response.data).domains)
-      .then(DomainStore.list)
-      .then((list) => DomainStore.current(list[0]))
+      .then((domains) => {
+        if (domains.length !== 0) {
+          let list = DomainStore.list(domains);
+          DomainStore.current(list[0]);
+          return list
+        }
+        return DomainStore.list();
+      })
       .catch(handleErrorType),
 
   filterByDomainName: (domainName) =>

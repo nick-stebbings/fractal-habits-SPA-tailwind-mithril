@@ -23,13 +23,17 @@ const spinnerOpen = stream(true);
 function populateStores({ demo }) {
   if (!demo) {
     HabitStore.index()
-      .then(DomainStore.index) // Maybe do this selectively in future
-      .then((domain) => HabitStore.indexHabitsOfDomain(domain.id))
-      .then(DateStore.index)
-      .then(redraw)
-      .then(() => {
-        spinnerOpen(false)
+      .then(DomainStore.index)
+      .then((domains) => {
+        console.log(domains, 'domainss/??');
+        if (domains.length !== 0) { 
+          return HabitStore.indexHabitsOfDomain(domain.id).then(DateStore.index)
+        }
       })
+      .then(() => {
+        spinnerOpen(false);
+      })
+      .then(redraw)
       .catch(handleErrorType);
   } else {
     importData.init()

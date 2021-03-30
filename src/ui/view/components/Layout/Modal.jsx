@@ -4,15 +4,6 @@ import CreateForm from '../Pages/Forms/CreateForm.jsx';
 import DomainStore from '../../../store/domain-store';
 
 const Modal = {
-  oncreate: () => {
-    Array.from(document.querySelectorAll("button[id^=close-modal]")).forEach(
-      (button) => {
-        button.addEventListener("click", () => {
-          openModal(false);
-        });
-      }
-    );
-  },
   view: ({attrs}) => (
     <div
       id="modal_overlay"
