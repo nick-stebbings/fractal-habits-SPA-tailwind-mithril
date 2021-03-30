@@ -8,5 +8,5 @@ import './ui/assets/scripts/vendor/flash.min.js';
 import { registerEventListeners } from './ui/assets/scripts/animations.js';
 import { DefaultRoute, Routes } from './ui/routes';
 
-const $root = document.querySelector('body');
+const $root = document.body;
 m.route($root, DefaultRoute, Routes);

@@ -3,7 +3,9 @@ body {
   @apply h-full w-full;
   font-size: 15px;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 #modal {
   height: 90%;
 }
@@ -52,4 +54,21 @@ section.cards {
   right: -2rem;
   z-index: 101;
   @apply fixed top-16 border-2 p-3 pl-4 pr-8 m-1 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
+}
+
+.loader {
+  @apply ease-linear rounded-full border-8 border-t-8 border-gray-200 h-64 w-64;
+  border-top-color: #ef9323;
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

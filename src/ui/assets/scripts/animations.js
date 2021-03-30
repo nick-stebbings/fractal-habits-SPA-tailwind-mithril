@@ -29,12 +29,21 @@ const registerEventListeners = (function () {
   });
 }());
 
+const openSpinner = function () {
+  const modalOverlay = document.querySelector('#modal_overlay');
+  modalOverlay.classList.remove("hidden");
+};
+
+const closeSpinner = function () {
+  const modalOverlay = document.querySelector('#modal_overlay');
+  modalOverlay.classList.add("hidden");
+};
+
 const openModal = function (value = true) {
   const modalOverlay = document.querySelector('#modal_overlay');
   const modal = document.querySelector('#modal');
 
   const modalCl = modal.classList;
-  const overlayCl = modalOverlay;
   if (value) {
     overlayCl.classList.remove('hidden');
     setTimeout(() => {
@@ -52,10 +61,10 @@ const openModal = function (value = true) {
       modal.style['z-index'] = -101;
       document.documentElement.style.overflow = 'initial';
     }, 100);
-    setTimeout(() => overlayCl.classList.add('hidden'), 300);
+    setTimeout(() => modalOverlay.classList.add('hidden'), 300);
   }
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
 };
 
-export { registerEventListeners, openModal };
+export { registerEventListeners, openModal, openSpinner, closeSpinner };

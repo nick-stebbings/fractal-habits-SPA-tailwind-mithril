@@ -18,7 +18,7 @@ const MaskHeader = function () {
   return {
     onupdate: () => {
       document.getElementById("date-today").value = DateStore.currentDate();
-       document.getElementById("domain-selector");
+      document.getElementById("domain-selector");
     },
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');

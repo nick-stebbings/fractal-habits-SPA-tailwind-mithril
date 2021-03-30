@@ -1,14 +1,10 @@
 import stream from 'mithril/stream';
-import HabitStore from './habit-store';
 import { clientRoutes, handleErrorType } from './client';
 
 const basePath = '/domains';
-function log(res) {
-  console.log(res, 'LOGGER');
-  return res
-}
+
 const DomainStore = Object.assign(clientRoutes(basePath), {
-  current: stream({ name: "No Domains Registered", id: "-1" }),
+  current: stream({ name: "No Domains Registered", id: "1" }),
 
   get: (id) =>
     DomainStore.show_one(id)
@@ -17,10 +13,10 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   clear: () => {
-    DomainStore.current = stream({ name: "No Domains Registered", id: "-1" });
+    DomainStore.current = stream({ name: "No Domains Registered", id: "1" });
   },
 
-  list: stream([{ name: "No Domains Registered", id: "-1" }]),
+  list: stream([{ name: "No Domains Registered", id: "1" }]),
 
   index: () =>
     DomainStore.show_all()
@@ -44,7 +40,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .then(DomainStore.current)
       .then((current) => {
         let newList = DomainStore.list();
-        if (newList.length == 1 && newList[0].name == "No Domains Registered")
+        if (newList.length == 1 && newList[0].name === "No Domains Registered")
           newList.pop();
         newList.push(current);
         DomainStore.list(newList);

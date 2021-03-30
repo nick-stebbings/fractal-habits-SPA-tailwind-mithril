@@ -30,6 +30,7 @@ const d3visPageMaker = function (layoutView, pageView) {
 
   // Create a visualisation-containing div element with random ID
   const divId = `svg_container_${Math.floor(Math.random() * 1000000000)}${1}`;
+  page.oncreate = () => { document.body.style.overflow = 'hidden'};
   page.view = () => {
     // Pass uniqe selection id to the vis component for d3 selection
     const d3Canvas = m('div', { id: divId });

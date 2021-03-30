@@ -1,37 +1,36 @@
 import stream from 'mithril/stream';
-import { select, hierarchy, tree } from 'd3';
+import { select, hierarchy, tree, zoom, zoomIdentity } from 'd3';
 import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/utilities';
 
-import {displayDemoData} from '../../../../store/populateDummyData.js';
 import TreeStore from '../../../../store/habit-tree-store.js';
 import DomainStore from '../../../../store/domain-store.js';
-import DateStore from '../../../../store/date-store.js';
-import HabitDateStore from '../../../../store/habit-date-store.js';
 
 import '../../../../assets/styles/components/d3vis.scss';
 
 const HabitTree = function () {
-  let demoData = false;
+  let demoData = m.route.param('demo');
   let canvasWidth; let
-    canvasHeight;
-
+    canvasHeight; let svg;
   const debounceInterval = 150;
   const margin = {
     top: 150,
     right: 0,
     bottom: 50,
-    left: 0,
+    left: 500,
   };
-
-  const selectedDomain = stream(0);
   const root = stream({});
+  const zoomer = zoom().scaleExtent([0.5, 2]).on("zoom", zooms);
 
   function render(svg, canvasWidth, canvasHeight) {
     svg.selectAll('*').remove();
     const canvas = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left + canvasWidth / 2},${margin.top})`);
-
+      .call(zoomer)
+      .append("g")
+      .classed("canvas", true)
+      .attr(
+        "transform",
+        `translate(${margin.left + canvasWidth / 2},${margin.top})`
+        );
     const handleEvents = function (selection) {
       selection
         .on('mouseover', function () {
@@ -55,8 +54,8 @@ const HabitTree = function () {
     };
 
     const scaleFactor = 1.5;
-    const dy = (canvasWidth / 50) * scaleFactor;
-    const dx = (canvasHeight / 10) * scaleFactor;
+    const dy = (window.innerWidth / 50) * scaleFactor;
+    const dx = (window.innerHeight / 10) * scaleFactor;
     // console.log(root, 'root at first');
     // root.y0 = dy / 2;
     // root.x0 = 0;
@@ -136,48 +135,55 @@ const HabitTree = function () {
   }
 
   // TODO:  Figure out how to stop the second API call on the non-demo trees
-  // displayDemoData();
+  function zooms(...args) {
+    var event = args[0];
+    var transform = event.transform; 
+    var scale = transform.k,
+    tbound = -canvasHeight * scale,
+    bbound = canvasHeight * scale,
+    lbound = (-canvasWidth) * scale,
+    rbound = (canvasWidth) * scale;
+    // console.log(lbound, 'lbound');
+    // console.log(rbound, 'rbound');
+  // limit translation to thresholds
+  var currentTranslation = [margin.left + canvasWidth / 2, margin.top]
+  var translation = [
+    currentTranslation[0] + Math.max(Math.min(transform.x, rbound), lbound),
+    currentTranslation[1] + Math.max(Math.min(transform.y, bbound), tbound),
+  ];
+  select(".canvas").attr(
+    "transform",
+    "translate(" + translation + ")" + " scale(" + scale + ")"
+  );
+}
 
   return {
     type: 'vis',
     oninit: ({ attrs }) => {
-      console.log(DomainStore.list());
-      console.log(DateStore.list());
-      console.log(HabitDateStore.list());
+      !svg && TreeStore.get(demoData, DomainStore.current().id)
+        .then((response) => hierarchy(response.data))
+        .then(root)
+        .then(() => { svg && render(svg, canvasWidth, canvasHeight)});
+  
+        window.onresize = debounce((e) => {
+          console.log(e);
+          zoomer.scaleBy(svg.transition().duration(750), 1.1);
+        }, debounceInterval);
     },
     oncreate: ({ attrs }) => {
       const domainSelector = document.getElementById("domain-selector");
-      const demoButton = document.getElementById("activate-demo");
-      const svg = select(`div#${attrs.divId}`)
-          .classed('h-screen', true)
-          .classed('w-full', true)
-        .append('svg')
-          .attr('width', '100%')
-          .attr('height', '100%');
+
+      svg = select(`div#${attrs.divId}`)
+        .classed("h-screen", true)
+        .classed("w-full", true)
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("style", "pointer-events: all");
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
 
-      TreeStore.get(demoData, selectedDomain())
-        .then((response) => hierarchy(response.data))
-        .then(root)
-        .then(() => {
-          render(svg, canvasWidth, canvasHeight);
-        });
 
-      window.onresize = debounce(() => {
-        ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
-        render(svg, canvasWidth, canvasHeight);
-      }, debounceInterval);
-
-
-      demoButton.addEventListener('click', (e) => {
-        demoData = !demoData;
-        TreeStore.getForDomain(String(selectedDomain()))
-          .then((response) => hierarchy(response.data))
-          .then(root)
-          .then(() => {
-            render(svg, canvasWidth, canvasHeight);
-          });;
-      });
+      render(svg, canvasWidth, canvasHeight);
       
       // domainSelector.onfocus = (e) => {
       //   e.target.selectedIndex = -1;

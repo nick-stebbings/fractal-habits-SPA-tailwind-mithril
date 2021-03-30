@@ -1,4 +1,4 @@
-import { clientRoutes, handleErrorType } from "./client";
+import { clientRoutes } from "./client";
 
 import DateStore from "./date-store.js";
 import DomainStore from "./domain-store.js";
@@ -7,9 +7,10 @@ import HabitStore from "./habit-store.js";
 import NodeStore from "./habit-node-store.js";
 
 const basePath = "/demo?tracking_length=";
+const daysToTrack = 2;
 
 const importData = {
-  init: function(length = 2){
+  init: function(length = daysToTrack){
     return clientRoutes(basePath + String(length))
       .show_all()
       .then((response) => {
@@ -38,8 +39,4 @@ const importData = {
   },
 };
 
-const displayDemoData = function() {
-  importData.init()
-};
-
-export {importData, displayDemoData};
+export {importData};
