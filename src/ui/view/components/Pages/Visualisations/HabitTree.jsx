@@ -164,10 +164,15 @@ const HabitTree = function () {
         .then((response) => hierarchy(response.data))
         .then(root)
         .then(() => { svg && render(svg, canvasWidth, canvasHeight)});
-  
+        let oldWindowWidth = stream(window.innerWidth);
+        function handleResize(e) {
+         
+        }
         window.onresize = debounce((e) => {
-          console.log(e);
-          zoomer.scaleBy(svg.transition().duration(750), 1.1);
+          let factor = 1 - 1 / (window.innerWidth / oldWindowWidth());
+          console.log(factor, "f");
+          zoomer.scaleBy(svg.transition().duration(250), 1 - factor);
+          oldWindowWidth(document.body.getBoundingClientRect().width);
         }, debounceInterval);
     },
     oncreate: ({ attrs }) => {

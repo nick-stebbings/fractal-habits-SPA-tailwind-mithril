@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -26,7 +26,7 @@ module.exports = {
   ],
   optimization: {
     minimize: false,
-    // minimizer: [new TerserPlugin()],
+    minimizer: [new TerserPlugin()],
   },
   devServer: {
     open: true,
@@ -37,7 +37,7 @@ module.exports = {
         target: {
           host: 'localhost',
           protocol: 'http:',
-          port: 3000,
+          port: 9393,
         },
 
       },

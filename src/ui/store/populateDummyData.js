@@ -6,9 +6,12 @@ import HabitDateStore from "./habit-date-store.js";
 import HabitStore from "./habit-store.js";
 import NodeStore from "./habit-node-store.js";
 
+import stream from "mithril/stream";
 const basePath = "/demo?tracking_length=";
 const daysToTrack = 2;
 
+const cache = stream([]);
+// cache().length === 0 && TODO
 const importData = {
   init: function(length = daysToTrack){
     return clientRoutes(basePath + String(length))
@@ -39,4 +42,4 @@ const importData = {
   },
 };
 
-export {importData};
+export {importData, cache};
