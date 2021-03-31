@@ -8,10 +8,13 @@ const DropdownNav = (function () {
       <nav className="nav">
         <div className="nav-container">
           <ul className="nav-links">
+            {m.route.param("demo") && (
+              <li id="demo-indicator">In DEMO mode (Read Only!)</li>
+            )}
             {routes.map((route, index) => (
               <HoverableLink
                 label={`${route.label}`}
-                class={routes.selected === route.label ? 'active' : 'inactive'}
+                class={routes.selected === route.label ? "active" : "inactive"}
                 id={`nav-${route.label.toLowerCase()}`}
                 subpaths={`${route.subpaths}`}
               >
@@ -20,10 +23,13 @@ const DropdownNav = (function () {
             ))}
           </ul>
           <div>
-            <span id="current-habit">
-              Selected:
-            </span>
-            {m('span', HabitStore.current() ? HabitStore.current().name : 'No Habits Registered')}
+            <span id="current-habit">Selected:</span>
+            {m(
+              "span",
+              HabitStore.current()
+                ? HabitStore.current().name
+                : "No Habits Registered"
+            )}
           </div>
         </div>
       </nav>

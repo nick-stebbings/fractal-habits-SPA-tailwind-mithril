@@ -54,7 +54,7 @@ const MaskHeader = function () {
     },
     view: () => (
       <div className="mask-wrapper">
-        <header className="bg-balance-dp md:h-12 z-10 flex-none h-16">
+        <header className={m.route.param("demo") ? 'bg-gray-600' : 'bg-balance-dp'}>
           <div
             id="responsive-nav"
             className="md:h-12 md:px-2 lg:px-0 flex items-center justify-between h-16 px-4"

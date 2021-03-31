@@ -46,16 +46,21 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable a {
 }
 
 /* Domain selector and Date selector labels */
-.nav-label-primary > span, .user-nav-label span label
+.nav-label-primary > span, .user-nav-label span label,
 .responsive-nav-group > a {
   font-family: Nunito, Silka, sans-serif;
   font-weight: 700;
   @apply leading-tight uppercase text-balance-lp text-xl tracking-wide;
 }
 
-section > h2:first-of-type,
+section#hero h3 {
+  @apply text-center text-xl leading-6 text-balance-lp py-2;
+}
+
+section > h2:first-of-type, section#hero h3 > span,
 .nav-label-primary > span:hover,
 .responsive-nav-group > a:hover {
+  @apply text-center;
   text-decoration: underline;
   text-decoration-color: #ef9323;
 	-webkit-text-decoration-color: #ef9323;
@@ -70,6 +75,7 @@ section > h2:first-of-type,
   user-select: none;
 }
 
+section#hero h3,
 .domain-pills, .user-nav-label, .menu-card-button {
   font-family: B612, Lato, Nunito, sans;
   font-weight: 300;
@@ -91,8 +97,10 @@ nav .hero-message > h2 {
   @apply leading-6 xl:leading-10 tracking-wide text-xl font-bold text-gray-50;
 }
 
+li#demo-indicator,
 nav .hero-message p {
   @apply xl:text-base leading-6 xl:leading-10 text-gray-50 font-sans font-light text-right;
+  font-weight: 600;
 }
 
 nav .menu-card.enabled h3 {

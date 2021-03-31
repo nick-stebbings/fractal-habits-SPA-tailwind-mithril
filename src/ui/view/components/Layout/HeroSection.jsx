@@ -18,7 +18,12 @@ const HeroSection = {
         id="call-to-action"
         class="flex flex-col px-12 pb-4 mt-6 bg-gradient-to-b from-transparent md:mt-20 md:pb-12 sm:mt-4 lg:space-x-4 to-white"
       >
-        <h2>Choose a life domain:</h2>
+          {m.route.param("demo") ? (
+            <div>
+              <h2>Life-domains for your habit tracking have been loaded from web-scraped data as a demonstration of utilising two different data sources</h2>
+              <h3><m.route.Link selector="span" href={m.route.param("demo") ? "/" : "/?demo=true"}>CLICK</m.route.Link> to switch to a writeable database version.</h3>
+            </div>
+          ) : <h2>Choose a life domain:</h2> }
         <div class="domain-pills">
           {[
             "Physical Health",
@@ -26,10 +31,14 @@ const HeroSection = {
             "Spirituality",
             "Giving",
             "Career",
-          ].map((domain, idx) => m(DomainPill, {
-            name: domain,
-            rank: idx
-          }))}
+          ].map(
+            (domain, idx) =>
+              !m.route.param("demo") &&
+              m(DomainPill, {
+                name: domain,
+                rank: idx,
+              })
+          )}
         </div>
       </div>
     </section>

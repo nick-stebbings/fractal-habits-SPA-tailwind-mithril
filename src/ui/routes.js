@@ -4,7 +4,7 @@ import MenuRoutes from "./menu-routes";
 // Layouts
 import Layout from "./view/Layout.jsx";
 // Models
-import { importData, displayDemoData } from "./store/populateDummyData";
+import { importData } from "./store/populateDummyData";
 import DomainStore from "./store/domain-store";
 import HabitStore from "./store/habit-store";
 import DateStore from "./store/date-store";

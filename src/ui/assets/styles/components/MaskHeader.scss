@@ -1,14 +1,6 @@
 $maskimage: url("../../images/fib-mask-1900-380.svg");
 $watermarkimage: url("../../images/watermark.png");
 
-html {
-  scroll-snap-destination: 0% 100%;
-  scroll-snap-type: block-proximity; scroll-snap-points-y: repeat(300px)
-}
-body {
-  scroll-snap-align: start;
-}
-
 .logo-link {
   @apply fixed text-transparent z-50 w-12 hidden lg:block;
   left: 5px;
@@ -30,7 +22,12 @@ body {
 
 div.mask-wrapper {
   mask: initial;
+
+  > header {
+    @apply md:h-12 z-10 flex-none h-16;
+  }
 }
+
 body[class^="scroll"] #subnav {
   mask: no-repeat 10px -20px $maskimage;
 }
@@ -242,9 +239,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
   order: 1; /* Send it to the front of the flex row to display */
 }
 
-body[class^="scroll"] #subnav .nav-container > div {
-  // # TODO
-}
+body[class^="scroll"] li#demo-indicator { @apply hidden }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active a {
   @apply pr-2 mb-1 mt-2 pl-0;
