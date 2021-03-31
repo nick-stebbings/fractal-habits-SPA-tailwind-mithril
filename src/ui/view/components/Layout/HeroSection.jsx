@@ -20,7 +20,7 @@ const HeroSection = {
       >
           {m.route.param("demo") ? (
             <div>
-              <h2>Life-domains for your habit tracking have been loaded from web-scraped data as a demonstration of utilising two different data sources</h2>
+              <h2>Life-domains and habits for tracking have been loaded from web-scraped data as a demonstration of utilising two different data sources</h2>
               <h3><m.route.Link selector="span" href={m.route.param("demo") ? "/" : "/?demo=true"}>CLICK</m.route.Link> to switch to a writeable database version.</h3>
             </div>
           ) : <h2>Choose a life domain:</h2> }

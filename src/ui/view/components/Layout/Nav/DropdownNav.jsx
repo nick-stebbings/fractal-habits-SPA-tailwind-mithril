@@ -9,7 +9,7 @@ const DropdownNav = (function () {
         <div className="nav-container">
           <ul className="nav-links">
             {m.route.param("demo") && (
-              <li id="demo-indicator">In DEMO mode (Read Only!)</li>
+              <li id="demo-indicator">In DEMO mode<br />(Read Only)</li>
             )}
             {routes.map((route, index) => (
               <HoverableLink

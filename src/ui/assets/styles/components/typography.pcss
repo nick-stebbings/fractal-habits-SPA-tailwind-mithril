@@ -57,7 +57,7 @@ section#hero h3 {
   @apply text-center text-xl leading-6 text-balance-lp py-2;
 }
 
-section > h2:first-of-type, section#hero h3 > span,
+section > h2:first-of-type, section#hero h3 > span:hover,
 .nav-label-primary > span:hover,
 .responsive-nav-group > a:hover {
   @apply text-center;
@@ -97,12 +97,16 @@ nav .hero-message > h2 {
   @apply leading-6 xl:leading-10 tracking-wide text-xl font-bold text-gray-50;
 }
 
-li#demo-indicator,
+li#demo-indicator {
+  @apply px-2 xl:text-base text-gray-50 font-sans text-right;
+}
+
 nav .hero-message p {
   @apply xl:text-base leading-6 xl:leading-10 text-gray-50 font-sans font-light text-right;
   font-weight: 600;
 }
 
+section#hero h3 > span,
 nav .menu-card.enabled h3 {
   @apply text-xl text-center text-balance-dp;
   cursor: default;

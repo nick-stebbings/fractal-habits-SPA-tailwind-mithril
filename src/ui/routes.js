@@ -1,8 +1,8 @@
 import stream from "mithril/stream";
+// Layout
+import Layout from "./view/Layout.jsx";
 // MegaMenu Routes
 import MenuRoutes from "./menu-routes";
-// Layouts
-import Layout from "./view/Layout.jsx";
 // Models
 import { importData } from "./store/populateDummyData";
 import DomainStore from "./store/domain-store";

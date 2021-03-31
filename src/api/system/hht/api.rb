@@ -233,10 +233,10 @@ module Hht
             return status 404
           end
         end
+        # binding.pry
 
         status 200
-        # binding.pry
-        demo ? tree.to_json : (json Subtree.as_json(tree))
+        demo ? (json Subtree.json_each_after(tree.to_json)) : (json Subtree.as_json(tree))
       end
 
       post '' do

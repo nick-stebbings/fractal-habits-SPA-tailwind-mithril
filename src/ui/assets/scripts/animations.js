@@ -36,7 +36,7 @@ const registerEventListeners = (function () {
   const { body } = document;
   window.addEventListener("DOMContentLoaded", () => {
 
-    document.querySelector("#modal_overlay").addEventListener("click", (e) => {
+    document.getElementById("modal_overlay").addEventListener("click", (e) => {
       console.log(e.target.id);
       if (e.target.id.match('close-modal')) {
         openModal(false);
