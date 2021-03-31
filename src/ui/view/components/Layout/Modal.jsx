@@ -25,6 +25,7 @@ const Modal = {
             <svg
               className="w-6 h-6 mx-auto"
               fill="none"
+              id="close-modal-x-svg"
               stroke="currentColor"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"

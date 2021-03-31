@@ -35,13 +35,13 @@ const openModal = function (open = true) {
 const registerEventListeners = (function () {
   const { body } = document;
   window.addEventListener("DOMContentLoaded", () => {
-    Array.from(body.querySelectorAll("button[id^=close-modal]")).forEach(
-      (button) => {
-        button.addEventListener("click", () => {
-          openModal(false);
-        });
+
+    document.querySelector("#modal_overlay").addEventListener("click", (e) => {
+      console.log(e.target.id);
+      if (e.target.id.match('close-modal')) {
+        openModal(false);
       }
-    );
+    });
 
     const scrollUp = "scroll-up";
     const scrollDown = "scroll-down";
