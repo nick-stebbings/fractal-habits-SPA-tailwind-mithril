@@ -1,7 +1,6 @@
-import { openModal } from '../../../assets/scripts/animations';
-import CreateForm from '../Pages/Forms/CreateForm.jsx';
-
 import DomainStore from '../../../store/domain-store';
+
+import CreateForm from '../Pages/Forms/CreateForm.jsx';
 
 const Modal = {
   view: ({attrs}) => (

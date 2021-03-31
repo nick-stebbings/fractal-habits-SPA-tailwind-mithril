@@ -7,7 +7,7 @@ const openSpinner = function (open = true) {
 
 const openModal = function (open = true) {
   const modalOverlay = document.querySelector('#modal_overlay');
-  const modal = document.querySelector('#modal');
+  const modal = modalOverlay.querySelector('#modal');
   const modalCl = modal.classList;
   if (open) {
     modalOverlay.classList.remove('hidden');
@@ -19,7 +19,6 @@ const openModal = function (open = true) {
       document.documentElement.style.overflow = 'hidden';
     }, 100);
   } else {
-    console.log('LCOLSING');
     modalCl.add('-translate-y-full');
     setTimeout(() => {
       modalCl.add('opacity-0');

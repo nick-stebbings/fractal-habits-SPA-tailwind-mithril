@@ -24,7 +24,6 @@ const spinnerOpen = stream(true);
 function populateStores({ demo }) {
   if (!demo) {
       HabitStore.index()
-        // .catch(handleAndRethrow) // Display network errors
         .then(
           (habits) =>
             new Promise((resolve, reject) => {
@@ -53,6 +52,7 @@ function populateStores({ demo }) {
         .then(redraw)
         .catch((err) => {
           spinnerOpen(false);
+          m.redraw();
           console.log(err);
         });
   } else {
@@ -62,7 +62,6 @@ function populateStores({ demo }) {
         spinnerOpen(false);
       })
       .then(m.redraw)
-      .catch(handleAndRethrow);
   }
 }
 
