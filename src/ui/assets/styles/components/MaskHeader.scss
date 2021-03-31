@@ -1,6 +1,14 @@
 $maskimage: url("../../images/fib-mask-1900-380.svg");
 $watermarkimage: url("../../images/watermark.png");
 
+html {
+  scroll-snap-destination: 0% 100%;
+  scroll-snap-type: block-proximity; scroll-snap-points-y: repeat(300px)
+}
+body {
+  scroll-snap-align: start;
+}
+
 .logo-link {
   @apply fixed text-transparent z-50 w-12 hidden lg:block;
   left: 5px;

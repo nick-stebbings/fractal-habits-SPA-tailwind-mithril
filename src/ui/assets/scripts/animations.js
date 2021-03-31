@@ -42,24 +42,21 @@ const registerEventListeners = (function () {
         openModal(false);
       }
     });
+    window.addEventListener("scroll", handleScroll);
 
+    const removeBodyScrollClass = () => body.setAttribute('class', '');
     const scrollUp = "scroll-up";
     const scrollDown = "scroll-down";
     let lastScroll = 0;
-
-    window.addEventListener("scroll", () => {
+    function handleScroll(){
       const currentScroll = window.pageYOffset;
-      if (currentScroll <= 50) {
-        body.classList.remove(scrollUp);
-        return;
-      }
-
+      if (currentScroll < 5) return removeBodyScrollClass();
       if (currentScroll > lastScroll && !body.classList.contains(scrollDown)) {
         // down
         body.classList.remove(scrollUp);
         body.classList.add(scrollDown);
       } else if (
-        currentScroll < lastScroll &&
+        currentScroll <= lastScroll &&
         body.classList.contains(scrollDown)
       ) {
         // up
@@ -67,7 +64,7 @@ const registerEventListeners = (function () {
         body.classList.add(scrollUp);
       }
       lastScroll = currentScroll;
-    });
+    };
   });
 })();
 

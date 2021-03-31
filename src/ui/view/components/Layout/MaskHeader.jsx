@@ -176,7 +176,7 @@ const MaskHeader = function () {
                     </button>
                   </div>
                 </div>
-                <ul className="lg:hidden flex flex-col-reverse w-full">
+                <ul className="lg:hidden flex flex-col-reverse w-full mb-8">
                   {MenuRoutes.map((route) => (
                     <ResponsiveNavGroup
                       id={`nav-${route.label.toLowerCase()}`}

@@ -26,6 +26,15 @@ label {
   @apply h-full rounded-3xl;
 }
 
+.button-container > button[type="submit"] {
+  @apply hover:bg-gray-700 px-4 py-2 text-white bg-gray-800 rounded-3xl;
+}
+
+.button-container > button.not-available {
+  @apply hover:bg-gray-200 px-4 py-2 text-gray-800 bg-gray-300 rounded-3xl;
+}
+
+
 .mask-wrapper input[type="date"] {
   @apply border-0 pl-0 mt-0;
 }
