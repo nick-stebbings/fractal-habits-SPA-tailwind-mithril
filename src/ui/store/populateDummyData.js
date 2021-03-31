@@ -18,7 +18,6 @@ const importData = {
     return clientRoutes(basePath + String(length))
       .show_all()
       .then((response) => {
-        console.log(response, 'dlist from pop');
         DateStore.list(response.data.dates);
         DomainStore.list(response.data.domains);
         HabitDateStore.list(response.data.habit_dates);
@@ -37,9 +36,6 @@ const importData = {
           );
         NodeStore.runFilter(HabitStore.current().id);
         NodeStore.current(NodeStore.list()[NodeStore.list().length - 1]);
-
-        console.log(DomainStore.current());
-        console.log(TreeStore.root());
       })
       .catch((err) => {
         console.log(err);

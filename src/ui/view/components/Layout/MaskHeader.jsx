@@ -8,12 +8,12 @@ import ResponsiveNavGroup from './Nav/ResponsiveNavGroup.jsx';
 import DomainOption from './Nav/DomainOption.jsx';
 import DropdownNav from './Nav/DropdownNav.jsx';
 import MenuRoutes from '../../../menu-routes';
-import { redraw } from '../../../assets/scripts/utilities';
 
 import '../../../assets/styles/components/MaskHeader.scss';
 
 const MaskHeader = function () {
   let maxDate;
+  let currentDateIndex = -1;
 
   return {
     onupdate: () => {
@@ -25,20 +25,33 @@ const MaskHeader = function () {
       const selectedHabitLabel = document.querySelector(
         '#current-habit ~ span',
       );
-      
-      // domainSelector.onfocus = (e) => {
-      //   e.target.selectedIndex = -1;
-      // };
+
+      const nextDate = document.getElementById("next-date-selector");
+      const prevDate = document.getElementById("prev-date-selector");
+
       domainSelector.addEventListener('change', (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        console.log('habstore.list() :>> ', HabitStore.list());
-        console.log("habstore.fulllist() :>> ", HabitStore.fullList());
-        console.log(HabitStore.current(), 'habstore current in event');
         selectedHabitLabel.value = HabitStore.current();
         m.redraw()
       });
 
+      prevDate.addEventListener("click", () => {
+        DateStore.current(
+          currentDateIndex === -DateStore.list().length
+            ? DateStore.list()[0]
+            : DateStore.list().slice(--currentDateIndex)[0]
+        );
+        m.redraw();
+      });
+      nextDate.addEventListener("click", () => {
+        DateStore.current(
+          currentDateIndex === -1
+            ? DateStore.list().slice(currentDateIndex)[0]
+            : DateStore.list().slice(++currentDateIndex)[0]
+        );
+        m.redraw();
+      });
     },
     view: () => (
       <div className="mask-wrapper">

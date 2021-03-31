@@ -16,7 +16,7 @@ const HabitTree = function () {
     top: 150,
     right: 0,
     bottom: 50,
-    left: 500,
+    left: 0,
   };
 
   const zoomer = zoom().scaleExtent([0.5, 2]).on("zoom", zooms);

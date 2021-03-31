@@ -25,16 +25,16 @@ function populateStores({ demo }) {
     HabitStore.index()
       .then(DomainStore.index)
       .then((domains) => {
-        console.log(domains, 'domainss/??');
-        if (domains.length !== 0) { 
-          return HabitStore.indexHabitsOfDomain(domain.id).then(DateStore.index)
+        if (domains.length !== 0 && (HabitStore.fullList().length > 0)) {
+          return HabitStore.indexHabitsOfDomain(domains[0].id).then(DateStore.index)
         }
+        throw Error;
       })
       .then(() => {
         spinnerOpen(false);
       })
       .then(redraw)
-      .catch(handleErrorType);
+      .catch((err) => {console.log(err)});
   } else {
     importData.init()
     .then(() => {
