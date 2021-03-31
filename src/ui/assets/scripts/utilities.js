@@ -78,7 +78,7 @@ const messages = {
   400: 'Bad Request: There may have been something wrong with your input.',
   404: 'Resource could not be found.',
   422: 'Unprocessable entity: There may have been something wrong with your input.',
-  499: 'This is a demo app, and you can only add the 5 domains given to you. Please try another.',
+  499: 'This is a demo app, and you can only add the 5 domains given to you. Please choose from the the pill buttons (to the lower left)',
 };
 
 const handleErrorType = function (err, type = 'warning') {
@@ -87,15 +87,16 @@ const handleErrorType = function (err, type = 'warning') {
       err.response.status = 499;
     }
   }
+  const response = (typeof err.response === 'number') ? messages[Number(err.response.status)] : err;
   switch (type) {
     case 'info':
-      window.FlashMessage.info(messages[Number(err.response.status)]);
+      window.FlashMessage.info(response);
       break;
     case 'warning':
-      window.FlashMessage.warning(messages[Number(err.response.status)]);
+      window.FlashMessage.warning(response);
       break;
     default:
-      window.FlashMessage.error(messages[Number(err.response.status)]);
+      window.FlashMessage.error(response);
       break;
   }
   throw err;

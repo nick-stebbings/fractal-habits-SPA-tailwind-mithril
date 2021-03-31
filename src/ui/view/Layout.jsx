@@ -11,12 +11,10 @@ import { openSpinner } from "../assets/scripts/animations.js";
 
 export default {
   oncreate: ({attrs: {spinnerState}}) => {
-    document.getElementById("date-today").value = DateStore.currentDate();
     openSpinner(true);
     spinnerState.map(openSpinner)
-    console.log(spinnerState());
-    console.log(DateStore.list(), "datelist");
-    console.log(DateStore.current(), "dcurr");
+
+    document.getElementById("date-today").value = DateStore.currentDate();
     document.getElementById("domain-selector").selectedIndex = Math.max(
       0,
       DomainStore.list().indexOf(DomainStore.current())

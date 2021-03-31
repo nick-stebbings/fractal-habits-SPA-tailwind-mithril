@@ -8,7 +8,8 @@ import { importData, displayDemoData } from "./store/populateDummyData";
 import DomainStore from "./store/domain-store";
 import HabitStore from "./store/habit-store";
 import DateStore from "./store/date-store";
-import TreeStore from "./store/habit-tree-store";
+// import TreeStore from "./store/habit-tree-store";
+
 // Components
 import HeroSection from "./view/components/layout/HeroSection.jsx";
 // Utils
@@ -22,24 +23,46 @@ const spinnerOpen = stream(true);
 
 function populateStores({ demo }) {
   if (!demo) {
-    HabitStore.index()
-      .then(DomainStore.index)
-      .then((domains) => {
-        if (domains.length !== 0 && (HabitStore.fullList().length > 0)) {
-          return HabitStore.indexHabitsOfDomain(domains[0].id).then(DateStore.index)
-        }
-        throw Error;
-      })
+      HabitStore.index()
+        // .catch(handleAndRethrow) // Display network errors
+        .then(
+          (habits) =>
+            new Promise((resolve, reject) => {
+              habits.length !== 0
+                ? resolve(habits)
+                : reject("There are no habits to load, yet!");
+            })
+        )
+        .then(DomainStore.index)
+        .then(
+          (domains) =>
+            new Promise((resolve, reject) => {
+              domains.length !== 0 && HabitStore.fullList().length > 0
+                ? resolve(domains[0].id)
+                : reject("There are no domains or domain habits, yet!");
+            })
+        )
+        .then(HabitStore.indexHabitsOfDomain)
+        .then(DateStore.index)
+        .catch((message) => {
+          handleErrorType(message, 'info') 
+        })
+        .then(() => {
+          spinnerOpen(false);
+        })
+        .then(redraw)
+        .catch((err) => {
+          spinnerOpen(false);
+          console.log(err);
+        });
+  } else {
+    importData
+      .init()
       .then(() => {
         spinnerOpen(false);
       })
-      .then(redraw)
-      .catch((err) => {console.log(err)});
-  } else {
-    importData.init()
-    .then(() => {
-      spinnerOpen(false)
-    }).then(m.redraw).catch(handleErrorType);
+      .then(m.redraw)
+      .catch(handleAndRethrow);
   }
 }
 

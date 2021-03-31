@@ -16,7 +16,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
     DomainStore.current = stream({ name: "No Domains Registered", id: "1" });
   },
 
-  list: stream([]),
+  list: stream([{ name: "No Domains Registered", id: "1" }]),
 
   index: () =>
     DomainStore.show_all()
@@ -25,7 +25,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
         if (domains.length !== 0) {
           let list = DomainStore.list(domains);
           DomainStore.current(list[0]);
-          return list
+          return list;
         }
         return DomainStore.list();
       })

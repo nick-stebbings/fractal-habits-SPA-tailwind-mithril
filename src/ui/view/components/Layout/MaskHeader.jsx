@@ -18,14 +18,12 @@ const MaskHeader = function () {
   return {
     onupdate: () => {
       document.getElementById("date-today").value = DateStore.currentDate();
-      document.getElementById("domain-selector");
     },
     oncreate: () => {
       const domainSelector = document.getElementById('domain-selector');
       const selectedHabitLabel = document.querySelector(
         '#current-habit ~ span',
       );
-
       const nextDate = document.getElementById("next-date-selector");
       const prevDate = document.getElementById("prev-date-selector");
 
@@ -33,6 +31,7 @@ const MaskHeader = function () {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
         selectedHabitLabel.value = HabitStore.current();
+        console.log(HabitStore.current(), 'hacbsu');
         m.redraw()
       });
 

@@ -4,7 +4,7 @@ import { clientRoutes, handleErrorType } from './client';
 const basePath = '/habits';
 
 const HabitStore = Object.assign(clientRoutes(basePath), {
-  current: stream({ name: "Select a Life Domain" }),
+  current: stream({ name: "Select a Life-Domain to start tracking" }),
 
   get: (id) =>
     HabitStore.show_one(id)
@@ -22,9 +22,13 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
   index: () =>
     HabitStore.show_all()
       .then((response) => JSON.parse(response.data).habits)
-      .then(HabitStore.fullList)
-      .then((list) => {
-        HabitStore.current(list[0]);
+      .then((habits) => {
+        if (habits.length !== 0) {
+          let list = HabitStore.fullList(habits);
+          HabitStore.current(list[list.length - 1]);
+          return list;
+        }
+        return HabitStore.list();
       })
       .catch(handleErrorType),
 

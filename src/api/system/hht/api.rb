@@ -235,7 +235,7 @@ module Hht
         end
 
         status 200
-        binding.pry
+        # binding.pry
         demo ? tree.to_json : (json Subtree.as_json(tree))
       end
 
