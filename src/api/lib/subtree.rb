@@ -12,7 +12,7 @@ class Subtree
   end
 
   class << self
-    def generate(root_id, repo)
+    def generate(root_id, repo, dom_id, date_id)
       nodes_array = repo.map_node_and_descendants_to_struct_nodes(root_id).to_a
       root_node = nodes_array.shift
       Subtree.new(root_node.to_tree_node, nodes_array).build_from_tuples

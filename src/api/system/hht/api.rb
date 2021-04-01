@@ -218,17 +218,25 @@ module Hht
         end
       end
 
-      # Get root node tree. Take a query string parameter to decide if to read from Demo (YAML memory)
+      # Get root node tree. PARAMS: 
+        # query string parameters
+        # @demo to indicate if to read from YAML memory
+        # @dom_id to restrict domain
+        # @date_id to restrict date
       get '' do
         tree = nil
         demo = params[:demo] == 'true'
+        dom_id = params[:domain_id].to_i
+        date_id = params[:date].to_i
         
         if(demo)
-          tree = domain_list_as_json(yaml_container.relations.domains, params[:domain_id].to_i)
+          # This contains all json habit trees for all domains, referenced by @habits
+          tree = domain_list_as_json(yaml_container.relations.domains, dom_id)
+          binding.pry
         else
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.first.id
-            tree= Subtree.generate(root_id, habit_node_repo)
+            tree= Subtree.generate(root_id, habit_node_repo, dom_id, date_id) #modify method(TODO)
           else
             return status 404
           end

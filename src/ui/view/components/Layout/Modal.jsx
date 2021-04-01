@@ -9,6 +9,7 @@ const Modal = {
       className="bg-opacity-30 md:items-center fixed z-50 flex items-start justify-center w-full h-full overflow-auto bg-black"
     >
       {/* Modal Tailwind Component originally by Huda Damar */}
+      {/* Spinner Component originally by Astro_Corp */}
       {
       attrs.spinnerNeeded() ? (
         <div class="loader"></div>

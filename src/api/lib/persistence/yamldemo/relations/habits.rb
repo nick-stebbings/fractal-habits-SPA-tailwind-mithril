@@ -7,6 +7,9 @@ module Yamldemo
         attribute :name, Types::String
         attribute :domain_id, Types::Integer
         # attribute :habit_node_id, Types::Integer
+        def by_name(name)
+          habits.to_a.select{|h| h[:name] == name }
+        end
       end
     end
   end

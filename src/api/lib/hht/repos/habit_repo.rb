@@ -49,18 +49,12 @@ module Hht
           .where{ !habit_node.nil? }
       end
 
-      def habit_ids_with_status_completion(completed_string)
+      def habit_dates_with_status_completion(completed_string)
         habit_dates.join(habits).select(:habit_id, :date_id).where(completed_status: completed_string)
       end
 
-      def completed_habit_ids_from_date(date_id)
-        habit_ids_with_status_completion('t')
-          .exists(dates, dates[:id] => date_id)
-      end
-
-      def incomplete_habit_ids_from_date(date_id)
-        habit_ids_with_status_completion('f')
-          .exists(dates, dates[:id] => date_id)
+      def habit_dates_restrict_on_completion_status_and_date_id(completion_string, date_id)
+        habit_dates_with_status_completion(completion_string) .exists(dates, dates[:id] => habit_dates[:date_id])
       end
     end
   end

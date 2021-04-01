@@ -5,6 +5,7 @@ module Yamldemo
       schema(:habit_dates) do
         attribute :habit_id, Types::Integer
         attribute :date_id, Types::Integer
+        attribute :completed_status, Types::Nominal::Bool
       end
     end
   end

@@ -3,7 +3,7 @@ import DateStore from '../../../../store/date-store.js';
 
 import { openModal } from '../../../../assets/scripts/animations';
 import FormHeader from './FormHeader.jsx';
-import FormContainer from './FormContainer.jsx';
+import FormBody from './FormBody.jsx';
 import InputGroup from './FormInputGroup.jsx';
 
 let maxDate;
@@ -42,79 +42,77 @@ const CreateForm = {
     });
   },
   view: ({ attrs }) => (
-    <div className="md:max-w-1/2 lg:max-w-1/3 sm:w-2/3 sm:px-0 flex flex-col justify-between w-full px-4 mb-16">
-      <form id={`create-${attrs.resourceName}`} action="" method="">
-        {attrs.addHeader && (
-          <FormHeader
-            iconPath="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-            title={`Create a ${attrs.resourceName}`}
-            description={attrs.resourceDescription}
-          />
-        )}
+    <form id={`create-${attrs.resourceName}`} action="" method="">
+      {attrs.addHeader && (
+        <FormHeader
+          iconPath="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          title={`Create a ${attrs.resourceName}`}
+          description={attrs.resourceDescription}
+        />
+      )}
 
-        {m(FormContainer, [
-          m(
-            InputGroup,
-            {
-              name: "habit-name",
-              label: "Habit Name",
-            },
-            m("input[type=text]", {
-              name: "name",
-              id: "habit-title",
-              class: "form-input",
-              placeholder: "e.g. Hydrate in the A.M.",
-            })
-          ),
-          m(
-            InputGroup,
-            {
-              name: "habit-description",
-              label: "Habit Description",
-            },
-            m("input[type=text]", {
-              name: "description",
-              id: "habit-description",
-              class: "form-input",
-              placeholder: "e.g. Drinking water each day after waking",
-            })
-          ),
-          m(
-            InputGroup,
-            {
-              name: "initiation_date",
-              label: "Initiation Date",
-            },
-            m("input[type=date]", {
-              id: "initiation-date",
-              name: "initiation-date",
-              class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
-              max: maxDate,
-            })
-          ),
-        ])}
+      {m(FormBody, [
+        m(
+          InputGroup,
+          {
+            name: "habit-name",
+            label: "Habit Name",
+          },
+          m("input[type=text]", {
+            name: "name",
+            id: "habit-title",
+            class: "form-input",
+            placeholder: "e.g. Hydrate in the A.M.",
+          })
+        ),
+        m(
+          InputGroup,
+          {
+            name: "habit-description",
+            label: "Habit Description",
+          },
+          m("input[type=text]", {
+            name: "description",
+            id: "habit-description",
+            class: "form-input",
+            placeholder: "e.g. Drinking water each day after waking",
+          })
+        ),
+        m(
+          InputGroup,
+          {
+            name: "initiation_date",
+            label: "Initiation Date",
+          },
+          m("input[type=date]", {
+            id: "initiation-date",
+            name: "initiation-date",
+            class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
+            max: maxDate,
+          })
+        ),
+      ])}
 
-        <div className="button-container px-4 py-3 bg-white border-t border-gray-200">
-          <button
-            name="close-modal"
-            type="button"
-            id="close-modal"
-            className="hover:bg-red-600 focus:outline-none px-4 py-2 text-white bg-red-500 rounded"
-          >
-            Forget It
-          </button>
-          <button
-            disabled={m.route.param("demo") ? true : false}
-            className={m.route.param("demo") && 'not-available'}
-            name="submit"
-            value="submit"
-            type="submit"
-          >
-            Start Tracking
-          </button>
-        </div>
-      </form>
-    </div>
+      <div className="button-container px-4 py-3 bg-white border-t border-gray-200">
+        <button
+          name="close-modal"
+          type="button"
+          id="close-modal"
+          className="hover:bg-red-600 focus:outline-none px-4 py-2 text-white bg-red-500 rounded"
+        >
+          Forget It
+        </button>
+        <button
+          disabled={m.route.param("demo") ? true : false}
+          className={m.route.param("demo") && 'not-available'}
+          name="submit"
+          value="submit"
+          type="submit"
+        >
+          Start Tracking
+        </button>
+      </div>
+    </form>
   ),
 };
 
