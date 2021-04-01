@@ -162,7 +162,7 @@ const HabitTree = function () {
     type: 'vis',
     oninit: ({ attrs }) => {
       const oldWindowWidth = stream(window.innerWidth);
-      TreeStore.index(demoData, DomainStore.current().id, (DateStore.current().id || 31))
+      TreeStore.index(demoData, DomainStore.current().id, DateStore.current().id)
         .then(() => {
           svg && render(svg, canvasWidth, canvasHeight);
         });;

@@ -68,7 +68,7 @@ module Hht
         habit_node_id = 1
         habit_nodes_list = []
         domains.to_habit_trees.each_with_index do |domain, index|
-          tree = Subtree.json_each_after(domain.to_json)
+          tree = Subtree.json_to_ternarised_and_listified_treenodes(domain.to_json)
           yield_mptt_values(tree, index) do |vals, name|
             new_habit = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
             habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
@@ -87,7 +87,6 @@ module Hht
             end
           end
         end
-        # binding.pry
       end
 
       { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
@@ -129,9 +128,9 @@ module Hht
       end
       
       get '/domain/:id/habit_tree' do |id|
-        tree = domain_list_as_json(yaml_container .relations .domains, id.to_i)
+        tree = domain_list_as_json(yaml_container .relations .domains, id.to_i).to_json
         status 200
-        Subtree.json_each_after(tree.to_json).to_json # This 'ternarises' the return tree
+        Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json # This 'ternarises' the return tree
       end
 
       [:post, :put, :patch, :delete].each do |method|
@@ -222,7 +221,7 @@ module Hht
         
         if(demo)
           # This contains all json habit trees for all domains, referenced by @habits
-          tree = domain_list_as_json(yaml_container.relations.domains, dom_id)
+          tree = domain_list_as_json(yaml_container.relations.domains, dom_id).to_json
         else
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.first.id
@@ -231,10 +230,8 @@ module Hht
             return status 404
           end
         end
-        binding.pry
-
         status 200
-        demo ? (json Subtree.json_each_after(tree.to_json)) : (json Subtree.as_json(tree))
+        demo ? (json Subtree.each_after_json_to_treenodes(tree)) : tree.to_d3_json
       end
 
       post '' do
@@ -245,7 +242,7 @@ module Hht
       get '/:root_id' do |root_id|
         tree = Subtree.generate(root_id)
         status tree ? 404 : 200
-        json Subtree.as_json(tree)
+        tree.to_d3_json
       end
     end
 
