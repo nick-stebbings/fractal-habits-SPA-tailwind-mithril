@@ -6,9 +6,8 @@ import ListCard from '../layout/ListCard.jsx';
 const HabitList = function () {
   return {
     view: () => (
-      <div class="h-100 w-full flex items-center justify-center bg-gray-100 font-sans">
-        {/* Tailwind TodoList Component originally by nickjbasile */}
-        <div class="bg-white p-6 rounded w-full">
+      <div class="p-6">
+          {/* Tailwind TodoList Component originally by nickjbasile */}
           <div class="mb-4">
             <h2 class="text-grey-darkest">
               Current Habits for{" "}
@@ -31,7 +30,6 @@ const HabitList = function () {
             HabitStore.list().map((habit) => m(ListCard, { value: habit }))
           )}
         </div>
-      </div>
     ),
   };
 };
