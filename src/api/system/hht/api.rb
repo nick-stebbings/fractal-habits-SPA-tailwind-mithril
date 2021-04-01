@@ -129,9 +129,7 @@ module Hht
       end
       
       get '/domain/:id/habit_tree' do |id|
-        tree = domain_list_as_json(yaml_container
-        .relations
-        .domains)
+        tree = domain_list_as_json(yaml_container .relations .domains, id.to_i)
         status 200
         Subtree.json_each_after(tree.to_json).to_json # This 'ternarises' the return tree
       end
@@ -220,12 +218,11 @@ module Hht
         tree = nil
         demo = params[:demo] == 'true'
         dom_id = params[:domain_id].to_i
-        date_id = params[:date].to_i
+        date_id = params[:date_id].to_i
         
         if(demo)
           # This contains all json habit trees for all domains, referenced by @habits
           tree = domain_list_as_json(yaml_container.relations.domains, dom_id)
-          binding.pry
         else
           if(habit_node_repo.root_node.exist?)
             root_id = habit_node_repo.root_node.first.id
@@ -234,6 +231,7 @@ module Hht
             return status 404
           end
         end
+        binding.pry
 
         status 200
         demo ? (json Subtree.json_each_after(tree.to_json)) : (json Subtree.as_json(tree))

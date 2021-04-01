@@ -2,8 +2,11 @@
 
 module Entities
   class HabitNode < ROM::Struct
+    # include Hht::Import[
+    #   'repos.habit_date_repo', 
+    #   'repos.habit_repo', 
+    # ] FIGURE THIS OUT
     attr_reader :attributes
-
     require 'tree'
 
     def initialize(attributes)
@@ -15,12 +18,6 @@ module Entities
     end
 
     def to_tree_node
-      Tree::TreeNode.new(attributes[:id].to_s, "L#{attributes[:lft]}R#{attributes[:rgt]}")
-    end
-
-    def to_habit_tree_node
-      habit = habits.habit_for_habit_node(attributes[:id].to_i)
-      completed_status = 
       Tree::TreeNode.new(attributes[:id].to_s, "L#{attributes[:lft]}R#{attributes[:rgt]}")
     end
   end

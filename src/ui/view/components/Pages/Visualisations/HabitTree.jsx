@@ -4,6 +4,7 @@ import { debounce, d3SetupCanvas, redraw } from '../../../../assets/scripts/util
 
 import TreeStore from '../../../../store/habit-tree-store.js';
 import DomainStore from '../../../../store/domain-store.js';
+import DateStore from '../../../../store/date-store.js';
 
 import '../../../../assets/styles/components/d3vis.scss';
 
@@ -161,7 +162,7 @@ const HabitTree = function () {
     type: 'vis',
     oninit: ({ attrs }) => {
       const oldWindowWidth = stream(window.innerWidth);
-      TreeStore.index(demoData, DomainStore.current().id)
+      TreeStore.index(demoData, DomainStore.current().id, (DateStore.current().id || 31))
         .then(() => {
           svg && render(svg, canvasWidth, canvasHeight);
         });;

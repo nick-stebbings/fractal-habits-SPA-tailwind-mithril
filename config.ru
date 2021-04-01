@@ -1,4 +1,4 @@
-#\ -s Puma -p 7001
+#\ -s Puma -p 3001
 # frozen_string_literal: true
 
 require_relative 'src/api/system/boot'

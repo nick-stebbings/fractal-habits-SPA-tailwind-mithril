@@ -15,7 +15,7 @@ class Subtree
     def generate(root_id, repo, dom_id, date_id)
       nodes_array = repo.map_node_and_descendants_to_struct_nodes(root_id).to_a
       root_node = nodes_array.shift
-      Subtree.new(root_node.to_tree_node, nodes_array).build_from_tuples
+      Subtree.new(root_node.to_tree_node, nodes_array).build_from_tuples(date_id, repo)
     end
 
     def as_json(tree)
@@ -100,16 +100,24 @@ class Subtree
       end
       next_nodes.first
     end
+
+    def to_tree_node_with_habit_status(node, date_id, repo)
+      id = node.attributes[:id].to_i
+      habit_id = repo.habits.habit_for_habit_node(id).exist? ? repo.habits.habit_for_habit_node(id).one.id : nil
+      completed_status = habit_id && repo.habit_dates.completed_status_for_query(date_id, habit_id)
+      a = Tree::TreeNode.new(id.to_s, "L#{node.attributes[:lft]}R#{node.attributes[:rgt]}-#{completed_status}")
+      binding.pry
+    end
   end
 
-  def build_from_tuples
+  def build_from_tuples(date_id, repo)
     root_id = root_node.name.to_s
     node_dict = { root_id => root_node }
 
     @descendant_nodes.each do |node, _idx|
       id = node.id
       parent_id = node.parent_id
-      new_tree_node = node.to_tree_node
+      new_tree_node = Subtree.to_tree_node_with_habit_status(node, date_id, repo)
       node_dict[id.to_s] = new_tree_node
       (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
     end

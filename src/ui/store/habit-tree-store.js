@@ -6,19 +6,20 @@ const basePath = '/habit_trees';
 
 const TreeStore = {
   showAll: clientRoutes(basePath).show_all,
-  showAllForDomain: function(domainId) {
-    return clientRoutes(`/demo/domain/${domainId}/habit_tree`).show_all
+  showAllForDomain: function (domainId, dateId) {
+    return clientRoutes(`/demo/domain/${domainId}/habit_tree?date_id=${dateId}`)
+      .show_all;
   },
 
   current: stream({}),
-  root: stream(hierarchy({name: '', children: ''})),
+  root: stream(hierarchy({ name: "", children: "" })),
 
   clear: () => {
     TreeStore.current = stream({});
   },
 
-  index: (isDemo, domainId) => {
-    return TreeStore.get(isDemo, domainId)
+  index: (isDemo, domainId, dateId) => {
+    return TreeStore.getForDomainDate(isDemo, domainId, dateId)
       .then((response) => hierarchy(response.data))
       .then(TreeStore.root)
       .then((err) => {
@@ -27,16 +28,18 @@ const TreeStore = {
   },
 
   get: (useDemoData, domainId) => {
-    if (useDemoData) {
-      console.log(
-        'DEMO'
-      );
-      return clientRoutes(`/habit_trees?demo=true&domain_id=${domainId}`).show_all();
-    }
-    return TreeStore.showAll().catch(handleErrorType);
   },
-  getForDomain: (domainId) => {
-    return TreeStore.showAllForDomain(domainId)().catch(handleErrorType);
+
+  getForDomainDate: (useDemoData, domainId, dateId) => {
+    console.log(useDemoData, 'DEMO?');
+    if (!useDemoData) {
+      return clientRoutes(
+        `/habit_trees?domain_id=${domainId}&date_id=${dateId}`
+      ).show_all();
+    }
+    return TreeStore.showAllForDomain(domainId, dateId)().catch(
+      handleErrorType
+    );
   },
 };
 export default TreeStore;

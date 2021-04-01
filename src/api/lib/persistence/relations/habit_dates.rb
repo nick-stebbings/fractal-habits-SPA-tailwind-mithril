@@ -14,8 +14,9 @@ module Persistence
         end
       end
 
-      def all
-        habit_dates.to_a
+      def completed_status_for_query(date_id, habit_id)
+        result = where({date_id: date_id, habit_id: habit_id})
+        result.exist? ? result.one.completed_status : nil
       end
     end
   end
