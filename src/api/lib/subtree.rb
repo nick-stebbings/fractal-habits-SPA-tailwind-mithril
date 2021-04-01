@@ -105,6 +105,7 @@ class Subtree
   def build_from_tuples
     root_id = root_node.name.to_s
     node_dict = { root_id => root_node }
+
     @descendant_nodes.each do |node, _idx|
       id = node.id
       parent_id = node.parent_id
@@ -112,6 +113,7 @@ class Subtree
       node_dict[id.to_s] = new_tree_node
       (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
     end
+
     @root_node = node_dict[root_id]
   end
 end

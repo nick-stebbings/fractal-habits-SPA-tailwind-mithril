@@ -6,7 +6,7 @@ const ListCard = {
       <p class="w-full text-grey-darkest">{value.description}</p>
       </div>
       <div className="button-group">
-        <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">
+        <button class="parent-select-button flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">
           Select Parent
         </button>
       </div>

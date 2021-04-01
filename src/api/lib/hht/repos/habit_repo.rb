@@ -49,6 +49,14 @@ module Hht
           .where{ !habit_node.nil? }
       end
 
+      def join_habit_nodes_on_habit_node_id
+        habits.join(:habit_nodes, id: :habit_node_id)
+      end
+
+      def habit_for_habit_node(habit_node_id)
+        join_habit_nodes_on_habit_node_id.where(habit_node_id:habit_node_id)
+      end
+
       def habit_dates_with_status_completion(completed_string)
         habit_dates.join(habits).select(:habit_id, :date_id).where(completed_status: completed_string)
       end

@@ -6,7 +6,7 @@ import HabitList from './HabitList.jsx';
 
 const CreateHabit = {
   view: () =>
-    m("main#habit-create-form", [
+    m("main#append-habit", [
       m(MainSubSection, { heading: "1: Choose a habit to be the parent"}, m(HabitList)),
       m(MainSubSection, { heading: "2: Fill in habit details"}, m(CreateForm, {
         addHeader: false,

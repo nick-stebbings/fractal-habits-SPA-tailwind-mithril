@@ -108,8 +108,8 @@ module Hht
       domain = domain_relation
         .by_id(index)
         { 
-          name: domain.name,
-          children: domain[:habits]
+          name: domain[:habits][0][:name],
+          children: domain[:habits][0][:children]
         }
     end
 
@@ -129,18 +129,11 @@ module Hht
       end
       
       get '/domain/:id/habit_tree' do |id|
-        domain = yaml_container
+        tree = domain_list_as_json(yaml_container
         .relations
-        .domains
-        .to_a[id.to_i]
-        
-        tree = { 
-          name: domain.name,
-          children: domain[:habits]
-        }
-        
+        .domains)
         status 200
-        Subtree.json_each_after(tree.to_json).to_json
+        Subtree.json_each_after(tree.to_json).to_json # This 'ternarises' the return tree
       end
 
       [:post, :put, :patch, :delete].each do |method|
@@ -218,8 +211,8 @@ module Hht
         end
       end
 
-      # Get root node tree. PARAMS: 
-        # query string parameters
+      # Get root node tree for domain for specific date
+      # PARAMS from query string parameters
         # @demo to indicate if to read from YAML memory
         # @dom_id to restrict domain
         # @date_id to restrict date
@@ -241,7 +234,6 @@ module Hht
             return status 404
           end
         end
-        # binding.pry
 
         status 200
         demo ? (json Subtree.json_each_after(tree.to_json)) : (json Subtree.as_json(tree))
