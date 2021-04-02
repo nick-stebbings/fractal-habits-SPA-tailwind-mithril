@@ -31,14 +31,14 @@ class Subtree
     root_id = root_node.name.to_s
     node_dict = { root_id => root_node }
 
-    @descendant_nodes.each do |node, _idx|
-      id = node.id
-      parent_id = node.parent_id
-
-      new_tree_node = node.to_tree_node_with_habit_status(date_id)
-      node_dict[id.to_s] = new_tree_node
-      (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
-    end
+    @descendant_nodes.select{ |n| n.has_habit_node? } # Reject nodes not linked to a habit
+      .each do |node, _idx|
+        id = node.id
+        parent_id = node.parent_id
+        new_tree_node = node.to_tree_node_with_habit_status(date_id)
+        node_dict[id.to_s] = new_tree_node
+        (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
+      end
 
     @root_node = node_dict[root_id]
     self
@@ -61,10 +61,9 @@ class Subtree
   end
 
   class << self
-    # Generates a Tree::TreeNode root node based on SQL tuples
+    # Generates a Tree::TreeNode root node from tuples
     def generate(root_id, date_id)
       nodes = @@node_repo.map_node_and_descendants_to_struct_nodes(root_id)
-      binding.pry
       return nil if nodes.nil?
 
       nodes_array = nodes.to_a
@@ -82,7 +81,7 @@ class Subtree
 
         if (!children.empty?)
           if(children.size > lower_list_limit)
-            node.replace_with(listify(node,children))
+            node.replace_with(listify(node, children))
           elsif(children.size > 3)
             node.parent ? node.replace_with(ternarise(node, children)) : node 
           end

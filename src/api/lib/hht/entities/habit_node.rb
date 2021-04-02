@@ -12,7 +12,7 @@ module Entities
       @lft = attributes[:lft]
       @rgt = attributes[:rgt]
       @id = attributes[:id].to_i
-      @habit_id = @@habit_repo.habit_for_habit_node(id).exist? ? @@habit_repo.habit_for_habit_node(id).one.id : nil
+      @habit_id = has_habit_node? && @@habit_repo.habit_for_habit_node(id).one.id
     end
 
     def to_s
@@ -26,6 +26,10 @@ module Entities
     def to_tree_node_with_habit_status(date_id)
       completed_status = habit_id && @@habit_date_repo.completed_status_for_query(date_id, habit_id)
       Tree::TreeNode.new(id.to_s, "L#{lft}R#{rgt}-#{completed_status}")
+    end
+    
+    def has_habit_node?
+      @@habit_repo.habit_for_habit_node(id).exist?
     end
   end
 end
