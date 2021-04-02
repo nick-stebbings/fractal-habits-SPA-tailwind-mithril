@@ -20,6 +20,14 @@ module Yamldemo
       def without_habit_trees
         domains.to_a.map{|d| d.to_h.select { |k, v| (k== :id )||(k== :name ) }}
       end
+      
+      def as_json(id)
+        domain = by_id(id)
+        { 
+          name: domain[:habits][0][:name],
+          children: domain[:habits][0][:children]
+        }
+      end
     end
   end
 end

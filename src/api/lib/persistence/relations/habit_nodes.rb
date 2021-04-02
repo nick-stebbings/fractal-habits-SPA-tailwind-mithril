@@ -19,7 +19,29 @@ module Persistence
       end
 
       def all
-        habit_nodes.to_a
+        to_a
+      end
+
+      def all_ordered_left
+        habit_nodes.order(:lft)
+      end
+
+      def root_node
+        where(parent_id: nil)
+      end
+
+      def root_id_of_domain(domain_id)
+        join(:habits, habit_node_id: :id)
+          .root_node
+          .where(domain_id: domain_id)
+      end
+
+      def root_node_children
+        children_of_parent(root_node)
+      end
+
+      def children_of_parent(parent_id)
+        where(parent_id: parent_id)
       end
     end
   end

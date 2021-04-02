@@ -2,15 +2,17 @@
 
 module Entities
   class HabitNode < ROM::Struct
-    # include Hht::Import[
-    #   'repos.habit_date_repo', 
-    #   'repos.habit_repo', 
-    # ] FIGURE THIS OUT
-    attr_reader :attributes
+    attr_reader :attributes, :lft, :rgt, :habit_id, :completed_status
+    @@habit_repo =  Hht::Container.resolve('repos.habit_repo')
+    @@habit_date_repo =  Hht::Container.resolve('repos.habit_date_repo')
     require 'tree'
 
     def initialize(attributes)
       @attributes = attributes
+      @lft = attributes[:lft]
+      @rgt = attributes[:rgt]
+      @id = attributes[:id].to_i
+      @habit_id = @@habit_repo.habit_for_habit_node(id).exist? ? @@habit_repo.habit_for_habit_node(id).one.id : nil
     end
 
     def to_s
@@ -18,7 +20,12 @@ module Entities
     end
 
     def to_tree_node
-      Tree::TreeNode.new(attributes[:id].to_s, "L#{attributes[:lft]}R#{attributes[:rgt]}")
+      Tree::TreeNode.new(id.to_s, "L#{lft}R#{rgt}")
+    end
+    
+    def to_tree_node_with_habit_status(date_id)
+      completed_status = habit_id && @@habit_date_repo.completed_status_for_query(date_id, habit_id)
+      Tree::TreeNode.new(id.to_s, "L#{lft}R#{rgt}-#{completed_status}")
     end
   end
 end

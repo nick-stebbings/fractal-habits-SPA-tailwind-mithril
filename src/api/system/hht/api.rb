@@ -69,7 +69,7 @@ module Hht
         habit_nodes_list = []
         domains.to_habit_trees.each_with_index do |domain, index|
           tree = Subtree.json_to_ternarised_and_listified_treenodes(domain.to_json)
-          yield_mptt_values(tree, index) do |vals, name|
+          tree.yield_d3_values(index) do |vals, name|
             new_habit = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
             habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
             found = habit_list.find { |habit| habit[:name] == name}
@@ -92,25 +92,6 @@ module Hht
       { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
     end
 
-    def yield_mptt_values(node, domain_index)
-      left_counter = 1
-      node.preordered_each do |n, i|
-        lft = left_counter
-        rgt = (n.size == 1 ? (lft + 1) : (lft + 2 * n.size - 1))
-        left_counter = n.size == 1 ? (left_counter + 2) : (left_counter + 1)
-        yield({id: i, lft: lft, rgt: rgt}, n.name) if block_given?
-        n.content = {id: "L#{lft}-R#{rgt}-D#{domain_index}", value: n.content, completed_status: 'f', level: n.node_depth}.to_json if block_given?
-      end
-    end
-
-    def domain_list_as_json(domain_relation, index)
-      domain = domain_relation
-        .by_id(index)
-        { 
-          name: domain[:habits][0][:name],
-          children: domain[:habits][0][:children]
-        }
-    end
 
     namespace '/api' do
       [:get, :post, :put, :patch, :delete].each do |method|
@@ -128,7 +109,7 @@ module Hht
       end
       
       get '/domain/:id/habit_tree' do |id|
-        tree = domain_list_as_json(yaml_container .relations .domains, id.to_i).to_json
+        tree = yaml_container.relations.domains.as_json(id.to_i).to_json
         status 200
         Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json # This 'ternarises' the return tree
       end
@@ -223,15 +204,15 @@ module Hht
           # This contains all json habit trees for all domains, referenced by @habits
           tree = domain_list_as_json(yaml_container.relations.domains, dom_id).to_json
         else
-          if(habit_node_repo.root_node.exist?)
-            root_id = habit_node_repo.root_node.first.id
-            tree= Subtree.generate(root_id, habit_node_repo, dom_id, date_id) #modify method(TODO)
+          root_node = habit_node_repo.root_id_of_domain(dom_id)
+          if(root_node.exist?)
+            tree= Subtree.generate(root_node.id, date_id)
           else
             return status 404
           end
         end
         status 200
-        demo ? (json Subtree.each_after_json_to_treenodes(tree)) : tree.to_d3_json
+        demo ? Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json : tree.to_d3_json
       end
 
       post '' do
@@ -240,9 +221,10 @@ module Hht
 
       # Get subtree by root node id
       get '/:root_id' do |root_id|
-        tree = Subtree.generate(root_id)
-        status tree ? 404 : 200
-        tree.to_d3_json
+        date_id = params[:date_id].to_i
+        tree = Subtree.generate(root_id, date_id)
+        status tree ? 200 : 404
+        return tree.to_d3_json if tree
       end
     end
 

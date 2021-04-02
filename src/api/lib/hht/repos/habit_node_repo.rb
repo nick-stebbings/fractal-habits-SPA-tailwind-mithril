@@ -45,22 +45,6 @@ module Hht
         { :habit_nodes => habit_nodes.all }.to_json
       end
 
-      def all_ordered_left
-        habit_nodes.order(:lft)
-      end
-
-      def root_node
-        query(parent_id: nil)
-      end
-
-      def root_node_children
-        children_of_parent(root_node)
-      end
-
-      def children_of_parent(parent_id)
-        habit_nodes.where(parent_id: parent_id)
-      end
-
       def restrict_on_id_combine_with_domain(id) # WORKING?
         habit_nodes.combine(:domains).by_pk(id)
       end
@@ -161,7 +145,6 @@ module Hht
 
       # Making the adjustments to 'further right' nodes on :add/:del operations
       def modify_nodes_after(rgt_val, operation, parent_id)
-
         mptt_queries(rgt_val).each do |node_set|
           # Size of 1 means there is no meaningful data, so skip
           mptt_node_adjust!(node_set, operation) unless node_set.size == 1

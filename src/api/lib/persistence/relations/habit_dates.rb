@@ -13,11 +13,6 @@ module Persistence
           belongs_to :habit
         end
       end
-
-      def completed_status_for_query(date_id, habit_id)
-        result = where({date_id: date_id, habit_id: habit_id})
-        result.exist? ? result.one.completed_status : nil
-      end
     end
   end
 end

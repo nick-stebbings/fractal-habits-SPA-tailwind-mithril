@@ -26,7 +26,7 @@ module Hht
           if parent_id.nil? # i.e. it is a new root node
             Success(habit_node_repo.habit_nodes.insert(root_node_attributes))
           else
-            siblings = habit_node_repo.children_of_parent(parent_id).to_a
+            siblings = habit_node_repo.habit_nodes.children_of_parent(parent_id).to_a
             # Find siblings to append after, else append after parent.
             rgt = !siblings.empty? ? siblings.last.rgt :  (habit_node_repo.by_id(parent_id).one.rgt - 1)
             modified = habit_node_repo.modify_nodes_after(rgt, :add, parent_id)

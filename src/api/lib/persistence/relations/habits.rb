@@ -22,10 +22,6 @@ module Persistence
       def all
         habits.to_a
       end
-
-      def habit_for_habit_node(habit_node_id)
-        join(:habit_nodes, id: :habit_node_id).where(habit_node_id: habit_node_id)
-      end
     end
   end
 end
