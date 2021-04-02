@@ -136,6 +136,7 @@ const HabitTree = function () {
   }
 
   // TODO:  Figure out how to stop the second API call on the non-demo trees
+  //        Zoom snap to the head of each ternary tree
   function zooms(...args) {
     var event = args[0];
     var transform = event.transform; 
@@ -144,19 +145,17 @@ const HabitTree = function () {
     bbound = canvasHeight * scale,
     lbound = (-canvasWidth) * scale,
     rbound = (canvasWidth) * scale;
-    // console.log(lbound, 'lbound');
-    // console.log(rbound, 'rbound');
-  // limit translation to thresholds
-  var currentTranslation = [margin.left + canvasWidth / 2, margin.top]
-  var translation = [
-    currentTranslation[0] + Math.max(Math.min(transform.x, rbound), lbound),
-    currentTranslation[1] + Math.max(Math.min(transform.y, bbound), tbound),
-  ];
-  select(".canvas").attr(
-    "transform",
-    "translate(" + translation + ")" + " scale(" + scale + ")"
-  );
-}
+
+    var currentTranslation = [margin.left + canvasWidth / 2, margin.top]
+    var translation = [
+      currentTranslation[0] + Math.max(Math.min(transform.x, rbound), lbound),
+      currentTranslation[1] + Math.max(Math.min(transform.y, bbound), tbound),
+    ];
+    select(".canvas").attr(
+      "transform",
+      "translate(" + translation + ")" + " scale(" + scale + ")"
+    );
+  }
 
   return {
     type: 'vis',
@@ -166,10 +165,7 @@ const HabitTree = function () {
         .then(() => {
           svg && render(svg, canvasWidth, canvasHeight);
         });;
-      // !svg && TreeStore.get(demoData, String(+DomainStore.current().id - 1))
-      //   .then((response) => hierarchy(response.data))
-      //   .then(root)
-      //   .then(() => { svg && render(svg, canvasWidth, canvasHeight)});
+
         window.onresize = debounce((e) => {
           let factor = 1 - 1 / (window.innerWidth / oldWindowWidth());
           // console.log(factor, "f");
@@ -179,7 +175,6 @@ const HabitTree = function () {
     },
     oncreate: ({ attrs }) => {
       const domainSelector = document.getElementById("domain-selector");
-
       svg = select(`div#${attrs.divId}`)
         .classed("h-screen", true)
         .classed("w-full", true)
@@ -191,11 +186,6 @@ const HabitTree = function () {
 
 
       render(svg, canvasWidth, canvasHeight);
-
-      domainSelector.addEventListener('change', (e) => {
-        // Update domain reference
-        selectedDomain(String(e.target.selectedIndex));
-      });
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">

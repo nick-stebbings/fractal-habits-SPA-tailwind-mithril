@@ -65,6 +65,7 @@ module Hht
           end
         end
 
+        tree = nil
         habit_node_id = 1
         habit_nodes_list = []
         domains.to_habit_trees.each_with_index do |domain, index|
@@ -75,7 +76,6 @@ module Hht
             found = habit_list.find { |habit| habit[:name] == name}
             next unless found
             found[:habit_node_id] = habit_node_id
-            
             habit_node_id += 1
           end
         end
@@ -89,7 +89,7 @@ module Hht
         end
       end
 
-      { nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
+      { tree: tree, nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
     end
 
 
@@ -109,9 +109,10 @@ module Hht
       end
       
       get '/domain/:id/habit_tree' do |id|
-        tree = yaml_container.relations.domains.as_json(id.to_i).to_json
+        tree = populate_yaml_relations(params['tracking_length'].to_i)[:tree].to_json
         status 200
-        Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json # This 'ternarises' the return tree
+        # Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json # This 'ternarises' the return tree
+        tree.to_json
       end
 
       [:post, :put, :patch, :delete].each do |method|

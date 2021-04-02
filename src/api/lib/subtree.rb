@@ -11,8 +11,8 @@ class Tree::TreeNode
       lft = left_counter
       rgt = (n.size == 1 ? (lft + 1) : (lft + 2 * n.size - 1))
       left_counter = n.size == 1 ? (left_counter + 2) : (left_counter + 1)
-      yield({id: i, lft: lft, rgt: rgt}, n.name) if block_given?
-      n.content = {id: "L#{lft}-R#{rgt}-D#{domain_index}", value: n.content, completed_status: 'f', level: n.node_depth}.to_json if block_given?
+      n.content = {id: "L#{lft}-R#{rgt}-D#{domain_index}", completed_status: 'f', level: n.node_depth} if block_given?
+      yield({id: i, lft: lft, rgt: rgt}, n.name, n.content) if block_given?
     end
   end
 end
@@ -77,8 +77,8 @@ class Subtree
     # Perform a 'ternarising' iteration on a json_tree
     def json_to_ternarised_and_listified_treenodes(json_tree, lower_list_limit = DEFAULT_MIN_LIST_LENGTH)
       each_after_json_to_treenodes(json_tree) do |node|
-        children = node.content
-
+        children = node.content[:children]
+        next if children.nil?
         if (!children.empty?)
           if(children.size > lower_list_limit)
             node.replace_with(listify(node, children))
@@ -116,7 +116,7 @@ class Subtree
     def each_after_json_to_treenodes(json_tree, parent = nil)
       hash_node = JSON.parse(json_tree)
       # Create a new parent node and store the JSON as 'content' in the TreeNode
-      node = Tree::TreeNode.new(hash_node['name'], hash_node['children'])
+      node = Tree::TreeNode.new(hash_node['name'], {value: hash_node['content'], children: hash_node['children']})
 
       nodes = [node]
       next_nodes = []
@@ -124,13 +124,13 @@ class Subtree
       # Map ALL json nodes to singleton TreeNodes
       while (node = nodes.pop())
         next_nodes.push(node)
-        if (node.content && (children = node.content) && !children.empty?)
-          children.each { |child| nodes.push(Tree::TreeNode.new(child['name'], child['children']))}
+        if ((node.content['children'] || node.content[:children]) && (children = (node.content['children'] || node.content[:children])) && !children.empty?)
+          children.each { |child| nodes.push(Tree::TreeNode.new(child['name'], {value: '', children: child['children']}))}
         end
       end
 
       next_nodes.sort_by{ |node| node.name.to_i }.each do |node|
-        node.content && node.content.each do |child|
+        (node.content['children'] || node.content[:children]) && (node.content['children'] || node.content[:children]).each do |child|
           node << next_nodes.find{ |next_child| child['name'] == next_child.name }
         end
         yield node if block_given?

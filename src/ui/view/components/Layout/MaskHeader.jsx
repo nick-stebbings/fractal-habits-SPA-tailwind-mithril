@@ -1,4 +1,5 @@
 // src/view/components/Layout/MaskHeader.jsx
+import stream from "mithril/stream";
 
 import DomainStore from '../../../store/domain-store';
 import HabitStore from '../../../store/habit-store';
@@ -10,51 +11,96 @@ import DropdownNav from './Nav/DropdownNav.jsx';
 import MenuRoutes from '../../../menu-routes';
 
 import '../../../assets/styles/components/MaskHeader.scss';
+function sanitiseForDataList(date) {
+  return typeof date === "object" && typeof date.h_date === "string"
+    ? date.h_date.split(" ")[0]
+    : new Date().toDateInputValue();
+};
 
 const MaskHeader = function () {
   let maxDate;
-  let currentDateIndex = -1;
+  let currentDateIndex;
+  const availableDatesForCurrentHabit = stream();
+  const selectedDateOption = stream();
 
   return {
     onupdate: () => {
       document.getElementById("date-today").value = DateStore.currentDate();
+    const dateDataList = document.getElementById("current-habit-date-list");
+    [...dateDataList.options].slice(-1)[0].setAttribute("selected", "true");
+    availableDatesForCurrentHabit(
+      DateStore.filterForHabit(HabitStore.current())
+    );
     },
     oncreate: () => {
-      const domainSelector = document.getElementById('domain-selector');
+      currentDateIndex = -1;
+      const domainSelector = document.getElementById("domain-selector");
       const selectedHabitLabel = document.querySelector(
-        '#current-habit ~ span',
+        "#current-habit ~ span"
       );
-      const nextDate = document.getElementById("next-date-selector");
-      const prevDate = document.getElementById("prev-date-selector");
-
-      domainSelector.addEventListener('change', (e) => {
+      domainSelector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+        availableDatesForCurrentHabit(
+          DateStore.filterForHabit(HabitStore.current())
+        );
         selectedHabitLabel.value = HabitStore.current();
-        console.log(HabitStore.current(), 'hacbsu');
-        m.redraw()
+        m.redraw();
       });
 
-      prevDate.addEventListener("click", () => {
-        DateStore.current(
-          currentDateIndex === -DateStore.list().length
-            ? DateStore.list()[0]
-            : DateStore.list().slice(--currentDateIndex)[0]
+      const nextDate = document.getElementById("next-date-selector");
+      const prevDate = document.getElementById("prev-date-selector");
+      const dateDataList = document.getElementById("current-habit-date-list");
+
+      const availableDatesForSelector = stream(
+        Array.from(dateDataList.options)
+      );
+      console.log(
+        availableDatesForCurrentHabit(),
+        'availableDatesForCurrentHabit()'
+      );
+      console.log(
+        HabitStore.current(),
+        'availableDatesForCurrentHabit()'
+      );
+      function adjustDateOptions(direction) {
+        selectedDateOption(
+          availableDatesForSelector().slice(currentDateIndex)[0]
         );
-        m.redraw();
+        selectedDateOption().setAttribute("selected", "");
+        direction === "forwards" ? currenDateIndex++ : currentDateIndex--;
+        selectedDateOption(
+          availableDatesForSelector().slice(currentDateIndex)[0]
+        );
+        selectedDateOption().setAttribute("selected", "true");
+        console.log(selectedDateOption());
+        let currentDateId = selectedDateOption()
+          .getAttribute("name")
+          .split("-")
+          .slice(-1)[0];
+        DateStore.current(DateStore.filterById(currentDateId)[0]);
+      };
+      prevDate.addEventListener("click", () => {
+        console.log("currenr", -(availableDatesForSelector().length));
+        console.log('currenr', currentDateIndex);
+        if(currentDateIndex > -(availableDatesForSelector().length)) {
+          // If we are not on the first available date
+          adjustDateOptions("backwards");
+        } 
       });
       nextDate.addEventListener("click", () => {
-        DateStore.current(
-          currentDateIndex === -1
-            ? DateStore.list().slice(currentDateIndex)[0]
-            : DateStore.list().slice(++currentDateIndex)[0]
-        );
-        m.redraw();
+        console.log(currentDateIndex);
+        if(currentDateIndex < -1) {
+          // If we are not on the last available date
+          adjustDateOptions('forwards')
+        }
       });
     },
     view: () => (
       <div className="mask-wrapper">
-        <header className={m.route.param("demo") ? 'bg-gray-600' : 'bg-balance-dp'}>
+        <header
+          className={m.route.param("demo") ? "bg-gray-600" : "bg-balance-dp"}
+        >
           <div
             id="responsive-nav"
             className="md:h-12 md:px-2 lg:px-0 flex items-center justify-between h-16 px-4"
@@ -62,9 +108,9 @@ const MaskHeader = function () {
             {m(
               m.route.Link,
               {
-                selector: 'span',
-                href: '/',
-                class: 'block h-10 logo md:h-8',
+                selector: "span",
+                href: "/",
+                class: "block h-10 logo md:h-8",
               },
               <svg
                 id="logo"
@@ -75,7 +121,7 @@ const MaskHeader = function () {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M15.34,45.5C8.26,45.5,2.5,39.74,2.5,32.66s5.76-12.84,12.84-12.84h1.31v8.37l-1.31,0c-2.47,0-4.47,2.01-4.47,4.47  c0,2.47,2.01,4.48,4.47,4.48c2.47,0,4.47-2.01,4.47-4.48l0-1.92v-15.4c0-7.08,5.76-12.84,12.84-12.84c7.08,0,12.84,5.76,12.84,12.84  s-5.76,12.84-12.84,12.84h-1.31v-8.37l1.31,0c2.47,0,4.47-2.01,4.47-4.47c0-2.47-2.01-4.47-4.47-4.47c-2.47,0-4.47,2.01-4.47,4.47  l0,1.92v15.4C28.18,39.74,22.42,45.5,15.34,45.5z" />
-              </svg>,
+              </svg>
             )}
             ,
             <div
@@ -113,16 +159,18 @@ const MaskHeader = function () {
                     <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-none border-balance-dg h-full px-6 text-sm bg-white border-2 rounded-full">
                       <span className="text-balance-secondary block w-full pt-2 mx-4 mb-1">
                         {m(
-                          'select.form-select#domain-selector',
+                          "select.form-select#domain-selector",
                           {
                             class:
-                              'w-full text-center lg:w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl',
+                              "w-full text-center lg:w-48 text-lg py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
                           },
-                          DomainStore.list().map((domain, idx) => m(
-                            DomainOption,
-                            { value: domain.name, selected: !idx },
-                            domain.name,
-                          )),
+                          DomainStore.list().map((domain, idx) =>
+                            m(
+                              DomainOption,
+                              { value: domain.name, selected: !idx },
+                              domain.name
+                            )
+                          )
                         )}
                       </span>
                     </div>
@@ -138,13 +186,25 @@ const MaskHeader = function () {
                           className="fa fa-chevron-circle-left pr-1"
                           aria-hidden="true"
                         />
-                        {m('input.form-input', {
-                          class: 'w-full text-xl lg:pt-2 -mr-8 px-2',
-                          type: 'date',
-                          id: 'date-today',
-                          max: maxDate, //#TODO
+                        {m("input.form-input", {
+                          class: "w-full text-xl lg:pt-2 -mr-8 px-2",
+                          type: "date",
+                          id: "date-today",
+                          max: maxDate,
                           value: DateStore.currentDate(),
+                          list: "current-habit-date-list",
                         })}
+                        <datalist id="current-habit-date-list">
+                          {HabitStore.current() &&
+                            availableDatesForCurrentHabit(
+                              DateStore.filterForHabit(HabitStore.current())
+                            ).map((date_element, i) =>
+                              m("option", {
+                                value: sanitiseForDataList(date_element),
+                                name: "date-option-date-id-" + date_element.id
+                              })
+                            )}
+                        </datalist>
                         <i
                           id="next-date-selector"
                           className="fa fa-chevron-circle-right pl-1"
@@ -162,9 +222,7 @@ const MaskHeader = function () {
                       alt=""
                     />
                     <span className="user-nav-label lg:text-balance-lmint sm:px-0 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 px-2 mx-4 font-light">
-                      Your Name Is
-                      {' '}
-                      <span>Dave</span>
+                      Your Name Is <span>Dave</span>
                     </span>
                   </div>
                   <div className="lg:hidden flex flex-col px-4 font-bold tracking-wide">
@@ -182,8 +240,8 @@ const MaskHeader = function () {
                       id={`nav-${route.label.toLowerCase()}`}
                       class={
                         MenuRoutes.selected === route.label
-                          ? 'active'
-                          : 'inactive'
+                          ? "active"
+                          : "inactive"
                       }
                       label={route.label}
                       url={`${route.path}`}

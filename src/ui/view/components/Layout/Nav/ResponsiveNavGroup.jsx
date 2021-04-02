@@ -1,8 +1,8 @@
 import ResponsiveNavLink from './ResponsiveNavLink.jsx';
 
 const ResponsiveNavGroup = {
-  oncreate: () => {
-    document.addEventListener('click', (e) => {
+  oncreate: ({dom}) => {
+    dom.addEventListener('click', (e) => {
       if (e.target.tagName === 'A') {
         // Collapse responsive menu when you click active link
         document.getElementById('hamburger').checked = false;

@@ -88,7 +88,7 @@ const CreateForm = {
             id: "initiation-date",
             name: "initiation-date",
             class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
-            max: maxDate,
+            list: maxDate,
           })
         ),
       ])}

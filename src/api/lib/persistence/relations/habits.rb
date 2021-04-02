@@ -8,6 +8,7 @@ module Persistence
         attribute :name, Types::String
         attribute :description, Types::String
         attribute :domain_id, Types::ForeignKey(:domains)
+        attribute :initiation_date, Types::DateTime
         attribute :habit_node_id, Types::ForeignKey(:habit_nodes)
         primary_key :id
 

@@ -34,6 +34,12 @@ const DateStore = Object.assign(clientRoutes(basePath), {
       })
       .catch(handleErrorType),
 
+  filterForHabit: (habit) =>
+    habit ? DateStore.list().filter((date) => date.h_date >= habit.initiation_date) : [],
+
+  filterById: (dateId) =>
+    DateStore.list().filter((date) => date.id === +dateId),
+
   submit: (attrs) =>
     DateStore.create(attrs)
       .then((response) => {
