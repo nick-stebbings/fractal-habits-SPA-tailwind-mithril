@@ -149,6 +149,7 @@ module Hht
         
         if(demo)
           # This contains all json habit trees for all domains, referenced by @habits
+          binding.pry
           tree = domain_list_as_json(yaml_container.relations.domains, dom_id).to_json
         else
           root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)

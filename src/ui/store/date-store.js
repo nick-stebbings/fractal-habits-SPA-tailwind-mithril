@@ -24,6 +24,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
   },
 
   list: stream([]),
+  listForHabit: stream([]),
 
   index: () =>
     DateStore.show_all()
@@ -38,6 +39,14 @@ const DateStore = Object.assign(clientRoutes(basePath), {
     habit
       ? DateStore.list().filter((date) => date.h_date >= habit.initiation_date)
       : [],
+
+  indexDatesOfHabit: (habit) => {
+    if (typeof habit == undefined) listForHabit([]);
+    DateStore.listForHabit(DateStore.filterForHabit(habit)) &&
+      DateStore.current(
+        DateStore.listForHabit()[DateStore.listForHabit().length - 1]
+      );
+  },
 
   filterById: (dateId) =>
     DateStore.list().filter((date) => date.id === +dateId),

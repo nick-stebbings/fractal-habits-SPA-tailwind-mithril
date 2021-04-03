@@ -1,3 +1,4 @@
+require 'pry'
 class YAMLStore
   attr_reader :domains, :habits, :dates, :habit_dates, :habit_nodes
   @@yaml = Hht::Container.resolve('yaml.yaml_container')
@@ -35,7 +36,7 @@ class YAMLStore
         habit_names = domain.habits.to_s.scan(/:name=>"(.*?)"/) #.gsub(/(\\|\\n|\\t)/, '')
         
         domain_habit_lists << habit_names.each_with_object([]) do |habit_name, list|
-          habit = { id: habit_id, domain_id: domain.id, name: habit_name.first }
+          habit = { id: habit_id, domain_id: domain.id, name: habit_name.first, initiation_date: (Date.today - days_to_track - 1) }
           list << habit
           habit_list << habit
           habits.insert(habit)
