@@ -1,8 +1,8 @@
-import stream from 'mithril/stream';
-import {hierarchy} from 'd3';
-import { clientRoutes, handleErrorType } from './client';
+import stream from "mithril/stream";
+import { hierarchy } from "d3";
+import { clientRoutes, handleErrorType } from "./client";
 
-const basePath = '/habit_trees';
+const basePath = "/habit_trees";
 
 const TreeStore = {
   showAll: clientRoutes(basePath).show_all,
@@ -27,11 +27,9 @@ const TreeStore = {
       });
   },
 
-  get: (useDemoData, domainId) => {
-  },
+  get: (useDemoData, domainId) => {},
 
   getForDomainDate: (useDemoData, domainId, dateId) => {
-    console.log(useDemoData, 'DEMO?');
     if (!useDemoData) {
       return clientRoutes(
         `/habit_trees?domain_id=${domainId}&date_id=${dateId}`

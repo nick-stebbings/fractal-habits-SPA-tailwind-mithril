@@ -12,7 +12,6 @@ class YAMLStore
     @habit_nodes = @@yaml.relations.habit_nodes
     @@data = populate_yaml_relations(days_to_track)
     @@ready = true
-    binding.pry
   end
 
   def self.ready
@@ -28,7 +27,6 @@ class YAMLStore
     if @dates.to_a.empty? && habit_dates.to_a.empty? && habit_nodes.to_a.empty?
       date_range = ((Date.today- (days_to_track - 1)) .. Date.today)
       date_structs = date_range.each_with_index { |date, i| @dates.insert({h_date: date, id: i + 1})}
-      binding.pry
       domain_habit_lists = []
       habit_list = []
       habit_id = 1
@@ -68,8 +66,7 @@ class YAMLStore
         end
       end
     end
-    @ready = true
-    { tree: tree, nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
+    @@ready = true
+    @@data = { tree: tree, nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
   end
-
 end

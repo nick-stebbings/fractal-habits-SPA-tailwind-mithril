@@ -1,6 +1,5 @@
-import HoverableLink from './HoverableLink.jsx';
-import DomainStore from '../../../../store/domain-store';
-import HabitStore from '../../../../store/habit-store';
+import HoverableLink from "./HoverableLink.jsx";
+import HabitStore from "../../../../store/habit-store";
 
 const DropdownNav = (function () {
   return {
@@ -9,7 +8,11 @@ const DropdownNav = (function () {
         <div className="nav-container">
           <ul className="nav-links">
             {m.route.param("demo") && (
-              <li id="demo-indicator">In DEMO mode<br />(Read Only)</li>
+              <li id="demo-indicator">
+                In DEMO mode
+                <br />
+                (Read Only)
+              </li>
             )}
             {routes.map((route, index) => (
               <HoverableLink
@@ -35,6 +38,6 @@ const DropdownNav = (function () {
       </nav>
     ),
   };
-}());
+})();
 
 export default DropdownNav;

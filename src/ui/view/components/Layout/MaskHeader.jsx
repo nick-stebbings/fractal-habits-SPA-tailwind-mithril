@@ -1,40 +1,17 @@
 // src/view/components/Layout/MaskHeader.jsx
-import stream from "mithril/stream";
-
 import DomainStore from "../../../store/domain-store";
 import HabitStore from "../../../store/habit-store";
-import DateStore from "../../../store/date-store";
 
 import ResponsiveNavGroup from "./Nav/ResponsiveNavGroup.jsx";
 import DomainOption from "./Nav/DomainOption.jsx";
 import DropdownNav from "./Nav/DropdownNav.jsx";
+import DateSelector from "./Nav/DateSelector.jsx";
 import MenuRoutes from "../../../menu-routes";
 
 import "../../../assets/styles/components/MaskHeader.scss";
-function sanitiseForDataList(date) {
-  return typeof date === "object" && typeof date.h_date === "string"
-    ? date.h_date.split(" ")[0]
-    : new Date().toDateInputValue();
-}
 
 const MaskHeader = function () {
-  let maxDate;
-  let currentDateIndex;
-  const availableDatesForCurrentHabit = stream();
-  const selectedDateOption = stream();
-
   return {
-    oninit: () => {
-      currentDateIndex = -1;
-    },
-    onupdate: () => {
-      document.getElementById("date-today").value = DateStore.currentDate();
-      const dateDataList = document.getElementById("current-habit-date-list");
-      [...dateDataList.options].slice(-1)[0].setAttribute("selected", "true");
-      availableDatesForCurrentHabit(
-        DateStore.filterForHabit(HabitStore.current())
-      );
-    },
     oncreate: () => {
       const domainSelector = document.getElementById("domain-selector");
       const selectedHabitLabel = document.querySelector(
@@ -43,59 +20,9 @@ const MaskHeader = function () {
       domainSelector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        availableDatesForCurrentHabit(
-          DateStore.filterForHabit(HabitStore.current())
-        );
         selectedHabitLabel.value = HabitStore.current();
         m.redraw();
       });
-
-      // const nextDate = document.getElementById("next-date-selector");
-      // const prevDate = document.getElementById("prev-date-selector");
-      // const dateDataList = document.getElementById("current-habit-date-list");
-
-      // const availableDatesForSelector = stream(
-      //   Array.from(dateDataList.options)
-      // );
-      // console.log(
-      //   availableDatesForCurrentHabit(),
-      //   "availableDatesForCurrentHabit()"
-      // );
-      // console.log(HabitStore.current(), "availableDatesForCurrentHabit()");
-      // function adjustDateOptions(direction) {
-      //   selectedDateOption(
-      //     availableDatesForSelector().slice(currentDateIndex)[0]
-      //   );
-      //   selectedDateOption().setAttribute("selected", "");
-      //   direction === "forwards" ? currentDateIndex++ : currentDateIndex--;
-      //   selectedDateOption(
-      //     availableDatesForSelector().slice(currentDateIndex)[0]
-      //   );
-      //   selectedDateOption().setAttribute("selected", "true");
-      //   console.log(selectedDateOption());
-      //   let currentDateId = selectedDateOption()
-      //     .getAttribute("name")
-      //     .split("-")
-      //     .slice(-1)[0];
-      //   let currentDate = selectedDateOption().getAttribute("value");
-      //   DateStore.current(DateStore.filterById(currentDateId)[0]);
-      //   document.getElementById("date-today").value = currentDate;
-      // }
-      // prevDate.addEventListener("click", () => {
-      //   console.log("currenr", -availableDatesForSelector().length);
-      //   if (currentDateIndex > -availableDatesForSelector().length) {
-      //     console.log("currenr", currentDateIndex);
-      //     // If we are not on the first available date
-      //     adjustDateOptions("backwards");
-      //   }
-      // });
-      // nextDate.addEventListener("click", () => {
-      //   console.log(currentDateIndex);
-      //   if (currentDateIndex < -1) {
-      //     // If we are not on the last available date
-      //     adjustDateOptions("forwards");
-      //   }
-      // });
     },
     view: () => (
       <div className="mask-wrapper">
@@ -187,25 +114,7 @@ const MaskHeader = function () {
                           className="fa fa-chevron-circle-left pr-1"
                           aria-hidden="true"
                         />
-                        {m("input.form-input", {
-                          class: "w-full text-xl lg:pt-2 -mr-8 px-2",
-                          type: "date",
-                          id: "date-today",
-                          max: maxDate,
-                          value: DateStore.currentDate(),
-                          list: "current-habit-date-list",
-                        })}
-                        <datalist id="current-habit-date-list">
-                          {HabitStore.current() &&
-                            availableDatesForCurrentHabit(
-                              DateStore.filterForHabit(HabitStore.current())
-                            ).map((date_element, i) =>
-                              m("option", {
-                                value: sanitiseForDataList(date_element),
-                                name: "date-option-date-id-" + date_element.id,
-                              })
-                            )}
-                        </datalist>
+                        <DateSelector></DateSelector>
                         <i
                           id="next-date-selector"
                           className="fa fa-chevron-circle-right pl-1"

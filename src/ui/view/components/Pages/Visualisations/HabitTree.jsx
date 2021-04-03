@@ -3,6 +3,7 @@ import { select, hierarchy, tree, zoom, zoomIdentity } from "d3";
 import {
   debounce,
   d3SetupCanvas,
+  zooms,
   redraw,
 } from "../../../../assets/scripts/utilities";
 
@@ -114,50 +115,22 @@ const HabitTree = function () {
       .style("opacity", "0")
       .text((d) => d.data.name);
     enteringNodes.append("circle").attr("r", 6 * scaleFactor);
-
-    //     var link = gLink.selectAll("path.link")
-    //                 .data(links, function (d) {
-    //                 return d.target.id;
-    //             });
-    //     var linkGen = d3.linkVertical()
-    //       .x(function(d) {
-    //         return d.y;
-    //       })
-    //       .y(function(d) {
-    //         return d.x;
-    //       });
-    // link.enter().insert("path", "g")
-    //         .attr("class", "link")
-    //         .attr("x", dx / 2)
-    //         .attr("y", dy / 2)
-    //         .attr("d", linkGen);
-    //     });
   }
 
   // TODO:  Figure out how to stop the second API call on the non-demo trees
-  //        Zoom snap to the head of each ternary tree
-  function zooms(...args) {
-    var event = args[0];
-    var transform = event.transform;
-    var scale = transform.k,
-      tbound = -canvasHeight * scale,
-      bbound = canvasHeight * scale,
-      lbound = -canvasWidth * scale,
-      rbound = canvasWidth * scale;
-
-    var currentTranslation = [margin.left + canvasWidth / 2, margin.top];
-    var translation = [
-      currentTranslation[0] + Math.max(Math.min(transform.x, rbound), lbound),
-      currentTranslation[1] + Math.max(Math.min(transform.y, bbound), tbound),
-    ];
-    select(".canvas").attr(
-      "transform",
-      "translate(" + translation + ")" + " scale(" + scale + ")"
-    );
-  }
 
   return {
     type: "vis",
+    onupdate: () => {
+      DateStore.current().id &&
+        TreeStore.index(
+          demoData,
+          DomainStore.current().id,
+          DateStore.current().id
+        ).then(() => {
+          svg && render(svg, canvasWidth, canvasHeight);
+        });
+    },
     oninit: () => {
       const oldWindowWidth = stream(window.innerWidth);
 
