@@ -19,11 +19,14 @@ function sanitiseForDataList(date) {
 
 const MaskHeader = function () {
   let maxDate;
-  let currentDateIndex = -1;
+  let currentDateIndex;
   const availableDatesForCurrentHabit = stream();
   const selectedDateOption = stream();
 
   return {
+    oninit: () => {
+      currentDateIndex = -1;
+    },
     onupdate: () => {
       document.getElementById("date-today").value = DateStore.currentDate();
       const dateDataList = document.getElementById("current-habit-date-list");
@@ -47,51 +50,52 @@ const MaskHeader = function () {
         m.redraw();
       });
 
-      const nextDate = document.getElementById("next-date-selector");
-      const prevDate = document.getElementById("prev-date-selector");
-      const dateDataList = document.getElementById("current-habit-date-list");
+      // const nextDate = document.getElementById("next-date-selector");
+      // const prevDate = document.getElementById("prev-date-selector");
+      // const dateDataList = document.getElementById("current-habit-date-list");
 
-      const availableDatesForSelector = stream(
-        Array.from(dateDataList.options)
-      );
-      console.log(
-        availableDatesForCurrentHabit(),
-        "availableDatesForCurrentHabit()"
-      );
-      function adjustDateOptions(direction) {
-        selectedDateOption(
-          availableDatesForSelector().slice(currentDateIndex)[0]
-        );
-        selectedDateOption().setAttribute("selected", "");
-        direction === "forwards" ? currentDateIndex++ : currentDateIndex--;
-        selectedDateOption(
-          availableDatesForSelector().slice(currentDateIndex)[0]
-        );
-        selectedDateOption().setAttribute("selected", "true");
-        console.log(selectedDateOption());
-        let currentDateId = selectedDateOption()
-          .getAttribute("name")
-          .split("-")
-          .slice(-1)[0];
-        let currentDate = selectedDateOption().getAttribute("value");
-        DateStore.current(DateStore.filterById(currentDateId)[0]);
-        document.getElementById("date-today").value = currentDate;
-      }
-      prevDate.addEventListener("click", () => {
-        console.log("currenr", -availableDatesForSelector().length);
-        console.log("currenr", currentDateIndex);
-        if (currentDateIndex > -availableDatesForSelector().length) {
-          // If we are not on the first available date
-          adjustDateOptions("backwards");
-        }
-      });
-      nextDate.addEventListener("click", () => {
-        console.log(currentDateIndex);
-        if (currentDateIndex < -1) {
-          // If we are not on the last available date
-          adjustDateOptions("forwards");
-        }
-      });
+      // const availableDatesForSelector = stream(
+      //   Array.from(dateDataList.options)
+      // );
+      // console.log(
+      //   availableDatesForCurrentHabit(),
+      //   "availableDatesForCurrentHabit()"
+      // );
+      // console.log(HabitStore.current(), "availableDatesForCurrentHabit()");
+      // function adjustDateOptions(direction) {
+      //   selectedDateOption(
+      //     availableDatesForSelector().slice(currentDateIndex)[0]
+      //   );
+      //   selectedDateOption().setAttribute("selected", "");
+      //   direction === "forwards" ? currentDateIndex++ : currentDateIndex--;
+      //   selectedDateOption(
+      //     availableDatesForSelector().slice(currentDateIndex)[0]
+      //   );
+      //   selectedDateOption().setAttribute("selected", "true");
+      //   console.log(selectedDateOption());
+      //   let currentDateId = selectedDateOption()
+      //     .getAttribute("name")
+      //     .split("-")
+      //     .slice(-1)[0];
+      //   let currentDate = selectedDateOption().getAttribute("value");
+      //   DateStore.current(DateStore.filterById(currentDateId)[0]);
+      //   document.getElementById("date-today").value = currentDate;
+      // }
+      // prevDate.addEventListener("click", () => {
+      //   console.log("currenr", -availableDatesForSelector().length);
+      //   if (currentDateIndex > -availableDatesForSelector().length) {
+      //     console.log("currenr", currentDateIndex);
+      //     // If we are not on the first available date
+      //     adjustDateOptions("backwards");
+      //   }
+      // });
+      // nextDate.addEventListener("click", () => {
+      //   console.log(currentDateIndex);
+      //   if (currentDateIndex < -1) {
+      //     // If we are not on the last available date
+      //     adjustDateOptions("forwards");
+      //   }
+      // });
     },
     view: () => (
       <div className="mask-wrapper">

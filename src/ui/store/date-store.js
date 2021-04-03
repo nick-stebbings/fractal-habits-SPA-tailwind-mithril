@@ -1,11 +1,11 @@
-import stream from 'mithril/stream';
-import { clientRoutes, handleErrorType } from './client';
+import stream from "mithril/stream";
+import { clientRoutes, handleErrorType } from "./client";
 
-const basePath = '/dates';
+const basePath = "/dates";
 
 function sanitiseForValueChange(date) {
-  return (typeof date() === 'object' && typeof date().h_date === 'string')
-    ? date().h_date.split(' ')[0]
+  return typeof date() === "object" && typeof date().h_date === "string"
+    ? date().h_date.split(" ")[0]
     : new Date().toDateInputValue();
 }
 const todaysDate = new Date().toDateInputValue();
@@ -35,7 +35,9 @@ const DateStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   filterForHabit: (habit) =>
-    habit ? DateStore.list().filter((date) => date.h_date >= habit.initiation_date) : [],
+    habit
+      ? DateStore.list().filter((date) => date.h_date >= habit.initiation_date)
+      : [],
 
   filterById: (dateId) =>
     DateStore.list().filter((date) => date.id === +dateId),
@@ -52,8 +54,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 });
 
-DateStore.currentDate = stream.combine(
-  sanitiseForValueChange,
-  [DateStore.current],
-);
+DateStore.currentDate = stream.combine(sanitiseForValueChange, [
+  DateStore.current,
+]);
 export default DateStore;

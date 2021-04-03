@@ -9,6 +9,7 @@ require 'multi_json'
 
 require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
+require File.join(APP_ROOT, 'lib', 'yaml_store')
 
 module Hht
   class Api < Sinatra::Base
@@ -37,62 +38,6 @@ module Hht
       'yaml.yaml_container' # For the 'dummy data' Yaml loader
     ]
 
-    def populate_yaml_relations(days_to_track)
-      #TODO refactor
-      domains = yaml_container.relations.domains
-      habits = yaml_container.relations.habits
-      dates = yaml_container.relations.dates
-      habit_dates = yaml_container.relations.habit_dates
-      habit_nodes = yaml_container.relations.habit_nodes
-
-      if dates.to_a.empty? && habit_dates.to_a.empty? && habit_nodes.to_a.empty?
-        date_range = ((Date.today- (days_to_track - 1)) .. Date.today)
-        date_structs = date_range.each_with_index { |date, i| dates.insert({h_date: date, id: i + 1})}
-
-        domain_habit_lists = []
-        habit_list = []
-        habit_id = 1
-        domain_list = domains.to_a.each_with_object([]) do |domain, list|
-          # domains.insert({ id: domain.id, name: domain.name, habits: [] })
-          habit_names = domain.habits.to_s.scan(/:name=>"(.*?)"/) #.gsub(/(\\|\\n|\\t)/, '')
-          
-          domain_habit_lists << habit_names.each_with_object([]) do |habit_name, list|
-            habit = { id: habit_id, domain_id: domain.id, name: habit_name.first }
-            list << habit
-            habit_list << habit
-            habits.insert(habit)
-            habit_id += 1
-          end
-        end
-
-        tree = nil
-        habit_node_id = 1
-        habit_nodes_list = []
-        domains.to_habit_trees.each_with_index do |domain, index|
-          tree = Subtree.json_to_ternarised_and_listified_treenodes(domain.to_json)
-          tree.yield_d3_values(index) do |vals, name|
-            new_habit = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
-            habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
-            found = habit_list.find { |habit| habit[:name] == name}
-            next unless found
-            found[:habit_node_id] = habit_node_id
-            habit_node_id += 1
-          end
-        end
-        habit_dates_list = []
-        domain_habit_lists.each do |habit_list|
-          habit_list.each do |habit|
-            dates.to_a.each do |date|
-              habit_dates.insert({habit_id: habit[:id], date_id: date[:id], status_completed: false})
-            end
-          end
-        end
-      end
-
-      { tree: tree, nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
-    end
-
-
     namespace '/api' do
       [:get, :post, :put, :patch, :delete].each do |method|
         send(method, '') do
@@ -103,16 +48,16 @@ module Hht
 
     namespace '/api/demo' do
       get '' do
-        demo_data_payload = populate_yaml_relations(params['tracking_length'].to_i)
+        length = params['tracking_length'].to_i
+        demo_data_payload = YAMLStore.ready ? YAMLStore.get_data : YAMLStore.new(length) && YAMLStore.get_data
         status 200
         json demo_data_payload
       end
       
       get '/domain/:id/habit_tree' do |id|
-        tree = populate_yaml_relations(params['tracking_length'].to_i)[:tree].to_json
-        status 200
+        length = params['tracking_length'].to_i
+        YAMLStore.ready ? YAMLStore.get_data : YAMLStore.new(length) && YAMLStore.get_data[:tree].to_json
         # Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json # This 'ternarises' the return tree
-        tree.to_json
       end
 
       [:post, :put, :patch, :delete].each do |method|
