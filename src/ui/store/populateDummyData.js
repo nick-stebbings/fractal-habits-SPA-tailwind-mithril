@@ -34,7 +34,7 @@ const importData = {
         HabitDateStore.current(
           HabitDateStore.list()[HabitDateStore.list().length - 1]
         );
-        NodeStore.runFilter(HabitStore.current().id);
+        NodeStore.runFilterByHabit(HabitStore.current().id);
         NodeStore.current(NodeStore.list()[NodeStore.list().length - 1]);
       })
       .catch((err) => {

@@ -28,12 +28,19 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
     NodeStore.create(attrs).then(NodeStore.current).catch(handleErrorType);
   },
 
-  runFilterCurrentHabit: (habit) =>
-    NodeStore.current(NodeStore.runFilter(habit)),
+  runCurrentFilterByHabit: (habit) =>
+    NodeStore.current(
+      NodeStore.list().filter((node) => node.id == habit.habit_node_id)[0]
+    ),
 
-  runFilter: (habit) => {
-    NodeStore.list(NodeStore.list().filter((node) => node.id == habit));
-  },
+  runFilterByHabit: (habit) =>
+    NodeStore.list(
+      NodeStore.list().filter((node) => node.id == habit.habit_node_id)
+    ),
+
+  runCurrentFilterById: (id) => NodeStore.current(NodeStore.filterById(id)[0]),
+
+  filterById: (id) => NodeStore.list().filter((n) => n.id === +id),
 
   runReplace: (id, value) => {
     NodeStore.replace(id, value).catch((e) => {

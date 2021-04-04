@@ -1,5 +1,5 @@
 import stream from "mithril/stream";
-import { select, hierarchy, tree, zoom, zoomIdentity } from "d3";
+import { select, selectAll, hierarchy, tree, zoom, zoomIdentity } from "d3";
 import {
   debounce,
   d3SetupCanvas,
@@ -47,6 +47,9 @@ const HabitTree = function () {
     }
   };
 
+  const oppositeStatus = (current) =>
+    current === undefined || current === "true" ? "true" : "false";
+
   const zoomer = zoom().scaleExtent([0.5, 2]).on("zoom", zooms);
 
   function render(svg, canvasWidth, canvasHeight) {
@@ -60,31 +63,39 @@ const HabitTree = function () {
         `translate(${margin.left + canvasWidth / 2},${margin.top})`
       );
     const handleEvents = function (selection) {
+      selection.selectAll("circle").on("click", (event) => {
+        console.log(this);
+      });
       selection
         .on("click", function (event, node) {
           const g = select(this);
-          const n = g.select(".the-node");
-          HabitStore.runCurrentFilterByNode(node.data.name),
-            console.log(
-              JSON.stringify({
+          const n = g.selectAll("circle");
+          const l = g.selectAll("text.label");
+          HabitStore.runCurrentFilterByNode(node.data.name);
+          let storedNode = NodeStore.filterById(node.data.name)[0];
+          let currentStatus = parseValues(node.data.value).status;
+
+          console.log(storedNode);
+
+          let requestBody = storedNode
+            ? Object.assign(storedNode, {
+                completed_status: oppositeStatus(currentStatus),
+              })
+            : JSON.stringify({
                 habit_id: HabitStore.current().id,
                 date_id: DateStore.current().id,
-                completed_status: "true",
-              })
-            );
-          console.log("ddd", HabitStore.current());
-          // n.style("fill", "#93cc96");
+                completed_status: oppositeStatus(currentStatus),
+              });
+          console.log(requestBody);
+          n.style("fill", currentStatus === "false" ? "#93cc96" : "#f2aa53");
+          l.style("fill", currentStatus === "false" ? "#93cc96" : "#f2aa53");
         })
         .on("mouseover", function () {
           const g = select(this);
-          const n = g.select(".the-node");
-
           g.select(".label").transition().duration(700).style("opacity", "1");
         })
         .on("mouseout", function () {
           const g = select(this);
-          const n = g.select(".the-node");
-
           g.select(".label").transition().duration(700).style("opacity", "0");
         });
     };
@@ -184,7 +195,7 @@ const HabitTree = function () {
 
             HabitDateStore.index().then((a) => console.log(a));
             NodeStore.index().then(() => {
-              NodeStore.runFilterCurrentHabit(HabitStore.current());
+              NodeStore.runCurrentFilterByHabit(HabitStore.current());
             });
           })
           .then(() => {

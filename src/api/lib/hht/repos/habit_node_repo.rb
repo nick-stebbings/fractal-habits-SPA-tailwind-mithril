@@ -42,7 +42,7 @@ module Hht
       end
 
       def all_as_json
-        { :habit_nodes => habit_nodes.all }.to_json
+        { :habit_nodes => ids.to_a.map{ |id| as_json(id)} }.to_json
       end
 
       def restrict_on_id_combine_with_domain(id) # WORKING?
