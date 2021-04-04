@@ -103,7 +103,7 @@ const Dashboard = {
             <div class="p-2 bg-white rounded border shadow">
               <div class="flex flex-row items-center">
                 <div class="flex-shrink pr-4">
-                  <div class="p-3 bg-red-600 rounded">
+                  <div class="p-3 bg-balance-buttonbg-close rounded">
                     <i class="fas fa-inbox fa-2x fa-fw fa-inverse"></i>
                   </div>
                 </div>
@@ -111,7 +111,7 @@ const Dashboard = {
                   <h5 class="font-bold text-gray-500 uppercase">Issues</h5>
                   <h3 class="text-3xl font-bold">
                     3{" "}
-                    <span class="text-red-500">
+                    <span class="text-balance-buttonbg-close">
                       <i class="fas fa-caret-up"></i>
                     </span>
                   </h3>

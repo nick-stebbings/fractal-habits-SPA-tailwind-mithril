@@ -98,7 +98,7 @@ const CreateForm = {
           name="close-modal"
           type="button"
           id="close-modal"
-          className="hover:bg-red-600 focus:outline-none px-4 py-2 text-white bg-red-500 rounded"
+          className="hover:bg-balance-buttonbg-closelighter focus:outline-none bg-balance-buttonbg-close px-4 py-2 text-white rounded"
         >
           Forget It
         </button>

@@ -20,7 +20,7 @@ const Modal = {
           <button
             id="close-modal-x"
             type="button"
-            className="-top-3 -right-3 hover:bg-red-600 focus:outline-none absolute w-10 h-10 text-2xl text-white bg-red-500 rounded-full"
+            className="-top-3 -right-3 hover:bg-balance-buttonbg-closelighter focus:outline-none absolute w-10 h-10 text-2xl text-white bg-red-500 rounded-full"
           >
             <svg
               className="w-6 h-6 mx-auto"

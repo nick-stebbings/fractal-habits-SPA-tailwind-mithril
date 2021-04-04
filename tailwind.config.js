@@ -59,9 +59,11 @@ module.exports = {
         buttonbg: {
           digblue: "#3349c1",
           success: "#71c475",
+          successlighter: "#93cc96",
           submit: "#fb9417",
-          reset: "#c2da8d",
+          reset: "#47301f",
           close: "#e74a33 ",
+          closelighter: "#e06a58 ",
           neutral: "#3d3229",
           disabled: "#898989",
         },
