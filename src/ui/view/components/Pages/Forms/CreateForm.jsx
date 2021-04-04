@@ -5,6 +5,8 @@ import { openModal } from "../../../../assets/scripts/animations";
 import FormHeader from "./FormHeader.jsx";
 import FormBody from "./FormBody.jsx";
 import InputGroup from "./FormInputGroup.jsx";
+import SubmitButton from "../../Layout/Nav/SubmitButton.jsx";
+import CancelButton from "../../Layout/Nav/CancelButton.jsx";
 
 let maxDate;
 
@@ -94,23 +96,18 @@ const CreateForm = {
       ])}
 
       <div className="button-container px-4 py-3 bg-white border-t border-gray-200">
-        <button
+        <CancelButton
+          id={"close-modal-" + Math.ceil(Math.random() * 100)}
           name="close-modal"
-          type="button"
-          id="close-modal"
-          className="hover:bg-balance-buttonbg-closelighter focus:outline-none bg-balance-buttonbg-close px-4 py-2 text-white rounded"
-        >
-          Forget It
-        </button>
-        <button
-          disabled={m.route.param("demo") ? true : false}
-          className={m.route.param("demo") && "not-available"}
+          label="Forget It"
+        />
+        <SubmitButton
+          id={"submit-form-" + Math.ceil(Math.random() * 100)}
           name="submit"
-          value="submit"
-          type="submit"
-        >
-          Start Tracking
-        </button>
+          label="Start Tracking"
+          disabled={m.route.param("demo") ? true : false}
+          class={m.route.param("demo") && "disabled"}
+        />
       </div>
     </form>
   ),

@@ -15,12 +15,12 @@ const Modal = {
       ) : (
         <div
           id="modal"
-          className="inset-4 sm:inset-12 rounded-2xl absolute bottom-auto flex transition-opacity transition-transform duration-300 transform scale-150 -translate-y-full bg-white shadow-tershades-gray opacity-0"
+          className="inset-4 sm:inset-12 rounded-2xl shadow-tershades-gray absolute bottom-auto flex transition-opacity transition-transform duration-300 transform scale-150 -translate-y-full bg-white opacity-0"
         >
           <button
             id="close-modal-x"
             type="button"
-            className="-top-3 -right-3 hover:bg-balance-buttonbg-closelighter focus:outline-none absolute w-10 h-10 text-2xl text-white bg-red-500 rounded-full"
+            className="-top-3 -right-3 hover:bg-balance-buttonbg-closelighter bg-balance-buttonbg-close focus:outline-none absolute w-10 h-10 text-2xl text-white bg-red-500 rounded-full"
           >
             <svg
               className="w-6 h-6 mx-auto"
