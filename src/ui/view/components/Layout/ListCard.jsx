@@ -2,7 +2,14 @@ import HabitStore from "../../../store/habit-store.js";
 
 import ResetButton from "./Nav/ResetButton.jsx";
 const ListCard = {
-  view: ({ attrs: { value, idx } }) => (
+  oncreate: () => {
+    console.log(
+      document
+        .querySelector(`button[data-id='${HabitStore.current().id}']`)
+        .classList.add("selected")
+    );
+  },
+  view: ({ attrs: { value } }) => (
     <div class="flex mb-4 items-center justify-between">
       {document.querySelector("#habit-list").addEventListener(
         "click",
@@ -31,9 +38,9 @@ const ListCard = {
       <div className="button-group">
         <ResetButton
           id={"habit-list-select-habit-" + value.id}
-          name={value.id}
+          dataAttr={value.id}
           label="Choose"
-          // disabled={m.route.param("demo") ? "true" : "false"}
+          disabled={m.route.param("demo") ? "true" : "false"}
           class={m.route.param("demo") ? "inactive" : "active"}
         />
       </div>
