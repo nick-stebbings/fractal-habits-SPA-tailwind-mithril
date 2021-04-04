@@ -331,8 +331,16 @@ module Hht
       end
     end
 
-    # RESOURCES TO BE DESCRIBED LATER
     namespace '/api/habit_dates' do
+      post '' do
+        habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
+        created = habit_date_repo.create(habit_date)
+        if created.success?
+          status 204
+        else
+          status 422
+        end
+      end
     end
   end
 end

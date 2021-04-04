@@ -1,5 +1,6 @@
 import stream from "mithril/stream";
-import { handleErrorType } from "./client";
+import { clientRoutes, handleErrorType } from "./client";
+
 function log(res) {
   console.log(res, "LOGGER");
   return res;
@@ -23,17 +24,8 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
       .then(HabitDateStore.list)
       .catch(handleErrorType),
 
-  submit: () => {
-    HabitDateStore.create()
-      .then(() => {
-        Flash.success("Note created.");
-        // This could be optimized instead of reloading.
-        HabitDateStore.load();
-        HabitDateStore.clear();
-      })
-      .catch((err) => {
-        // Flash.warning(err.response.message);
-      });
+  submit: (attrs) => {
+    HabitDateStore.create(attrs).then(HabitDateStore.current).catch(handleErrorType);
   },
 
   runFilter: (habitId) =>
@@ -42,18 +34,7 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
     ),
 
   runUpdate: (id, value) => {
-    HabitDateStore.upHabitdate(id, value).catch((e) => {
-      // Flash.warning("Could not upHabitdate note: " + e.response.message);
-    });
-  },
-
-  runDelete: (id) => {
-    HabitDateStore.delete(id)
-      .then(() => {
-        Flash.success("Note deleted.");
-        HabitDateStore.list = HabitDateStore.list.filter((i) => i.id !== id);
-      })
-      .catch(handleErrorType);
+    HabitDateStore.replace(id, value).then(HabitDateStore.current).catch(handleErrorType);
   },
 };
 
