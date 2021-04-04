@@ -35,6 +35,7 @@ module Hht
       'repos.habit_node_repo',
       'repos.habit_repo',
       'repos.date_repo',
+      'repos.habit_date_repo',
       'yaml.yaml_container' # For the 'dummy data' Yaml loader
     ]
 
@@ -332,6 +333,14 @@ module Hht
     end
 
     namespace '/api/habit_dates' do
+      get '' do
+        habit_date_list = habit_date_repo.all_as_json
+        halt(404, { message:'No Dates Found'}.to_json) unless habit_date_list
+        
+        status 200
+        json habit_date_list
+      end
+
       post '' do
         habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = habit_date_repo.create(habit_date)

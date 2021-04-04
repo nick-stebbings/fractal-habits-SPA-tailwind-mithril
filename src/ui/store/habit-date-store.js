@@ -25,7 +25,9 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   submit: (attrs) => {
-    HabitDateStore.create(attrs).then(HabitDateStore.current).catch(handleErrorType);
+    HabitDateStore.create(attrs)
+      .then(HabitDateStore.current)
+      .catch(handleErrorType);
   },
 
   runFilter: (habitId) =>
@@ -34,8 +36,10 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
     ),
 
   runUpdate: (id, value) => {
-    HabitDateStore.replace(id, value).then(HabitDateStore.current).catch(handleErrorType);
+    HabitDateStore.replace(id, value)
+      .then(HabitDateStore.current)
+      .catch(handleErrorType);
   },
-};
+});
 
 export default HabitDateStore;
