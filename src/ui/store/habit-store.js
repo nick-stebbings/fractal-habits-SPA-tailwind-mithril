@@ -65,9 +65,14 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       })
       .catch(handleErrorType),
 
-  runFilter: (domain_id) =>
-    HabitStore.list(
-      HabitStore.fullList().filter((habit) => habit.domain_id == domain_id)
+  runFilterByDomain: (domainId) =>
+    HabitStore.list(HabitStore.filterByDomainId(domainId)),
+
+  runCurrentFilterByNode: (nodeId) =>
+    HabitStore.current(
+      HabitStore.fullList().filter(
+        (habit) => habit.habit_node_id === +nodeId
+      )[0]
     ),
 
   runReplace: (id, value) =>

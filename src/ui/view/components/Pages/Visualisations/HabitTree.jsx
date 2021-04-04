@@ -61,6 +61,20 @@ const HabitTree = function () {
       );
     const handleEvents = function (selection) {
       selection
+        .on("click", function (event, node) {
+          const g = select(this);
+          const n = g.select(".the-node");
+          HabitStore.runCurrentFilterByNode(node.data.name),
+            console.log(
+              JSON.stringify({
+                habit_id: HabitStore.current().id,
+                date_id: DateStore.current().id,
+                completed_status: "true",
+              })
+            );
+          console.log("ddd", HabitStore.current());
+          // n.style("fill", "#93cc96");
+        })
         .on("mouseover", function () {
           const g = select(this);
           const n = g.select(".the-node");

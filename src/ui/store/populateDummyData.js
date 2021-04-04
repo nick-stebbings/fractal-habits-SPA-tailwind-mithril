@@ -14,7 +14,7 @@ const daysToTrack = 280;
 const cache = stream([]);
 // cache().length === 0 && TODO
 const importData = {
-  init: function(length = daysToTrack){
+  init: function (length = daysToTrack) {
     return clientRoutes(basePath + String(length))
       .show_all()
       .then((response) => {
@@ -23,17 +23,17 @@ const importData = {
         HabitDateStore.list(response.data.habit_dates);
         NodeStore.list(response.data.nodes);
         HabitStore.fullList(response.data.habits);
-        
+
         DateStore.current(DateStore.list()[DateStore.list().length - 1]);
         DomainStore.current(DomainStore.list()[0]);
 
-        HabitStore.runFilter(DomainStore.current().id);
+        HabitStore.runFilterByDomain(DomainStore.current().id);
         HabitStore.current(HabitStore.list()[0]);
-        
+
         HabitDateStore.runFilter(HabitStore.current().id);
         HabitDateStore.current(
           HabitDateStore.list()[HabitDateStore.list().length - 1]
-          );
+        );
         NodeStore.runFilter(HabitStore.current().id);
         NodeStore.current(NodeStore.list()[NodeStore.list().length - 1]);
       })
@@ -43,4 +43,4 @@ const importData = {
   },
 };
 
-export {importData, cache};
+export { importData, cache };

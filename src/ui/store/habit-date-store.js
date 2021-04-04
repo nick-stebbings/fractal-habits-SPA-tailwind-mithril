@@ -1,11 +1,6 @@
 import stream from "mithril/stream";
 import { clientRoutes, handleErrorType } from "./client";
 
-function log(res) {
-  console.log(res, "LOGGER");
-  return res;
-}
-
 const basePath = "/habit_dates";
 
 var HabitDateStore = Object.assign(clientRoutes(basePath), {
@@ -19,7 +14,6 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
 
   index: () =>
     HabitDateStore.show_all()
-      .then(log)
       .then((response) => JSON.parse(response.data).habit_dates)
       .then(HabitDateStore.list)
       .catch(handleErrorType),

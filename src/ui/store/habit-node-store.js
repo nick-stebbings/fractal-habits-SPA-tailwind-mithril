@@ -31,8 +31,9 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
   runFilterCurrentHabit: (habit) =>
     NodeStore.current(NodeStore.runFilter(habit)),
 
-  runFilter: (habit_id) =>
-    NodeStore.list(NodeStore.list().filter((node) => node.id == habit_id)),
+  runFilter: (habit) => {
+    NodeStore.list(NodeStore.list().filter((node) => node.id == habit));
+  },
 
   runReplace: (id, value) => {
     NodeStore.replace(id, value).catch((e) => {
