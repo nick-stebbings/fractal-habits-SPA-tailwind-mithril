@@ -1,10 +1,10 @@
-import stream from 'mithril/stream';
-import { clientRoutes, handleErrorType } from './client';
+import stream from "mithril/stream";
+import { clientRoutes, handleErrorType } from "./client";
 
-const basePath = '/habits';
+const basePath = "/habits";
 
 const HabitStore = Object.assign(clientRoutes(basePath), {
-  current: stream({ name: "Select a Life-Domain to start tracking" }),
+  current: stream({ name: "Select a Life-Domain to start tracking", id: 1 }),
 
   get: (id) =>
     HabitStore.show_one(id)

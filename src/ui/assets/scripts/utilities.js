@@ -30,7 +30,6 @@ const d3visPageMaker = function (layoutView, pageView, spinnerState) {
   page.oncreate = () => {
     document.body.style.overflow = "hidden";
   };
-  page.onupdate = () => {};
   page.view = () => {
     // Pass uniqe selection id to the vis component for d3 selection
     const d3Canvas = m("div", { id: divId });

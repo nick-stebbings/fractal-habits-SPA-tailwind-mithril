@@ -12,6 +12,7 @@ import DomainStore from "../../../../store/domain-store.js";
 import DateStore from "../../../../store/date-store.js";
 
 import "../../../../assets/styles/components/d3vis.scss";
+import HabitStore from "../../../../store/habit-store";
 
 const HabitTree = function () {
   let demoData = m.route.param("demo");
@@ -122,7 +123,8 @@ const HabitTree = function () {
   return {
     type: "vis",
     onupdate: () => {
-      DateStore.current().id &&
+      // DateStore.indexDatesOfHabit(HabitStore.current());
+      DateStore.current() &&
         TreeStore.index(
           demoData,
           DomainStore.current().id,
@@ -158,14 +160,19 @@ const HabitTree = function () {
         .attr("height", "100%")
         .attr("style", "pointer-events: all");
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
-
+      document.getElementById("activate-demo").addEventListener("click", () => {
+        DateStore.submit({ h_date: new Date(new Date().toDateString()) })
+          .then(DateStore.indexDatesOfHabit(HabitStore.current()))
+          .then(DateStore.clear())
+          .then(m.redraw);
+      });
       render(svg, canvasWidth, canvasHeight);
     },
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
-        {/* <button type="button" id="activate-demo" class="z-50">
+        <button type="button" id="activate-demo" class="z-50">
           Toggle Demo Data
-        </button> */}
+        </button>
         {vnode.children}
       </div>
     ),

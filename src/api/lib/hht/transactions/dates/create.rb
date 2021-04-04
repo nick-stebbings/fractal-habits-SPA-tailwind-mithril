@@ -25,7 +25,10 @@ module Hht
           date = result[:h_date]
           # Find out if it will be the oldest date:
           oldest = before_records_began?(result)
-          return Success('The necessary dates are already persisted.') if !oldest && date.to_time > date_repo.earliest.h_date
+          if (!oldest && date.to_time > date_repo.earliest.h_date)
+            date_repo.insert_upto_today! # Fills in dates after the current lastest h_date to today
+            return Success('The necessary dates are already persisted.') 
+          end
           # Return if the dates are already persisted
 
           begin

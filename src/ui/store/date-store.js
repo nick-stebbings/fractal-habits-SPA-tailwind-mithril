@@ -41,11 +41,8 @@ const DateStore = Object.assign(clientRoutes(basePath), {
       : [],
 
   indexDatesOfHabit: (habit) => {
-    if (typeof habit == undefined) listForHabit([]);
-    DateStore.listForHabit(DateStore.filterForHabit(habit)) &&
-      DateStore.current(
-        DateStore.listForHabit()[DateStore.listForHabit().length - 1]
-      );
+    if (typeof habit == undefined) listForHabit([{ id: 1 }]);
+    DateStore.listForHabit(DateStore.filterForHabit(habit));
   },
 
   filterById: (dateId) =>

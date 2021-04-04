@@ -1,10 +1,10 @@
-import HabitStore from '../../../../store/habit-store.js';
-import DateStore from '../../../../store/date-store.js';
+import HabitStore from "../../../../store/habit-store.js";
+import DateStore from "../../../../store/date-store.js";
 
-import { openModal } from '../../../../assets/scripts/animations';
-import FormHeader from './FormHeader.jsx';
-import FormBody from './FormBody.jsx';
-import InputGroup from './FormInputGroup.jsx';
+import { openModal } from "../../../../assets/scripts/animations";
+import FormHeader from "./FormHeader.jsx";
+import FormBody from "./FormBody.jsx";
+import InputGroup from "./FormInputGroup.jsx";
 
 let maxDate;
 
@@ -104,7 +104,7 @@ const CreateForm = {
         </button>
         <button
           disabled={m.route.param("demo") ? true : false}
-          className={m.route.param("demo") && 'not-available'}
+          className={m.route.param("demo") && "not-available"}
           name="submit"
           value="submit"
           type="submit"
