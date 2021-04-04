@@ -3,30 +3,29 @@ import HabitStore from "../../../store/habit-store.js";
 import ResetButton from "./Nav/ResetButton.jsx";
 
 const ListCard = {
+  oncreate: () => {
+    document
+      .querySelector(`button[data-id='${HabitStore.current().id}']`)
+      .classList.add("selected");
+  },
   view: ({ attrs: { value } }) => (
     <div class="flex mb-4 items-center justify-between">
-      {document.querySelector("#habit-list").addEventListener(
-        "click",
-        (e) => {
-          if (e.target.tagName === "BUTTON") {
-            e.stopPropagation();
-            if (!e.target.classList.contains("selected")) {
-              let lastSelected = document.querySelector(".selected");
-              lastSelected && lastSelected.classList.toggle("selected");
-            }
-            e.target.classList.add("selected");
+      {document.querySelector("#habit-list").addEventListener("click", (e) => {
+        if (e.target.tagName === "BUTTON") {
+          e.stopPropagation();
+          if (!e.target.classList.contains("selected")) {
+            let lastSelected = document.querySelector(".selected");
+            lastSelected && lastSelected.classList.toggle("selected");
           }
-          if (e.target.classList.contains("selected")) {
-            HabitStore.current(
-              HabitStore.filterById(+e.target.getAttribute("data-id"))[0]
-            );
-            console.log(e.target.getAttribute("data-id"));
-            console.log(HabitStore.current());
-            m.redraw();
-          }
-        },
-        false
-      )}
+          e.target.classList.add("selected");
+        }
+        if (e.target.classList.contains("selected")) {
+          HabitStore.current(
+            HabitStore.filterById(+e.target.getAttribute("data-id"))[0]
+          );
+          m.redraw();
+        }
+      })}
       <div class="habit-list-details">
         <h2 class="habit-list-details-name">{value.name}</h2>
         <p class="w-full text-grey-darkest">{value.description}</p>

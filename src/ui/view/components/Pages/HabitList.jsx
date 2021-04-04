@@ -33,7 +33,7 @@ const HabitList = function () {
         </div>
         {m(
           "div#habit-list",
-          HabitStore.list().map((habit, idx) => m(ListCard, { value: habit }))
+          HabitStore.list().map((habit) => m(ListCard, { value: habit }))
         )}
       </div>
     ),

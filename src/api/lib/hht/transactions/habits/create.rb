@@ -33,7 +33,7 @@ module Hht
         def persist(result)
           # Insert habit_date entries from initiation date to present.
           # First get the relevant date IDs
-          habit_dates_to_insert = date_repo.all_after(result.values.data[:initiation_date] - 1).map{ |tuple| tuple[:id] }
+          habit_dates_to_insert = date_repo.all_after(result.values.data[:initiation_date]).map{ |tuple| tuple[:id] }
           
           # Insert the habit, store the ID
           habit_creation = Success(habit_repo.habits.insert(result.values.data))
