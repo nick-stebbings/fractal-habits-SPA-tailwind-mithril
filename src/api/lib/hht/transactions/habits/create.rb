@@ -20,12 +20,12 @@ module Hht
         end
 
         def validate(input)
-          parent_node_id = input[:habit_node_id];
-          domain_root_node = habit_repo.restrict_on_domain_id_combine_with_root_node_of_domain(input[:domain_id]).to_a
+          parent_node_id = input[:parent_node_id];
+          domain_root_node = habit_repo.restrict_on_domain_id_combine_with_root_node_of_domain(input[:domain_id])
           
           # Create a habit_node for this habit 
           # TODO: move this to persist method
-          input[:habit_node_id] = habit_node_repo.create(parent_id: (domain_root_node ? nil : parent_node_id)).flatten
+          input[:habit_node_id] = habit_node_repo.create(parent_id: (!domain_root_node.exist? ? nil : parent_node_id)).flatten
 
           create.call(input).to_monad
         end
@@ -39,7 +39,6 @@ module Hht
           habit_creation = Success(habit_repo.habits.insert(result.values.data))
           habit_id = habit_creation.flatten
           
-          # binding.pry
           # Validate and insert each habit_date
           insertions = habit_dates_to_insert.reduce([]) do |monads_array, date_id|
             habit_date = { habit_id: habit_id, date_id: date_id, completed_status: 'f'}

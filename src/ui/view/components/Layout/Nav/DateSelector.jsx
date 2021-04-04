@@ -19,25 +19,25 @@ const DateSelector = function () {
 
       DateStore.indexDatesOfHabit(HabitStore.current());
 
-      console.log("DateStore.listForHabit() :>> ", DateStore.listForHabit());
+      // console.log("DateStore.listForHabit() :>> ", DateStore.listForHabit());
     },
     oncreate: () => {
       DateStore.indexDatesOfHabit(HabitStore.current());
       if (DateStore.listForHabit().length > 0) {
-        console.log("has habits for date");
+        // console.log("has habits for date");
       }
       const nextDate = document.getElementById("next-date-selector");
       const prevDate = document.getElementById("prev-date-selector");
       let dateIndex = DateStore.listForHabit().indexOf(DateStore.current());
-      console.log(
-        "DateStore.current().h_date :>> ",
-        DateStore.current().h_date
-      );
+      // console.log(
+      //   "DateStore.current().h_date :>> ",
+      //   DateStore.current().h_date
+      // );
       prevDate.addEventListener("click", () => {
-        console.log(DateStore.current(), "model current");
-        console.log(HabitStore.current(), "habit model ");
-        console.log(new Date(DateStore.current().h_date), "dateobj");
-        console.log("DateStore.listForHabit() :>> ", DateStore.listForHabit());
+        // console.log(DateStore.current(), "model current");
+        // console.log(HabitStore.current(), "habit model ");
+        // console.log(new Date(DateStore.current().h_date), "dateobj");
+        // console.log("DateStore.listForHabit() :>> ", DateStore.listForHabit());
         if (
           dateIncrementDateObject(-1, new Date(DateStore.current().h_date)) >=
           new Date(HabitStore.current().initiation_date)
@@ -48,8 +48,8 @@ const DateSelector = function () {
         m.redraw();
       });
       nextDate.addEventListener("click", () => {
-        console.log(DateStore.current(), "model current");
-        console.log(HabitStore.current(), "habit model current");
+        // console.log(DateStore.current(), "model current");
+        // console.log(HabitStore.current(), "habit model current");
         if (
           new Date(
             dateIncrementDateObject(1, new Date(DateStore.current().h_date))

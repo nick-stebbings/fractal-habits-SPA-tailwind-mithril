@@ -4,7 +4,7 @@ ROM::SQL.migration do
   change do
     create_table :habits do
       primary_key :id
-      column :name, String, size: 25, null: false
+      column :name, String, size: 50, null: false
       column :description, String, size: 80
       column :initiation_date, DateTime, null: false
 

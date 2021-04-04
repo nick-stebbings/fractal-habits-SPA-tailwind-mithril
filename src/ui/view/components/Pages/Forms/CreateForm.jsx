@@ -27,8 +27,10 @@ const CreateForm = {
         data[key.replace(/-/g, "_")] = value;
       }); // Assign values while swapping for snake_case
       data.domain_id = attrs.domain().id;
-      data.habit_node_id = 1;
-      data.parent_node_id = null;
+      data.parent_node_id =
+        attrs.resourceName === "new-habit-child"
+          ? HabitStore.current().id
+          : null;
 
       DateStore.submit({ h_date: data.initiation_date })
         .then(() => HabitStore.submit(data))
@@ -36,7 +38,9 @@ const CreateForm = {
           openModal(false);
         })
         .then(DateStore.index)
-        .then(indexHabitsOfDomain)
+        .then(() => {
+          HabitStore.indexHabitsOfDomain(data.domain_id);
+        })
         .then(() => m.redraw())
         .catch(() => {
           openModal(false);
@@ -98,7 +102,7 @@ const CreateForm = {
       <div className="button-container px-4 py-3 bg-white border-t border-gray-200">
         <CancelButton
           id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
-          name="close-modal"
+          name="close"
           label="Forget It"
           disabled={m.route.param("demo") ? "true" : "false"}
           class={m.route.param("demo") ? "inactive" : "active"}
@@ -107,7 +111,7 @@ const CreateForm = {
           id={`submit-form-${String(Math.ceil(Math.random() * 100))}`}
           name="submit"
           label="Start Tracking"
-          disabled={m.route.param("demo") ? "true" : "false"}
+          // disabled={"false"}
           class={m.route.param("demo") ? "inactive" : "active"}
         />
       </div>

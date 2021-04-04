@@ -1,14 +1,8 @@
 import HabitStore from "../../../store/habit-store.js";
 
 import ResetButton from "./Nav/ResetButton.jsx";
+
 const ListCard = {
-  oncreate: () => {
-    console.log(
-      document
-        .querySelector(`button[data-id='${HabitStore.current().id}']`)
-        .classList.add("selected")
-    );
-  },
   view: ({ attrs: { value } }) => (
     <div class="flex mb-4 items-center justify-between">
       {document.querySelector("#habit-list").addEventListener(
@@ -24,8 +18,10 @@ const ListCard = {
           }
           if (e.target.classList.contains("selected")) {
             HabitStore.current(
-              HabitStore.filterById(+e.target.getAttribute("name"))[0]
+              HabitStore.filterById(+e.target.getAttribute("data-id"))[0]
             );
+            console.log(e.target.getAttribute("data-id"));
+            console.log(HabitStore.current());
             m.redraw();
           }
         },
