@@ -3,7 +3,7 @@
 const FormHeader = {
   view: ({ attrs }) => (
     <div class="flex items-center space-x-5">
-      <div class="form-header flex flex-shrink-0 justify-center items-center w-14 h-14 font-mono rounded-full bg-balance-lg">
+      <div class="form-header flex flex-shrink-0 justify-center items-center w-14 h-14 font-mono rounded-full bg-balance-tershades-gray">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

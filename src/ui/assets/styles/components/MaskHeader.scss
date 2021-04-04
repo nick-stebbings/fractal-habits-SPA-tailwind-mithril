@@ -12,11 +12,11 @@ nav span {
 }
 
 .logo-link:hover {
-  @apply text-balance-secondary;
+  @apply text-balance-sshades-brighten;
 }
 
 .slash-svg {
-  @apply text-balance-dg;
+  @apply text-balance-pshades-dark;
 }
 
 /* Masking */
@@ -66,7 +66,7 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 .nav-container > div:last-child {
-  @apply top-12 left-3 bg-balance-lp absolute flex items-center w-3/12 mt-2 rounded-sm;
+  @apply top-12 left-3 bg-balance-pshades-light absolute flex items-center w-3/12 mt-2 rounded-sm;
   pointer-events: none;
 }
 
@@ -93,10 +93,10 @@ li.hoverable {
       height: 330px;
       margin-top: 0.4rem;
       padding-right: 0.6em;
-      @apply flex bg-balance-dp;
+      @apply flex bg-balance-pshades-dark;
 
       .hero-message {
-        @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-hero;
+        @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-tershades-gray;
 
         h2 {
           @apply px-4 py-2 w-2/3 mt-14 lg:mt-16 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
@@ -108,7 +108,7 @@ li.hoverable {
       }
 
       .inset {
-        @apply bg-balance-hero grid rounded-xl rounded-l-none w-3/4 grid-cols-4 grid-rows-1 gap-2 p-0 pr-2 pt-2 mb-8;
+        @apply bg-balance-tershades-gray grid rounded-xl rounded-l-none w-3/4 grid-cols-4 grid-rows-1 gap-2 p-0 pr-2 pt-2 mb-8;
 
         .menu-card.disabled {
           p,
@@ -135,16 +135,16 @@ li.hoverable {
 
           .menu-card-button {
             top: 4.5rem;
-            @apply absolute border-2 mt-12 p-3 m-2 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
+            @apply absolute border-2 mt-12 p-3 m-2 rounded-full shadow-md text-gray-100 bg-gray-700 uppercase;
           }
 
           .menu-card-button:focus,
           .menu-card-button:active {
-            @apply outline-none border-balance-dp;
+            @apply outline-none border-balance-pshades-dark;
           }
 
           .menu-card-button:hover {
-            @apply text-balance-lmint bg-gradient-to-b from-gray-500 to-transparent;
+            @apply text-balance-tershades-light bg-gradient-to-b from-gray-500 to-transparent;
           }
 
           .menu-card-button.active:hover {
@@ -158,10 +158,10 @@ li.hoverable {
         }
 
         .menu-card.active {
-          @apply bg-gray-50 border-balance-secondary border-2;
+          @apply bg-gray-100 border-balance-sshades-brighten border-2;
 
           button {
-            @apply bg-balance-secondary text-gray-50;
+            @apply bg-balance-sshades-brighten text-gray-50;
           }
 
           button:hover {
@@ -195,17 +195,17 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 /* --------------------------- */
 #subnav .nav-links > li.hoverable,
 #subnav .nav-container > div {
-  @apply bg-balance-hero z-20 pl-2 font-light border-2 rounded-full;
+  @apply bg-balance-tershades-gray z-20 pl-2 font-light border-2 rounded-full;
   margin-left: -1.3rem;
   transition: margin-left 0.2s ease-out;
 }
 
 #subnav .nav-links > li.hoverable {
-  @apply bg-balance-hero pr-0;
+  @apply bg-balance-tershades-gray pr-0;
 }
 
 #subnav .nav-links > li.hoverable:hover {
-  @apply bg-gradient-to-r from-balance-lg to-transparent;
+  @apply bg-gradient-to-r from-balance-tershades-gray to-transparent;
 }
 
 #subnav .nav-links > li.hoverable:last-of-type {
@@ -235,7 +235,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
 /* ---  Scroll behaviour --- */
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
-  @apply text-balance-lmint bg-balance-lp border-0;
+  @apply text-balance-tershades-light bg-balance-pshades-light border-0;
   padding-left: 11rem;
   margin-left: -1.3rem;
   min-width: 12rem;
@@ -267,12 +267,12 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
 /* ---  Hover States --- */
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable:hover {
-  @apply bg-gradient-to-r from-balance-black to-transparent;
+  @apply bg-gradient-to-r from-black to-transparent;
 }
 
 #subnav .nav-links > li.hoverable:hover a,
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover a {
-  @apply text-balance-secondary;
+  @apply text-balance-sshades-brighten;
 }
 
 #subnav .nav-links a[id^="nav"]:focus,

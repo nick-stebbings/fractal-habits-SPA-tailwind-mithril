@@ -9,7 +9,7 @@ body {
 }
 
 #app > main {
-  @apply border-t-4 border-balance-dp;
+  @apply border-t-4 border-balance-pshades-dark;
   z-index: 0;
 }
 
@@ -25,9 +25,9 @@ div.domain-pills button.domain-create {
   @apply px-2;
 }
 
-div.domain-pills button.domain-create div:hover { 
-  @apply text-balance-lmint bg-gradient-to-b from-gray-500 to-transparent;
-} 
+div.domain-pills button.domain-create div:hover {
+  @apply text-balance-tershades-light bg-gradient-to-b from-gray-500 to-transparent;
+}
 
 section.cards {
   @apply px-4;
@@ -51,7 +51,7 @@ section.cards {
 #activate-demo {
   right: -2rem;
   z-index: 101;
-  @apply fixed top-16 border-2 p-3 pl-4 pr-8 m-1 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
+  @apply fixed top-16 border-2 p-3 pl-4 pr-8 m-1 rounded-full shadow-md text-gray-100 bg-gray-700 uppercase;
 }
 
 .loader {
@@ -62,11 +62,19 @@ section.cards {
 }
 
 @-webkit-keyframes spinner {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spinner {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

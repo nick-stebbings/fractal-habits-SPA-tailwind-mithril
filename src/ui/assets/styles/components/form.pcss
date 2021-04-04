@@ -2,7 +2,8 @@ form {
   @apply w-full flex flex-col items-center px-4 pt-6 pb-20;
 }
 
-form#create-new-habit-child, form#create-new-habit-child > .input-container > div  {
+form#create-new-habit-child,
+form#create-new-habit-child > .input-container > div {
   @apply p-0 m-0;
 }
 
@@ -10,9 +11,9 @@ form#create-new-habit-child > .input-container {
   @apply p-6 m-0;
 }
 
- .form-header {
-   @apply text-xl md:text-2xl;
- }
+.form-header {
+  @apply text-xl md:text-2xl;
+}
 
 .input-container {
   @apply h-1/2 px-8 xl:w-3/4 w-full mt-4 text-xl;
@@ -30,18 +31,18 @@ label {
   @apply rounded-2xl w-full h-24 sm:h-16 text-sm fixed bottom-0 gap-3 flex flex-row justify-end items-center inset-x-0;
 }
 
-.button-container > button, .button-group > button {
+.button-container > button,
+.button-group > button {
   @apply h-full rounded-3xl;
 }
 
 .button-container > button[type="submit"] {
-  @apply hover:bg-gray-700 px-4 py-2 text-white bg-gray-800 rounded-3xl;
+  @apply hover:bg-balance-digblue-brighten px-4 py-2 text-balance-buttontext-digblue bg-balance-buttonbg-digblue rounded-3xl;
 }
 
 .button-container > button.not-available {
-  @apply hover:bg-gray-200 px-4 py-2 text-gray-800 bg-gray-300 rounded-3xl;
+  @apply hover:bg-gray-500 px-4 py-2 text-balance-buttontext-digblue bg-balance-buttonbg-disabled rounded-3xl;
 }
-
 
 .mask-wrapper input[type="date"] {
   @apply border-0 pl-0 mt-0;
@@ -51,7 +52,6 @@ label {
 }
 
 @media (max-width: 1024px) {
-  
   select#domain-selector {
     min-width: 10rem;
     padding: 0 !important;
@@ -64,10 +64,11 @@ label {
   }
 }
 
-input[type="text"], input[type="date"] {
+input[type="text"],
+input[type="date"] {
   -moz-appearance: none;
   -webkit-appearance: none;
-  @apply focus:ring-balance-secondary focus:border-balance-secondary border-2 text-sm lg:text-xl focus:outline-none px-4 py-2 text-gray-600 border-gray-300 rounded-md;
+  @apply focus:ring-balance-sshades-brighten focus:border-balance-sshades-brighten border-2 text-sm lg:text-xl focus:outline-none px-4 py-2 text-gray-600 border-gray-300 rounded-md;
 }
 
 #append-habit {

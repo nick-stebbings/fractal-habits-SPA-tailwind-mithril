@@ -1,22 +1,21 @@
-import DomainStore from '../../../store/domain-store';
+import DomainStore from "../../../store/domain-store";
 
-import CreateForm from '../Pages/Forms/CreateForm.jsx';
+import CreateForm from "../Pages/Forms/CreateForm.jsx";
 
 const Modal = {
-  view: ({attrs}) => (
+  view: ({ attrs }) => (
     <div
       id="modal_overlay"
       className="bg-opacity-30 md:items-center fixed z-50 flex items-start justify-center w-full h-full overflow-auto bg-black"
     >
       {/* Modal Tailwind Component originally by Huda Damar */}
       {/* Spinner Component originally by Astro_Corp */}
-      {
-      attrs.spinnerNeeded() ? (
+      {attrs.spinnerNeeded() ? (
         <div class="loader"></div>
       ) : (
         <div
           id="modal"
-          className="inset-4 sm:inset-12 rounded-2xl absolute bottom-auto flex transition-opacity transition-transform duration-300 transform scale-150 -translate-y-full bg-white shadow-lg opacity-0"
+          className="inset-4 sm:inset-12 rounded-2xl absolute bottom-auto flex transition-opacity transition-transform duration-300 transform scale-150 -translate-y-full bg-white shadow-tershades-gray opacity-0"
         >
           <button
             id="close-modal-x"
