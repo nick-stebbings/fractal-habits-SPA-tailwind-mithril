@@ -10,18 +10,18 @@ import DomainStore from "../store/domain-store";
 import { openSpinner } from "../assets/scripts/animations.js";
 
 export default {
-  oncreate: ({attrs: {spinnerState}}) => {
+  oncreate: ({ attrs: { spinnerState } }) => {
     openSpinner(true);
-    spinnerState.map(openSpinner)
+    spinnerState.map(openSpinner);
 
     document.getElementById("date-today").value = DateStore.currentDate();
     document.getElementById("domain-selector").selectedIndex = Math.max(
       0,
       DomainStore.list().indexOf(DomainStore.current())
-      );
-    },
-    view: ({ attrs, children: [mainPage] }) => (
-      <div id="layout" className="w-full h-full">
+    );
+  },
+  view: ({ attrs, children: [mainPage] }) => (
+    <div id="layout" className="w-full h-full">
       <Modal spinnerNeeded={attrs.spinnerState} />
       <LogoLink />
       <div id="app" className="flex flex-col justify-between min-h-screen">

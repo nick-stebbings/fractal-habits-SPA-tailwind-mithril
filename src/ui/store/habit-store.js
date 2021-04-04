@@ -49,6 +49,8 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
   filterByDomainId: (id) =>
     HabitStore.fullList().filter((habit) => habit.domain_id === id),
 
+  filterById: (id) => HabitStore.fullList().filter((habit) => habit.id === id),
+
   filterByName: (filterString) =>
     HabitStore.fullList().filter((habit) =>
       habit.name.match(new RegExp(filterString, "i"))

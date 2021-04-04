@@ -84,7 +84,7 @@ module.exports = {
         button: "0 0 0 1px #fffffe",
       },
       outline: {
-        light: "2px solid #fffffe; outline-offset:1px; outline-style: dashed",
+        light: "2px solid #fffffe; outline-offset:-3px; outline-style: dashed",
       },
       fontFamily: {
         sans: [

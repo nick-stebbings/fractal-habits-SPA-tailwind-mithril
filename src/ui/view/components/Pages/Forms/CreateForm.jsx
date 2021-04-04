@@ -12,8 +12,8 @@ let maxDate;
 
 const CreateForm = {
   oncreate: ({ attrs }) => {
-    document.getElementById(
-      "initiation-date"
+    document.querySelector(
+      "input[name^=initiation-date]"
     ).value = new Date().toDateInputValue();
     maxDate = String(DateStore.currentDate());
 
@@ -62,7 +62,7 @@ const CreateForm = {
           },
           m("input[type=text]", {
             name: "name",
-            id: "habit-title",
+            id: `habit-title-${String(Math.ceil(Math.random() * 100))}`,
             class: "form-input",
             placeholder: "e.g. Hydrate in the A.M.",
           })
@@ -75,7 +75,7 @@ const CreateForm = {
           },
           m("input[type=text]", {
             name: "description",
-            id: "habit-description",
+            id: `habit-description-${String(Math.ceil(Math.random() * 100))}`,
             class: "form-input",
             placeholder: "e.g. Drinking water each day after waking",
           })
@@ -87,7 +87,7 @@ const CreateForm = {
             label: "Initiation Date",
           },
           m("input[type=date]", {
-            id: "initiation-date",
+            id: `initiation-date-${String(Math.ceil(Math.random() * 100))}`,
             name: "initiation-date",
             class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
             list: maxDate,
@@ -97,16 +97,18 @@ const CreateForm = {
 
       <div className="button-container px-4 py-3 bg-white border-t border-gray-200">
         <CancelButton
-          id={"close-modal-" + Math.ceil(Math.random() * 100)}
+          id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
           name="close-modal"
           label="Forget It"
+          disabled={m.route.param("demo") ? "true" : "false"}
+          class={m.route.param("demo") ? "inactive" : "active"}
         />
         <SubmitButton
-          id={"submit-form-" + Math.ceil(Math.random() * 100)}
+          id={`submit-form-${String(Math.ceil(Math.random() * 100))}`}
           name="submit"
           label="Start Tracking"
-          disabled={m.route.param("demo") ? true : false}
-          class={m.route.param("demo") && "disabled"}
+          disabled={m.route.param("demo") ? "true" : "false"}
+          class={m.route.param("demo") ? "inactive" : "active"}
         />
       </div>
     </form>

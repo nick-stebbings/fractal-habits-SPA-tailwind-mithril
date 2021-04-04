@@ -40,8 +40,12 @@ label {
   @apply hover:bg-balance-digblue-brighten px-4 py-2 text-balance-buttontext-digblue bg-balance-buttonbg-digblue rounded-3xl;
 }
 
-.button-container > button.not-available {
-  @apply hover:bg-gray-500 px-4 py-2 text-balance-buttontext-digblue bg-balance-buttonbg-disabled rounded-3xl;
+div.inactive {
+  @apply hidden;
+}
+
+div[name="choose-habit-parent"] button.selected {
+  @apply bg-balance-buttonbg-submit hover:bg-balance-buttonbg-submit text-balance-buttonbg-neutral;
 }
 
 .mask-wrapper input[type="date"] {
@@ -75,14 +79,10 @@ input[type="date"] {
   @apply flex flex-wrap justify-between space-x-1 ml-1;
 }
 
-#append-habit #close-modal {
-  @apply hidden;
-}
-
 #append-habit > .sub-section-container {
   @apply px-2 my-2 -ml-1 flex-none w-full lg:w-1/2 border-2 bg-gray-100 rounded-2xl;
 }
 
 #append-habit > .sub-section-container:last-of-type {
-  @apply flex-none;
+  @apply flex-none lg:fixed lg:right-0;
 }

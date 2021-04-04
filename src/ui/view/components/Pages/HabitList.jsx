@@ -1,8 +1,7 @@
-import DomainStore from "../../../store/domain-store.js";
 import HabitStore from "../../../store/habit-store.js";
 
-import ListCard from "../layout/ListCard.jsx";
-import ResetButton from "../layout/Nav/ResetButton.jsx";
+import ListCard from "../Layout/ListCard.jsx";
+import GeneralButton from "../Layout/Nav/GeneralButton.jsx";
 
 const HabitList = function () {
   return {
@@ -29,12 +28,12 @@ const HabitList = function () {
               class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
               placeholder="Filter results"
             />
-            <ResetButton label="Clear" name="Reset" />
+            <GeneralButton label="Clear" name="reset" />
           </div>
         </div>
         {m(
           "div#habit-list",
-          HabitStore.list().map((habit) => m(ListCard, { value: habit }))
+          HabitStore.list().map((habit, idx) => m(ListCard, { value: habit }))
         )}
       </div>
     ),

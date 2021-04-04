@@ -11,7 +11,7 @@ import DateStore from "./store/date-store";
 // import TreeStore from "./store/habit-tree-store";
 
 // Components
-import HeroSection from "./view/components/layout/HeroSection.jsx";
+import HeroSection from "./view/components/Layout/HeroSection.jsx";
 // Utils
 import {
   d3visPageMaker,
