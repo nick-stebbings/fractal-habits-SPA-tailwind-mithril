@@ -1,12 +1,28 @@
-import stream from 'mithril/stream';
-import { clientRoutes, handleErrorType } from './client';
+import stream from "mithril/stream";
+import { handleErrorType } from "./client";
+function log(res) {
+  console.log(res, "LOGGER");
+  return res;
+}
 
-var HabitDateStore = {
+const basePath = "/habit_dates";
+
+var HabitDateStore = Object.assign(clientRoutes(basePath), {
   current: stream({}),
-  list: stream([]),
+
   clear: () => {
     HabitDateStore.current = stream({});
   },
+
+  list: stream([]),
+
+  index: () =>
+    HabitDateStore.show_all()
+      .then(log)
+      .then((response) => JSON.parse(response.data).habit_dates)
+      .then(HabitDateStore.list)
+      .catch(handleErrorType),
+
   submit: () => {
     HabitDateStore.create()
       .then(() => {

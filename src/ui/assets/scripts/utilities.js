@@ -1,3 +1,5 @@
+import { select } from "d3";
+
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
   local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -28,7 +30,7 @@ const d3visPageMaker = function (layoutView, pageView, spinnerState) {
   // Create a visualisation-containing div element with random ID
   const divId = `svg_container_${Math.floor(Math.random() * 1000000000)}${1}`;
   page.oncreate = () => {
-    document.body.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
   };
   page.view = () => {
     // Pass uniqe selection id to the vis component for d3 selection
@@ -44,12 +46,14 @@ const d3visPageMaker = function (layoutView, pageView, spinnerState) {
 };
 
 let canvasHeight, canvasWidth;
+let workingMargin;
 
 const d3SetupCanvas = function (document, margin) {
+  workingMargin = margin;
   const { width, height } = document.body.getBoundingClientRect();
 
-  canvasWidth = width - margin.right - margin.left;
-  canvasHeight = height - margin.top - margin.bottom;
+  canvasWidth = width - workingMargin.right - workingMargin.left;
+  canvasHeight = height - workingMargin.top - workingMargin.bottom;
 
   return { canvasWidth, canvasHeight };
 };
@@ -63,7 +67,10 @@ const zooms = function (...args) {
     lbound = -canvasWidth * scale,
     rbound = canvasWidth * scale;
 
-  var currentTranslation = [margin.left + canvasWidth / 2, margin.top];
+  var currentTranslation = [
+    workingMargin.left + canvasWidth / 2,
+    workingMargin.top,
+  ];
   var translation = [
     currentTranslation[0] + Math.max(Math.min(transform.x, rbound), lbound),
     currentTranslation[1] + Math.max(Math.min(transform.y, bbound), tbound),

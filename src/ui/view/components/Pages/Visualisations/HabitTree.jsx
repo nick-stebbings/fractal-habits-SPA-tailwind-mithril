@@ -10,6 +10,8 @@ import {
 import TreeStore from "../../../../store/habit-tree-store.js";
 import DomainStore from "../../../../store/domain-store.js";
 import DateStore from "../../../../store/date-store.js";
+import NodeStore from "../../../../store/habit-node-store.js";
+import HabitDateStore from "../../../../store/habit-date-store.js";
 
 import "../../../../assets/styles/components/d3vis.scss";
 import HabitStore from "../../../../store/habit-store";
@@ -21,10 +23,28 @@ const HabitTree = function () {
   let svg;
   const debounceInterval = 150;
   const margin = {
-    top: 150,
+    top: 50,
     right: 0,
     bottom: 50,
     left: 0,
+  };
+
+  const parseValues = (valueString) => {
+    const [splitValues, status] = valueString.split("-");
+    const [, left, right] = splitValues.split(/\D/);
+    return { left, right, status };
+  };
+
+  const nodeStatusColours = (d) => {
+    if (typeof d.data.value === undefined) return "#898989";
+    switch (parseValues(d.data.value).status) {
+      case "true":
+        return "#93cc96";
+      case "false":
+        return "#f2aa53";
+      default:
+        return "#898989";
+    }
   };
 
   const zoomer = zoom().scaleExtent([0.5, 2]).on("zoom", zooms);
@@ -105,7 +125,7 @@ const HabitTree = function () {
       .enter()
       .append("g")
       .classed("the-node solid", true)
-      .style("fill", "#696969")
+      .style("fill", nodeStatusColours)
       .attr("transform", (d) => `translate(${d.x},${d.y})`)
       .call(handleEvents);
     enteringNodes
@@ -123,15 +143,18 @@ const HabitTree = function () {
   return {
     type: "vis",
     onupdate: () => {
-      // DateStore.indexDatesOfHabit(HabitStore.current());
       DateStore.current() &&
         TreeStore.index(
           demoData,
           DomainStore.current().id,
           DateStore.current().id
-        ).then(() => {
-          svg && render(svg, canvasWidth, canvasHeight);
-        });
+        )
+          .then(() => {
+            DateStore.indexDatesOfHabit(HabitStore.current());
+          })
+          .then(() => {
+            svg && render(svg, canvasWidth, canvasHeight);
+          });
     },
     oninit: () => {
       const oldWindowWidth = stream(window.innerWidth);
@@ -141,9 +164,18 @@ const HabitTree = function () {
           demoData,
           DomainStore.current().id,
           DateStore.current().id
-        ).then(() => {
-          svg && render(svg, canvasWidth, canvasHeight);
-        });
+        )
+          .then(() => {
+            DateStore.indexDatesOfHabit(HabitStore.current());
+
+            HabitDateStore.index().then((a) => console.log(a));
+            NodeStore.index().then(() => {
+              NodeStore.runFilterCurrentHabit(HabitStore.current());
+            });
+          })
+          .then(() => {
+            svg && render(svg, canvasWidth, canvasHeight);
+          });
 
       window.onresize = debounce((e) => {
         let factor = 1 - 1 / (window.innerWidth / oldWindowWidth());
@@ -159,7 +191,9 @@ const HabitTree = function () {
         .attr("width", "100%")
         .attr("height", "100%")
         .attr("style", "pointer-events: all");
+
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document, margin));
+
       document.getElementById("activate-demo").addEventListener("click", () => {
         DateStore.submit({ h_date: new Date(new Date().toDateString()) })
           .then(DateStore.indexDatesOfHabit(HabitStore.current()))

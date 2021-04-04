@@ -4,9 +4,11 @@ import ResetButton from "./Nav/ResetButton.jsx";
 
 const ListCard = {
   oncreate: () => {
-    document
-      .querySelector(`button[data-id='${HabitStore.current().id}']`)
-      .classList.add("selected");
+    let chosenOne = document.querySelector(
+      `button[data-id='${HabitStore.current().id}']`
+    );
+    chosenOne.classList.add("selected");
+    chosenOne.textContent = "Chosen";
   },
   view: ({ attrs: { value } }) => (
     <div class="flex mb-4 items-center justify-between">

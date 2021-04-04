@@ -42,6 +42,9 @@ body[class^="scroll"] .mask-wrapper {
     @apply relative z-40 overflow-hidden;
     mask: no-repeat 10px -20px $maskimage;
   }
+  body[class^="scroll"] div.mask-wrapper:hover {
+    height: 12rem;
+  }
   div.mask-wrapper:hover {
     height: 346px;
   }

@@ -44,7 +44,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
   indexHabitsOfDomain: (id) => {
     HabitStore.list(HabitStore.filterByDomainId(id));
     HabitStore.current(HabitStore.list()[HabitStore.list().length - 1]);
-  }.then(m.redraw()),
+  },
 
   filterByDomainId: (id) =>
     HabitStore.fullList().filter((habit) => habit.domain_id === id),

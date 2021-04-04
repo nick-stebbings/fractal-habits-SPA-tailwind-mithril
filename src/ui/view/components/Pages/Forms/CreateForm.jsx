@@ -11,44 +11,49 @@ import CancelButton from "../../Layout/Nav/CancelButton.jsx";
 let maxDate;
 
 const CreateForm = {
-  oncreate: ({ attrs }) => {
+  oncreate: ({ attrs, dom }) => {
     document.querySelector(
       "input[name^=initiation-date]"
     ).value = new Date().toDateInputValue();
     maxDate = String(DateStore.currentDate());
 
-    document.querySelector("form").addEventListener("submit", (e) => {
-      e.preventDefault();
+    dom
+      .querySelector("form button[type=submit]")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        let form = document.querySelector(`form#create-${attrs.resourceName}`);
+        console.log(form, "form");
 
-      const data = {};
-      const FD = new FormData(e.target);
+        const data = {};
+        const FD = new FormData(form);
 
-      FD.forEach((value, key) => {
-        data[key.replace(/-/g, "_")] = value;
-      }); // Assign values while swapping for snake_case
-      data.domain_id = attrs.domain().id;
-      data.parent_node_id =
-        attrs.resourceName === "new-habit-child"
-          ? HabitStore.current().id
-          : null;
+        FD.forEach((value, key) => {
+          data[key.replace(/-/g, "_")] = value;
+        }); // Assign values while swapping for snake_case
+        data.domain_id = attrs.domain().id;
+        data.parent_node_id =
+          attrs.resourceName === "new-habit-child"
+            ? HabitStore.current().id
+            : null;
 
-      DateStore.submit({ h_date: data.initiation_date })
-        .then(() => HabitStore.submit(data))
-        .then(() => {
-          openModal(false);
-        })
-        .then(DateStore.index)
-        .then(() => {
-          HabitStore.indexHabitsOfDomain(data.domain_id);
-        })
-        .then(() => m.redraw())
-        .catch(() => {
-          openModal(false);
-        });
-    });
+        DateStore.submit({ h_date: data.initiation_date })
+          .then(() => HabitStore.submit(data))
+          .then(() => {
+            openModal(false);
+          })
+          .then(DateStore.index)
+          .then(() => {
+            HabitStore.indexHabitsOfDomain(data.domain_id);
+          })
+          .catch(() => {
+            openModal(false);
+          });
+        m.redraw();
+        form.reset();
+      });
   },
   view: ({ attrs }) => (
-    <form id={`create-${attrs.resourceName}`} action="" method="">
+    <form id={`create-${attrs.resourceName}`}>
       {attrs.addHeader && (
         <FormHeader
           iconPath="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"

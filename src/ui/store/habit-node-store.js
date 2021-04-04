@@ -1,18 +1,14 @@
-import stream from 'mithril/stream';
-import { clientRoutes, handleErrorType } from './client';
-function log(res) {
-  console.log(res, "LOGGER");
-  return res;
-}
-const basePath = '/habit_trees/nodes';
+import stream from "mithril/stream";
+import { clientRoutes, handleErrorType } from "./client";
 
-// create: (parent) => axios.post(basePath, { parent_id: parent }),
+const basePath = "/habit_trees/nodes";
+
 const NodeStore = Object.assign(clientRoutes(basePath), {
   current: stream({}),
 
   get: (id) =>
     NodeStore.show_one(id)
-      .then((response) => JSON.parse(response.data))
+      .then((response) => response.data)
       .then(NodeStore.current)
       .catch(handleErrorType),
 
@@ -29,15 +25,14 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   submit: (attrs) => {
-    NodeStore.create(attrs)
-      .then(NodeStore.current)
-      .catch(handleErrorType);
+    NodeStore.create(attrs).then(NodeStore.current).catch(handleErrorType);
   },
 
+  runFilterCurrentHabit: (habit) =>
+    NodeStore.current(NodeStore.runFilter(habit)),
+
   runFilter: (habit_id) =>
-    NodeStore.list(
-      NodeStore.list().filter((node) => node.id == habit_id)
-    ),
+    NodeStore.list(NodeStore.list().filter((node) => node.id == habit_id)),
 
   runReplace: (id, value) => {
     NodeStore.replace(id, value).catch((e) => {
@@ -47,7 +42,13 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
 
   runUpdate: (id, value) => {
     NodeStore.update(id, value).catch((e) => {
-      // TODO update list/current
+      // TODO update list/current E.G
+      // {
+      //     "id": 1,
+      //     "lft": 1,
+      //     "rgt": 26,
+      //     "parent_id": null
+      // }
     });
   },
 
