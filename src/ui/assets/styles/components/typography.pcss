@@ -9,7 +9,8 @@ body {
   @apply sm:mt-12 md:text-7xl lg:text-8xl md:text-center text-balance-dp mt-4 md:mt-16 lg:mt-24 font-semibold tracking-wider;
 }
 
-#call-to-action h2, section > h2:first-of-type {
+#call-to-action h2,
+section > h2:first-of-type {
   font-family: Silka, "Palanquin Dark", sans-serif;
   font-weight: 600;
   @apply tracking-widest text-center text-xl text-gray-800 uppercase;
@@ -41,12 +42,13 @@ section.cards h1 {
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable a {
-  @apply text-2xl; 
+  @apply text-2xl;
   line-height: 1.5rem;
 }
 
 /* Domain selector and Date selector labels */
-.nav-label-primary > span, .user-nav-label span label,
+.nav-label-primary > span,
+.user-nav-label span label,
 .responsive-nav-group > a {
   font-family: Nunito, Silka, sans-serif;
   font-weight: 700;
@@ -57,26 +59,32 @@ section#hero h3 {
   @apply text-center text-xl leading-6 text-balance-lp py-2;
 }
 
-section > h2:first-of-type, section#hero h3 > span:hover,
-.nav-label-primary > span:hover,
-.responsive-nav-group > a:hover {
+section > h2:first-of-type {
   @apply text-center;
-  text-decoration: underline;
-  text-decoration-color: #ef9323;
-	-webkit-text-decoration-color: #ef9323;
 }
 
-.nav-label-primary div span i{
+section > h2:first-of-type,
+section#hero h3 > span:hover,
+.nav-label-primary > span:hover,
+.responsive-nav-group > a:hover {
+  text-decoration: underline;
+  text-decoration-color: #ef9323;
+  -webkit-text-decoration-color: #ef9323;
+}
+
+.nav-label-primary div span i {
   /* Date Picker arrows */
   @apply text-base lg:text-2xl mt-2;
 }
-  
+
 .nav-label-primary div span {
   user-select: none;
 }
 
 section#hero h3,
-.domain-pills, .user-nav-label, .menu-card-button {
+.domain-pills,
+.user-nav-label,
+.menu-card-button {
   font-family: B612, Lato, Nunito, sans;
   font-weight: 300;
 }
@@ -132,7 +140,7 @@ nav .menu-card p {
 .resp-nav-link:active::before,
 .resp-nav-link:hover::before {
   @apply text-balance-lp;
-  content:url('../images/icons/slash.svg');
+  content: url("../images/icons/slash.svg");
   position: relative;
   z-index: -1;
   left: 0.5rem;

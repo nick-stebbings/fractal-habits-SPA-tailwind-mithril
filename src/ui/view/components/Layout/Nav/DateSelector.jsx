@@ -14,8 +14,12 @@ const dateIncrementDateObject = (increment, d) => {
 
 const DateSelector = function () {
   return {
-    oninit: () => {
+    onupdate: () => {
       // document.getElementById("date-today").value = DateStore.currentDate();
+
+      DateStore.indexDatesOfHabit(HabitStore.current());
+
+      console.log("DateStore.listForHabit() :>> ", DateStore.listForHabit());
     },
     oncreate: () => {
       DateStore.indexDatesOfHabit(HabitStore.current());
@@ -30,31 +34,27 @@ const DateSelector = function () {
         DateStore.current().h_date
       );
       prevDate.addEventListener("click", () => {
+        console.log(DateStore.current(), "model current");
+        console.log(HabitStore.current(), "habit model ");
         console.log(new Date(DateStore.current().h_date), "dateobj");
+        console.log("DateStore.listForHabit() :>> ", DateStore.listForHabit());
         if (
           dateIncrementDateObject(-1, new Date(DateStore.current().h_date)) >=
           new Date(HabitStore.current().initiation_date)
         ) {
           dateIndex--;
           DateStore.current(DateStore.listForHabit()[dateIndex]);
-
-          console.log(dateIndex);
-          console.log(DateStore.listForHabit());
-          console.log(DateStore.listForHabit()[dateIndex]);
-          console.log(DateStore.currentDate());
-          console.log(DateStore.current(), "model current");
-          // console.log(DateStore.listForHabit(), "list");
         }
         m.redraw();
       });
       nextDate.addEventListener("click", () => {
         console.log(DateStore.current(), "model current");
+        console.log(HabitStore.current(), "habit model current");
         if (
           new Date(
             dateIncrementDateObject(1, new Date(DateStore.current().h_date))
           ) <= new Date(new Date().toDateString())
         ) {
-          console.log("WECCOOL");
           dateIndex++;
           DateStore.current(DateStore.listForHabit()[dateIndex]);
         }

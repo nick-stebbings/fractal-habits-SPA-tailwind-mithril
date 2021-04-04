@@ -163,7 +163,7 @@ const HabitTree = function () {
       document.getElementById("activate-demo").addEventListener("click", () => {
         DateStore.submit({ h_date: new Date(new Date().toDateString()) })
           .then(DateStore.indexDatesOfHabit(HabitStore.current()))
-          .then(DateStore.clear())
+          .then(DateStore.current(DateStore.listForHabit().slice(-1)[0]))
           .then(m.redraw);
       });
       render(svg, canvasWidth, canvasHeight);

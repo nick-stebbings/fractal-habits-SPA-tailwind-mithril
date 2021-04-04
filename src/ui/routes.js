@@ -23,38 +23,38 @@ const spinnerOpen = stream(true);
 
 function populateStores({ demo }) {
   if (!demo) {
-      HabitStore.index()
-        .then(
-          (habits) =>
-            new Promise((resolve, reject) => {
-              habits.length !== 0
-                ? resolve(habits)
-                : reject("There are no habits to load, yet!");
-            })
-        )
-        .then(DomainStore.index)
-        .then(
-          (domains) =>
-            new Promise((resolve, reject) => {
-              domains.length !== 0 && HabitStore.fullList().length > 0
-                ? resolve(domains[0].id)
-                : reject("There are no domains or domain habits, yet!");
-            })
-        )
-        .then(HabitStore.indexHabitsOfDomain)
-        .then(DateStore.index)
-        .catch((message) => {
-          handleErrorType(message, 'info') 
-        })
-        .then(() => {
-          spinnerOpen(false);
-        })
-        .then(redraw)
-        .catch((err) => {
-          spinnerOpen(false);
-          m.redraw();
-          console.log(err);
-        });
+    HabitStore.index()
+      .then(
+        (habits) =>
+          new Promise((resolve, reject) => {
+            habits.length !== 0
+              ? resolve(habits)
+              : reject("There are no habits to load, yet!");
+          })
+      )
+      .then(DomainStore.index)
+      .then(
+        (domains) =>
+          new Promise((resolve, reject) => {
+            domains.length !== 0 && HabitStore.fullList().length > 0
+              ? resolve(domains[0].id)
+              : reject("There are no domains or domain habits, yet!");
+          })
+      )
+      .then(HabitStore.indexHabitsOfDomain)
+      .then(DateStore.index)
+      .catch((message) => {
+        handleErrorType(message, "info");
+      })
+      .then(() => {
+        spinnerOpen(false);
+      })
+      .then(redraw)
+      .catch((err) => {
+        spinnerOpen(false);
+        m.redraw();
+        console.log(err);
+      });
   } else {
     importData
       .init()
@@ -62,6 +62,11 @@ function populateStores({ demo }) {
         spinnerOpen(false);
       })
       .then(m.redraw)
+      .catch((err) => {
+        spinnerOpen(false);
+        m.redraw();
+        console.log(err);
+      });
   }
 }
 
@@ -76,7 +81,7 @@ const Routes = MenuRoutes.reduce(
         render: () =>
           menuSection.label === "Visualise"
             ? m(d3visPageMaker(Layout, page, spinnerOpen), {
-                heading: title
+                heading: title,
               })
             : m(
                 Layout,
@@ -94,7 +99,11 @@ const Routes = MenuRoutes.reduce(
     "/": {
       onmatch: populateStores,
       render() {
-        return m(Layout, { spinnerState: spinnerOpen, index: true }, m(HeroSection));
+        return m(
+          Layout,
+          { spinnerState: spinnerOpen, index: true },
+          m(HeroSection)
+        );
       },
     },
   }

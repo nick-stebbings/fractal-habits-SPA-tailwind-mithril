@@ -6,7 +6,8 @@ $watermarkimage: url("../../images/watermark.png");
   left: 5px;
 }
 
-.logo-link, nav span {
+.logo-link,
+nav span {
   cursor: pointer;
 }
 
@@ -47,7 +48,7 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 #subnav {
-  @apply -mt-11 lg:block fixed hidden w-full;
+  @apply h-48 -mt-11 lg:block fixed hidden w-full;
 }
 
 #subnav nav.nav {
@@ -73,12 +74,12 @@ body[class^="scroll"] .mask-wrapper {
   @apply my-2;
 }
 
-.nav-label-primary > div, .nav-label-primary > div > span {
+.nav-label-primary > div,
+.nav-label-primary > div > span {
   @apply flex items-center;
 }
 
 li.hoverable {
-
   a {
     cursor: pointer;
     @apply pt-1;
@@ -108,12 +109,13 @@ li.hoverable {
 
       .inset {
         @apply bg-balance-hero grid rounded-xl rounded-l-none w-3/4 grid-cols-4 grid-rows-1 gap-2 p-0 pr-2 pt-2 mb-8;
-        
+
         .menu-card.disabled {
-          p, button {
-            display:none;
+          p,
+          button {
+            display: none;
           }
-          .overlay { 
+          .overlay {
             @apply relative h-full bg-gray-600 rounded-2xl;
             width: 180px;
             margin: 1rem auto;
@@ -121,8 +123,8 @@ li.hoverable {
         }
 
         .menu-card.enabled .overlay {
-            opacity: 0;
-            display: none;
+          opacity: 0;
+          display: none;
         }
 
         .menu-card {
@@ -136,23 +138,24 @@ li.hoverable {
             @apply absolute border-2 mt-12 p-3 m-2 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
           }
 
-          .menu-card-button:focus, .menu-card-button:active {
+          .menu-card-button:focus,
+          .menu-card-button:active {
             @apply outline-none border-balance-dp;
           }
 
-          .menu-card-button:hover { 
+          .menu-card-button:hover {
             @apply text-balance-lmint bg-gradient-to-b from-gray-500 to-transparent;
-          } 
+          }
 
           .menu-card-button.active:hover {
             --tw-gradient-from: #db7f0f;
             @apply text-white;
-          } 
+          }
 
           p {
             @apply px-4;
           }
-        }   
+        }
 
         .menu-card.active {
           @apply bg-gray-50 border-balance-secondary border-2;
@@ -190,10 +193,11 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 
 /* Fixed Nav Links in top-left */
 /* --------------------------- */
-#subnav .nav-links > li.hoverable, #subnav .nav-container > div {
+#subnav .nav-links > li.hoverable,
+#subnav .nav-container > div {
   @apply bg-balance-hero z-20 pl-2 font-light border-2 rounded-full;
   margin-left: -1.3rem;
-  transition: margin-left .2s ease-out;
+  transition: margin-left 0.2s ease-out;
 }
 
 #subnav .nav-links > li.hoverable {
@@ -211,9 +215,9 @@ body[class^="scroll"] #subnav .nav-links .mega-menu {
 /* 'Slash' SVG between logo and nav-link */
 
 #subnav .nav-links > li.hoverable:last-of-type::before {
-  content:url('../../images/icons/slash.svg');
-  position:absolute;
-  z-index:40;
+  content: url("../../images/icons/slash.svg");
+  position: absolute;
+  z-index: 40;
   left: 62px;
   top: -10px;
   width: 4px;
@@ -238,15 +242,18 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
   order: 1; /* Send it to the front of the flex row to display */
 }
 
-body[class^="scroll"] li#demo-indicator { @apply hidden }
+body[class^="scroll"] li#demo-indicator {
+  @apply hidden;
+}
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active a {
   @apply pr-2 mb-1 mt-2 pl-0;
-} 
+}
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {
   order: 2;
-  transition: width 2s ease-in, margin-left 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: width 2s ease-in,
+    margin-left 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   width: 0%;
   overflow: hidden;
   margin-left: -6rem;
@@ -268,9 +275,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover a {
   @apply text-balance-secondary;
 }
 
-
-
-#subnav .nav-links a[id^=nav]:focus, 
-#subnav .nav-links a[id^=nav]:active {
+#subnav .nav-links a[id^="nav"]:focus,
+#subnav .nav-links a[id^="nav"]:active {
   // TODO: add active/ focus on nav
 }
