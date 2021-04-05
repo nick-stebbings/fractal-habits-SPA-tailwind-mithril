@@ -22,7 +22,7 @@ const HabitTree = function () {
   let canvasHeight;
   let svg;
   const debounceInterval = 150;
-  const zoomer = zoom().scaleExtent([0.5, 2]).on("zoom", zooms);
+  const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
 
   return {
     type: "vis",

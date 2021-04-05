@@ -15,7 +15,7 @@ module Hht
   class Api < Sinatra::Base
     before do
       content_type :json
-      headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Credentials' => true 
+  
     end
 
     configure :development, :test do
@@ -30,6 +30,11 @@ module Hht
       set :root, APP_ROOT
     end
 
+    options '*' do
+      response.headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
+      response.headers["Access-Control-Allow-Origin"] = '*'
+      response.headers["Access-Control-Allow-Credentials"] = true 
+    end
     include Import[
       'repos.domain_repo',
       'repos.habit_node_repo',

@@ -1,3 +1,10 @@
-button#activate-demo.active {
-  @apply border-2 border-balance-sshades-brighten;
+g.nodes {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+svg line.link {
+  stroke-opacity: 0.4;
+  stroke: gray;
+  stroke-width: 1.5;
 }

@@ -1,14 +1,20 @@
-import { select, tree, zoom } from "d3";
+import { select, tree, easeLinear } from "d3";
 
 import TreeStore from "../../store/habit-tree-store";
+import NodeStore from "../../store/habit-node-store";
+import HabitStore from "../../store/habit-node-store";
 
 let canvasHeight, canvasWidth;
 const margin = {
-  top: 50,
+  top: 20,
   right: 0,
-  bottom: 50,
+  bottom: 20,
   left: 0,
 };
+
+const positiveCol = "#93cc96";
+const negativeCol = "#f2aa53";
+const neutralCol = "#888";
 
 const d3visPageMaker = function (layoutView, pageView, spinnerState) {
   const page = {};
@@ -46,7 +52,7 @@ const zooms = function (e) {
     lbound = -canvasWidth * scale,
     rbound = canvasWidth * scale;
 
-  const currentTranslation = [margin.left + canvasWidth / 2, margin.top];
+  const currentTranslation = [margin.left, margin.top];
 
   const translation = [
     currentTranslation[0] + Math.max(Math.min(transform.x, rbound), lbound),
@@ -60,29 +66,24 @@ const zooms = function (e) {
 };
 
 const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
-  svg.selectAll("*").remove();
-
-  const canvas = svg
-    .call(zoomer)
-    .on("wheel", (event) => event.preventDefault())
-    .append("g")
-    .classed("canvas", true)
-    .attr(
-      "transform",
-      `translate(${margin.left + canvasWidth / 2},${margin.top})`
-    );
-
+  let scale = 1;
+  const levelsWide = 9;
+  const levelsHigh = 9;
+  const nodeRadius = 10;
+  const dx = (window.innerWidth / levelsWide) * scale;
+  const dy = (window.innerHeight / levelsHigh) * scale;
   const handleEvents = function (selection) {
     selection
       .on("click", function (event, node) {
         const g = select(this);
-        const n = g.selectAll("circle");
-        const l = g.selectAll("text.label");
-        HabitStore.runCurrentFilterByNode(node.data.name);
-        let storedNode = NodeStore.filterById(node.data.name)[0];
-        let currentStatus = parseValues(node.data.value).status;
+        const c = g.selectAll(".the-node circle");
+        const nodeId = node.data.name;
 
-        let requestBody = storedNode
+        const storedNode = NodeStore.filterById(nodeId)[0];
+        const currentStatus = parseTreeValues(node.data.value).status;
+        HabitStore.runCurrentFilterById(nodeId);
+
+        const requestBody = storedNode
           ? Object.assign(storedNode, {
               completed_status: oppositeStatus(currentStatus),
             })
@@ -92,54 +93,115 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
               completed_status: oppositeStatus(currentStatus),
             });
         storedNode
-          ? NodeStore.runReplace(node.data.name, requestBody)
+          ? NodeStore.runReplace(nodeId, requestBody)
           : NodeStore.submit(requestBody);
 
-        n.style("fill", currentStatus === "false" ? "#93cc96" : "#f2aa53");
-        l.style("fill", currentStatus === "false" ? "#93cc96" : "#f2aa53");
+        c.style("fill", currentStatus === "false" ? positiveCol : negativeCol);
+        c.attr("class", "active");
+
+        clickedZoom(event, this);
       })
       .on("mouseover", function () {
         const g = select(this);
-        g.select(".label").transition().duration(700).style("opacity", "1");
+        g.select(".label")
+          .transition()
+          .duration(750)
+          .ease(easeLinear)
+          .style("opacity", "1");
       })
       .on("mouseout", function () {
         const g = select(this);
-        g.select(".label").transition().duration(700).style("opacity", "0");
+        g.select(".label")
+          .transition()
+          .duration(750)
+          .ease(easeLinear)
+          .style("opacity", "0");
       });
+    function clickedZoom(e, that) {
+      if (e.defaultPrevented) return; // panning, not clicking
+      const transform = getTransform(that, clickScale);
+      canvas
+        .transition()
+        .duration(1000)
+        .attr(
+          "transform",
+          "translate(" + transform.translate + ")scale(" + transform.scale + ")"
+        );
+      console.log(transform);
+      zoomer.scaleBy(transform.scale).translateBy(transform.translate);
+      scale = transform.scale;
+    }
+  };
+  const getTransform = function (node, xScale) {
+    var bx = node.__data__.x + zoomed.vx;
+    var by = node.__data__.y + zoomed.vy;
+    var bw = zoomed.vw;
+    var bh = zoomed.vh;
+    var tx = -bx * xScale + vx - bw / 2;
+    var ty = -by * xScale + vy - bh / 2;
+    console.log(dx);
+    console.log(dy);
+    svg.attr(
+      "viewBox",
+      `${-(canvasWidth / 2) + bw / 2 - bx} ` +
+        `${-canvasHeight / 2 + bh / 2 - bh} ` +
+        `${zoomed.vw} ${zoomed.vh}`
+    );
+    debugger;
+    return { translate: [0, 0], scale: xScale };
+  };
+  const reset = function () {
+    scale = 1.0;
+    canvas.attr("transform", "translate(0,0)scale(1,1)");
+    zoomer.scaleBy(scale).translateBy([0, 0]);
   };
 
-  const scaleFactor = 1;
-  const dy = (window.innerWidth / 50) * scaleFactor;
-  const dx = (window.innerHeight / 10) * scaleFactor;
+  var bbox, vx, vy, vw, vh, defaultView;
+  var clickScale = 3;
+  vw = canvasWidth * 3;
+  vh = canvasHeight * 3;
+  vx = 0;
+  vy = 0;
+  var zoomed = {};
+  zoomed.vw = dx * 3;
+  zoomed.vh = dy * 3;
+  zoomed.vx = 0;
+  zoomed.vy = 0;
+  var defaultView = `${vx} ${vy} ${vw} ${vh}`;
 
-  // console.log(root, 'root at first');
-  // root.y0 = dy / 2;
-  // root.x0 = 0;
-  // root.descendants().forEach((d, i) => {
-  //   d.id = i;
-  //   d._children = d.children;
-  //   if (d.depth && d.data.name.length !== 7) d.children = null;
-  // });
+  svg.selectAll("*").remove();
+  const canvas = svg
+    .append("g")
+    .classed("canvas", true)
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  canvas
+    .append("rect")
+    .attr("fill", "transparent")
+    .attr("stroke", "black")
+    .attr("width", vw)
+    .attr("height", vh)
+    .attr("x", vx)
+    .attr("y", vy);
+
+  svg
+    .attr("viewBox", defaultView)
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .call(zoomer)
+    .on("wheel", (event) => event.preventDefault());
+
   const rootData = TreeStore.root();
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
-
   treeLayout(rootData);
 
   const gLink = canvas
     .append("g")
     .classed("links", true)
-    .attr("fill", "none")
-    .attr("stroke", "#555")
-    .attr("stroke-opacity", 0.4)
-    .attr("stroke-width", 1.5);
+    .attr("transform", `translate(${vw / 2},${0})`);
   const gNode = canvas
     .append("g")
     .classed("nodes", true)
-    .attr("cursor", "pointer")
-    .attr("pointer-events", "all");
-
-  // console.log(rootData, 'rootData after layout');
-  // console.log(rootData.descendants(), 'rootData descendentst');
+    .attr("transform", `translate(${vw / 2},${0})`);
 
   const links = gLink.selectAll("line.link").data(rootData.links());
   const enteringLinks = links
@@ -149,8 +211,7 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
     .attr("x1", (d) => d.source.x)
     .attr("y1", (d) => d.source.y)
     .attr("x2", (d) => d.target.x)
-    .attr("y2", (d) => d.target.y)
-    .style("stroke", "#5f5f5f");
+    .attr("y2", (d) => d.target.y);
 
   const nodes = gNode.selectAll("g.node").data(rootData.descendants());
   const enteringNodes = nodes
@@ -160,14 +221,17 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
     .style("fill", nodeStatusColours)
     .attr("transform", (d) => `translate(${d.x},${d.y})`)
     .call(handleEvents);
+  gNode.selectAll(".the-node circle.active").on("click", reset);
+
   enteringNodes
     .append("text")
     .attr("class", "label")
-    .attr("dx", 15)
+    .attr("dx", 25)
     .attr("dy", 5)
     .style("opacity", "0")
-    .text((d) => d.data.name);
-  enteringNodes.append("circle").attr("r", 6 * scaleFactor);
+    .text((d) => d.data.value);
+
+  enteringNodes.append("circle").attr("r", nodeRadius);
 };
 
 const parseTreeValues = (valueString) => {
@@ -180,14 +244,14 @@ const oppositeStatus = (current) =>
   current === undefined || current === "true" ? "true" : "false";
 
 const nodeStatusColours = (d) => {
-  if (typeof d.data.value === undefined) return "#898989";
+  if (typeof d.data.value === undefined) return neutralCol;
   switch (parseTreeValues(d.data.value).status) {
     case "true":
-      return "#93cc96";
+      return positiveCol;
     case "false":
-      return "#f2aa53";
+      return negativeCol;
     default:
-      return "#898989";
+      return neutralCol;
   }
 };
 
