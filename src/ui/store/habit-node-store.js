@@ -28,6 +28,8 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
     NodeStore.create(attrs).then(NodeStore.current).catch(handleErrorType);
   },
 
+  filterById: (id) => NodeStore.list().filter((n) => n.id === +id),
+
   runCurrentFilterByHabit: (habit) =>
     NodeStore.current(
       NodeStore.list().filter((node) => node.id == habit.habit_node_id)[0]
@@ -40,12 +42,14 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
 
   runCurrentFilterById: (id) => NodeStore.current(NodeStore.filterById(id)[0]),
 
-  filterById: (id) => NodeStore.list().filter((n) => n.id === +id),
-
   runReplace: (id, value) => {
-    NodeStore.replace(id, value).catch((e) => {
-      // TODO update list/current
-    });
+    NodeStore.replace(id, value)
+      .then((e) => {
+        console.log(e);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   },
 
   runUpdate: (id, value) => {

@@ -13,11 +13,8 @@ import DateStore from "./store/date-store";
 // Components
 import HeroSection from "./view/components/Layout/HeroSection.jsx";
 // Utils
-import {
-  d3visPageMaker,
-  redraw,
-  handleErrorType,
-} from "./assets/scripts/utilities";
+import { d3visPageMaker } from "./assets/scripts/d3-utilities";
+import { redraw, handleErrorType } from "./assets/scripts/utilities";
 
 const spinnerOpen = stream(true);
 

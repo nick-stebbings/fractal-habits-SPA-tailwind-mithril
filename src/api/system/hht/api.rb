@@ -15,7 +15,7 @@ module Hht
   class Api < Sinatra::Base
     before do
       content_type :json
-      headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Credentials' => 'true' 
+      headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Credentials' => true 
     end
 
     configure :development, :test do
