@@ -1,4 +1,4 @@
-import { select, tree, easeLinear, zoomIdentity } from "d3";
+import { select, tree, easeCircleOut, path, zoomIdentity } from "d3";
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
 import HabitStore from "../../store/habit-node-store";
@@ -83,22 +83,19 @@ const renderTree = function (
   let scale = 1.3;
   let clickScale = 3;
   const zoomBase = canvas;
-  // .transition()
-  // .ease(easeLinear)
-  // .duration(1000);
-  const levelsWide = 9;
+  const levelsWide = 6;
   const levelsHigh = 9;
-  const nodeRadius = 15;
+  const nodeRadius = 15 * scale;
   const dx = (window.innerWidth / levelsWide) * scale;
   const dy = (window.innerHeight / levelsHigh) * scale ** 2;
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
 
   const calibrateViewPort = function () {
-    viewportW = canvasWidth * 3;
-    viewportH = canvasHeight * 3;
     viewportX = 0;
     viewportY = 0;
+    viewportW = canvasWidth * 3;
+    viewportH = canvasHeight * 3;
     zoomed.translateX = -3 * (viewportW / 2);
     zoomed.translateY = -3 * (viewportH / 2);
     zoomed.viewportW = scale * viewportW;
@@ -109,6 +106,7 @@ const renderTree = function (
   const reset = function () {
     scale = 1.0;
     svg.attr("viewBox", defaultView);
+    expandTree();
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
@@ -124,6 +122,12 @@ const renderTree = function (
     siblings.forEach(collapse);
   };
 
+  const highlightSubtree = function (node) {
+    node.descendants().forEach((n) => {
+      console.log(node);
+    });
+  };
+
   const handleEvents = function (selection) {
     selection
       .on("click", function (event, node) {
@@ -133,11 +137,13 @@ const renderTree = function (
           return;
         }
         collapseAroundAndUnder(node);
+        highlightSubtree(node);
         renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
-        console.log(this, "THIS");
+
         const c = select(this).selectAll(".the-node circle");
         if (node.data.value) handleStatusToggle(c, node);
-        clickedZoom(event, this);
+        event.target.classList.add("active");
+        if (typeof zoomClicked === "undefined") clickedZoom(event, this);
       })
       .on("mouseover", function () {
         const g = select(this);
@@ -170,13 +176,11 @@ const renderTree = function (
         "fill",
         currentStatus === "false" ? positiveCol : negativeCol
       );
-      circle.attr("class", "active");
     }
   };
   const getTransform = function (node, xScale) {
-    var bx = node.x * xScale;
-    var by = node.y * xScale;
-    var bw = zoomed.viewportW;
+    var bx = (node.x || node.__data__.x) * xScale;
+    var by = (node.y || node.__data__.y) * xScale;
     var tx = -bx - viewportW;
     var ty = -by;
     return { translate: [tx, ty], scale: xScale };
@@ -188,16 +192,20 @@ const renderTree = function (
     scale = transformer.scale;
     zoomBase.call(zoomer.translateBy, ...transformer.translate);
     zoomBase.call(zoomer.scaleTo, transformer.scale);
-    select(".canvas").attr(
-      "transform",
-      "translate(" +
-        transformer.translate[0] +
-        ", " +
-        transformer.translate[1] +
-        ")scale(" +
-        transformer.scale +
-        ")"
-    );
+    select(".canvas")
+      .transition()
+      .ease(easeCircleOut)
+      .duration(500)
+      .attr(
+        "transform",
+        "translate(" +
+          transformer.translate[0] +
+          ", " +
+          transformer.translate[1] +
+          ")scale(" +
+          transformer.scale +
+          ")"
+      );
   }
 
   calibrateViewPort();
@@ -231,14 +239,26 @@ const renderTree = function (
     .attr("transform", `translate(${viewportW / 2},${scale})`);
 
   const links = gLink.selectAll("line.link").data(rootData.links());
+
+  const linker = function (d) {
+    const x0 = d.source.x;
+    const y0 = d.source.y;
+    const y1 = d.target.y;
+    const x1 = d.target.x;
+    const k = 10;
+
+    const link = path();
+    link.moveTo(x0, y0);
+    link.bezierCurveTo(x1 - k, y0, x0, y1, x1 - k, y1);
+    link.lineTo(x1, y1);
+    return link.toString();
+  };
   const enteringLinks = links
     .enter()
-    .append("line")
+    .append("path")
     .classed("link", true)
-    .attr("x1", (d) => d.source.x)
-    .attr("y1", (d) => d.source.y)
-    .attr("x2", (d) => d.target.x)
-    .attr("y2", (d) => d.target.y);
+    .attr("d", linker);
+  debugger;
 
   const nodes = gNode.selectAll("g.node").data(rootData.descendants());
   const enteringNodes = nodes
@@ -263,6 +283,10 @@ const renderTree = function (
     clickedZoom(zoomClicked.event, zoomClicked.node) &&
     console.log(zoomClicked.node);
 };
+
+function expandTree() {
+  expand(TreeStore.root());
+}
 
 function collapseTree() {
   collapse(TreeStore.root());
