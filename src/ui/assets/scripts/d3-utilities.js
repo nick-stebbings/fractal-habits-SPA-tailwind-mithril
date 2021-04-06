@@ -64,7 +64,13 @@ const zooms = function (e) {
   );
 };
 
-const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
+const renderTree = function (
+  svg,
+  canvasWidth,
+  canvasHeight,
+  zoomer,
+  zoomClicked
+) {
   let currentXTranslate = margin.left;
   let currentYTranslate = margin.top;
 
@@ -73,7 +79,8 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
     .append("g")
     .classed("canvas", true)
     .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
-  let scale = 1.0;
+
+  let scale = 1.3;
   let clickScale = 3;
   const zoomBase = canvas;
   // .transition()
@@ -81,9 +88,9 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
   // .duration(1000);
   const levelsWide = 9;
   const levelsHigh = 9;
-  const nodeRadius = 10;
+  const nodeRadius = 15;
   const dx = (window.innerWidth / levelsWide) * scale;
-  const dy = (window.innerHeight / levelsHigh) * scale;
+  const dy = (window.innerHeight / levelsHigh) * scale ** 2;
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
 
@@ -105,6 +112,18 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
+  const collapseAroundAndUnder = function (node) {
+    let minExpandedDepth = node.depth + 3;
+    let descendantsToCollapse = node
+      .descendants()
+      .filter((n) => n.depth == minExpandedDepth);
+    let siblings = TreeStore.root()
+      .descendants()
+      .filter((n) => n.depth == node.depth && n !== node);
+    descendantsToCollapse.forEach(collapse);
+    siblings.forEach(collapse);
+  };
+
   const handleEvents = function (selection) {
     selection
       .on("click", function (event, node) {
@@ -113,16 +132,10 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
           reset();
           return;
         }
-        // let minExpandedDepth = node.depth + 3;
-        // let descendantsToCollapse = node
-        //   .descendants()
-        //   .filter((n) => n.depth == minExpandedDepth);
-        // descendantsToCollapse.forEach(collapse);
-        // renderTree(svg, canvasWidth, canvasHeight, zoomer);
-
-        const g = select(this);
-        const c = g.selectAll(".the-node circle");
-
+        collapseAroundAndUnder(node);
+        renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
+        console.log(this, "THIS");
+        const c = select(this).selectAll(".the-node circle");
         if (node.data.value) handleStatusToggle(c, node);
         clickedZoom(event, this);
       })
@@ -159,41 +172,35 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
       );
       circle.attr("class", "active");
     }
-
-    function clickedZoom(e, that) {
-      if (e.defaultPrevented) return; // panning, not clicking
-      const transformer = getTransform(that, clickScale);
-      scale = transformer.scale;
-      zoomBase.call(zoomer.translateBy, ...transformer.translate);
-      zoomBase.call(zoomer.scaleTo, transformer.scale);
-      select(".canvas").attr(
-        "transform",
-        "translate(" +
-          transformer.translate[0] +
-          ", " +
-          transformer.translate[1] +
-          ")scale(" +
-          transformer.scale +
-          ")"
-      );
-    }
-
-    const getTransform = function (node, xScale) {
-      var bx = node.__data__.x * xScale;
-      var by = node.__data__.y * xScale;
-      var bw = zoomed.viewportW;
-      var tx = -bx - viewportW;
-      var ty = -by;
-      console.log(tx, "TX");
-      console.log(bx, "bX");
-      console.log(bw, "bw");
-      return { translate: [tx, ty], scale: xScale };
-    };
+  };
+  const getTransform = function (node, xScale) {
+    var bx = node.x * xScale;
+    var by = node.y * xScale;
+    var bw = zoomed.viewportW;
+    var tx = -bx - viewportW;
+    var ty = -by;
+    return { translate: [tx, ty], scale: xScale };
   };
 
+  function clickedZoom(e, that) {
+    if (e.defaultPrevented) return; // panning, not clicking
+    const transformer = getTransform(that, clickScale);
+    scale = transformer.scale;
+    zoomBase.call(zoomer.translateBy, ...transformer.translate);
+    zoomBase.call(zoomer.scaleTo, transformer.scale);
+    select(".canvas").attr(
+      "transform",
+      "translate(" +
+        transformer.translate[0] +
+        ", " +
+        transformer.translate[1] +
+        ")scale(" +
+        transformer.scale +
+        ")"
+    );
+  }
+
   calibrateViewPort();
-  reset();
-  // svg.selectAll("*").remove();
 
   const viewBoxOutline = canvas
     .append("rect")
@@ -206,7 +213,7 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
 
   svg
     .attr("viewBox", defaultView)
-    .attr("preserveAspectRatio", "none")
+    .attr("preserveAspectRatio", "xMidYMid meet")
     .call(zoomer)
     .on("wheel", (event) => event.preventDefault());
 
@@ -214,7 +221,6 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   treeLayout(rootData);
 
-  debugger;
   const gLink = canvas
     .append("g")
     .classed("links", true)
@@ -252,6 +258,10 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
     .text((d) => d.data.value);
 
   enteringNodes.append("circle").attr("r", nodeRadius);
+
+  typeof zoomClicked !== "undefined" &&
+    clickedZoom(zoomClicked.event, zoomClicked.node) &&
+    console.log(zoomClicked.node);
 };
 
 function collapseTree() {
