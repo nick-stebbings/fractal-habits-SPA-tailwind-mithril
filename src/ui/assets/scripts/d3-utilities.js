@@ -113,15 +113,15 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
           reset();
           return;
         }
+        // let minExpandedDepth = node.depth + 3;
+        // let descendantsToCollapse = node
+        //   .descendants()
+        //   .filter((n) => n.depth == minExpandedDepth);
+        // descendantsToCollapse.forEach(collapse);
+        // renderTree(svg, canvasWidth, canvasHeight, zoomer);
+
         const g = select(this);
         const c = g.selectAll(".the-node circle");
-
-        let minExpandedDepth = node.depth + 3;
-        let descendantsToCollapse = node
-          .descendants()
-          .filter((n) => n.depth == minExpandedDepth);
-        descendantsToCollapse.forEach(collapse);
-        renderTree(svg, canvasWidth, canvasHeight, zoomer);
 
         if (node.data.value) handleStatusToggle(c, node);
         clickedZoom(event, this);
@@ -164,7 +164,6 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
       if (e.defaultPrevented) return; // panning, not clicking
       const transformer = getTransform(that, clickScale);
       scale = transformer.scale;
-      reset();
       zoomBase.call(zoomer.translateBy, ...transformer.translate);
       zoomBase.call(zoomer.scaleTo, transformer.scale);
       select(".canvas").attr(
@@ -183,7 +182,7 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
       var bx = node.__data__.x * xScale;
       var by = node.__data__.y * xScale;
       var bw = zoomed.viewportW;
-      var tx = bx - viewportW;
+      var tx = -bx - viewportW;
       var ty = -by;
       console.log(tx, "TX");
       console.log(bx, "bX");
