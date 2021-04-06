@@ -15,7 +15,6 @@ module Hht
   class Api < Sinatra::Base
     before do
       content_type :json
-  
     end
 
     configure :development, :test do
@@ -24,16 +23,22 @@ module Hht
     end
 
     configure do
+      set :root, APP_ROOT
       register Sinatra::Namespace
       register Sinatra::CrossOrigin
       enable :cross_origin
-      set :root, APP_ROOT
+      set :allow_origin, :any
+      set :allow_methods, [:get, :post, :options, :delete, :put, :patch]
+      set :allow_credentials, true
+      set :max_age, "1728000"
+      set :expose_headers, ['Content-Type']
     end
 
     options '*' do
-      response.headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
-      response.headers["Access-Control-Allow-Origin"] = '*'
-      response.headers["Access-Control-Allow-Credentials"] = true 
+      response.headers["Allow"] = "GET, POST, OPTIONS, DELETE, PUT, PATCH"
+      response.headers["Access-Control-Allow-Origin"] = 'http://localhost:8080'
+      response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept"
+      200
     end
     include Import[
       'repos.domain_repo',
@@ -63,8 +68,7 @@ module Hht
       get '/domain/:id/habit_tree' do |id|
         length = params['tracking_length'].to_i
         tree = YAMLStore.ready ? YAMLStore.get_data[:tree] : YAMLStore.new(length) && YAMLStore.get_data[:tree]
-        # Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json # This 'ternarises' the return tree
-        json tree
+        Subtree.json_to_ternarised_and_listified_treenodes(tree.to_json).to_json # This 'ternarises' the return tree
       end
 
       [:post, :put, :patch, :delete].each do |method|

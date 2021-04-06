@@ -1,4 +1,3 @@
-require 'pry'
 class YAMLStore
   attr_reader :domains, :habits, :dates, :habit_dates, :habit_nodes
   @@yaml = Hht::Container.resolve('yaml.yaml_container')

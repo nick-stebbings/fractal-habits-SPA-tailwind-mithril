@@ -42,14 +42,10 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
 
   runCurrentFilterById: (id) => NodeStore.current(NodeStore.filterById(id)[0]),
 
-  runReplace: (id, value) => {
-    NodeStore.replace(id, value)
-      .then((e) => {
-        console.log(e);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  runReplace: (id, attrs) => {
+    NodeStore.replace(id, attrs).catch((e) => {
+      console.log(e);
+    });
   },
 
   runUpdate: (id, value) => {

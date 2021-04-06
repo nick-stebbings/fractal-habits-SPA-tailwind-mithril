@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ENV['APP_ENV'] ||= 'development'
-require 'pry' if ENV['APP_ENV'] == 'development'
+require 'pry-byebug' if ENV['APP_ENV'] == 'development'
 
 require_relative '../config/environment'
 

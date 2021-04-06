@@ -22,12 +22,10 @@ const TreeStore = {
     return TreeStore.getForDomainDate(isDemo, domainId, dateId)
       .then((response) => hierarchy(response.data))
       .then(TreeStore.root)
-      .then((err) => {
+      .catch((err) => {
         console.log(err);
       });
   },
-
-  get: (useDemoData, domainId) => {},
 
   getForDomainDate: (useDemoData, domainId, dateId) => {
     if (!useDemoData) {

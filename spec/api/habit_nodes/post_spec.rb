@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'pry'
 RSpec.describe 'Feature: habit_nodes resource' do
   context 'Given a valid habit_node json' do
     let(:resource) { JSON.load response.body }

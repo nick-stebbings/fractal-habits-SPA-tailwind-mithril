@@ -11,7 +11,7 @@ class Tree::TreeNode
       lft = left_counter
       rgt = (n.size == 1 ? (lft + 1) : (lft + 2 * n.size - 1))
       left_counter = n.size == 1 ? (left_counter + 2) : (left_counter + 1)
-      n.content = {id: "L#{lft}-R#{rgt}-D#{domain_index}", completed_status: 'f', level: n.node_depth} if block_given?
+      n.content = {id: "L#{lft}R#{rgt}-false"} if block_given?
       yield({id: i, lft: lft, rgt: rgt}, n.name, n.content) if block_given?
     end
   end

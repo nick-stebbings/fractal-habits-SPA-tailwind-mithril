@@ -5,6 +5,7 @@ import {
   zooms,
   d3SetupCanvas,
   renderTree,
+  collapseTree,
 } from "../../../../assets/scripts/d3-utilities.js";
 
 import TreeStore from "../../../../store/habit-tree-store.js";
@@ -23,7 +24,26 @@ const HabitTree = function () {
   let svg;
   const debounceInterval = 150;
   const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
-
+  function updateStoresAndRenderTree() {
+    DateStore.current().id &&
+      TreeStore.index(
+        demoData,
+        DomainStore.current().id,
+        DateStore.current().id
+      )
+        .then(() => {
+          HabitDateStore.index().then();
+          DateStore.indexDatesOfHabit(HabitStore.current());
+          NodeStore.index().then(() => {
+            NodeStore.runCurrentFilterByHabit(HabitStore.current());
+          });
+        })
+        .then(() => {
+          TreeStore.root() &&
+            svg &&
+            renderTree(svg, canvasWidth, canvasHeight, zoomer);
+        });
+  }
   return {
     type: "vis",
     oninit: () => {
@@ -34,23 +54,7 @@ const HabitTree = function () {
         oldWindowWidth(document.body.getBoundingClientRect().width);
       }, debounceInterval);
 
-      DateStore.current().id &&
-        TreeStore.index(
-          demoData,
-          DomainStore.current().id,
-          DateStore.current().id
-        )
-          .then(() => {
-            DateStore.indexDatesOfHabit(HabitStore.current());
-
-            HabitDateStore.index().then((a) => console.log(a));
-            NodeStore.index().then(() => {
-              NodeStore.runCurrentFilterByHabit(HabitStore.current());
-            });
-          })
-          .then(() => {
-            svg && renderTree(svg, canvasWidth, canvasHeight, zoomer);
-          });
+      updateStoresAndRenderTree();
     },
     oncreate: ({ attrs }) => {
       svg = select(`div#${attrs.divId}`)
@@ -62,29 +66,15 @@ const HabitTree = function () {
         .attr("style", "pointer-events: all");
 
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document));
-      renderTree(svg, canvasWidth, canvasHeight, zoomer);
+      // renderTree(svg, canvasWidth, canvasHeight, zoomer);
 
-      // document.getElementById("activate-demo").addEventListener("click", () => {
-      //   DateStore.submit({ h_date: new Date(new Date().toDateString()) })
-      //     .then(DateStore.indexDatesOfHabit(HabitStore.current()))
-      //     .then(DateStore.current(DateStore.listForHabit().slice(-1)[0]))
-      //     .then(m.redraw);
-      // });
+      document.getElementById("activate-demo").addEventListener("click", () => {
+        let rootNode = document.querySelector(".the-node");
+        collapseTree(zoomer);
+        renderTree(svg, canvasWidth, canvasHeight, zoomer);
+      });
     },
-    onupdate: () => {
-      DateStore.current() &&
-        TreeStore.index(
-          demoData,
-          DomainStore.current().id,
-          DateStore.current().id
-        )
-          .then(() => {
-            DateStore.indexDatesOfHabit(HabitStore.current());
-          })
-          .then(() => {
-            svg && renderTree(svg, canvasWidth, canvasHeight, zoomer);
-          });
-    },
+    onupdate: updateStoresAndRenderTree,
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
         <button type="button" id="activate-demo" class="z-50">
