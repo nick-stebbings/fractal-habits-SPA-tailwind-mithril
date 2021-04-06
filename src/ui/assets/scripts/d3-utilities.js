@@ -116,6 +116,13 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
         const g = select(this);
         const c = g.selectAll(".the-node circle");
 
+        let minExpandedDepth = node.depth + 3;
+        let descendantsToCollapse = node
+          .descendants()
+          .filter((n) => n.depth == minExpandedDepth);
+        descendantsToCollapse.forEach(collapse);
+        renderTree(svg, canvasWidth, canvasHeight, zoomer);
+
         if (node.data.value) handleStatusToggle(c, node);
         clickedZoom(event, this);
       })
@@ -249,9 +256,7 @@ const renderTree = function (svg, canvasWidth, canvasHeight, zoomer) {
 };
 
 function collapseTree() {
-  console.log(TreeStore.root());
   collapse(TreeStore.root());
-  console.log(TreeStore.root());
 }
 
 function expand(d) {
