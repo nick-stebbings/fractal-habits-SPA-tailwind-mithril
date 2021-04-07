@@ -1,4 +1,11 @@
-import { select, tree, easeCircleOut, path, zoomIdentity } from "d3";
+import {
+  select,
+  tree,
+  easeCircleOut,
+  path,
+  zoomIdentity,
+  linkVertical,
+} from "d3";
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
 import HabitStore from "../../store/habit-node-store";
@@ -15,7 +22,7 @@ const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
 const neutralCol = "#888";
 
-const d3visPageMaker = function (layoutView, pageView, spinnerState) {
+const d3visPageMaker = function (layout, component, spinnerState) {
   const page = {};
 
   // Create a visualisation-containing div element with random ID
@@ -23,12 +30,12 @@ const d3visPageMaker = function (layoutView, pageView, spinnerState) {
 
   page.view = () => {
     // Pass unique selection id to the vis component for d3 selection
-    const d3Canvas = m("div", { id: divId });
+    const d3Container = m("div", { id: divId });
 
     return m(
-      layoutView,
+      layout,
       { spinnerState: spinnerState },
-      m(pageView, { divId }, d3Canvas)
+      m(component, { divId }, d3Container)
     );
   };
   return page;
@@ -123,9 +130,8 @@ const renderTree = function (
   };
 
   const highlightSubtree = function (node) {
-    node.descendants().forEach((n) => {
-      console.log(node);
-    });
+    //TODO
+    node.descendants().forEach((n) => {});
   };
 
   const handleEvents = function (selection) {
@@ -179,23 +185,26 @@ const renderTree = function (
     }
   };
   const getTransform = function (node, xScale) {
-    var bx = (node.x || node.__data__.x) * xScale;
-    var by = (node.y || node.__data__.y) * xScale;
+    if (typeof node === "undefined") return;
+    var x = node.__data__ ? node.__data__.x : node.x;
+    var y = node.__data__ ? node.__data__.y : node.y;
+    var bx = x * xScale;
+    var by = y * xScale;
     var tx = -bx - viewportW;
     var ty = -by;
     return { translate: [tx, ty], scale: xScale };
   };
 
   function clickedZoom(e, that) {
-    if (e.defaultPrevented) return; // panning, not clicking
+    if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
     scale = transformer.scale;
-    zoomBase.call(zoomer.translateBy, ...transformer.translate);
-    zoomBase.call(zoomer.scaleTo, transformer.scale);
+    // zoomBase.call(zoomer.translateBy, ...transformer.translate);
+    // zoomBase.call(zoomer.scaleTo, transformer.scale);
     select(".canvas")
       .transition()
       .ease(easeCircleOut)
-      .duration(500)
+      .duration(1500)
       .attr(
         "transform",
         "translate(" +
@@ -241,24 +250,27 @@ const renderTree = function (
   const links = gLink.selectAll("line.link").data(rootData.links());
 
   const linker = function (d) {
-    const x0 = d.source.x;
-    const y0 = d.source.y;
-    const y1 = d.target.y;
-    const x1 = d.target.x;
-    const k = 10;
-
-    const link = path();
-    link.moveTo(x0, y0);
-    link.bezierCurveTo(x1 - k, y0, x0, y1, x1 - k, y1);
-    link.lineTo(x1, y1);
-    return link.toString();
+    // const x0 = d.source.x;
+    // const y0 = d.source.y;
+    // const y1 = d.target.y;
+    // const x1 = d.target.x;
+    // const k = 10;
+    // const link = path();
+    // link.moveTo(x0, y0);
+    // link.bezierCurveTo(x1 - k, y0, x0, y1, x1 - k, y1);
+    // link.lineTo(x1, y1);
+    // return link.toString();
   };
   const enteringLinks = links
     .enter()
     .append("path")
     .classed("link", true)
-    .attr("d", linker);
-  debugger;
+    .attr(
+      "d",
+      linkVertical()
+        .x((d) => d.x)
+        .y((d) => d.y)
+    );
 
   const nodes = gNode.selectAll("g.node").data(rootData.descendants());
   const enteringNodes = nodes

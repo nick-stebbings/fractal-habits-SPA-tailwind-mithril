@@ -51,7 +51,7 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 #subnav {
-  @apply h-48 -mt-11 lg:block fixed hidden w-full;
+  @apply -mt-11 lg:block fixed hidden w-full;
 }
 
 #subnav nav.nav {

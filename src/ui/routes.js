@@ -8,7 +8,6 @@ import { importData } from "./store/populateDummyData";
 import DomainStore from "./store/domain-store";
 import HabitStore from "./store/habit-store";
 import DateStore from "./store/date-store";
-// import TreeStore from "./store/habit-tree-store";
 
 // Components
 import HeroSection from "./view/components/Layout/HeroSection.jsx";
@@ -72,21 +71,18 @@ const Routes = MenuRoutes.reduce(
     const links = menuSection.subpaths;
 
     Object.keys(links).forEach((path) => {
-      const { title, page } = links[path];
+      const { title, component } = links[path];
       newRoutesObject[path] = {
         onmatch: populateStores,
         render: () =>
           menuSection.label === "Visualise"
-            ? m(d3visPageMaker(Layout, page, spinnerOpen), {
+            ? m(d3visPageMaker(Layout, component, spinnerOpen), {
                 heading: title,
               })
-            : m(
-                Layout,
-                { spinnerState: spinnerOpen },
-                m(page, {
-                  heading: title,
-                })
-              ),
+            : m({
+                view: () =>
+                  m(Layout, { spinnerState: spinnerOpen }, m(component)),
+              }),
       };
     });
 
@@ -95,13 +91,15 @@ const Routes = MenuRoutes.reduce(
   {
     "/": {
       onmatch: populateStores,
-      render() {
-        return m(
-          Layout,
-          { spinnerState: spinnerOpen, index: true },
-          m(HeroSection)
-        );
-      },
+      render: () =>
+        m({
+          view: () =>
+            m(
+              Layout,
+              { spinnerState: spinnerOpen, index: true },
+              m(HeroSection)
+            ),
+        }),
     },
   }
 );

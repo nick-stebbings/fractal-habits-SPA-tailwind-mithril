@@ -7,8 +7,10 @@ const ListCard = {
     let chosenOne = document.querySelector(
       `button[data-id='${HabitStore.current().id}']`
     );
-    chosenOne.classList.add("selected");
-    chosenOne.textContent = "Chosen";
+    if (chosenOne) {
+      chosenOne.classList.add("selected");
+      chosenOne.textContent = "Chosen";
+    }
   },
   view: ({ attrs: { value } }) => (
     <div class="flex mb-4 items-center justify-between">
