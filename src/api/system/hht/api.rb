@@ -68,7 +68,7 @@ module Hht
       get '/domain/:id/habit_tree' do |id|
         length = params['tracking_length'].to_i
         tree = YAMLStore.ready ? YAMLStore.get_data[:tree] : YAMLStore.new(length) && YAMLStore.get_data[:tree]
-        Subtree.json_to_ternarised_and_listified_treenodes(tree.to_json).to_json # This 'ternarises' the return tree
+        json tree
       end
 
       [:post, :put, :patch, :delete].each do |method|
@@ -159,7 +159,6 @@ module Hht
         
         if(demo)
           # This contains all json habit trees for all domains, referenced by @habits
-          binding.pry
           tree = domain_list_as_json(yaml_container.relations.domains, dom_id).to_json
         else
           root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)

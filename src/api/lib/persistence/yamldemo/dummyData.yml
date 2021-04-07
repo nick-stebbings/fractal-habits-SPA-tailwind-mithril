@@ -2,712 +2,712 @@ domains:
   - name: Sports
     id: 1
     habits:
-    - name: Do Martial Arts
-      children:
-        - name: Take up Karate
-          children:
-            - name: Try to set aside time every day to practice.
-              children: []
-            - name: Watch online video tutorials for some guidance while you practice.
-              children:
-                - name: >-
-                    Search online karate courses for interactive instruction and
-                    online dojos!
-                  children: []
-            - name: >-
-                Wear comfortable clothes like baggy shorts or sweatpants with a
-                T-shirt.
-              children: []
-            - name: >-
-                Purchase a body opponent bag so it's easier to practice on your
-                own.
-              children: []
-            - name: Stretch
-              children: []
-            - name: ' and workout before your training starts to prepare your body.'
-              children: []
-            - name: >-
-                Warm up with your stance before you begin practicing specific
-                technique.
-              children: []
-            - name: Practice lowering your center of gravity.
-              children:
-                - name: >-
-                    Every time you block an attack, be sure that you are not
-                    falling off balance. If you are, this is a sign that you are
-                    not lowering your center of gravity effectively.
-                  children: []
-                - name: >-
-                    If you have a body opponent bag, push it away from you while
-                    maintaining your center of gravity. As it moves back toward
-                    you, practice blocking it while keeping your center of
-                    gravity.
-                  children: []
-            - name: >-
-                High block by bringing either arm across your body to your
-                forehead.
-              children: []
-            - name: Forward block by touching the opposing shoulder with either arm.
-              children: []
-            - name: Cross block by moving either arm to your ear and across your face.
-              children: []
-            - name: >-
-                Downward circle block by bringing the opponent's arm down past
-                you.
-              children:
-                - name: Guide the opponent's punch by using their force against them.
-                  children: []
-                - name: Use this block to defend a punch coming into the stomach.
-                  children: []
-            - name: Learn how to throw basic Karate punches.
-              children:
-                - name: >-
-                    Always tilt your wrist downward so you are hitting with your
-                    first 2 knuckles, also known as the unit knuckles. This also
-                    prevents you from hyperextending your elbow.
-                  children: []
-                - name: >-
-                    Twist your wrist back to facing upward as you draw the punch
-                    back to release your locked elbow.
-                  children: []
-            - name: Practice snap kicking motions and progress your speed.
-              children:
-                - name: >-
-                    Start by practicing waist-level snap kicks before progressing
-                    higher.
-                  children: []
-                - name: >-
-                    If you practice on a friend, be sure that you are hitting them
-                    with the instep of your foot to the blade of your foot.
-                  children: []
-                - name: >-
-                    Use these kicks to lighten up your opponent and throw them off
-                    balance.
-                  children: []
-            - name: Practice thrust kicks to push your opponent back.
-              children:
-                - name: >-
-                    Practice thrust kicks on a punching bag and increase their
-                    force as you get more comfortable.
-                  children: []
-                - name: >-
-                    Once you're comfortable with your kicks, practice on a friend
-                    that knows Karate and is comfortable blocking.
-                  children: []
-        - name: Take up Tai Chi
-          children:
-            - name: Master the moves by understanding the philosophy and its makers.
-              children:
-                - name: >-
-                    The art of Tai Chi is said to improve the flow of Chi (Qi),
-                    the traditional Chinese concept of a physically intangible
-                    energy or life force. In scientific studies, Tai Chi has been
-                    proven to improve a host of medical conditions including, but
-                    not limited to: muscular pain, headaches, fibromyalgia,
-                    cardiovascular problems, arthritis, multiple sclerosis,
-                    Parkinson's, Alzheimer's, Diabetes and ADHD. Though its
-                    low-impact workout is especially helpful to seniors, Tai Chi
-                    is for everyone and is deceptively simple in appearance.
-                  children: []
-                - name: "The thing to keep in mind about Taoism is that it is about an attunement with nature. Not just nature outside of us, but also the nature within us. This principle is called Tzu Jan, or Ziran in pinyin, and it is the principle of being \"self-so\"\x9D or embodying one's \"self-nature\"\x9D. So beyond the health benefits and stress relief, Tai Chi Chuan is also  a means to tap into one's inner self.[5]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Think about more than just doing the move.
-              children: []
-            - name: Try the single whip move.
-              children: []
-            - name: Do the white crane spreads wings move.
-              children: []
-            - name: Practice "pouring.
-              children: []
-            - name: Do arm circles.
-              children:
-                - name: >-
-                    Do leg cycling, too! Sit down and work from your toes to your
-                    thighs, bending your knees when you need to. Be sure to go
-                    both clockwise and counterclockwise.
-                  children: []
-            - name: Master the "snake creeps down" move.
-              children:
-                - name: >-
-                    Once you're there, test your balance with your arms. Move them
-                    around on different planes and at different speeds. Can you
-                    hold it?
-                  children: []
-            - name: Go from short form to long form.
-              children: []
-            - name: Warm up with proper breathing and centering.
-              children:
-                - name: 'Put your feet up to shoulder width apart, no further.'
-                  children: []
-                - name: >-
-                    Place your hand on your lower abdomen, about 2 inches (5 cm)
-                    below your navel. Push in lightly.
-                  children: []
-                - name: >-
-                    Breathe in and out through your nose slowly (lips loosely
-                    together) from this area of your abdomen. If you can't feel
-                    this area moving, push in with your hand a bit more.
-                  children: []
-            - name: Concentrate on all parts of your body one at a time.
-              children: []
-            - name: Root yourself.
-              children: []
-            - name: Think about your frame.
-              children:
-                - name: >-
+      - name: Do Martial Arts
+        children:
+          - name: Take up Karate
+            children:
+              - name: Try to set aside time every day to practice.
+                children: []
+              - name: Watch online video tutorials for some guidance while you practice.
+                children:
+                  - name: >-
+                      Search online karate courses for interactive instruction and
+                      online dojos!
+                    children: []
+              - name: >-
+                  Wear comfortable clothes like baggy shorts or sweatpants with a
+                  T-shirt.
+                children: []
+              - name: >-
+                  Purchase a body opponent bag so it's easier to practice on your
+                  own.
+                children: []
+              - name: Stretch
+                children: []
+              - name: " and workout before your training starts to prepare your body."
+                children: []
+              - name: >-
+                  Warm up with your stance before you begin practicing specific
+                  technique.
+                children: []
+              - name: Practice lowering your center of gravity.
+                children:
+                  - name: >-
+                      Every time you block an attack, be sure that you are not
+                      falling off balance. If you are, this is a sign that you are
+                      not lowering your center of gravity effectively.
+                    children: []
+                  - name: >-
+                      If you have a body opponent bag, push it away from you while
+                      maintaining your center of gravity. As it moves back toward
+                      you, practice blocking it while keeping your center of
+                      gravity.
+                    children: []
+              - name: >-
+                  High block by bringing either arm across your body to your
+                  forehead.
+                children: []
+              - name: Forward block by touching the opposing shoulder with either arm.
+                children: []
+              - name: Cross block by moving either arm to your ear and across your face.
+                children: []
+              - name: >-
+                  Downward circle block by bringing the opponent's arm down past
+                  you.
+                children:
+                  - name: Guide the opponent's punch by using their force against them.
+                    children: []
+                  - name: Use this block to defend a punch coming into the stomach.
+                    children: []
+              - name: Learn how to throw basic Karate punches.
+                children:
+                  - name: >-
+                      Always tilt your wrist downward so you are hitting with your
+                      first 2 knuckles, also known as the unit knuckles. This also
+                      prevents you from hyperextending your elbow.
+                    children: []
+                  - name: >-
+                      Twist your wrist back to facing upward as you draw the punch
+                      back to release your locked elbow.
+                    children: []
+              - name: Practice snap kicking motions and progress your speed.
+                children:
+                  - name: >-
+                      Start by practicing waist-level snap kicks before progressing
+                      higher.
+                    children: []
+                  - name: >-
+                      If you practice on a friend, be sure that you are hitting them
+                      with the instep of your foot to the blade of your foot.
+                    children: []
+                  - name: >-
+                      Use these kicks to lighten up your opponent and throw them off
+                      balance.
+                    children: []
+              - name: Practice thrust kicks to push your opponent back.
+                children:
+                  - name: >-
+                      Practice thrust kicks on a punching bag and increase their
+                      force as you get more comfortable.
+                    children: []
+                  - name: >-
+                      Once you're comfortable with your kicks, practice on a friend
+                      that knows Karate and is comfortable blocking.
+                    children: []
+          - name: Take up Tai Chi
+            children:
+              - name: Master the moves by understanding the philosophy and its makers.
+                children:
+                  - name: >-
+                      The art of Tai Chi is said to improve the flow of Chi (Qi),
+                      the traditional Chinese concept of a physically intangible
+                      energy or life force. In scientific studies, Tai Chi has been
+                      proven to improve a host of medical conditions including, but
+                      not limited to: muscular pain, headaches, fibromyalgia,
+                      cardiovascular problems, arthritis, multiple sclerosis,
+                      Parkinson's, Alzheimer's, Diabetes and ADHD. Though its
+                      low-impact workout is especially helpful to seniors, Tai Chi
+                      is for everyone and is deceptively simple in appearance.
+                    children: []
+                  - name: "The thing to keep in mind about Taoism is that it is about an attunement with nature. Not just nature outside of us, but also the nature within us. This principle is called Tzu Jan, or Ziran in pinyin, and it is the principle of being \"self-so\"\x9D or embodying one's \"self-nature\"\x9D. So beyond the health benefits and stress relief, Tai Chi Chuan is also  a means to tap into one's inner self.[5]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+              - name: Think about more than just doing the move.
+                children: []
+              - name: Try the single whip move.
+                children: []
+              - name: Do the white crane spreads wings move.
+                children: []
+              - name: Practice "pouring.
+                children: []
+              - name: Do arm circles.
+                children:
+                  - name: >-
+                      Do leg cycling, too! Sit down and work from your toes to your
+                      thighs, bending your knees when you need to. Be sure to go
+                      both clockwise and counterclockwise.
+                    children: []
+              - name: Master the "snake creeps down" move.
+                children:
+                  - name: >-
+                      Once you're there, test your balance with your arms. Move them
+                      around on different planes and at different speeds. Can you
+                      hold it?
+                    children: []
+              - name: Go from short form to long form.
+                children: []
+              - name: Warm up with proper breathing and centering.
+                children:
+                  - name: "Put your feet up to shoulder width apart, no further."
+                    children: []
+                  - name: >-
+                      Place your hand on your lower abdomen, about 2 inches (5 cm)
+                      below your navel. Push in lightly.
+                    children: []
+                  - name: >-
+                      Breathe in and out through your nose slowly (lips loosely
+                      together) from this area of your abdomen. If you can't feel
+                      this area moving, push in with your hand a bit more.
+                    children: []
+              - name: Concentrate on all parts of your body one at a time.
+                children: []
+              - name: Root yourself.
+                children: []
+              - name: Think about your frame.
+                children:
+                  - name: >-
 
-                    Small frame style. In this style (usually Wu or Hao versions)
-                    aren't very expansive. The movements are smaller (big
-                    surprise, huh?) and there's less extension in general. The
-                    focus is on correct internal energy to form correct movements
-                    and transitions.
-                  children: []
-                - name: >
+                      Small frame style. In this style (usually Wu or Hao versions)
+                      aren't very expansive. The movements are smaller (big
+                      surprise, huh?) and there's less extension in general. The
+                      focus is on correct internal energy to form correct movements
+                      and transitions.
+                    children: []
+                  - name: >
 
-                    Large frame style. The large frame style (Chen and Yang)
-                    involves low and high stances, more dramatic postures, and
-                    swinging arms. It emphasizes correct positioning of the body
-                    and alignment to channel energy.
+                      Large frame style. The large frame style (Chen and Yang)
+                      involves low and high stances, more dramatic postures, and
+                      swinging arms. It emphasizes correct positioning of the body
+                      and alignment to channel energy.
 
-                    There is a medium frame style, but it's really just in between
-                    the two. If you have questions, ask your teacher!
-                  children: []
-            - name: Experiment with different styles.
-              children: []
-            - name: Choose a style of Tai Chi that fits your needs and interests.
-              children: []
-            - name: Make sure you're physically ready for it.
-              children: []
-            - name: Find a knowledgeable teacher who is right for you.
-              children: []
-            - name: Pick a style of instruction.
-              children: []
-            - name: Practice.
-              children: []
-            - name: Commit to practicing for 12 weeks minimum.
-              children: []
-            - name: Keep distractions out of your practice zone.
-              children:
-                - name: >-
+                      There is a medium frame style, but it's really just in between
+                      the two. If you have questions, ask your teacher!
+                    children: []
+              - name: Experiment with different styles.
+                children: []
+              - name: Choose a style of Tai Chi that fits your needs and interests.
+                children: []
+              - name: Make sure you're physically ready for it.
+                children: []
+              - name: Find a knowledgeable teacher who is right for you.
+                children: []
+              - name: Pick a style of instruction.
+                children: []
+              - name: Practice.
+                children: []
+              - name: Commit to practicing for 12 weeks minimum.
+                children: []
+              - name: Keep distractions out of your practice zone.
+                children:
+                  - name: >-
 
-                    Relax. Tensing your body is the best way to prevent getting
-                    any benefit from Tai Chi. However, relax does not mean turn
-                    into a wet noodle. Retain proper posture without excess
-                    tension. Classic Tai Chi literature often describes this as
-                    standing "as if one were suspended on a string on the top of
-                    the head".
-                  children: []
-                - name: "\nBreathe. Part of the secret of Tai Chi's health benefits comes from deep, abdominal breathing.[21]\n\tX\n\t\tExpert Source\n\n\t\t\n\t\t\tFrank BlaneyCertified Tai Chi & Qigong Instructor\n\n\t\tExpert Interview.  19 May 2020.\n\n\n The majority of styles teach \"abdominal breathing\", in which one breathes in, expanding the abdominal area (not the chest) and exhales by contracting the abs. All inhalation is done through the nose; exhalation through the mouth and the tongue should touch the roof of the mouth, stimulating salivary function."
-                  children: []
-                - name: >-
-                    Live in the moment. Develop the Tai Chi mental discipline to
-                    live in the moment rather than focusing on anxieties.
-                  children: []
-            - name: Practice in stressful situations.
-              children:
-                - name: >-
-                    As a form of meditation, Tai Chi is able to help you learn to
-                    understand yourself better and thereby deal with others more
-                    effectively. Thus, when stressful situations arise, Tai Chi
-                    learning will help you to be assertive and respectful of
-                    others, as well as staying in the present and dealing with the
-                    situation before you with calmness. Tai Chi helps you learn to
-                    merge the opposing forces of yin and yang, self and the world
-                    to achieve a natural balance for physical and spiritual
-                    well-being. This balance is represented by the Tai Chi symbol.
-                  children: []
-            - name: Expand your repertoire.
-              children: []
-            - name: Read deeply about Tai Chi.
-              children: []
-        - name: Take up Grappling
-          children:
-          - name: Find a local studio that offers Judo lessons.
-            children: []
-          - name: Get the kit.
-            children: []
-          - name: Learn the breakfalls.
-            children: []
-          - name: 'Work on learning a few moves, and perfecting them.'
-            children: []
-          - name: Drill!
-            children: []
-          - name: Learn groundwork techniques.
-            children: []
-          - name: Learn some Japanese names.
-            children: []
-          - name: Learn the rules.
-            children: []
-          - name: Train regularly.
-            children: []
-          - name: Eat and drink healthily and have an active lifestyle.
-            children: []
-          - name: Don't be afraid to ask questions.
-            children: []
-          - name: >-
-              Learn counterattacks to basic judo throws, then when your opponent
-              does a certain throw, you'll be able to use it to your advantage,
-              particularly if you are small framed and often have a certain move
-              used against you.
-            children: []
-          - name: Practice both left- and right-handed techniques.
-            children: []
-          - name: Learn combinations.
-            children: []
-          - name: >-
-              Practice transitions from standing techniques (tachi-waza) to
-              ground techniques (ne-waza).
-            children: []
-          - name: Learn and understand the etiquette and history of judo.
-            children: []
+                      Relax. Tensing your body is the best way to prevent getting
+                      any benefit from Tai Chi. However, relax does not mean turn
+                      into a wet noodle. Retain proper posture without excess
+                      tension. Classic Tai Chi literature often describes this as
+                      standing "as if one were suspended on a string on the top of
+                      the head".
+                    children: []
+                  - name: "\nBreathe. Part of the secret of Tai Chi's health benefits comes from deep, abdominal breathing.[21]\n\tX\n\t\tExpert Source\n\n\t\t\n\t\t\tFrank BlaneyCertified Tai Chi & Qigong Instructor\n\n\t\tExpert Interview.  19 May 2020.\n\n\n The majority of styles teach \"abdominal breathing\", in which one breathes in, expanding the abdominal area (not the chest) and exhales by contracting the abs. All inhalation is done through the nose; exhalation through the mouth and the tongue should touch the roof of the mouth, stimulating salivary function."
+                    children: []
+                  - name: >-
+                      Live in the moment. Develop the Tai Chi mental discipline to
+                      live in the moment rather than focusing on anxieties.
+                    children: []
+              - name: Practice in stressful situations.
+                children:
+                  - name: >-
+                      As a form of meditation, Tai Chi is able to help you learn to
+                      understand yourself better and thereby deal with others more
+                      effectively. Thus, when stressful situations arise, Tai Chi
+                      learning will help you to be assertive and respectful of
+                      others, as well as staying in the present and dealing with the
+                      situation before you with calmness. Tai Chi helps you learn to
+                      merge the opposing forces of yin and yang, self and the world
+                      to achieve a natural balance for physical and spiritual
+                      well-being. This balance is represented by the Tai Chi symbol.
+                    children: []
+              - name: Expand your repertoire.
+                children: []
+              - name: Read deeply about Tai Chi.
+                children: []
+          - name: Take up Grappling
+            children:
+              - name: Find a local studio that offers Judo lessons.
+                children: []
+              - name: Get the kit.
+                children: []
+              - name: Learn the breakfalls.
+                children: []
+              - name: "Work on learning a few moves, and perfecting them."
+                children: []
+              - name: Drill!
+                children: []
+              - name: Learn groundwork techniques.
+                children: []
+              - name: Learn some Japanese names.
+                children: []
+              - name: Learn the rules.
+                children: []
+              - name: Train regularly.
+                children: []
+              - name: Eat and drink healthily and have an active lifestyle.
+                children: []
+              - name: Don't be afraid to ask questions.
+                children: []
+              - name: >-
+                  Learn counterattacks to basic judo throws, then when your opponent
+                  does a certain throw, you'll be able to use it to your advantage,
+                  particularly if you are small framed and often have a certain move
+                  used against you.
+                children: []
+              - name: Practice both left- and right-handed techniques.
+                children: []
+              - name: Learn combinations.
+                children: []
+              - name: >-
+                  Practice transitions from standing techniques (tachi-waza) to
+                  ground techniques (ne-waza).
+                children: []
+              - name: Learn and understand the etiquette and history of judo.
+                children: []
   - name: Mind
     id: 2
     habits:
-    - name: Do Reflection
-      children:
-        - name: Take up Meditation for Beginners
-          children:
-            - name: 'Choose a quiet, peaceful environment.'
-              children:
-                - name: "For those new to meditation, it's especially important to avoid any external distractions. Turn off TV sets, phones, or other noisy appliances.[3]\n\tX\n\t\tTrustworthy Source\n\n\t\tMayo Clinic\n\t\tEducational website from one of the world's leading hospitals\n\n\t\t\t\tGo to source\n\n\n"
-                  children: []
-                - name: >-
-                    If you play music, choose calm, repetitive tunes to avoid
-                    breaking your concentration. You can also play white noise or
-                    quiet nature sounds, like running water.
-                  children: []
-                - name: >-
-                    Your meditation space does not need to be completely silent,
-                    so you won’t need earplugs. The sound of a lawnmower or dog
-                    barking shouldn't prevent effective meditation. In fact, being
-                    aware of these noises without letting them dominate your
-                    thoughts is an important component of meditation.
-                  children: []
-                - name: >-
-                    Meditating outside works for many so long as you don't sit
-                    near a busy roadway or another source of loud noise. You can
-                    find peace under a tree or sitting on some lush grass in a
-                    favorite corner of a garden.
-                  children: []
-            - name: Wear comfortable clothes.
-              children:
-                - name: >-
-                    Wear a sweater or cardigan if you plan on meditating someplace
-                    cool, or bring a blanket or shawl you can wrap around
-                    yourself. You don’t want the sensation of feeling cold to
-                    consume your thoughts.
-                  children: []
-                - name: >-
-                    If you are in a place where you can't easily change your
-                    clothes, do your best to make yourself as comfortable as
-                    possible. Try just taking off your shoes.
-                  children: []
-            - name: Decide how long you want to meditate.
-              children:
-                - name: >-
-                    Once you have decided on a time frame, try to stick to it.
-                    Don't just give up because you feel like it isn't working. It
-                    will take time and practice to achieve successful meditation.
-                    Right now, the most important thing is to keep trying.
-                  children: []
-                - name: >-
-                    Find a way to keep track of your meditation time without
-                    distracting yourself. Set a gentle alarm to alert you when
-                    your time is up. Or time your practice to end with a certain
-                    event—such as the sun hitting a certain spot on the wall.
-                  children: []
-            - name: Do some stretches before you start to prevent stiffness.
-              children:
-                - name: >-
-                    Remember to stretch your neck, shoulders, and lower
-                    back—especially if you've been sitting in front of a computer.
-                    Stretching out your legs—with an emphasis on the inner
-                    thigh—can be helpful when meditating in the lotus position.
-                  children: []
-                - name: >-
-                    If you don’t already know how to stretch, consider learning
-                    different stretching techniques to try before you meditate.
-                    Many meditation experts recommend doing light yoga stretches
-                    before meditation.
-                  children: []
-            - name: stretches
-              children: []
-            - name: Sit in a comfortable position.
-              children: []
-            - name: Straighten your spine once you’re seated.
-              children:
-                - name: >-
-                    It requires practice to find the position that allows you to
-                    relax your torso with only slight effort being used to
-                    maintain your balance. Whenever you feel tension, relax the
-                    area. If you can't relax it without slumping, check the
-                    alignment of your posture and seek to rebalance your torso, so
-                    those areas can relax.
-                  children: []
-                - name: >-
-                    The most important thing is that you are comfortable, relaxed,
-                    and have a balanced torso, so your spine can support all of
-                    your weight from the waist up.
-                  children: []
-                - name: >-
-                    The traditional hand placement involves resting your hands in
-                    your lap, palms facing upward, with your right hand on top of
-                    your left. However, you can also rest your hands on your knees
-                    or leave them hanging down by your side.
-                  children: []
-            - name: Close your eyes if it helps you focus and relax.
-              children:
-                - name: >-
-                    Once you have grown accustomed to meditation, you can try
-                    practicing with your eyes open. This tends to help if you find
-                    yourself falling asleep when meditating with your eyes closed
-                    or if you experience disturbing mental images, which happens
-                    to a small number of people.
-                  children: []
-                - name: "If you keep your eyes open, you will need to keep them \"soft\" by not focusing on any one thing in particular.[11]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-                - name: >-
-                    You don't want to go into a trance-like state. The goal is to
-                    feel relaxed, yet alert.
-                  children: []
-            - name: Follow your breathing.
-              children: []
-            - name: Focus on mental images to guide your breathing.
-              children:
-                - name: >-
-                    Don't worry if your mind starts to wander. You are a beginner,
-                    and meditation takes practice. Just make an effort to refocus
-                    your mind on your breathing and try to think of nothing else.
-                  children: []
-            - name: Repeat a mantra to help you focus.
-              children: []
-            - name: Try concentrating on a simple visual object to relieve stress.
-              children:
-                - name: >-
-                    The visual object can be anything you wish. The flame of a lit
-                    candle can be particularly pleasant. Other possible objects to
-                    consider include crystals, flowers, or pictures of divine
-                    beings, such as the Buddha.
-                  children: []
-                - name: >-
-                    Place the object at eye level, so you don't need to strain
-                    your head and neck to view it. Gaze at it until your
-                    peripheral vision starts to dim and the object consumes your
-                    vision.
-                  children: []
-                - name: "Once you are focused entirely on the object, you should feel a sense of profound serenity.[17]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Practice visualization if you prefer to focus inward.
-              children:
-                - name: >-
-                    The place you visualize could be a warm, sandy beach, a
-                    flower-filled meadow, a quiet forest, or a comfortable sitting
-                    room with a roaring fire. Whatever place you choose, allow it
-                    to become your sanctuary.
-                  children: []
-                - name: >-
-                    Once you have mentally entered your sanctuary, allow yourself
-                    to explore it. Don’t work to "create" your surroundings. It’s
-                    as if they are already there. Just relax and allow the details
-                    to come to the forefront of your mind.
-                  children: []
-                - name: >-
-                    Take in the sights, sounds, and scents of your surroundings.
-                    Feel the fresh breeze against your face or the heat of the
-                    flames warming your body. Enjoy the space for as long as you
-                    wish, allowing it to naturally expand and become more
-                    tangible. When you are ready to leave, take a few deep
-                    breaths, then open your eyes.
-                  children: []
-                - name: >-
-                    You can come back to this same place the next time you
-                    practice visualization, or you can simply create a new space.
-                  children: []
-            - name: Do a body scan to find and release tension.
-              children:
-                - name: >-
-                    You may find it helpful to start at the bottom and work your
-                    way up. For example, concentrate on whatever sensations you
-                    can feel in your toes. Make a conscious effort to relax any
-                    contracted muscles and release any tension or tightness in
-                    your toes. When your toes are fully relaxed, move upwards to
-                    your feet and repeat the relaxation process.
-                  children: []
-                - name: >-
-                    Continue along your body, moving from your feet to the top of
-                    your head. Spend as much time as you like focusing on each
-                    part of your body.
-                  children: []
-                - name: >-
-                    Once you have completed the relaxation of each individual body
-                    part, focus on your body as a whole and enjoy the sensation of
-                    calmness and looseness you have achieved. Focus on your
-                    breathing for several minutes before coming out of your
-                    meditation practice.
-                  children: []
-                - name: "With regular practice, this technique can make you more aware of the various sensations in your body and help you deal with them appropriately.[20]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: >-
-                Try heart chakra meditation to tap into feelings of love and
-                compassion.
-              children:
-                - name: "As you become more relaxed, imagine a green light radiating from your heart. Imagine the light filling you with a sensation of pure, radiant love.[22]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-                - name: "Picture the love and light radiating throughout your entire body. From there, allow it to radiate outward from your body and enter the universe around you.[23]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-                - name: "Take a few moments to simply sit and feel the positive energy within and around you. When you’re done, gradually allow yourself to become aware of your body and your breath again. Gently wiggle your fingers, toes, and limbs, then open your eyes.[24]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Try walking meditation
-              children: []
-            - name: ' to relax and exercise at the same time.'
-              children:
-                - name: >-
-                    Choose a quiet location to practice your walking meditation
-                    with as few distractions as possible. Remove your shoes if
-                    it’s safe to do so.
-                  children: []
-                - name: >-
-                    Hold your head up with your gaze directed straight ahead and
-                    your hands clasped together in front of you. Take a slow,
-                    deliberate step with your right foot. After taking the first
-                    step, stop for a moment before taking the next. Only 1 foot
-                    should be moving at any given time.
-                  children: []
-                - name: >-
-                    When you reach the end of your walking path, stop completely
-                    with your feet together. Then pivot on your right foot and
-                    turn around. Continue walking in the opposite direction using
-                    the same slow, deliberate movements as before.
-                  children: []
-                - name: >-
-                    While practicing walking meditation, try to focus on the
-                    movement of the feet and nothing else. This intense focus is
-                    similar to the way that you focus on the rising and falling of
-                    your breath during breathing meditation. Try to clear your
-                    mind and become aware of the connection between your foot and
-                    the earth below it.
-                  children: []
-            - name: Try to meditate at the same time every day.
-              children:
-                - name: >-
-                    Early morning is a good time to meditate since your mind has
-                    not yet become consumed with the stresses and worries of the
-                    day.
-                  children: []
-                - name: "It is not a good idea to meditate directly after eating. If you’re digesting a meal, you may feel uncomfortable and less able to concentrate.[27]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Take a guided meditation class to hone your techniques.
-              children: []
-            - name: Read spiritual books to learn more about meditation.
-              children: []
-            - name: Practice mindfulness
-              children: []
-            - name: ' in your everyday life.'
-              children:
-                - name: >-
-                    For example, in moments of stress, try to take a few seconds
-                    to focus solely on your breathing and empty your mind of any
-                    negative thoughts or emotions.
-                  children: []
-                - name: >-
-                    You can also practice mindfulness when you eat by becoming
-                    aware of the food and all the sensations you experience as you
-                    eat.
-                  children: []
-                - name: "No matter what actions you perform in your daily life—whether it's sitting at a computer or sweeping the floor—try to become more aware of your body's movements and how you feel in the present moment. This focus and awareness is living mindfully.[30]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Try grounding exercises to help you be more present.
-              children:
-                - name: >-
-                    For example, you might focus on the blue color of a pen or
-                    folder on a table near you or examine more closely the feeling
-                    of your feet on the floor or your hands resting on the arms of
-                    your chair. Try doing this if you feel like you are distracted
-                    or you find your mind is wandering, or if you are feeling
-                    stressed.
-                  children: []
-                - name: >-
-                    You can also try focusing on multiple sensations at once. For
-                    example, pick up a keyring and pay attention to the sounds the
-                    keys make, the way they feel in your hand, and even their
-                    metallic smell.
-                  children: []
-            - name: Maintain a healthy lifestyle in addition to meditating.
-              children: []
-            - name: View meditation as a journey rather than a goal.
-              children: []
-        - name: Take up Improving Your Study Focus
-          children:
-            - name: Make a timetable.
-              children:
-                - name: >-
-                    Try to switch subjects every hour or so, too, to prevent
-                    yourself from getting bored and saturating your mind. Too much
-                    of one subject and your brain will start going on autopilot. A
-                    new subject will wake up your mind and your motivation.
-                  children: []
-            - name: Set aside time to worry or think about other things.
-              children:
-                - name: >-
-                    If you start to feel your mind wander, stop it dead in its
-                    tracks. Take a second to shake it off, and then resume with
-                    the material. You are the ringleader of your thoughts. You
-                    started them, and you can stop them, too!
-                  children: []
-                - name: >-
-                    Keep pen and paper beside you and write down everything that
-                    comes to your mind during your study sessions. Do or think
-                    about those things once you're having a pause.
-                  children: []
-            - name: Switch up how you learn.
-              children:
-                - name: >-
-                    And it'll be easier for your brain to process, too. Switching
-                    up what skills you're using helps you brain process the
-                    information faster and hold onto it. The time will go faster
-                    and you'll remember it better? Check and check.
-                  children: []
-            - name: Reward yourself.
-              children:
-                - name: >-
-                    If possible, get your parents involved. Could they help supply
-                    you with incentives? Maybe getting better grades could get you
-                    out of your least favorite chore or could temporarily up your
-                    allowance. Ask them whether they're willing to help work out
-                    some type of reward plan – it never hurts to ask.
-                  children: []
-            - name: 'Backtrack, if need be.'
-              children: []
-            - name: Make studying more active.
-              children:
-                - name: Ask yourself questions as you read.
-                  children: []
-                - name: Look away from the page and summarize out loud what you read.
-                  children: []
-            - name: >-
-                Make notes on the concepts, characters, plots, or events
-                described.
-              children: []
-            - name: Get on the Internet and then get right back off after your break.
-              children: []
-            - name: Choose the right spot.
-              children:
-                - name: >-
-                    For example, do not study right in front of a TV; you will
-                    only do your homework when the advertisements come up. Go to
-                    get a "snip" of TV or radio only as a quick break – exactly as
-                    if it's a few moments to go to get a drink of water or "fresh
-                    air" for a minute.
-                  children: []
-                - name: >-
-                    Sit in a chair at a table or desk while you study. Don't study
-                    in bed, except maybe reading on top of your covers, propped
-                    upright with a bright reading light behind you. However, don't
-                    get under the covers – you'll just want to fall asleep. What's
-                    more, you'll start to associate your bedroom with studying and
-                    that's definitely an impulse you want to avoid.
-                  children: []
-                - name: >-
-                    A standing desk does a remarkable job making you focus on your
-                    task (in addition to being a healthier option to sitting).
-                  children: []
-            - name: Have everything you need to study.
-              children: []
-            - name: Have a snack nearby.
-              children: []
-            - name: Write down your study goals.
-              children: []
-            - name: >-
-                Make sure your cell phone and other electronic devices are turned
-                off.
-              children: []
-            - name: Consider playing background music softly.
-              children: []
-            - name: Listen to your body.
-              children: []
-            - name: Get enough sleep.
-              children:
-                - name: "Most people need between 7-9 hours of sleep a night. Some a little more, some a little less. How many hours do you like to sleep, when you don't have to set an alarm? Try to get that every night by going to bed a bit earlier than usual, as required.[8]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Eat healthily.
-              children: []
-            - name: Take control of your thoughts.
-              children:
-                - name: >-
-                    Try the "5 More" rule. Tell yourself to do only five more
-                    things or five more minutes before quitting. Once you've
-                    finished those, do another five. Breaking tasks up into
-                    smaller chunks makes things easier for those with shorter
-                    concentration spans and it keeps your mind going longer.
-                  children: []
-                - name: "Try not to generalize about your abilities in a way that holds you back. For instance, instead of saying, \"I can't do algebra,\" you might redefine the problem by saying, \"I get confused about simplifying expressions.\"[9]\n\tX\n\t\tExpert Source\n\n\t\t\n\t\t\tTed Coopersmith, MBAAcademic Tutor\n\n\t\tExpert Interview.  10 July 2020.\n\n\n\n"
-                  children: []
-            - name: Do the least pleasant tasks first.
-              children: []
-            - name: >-
-                See whether alpha wave sound tones will give you, the listener,
-                improved focus, memory, and concentration for study and other
-                activities.
-              children: []
-            - name: Follow all the concentration steps and tips.
-              children: []
-            - name: Check how the environment sounds after the BiNaural Beat.
-              children: []
-        - name: Take up Journal Writing
-          children:
-            - name: Find a notebook to write in.
-              children: []
-            - name: Decorate the notebook.
-              children: []
-            - name: Keep a digital journal.
-              children: []
-            - name: Write the first entry.
-              children:
-                - name: >-
-                    Write about what happened today. Include where you went, what
-                    you did, and who you spoke to.
-                  children: []
-                - name: >
-                    Write about what you felt today. Pour your joys, your
-                    frustrations, and your goals into the journal. Use the act of
-                    writing as a way to explore your feelings. Consider keeping a
-                    dream journal.
-                  children: []
-                - name: "Keep a learning log. Write about what you learned today. Use the journal as a way to explore and connect your thoughts.[2]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-                - name: >-
-                    Turn your experiences into art. Use the journal to write
-                    stories or poetry, to make sketches, and to plan out projects.
-                    Feel free to mix this in with your other entries.
-                  children: []
-            - name: Date your entry.
-              children: []
-            - name: Get into the flow of writing.
-              children:
-                - name: "Imagine that you are talking to someone. Whether you are talking to a close friend or pouring your thoughts into a journal: you are putting them out into the world, and thus making them real. It can be hard to really get a grasp on what you're thinking until you make your thoughts real.[4]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-                - name: "Use journaling as a healing tool. If there is something haunting you or bothering you, try to write about that thing and understand why exactly it has stuck on your mind.[5]\n\tX\n\t\tExpert Source\n\n\t\t\n\t\t\tNicolette Tura, MALife Coach\n\n\t\tExpert Interview.  23 January 2020.\n\n\n[6]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
-                  children: []
-            - name: Think before you write.
-              children: []
-            - name: Time yourself.
-              children: []
-            - name: Carry the book with you.
-              children: []
-            - name: Keep your journal private.
-              children: []
-            - name: Keep the cover discrete.
-              children: []
-            - name: Write regularly.
-              children:
-                - name: >-
-                    Try scheduling journal time into your day-to-day flow. Some
-                    people journal before bed, or immediately after they wake.
-                    Some people journal during their daily commute or during their
-                    lunch hour. Find a time that works for you.
-                  children: []
-            - name: Journal when you need to heal.
-              children: []
+      - name: Do Reflection
+        children:
+          - name: Take up Meditation for Beginners
+            children:
+              - name: "Choose a quiet, peaceful environment."
+                children:
+                  - name: "For those new to meditation, it's especially important to avoid any external distractions. Turn off TV sets, phones, or other noisy appliances.[3]\n\tX\n\t\tTrustworthy Source\n\n\t\tMayo Clinic\n\t\tEducational website from one of the world's leading hospitals\n\n\t\t\t\tGo to source\n\n\n"
+                    children: []
+                  - name: >-
+                      If you play music, choose calm, repetitive tunes to avoid
+                      breaking your concentration. You can also play white noise or
+                      quiet nature sounds, like running water.
+                    children: []
+                  - name: >-
+                      Your meditation space does not need to be completely silent,
+                      so you won’t need earplugs. The sound of a lawnmower or dog
+                      barking shouldn't prevent effective meditation. In fact, being
+                      aware of these noises without letting them dominate your
+                      thoughts is an important component of meditation.
+                    children: []
+                  - name: >-
+                      Meditating outside works for many so long as you don't sit
+                      near a busy roadway or another source of loud noise. You can
+                      find peace under a tree or sitting on some lush grass in a
+                      favorite corner of a garden.
+                    children: []
+              - name: Wear comfortable clothes.
+                children:
+                  - name: >-
+                      Wear a sweater or cardigan if you plan on meditating someplace
+                      cool, or bring a blanket or shawl you can wrap around
+                      yourself. You don’t want the sensation of feeling cold to
+                      consume your thoughts.
+                    children: []
+                  - name: >-
+                      If you are in a place where you can't easily change your
+                      clothes, do your best to make yourself as comfortable as
+                      possible. Try just taking off your shoes.
+                    children: []
+              - name: Decide how long you want to meditate.
+                children:
+                  - name: >-
+                      Once you have decided on a time frame, try to stick to it.
+                      Don't just give up because you feel like it isn't working. It
+                      will take time and practice to achieve successful meditation.
+                      Right now, the most important thing is to keep trying.
+                    children: []
+                  - name: >-
+                      Find a way to keep track of your meditation time without
+                      distracting yourself. Set a gentle alarm to alert you when
+                      your time is up. Or time your practice to end with a certain
+                      event—such as the sun hitting a certain spot on the wall.
+                    children: []
+              - name: Do some stretches before you start to prevent stiffness.
+                children:
+                  - name: >-
+                      Remember to stretch your neck, shoulders, and lower
+                      back—especially if you've been sitting in front of a computer.
+                      Stretching out your legs—with an emphasis on the inner
+                      thigh—can be helpful when meditating in the lotus position.
+                    children: []
+                  - name: >-
+                      If you don’t already know how to stretch, consider learning
+                      different stretching techniques to try before you meditate.
+                      Many meditation experts recommend doing light yoga stretches
+                      before meditation.
+                    children: []
+              - name: stretches
+                children: []
+              - name: Sit in a comfortable position.
+                children: []
+              - name: Straighten your spine once you’re seated.
+                children:
+                  - name: >-
+                      It requires practice to find the position that allows you to
+                      relax your torso with only slight effort being used to
+                      maintain your balance. Whenever you feel tension, relax the
+                      area. If you can't relax it without slumping, check the
+                      alignment of your posture and seek to rebalance your torso, so
+                      those areas can relax.
+                    children: []
+                  - name: >-
+                      The most important thing is that you are comfortable, relaxed,
+                      and have a balanced torso, so your spine can support all of
+                      your weight from the waist up.
+                    children: []
+                  - name: >-
+                      The traditional hand placement involves resting your hands in
+                      your lap, palms facing upward, with your right hand on top of
+                      your left. However, you can also rest your hands on your knees
+                      or leave them hanging down by your side.
+                    children: []
+              - name: Close your eyes if it helps you focus and relax.
+                children:
+                  - name: >-
+                      Once you have grown accustomed to meditation, you can try
+                      practicing with your eyes open. This tends to help if you find
+                      yourself falling asleep when meditating with your eyes closed
+                      or if you experience disturbing mental images, which happens
+                      to a small number of people.
+                    children: []
+                  - name: "If you keep your eyes open, you will need to keep them \"soft\" by not focusing on any one thing in particular.[11]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+                  - name: >-
+                      You don't want to go into a trance-like state. The goal is to
+                      feel relaxed, yet alert.
+                    children: []
+              - name: Follow your breathing.
+                children: []
+              - name: Focus on mental images to guide your breathing.
+                children:
+                  - name: >-
+                      Don't worry if your mind starts to wander. You are a beginner,
+                      and meditation takes practice. Just make an effort to refocus
+                      your mind on your breathing and try to think of nothing else.
+                    children: []
+              - name: Repeat a mantra to help you focus.
+                children: []
+              - name: Try concentrating on a simple visual object to relieve stress.
+                children:
+                  - name: >-
+                      The visual object can be anything you wish. The flame of a lit
+                      candle can be particularly pleasant. Other possible objects to
+                      consider include crystals, flowers, or pictures of divine
+                      beings, such as the Buddha.
+                    children: []
+                  - name: >-
+                      Place the object at eye level, so you don't need to strain
+                      your head and neck to view it. Gaze at it until your
+                      peripheral vision starts to dim and the object consumes your
+                      vision.
+                    children: []
+                  - name: "Once you are focused entirely on the object, you should feel a sense of profound serenity.[17]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+              - name: Practice visualization if you prefer to focus inward.
+                children:
+                  - name: >-
+                      The place you visualize could be a warm, sandy beach, a
+                      flower-filled meadow, a quiet forest, or a comfortable sitting
+                      room with a roaring fire. Whatever place you choose, allow it
+                      to become your sanctuary.
+                    children: []
+                  - name: >-
+                      Once you have mentally entered your sanctuary, allow yourself
+                      to explore it. Don’t work to "create" your surroundings. It’s
+                      as if they are already there. Just relax and allow the details
+                      to come to the forefront of your mind.
+                    children: []
+                  - name: >-
+                      Take in the sights, sounds, and scents of your surroundings.
+                      Feel the fresh breeze against your face or the heat of the
+                      flames warming your body. Enjoy the space for as long as you
+                      wish, allowing it to naturally expand and become more
+                      tangible. When you are ready to leave, take a few deep
+                      breaths, then open your eyes.
+                    children: []
+                  - name: >-
+                      You can come back to this same place the next time you
+                      practice visualization, or you can simply create a new space.
+                    children: []
+              - name: Do a body scan to find and release tension.
+                children:
+                  - name: >-
+                      You may find it helpful to start at the bottom and work your
+                      way up. For example, concentrate on whatever sensations you
+                      can feel in your toes. Make a conscious effort to relax any
+                      contracted muscles and release any tension or tightness in
+                      your toes. When your toes are fully relaxed, move upwards to
+                      your feet and repeat the relaxation process.
+                    children: []
+                  - name: >-
+                      Continue along your body, moving from your feet to the top of
+                      your head. Spend as much time as you like focusing on each
+                      part of your body.
+                    children: []
+                  - name: >-
+                      Once you have completed the relaxation of each individual body
+                      part, focus on your body as a whole and enjoy the sensation of
+                      calmness and looseness you have achieved. Focus on your
+                      breathing for several minutes before coming out of your
+                      meditation practice.
+                    children: []
+                  - name: "With regular practice, this technique can make you more aware of the various sensations in your body and help you deal with them appropriately.[20]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+              - name: >-
+                  Try heart chakra meditation to tap into feelings of love and
+                  compassion.
+                children:
+                  - name: "As you become more relaxed, imagine a green light radiating from your heart. Imagine the light filling you with a sensation of pure, radiant love.[22]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+                  - name: "Picture the love and light radiating throughout your entire body. From there, allow it to radiate outward from your body and enter the universe around you.[23]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+                  - name: "Take a few moments to simply sit and feel the positive energy within and around you. When you’re done, gradually allow yourself to become aware of your body and your breath again. Gently wiggle your fingers, toes, and limbs, then open your eyes.[24]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+              - name: Try walking meditation
+                children: []
+              - name: " to relax and exercise at the same time."
+                children:
+                  - name: >-
+                      Choose a quiet location to practice your walking meditation
+                      with as few distractions as possible. Remove your shoes if
+                      it’s safe to do so.
+                    children: []
+                  - name: >-
+                      Hold your head up with your gaze directed straight ahead and
+                      your hands clasped together in front of you. Take a slow,
+                      deliberate step with your right foot. After taking the first
+                      step, stop for a moment before taking the next. Only 1 foot
+                      should be moving at any given time.
+                    children: []
+                  - name: >-
+                      When you reach the end of your walking path, stop completely
+                      with your feet together. Then pivot on your right foot and
+                      turn around. Continue walking in the opposite direction using
+                      the same slow, deliberate movements as before.
+                    children: []
+                  - name: >-
+                      While practicing walking meditation, try to focus on the
+                      movement of the feet and nothing else. This intense focus is
+                      similar to the way that you focus on the rising and falling of
+                      your breath during breathing meditation. Try to clear your
+                      mind and become aware of the connection between your foot and
+                      the earth below it.
+                    children: []
+              - name: Try to meditate at the same time every day.
+                children:
+                  - name: >-
+                      Early morning is a good time to meditate since your mind has
+                      not yet become consumed with the stresses and worries of the
+                      day.
+                    children: []
+                  - name: "It is not a good idea to meditate directly after eating. If you’re digesting a meal, you may feel uncomfortable and less able to concentrate.[27]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+              - name: Take a guided meditation class to hone your techniques.
+                children: []
+              - name: Read spiritual books to learn more about meditation.
+                children: []
+              - name: Practice mindfulness
+                children: []
+              - name: " in your everyday life."
+                children:
+                  - name: >-
+                      For example, in moments of stress, try to take a few seconds
+                      to focus solely on your breathing and empty your mind of any
+                      negative thoughts or emotions.
+                    children: []
+                  - name: >-
+                      You can also practice mindfulness when you eat by becoming
+                      aware of the food and all the sensations you experience as you
+                      eat.
+                    children: []
+                  - name: "No matter what actions you perform in your daily life—whether it's sitting at a computer or sweeping the floor—try to become more aware of your body's movements and how you feel in the present moment. This focus and awareness is living mindfully.[30]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+                    children: []
+              - name: Try grounding exercises to help you be more present.
+                children:
+                  - name: >-
+                      For example, you might focus on the blue color of a pen or
+                      folder on a table near you or examine more closely the feeling
+                      of your feet on the floor or your hands resting on the arms of
+                      your chair. Try doing this if you feel like you are distracted
+                      or you find your mind is wandering, or if you are feeling
+                      stressed.
+                    children: []
+                  - name: >-
+                      You can also try focusing on multiple sensations at once. For
+                      example, pick up a keyring and pay attention to the sounds the
+                      keys make, the way they feel in your hand, and even their
+                      metallic smell.
+                    children: []
+              - name: Maintain a healthy lifestyle in addition to meditating.
+                children: []
+              - name: View meditation as a journey rather than a goal.
+                children: []
+          # - name: Take up Improving Your Study Focus
+          #   children:
+          #     - name: Make a timetable.
+          #       children:
+          #         - name: >-
+          #             Try to switch subjects every hour or so, too, to prevent
+          #             yourself from getting bored and saturating your mind. Too much
+          #             of one subject and your brain will start going on autopilot. A
+          #             new subject will wake up your mind and your motivation.
+          #           children: []
+          #     - name: Set aside time to worry or think about other things.
+          #       children:
+          #         - name: >-
+          #             If you start to feel your mind wander, stop it dead in its
+          #             tracks. Take a second to shake it off, and then resume with
+          #             the material. You are the ringleader of your thoughts. You
+          #             started them, and you can stop them, too!
+          #           children: []
+          #         - name: >-
+          #             Keep pen and paper beside you and write down everything that
+          #             comes to your mind during your study sessions. Do or think
+          #             about those things once you're having a pause.
+          #           children: []
+          #     - name: Switch up how you learn.
+          #       children:
+          #         - name: >-
+          #             And it'll be easier for your brain to process, too. Switching
+          #             up what skills you're using helps you brain process the
+          #             information faster and hold onto it. The time will go faster
+          #             and you'll remember it better? Check and check.
+          #           children: []
+          #     - name: Reward yourself.
+          #       children:
+          #         - name: >-
+          #             If possible, get your parents involved. Could they help supply
+          #             you with incentives? Maybe getting better grades could get you
+          #             out of your least favorite chore or could temporarily up your
+          #             allowance. Ask them whether they're willing to help work out
+          #             some type of reward plan – it never hurts to ask.
+          #           children: []
+          #     - name: 'Backtrack, if need be.'
+          #       children: []
+          #     - name: Make studying more active.
+          #       children:
+          #         - name: Ask yourself questions as you read.
+          #           children: []
+          #         - name: Look away from the page and summarize out loud what you read.
+          #           children: []
+          #     - name: >-
+          #         Make notes on the concepts, characters, plots, or events
+          #         described.
+          #       children: []
+          #     - name: Get on the Internet and then get right back off after your break.
+          #       children: []
+          #     - name: Choose the right spot.
+          #       children:
+          #         - name: >-
+          #             For example, do not study right in front of a TV; you will
+          #             only do your homework when the advertisements come up. Go to
+          #             get a "snip" of TV or radio only as a quick break – exactly as
+          #             if it's a few moments to go to get a drink of water or "fresh
+          #             air" for a minute.
+          #           children: []
+          #         - name: >-
+          #             Sit in a chair at a table or desk while you study. Don't study
+          #             in bed, except maybe reading on top of your covers, propped
+          #             upright with a bright reading light behind you. However, don't
+          #             get under the covers – you'll just want to fall asleep. What's
+          #             more, you'll start to associate your bedroom with studying and
+          #             that's definitely an impulse you want to avoid.
+          #           children: []
+          #         - name: >-
+          #             A standing desk does a remarkable job making you focus on your
+          #             task (in addition to being a healthier option to sitting).
+          #           children: []
+          #     - name: Have everything you need to study.
+          #       children: []
+          #     - name: Have a snack nearby.
+          #       children: []
+          #     - name: Write down your study goals.
+          #       children: []
+          #     - name: >-
+          #         Make sure your cell phone and other electronic devices are turned
+          #         off.
+          #       children: []
+          #     - name: Consider playing background music softly.
+          #       children: []
+          #     - name: Listen to your body.
+          #       children: []
+          #     - name: Get enough sleep.
+          #       children:
+          #         - name: "Most people need between 7-9 hours of sleep a night. Some a little more, some a little less. How many hours do you like to sleep, when you don't have to set an alarm? Try to get that every night by going to bed a bit earlier than usual, as required.[8]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+          #           children: []
+          #     - name: Eat healthily.
+          #       children: []
+          #     - name: Take control of your thoughts.
+          #       children:
+          #         - name: >-
+          #             Try the "5 More" rule. Tell yourself to do only five more
+          #             things or five more minutes before quitting. Once you've
+          #             finished those, do another five. Breaking tasks up into
+          #             smaller chunks makes things easier for those with shorter
+          #             concentration spans and it keeps your mind going longer.
+          #           children: []
+          #         - name: "Try not to generalize about your abilities in a way that holds you back. For instance, instead of saying, \"I can't do algebra,\" you might redefine the problem by saying, \"I get confused about simplifying expressions.\"[9]\n\tX\n\t\tExpert Source\n\n\t\t\n\t\t\tTed Coopersmith, MBAAcademic Tutor\n\n\t\tExpert Interview.  10 July 2020.\n\n\n\n"
+          #           children: []
+          #     - name: Do the least pleasant tasks first.
+          #       children: []
+          #     - name: >-
+          #         See whether alpha wave sound tones will give you, the listener,
+          #         improved focus, memory, and concentration for study and other
+          #         activities.
+          #       children: []
+          #     - name: Follow all the concentration steps and tips.
+          #       children: []
+          #     - name: Check how the environment sounds after the BiNaural Beat.
+          #       children: []
+          # - name: Take up Journal Writing
+          #   children:
+          #     - name: Find a notebook to write in.
+          #       children: []
+          #     - name: Decorate the notebook.
+          #       children: []
+          #     - name: Keep a digital journal.
+          #       children: []
+          #     - name: Write the first entry.
+          #       children:
+          #         - name: >-
+          #             Write about what happened today. Include where you went, what
+          #             you did, and who you spoke to.
+          #           children: []
+          #         - name: >
+          #             Write about what you felt today. Pour your joys, your
+          #             frustrations, and your goals into the journal. Use the act of
+          #             writing as a way to explore your feelings. Consider keeping a
+          #             dream journal.
+          #           children: []
+          #         - name: "Keep a learning log. Write about what you learned today. Use the journal as a way to explore and connect your thoughts.[2]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+          #           children: []
+          #         - name: >-
+          #             Turn your experiences into art. Use the journal to write
+          #             stories or poetry, to make sketches, and to plan out projects.
+          #             Feel free to mix this in with your other entries.
+          #           children: []
+          #     - name: Date your entry.
+          #       children: []
+          #     - name: Get into the flow of writing.
+          #       children:
+          #         - name: "Imagine that you are talking to someone. Whether you are talking to a close friend or pouring your thoughts into a journal: you are putting them out into the world, and thus making them real. It can be hard to really get a grasp on what you're thinking until you make your thoughts real.[4]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+          #           children: []
+          #         - name: "Use journaling as a healing tool. If there is something haunting you or bothering you, try to write about that thing and understand why exactly it has stuck on your mind.[5]\n\tX\n\t\tExpert Source\n\n\t\t\n\t\t\tNicolette Tura, MALife Coach\n\n\t\tExpert Interview.  23 January 2020.\n\n\n[6]\n\tX\n\t\tResearch source\n\t\t\n\t\t\t\t\n\n\n\n"
+          #           children: []
+          #     - name: Think before you write.
+          #       children: []
+          #     - name: Time yourself.
+          #       children: []
+          #     - name: Carry the book with you.
+          #       children: []
+          #     - name: Keep your journal private.
+          #       children: []
+          #     - name: Keep the cover discrete.
+          #       children: []
+          #     - name: Write regularly.
+          #       children:
+          #         - name: >-
+          #             Try scheduling journal time into your day-to-day flow. Some
+          #             people journal before bed, or immediately after they wake.
+          #             Some people journal during their daily commute or during their
+          #             lunch hour. Find a time that works for you.
+          #           children: []
+          #     - name: Journal when you need to heal.
+          #       children: []
   # - name: Health
   #   id: 3
   #   habits:
@@ -766,7 +766,7 @@ domains:
   #                   least one thing you are thankful for and resume your practice.
   #                 children: []
   #               - name: >-
-  #                   It can be difficult to settle into this new way of thinking. 
+  #                   It can be difficult to settle into this new way of thinking.
   #                   Be patient with yourself and don't be too critical if you find
   #                   yourself being more negative than you'd like.
   #                 children: []
@@ -797,7 +797,7 @@ domains:
   #                   up.
   #                 children: []
   #               - name: >-
-  #                   Don't be in a hurry or try to extend the moment of gratitude. 
+  #                   Don't be in a hurry or try to extend the moment of gratitude.
   #                   Instead, allow yourself to enjoy the feeling as long as it
   #                   naturally lasts.
   #                 children: []
@@ -841,7 +841,7 @@ domains:
   #                   work, or spend time with a friend who needs support.
   #                 children: []
   #               - name: >-
-  #                   You can try changing the area of your life that you focus on. 
+  #                   You can try changing the area of your life that you focus on.
   #                   For example, you can be grateful for the people in your life
   #                   one week and then focus on the material things in your life
   #                   the following week.
@@ -1308,7 +1308,7 @@ domains:
   #                   Do some research beforehand on the companies you choose to
   #                   approach.  How many charitable events have they sponsored /
   #                   supported recently, and at what level?  Are there any patterns
-  #                   to the types of events or charities they tend to support? 
+  #                   to the types of events or charities they tend to support?
   #                   What kind of recognition seems to appeal to them?  Come to
   #                   your meeting as prepared as possible.  You may be a volunteer,
   #                   but act like a professional.
@@ -1333,7 +1333,7 @@ domains:
   #               - name: >-
   #                   Many businesses are willing to provide donated items or
   #                   discounts for charitable events, but they also may get
-  #                   requests all the time and be wary of supporting yet another. 
+  #                   requests all the time and be wary of supporting yet another.
   #                   Be ready with a good “pitch” for the importance of your cause
   #                   and the assistance they can provide, and also be ready to
   #                   negotiate your best deal.  Offer more prominent signage

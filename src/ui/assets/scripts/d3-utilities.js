@@ -147,10 +147,9 @@ const renderTree = function (
         renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
 
         const c = select(this).selectAll(".the-node circle");
-        debugger;
         if (node.data.value) handleStatusToggle(c, node);
-        event.target.classList.add("active");
         if (typeof zoomClicked === "undefined") clickedZoom(event, this);
+        this.classList.add("active");
       })
       .on("mouseover", function () {
         const g = select(this);
@@ -197,6 +196,9 @@ const renderTree = function (
   };
 
   function clickedZoom(e, that) {
+    // console.log(e.target);
+
+    e.target.classList.add("active");
     if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
     scale = transformer.scale;
@@ -237,6 +239,34 @@ const renderTree = function (
 
   const rootData = TreeStore.root();
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
+  if (m.route.param("demo")) {
+    rootData.sum((d) => {
+      const status = parseTreeValues(d.content).status;
+      const thisNode = rootData.descendants().find((node) => node.data == d);
+
+      // console.log(
+      //   thisNode.children
+      //     ? thisNode.children.reduce((sum, n) => {
+      //         return sum + n.value;
+      //       }, 0) === thisNode.children.length
+      //     : "no children",
+      //   "IS CHILDREN VALUE SUM SAME AS LENGTH?"
+      // );
+      // console.log(
+      //   thisNode.children
+      //     ? +(
+      //         thisNode.children.reduce((sum, n) => {
+      //           return sum + n.value;
+      //         }, 0) === thisNode.children.length
+      //       )
+      //     : (thisNode.data.trueSoFar = +JSON.parse(status)), // Convert boolean string to binary
+      //   " THIS NODE CHILDREN sum"
+      // );
+      // console.log(thisNode, " THIS NODE DATA");
+      return +JSON.parse(status);
+    });
+  }
+  console.log(rootData);
   treeLayout(rootData);
 
   const gLink = canvas
@@ -250,18 +280,6 @@ const renderTree = function (
 
   const links = gLink.selectAll("line.link").data(rootData.links());
 
-  const linker = function (d) {
-    // const x0 = d.source.x;
-    // const y0 = d.source.y;
-    // const y1 = d.target.y;
-    // const x1 = d.target.x;
-    // const k = 10;
-    // const link = path();
-    // link.moveTo(x0, y0);
-    // link.bezierCurveTo(x1 - k, y0, x0, y1, x1 - k, y1);
-    // link.lineTo(x1, y1);
-    // return link.toString();
-  };
   const enteringLinks = links
     .enter()
     .append("path")
@@ -285,16 +303,48 @@ const renderTree = function (
   enteringNodes
     .append("text")
     .attr("class", "label")
-    .attr("dx", 25)
+    .attr("dx", -35)
     .attr("dy", 5)
-    .style("opacity", "0")
-    .text((d) => d.data.value);
+    .style("opacity", "1")
+    .style("fill", "red")
+    .text((d) => parseTreeValues(d.data.content).left);
+  const sumChildrenValues = (node) =>
+    node.children.reduce((sum, n) => sum + n.value, 0);
+  const cumulativeValue = (node) =>
+    node && node.children
+      ? +(sumChildrenValues(node) === node.children.length)
+      : +JSON.parse(parseTreeValues(node.data.content).status);
+
+  enteringNodes
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 15)
+    .attr("dy", 5)
+    .style("opacity", "1")
+    .style("fill", "red")
+    .text((d) => parseTreeValues(d.data.content).right);
+  enteringNodes
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 15)
+    .attr("dy", 25)
+    .style("opacity", "1")
+    .style("fill", "pink")
+    .text((d) => d.value);
+  enteringNodes
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 5)
+    .attr("dy", 25)
+    .style("opacity", "1")
+    .style("fill", "green")
+    .text(cumulativeValue);
 
   enteringNodes.append("circle").attr("r", nodeRadius);
 
   typeof zoomClicked !== "undefined" &&
     clickedZoom(zoomClicked.event, zoomClicked.node) &&
-    console.log(zoomClicked.node);
+    console.log(zoomClicked.node, "at end");
 };
 
 function expandTree() {
@@ -327,10 +377,9 @@ const parseTreeValues = (valueString) => {
   try {
     [splitValues, status] = valueString.split("-");
     [, left, right] = splitValues.split(/\D/);
-
     return { left, right, status };
   } catch {
-    console.log(valueString);
+    console.log(valueString, "Error Parsing");
   }
 };
 

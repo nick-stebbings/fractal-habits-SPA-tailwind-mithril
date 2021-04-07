@@ -20,10 +20,16 @@ const TreeStore = {
 
   index: (isDemo, domainId, dateId) => {
     return TreeStore.getForDomainDate(isDemo, domainId, dateId)
-      .then((response) => hierarchy(response.data))
+      .then((response) =>
+        isDemo
+          ? hierarchy(response.data, (d) => {
+              return d.children;
+            })
+          : hierarchy(response.data)
+      )
       .then(TreeStore.root)
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   },
 

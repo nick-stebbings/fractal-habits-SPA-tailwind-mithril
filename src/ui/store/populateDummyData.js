@@ -38,7 +38,7 @@ const importData = {
         NodeStore.current(NodeStore.list()[NodeStore.list().length - 1]);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   },
 };
