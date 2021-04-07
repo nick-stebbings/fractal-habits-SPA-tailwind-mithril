@@ -22,7 +22,6 @@ const CreateForm = {
       .addEventListener("click", (e) => {
         e.preventDefault();
         let form = document.querySelector(`form#create-${attrs.resourceName}`);
-        console.log(form, "form");
 
         const data = {};
         const FD = new FormData(form);

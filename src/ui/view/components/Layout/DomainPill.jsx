@@ -1,28 +1,27 @@
-import DomainStore from '../../../store/domain-store';
-import { openModal } from '../../../assets/scripts/animations';
+import DomainStore from "../../../store/domain-store";
+import { openModal } from "../../../assets/scripts/animations";
 
 const DomainPill = {
   oncreate: (vnode) => {
-    vnode.dom.addEventListener('click', (event) => {
+    vnode.dom.addEventListener("click", (event) => {
       DomainStore.submit({
         name: vnode.attrs.name,
         description: vnode.attrs.name,
         rank: vnode.attrs.rank + 1,
         hashtag: `#${vnode.attrs.name.toLowerCase().split(" ").join("-")}`,
       })
-      .then((er) => {
-        console.log(er, 'err!');
-      })
-      .then(openModal)
-      .then(() => {
-        m.redraw();
-      })
-      .catch((err) => {
-        console.log(err);
-        err.status
-          ? window.FlashMessage.error(err.status)
-          : window.FlashMessage.error("Unable to add Domain");
-      });
+        .then(() => {
+          openModal(true);
+        })
+        // .then(() => {
+        //   m.redraw();
+        // })
+        .catch((err) => {
+          console.log(err);
+          err.status
+            ? window.FlashMessage.error(err.status)
+            : window.FlashMessage.error("Unable to add Domain");
+        });
     });
   },
   view: ({ attrs }) => (

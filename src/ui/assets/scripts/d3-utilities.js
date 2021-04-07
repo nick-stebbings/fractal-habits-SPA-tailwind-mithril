@@ -87,14 +87,14 @@ const renderTree = function (
     .classed("canvas", true)
     .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
 
-  let scale = 1.3;
+  let scale = 0.75;
   let clickScale = 3;
   const zoomBase = canvas;
-  const levelsWide = 6;
-  const levelsHigh = 9;
+  const levelsWide = 9;
+  const levelsHigh = 3;
   const nodeRadius = 15 * scale;
-  const dx = (window.innerWidth / levelsWide) * scale;
-  const dy = (window.innerHeight / levelsHigh) * scale ** 2;
+  const dy = (window.innerWidth / levelsWide) * scale;
+  const dx = (window.innerHeight / levelsHigh) * scale ** 2;
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
 
@@ -147,6 +147,7 @@ const renderTree = function (
         renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
 
         const c = select(this).selectAll(".the-node circle");
+        debugger;
         if (node.data.value) handleStatusToggle(c, node);
         event.target.classList.add("active");
         if (typeof zoomClicked === "undefined") clickedZoom(event, this);
