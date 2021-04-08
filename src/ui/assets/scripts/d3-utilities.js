@@ -82,7 +82,6 @@ const cumulativeValue = (node) => {
       ? +(sumChildrenValues(node) === node.children.length)
       : +JSON.parse(parseTreeValues(node.data.content).status || 0);
   } catch (err) {
-    debugger;
     console.log("Could not accumulate.");
   }
 };
@@ -103,14 +102,14 @@ const renderTree = function (
     .classed("canvas", true)
     .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
 
-  let scale = 0.75;
+  let scale = 1.2;
   let clickScale = 3;
   const zoomBase = canvas;
-  const levelsWide = 12;
+  const levelsWide = 8;
   const levelsHigh = 3;
   const nodeRadius = 15 * scale;
-  const dy = (window.innerWidth / levelsWide) * scale;
-  const dx = (window.innerHeight / levelsHigh) * scale ** 2;
+  const dx = (window.innerWidth / levelsWide) * scale;
+  const dy = (window.innerHeight / levelsHigh) * scale ** 2;
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
 
@@ -177,7 +176,11 @@ const renderTree = function (
 
     function handleStatusToggle(circle, node) {
       if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have generated
-      const nodeId = node.data.name;
+      const nodeContent = parseTreeValues(node.data.content);
+      NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
+      console.log(NodeStore.list());
+      console.log(NodeStore.current());
+      debugger;
 
       const currentStatus = parseTreeValues(node.data.content).status;
       node.data.content = node.data.content.replace(
@@ -188,14 +191,15 @@ const renderTree = function (
         "fill",
         currentStatus === "false" ? positiveCol : negativeCol
       );
-      makePatchOrPutRequest(nodeId, currentStatus);
+      makePatchOrPutRequest(currentStatus);
     }
 
-    function makePatchOrPutRequest(nodeId, currentStatus) {
-      console.log(nodeId);
+    function makePatchOrPutRequest(currentStatus) {
+      console.log(NodeStore.current().id);
+      const nodeId = NodeStore.current().id;
       HabitStore.runCurrentFilterByNode(nodeId);
-      let a = HabitStore.current();
-
+      console.log(HabitStore.current());
+      console.log(DateStore.current());
       const requestBody = JSON.stringify({
         habit_id: HabitStore.current().id,
         date_id: DateStore.current().id,
@@ -218,7 +222,6 @@ const renderTree = function (
   function clickedZoom(e, that) {
     if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
-    scale = transformer.scale;
     select(".canvas")
       .transition()
       .ease(easeCircleOut)

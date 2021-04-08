@@ -6,10 +6,9 @@ import DomainStore from "./domain-store.js";
 import HabitDateStore from "./habit-date-store.js";
 import HabitStore from "./habit-store.js";
 import NodeStore from "./habit-node-store.js";
-import TreeStore from "./habit-tree-store";
 
 const basePath = "/demo?tracking_length=";
-const daysToTrack = 280;
+const daysToTrack = 28;
 
 const cache = stream([]);
 // cache().length === 0 && TODO
@@ -23,7 +22,6 @@ const importData = {
         HabitDateStore.list(response.data.habit_dates);
         NodeStore.list(response.data.nodes);
         HabitStore.fullList(response.data.habits);
-
         DateStore.current(DateStore.list()[DateStore.list().length - 1]);
         DomainStore.current(DomainStore.list()[0]);
 
@@ -34,11 +32,10 @@ const importData = {
         HabitDateStore.current(
           HabitDateStore.list()[HabitDateStore.list().length - 1]
         );
-        NodeStore.runFilterByHabit(HabitStore.current().id);
-        NodeStore.current(NodeStore.list()[NodeStore.list().length - 1]);
+        NodeStore.runCurrentFilterByHabit(HabitStore.current());
       })
       .catch((err) => {
-        // console.log(err);
+        console.log("Failed importing demo data");
       });
   },
 };

@@ -30,17 +30,18 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
 
   filterById: (id) => NodeStore.list().filter((n) => n.id === +id),
 
+  filterByMptt: (lft, rgt) =>
+    NodeStore.list().filter((n) => n.lft === +lft && n.rgt === +rgt),
+
   runCurrentFilterByHabit: (habit) =>
     NodeStore.current(
-      NodeStore.list().filter((node) => node.id == habit.habit_node_id)[0]
-    ),
-
-  runFilterByHabit: (habit) =>
-    NodeStore.list(
-      NodeStore.list().filter((node) => node.id == habit.habit_node_id)
+      NodeStore.list().filter((node) => node.id == +habit.habit_node_id)[0]
     ),
 
   runCurrentFilterById: (id) => NodeStore.current(NodeStore.filterById(id)[0]),
+
+  runCurrentFilterByMptt: (lft, rgt) =>
+    NodeStore.current(NodeStore.filterByMptt(lft, rgt)[0]),
 
   runReplace: (id, attrs) => {
     NodeStore.replace(id, attrs).catch((e) => {
@@ -55,7 +56,6 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
       //     "id": 1,
       //     "lft": 1,
       //     "rgt": 26,
-      //     "parent_id": null
       // }
     });
   },

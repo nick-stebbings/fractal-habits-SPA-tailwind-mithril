@@ -32,11 +32,15 @@ const HabitTree = function () {
         DateStore.current().id
       )
         .then(() => {
-          HabitDateStore.index().then();
           DateStore.indexDatesOfHabit(HabitStore.current());
-          NodeStore.index().then(() => {
-            NodeStore.runCurrentFilterByHabit(HabitStore.current());
-          });
+          !demoData &&
+            NodeStore.index().then(() => {
+              HabitDateStore.index().then(() =>
+                NodeStore.runCurrentFilterByHabit(HabitStore.current())
+              );
+            });
+          console.log(DateStore.list(), "jUst indexed");
+          console.log(HabitStore.list(), "jUst indexed");
         })
         .then(() => {
           TreeStore.root() &&
