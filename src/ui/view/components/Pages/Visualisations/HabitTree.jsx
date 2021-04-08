@@ -39,13 +39,11 @@ const HabitTree = function () {
                 NodeStore.runCurrentFilterByHabit(HabitStore.current())
               );
             });
-          console.log(DateStore.list(), "jUst indexed");
-          console.log(HabitStore.list(), "jUst indexed");
         })
         .then(() => {
           TreeStore.root() &&
             svg &&
-            renderTree(svg, canvasWidth, canvasHeight, zoomer);
+            renderTree(svg, demoData, canvasWidth, canvasHeight, zoomer);
         });
   }
   return {
@@ -74,7 +72,7 @@ const HabitTree = function () {
       document.getElementById("activate-demo").addEventListener("click", () => {
         let rootNode = document.querySelector(".the-node");
         collapseTree(zoomer);
-        renderTree(svg, canvasWidth, canvasHeight, zoomer);
+        renderTree(svg, demoData, canvasWidth, canvasHeight, zoomer);
       });
     },
     onupdate: updateStoresAndRenderTree,

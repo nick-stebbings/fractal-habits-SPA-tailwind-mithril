@@ -30,6 +30,7 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
     ),
 
   runUpdate: (isDemo, values) => {
+    console.log(isDemo);
     (isDemo
       ? clientRoutes("/demo/habit_dates").replace("", values)
       : HabitDateStore.replace("", values)

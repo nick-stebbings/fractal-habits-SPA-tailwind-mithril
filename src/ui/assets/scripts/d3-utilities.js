@@ -1,11 +1,4 @@
-import {
-  select,
-  tree,
-  easeCircleOut,
-  path,
-  zoomIdentity,
-  linkVertical,
-} from "d3";
+import { select, tree, easeCircleOut, zoomIdentity, linkVertical } from "d3";
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
 import DateStore from "../../store/date-store";
@@ -88,6 +81,7 @@ const cumulativeValue = (node) => {
 
 const renderTree = function (
   svg,
+  isDemo,
   canvasWidth,
   canvasHeight,
   zoomer,
@@ -105,7 +99,7 @@ const renderTree = function (
   let scale = 1.2;
   let clickScale = 3;
   const zoomBase = canvas;
-  const levelsWide = 8;
+  const levelsWide = 12;
   const levelsHigh = 3;
   const nodeRadius = 15 * scale;
   const dx = (window.innerWidth / levelsWide) * scale;
@@ -178,9 +172,6 @@ const renderTree = function (
       if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have generated
       const nodeContent = parseTreeValues(node.data.content);
       NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
-      console.log(NodeStore.list());
-      console.log(NodeStore.current());
-      debugger;
 
       const currentStatus = parseTreeValues(node.data.content).status;
       node.data.content = node.data.content.replace(
@@ -205,7 +196,7 @@ const renderTree = function (
         date_id: DateStore.current().id,
         completed_status: oppositeStatus(currentStatus),
       });
-      HabitDateStore.runUpdate(requestBody);
+      HabitDateStore.runUpdate(isDemo, requestBody);
     }
   };
   const getTransform = function (node, xScale) {

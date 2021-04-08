@@ -12,6 +12,8 @@ require File.join(APP_ROOT, 'lib', 'subtree')
 require File.join(APP_ROOT, 'lib', 'yaml_store')
 
 module Hht
+  YAML = YAMLStore.new
+
   class Api < Sinatra::Base
     before do
       content_type :json
@@ -60,18 +62,38 @@ module Hht
     namespace '/api/demo' do
       get '' do
         length = params['tracking_length'].to_i
-        demo_data_payload = YAMLStore.ready ? YAMLStore.get_data : YAMLStore.new(length) && YAMLStore.get_data
+        YAMLStore.ready ? YAMLStore.get_data : (YAML = YAMLStore.new(length))
+        demo_data_payload = YAMLStore.get_data
         status 200
         json demo_data_payload
       end
       
       get '/domain/:id/habit_tree' do |id|
         length = params['tracking_length'].to_i
-        tree = YAMLStore.ready ? YAMLStore.get_data[:tree] : YAMLStore.new(length) && YAMLStore.get_data[:tree]
-        json tree
+        YAMLStore.ready ? YAMLStore.get_data : (YAML = YAMLStore.new(length))
+        YAML.tree
       end
 
-      [:post, :put, :patch, :delete].each do |method|
+      put '/habit_dates/' do
+        habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
+        habit_date[:completed_status] = habit_date[:completed_status] == 'true'
+        attrs = habit_date.reject { |k,v| k == :completed_status }
+
+        habit_dates = YAMLStore.ready ? YAML.habit_dates : YAMLStore.new.habit_dates
+        found = habit_dates.by_attrs(attrs).one
+        if found
+          habit_dates.insert(habit_date)
+          habit_dates.delete(found)
+        end
+        node_id_to_change = YAML.habits.restrict(id: attrs[:habit_id]).one[:habit_node_id]
+        node_to_change = YAML.habit_nodes.restrict(id: node_id_to_change).one
+        node_content = "L#{node_to_change[:lft]}R#{node_to_change[:rgt]}"
+        YAML.tree = YAML.tree.gsub!("#{node_content}-#{!habit_date[:completed_status]}", "#{node_content}-#{habit_date[:completed_status]}")
+        binding.pry
+        204
+      end
+
+      [:post, :patch, :delete].each do |method|
         send(method, '') do
           halt(405, { message:'Verb Not Permitted'}.to_json)
         end

@@ -7,6 +7,10 @@ module Yamldemo
         attribute :date_id, Types::Integer
         attribute :completed_status, Types::Nominal::Bool
       end
+
+      def by_attrs(attrs)
+        habit_dates.restrict(attrs)
+      end
     end
   end
 end
