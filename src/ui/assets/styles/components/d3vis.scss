@@ -2,6 +2,7 @@ g.nodes {
   cursor: pointer;
   pointer-events: all;
 }
+
 circle.active {
   fill: pink;
 }
@@ -10,4 +11,19 @@ svg path.link {
   stroke: gray;
   fill: none;
   stroke-width: 2.5;
+}
+
+.label {
+  opacity: 1;
+  fill: red;
+}
+
+.label.left {
+  opacity: 1;
+  fill: red;
+}
+
+.label.right {
+  opacity: 1;
+  fill: red;
 }

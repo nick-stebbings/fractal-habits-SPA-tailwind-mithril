@@ -4,8 +4,20 @@ module Hht
   module Repos
     class HabitDateRepo < ROM::Repository[:habit_dates]
       include Import['persistence.container']
+      
+        include Dry::Monads[:result]
 
-      commands :create, delete: :by_pk, update: :by_pk
+      commands :create, delete: :by_pk
+
+      def update(attrs)
+        tuple = by_attrs(attrs)
+        new_status = attrs[:completed_status]
+        Success(tuple.update(completed_status: new_status))
+      end
+
+      def by_attrs(attrs)
+        habit_dates.where(attrs)
+      end
 
       def as_json(id)
         habit_date = habit_dates.by_pk(id).one

@@ -66,7 +66,6 @@ const HabitTree = function () {
         .attr("style", "pointer-events: all");
 
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document));
-      // renderTree(svg, canvasWidth, canvasHeight, zoomer);
 
       document.getElementById("activate-demo").addEventListener("click", () => {
         let rootNode = document.querySelector(".the-node");

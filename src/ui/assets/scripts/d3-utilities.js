@@ -8,7 +8,9 @@ import {
 } from "d3";
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
-import HabitStore from "../../store/habit-node-store";
+import DateStore from "../../store/date-store";
+import HabitStore from "../../store/habit-store";
+import HabitDateStore from "../../store/habit-date-store";
 
 let canvasHeight, canvasWidth;
 const margin = {
@@ -69,6 +71,20 @@ const zooms = function (e) {
     "transform",
     "translate(" + translation + ")" + " scale(" + scale + ")"
   );
+};
+
+const sumChildrenValues = (node) =>
+  node.children.reduce((sum, n) => sum + n.value, 0);
+
+const cumulativeValue = (node) => {
+  try {
+    return node && node.children
+      ? +(sumChildrenValues(node) === node.children.length)
+      : +JSON.parse(parseTreeValues(node.data.content).status || 0);
+  } catch (err) {
+    debugger;
+    console.log("Could not accumulate.");
+  }
 };
 
 const renderTree = function (
@@ -137,19 +153,18 @@ const renderTree = function (
   const handleEvents = function (selection) {
     selection
       .on("click", function (event, node) {
+        const c = select(this).selectAll(".the-node circle");
+        if (node.data.content !== "undefined") handleStatusToggle(c, node);
+
         if (event.target.classList.contains("active")) {
           event.target.classList.remove("active");
           reset();
           return;
         }
-        collapseAroundAndUnder(node);
+        collapseAroundAndUnder(node) &&
+          renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
         highlightSubtree(node);
-        renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
-
-        const c = select(this).selectAll(".the-node circle");
-        if (node.data.value) handleStatusToggle(c, node);
         if (typeof zoomClicked === "undefined") clickedZoom(event, this);
-        this.classList.add("active");
       })
       .on("mouseover", function () {
         const g = select(this);
@@ -161,27 +176,32 @@ const renderTree = function (
       });
 
     function handleStatusToggle(circle, node) {
+      if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have generated
       const nodeId = node.data.name;
-      const storedNode = NodeStore.filterById(nodeId)[0];
-      HabitStore.runCurrentFilterById(nodeId);
 
-      const currentStatus = parseTreeValues(node.data.value).status;
-      const requestBody = storedNode
-        ? Object.assign(storedNode, {
-            completed_status: oppositeStatus(currentStatus),
-          })
-        : JSON.stringify({
-            habit_id: HabitStore.current().id,
-            date_id: DateStore.current().id,
-            completed_status: oppositeStatus(currentStatus),
-          });
-      storedNode
-        ? NodeStore.runReplace(nodeId, requestBody)
-        : NodeStore.submit(requestBody);
+      const currentStatus = parseTreeValues(node.data.content).status;
+      node.data.content = node.data.content.replace(
+        /true|false/,
+        oppositeStatus(currentStatus)
+      );
       circle.style(
         "fill",
         currentStatus === "false" ? positiveCol : negativeCol
       );
+      makePatchOrPutRequest(nodeId, currentStatus);
+    }
+
+    function makePatchOrPutRequest(nodeId, currentStatus) {
+      console.log(nodeId);
+      HabitStore.runCurrentFilterByNode(nodeId);
+      let a = HabitStore.current();
+
+      const requestBody = JSON.stringify({
+        habit_id: HabitStore.current().id,
+        date_id: DateStore.current().id,
+        completed_status: oppositeStatus(currentStatus),
+      });
+      HabitDateStore.runUpdate(nodeId, requestBody);
     }
   };
   const getTransform = function (node, xScale) {
@@ -196,14 +216,9 @@ const renderTree = function (
   };
 
   function clickedZoom(e, that) {
-    // console.log(e.target);
-
-    e.target.classList.add("active");
     if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
     scale = transformer.scale;
-    // zoomBase.call(zoomer.translateBy, ...transformer.translate);
-    // zoomBase.call(zoomer.scaleTo, transformer.scale);
     select(".canvas")
       .transition()
       .ease(easeCircleOut)
@@ -221,39 +236,18 @@ const renderTree = function (
   }
 
   calibrateViewPort();
-
-  const viewBoxOutline = canvas
-    .append("rect")
-    .attr("fill", "transparent")
-    .attr("stroke", "black")
-    .attr("width", viewportW)
-    .attr("height", viewportH)
-    .attr("x", viewportX)
-    .attr("y", viewportY);
-
   svg
     .attr("viewBox", defaultView)
     .attr("preserveAspectRatio", "xMidYMid meet")
     .call(zoomer)
     .on("wheel", (event) => event.preventDefault());
 
-  const sumChildrenValues = (node) =>
-    node.children.reduce((sum, n) => sum + n.value, 0);
-  const cumulativeValue = (node) =>
-    node && node.children
-      ? +(sumChildrenValues(node) === node.children.length)
-      : +JSON.parse(parseTreeValues(node.data.content).status);
-
   const rootData = TreeStore.root();
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
+
   if (m.route.param("demo")) {
     rootData.sum((d) => {
       const thisNode = rootData.descendants().find((node) => node.data == d);
-      if (cumulativeValue(thisNode) == 0) {
-        console.log(thisNode, " THIS NODE DATA");
-        console.log(cumulativeValue(thisNode));
-        console.log(+JSON.parse(parseTreeValues(thisNode.data.content).status));
-      }
       return +JSON.parse(parseTreeValues(thisNode.data.content).status);
     });
     while (rootData.descendants().some((node) => node.value > 1)) {
@@ -262,9 +256,9 @@ const renderTree = function (
           node.value = cumulativeValue(node);
         }
       });
-      console.log(rootData.descendants().some((node) => node.value > 1));
     }
   }
+
   console.log(rootData);
   treeLayout(rootData);
 
@@ -301,43 +295,38 @@ const renderTree = function (
 
   enteringNodes
     .append("text")
-    .attr("class", "label")
+    .attr("class", "label left")
     .attr("dx", -35)
     .attr("dy", 5)
-    .style("opacity", "1")
-    .style("fill", "red")
     .text((d) => parseTreeValues(d.data.content).left);
 
   enteringNodes
     .append("text")
-    .attr("class", "label")
+    .attr("class", "label right")
     .attr("dx", 15)
     .attr("dy", 5)
-    .style("opacity", "1")
-    .style("fill", "red")
     .text((d) => parseTreeValues(d.data.content).right);
-  enteringNodes
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 15)
-    .attr("dy", 25)
-    .style("opacity", "1")
-    .style("fill", "pink")
-    .text((d) => d.value);
+
+  // enteringNodes //VALUE label
+  //   .append("text")
+  //   .attr("class", "label")
+  //   .attr("dx", 15)
+  //   .attr("dy", 25)
+  //   .style("fill", "pink")
+  //   .text((d) => d.value);
   enteringNodes
     .append("text")
     .attr("class", "label")
     .attr("dx", 5)
     .attr("dy", 25)
-    .style("opacity", "1")
     .style("fill", "green")
     .text(cumulativeValue);
 
   enteringNodes.append("circle").attr("r", nodeRadius);
 
+  // Re-fire the click event for habit-status changes
   typeof zoomClicked !== "undefined" &&
-    clickedZoom(zoomClicked.event, zoomClicked.node) &&
-    console.log(zoomClicked.node, "at end");
+    clickedZoom(zoomClicked.event, zoomClicked.node);
 };
 
 function expandTree() {
@@ -378,16 +367,15 @@ const parseTreeValues = (valueString) => {
 };
 
 const oppositeStatus = (current) =>
-  current === "undefined" || current === "true" ? "true" : "false";
+  current === "undefined" || current === "false" ? "true" : "false";
 
 const nodeStatusColours = (d) => {
-  const datumValues = parseTreeValues(d.data.value);
-  if (typeof d === "undefined" || typeof datumValues === "undefined")
+  if (typeof d === "undefined" || typeof d.data.content === "undefined")
     return neutralCol;
-  switch (datumValues.status) {
-    case "true":
+  switch (cumulativeValue(d)) {
+    case 1:
       return positiveCol;
-    case "false":
+    case 0:
       return negativeCol;
     default:
       return neutralCol;

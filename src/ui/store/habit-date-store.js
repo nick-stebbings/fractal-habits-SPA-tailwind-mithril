@@ -29,8 +29,8 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
       HabitDateStore.list().filter((habitDate) => habitDate.habit_id == habitId)
     ),
 
-  runUpdate: (id, value) => {
-    HabitDateStore.replace(id, value)
+  runUpdate: (values) => {
+    HabitDateStore.replace("", values)
       .then(HabitDateStore.current)
       .catch(handleErrorType);
   },

@@ -358,6 +358,24 @@ module Hht
           status 422
         end
       end
+
+      put '/' do
+        habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
+        attrs = habit_date.reject do |k,v|
+          k == :completed_status
+        end
+        halt(404, { message:'Habit Date Not Found'}.to_json) unless habit_date_repo.by_attrs(attrs).exist?
+        
+        binding.pry
+        updated = habit_date_repo.update(attrs)
+        if updated.success?
+          url = "http://localhost:9393/habit_dates/#{id}"
+          response.headers['Location'] = url
+          status 204
+        else
+          status 422
+        end
+      end
     end
   end
 end

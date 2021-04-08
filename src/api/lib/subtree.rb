@@ -19,7 +19,7 @@ class Tree::TreeNode
       end
       used_numbers.push(lft)
       used_numbers.push(rgt)
-      n.content = "L#{lft}R#{rgt}-true" if block_given?
+      n.content = "L#{lft}R#{rgt}-false" if block_given?
       yield({id: i, lft: lft, rgt: rgt}, n.name, n.content) if block_given?
     end
   end
