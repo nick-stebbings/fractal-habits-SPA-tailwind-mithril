@@ -34,7 +34,14 @@ const openModal = function (open = true) {
 
 const registerEventListeners = (function () {
   const { body } = document;
+
   window.addEventListener("DOMContentLoaded", () => {
+    [...body.querySelectorAll(".mega-menu")].forEach((menu) => {
+      menu.addEventListener("mouseout", () => {
+        body.querySelector(".mask-wrapper").style("height", "0");
+      });
+    });
+
     document.getElementById("modal_overlay").addEventListener("click", (e) => {
       if (e.target.id.match("close-modal")) {
         openModal(false);

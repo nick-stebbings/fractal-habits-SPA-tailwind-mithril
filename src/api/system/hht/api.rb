@@ -72,10 +72,8 @@ module Hht
       get '/domain/:id/habit_tree' do |id|
         date_id = params[:date_id].to_i
         length = params['tracking_length'].to_i
-
-        binding.pry
         YAMLStore.ready ? YAMLStore.get_data : (YAML = YAMLStore.new(length))
-        json (YAML.tree[id.to_i][date_id] || YAML.tree[id.to_i].first)
+        json (YAML.tree[id.to_i - 1][date_id] || YAML.tree[id.to_i - 1].first)
       end
 
       put '/habit_dates/' do        
