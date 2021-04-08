@@ -201,7 +201,7 @@ const renderTree = function (
         date_id: DateStore.current().id,
         completed_status: oppositeStatus(currentStatus),
       });
-      HabitDateStore.runUpdate(nodeId, requestBody);
+      HabitDateStore.runUpdate(requestBody);
     }
   };
   const getTransform = function (node, xScale) {

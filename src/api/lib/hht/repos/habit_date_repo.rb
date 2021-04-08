@@ -4,15 +4,14 @@ module Hht
   module Repos
     class HabitDateRepo < ROM::Repository[:habit_dates]
       include Import['persistence.container']
-      
-        include Dry::Monads[:result]
+      include Dry::Monads[:result]
 
       commands :create, delete: :by_pk
 
       def update(attrs)
-        tuple = by_attrs(attrs)
-        new_status = attrs[:completed_status]
-        Success(tuple.update(completed_status: new_status))
+        tuple = by_attrs(attrs.reject { |k,v| k == :completed_status })
+        new_status = attrs[:completed_status] == 'true'
+        tuple.update(completed_status: new_status) #Success() TODO
       end
 
       def by_attrs(attrs)
