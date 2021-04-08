@@ -7,10 +7,18 @@ class Tree::TreeNode
   # Monkey patching a method for returning modified preordered tree traversal values and other node related data
   def yield_d3_values(domain_index)
     left_counter = 1
+    used_numbers = []
     preordered_each do |n, i|
+      while used_numbers.include?(left_counter)
+        left_counter += 1
+      end
       lft = left_counter
-      rgt = (n.size == 1 ? (lft + 1) : (lft + 2 * n.size - 1))
-      left_counter = n.size == 1 ? (left_counter + 2) : (left_counter + 1)
+      rgt = (n.size == 1 ? (lft + 1) : lft + 2 * n.size - 1)
+      while used_numbers.include?(rgt)
+        rgt += 1
+      end
+      used_numbers.push(lft)
+      used_numbers.push(rgt)
       n.content = "L#{lft}R#{rgt}-true" if block_given?
       yield({id: i, lft: lft, rgt: rgt}, n.name, n.content) if block_given?
     end
@@ -46,10 +54,10 @@ class Subtree
 
   def as_d3_json
     root_json = @root_node.as_json
-    new_json = { 'value' => root_json[:content].to_s, 'name' => root_json[:name].to_s }
+    new_json = { 'content' => root_json[:content].to_s, 'name' => root_json[:name].to_s }
     
     children_json = if root_json['children']
-      { 'value' => root_json[:content].to_s, 'children' => root_json['children'].map { |child| Subtree.new(child).as_d3_json } }
+      { 'content' => root_json[:content].to_s, 'children' => root_json['children'].map { |child| Subtree.new(child).as_d3_json } }
     else
     { 'children' => [] }
     end
@@ -116,7 +124,7 @@ class Subtree
     def each_after_json_to_treenodes(json_tree, parent = nil)
       hash_node = JSON.parse(json_tree)
       # Create a new parent node and store the JSON as 'content' in the TreeNode
-      node = Tree::TreeNode.new(hash_node['name'], {value: hash_node['content'], children: hash_node['children']})
+      node = Tree::TreeNode.new(hash_node['name'], {content: hash_node['content'], children: hash_node['children']})
 
       nodes = [node]
       next_nodes = []
@@ -125,7 +133,7 @@ class Subtree
       while (node = nodes.pop())
         next_nodes.push(node)
         if ((node.content['children'] || node.content[:children]) && (children = (node.content['children'] || node.content[:children])) && !children.empty?)
-          children.each { |child| nodes.push(Tree::TreeNode.new(child['name'], {value: '', children: child['children']}))}
+          children.each { |child| nodes.push(Tree::TreeNode.new(child['name'], {content: '', children: child['children']}))}
         end
       end
 

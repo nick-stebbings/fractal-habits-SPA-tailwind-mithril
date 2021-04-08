@@ -90,7 +90,7 @@ const renderTree = function (
   let scale = 0.75;
   let clickScale = 3;
   const zoomBase = canvas;
-  const levelsWide = 9;
+  const levelsWide = 12;
   const levelsHigh = 3;
   const nodeRadius = 15 * scale;
   const dy = (window.innerWidth / levelsWide) * scale;
@@ -237,34 +237,33 @@ const renderTree = function (
     .call(zoomer)
     .on("wheel", (event) => event.preventDefault());
 
+  const sumChildrenValues = (node) =>
+    node.children.reduce((sum, n) => sum + n.value, 0);
+  const cumulativeValue = (node) =>
+    node && node.children
+      ? +(sumChildrenValues(node) === node.children.length)
+      : +JSON.parse(parseTreeValues(node.data.content).status);
+
   const rootData = TreeStore.root();
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   if (m.route.param("demo")) {
     rootData.sum((d) => {
-      const status = parseTreeValues(d.content).status;
       const thisNode = rootData.descendants().find((node) => node.data == d);
-
-      // console.log(
-      //   thisNode.children
-      //     ? thisNode.children.reduce((sum, n) => {
-      //         return sum + n.value;
-      //       }, 0) === thisNode.children.length
-      //     : "no children",
-      //   "IS CHILDREN VALUE SUM SAME AS LENGTH?"
-      // );
-      // console.log(
-      //   thisNode.children
-      //     ? +(
-      //         thisNode.children.reduce((sum, n) => {
-      //           return sum + n.value;
-      //         }, 0) === thisNode.children.length
-      //       )
-      //     : (thisNode.data.trueSoFar = +JSON.parse(status)), // Convert boolean string to binary
-      //   " THIS NODE CHILDREN sum"
-      // );
-      // console.log(thisNode, " THIS NODE DATA");
-      return +JSON.parse(status);
+      if (cumulativeValue(thisNode) == 0) {
+        console.log(thisNode, " THIS NODE DATA");
+        console.log(cumulativeValue(thisNode));
+        console.log(+JSON.parse(parseTreeValues(thisNode.data.content).status));
+      }
+      return +JSON.parse(parseTreeValues(thisNode.data.content).status);
     });
+    while (rootData.descendants().some((node) => node.value > 1)) {
+      rootData.each((node) => {
+        if (node.value > 1) {
+          node.value = cumulativeValue(node);
+        }
+      });
+      console.log(rootData.descendants().some((node) => node.value > 1));
+    }
   }
   console.log(rootData);
   treeLayout(rootData);
@@ -308,12 +307,6 @@ const renderTree = function (
     .style("opacity", "1")
     .style("fill", "red")
     .text((d) => parseTreeValues(d.data.content).left);
-  const sumChildrenValues = (node) =>
-    node.children.reduce((sum, n) => sum + n.value, 0);
-  const cumulativeValue = (node) =>
-    node && node.children
-      ? +(sumChildrenValues(node) === node.children.length)
-      : +JSON.parse(parseTreeValues(node.data.content).status);
 
   enteringNodes
     .append("text")
@@ -377,6 +370,7 @@ const parseTreeValues = (valueString) => {
   try {
     [splitValues, status] = valueString.split("-");
     [, left, right] = splitValues.split(/\D/);
+
     return { left, right, status };
   } catch {
     console.log(valueString, "Error Parsing");
