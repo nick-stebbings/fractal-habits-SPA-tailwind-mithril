@@ -4,18 +4,24 @@ import ListCard from "../Layout/ListCard.jsx";
 import GeneralButton from "../Layout/Nav/GeneralButton.jsx";
 
 const HabitList = function () {
+  let lastValue;
+
   return {
     oncreate: ({ dom }) => {
       const filterInput = dom.querySelector("input[name=filter-results]");
       dom.querySelector("button[name=reset]").addEventListener("click", (e) => {
         filterInput.value = "";
-        HabitStore.list(HabitStore.filterByName(""));
+        HabitStore.list(HabitStore.indexHabitsOfDomain(DomainStore.current()));
         m.redraw();
       });
       filterInput.addEventListener("input", (e) => {
+        lastValue = e.target.Value;
         HabitStore.list(HabitStore.filterByName(e.target.value));
         m.redraw();
       });
+    },
+    onupdate: ({ dom }) => {
+      document.querySelector("input[name=filter-results]").value = lastValue;
     },
     view: () => (
       <div class="p-6">

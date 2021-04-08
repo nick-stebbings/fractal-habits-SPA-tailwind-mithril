@@ -70,12 +70,18 @@ module Hht
       end
       
       get '/domain/:id/habit_tree' do |id|
+        date_id = params[:date_id].to_i
         length = params['tracking_length'].to_i
+
+        binding.pry
         YAMLStore.ready ? YAMLStore.get_data : (YAML = YAMLStore.new(length))
-        YAML.tree
+        json (YAML.tree[id.to_i][date_id] || YAML.tree[id.to_i].first)
       end
 
-      put '/habit_dates/' do
+      put '/habit_dates/' do        
+        dom_id = params[:domain_id].to_i
+        date_id = params[:date_id].to_i
+
         habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
         habit_date[:completed_status] = habit_date[:completed_status] == 'true'
         attrs = habit_date.reject { |k,v| k == :completed_status }
@@ -86,10 +92,11 @@ module Hht
           habit_dates.insert(habit_date)
           habit_dates.delete(found)
         end
+
         node_id_to_change = YAML.habits.restrict(id: attrs[:habit_id]).one[:habit_node_id]
         node_to_change = YAML.habit_nodes.restrict(id: node_id_to_change).one
         node_content = "L#{node_to_change[:lft]}R#{node_to_change[:rgt]}"
-        YAML.tree = YAML.tree.gsub!("#{node_content}-#{!habit_date[:completed_status]}", "#{node_content}-#{habit_date[:completed_status]}")
+        YAML.tree[dom_id][date_id] = (json YAML.tree[dom_id][date_id]).gsub!("#{node_content}-#{!habit_date[:completed_status]}", "#{node_content}-#{habit_date[:completed_status]}")
         204
       end
 

@@ -12,6 +12,7 @@ let maxDate;
 
 const CreateForm = {
   oncreate: ({ attrs, dom }) => {
+    if (m.route.param("demo")) return;
     document.querySelector(
       "input[name^=initiation-date]"
     ).value = new Date().toDateInputValue();
@@ -51,76 +52,76 @@ const CreateForm = {
         form.reset();
       });
   },
-  view: ({ attrs }) => (
-    <form id={`create-${attrs.resourceName}`}>
-      {attrs.addHeader && (
-        <FormHeader
-          iconPath="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-          title={`Create a ${attrs.resourceName}`}
-          description={attrs.resourceDescription}
-        />
-      )}
+  view: ({ attrs }) => {
+    return m.route.param("demo") ? (
+      m("div.my-2.mx-2", "No Habit creation in Demo mode!")
+    ) : (
+      <form id={`create-${attrs.resourceName}`}>
+        {attrs.addHeader && (
+          <FormHeader
+            iconPath="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            title={`Create a ${attrs.resourceName}`}
+            description={attrs.resourceDescription}
+          />
+        )}
 
-      {m(FormBody, [
-        m(
-          InputGroup,
-          {
-            name: "habit-name",
-            label: "Habit Name",
-          },
-          m("input[type=text]", {
-            name: "name",
-            id: `habit-title-${String(Math.ceil(Math.random() * 100))}`,
-            class: "form-input",
-            placeholder: "e.g. Hydrate in the A.M.",
-          })
-        ),
-        m(
-          InputGroup,
-          {
-            name: "habit-description",
-            label: "Habit Description",
-          },
-          m("input[type=text]", {
-            name: "description",
-            id: `habit-description-${String(Math.ceil(Math.random() * 100))}`,
-            class: "form-input",
-            placeholder: "e.g. Drinking water each day after waking",
-          })
-        ),
-        m(
-          InputGroup,
-          {
-            name: "initiation_date",
-            label: "Initiation Date",
-          },
-          m("input[type=date]", {
-            id: `initiation-date-${String(Math.ceil(Math.random() * 100))}`,
-            name: "initiation-date",
-            class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
-            list: maxDate,
-          })
-        ),
-      ])}
+        {m(FormBody, [
+          m(
+            InputGroup,
+            {
+              name: "habit-name",
+              label: "Habit Name",
+            },
+            m("input[type=text]", {
+              name: "name",
+              id: `habit-title-${String(Math.ceil(Math.random() * 100))}`,
+              class: "form-input",
+              placeholder: "e.g. Hydrate in the A.M.",
+            })
+          ),
+          m(
+            InputGroup,
+            {
+              name: "habit-description",
+              label: "Habit Description",
+            },
+            m("input[type=text]", {
+              name: "description",
+              id: `habit-description-${String(Math.ceil(Math.random() * 100))}`,
+              class: "form-input",
+              placeholder: "e.g. Drinking water each day after waking",
+            })
+          ),
+          m(
+            InputGroup,
+            {
+              name: "initiation_date",
+              label: "Initiation Date",
+            },
+            m("input[type=date]", {
+              id: `initiation-date-${String(Math.ceil(Math.random() * 100))}`,
+              name: "initiation-date",
+              class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
+              list: maxDate,
+            })
+          ),
+        ])}
 
-      <div className="button-container px-4 py-3 bg-white border-t border-gray-200">
-        <CancelButton
-          id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
-          name="close"
-          label="Forget It"
-          disabled={m.route.param("demo") ? "true" : "false"}
-          class={m.route.param("demo") ? "inactive" : "active"}
-        />
-        <SubmitButton
-          id={`submit-form-${String(Math.ceil(Math.random() * 100))}`}
-          name="submit"
-          label="Start Tracking"
-          // disabled={"false"}
-          class={m.route.param("demo") ? "inactive" : "active"}
-        />
-      </div>
-    </form>
-  ),
+        <div className="button-container px-4 py-3 bg-white border-t border-gray-200">
+          <CancelButton
+            id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
+            name="close"
+            label="Forget It"
+          />
+          <SubmitButton
+            id={`submit-form-${String(Math.ceil(Math.random() * 100))}`}
+            name="submit"
+            label="Start Tracking"
+          />
+        </div>
+      </form>
+    );
+  },
 };
 
 export default CreateForm;

@@ -52,12 +52,12 @@ class YAMLStore
         end
       end
 
-      tree = nil
+      trees = (1..domain_habit_lists.size).map{ [] }
       habit_node_id = 1
       habit_nodes_list = []
       domains.to_habit_trees.each_with_index do |domain, index|
-        tree = Subtree.json_to_ternarised_and_listified_treenodes(domain.to_json)
-        tree.yield_d3_values(index) do |vals, name|
+        current_tree = Subtree.json_to_ternarised_and_listified_treenodes(domain.to_json)
+        current_tree.yield_d3_values(index) do |vals, name|
           new_habit = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
           habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
           found = habit_list.find { |habit| habit[:name] == name}
@@ -65,6 +65,7 @@ class YAMLStore
           next unless found
           found[:habit_node_id] = habit_node_id
         end
+        trees[index] << current_tree
       end
       habit_dates_list = []
       domain_habit_lists.each do |habit_list|
@@ -76,7 +77,7 @@ class YAMLStore
       end
     end
     @@ready = true
-    @tree = tree.to_json
+    @tree = trees
     @@data = {nodes: habit_nodes.to_a, dates: dates.to_a, habit_dates: habit_dates.to_a, domains: domains.without_habit_trees, habits: habits.to_a }
   end
 end
