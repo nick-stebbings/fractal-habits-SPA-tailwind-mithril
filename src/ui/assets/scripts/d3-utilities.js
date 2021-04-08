@@ -391,6 +391,7 @@ export {
   d3SetupCanvas,
   renderTree,
   collapseTree,
+  expandTree,
   zooms,
   debounce,
 };

@@ -6,6 +6,7 @@ import {
   d3SetupCanvas,
   renderTree,
   collapseTree,
+  expandTree,
 } from "../../../../assets/scripts/d3-utilities.js";
 
 import TreeStore from "../../../../store/habit-tree-store.js";
@@ -69,17 +70,26 @@ const HabitTree = function () {
 
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document));
 
-      document.getElementById("activate-demo").addEventListener("click", () => {
-        let rootNode = document.querySelector(".the-node");
-        collapseTree(zoomer);
-        renderTree(svg, demoData, canvasWidth, canvasHeight, zoomer);
-      });
+      document
+        .getElementById("collapse-tree")
+        .addEventListener("click", (e) => {
+          e.target.textContent.includes("Collapse")
+            ? collapseTree()
+            : expandTree();
+          e.target.textContent = e.target.textContent.includes("Collapse")
+            ? "Expand Tree"
+            : "Collapse Tree";
+          renderTree(svg, demoData, canvasWidth, canvasHeight, zoomer);
+        });
     },
     onupdate: updateStoresAndRenderTree,
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
-        <button type="button" id="activate-demo" class="z-50">
-          Toggle Demo Data
+        <button type="button" id="activate-demo">
+          Generate Demo Data
+        </button>
+        <button type="button" id="collapse-tree">
+          Collapse Tree
         </button>
         {vnode.children}
       </div>

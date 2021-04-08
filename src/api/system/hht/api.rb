@@ -42,6 +42,7 @@ module Hht
       response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept"
       200
     end
+
     include Import[
       'repos.domain_repo',
       'repos.habit_node_repo',
@@ -89,7 +90,6 @@ module Hht
         node_to_change = YAML.habit_nodes.restrict(id: node_id_to_change).one
         node_content = "L#{node_to_change[:lft]}R#{node_to_change[:rgt]}"
         YAML.tree = YAML.tree.gsub!("#{node_content}-#{!habit_date[:completed_status]}", "#{node_content}-#{habit_date[:completed_status]}")
-        binding.pry
         204
       end
 
