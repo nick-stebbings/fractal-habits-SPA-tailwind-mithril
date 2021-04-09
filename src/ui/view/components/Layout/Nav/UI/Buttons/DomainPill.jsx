@@ -11,11 +11,11 @@ const DomainPill = {
         hashtag: `#${vnode.attrs.name.toLowerCase().split(" ").join("-")}`,
       })
         .then(() => {
-          openModal(true);
+          vnode.attrs.formNeeded(true);
         })
-        // .then(() => {
-        //   m.redraw();
-        // })
+        .then(() => {
+          m.redraw();
+        })
         .catch((err) => {
           console.log(err);
           err.status

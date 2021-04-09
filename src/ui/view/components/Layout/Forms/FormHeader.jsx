@@ -20,7 +20,7 @@ const FormHeader = {
       <div class="block self-start pl-2 text-xl font-semibold text-gray-700">
         <h2 class="leading-relaxed">{attrs.title}</h2>
         <p class="text-sm font-normal leading-relaxed text-gray-500">
-          {attrs.description}
+          {attrs.domain().description}
         </p>
       </div>
     </div>

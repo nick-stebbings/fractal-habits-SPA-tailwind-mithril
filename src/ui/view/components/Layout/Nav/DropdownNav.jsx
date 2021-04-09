@@ -3,7 +3,23 @@ import HabitStore from "../../../../store/habit-store";
 import HoverableLink from "./UI/Buttons/HoverableLink.jsx";
 
 const DropdownNav = (function () {
+  const showMegaMenu = () =>
+    (document.querySelector(".mask-wrapper").style.height = "346px");
+  const hideMegaMenu = () =>
+    (document.querySelector(".mask-wrapper").style.height = "6.3rem");
   return {
+    oncreate: () => {
+      document
+        .querySelector(".mega-menu")
+        .addEventListener("mouseover", showMegaMenu);
+      document
+        .querySelector(".nav")
+        .addEventListener("mouseover", showMegaMenu);
+      document.querySelector(".nav").addEventListener("mouseout", hideMegaMenu);
+      document
+        .querySelector(".mega-menu")
+        .addEventListener("mouseout", hideMegaMenu);
+    },
     view: ({ attrs: { routes } }) => (
       <nav className="nav">
         <div className="nav-container">
@@ -20,7 +36,7 @@ const DropdownNav = (function () {
               </HoverableLink>
             ))}
           </ul>
-          <div>
+          <div id="current-habit-label">
             <span id="current-habit">Selected:</span>
             {m(
               "span",

@@ -42,7 +42,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   indexHabitsOfDomain: (id) => {
-    HabitStore.list(HabitStore.filterByDomainId(id));
+    HabitStore.runFilterByDomain(id);
     HabitStore.current(HabitStore.list()[HabitStore.list().length - 1]);
   },
 

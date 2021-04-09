@@ -7,9 +7,10 @@ import FormBody from "./FormBody.jsx";
 import InputGroup from "./FormInputGroup.jsx";
 import SubmitButton from "../Nav/UI/Buttons/SubmitButton.jsx";
 import CancelButton from "../Nav/UI/Buttons/CancelButton.jsx";
+import DomainStore from "../../../../store/domain-store.js";
 
 let maxDate;
-const processFormData = function (dom) {
+const processFormData = function (dom, attrs) {
   dom
     .querySelector("form button[type=submit]")
     .addEventListener("click", (e) => {
@@ -56,7 +57,7 @@ const CreateForm = {
 
     maxDate = String(DateStore.currentDate());
 
-    processFormData(dom);
+    processFormData(dom, attrs);
   },
   view: ({ attrs }) => {
     return m.route.param("demo") ? (
@@ -67,7 +68,7 @@ const CreateForm = {
           <FormHeader
             iconPath="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
             title={`Create a ${attrs.resourceName}`}
-            description={attrs.resourceDescription}
+            domain={DomainStore.current}
           />
         )}
 
@@ -113,11 +114,12 @@ const CreateForm = {
           ),
         ])}
 
-        <div className="button-group px-4 py-3 bg-white border-t border-gray-200">
+        <div className="button-group py-3 mb-2 bg-white border-t border-gray-200">
           <CancelButton
             id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
             name="close"
             label="Forget It"
+            formNeeded={attrs.formNeeded}
           />
           <SubmitButton
             id={`submit-form-${String(Math.ceil(Math.random() * 100))}`}

@@ -11,7 +11,7 @@ $watermarkimage: url("../../images/watermark.png");
     }
     .outline-shadow {
       @apply rounded-full;
-      box-shadow: 0 0 0 0.5rem rgb(255 172 15 / 90%);
+      box-shadow: 0 0 0 0.35rem rgb(255 172 15 / 90%);
     }
     .outline-dashed {
       @apply outline-light;
@@ -29,6 +29,7 @@ nav span {
   cursor: pointer;
 }
 
+#vis button:hover,
 .logo-link:hover {
   @apply text-balance-sshades-brighten;
 }
@@ -61,10 +62,17 @@ body[class^="scroll"] .mask-wrapper {
     mask: no-repeat 10px -20px $maskimage;
   }
   body[class^="scroll"] div.mask-wrapper:hover {
-    height: 12rem;
+    height: 5rem;
   }
+
   div.mask-wrapper:hover {
-    height: 346px;
+    #current-habit-label {
+      @apply fixed top-10;
+    }
+
+    .hoverable:hover div.mask-wrapper {
+      height: 346px;
+    }
   }
 }
 
@@ -73,7 +81,7 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 #subnav nav.nav {
-  @apply w-full h-8;
+  @apply w-full h-12;
 }
 
 #subnav .nav-title,
@@ -87,7 +95,7 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 .nav-container > div:last-child {
-  @apply top-12 left-3 bg-balance-pshades-light absolute flex items-center w-3/12 mt-2 rounded-sm;
+  @apply h-12 px-2 top-9 left-4 bg-balance-pshades-light border-balance-buttonbg-disabled absolute flex items-center mt-2 rounded-sm;
   pointer-events: none;
 }
 
@@ -149,7 +157,7 @@ li.hoverable {
         }
 
         .menu-card {
-          @apply flex mb-6;
+          @apply flex mb-6 pt-4;
           h3 {
             line-height: 2rem;
           }
@@ -165,7 +173,7 @@ li.hoverable {
           }
 
           .menu-card-button:hover {
-            @apply text-balance-tershades-light bg-gradient-to-b from-gray-500 to-transparent;
+            @apply text-gray-100 bg-gradient-to-b from-gray-500 to-transparent;
           }
 
           .menu-card-button.active:hover {
@@ -256,7 +264,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
 /* ---  Scroll behaviour --- */
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
-  @apply text-balance-tershades-light bg-balance-pshades-light border-0;
+  @apply text-gray-100 bg-balance-pshades-light border-0;
   padding-left: 11rem;
   margin-left: -1.3rem;
   min-width: 12rem;
@@ -293,15 +301,11 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:hover {
 
 #subnav .nav-links > li.hoverable:hover a,
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover a {
-  @apply text-balance-sshades-brighten;
-}
-
-#subnav .nav-links a[id^="nav"]:focus,
-#subnav .nav-links a[id^="nav"]:active {
-  // TODO: add active/ focus on nav
+  @apply text-balance-sshades-sat;
 }
 
 #subnav .nav-links a,
+span.logo svg path,
 .nav-label-primary {
-  @apply active:outline-shadow focus:outline-dashed;
+  @apply focus:outline-none focus:outline-shadow active:outline-dashed;
 }

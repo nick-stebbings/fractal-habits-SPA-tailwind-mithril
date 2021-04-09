@@ -35,15 +35,8 @@ const openModal = function (open = true) {
 const registerEventListeners = (function () {
   const { body } = document;
 
-  window.addEventListener("DOMContentLoaded", () => {
-    [...body.querySelectorAll(".mega-menu")].forEach((menu) => {
-      menu.addEventListener("mouseout", () => {
-        body.querySelector(".mask-wrapper").style("height", "0");
-      });
-    });
-
+  document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modal_overlay").addEventListener("click", (e) => {
-      console.log(e.target.id);
       if (e.target.id.includes("close-modal")) {
         openModal(false);
       }

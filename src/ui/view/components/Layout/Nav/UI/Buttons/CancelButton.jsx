@@ -1,4 +1,12 @@
+import { openModal } from "../../../../../../assets/scripts/animations";
+
 const CancelButton = {
+  oncreate: ({ attrs, dom }) => {
+    dom.addEventListener("click", () => {
+      openModal(false);
+      attrs.formNeeded(false);
+    });
+  },
   view: ({ attrs }) => (
     <div className="button-container cancel-button">
       <button

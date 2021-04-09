@@ -1,10 +1,13 @@
+import HabitStore from "../../store/habit-store";
+import DomainStore from "../../store/domain-store";
+
 const HabitDashboard = {
   view: () => (
     <div class="container mx-auto px-4 sm:px-8 max-w-3xl">
       {/* List component from www.tailwind-kit.com */}
       <div class="py-8">
         <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
-          <h2 class="text-2xl leading-tight">Users</h2>
+          <h2 class="text-2xl leading-tight">Habits</h2>
           <div class="text-end">
             <form class="flex w-full max-w-sm space-x-3">
               <div class=" relative ">
@@ -33,25 +36,25 @@ const HabitDashboard = {
                     scope="col"
                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
-                    User
+                    Habit
                   </th>
                   <th
                     scope="col"
                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
-                    Role
+                    Domain
                   </th>
                   <th
                     scope="col"
                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
-                    Created at
+                    Initiated On
                   </th>
                   <th
                     scope="col"
                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
-                    status
+                    Completion Today
                   </th>
                   <th
                     scope="col"
@@ -60,166 +63,52 @@ const HabitDashboard = {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0">
-                        <a href="#" class="block relative">
-                          <img
-                            alt="profil"
-                            src="/images/person/8.jpg"
-                            class="mx-auto object-cover rounded-full h-10 w-10 "
-                          />
-                        </a>
+                {HabitStore.list().map((habit) => (
+                  <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                          <a href="#" class="block relative">
+                            <img
+                              alt="profil"
+                              src="/images/person/8.jpg"
+                              class="mx-auto object-cover rounded-full h-10 w-10 "
+                            />
+                          </a>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-gray-900 whitespace-no-wrap">
+                            {habit.name}
+                          </p>
+                        </div>
                       </div>
-                      <div class="ml-3">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Jean marc
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">Admin</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">12/09/2020</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                      <span
-                        aria-hidden="true"
-                        class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                      ></span>
-                      <span class="relative">active</span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0">
-                        <a href="#" class="block relative">
-                          <img
-                            alt="profil"
-                            src="/images/person/9.jpg"
-                            class="mx-auto object-cover rounded-full h-10 w-10 "
-                          />
-                        </a>
-                      </div>
-                      <div class="ml-3">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Marcus coco
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">Designer</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">01/10/2012</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                      <span
-                        aria-hidden="true"
-                        class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                      ></span>
-                      <span class="relative">active</span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0">
-                        <a href="#" class="block relative">
-                          <img
-                            alt="profil"
-                            src="/images/person/10.jpg"
-                            class="mx-auto object-cover rounded-full h-10 w-10 "
-                          />
-                        </a>
-                      </div>
-                      <div class="ml-3">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Ecric marc
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">Developer</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">02/10/2018</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                      <span
-                        aria-hidden="true"
-                        class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                      ></span>
-                      <span class="relative">active</span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0">
-                        <a href="#" class="block relative">
-                          <img
-                            alt="profil"
-                            src="/images/person/6.jpg"
-                            class="mx-auto object-cover rounded-full h-10 w-10 "
-                          />
-                        </a>
-                      </div>
-                      <div class="ml-3">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Julien Huger
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">User</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">23/09/2010</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                      <span
-                        aria-hidden="true"
-                        class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                      ></span>
-                      <span class="relative">active</span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        {DomainStore.current().name}
+                      </p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        {habit.initiation_date}
+                      </p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                        <span
+                          aria-hidden="true"
+                          class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                        ></span>
+                        <span class="relative">active</span>
+                      </span>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                        Delete
+                      </a>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <div class="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">

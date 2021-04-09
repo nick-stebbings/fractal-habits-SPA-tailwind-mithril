@@ -42,13 +42,16 @@ const MaskHeader = function () {
             >
               <svg
                 id="logo"
-                className="hover:text-balance-tershades-light md:ml-1 md:w-8 md:h-8 w-10 h-10 text-gray-100 fill-current stroke-current"
+                className="hover:text-gray-100 md:ml-1 md:w-8 md:h-8 w-10 h-10 text-gray-100 fill-current stroke-current"
                 width="54"
                 height="54"
                 viewBox="0 0 54 54"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M15.34,45.5C8.26,45.5,2.5,39.74,2.5,32.66s5.76-12.84,12.84-12.84h1.31v8.37l-1.31,0c-2.47,0-4.47,2.01-4.47,4.47  c0,2.47,2.01,4.48,4.47,4.48c2.47,0,4.47-2.01,4.47-4.48l0-1.92v-15.4c0-7.08,5.76-12.84,12.84-12.84c7.08,0,12.84,5.76,12.84,12.84  s-5.76,12.84-12.84,12.84h-1.31v-8.37l1.31,0c2.47,0,4.47-2.01,4.47-4.47c0-2.47-2.01-4.47-4.47-4.47c-2.47,0-4.47,2.01-4.47,4.47  l0,1.92v15.4C28.18,39.74,22.42,45.5,15.34,45.5z" />
+                <path
+                  tabindex="0"
+                  d="M15.34,45.5C8.26,45.5,2.5,39.74,2.5,32.66s5.76-12.84,12.84-12.84h1.31v8.37l-1.31,0c-2.47,0-4.47,2.01-4.47,4.47  c0,2.47,2.01,4.48,4.47,4.48c2.47,0,4.47-2.01,4.47-4.48l0-1.92v-15.4c0-7.08,5.76-12.84,12.84-12.84c7.08,0,12.84,5.76,12.84,12.84  s-5.76,12.84-12.84,12.84h-1.31v-8.37l1.31,0c2.47,0,4.47-2.01,4.47-4.47c0-2.47-2.01-4.47-4.47-4.47c-2.47,0-4.47,2.01-4.47,4.47  l0,1.92v15.4C28.18,39.74,22.42,45.5,15.34,45.5z"
+                />
               </svg>
             </m.route.Link>
             <div
@@ -79,17 +82,23 @@ const MaskHeader = function () {
               <input type="checkbox" id="hamburger" className="hidden" />
               <nav className="top-16 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-desat lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-pshades-dark lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray absolute left-0 z-20 flex-col hidden w-full border-b-4">
                 <div className="md:pl-16 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between px-4 pt-1 pb-2">
-                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
+                  <div
+                    tabindex="4"
+                    className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full"
+                  >
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
                       <label htmlFor="domain-selector">Domain</label>
                     </span>
-                    <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-non h-full px-6 text-sm bg-white rounded-full">
-                      <span className="text-balance-sshades-brighten block w-full pt-2 mx-4 mb-1">
+                    <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-none h-full pl-1 pr-4 mr-2 bg-white rounded-full">
+                      <span className="text-balance-sshades-brighten block w-full pt-2 mb-1">
                         <DomainSelector></DomainSelector>
                       </span>
                     </div>
                   </div>
-                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row lg:border-2 border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
+                  <div
+                    tabindex="3"
+                    className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row lg:border-2 border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full"
+                  >
                     <span className="lg:hidden xl:block md:pt-2 pt-0 pb-0 mx-4 mb-1">
                       <label htmlFor="date-today">Date</label>
                     </span>
@@ -97,13 +106,13 @@ const MaskHeader = function () {
                       <span className="lg:pt-2 text-balance-sshades-brighten block w-full mx-4 mb-1">
                         <i
                           id="prev-date-selector"
-                          className="fa fa-chevron-circle-left pr-1"
+                          className="fa fa-chevron-circle-left pr-2"
                           aria-hidden="true"
                         />
                         <DateSelector></DateSelector>
                         <i
                           id="next-date-selector"
-                          className="fa fa-chevron-circle-right pl-1"
+                          className="fa fa-chevron-circle-right"
                           aria-hidden="true"
                         />
                       </span>
@@ -117,7 +126,7 @@ const MaskHeader = function () {
                       src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"
                       alt=""
                     />
-                    <span className="user-nav-label lg:text-balance-tershades-light sm:px-0 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 px-2 mx-4 font-light">
+                    <span className="user-nav-label lg:text-gray-100 sm:px-0 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 px-2 mx-4 font-light">
                       Your Name Is <span>Dave</span>
                     </span>
                   </div>

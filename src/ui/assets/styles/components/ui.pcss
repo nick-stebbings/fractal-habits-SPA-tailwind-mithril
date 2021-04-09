@@ -1,6 +1,7 @@
 @layer utilities {
   @variants active, focus {
-    .lighter {
+    .outline-lighter {
+      @apply outline-light;
     }
     .outline-none {
       outline: none;
@@ -48,12 +49,20 @@ label {
 }
 
 .button-container {
-  @apply rounded-full flex items-center justify-between px-1 mx-4 my-1 border-2 shadow-md;
+  @apply rounded-3xl flex items-center justify-between px-1 mx-2 my-1 border-2 shadow-md;
 }
 
 .button-container > button,
 .button-group > button {
-  @apply h-full rounded-3xl active:lighter focus:outline-none focus:outline-shadow;
+  @apply h-12 rounded-2xl active:outline-lighter focus:outline-none focus:outline-shadow;
+}
+
+.button-group > .button-container:first-of-type {
+  @apply -mr-4 rounded-r-none focus:outline-light;
+}
+
+.button-group > .button-container:last-of-type {
+  @apply ml-0 rounded-l-none focus:outline-light;
 }
 
 .button-container.cancel-button {
@@ -81,7 +90,7 @@ div.domain-pills button.domain-create {
 }
 
 div.domain-pills button.domain-create div:hover {
-  @apply text-balance-tershades-light bg-gradient-to-b from-gray-500 to-transparent;
+  @apply text-gray-100 bg-gradient-to-b from-gray-500 to-transparent;
 }
 
 main#append-habit .button-container.selected {
@@ -92,13 +101,24 @@ div[name="choose-habit-parent"] button.selected {
   @apply bg-balance-buttonbg-submit hover:bg-balance-buttonbg-submit text-balance-buttonbg-neutral;
 }
 
+#vis button {
+  right: -2rem;
+  z-index: 101;
+  @apply active:outline-lighter focus:outline-none focus:outline-shadow fixed border-2 p-3 pl-4 pr-8 m-1 rounded-full shadow-md text-gray-100 bg-gray-700 uppercase;
+}
+
+#activate-demo {
+  @apply top-16;
+}
+
+#collapse-tree {
+  @apply top-28;
+}
+
 /* Inputs */
 
 .mask-wrapper input[type="date"] {
   @apply border-0 pl-0 mt-0;
-}
-
-.mask-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .nav-label-primary div span {
@@ -113,14 +133,16 @@ input[type="date"] {
 }
 
 @media (max-width: 1024px) {
+  select#domain-selector::-ms-expand {
+    display: none;
+  }
+  select#domain-selector::after {
+    content: "<>";
+    position: absolute;
+    pointer-events: none;
+  }
   select#domain-selector {
-    min-width: 10rem;
-    padding: 0 !important;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    /* TODO: fix this */
-    -ms-word-break: normal;
-    word-break: normal;
+    display: block;
+    float: right;
   }
 }

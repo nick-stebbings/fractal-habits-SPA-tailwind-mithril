@@ -46,7 +46,7 @@ const DateSelector = function () {
       <fieldset>
         <input
           id="date-today"
-          class="form-input w-full text-xl lg:pt-2 -mr-8 px-2"
+          class="form-input w-full text-xl lg:pt-4 -mr-8 px-2"
           type="date"
           value={DateStore.currentDate()}
           list="current-habit-date-list"

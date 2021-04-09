@@ -1,7 +1,7 @@
 import DomainPill from "./Nav/UI/Buttons/DomainPill.jsx";
 
 const HeroSection = {
-  view: () => (
+  view: ({ attrs }) => (
     <section id="hero">
       <header class="md:h-56 lg:h-1/2 flex-none h-auto mx-8 mt-12">
         <h1 class="sm:flex sm:justify-center">
@@ -54,6 +54,7 @@ const HeroSection = {
               m(DomainPill, {
                 name: domain,
                 rank: idx,
+                formNeeded: attrs.formNeeded,
               })
           )}
         </div>

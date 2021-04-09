@@ -19,6 +19,8 @@ import { redraw, handleErrorType } from "./assets/scripts/utilities";
 
 const spinnerOpen = stream(true);
 
+const formNeeded = stream(false);
+
 function populateStores({ demo }) {
   if (!demo) {
     HabitStore.index()
@@ -80,10 +82,15 @@ const Routes = MenuRoutes.reduce(
           menuSection.label === "Visualise"
             ? m(d3visPageMaker(Layout, component, spinnerOpen), {
                 heading: title,
+                modalForm: formNeeded,
               })
             : m({
                 view: () =>
-                  m(Layout, { spinnerState: spinnerOpen }, m(component)),
+                  m(
+                    Layout,
+                    { spinnerState: spinnerOpen, modalForm: formNeeded },
+                    m(component)
+                  ),
               }),
       };
     });
@@ -98,8 +105,12 @@ const Routes = MenuRoutes.reduce(
           view: () =>
             m(
               Layout,
-              { spinnerState: spinnerOpen, index: true },
-              m(HeroSection)
+              {
+                spinnerState: spinnerOpen,
+                index: true,
+                formNeeded: formNeeded,
+              },
+              m(HeroSection, { formNeeded: formNeeded })
             ),
         }),
     },
