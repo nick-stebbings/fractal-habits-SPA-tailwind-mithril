@@ -14,14 +14,16 @@ export default {
   oncreate: ({ attrs: { spinnerState, formNeeded } }) => {
     openSpinner(true);
     spinnerState.map(openSpinner);
+    if (formNeeded()) openModal(true);
 
     if (!DateStore.current().id) {
       document.getElementById("date-today").value = DateStore.currentDate();
     }
 
-    if (formNeeded()) {
-      openModal(true);
-    }
+    document.getElementById("domain-selector").selectedIndex = Math.max(
+      0,
+      DomainStore.list().indexOf(DomainStore.current())
+    );
   },
   view: ({ attrs, children: [componentNode] }) => (
     <div id="layout" className="w-full h-full">

@@ -80,15 +80,14 @@ const Routes = MenuRoutes.reduce(
         onmatch: populateStores,
         render: () =>
           menuSection.label === "Visualise"
-            ? m(d3visPageMaker(Layout, component, spinnerOpen), {
+            ? m(d3visPageMaker(Layout, component, spinnerOpen, formNeeded), {
                 heading: title,
-                modalForm: formNeeded,
               })
             : m({
                 view: () =>
                   m(
                     Layout,
-                    { spinnerState: spinnerOpen, modalForm: formNeeded },
+                    { spinnerState: spinnerOpen, formNeeded: formNeeded },
                     m(component)
                   ),
               }),

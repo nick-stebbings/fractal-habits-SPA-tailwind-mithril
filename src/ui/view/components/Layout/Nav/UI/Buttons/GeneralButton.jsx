@@ -6,6 +6,7 @@ const GeneralButton = {
       <button
         id={attrs.id}
         name={attrs.name}
+        data-id={attrs.dataAttr}
         className="flex-no-shrink text-balance-buttontext-neutral rounded-xl font-heavy flex items-center h-12 px-2 font-sans tracking-wide uppercase"
       >
         {attrs.label}

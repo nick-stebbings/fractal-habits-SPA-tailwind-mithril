@@ -39,6 +39,7 @@ const processFormData = function (dom, attrs) {
           HabitStore.indexHabitsOfDomain(data.domain_id);
         })
         .catch(() => {
+          console.log("Could not submit data.");
           openModal(false);
         });
       m.redraw();
@@ -109,7 +110,7 @@ const CreateForm = {
               id: `initiation-date-${String(Math.ceil(Math.random() * 100))}`,
               name: "initiation-date",
               class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
-              list: maxDate,
+              max: maxDate,
             })
           ),
         ])}

@@ -7,22 +7,19 @@ const ListCard = {
     let chosenOne = document.querySelector(
       `button[data-id='${HabitStore.current().id}']`
     );
-    if (chosenOne) {
-      chosenOne.parentNode.classList.add("selected");
-    }
+    if (chosenOne) chosenOne.classList.add("selected");
   },
   view: ({ attrs: { value } }) => (
     <div class="flex mb-4 items-center justify-between">
       {document.querySelector("#habit-list").addEventListener("click", (e) => {
         if (e.target.tagName === "BUTTON") {
           e.stopPropagation();
+
           if (!e.target.classList.contains("selected")) {
             let lastSelected = document.querySelector(".selected");
             lastSelected && lastSelected.classList.toggle("selected");
+            e.target.classList.add("selected");
           }
-          e.target.classList.add("selected");
-        }
-        if (e.target.classList.contains("selected")) {
           HabitStore.current(
             HabitStore.filterById(+e.target.getAttribute("data-id"))[0]
           );

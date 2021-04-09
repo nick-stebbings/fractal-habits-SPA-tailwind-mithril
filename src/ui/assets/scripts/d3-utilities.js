@@ -17,7 +17,7 @@ const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
 const neutralCol = "#888";
 
-const d3visPageMaker = function (layout, component, spinnerState) {
+const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
   const page = {};
 
   // Create a visualisation-containing div element with random ID
@@ -29,7 +29,7 @@ const d3visPageMaker = function (layout, component, spinnerState) {
 
     return m(
       layout,
-      { spinnerState: spinnerState },
+      { spinnerState: spinnerState, formNeeded: formNeeded },
       m(component, { divId }, d3Container)
     );
   };
