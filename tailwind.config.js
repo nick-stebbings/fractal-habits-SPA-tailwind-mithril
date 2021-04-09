@@ -125,6 +125,5 @@ module.exports = {
     }),
     // Replace the default Tailwind config here
   },
-  corePlugins: {},
   plugins: [require("@tailwindcss/custom-forms")],
 };

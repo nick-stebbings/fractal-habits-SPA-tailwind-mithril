@@ -1,3 +1,32 @@
+form {
+  @apply w-full flex flex-col items-center px-4 pt-6 pb-20;
+}
+
+form#create-new-habit-child,
+form#create-new-habit-child > .input-container > div {
+  @apply p-0 m-0;
+}
+
+form#create-new-habit-child > .input-container {
+  @apply p-6 m-0;
+}
+
+.form-header {
+  @apply text-xl md:text-2xl;
+}
+
+.input-container {
+  @apply h-1/2 px-8 xl:w-3/4 w-full mt-4 text-xl;
+}
+
+#modal .input-container {
+  @apply overflow-y-auto absolute bottom-auto;
+}
+
+label {
+  @apply leading-loose text-sm;
+}
+
 /* Buttons */
 
 .button-group {
@@ -11,6 +40,42 @@
 .button-container > button,
 .button-group > button {
   @apply h-full rounded-3xl;
+}
+
+.button-container.cancel-button {
+  @apply bg-balance-buttonbg-close hover:bg-balance-buttonbg-closelighter;
+}
+
+.button-container.submit-button {
+  @apply bg-balance-buttonbg-success hover:bg-balance-buttonbg-successlighter;
+}
+
+.button-container.general-button {
+  @apply hover:border-balance-sshades-sat hover:bg-balance-pshades-dark rounded-xl border-balance-tershades-dark;
+}
+
+.button-container-reset-button {
+  @apply bg-balance-buttonbg-submit hover:border-balance-pshades-gray hover:bg-balance-sshades-light rounded-xl border-balance-sshades-dark;
+}
+
+div.domain-pills {
+  @apply lg:justify-center flex flex-wrap items-center justify-around mx-4 mt-6 p-2;
+}
+
+div.domain-pills button.domain-create {
+  @apply px-2;
+}
+
+div.domain-pills button.domain-create div:hover {
+  @apply text-balance-tershades-light bg-gradient-to-b from-gray-500 to-transparent;
+}
+
+main#append-habit .button-container.selected {
+  @apply hover:bg-balance-digblue-brighten text-balance-buttontext-digblue bg-balance-buttonbg-digblue;
+}
+
+div[name="choose-habit-parent"] button.selected {
+  @apply bg-balance-buttonbg-submit hover:bg-balance-buttonbg-submit text-balance-buttonbg-neutral;
 }
 
 /* Inputs */
@@ -30,7 +95,7 @@ input[type="text"],
 input[type="date"] {
   -moz-appearance: none;
   -webkit-appearance: none;
-  @apply focus:ring-balance-sshades-brighten focus:border-balance-sshades-brighten border-2 text-sm lg:text-xl-gray-600 border-gray-300 rounded-md;
+  @apply focus:ring-balance-sshades-brighten focus:border-balance-sshades-brighten border-2 text-sm lg:text-xl text-gray-600 border-gray-300 rounded-md;
 }
 
 @media (max-width: 1024px) {
