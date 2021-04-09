@@ -5,8 +5,8 @@ import { openModal } from "../../../../assets/scripts/animations";
 import FormHeader from "./FormHeader.jsx";
 import FormBody from "./FormBody.jsx";
 import InputGroup from "./FormInputGroup.jsx";
-import SubmitButton from "../../Layout/Nav/SubmitButton.jsx";
-import CancelButton from "../../Layout/Nav/CancelButton.jsx";
+import SubmitButton from "../Nav/UI/Buttons/SubmitButton.jsx";
+import CancelButton from "../Nav/UI/Buttons/CancelButton.jsx";
 
 let maxDate;
 
@@ -107,7 +107,7 @@ const CreateForm = {
           ),
         ])}
 
-        <div className="button-container px-4 py-3 bg-white border-t border-gray-200">
+        <div className="button-group px-4 py-3 bg-white border-t border-gray-200">
           <CancelButton
             id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
             name="close"

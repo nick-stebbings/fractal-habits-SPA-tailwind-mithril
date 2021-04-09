@@ -27,8 +27,14 @@ label {
   @apply leading-loose text-sm;
 }
 
-.button-container {
+/* Buttons */
+
+.button-group {
   @apply rounded-2xl w-full h-24 sm:h-16 text-sm fixed bottom-0 gap-3 flex flex-row justify-end items-center inset-x-0;
+}
+
+.button-container {
+  @apply rounded-full flex items-center justify-between px-1 mx-4 my-1 border-2 shadow-md;
 }
 
 .button-container > button,
@@ -36,17 +42,31 @@ label {
   @apply h-full rounded-3xl;
 }
 
-main#append-habit button.selected {
-  @apply hover:bg-balance-digblue-brighten px-4 py-2 text-balance-buttontext-digblue bg-balance-buttonbg-digblue rounded-3xl;
+.button-container.cancel-button {
+  @apply bg-balance-buttonbg-close hover:bg-balance-buttonbg-closelighter;
 }
 
-div.inactive {
-  @apply hidden;
+.button-container.submit-button {
+  @apply bg-balance-buttonbg-success hover:bg-balance-buttonbg-successlighter;
+}
+
+.button-container.general-button {
+  @apply hover:border-balance-sshades-sat hover:bg-balance-pshades-dark rounded-xl border-balance-tershades-dark;
+}
+
+.button-container-reset-button {
+  @apply bg-balance-buttonbg-submit hover:border-balance-pshades-gray hover:bg-balance-sshades-light rounded-xl border-balance-sshades-dark;
+}
+
+main#append-habit .button-container.selected {
+  @apply hover:bg-balance-digblue-brighten text-balance-buttontext-digblue bg-balance-buttonbg-digblue;
 }
 
 div[name="choose-habit-parent"] button.selected {
   @apply bg-balance-buttonbg-submit hover:bg-balance-buttonbg-submit text-balance-buttonbg-neutral;
 }
+
+/*  */
 
 .mask-wrapper input[type="date"] {
   @apply border-0 pl-0 mt-0;
@@ -73,20 +93,4 @@ input[type="date"] {
   -moz-appearance: none;
   -webkit-appearance: none;
   @apply focus:ring-balance-sshades-brighten focus:border-balance-sshades-brighten border-2 text-sm lg:text-xl focus:outline-none px-4 py-2 text-gray-600 border-gray-300 rounded-md;
-}
-
-#append-habit {
-  @apply flex flex-wrap justify-between space-x-1 ml-1;
-}
-
-#append-habit .button-container {
-  @apply relative right-0;
-}
-
-#append-habit > .sub-section-container {
-  @apply px-2 my-2 -ml-1 flex-none w-full lg:w-1/2 border-2 bg-gray-100 rounded-2xl;
-}
-
-#append-habit > .sub-section-container:last-of-type {
-  @apply flex-none lg:fixed lg:right-0;
 }

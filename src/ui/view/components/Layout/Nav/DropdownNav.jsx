@@ -1,4 +1,4 @@
-import HoverableLink from "./HoverableLink.jsx";
+import HoverableLink from "./UI/Buttons/HoverableLink.jsx";
 import HabitStore from "../../../../store/habit-store";
 
 const DropdownNav = (function () {

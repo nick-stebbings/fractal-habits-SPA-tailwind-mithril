@@ -1,6 +1,6 @@
 const CancelButton = {
   view: ({ attrs }) => (
-    <div className="bg-balance-buttonbg-close hover:bg-balance-buttonbg-closelighter flex items-center justify-between px-1 mr-1 border-2 rounded-full shadow-md">
+    <div className="button-container cancel-button">
       <button
         id={attrs.id}
         name={attrs.name}

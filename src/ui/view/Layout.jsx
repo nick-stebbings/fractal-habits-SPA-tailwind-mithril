@@ -1,10 +1,9 @@
-import LogoLink from "./components/Layout/LogoLink.jsx";
+import LogoLink from "./components/Layout/Nav/UI/Buttons/LogoLink.jsx";
 import Modal from "./components/Layout/Modal.jsx";
-import MaskHeader from "./components/Layout/MaskHeader.jsx";
+import MaskHeader from "./components/Layout/Nav/MaskHeader.jsx";
 import MainStage from "./components/Layout/MainStage.jsx";
 import Footer from "./components/Layout/Footer.jsx";
 
-import HabitStore from "../store/habit-store";
 import DateStore from "../store/date-store";
 import DomainStore from "../store/domain-store";
 import { openSpinner } from "../assets/scripts/animations.js";

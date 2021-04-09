@@ -4,8 +4,8 @@ const SubmitButton = {
       name={attrs.name}
       className={
         !!attrs.class
-          ? `${attrs.class} bg-balance-buttonbg-success hover:bg-balance-buttonbg-successlighter flex items-center justify-between px-1 mr-1 border-2 rounded-full shadow-md`
-          : "bg-balance-buttonbg-success hover:bg-balance-buttonbg-successlighter flex items-center justify-between px-1 mr-1 border-2 rounded-full shadow-md"
+          ? `${attrs.class} button-container submit-button`
+          : "button-container submit-button"
       }
     >
       <button

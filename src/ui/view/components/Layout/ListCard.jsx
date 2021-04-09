@@ -1,6 +1,6 @@
 import HabitStore from "../../../store/habit-store.js";
 
-import ResetButton from "./Nav/ResetButton.jsx";
+import GeneralButton from "./Nav/UI/Buttons/GeneralButton.jsx";
 
 const ListCard = {
   oncreate: () => {
@@ -8,8 +8,7 @@ const ListCard = {
       `button[data-id='${HabitStore.current().id}']`
     );
     if (chosenOne) {
-      chosenOne.classList.add("selected");
-      chosenOne.textContent = "Chosen";
+      chosenOne.parentNode.classList.add("selected");
     }
   },
   view: ({ attrs: { value } }) => (
@@ -34,15 +33,14 @@ const ListCard = {
         <h2 class="habit-list-details-name">{value.name}</h2>
         <p class="w-full text-grey-darkest">{value.description}</p>
       </div>
-      <div className="button-group">
-        <ResetButton
-          id={"habit-list-select-habit-" + value.id}
-          dataAttr={value.id}
-          label="Choose"
-          disabled={m.route.param("demo") ? "true" : "false"}
-          class={m.route.param("demo") ? "inactive" : "active"}
-        />
-      </div>
+      <GeneralButton
+        id={"habit-list-select-habit-" + value.id}
+        color={"bg-balance-digblue-desat"}
+        dataAttr={value.id}
+        label="Choose"
+        disabled={m.route.param("demo") ? "true" : "false"}
+        class={m.route.param("demo") ? "inactive" : "active"}
+      />
     </div>
   ),
 };

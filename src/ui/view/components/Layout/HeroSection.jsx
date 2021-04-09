@@ -1,4 +1,4 @@
-import DomainPill from "./DomainPill.jsx";
+import DomainPill from "./Nav/UI/Buttons/DomainPill.jsx";
 
 const HeroSection = {
   view: () => (

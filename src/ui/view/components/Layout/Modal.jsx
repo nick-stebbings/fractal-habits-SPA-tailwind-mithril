@@ -1,6 +1,6 @@
 import DomainStore from "../../../store/domain-store";
 
-import CreateForm from "../Pages/Forms/CreateForm.jsx";
+import CreateForm from "../Layout/Forms/CreateForm.jsx";
 
 const Modal = {
   view: ({ attrs }) => (

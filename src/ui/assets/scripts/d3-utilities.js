@@ -370,9 +370,8 @@ const nodeStatusColours = (d) => {
     case 1:
       return positiveCol;
     case 0:
-      return negativeCol;
-    default:
       return neutralCol;
+    default:
   }
 };
 

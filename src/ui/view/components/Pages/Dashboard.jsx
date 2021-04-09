@@ -1,5 +1,5 @@
 const Dashboard = {
-  view: ({ attrs, children }) => (
+  view: () => (
     <div class="container mx-auto px-4 sm:px-8 max-w-3xl">
       {/* List component from www.tailwind-kit.com */}
       <div class="py-8">

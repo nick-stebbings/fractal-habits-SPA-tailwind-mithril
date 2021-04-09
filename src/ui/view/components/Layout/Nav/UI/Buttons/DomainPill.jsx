@@ -1,5 +1,5 @@
-import DomainStore from "../../../store/domain-store";
-import { openModal } from "../../../assets/scripts/animations";
+import DomainStore from "../../../../../../store/domain-store";
+import { openModal } from "../../../../../../assets/scripts/animations";
 
 const DomainPill = {
   oncreate: (vnode) => {

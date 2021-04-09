@@ -1,6 +1,6 @@
 import DomainStore from "../../../store/domain-store.js";
 
-import CreateForm from "./Forms/CreateForm.jsx";
+import CreateForm from "../Layout/Forms/CreateForm.jsx";
 import MainSubSection from "../Layout/MainSubSection.jsx";
 import HabitList from "./HabitList.jsx";
 

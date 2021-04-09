@@ -1,4 +1,4 @@
-import MenuList from './MenuList.jsx';
+import MenuList from '../../MenuList.jsx';
 
 const HoverableLink = {
   view: ({ attrs, children }) => (

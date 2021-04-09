@@ -1,4 +1,4 @@
-// src/view/components/Layout/LogoLink.jsx
+// src/view/components/Nav/UI/Buttons/LogoLink.jsx
 
 const LogoLink = {
   view: ({ attrs, children }) =>
@@ -6,7 +6,7 @@ const LogoLink = {
       m.route.Link,
       {
         selector: "span",
-        href: (m.route.param("demo") ? "/" : "/?demo=true"),
+        href: m.route.param("demo") ? "/" : "/?demo=true",
         class: "logo-link",
       },
       <svg viewBox="0 0 48 48">

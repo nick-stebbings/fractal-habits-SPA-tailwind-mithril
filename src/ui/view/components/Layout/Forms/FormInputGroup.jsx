@@ -1,5 +1,3 @@
-// src/ui/view/components/InputGroup.jsx
-
 const InputGroup = {
   view: ({ attrs, children }) => (
     <div class="flex flex-col mt-6">

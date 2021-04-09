@@ -1,5 +1,5 @@
-import DateStore from "../../../../store/date-store";
-import HabitStore from "../../../../store/habit-store";
+import DateStore from "../../../../../../store/date-store";
+import HabitStore from "../../../../../../store/habit-store";
 
 const sanitiseForDataList = function (date) {
   return typeof date === "object" && typeof date.h_date === "string"

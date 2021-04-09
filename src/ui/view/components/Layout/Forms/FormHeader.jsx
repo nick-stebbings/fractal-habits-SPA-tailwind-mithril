@@ -1,5 +1,3 @@
-// src/ui/view/components/FormHeader.jsx
-
 const FormHeader = {
   view: ({ attrs }) => (
     <div class="flex items-center space-x-5">

@@ -16,7 +16,7 @@ import NodeStore from "../../../../store/habit-node-store.js";
 import HabitDateStore from "../../../../store/habit-date-store.js";
 import HabitStore from "../../../../store/habit-store";
 
-import "../../../../assets/styles/components/d3vis.scss";
+import "../../../../assets/styles/pages/d3vis.scss";
 
 const HabitTree = function () {
   let demoData = m.route.param("demo");
