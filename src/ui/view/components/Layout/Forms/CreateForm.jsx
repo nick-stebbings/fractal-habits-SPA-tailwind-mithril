@@ -9,48 +9,54 @@ import SubmitButton from "../Nav/UI/Buttons/SubmitButton.jsx";
 import CancelButton from "../Nav/UI/Buttons/CancelButton.jsx";
 
 let maxDate;
+const processFormData = function (dom) {
+  dom
+    .querySelector("form button[type=submit]")
+    .addEventListener("click", (e) => {
+      e.preventDefault();
+      let form = document.querySelector(`form#create-${attrs.resourceName}`);
+
+      const data = {};
+      const FD = new FormData(form);
+
+      FD.forEach((value, key) => {
+        data[key.replace(/-/g, "_")] = value;
+      }); // Assign values while swapping for snake_case
+      data.domain_id = attrs.domain().id;
+      data.parent_node_id =
+        attrs.resourceName === "new-habit-child"
+          ? HabitStore.current().id
+          : null;
+
+      DateStore.submit({ h_date: data.initiation_date })
+        .then(() => HabitStore.submit(data))
+        .then(() => {
+          openModal(false);
+        })
+        .then(DateStore.index)
+        .then(() => {
+          HabitStore.indexHabitsOfDomain(data.domain_id);
+        })
+        .catch(() => {
+          openModal(false);
+        });
+      m.redraw();
+      form.reset();
+    });
+};
 
 const CreateForm = {
   oncreate: ({ attrs, dom }) => {
     if (m.route.param("demo")) return;
-    document.querySelector(
-      "input[name^=initiation-date]"
-    ).value = new Date().toDateInputValue();
+
+    if (!DateStore.current())
+      document.querySelector(
+        "input[name^=initiation-date]"
+      ).value = new Date().toDateInputValue();
+
     maxDate = String(DateStore.currentDate());
 
-    dom
-      .querySelector("form button[type=submit]")
-      .addEventListener("click", (e) => {
-        e.preventDefault();
-        let form = document.querySelector(`form#create-${attrs.resourceName}`);
-
-        const data = {};
-        const FD = new FormData(form);
-
-        FD.forEach((value, key) => {
-          data[key.replace(/-/g, "_")] = value;
-        }); // Assign values while swapping for snake_case
-        data.domain_id = attrs.domain().id;
-        data.parent_node_id =
-          attrs.resourceName === "new-habit-child"
-            ? HabitStore.current().id
-            : null;
-
-        DateStore.submit({ h_date: data.initiation_date })
-          .then(() => HabitStore.submit(data))
-          .then(() => {
-            openModal(false);
-          })
-          .then(DateStore.index)
-          .then(() => {
-            HabitStore.indexHabitsOfDomain(data.domain_id);
-          })
-          .catch(() => {
-            openModal(false);
-          });
-        m.redraw();
-        form.reset();
-      });
+    processFormData(dom);
   },
   view: ({ attrs }) => {
     return m.route.param("demo") ? (

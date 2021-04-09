@@ -43,7 +43,8 @@ const registerEventListeners = (function () {
     });
 
     document.getElementById("modal_overlay").addEventListener("click", (e) => {
-      if (e.target.id.match("close-modal")) {
+      console.log(e.target.id);
+      if (e.target.id.includes("close-modal")) {
         openModal(false);
       }
     });

@@ -1,7 +1,7 @@
-import stream from 'mithril/stream';
-import { clientRoutes, handleErrorType } from './client';
+import stream from "mithril/stream";
+import { clientRoutes, handleErrorType } from "./client";
 
-const basePath = '/domains';
+const basePath = "/domains";
 
 const DomainStore = Object.assign(clientRoutes(basePath), {
   current: stream({ name: "No Domains Registered", id: "1" }),
@@ -51,8 +51,7 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
         newList.push(current);
         DomainStore.list(newList);
         return current;
-      })
-      .catch(handleErrorType),
+      }),
 
   runReplace: (id, value) =>
     DomainStore.replace(id, value).catch(() => {

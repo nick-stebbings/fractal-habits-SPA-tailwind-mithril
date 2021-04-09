@@ -18,6 +18,7 @@ const DateSelector = function () {
       const nextDate = document.getElementById("next-date-selector");
       const prevDate = document.getElementById("prev-date-selector");
       let dateIndex = DateStore.listForHabit().indexOf(DateStore.current());
+
       prevDate.addEventListener("click", () => {
         if (
           dateIncrementDateObject(-1, new Date(DateStore.current().h_date)) >=
@@ -28,6 +29,7 @@ const DateSelector = function () {
         }
         m.redraw();
       });
+
       nextDate.addEventListener("click", () => {
         if (
           new Date(

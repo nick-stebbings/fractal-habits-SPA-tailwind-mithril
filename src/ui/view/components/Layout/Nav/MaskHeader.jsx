@@ -4,7 +4,7 @@ import DomainStore from "../../../../store/domain-store";
 import HabitStore from "../../../../store/habit-store";
 
 import ResponsiveNavGroup from "../Nav/ResponsiveNavGroup.jsx";
-import DomainOption from "../Nav/UI/Inputs/DomainOption.jsx";
+import DomainSelector from "./UI/Inputs/DomainSelector.jsx";
 import DropdownNav from "../Nav/DropdownNav.jsx";
 import DateSelector from "../Nav/UI/Inputs/DateSelector.jsx";
 
@@ -35,13 +35,11 @@ const MaskHeader = function () {
             id="responsive-nav"
             className="md:h-12 md:px-2 lg:px-0 flex items-center justify-between h-16 px-4"
           >
-            {m(
-              m.route.Link,
-              {
-                selector: "span",
-                href: "/",
-                class: "block h-10 logo md:h-8",
-              },
+            <m.route.Link
+              selector="span"
+              href="/"
+              className="logo md:h-8 block h-10"
+            >
               <svg
                 id="logo"
                 className="hover:text-balance-tershades-light md:ml-1 md:w-8 md:h-8 w-10 h-10 text-gray-100 fill-current stroke-current"
@@ -52,8 +50,7 @@ const MaskHeader = function () {
               >
                 <path d="M15.34,45.5C8.26,45.5,2.5,39.74,2.5,32.66s5.76-12.84,12.84-12.84h1.31v8.37l-1.31,0c-2.47,0-4.47,2.01-4.47,4.47  c0,2.47,2.01,4.48,4.47,4.48c2.47,0,4.47-2.01,4.47-4.48l0-1.92v-15.4c0-7.08,5.76-12.84,12.84-12.84c7.08,0,12.84,5.76,12.84,12.84  s-5.76,12.84-12.84,12.84h-1.31v-8.37l1.31,0c2.47,0,4.47-2.01,4.47-4.47c0-2.47-2.01-4.47-4.47-4.47c-2.47,0-4.47,2.01-4.47,4.47  l0,1.92v15.4C28.18,39.74,22.42,45.5,15.34,45.5z" />
               </svg>
-            )}
-            ,
+            </m.route.Link>
             <div
               id="hamburger-wrapper"
               className="md:h-8 lg:flex-auto flex h-10"
@@ -88,20 +85,7 @@ const MaskHeader = function () {
                     </span>
                     <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-non h-full px-6 text-sm bg-white rounded-full">
                       <span className="text-balance-sshades-brighten block w-full pt-2 mx-4 mb-1">
-                        {m(
-                          "select.form-select#domain-selector",
-                          {
-                            class:
-                              "w-full text-center lg:w-48 text-tershades-gray py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
-                          },
-                          DomainStore.list().map((domain, idx) =>
-                            m(
-                              DomainOption,
-                              { value: domain.name, selected: !idx },
-                              domain.name
-                            )
-                          )
-                        )}
+                        <DomainSelector></DomainSelector>
                       </span>
                     </div>
                   </div>
