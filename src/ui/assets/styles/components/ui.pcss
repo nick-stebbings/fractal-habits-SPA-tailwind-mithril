@@ -1,0 +1,47 @@
+/* Buttons */
+
+.button-group {
+  @apply rounded-2xl w-full h-24 sm:h-16 text-sm fixed bottom-0 gap-3 flex flex-row justify-end items-center inset-x-0;
+}
+
+.button-container {
+  @apply rounded-full flex items-center justify-between px-1 mx-4 my-1 border-2 shadow-md;
+}
+
+.button-container > button,
+.button-group > button {
+  @apply h-full rounded-3xl;
+}
+
+/* Inputs */
+
+.mask-wrapper input[type="date"] {
+  @apply border-0 pl-0 mt-0;
+}
+
+.mask-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
+}
+
+.nav-label-primary div span {
+  user-select: none;
+}
+
+input[type="text"],
+input[type="date"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  @apply focus:ring-balance-sshades-brighten focus:border-balance-sshades-brighten border-2 text-sm lg:text-xl-gray-600 border-gray-300 rounded-md;
+}
+
+@media (max-width: 1024px) {
+  select#domain-selector {
+    min-width: 10rem;
+    padding: 0 !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* TODO: fix this */
+    -ms-word-break: normal;
+    word-break: normal;
+  }
+}
