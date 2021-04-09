@@ -1,10 +1,10 @@
 import HabitStore from "../../../store/habit-store.js";
 import DomainStore from "../../../store/domain-store.js";
 
-import ListCard from "../Layout/ListCard.jsx";
+import ListCard from "./Nav/UI/ListCard.jsx";
 import GeneralButton from "../Layout/Nav/UI/Buttons/GeneralButton.jsx";
 
-const HabitList = function () {
+const HabitFilterList = function () {
   let lastValue;
 
   return {
@@ -47,4 +47,4 @@ const HabitList = function () {
   };
 };
 
-export default HabitList;
+export default HabitFilterList;

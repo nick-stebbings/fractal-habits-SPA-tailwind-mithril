@@ -1,16 +1,16 @@
-import DomainStore from "../../../store/domain-store.js";
+import DomainStore from "../../store/domain-store.js";
 
-import CreateForm from "../Layout/Forms/CreateForm.jsx";
-import MainSubSection from "../Layout/MainSubSection.jsx";
-import HabitList from "./HabitList.jsx";
+import CreateForm from "../components/Layout/Forms/CreateForm.jsx";
+import MainSubSection from "../components/Layout/MainSubSection.jsx";
+import HabitFilterList from "../components/Layout/HabitFilterList.jsx";
 
-const CreateHabit = {
+const AppendHabit = {
   view: () =>
     m("main#append-habit", [
       m(
         MainSubSection,
         { heading: "1: Choose a habit to be the parent" },
-        m(HabitList)
+        m(HabitFilterList)
       ),
       m(
         MainSubSection,
@@ -24,4 +24,4 @@ const CreateHabit = {
     ]),
 };
 
-export default CreateHabit;
+export default AppendHabit;

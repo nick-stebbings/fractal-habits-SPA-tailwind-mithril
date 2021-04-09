@@ -7,16 +7,16 @@ import {
   renderTree,
   collapseTree,
   expandTree,
-} from "../../../../assets/scripts/d3-utilities.js";
+} from "../../assets/scripts/d3-utilities.js";
 
-import TreeStore from "../../../../store/habit-tree-store.js";
-import DomainStore from "../../../../store/domain-store.js";
-import DateStore from "../../../../store/date-store.js";
-import NodeStore from "../../../../store/habit-node-store.js";
-import HabitDateStore from "../../../../store/habit-date-store.js";
-import HabitStore from "../../../../store/habit-store";
+import TreeStore from "../../store/habit-tree-store.js";
+import DomainStore from "../../store/domain-store.js";
+import DateStore from "../../store/date-store.js";
+import NodeStore from "../../store/habit-node-store.js";
+import HabitDateStore from "../../store/habit-date-store.js";
+import HabitStore from "../../store/habit-store";
 
-import "../../../../assets/styles/pages/d3vis.scss";
+import "../../assets/styles/pages/d3vis.scss";
 
 const HabitTree = function () {
   let demoData = m.route.param("demo");

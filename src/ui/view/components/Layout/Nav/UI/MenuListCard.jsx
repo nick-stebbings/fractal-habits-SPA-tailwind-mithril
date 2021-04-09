@@ -6,7 +6,7 @@ const MenuListCard = {
     }
   },
   view: ({ attrs }) => (
-    <div className="menu-card disabled rounded-2xl text-black flex flex-col justify-between h-full bg-gray-100 shadow-xl">
+    <div className="menu-card disabled rounded-2xl flex flex-col justify-between h-full text-black bg-gray-100 shadow-xl">
       <div className="overlay flex items-center justify-center">
         <h3>Under Construction</h3>
       </div>

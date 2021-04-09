@@ -1,8 +1,9 @@
 import stream from "mithril/stream";
+import MenuRoutes from "./menu-routes";
+
 // Layout
 import Layout from "./view/Layout.jsx";
-// MegaMenu Routes
-import MenuRoutes from "./menu-routes";
+
 // Models
 import { importData } from "./store/populateDummyData";
 import DomainStore from "./store/domain-store";
@@ -11,6 +12,7 @@ import DateStore from "./store/date-store";
 
 // Components
 import HeroSection from "./view/components/Layout/HeroSection.jsx";
+
 // Utils
 import { d3visPageMaker } from "./assets/scripts/d3-utilities";
 import { redraw, handleErrorType } from "./assets/scripts/utilities";

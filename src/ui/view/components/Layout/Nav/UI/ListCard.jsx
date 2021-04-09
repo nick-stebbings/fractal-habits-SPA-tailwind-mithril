@@ -1,6 +1,6 @@
-import HabitStore from "../../../store/habit-store.js";
+import HabitStore from "../../../../../store/habit-store.js";
 
-import GeneralButton from "./Nav/UI/Buttons/GeneralButton.jsx";
+import GeneralButton from "./Buttons/GeneralButton.jsx";
 
 const ListCard = {
   oncreate: () => {
