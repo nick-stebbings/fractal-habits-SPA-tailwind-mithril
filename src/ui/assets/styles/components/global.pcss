@@ -8,6 +8,10 @@ body {
   height: 90%;
 }
 
+#modal .input-container {
+  @apply overflow-y-auto absolute bottom-auto;
+}
+
 #app > main {
   @apply border-t-4 border-balance-pshades-dark;
   z-index: 0;
@@ -17,24 +21,33 @@ body {
   @apply sm:px-12 md:px-16 px-6;
 }
 
-div.domain-pills {
-  @apply lg:justify-center flex flex-wrap items-center justify-around mx-4 mt-6 p-2;
+section.cards {
+  @apply px-4;
 }
 
-div.domain-pills button.domain-create {
-  @apply px-2;
+form {
+  @apply w-full flex flex-col items-center px-4 pt-6 pb-20;
 }
 
-div.domain-pills button.domain-create div:hover {
-  @apply text-balance-tershades-light bg-gradient-to-b from-gray-500 to-transparent;
+form#create-new-habit-child,
+form#create-new-habit-child > .input-container > div {
+  @apply p-0 m-0;
+}
+
+form#create-new-habit-child > .input-container {
+  @apply p-6 m-0;
+}
+
+.form-header {
+  @apply text-xl md:text-2xl;
+}
+
+.input-container {
+  @apply h-1/2 px-8 xl:w-3/4 w-full mt-4 text-xl;
 }
 
 div.inactive {
   @apply hidden;
-}
-
-section.cards {
-  @apply px-4;
 }
 
 #hamburger-wrapper,
@@ -58,18 +71,4 @@ section.cards {
   nav > ul > li:first-of-type {
     border: 0;
   }
-}
-
-#vis button {
-  right: -2rem;
-  z-index: 101;
-  @apply fixed border-2 p-3 pl-4 pr-8 m-1 rounded-full shadow-md text-gray-100 bg-gray-700 uppercase;
-}
-
-#activate-demo {
-  @apply top-16;
-}
-
-#collapse-tree {
-  @apply top-28;
 }
