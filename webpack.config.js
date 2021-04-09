@@ -1,27 +1,31 @@
-const path = require('path');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
-module.exports = {
-  entry: './src/index.js',
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
+
+module.exports = smp.wrap({
+  entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'build.js',
+    path: path.join(__dirname, "dist"),
+    filename: "build.js",
   },
+  devtool: "eval-cheap-module-source-map",
   plugins: [
     new webpack.ProvidePlugin({
-      m: 'mithril', // Global access
+      m: "mithril", // Global access
     }),
-    new MiniCssExtractPlugin({ filename: 'bundle.css' }),
+    new MiniCssExtractPlugin({ filename: "bundle.css" }),
     new CleanWebpackPlugin({ verbose: true }),
     // new ESLintPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
+      template: "./src/index.html",
+      filename: "./index.html",
     }),
   ],
   optimization: {
@@ -33,16 +37,14 @@ module.exports = {
     hot: true,
     // contentBase: '/',
     proxy: {
-      '/api': {
+      "/api": {
         target: {
-          host: 'localhost',
-          protocol: 'http:',
+          host: "localhost",
+          protocol: "http:",
           port: 9292,
         },
-
       },
     },
-
   },
   watch: true,
   module: {
@@ -50,17 +52,17 @@ module.exports = {
       {
         test: /\.html$/,
         exclude: /node_modules/,
-        use: ['html-loader'],
+        use: ["html-loader"],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
-              outputPath: 'img',
+              name: "[name].[ext]",
+              outputPath: "img",
               esModule: false,
             },
           },
@@ -72,21 +74,21 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader?sourceMap', // translates CSS into CommonJS modules
+            loader: "css-loader?sourceMap", // translates CSS into CommonJS modules
           },
           {
-            loader: 'resolve-url-loader',
+            loader: "resolve-url-loader",
           },
           {
-            loader: 'postcss-loader', // Run post css actions
+            loader: "postcss-loader", // Run post css actions
             options: {
               postcssOptions: {
-                config: path.resolve(__dirname, 'postcss.config.js'),
+                config: path.resolve(__dirname, "postcss.config.js"),
               },
             },
           },
           {
-            loader: 'sass-loader?sourceMap', // compiles Sass to CSS
+            loader: "sass-loader?sourceMap", // compiles Sass to CSS
           },
         ],
       },
@@ -95,12 +97,12 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          "css-loader",
           {
-            loader: 'postcss-loader', // Run post css actions
+            loader: "postcss-loader", // Run post css actions
             options: {
               postcssOptions: {
-                config: path.resolve(__dirname, 'postcss.config.js'),
+                config: path.resolve(__dirname, "postcss.config.js"),
               },
             },
           },
@@ -110,7 +112,7 @@ module.exports = {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: { esModule: false },
           },
         ],
@@ -119,9 +121,9 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader?cacheDirectory',
+          loader: "babel-loader?cacheDirectory",
         },
       },
     ],
   },
-};
+});

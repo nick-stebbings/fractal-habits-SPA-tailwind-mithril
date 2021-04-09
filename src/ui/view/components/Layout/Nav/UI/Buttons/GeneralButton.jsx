@@ -1,11 +1,7 @@
-const ResetButton = {
+const GeneralButton = {
   view: ({ attrs }) => (
     <div
-      className={
-        attrs.color
-          ? `${attrs.color} button-container general-button`
-          : "bg-balance-buttonbg-neutral button-container general-button"
-      }
+      className={`bg-${attrs.color} hover:bg-${attrs.color}lighter button-container general-button`}
     >
       <button
         id={attrs.id}
@@ -18,4 +14,4 @@ const ResetButton = {
   ),
 };
 
-export default ResetButton;
+export default GeneralButton;

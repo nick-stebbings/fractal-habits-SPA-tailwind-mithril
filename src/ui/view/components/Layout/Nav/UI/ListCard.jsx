@@ -35,7 +35,7 @@ const ListCard = {
       </div>
       <GeneralButton
         id={"habit-list-select-habit-" + value.id}
-        color={"bg-balance-digblue-desat"}
+        color={"balance-buttonbg-digblue"}
         dataAttr={value.id}
         label="Choose"
         disabled={m.route.param("demo") ? "true" : "false"}

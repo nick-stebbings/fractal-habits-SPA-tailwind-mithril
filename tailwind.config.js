@@ -58,10 +58,13 @@ module.exports = {
         },
         buttonbg: {
           digblue: "#3349c1",
+          digbluelighter: "#5568d2",
           success: "#71c475",
           successlighter: "#93cc96",
           submit: "#fb9417",
+          submitlighter: "#fb9417",
           reset: "#47301f",
+          resetlighter: "#634a36",
           close: "#e74a33 ",
           closelighter: "#e06a58 ",
           neutral: "#3d3229",
@@ -81,10 +84,11 @@ module.exports = {
 
     extend: {
       boxShadow: {
-        button: "0 0 0 1px #fffffe",
+        button: "0 0 0 1px #47301f",
       },
       outline: {
-        light: "2px solid #fffffe; outline-offset:-3px; outline-style: dashed",
+        light: "3px solid #fffffe; outline-offset: 3px; outline-style: dashed",
+        dark: "3px solid #283a99; outline-offset: 3px; outline-style: dashed",
       },
       fontFamily: {
         sans: [
@@ -107,22 +111,6 @@ module.exports = {
         ],
       },
     },
-    customForms: (theme) => ({
-      default: {
-        date: {
-          icon:
-            '<svg fill="#e2e8f0" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>',
-        },
-        checkbox: {
-          icon:
-            '<svg fill="#fff" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>',
-        },
-        radio: {
-          icon:
-            '<svg fill="#fff" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="3"/></svg>',
-        },
-      },
-    }),
     // Replace the default Tailwind config here
   },
   plugins: [require("@tailwindcss/custom-forms")],

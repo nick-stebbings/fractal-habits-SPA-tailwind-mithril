@@ -1,2 +1,2 @@
-import './default.scss';
-import './_dark.scss';
+import "./default.scss";
+import "./_dark.scss";

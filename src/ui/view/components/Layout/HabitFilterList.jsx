@@ -35,7 +35,11 @@ const HabitFilterList = function () {
               class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
               placeholder="Filter results"
             />
-            <GeneralButton label="Clear" name="reset" />
+            <GeneralButton
+              color="balance-buttonbg-reset"
+              label="Clear"
+              name="reset"
+            />
           </div>
         </div>
         {m(

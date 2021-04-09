@@ -1,6 +1,24 @@
 $maskimage: url("../../images/fib-mask-1900-380.svg");
 $watermarkimage: url("../../images/watermark.png");
 
+@layer utilities {
+  @variants active, focus {
+    .darken {
+      background-blend-mode: darken;
+    }
+    .outline-none {
+      outline: none;
+    }
+    .outline-shadow {
+      @apply rounded-full;
+      box-shadow: 0 0 0 0.5rem rgb(255 172 15 / 90%);
+    }
+    .outline-dashed {
+      @apply outline-light;
+    }
+  }
+}
+
 .logo-link {
   @apply fixed text-transparent z-50 w-12 hidden lg:block;
   left: 5px;
@@ -281,4 +299,9 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover a {
 #subnav .nav-links a[id^="nav"]:focus,
 #subnav .nav-links a[id^="nav"]:active {
   // TODO: add active/ focus on nav
+}
+
+#subnav .nav-links a,
+.nav-label-primary {
+  @apply active:outline-shadow focus:outline-dashed;
 }

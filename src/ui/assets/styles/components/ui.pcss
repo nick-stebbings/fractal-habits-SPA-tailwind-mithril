@@ -1,3 +1,17 @@
+@layer utilities {
+  @variants active, focus {
+    .lighter {
+    }
+    .outline-none {
+      outline: none;
+    }
+    .outline-shadow {
+      @apply rounded-full;
+      box-shadow: 0 0 0 0.35rem rgb(33 25 18 / 90%);
+    }
+  }
+}
+
 form {
   @apply w-full flex flex-col items-center px-4 pt-6 pb-20;
 }
@@ -39,7 +53,7 @@ label {
 
 .button-container > button,
 .button-group > button {
-  @apply h-full rounded-3xl;
+  @apply h-full rounded-3xl active:lighter focus:outline-none focus:outline-shadow;
 }
 
 .button-container.cancel-button {
@@ -51,7 +65,7 @@ label {
 }
 
 .button-container.general-button {
-  @apply hover:border-balance-sshades-sat hover:bg-balance-pshades-dark rounded-xl border-balance-tershades-dark;
+  @apply hover:border-balance-sshades-sat rounded-xl border-balance-tershades-dark;
 }
 
 .button-container-reset-button {
