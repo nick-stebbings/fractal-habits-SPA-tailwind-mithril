@@ -75,7 +75,7 @@ module Hht
         unless YAMLStore.ready
           YAML = YAMLStore.new(length)
         end
-        binding.pry
+        # Return a default template (given all are the same length) if there isn't a tree for that date
         YAML.tree[id.to_i - 1][date_id.to_s] || YAML.tree[id.to_i - 1][:default]
       end
 

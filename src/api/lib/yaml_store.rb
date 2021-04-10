@@ -70,12 +70,18 @@ class YAMLStore
       domains.to_habit_trees.each_with_index do |domain, index|
         current_tree = Subtree.json_to_ternarised_and_listified_treenodes(domain.to_json)
         current_tree.yield_d3_values(index) do |vals, name|
-          new_habit = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
+          new_habit_node = {id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index}
           habit_nodes.insert({id: habit_node_id, lft: vals[:lft], rgt: vals[:rgt], domain_id: index})
           found = habit_list.find { |habit| habit[:name] == name}
+          if found
+            found[:habit_node_id] = habit_node_id
+          else
+            # Sub-Habits we created in the ternarisation methods need habits to link to a node
+            new_habit = { id: (1000 + habit_node_id), domain_id: index, name: name, initiation_date: (Date.today - days_to_track - 1), habit_node_id: habit_node_id }
+            habit_list << new_habit
+            habits.insert(new_habit)
+          end
           habit_node_id += 1
-          next unless found
-          found[:habit_node_id] = habit_node_id
         end
         trees[index][:default] = current_tree.to_json
       end

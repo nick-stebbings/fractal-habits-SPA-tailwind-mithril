@@ -147,8 +147,9 @@ const renderTree = function (
     selection
       .on("click", function (event, node) {
         const c = select(this).selectAll(".the-node circle");
-        if (node.data.content !== "undefined") handleStatusToggle(c, node);
-
+        if (node.data.content !== undefined) handleStatusToggle(c, node);
+        let a = event.target;
+        debugger;
         if (event.target.classList.contains("active")) {
           event.target.classList.remove("active");
           reset();
@@ -157,7 +158,7 @@ const renderTree = function (
         collapseAroundAndUnder(node) &&
           renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
         highlightSubtree(node);
-        if (typeof zoomClicked === "undefined") clickedZoom(event, this);
+        if (zoomClicked === undefined) clickedZoom(event, this);
       })
       .on("mouseover", function () {
         const g = select(this);
@@ -186,9 +187,18 @@ const renderTree = function (
     }
 
     function makePatchOrPutRequest(currentStatus) {
-      console.log(NodeStore.current().id);
       const nodeId = NodeStore.current().id;
+      console.log(NodeStore.current().id);
+      console.log(HabitStore.fullList());
+      console.log(
+        HabitStore.fullList().filter((habit) => habit.habit_node_id === +nodeId)
+      );
       HabitStore.runCurrentFilterByNode(nodeId);
+      console.log(
+        HabitStore.fullList().filter(
+          (habit) => habit.habit_node_id === +nodeId
+        )[0]
+      );
       console.log(HabitStore.current());
       console.log(DateStore.current());
       const requestBody = {
@@ -237,21 +247,18 @@ const renderTree = function (
     .on("wheel", (event) => event.preventDefault());
 
   const rootData = TreeStore.root();
-  debugger;
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
 
-  if (m.route.param("demo")) {
-    rootData.sum((d) => {
-      const thisNode = rootData.descendants().find((node) => node.data == d);
-      return +JSON.parse(parseTreeValues(thisNode.data.content).status);
+  rootData.sum((d) => {
+    const thisNode = rootData.descendants().find((node) => node.data == d);
+    return +JSON.parse(parseTreeValues(thisNode.data.content).status);
+  });
+  while (rootData.descendants().some((node) => node.value > 1)) {
+    rootData.each((node) => {
+      if (node.value > 1) {
+        node.value = cumulativeValue(node);
+      }
     });
-    while (rootData.descendants().some((node) => node.value > 1)) {
-      rootData.each((node) => {
-        if (node.value > 1) {
-          node.value = cumulativeValue(node);
-        }
-      });
-    }
   }
 
   console.log(rootData);
@@ -302,13 +309,14 @@ const renderTree = function (
     .attr("dy", 5)
     .text((d) => parseTreeValues(d.data.content).right);
 
-  // enteringNodes //VALUE label
-  //   .append("text")
-  //   .attr("class", "label")
-  //   .attr("dx", 15)
-  //   .attr("dy", 25)
-  //   .style("fill", "pink")
-  //   .text((d) => d.value);
+  enteringNodes //VALUE label
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 15)
+    .attr("dy", 45)
+    .style("fill", "pink")
+    .text((d) => cumulativeValue(d));
+
   enteringNodes
     .append("text")
     .attr("class", "label")
