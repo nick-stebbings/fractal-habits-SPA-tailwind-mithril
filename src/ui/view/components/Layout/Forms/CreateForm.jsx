@@ -38,11 +38,11 @@ const processFormData = function (dom, attrs) {
         .then(() => {
           HabitStore.indexHabitsOfDomain(data.domain_id);
         })
+        .then(m.redraw())
         .catch(() => {
           console.log("Could not submit data.");
           openModal(false);
         });
-      m.redraw();
       form.reset();
     });
 };
@@ -51,10 +51,9 @@ const CreateForm = {
   oncreate: ({ attrs, dom }) => {
     if (m.route.param("demo")) return;
 
-    if (!DateStore.current())
-      document.querySelector(
-        "input[name^=initiation-date]"
-      ).value = new Date().toDateInputValue();
+    document.querySelector(
+      "input[name^=initiation-date]"
+    ).value = new Date().toDateInputValue();
 
     maxDate = String(DateStore.currentDate());
 
