@@ -15,6 +15,7 @@ const margin = {
 
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
+const noNodeCol = "#g2aa53";
 const neutralCol = "#888";
 
 const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
@@ -149,8 +150,9 @@ const renderTree = function (
         const c = select(this).selectAll(".the-node circle");
         if (node.data.content !== undefined) handleStatusToggle(c, node);
         let a = event.target;
-        debugger;
+
         if (event.target.classList.contains("active")) {
+          debugger;
           event.target.classList.remove("active");
           reset();
           return;
@@ -188,19 +190,19 @@ const renderTree = function (
 
     function makePatchOrPutRequest(currentStatus) {
       const nodeId = NodeStore.current().id;
-      console.log(NodeStore.current().id);
-      console.log(HabitStore.fullList());
-      console.log(
-        HabitStore.fullList().filter((habit) => habit.habit_node_id === +nodeId)
-      );
+      // console.log(NodeStore.current().id);
+      // console.log(HabitStore.fullList());
+      // console.log(
+      // HabitStore.fullList().filter((habit) => habit.habit_node_id === +nodeId)
+      // );
       HabitStore.runCurrentFilterByNode(nodeId);
-      console.log(
-        HabitStore.fullList().filter(
-          (habit) => habit.habit_node_id === +nodeId
-        )[0]
-      );
-      console.log(HabitStore.current());
-      console.log(DateStore.current());
+      // console.log(
+      // HabitStore.fullList().filter(
+      // (habit) => habit.habit_node_id === +nodeId
+      // )[0]
+      // );
+      // console.log(HabitStore.current());
+      // console.log(DateStore.current());
       const requestBody = {
         habit_id: HabitStore.current().id,
         date_id: DateStore.current().id,
@@ -248,20 +250,20 @@ const renderTree = function (
 
   const rootData = TreeStore.root();
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
-
   rootData.sum((d) => {
-    const thisNode = rootData.descendants().find((node) => node.data == d);
-    return +JSON.parse(parseTreeValues(thisNode.data.content).status);
+    rootData.descendants().find((node) => node.data == d);
   });
+
   while (rootData.descendants().some((node) => node.value > 1)) {
+    // Convert node values to binary
     rootData.each((node) => {
       if (node.value > 1) {
         node.value = cumulativeValue(node);
+        console.log(node, "val", node.value);
       }
     });
   }
 
-  console.log(rootData);
   treeLayout(rootData);
 
   const gLink = canvas
@@ -375,11 +377,13 @@ const oppositeStatus = (current) =>
 const nodeStatusColours = (d) => {
   if (typeof d === "undefined" || typeof d.data.content === "undefined")
     return neutralCol;
+  const status = parseTreeValues(d.data.content).status;
   switch (cumulativeValue(d)) {
     case 1:
       return positiveCol;
     case 0:
-      return neutralCol;
+      if (status === "") return noNodeCol;
+      return status === "false" ? negativeCol : neutralCol;
     default:
   }
 };
