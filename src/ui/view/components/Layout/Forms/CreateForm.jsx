@@ -19,7 +19,7 @@ const processFormData = function (dom, attrs) {
 
       const data = {};
       const FD = new FormData(form);
-
+      debugger;
       FD.forEach((value, key) => {
         data[key.replace(/-/g, "_")] = value;
       }); // Assign values while swapping for snake_case

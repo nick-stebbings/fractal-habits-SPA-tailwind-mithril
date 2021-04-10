@@ -25,6 +25,7 @@ module Hht
           date = result[:h_date]
           # Find out if it will be the oldest date:
           oldest = before_records_began?(result)
+          
           if (!oldest && date.to_time > date_repo.earliest.h_date)
             date_repo.insert_upto_today! # Fills in dates after the current lastest h_date to today
             return Success('The necessary dates are already persisted.') 
@@ -52,7 +53,7 @@ module Hht
         end
 
         def sql_query_start_timestamp(date)
-          Date.today != date ? "\'#{date}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW())' 
+          Date.today != date ? "\'#{date}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW()):: timestamptz' 
         end
 
         def sql_query_end_timestamp(date)
@@ -60,7 +61,7 @@ module Hht
           # query will fill in from there to the current oldest date, exclusive.
           # Use NOW() as a fallback in case this will be the first tuple.
           end_point = date_a_day_before_earliest
-          sql_query_end_timestamp = end_point ? "\'#{date_a_day_before_earliest}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW())'
+          sql_query_end_timestamp = end_point ? "\'#{date_a_day_before_earliest}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW()):: timestamptz'
         end
       end
     end

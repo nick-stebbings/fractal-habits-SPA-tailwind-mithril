@@ -16,10 +16,6 @@ export default {
     spinnerState.map(openSpinner);
     if (formNeeded()) openModal(true);
 
-    if (!DateStore.current().id) {
-      document.getElementById("date-today").value = DateStore.currentDate();
-    }
-
     document.getElementById("domain-selector").selectedIndex = Math.max(
       0,
       DomainStore.list().indexOf(DomainStore.current())
