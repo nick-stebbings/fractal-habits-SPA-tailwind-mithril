@@ -25,6 +25,7 @@ const FilterList = function () {
       document
         .querySelector("button[name=reset]")
         .addEventListener("click", (e) => {
+          e.target.textContent = "Filter";
           currentInput("");
           m.redraw();
           HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
@@ -45,7 +46,7 @@ const FilterList = function () {
           />
           <GeneralButton
             color="balance-buttonbg-reset"
-            label="Clear"
+            label="Filter"
             name="reset"
           />
         </div>

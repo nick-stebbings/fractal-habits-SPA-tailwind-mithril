@@ -1,19 +1,45 @@
 import HabitStore from "../../store/habit-store";
+import HabitDateStore from "../../store/habit-date-store";
+import DateStore from "../../store/date-store";
 import DomainStore from "../../store/domain-store";
+
+import {
+  positiveCol,
+  neutralCol,
+  negativeCol,
+} from "../../assets/scripts/d3-utilities";
+
 import FilterList from "../components/Layout/FilterList.jsx";
+import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
+
+const getStatusColor = (habit) => {
+  // TODO refactor filter running into store
+  let status =
+    HabitDateStore.runFilter(habit.id).filter(
+      (habitDate) => habitDate.date_id === DateStore.current().id
+    ).length > 0 &&
+    String(
+      HabitDateStore.list().filter(
+        (habitDate) => habitDate.date_id === DateStore.current().id
+      )[0].completed_status
+    );
+  switch (status) {
+    case "true":
+      return positiveCol;
+    case "false":
+      return negativeCol;
+    default:
+      return neutralCol;
+  }
+};
 
 const HabitDashboard = {
-  oncreate: () => {},
+  oninit: () => {},
   view: () => (
-    <div class="container mx-auto px-4 sm:px-8 max-w-3xl">
+    <div class="container mx-auto max-w-3xl">
       {/* List component from www.tailwind-kit.com */}
       <div class="py-8">
-        <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
-          <h2 class="text-2xl leading-tight">Habits</h2>
-          <div class="text-end">
-            <FilterList></FilterList>
-          </div>
-        </div>
+        <FilterList></FilterList>
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
           <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
             <table class="min-w-full leading-normal">
@@ -54,16 +80,7 @@ const HabitDashboard = {
                   <tr>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                          <a href="#" class="block relative">
-                            <img
-                              alt="profil"
-                              src="/images/person/8.jpg"
-                              class="mx-auto object-cover rounded-full h-10 w-10 "
-                            />
-                          </a>
-                        </div>
-                        <div class="ml-3">
+                        <div>
                           <p class="text-gray-900 whitespace-no-wrap">
                             {habit.name}
                           </p>
@@ -86,13 +103,25 @@ const HabitDashboard = {
                           aria-hidden="true"
                           class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
                         ></span>
-                        <span class="relative">active</span>
+                        <span class="relative">
+                          <svg class="h-12 w-12">
+                            <circle
+                              r="20"
+                              fill={getStatusColor(habit)}
+                              transform="translate(25, 25)"
+                            ></circle>
+                          </svg>
+                        </span>
                       </span>
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                        Delete
-                      </a>
+                      <CancelButton
+                        id={`delete-habit-${habit.id}`}
+                        name={"d"}
+                        disabled={"false"}
+                        label={"Delete"}
+                        // class={""}
+                      />
                     </td>
                   </tr>
                 ))}

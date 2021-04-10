@@ -19,7 +19,7 @@ const importData = {
       .then((response) => {
         DateStore.list(response.data.dates);
         DomainStore.list(response.data.domains);
-        HabitDateStore.list(response.data.habit_dates);
+        HabitDateStore.fullList(response.data.habit_dates);
         NodeStore.list(response.data.nodes);
         HabitStore.fullList(response.data.habits);
         DateStore.current(DateStore.list()[DateStore.list().length - 1]);

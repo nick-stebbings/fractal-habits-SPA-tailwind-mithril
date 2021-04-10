@@ -11,11 +11,12 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
   },
 
   list: stream([]),
+  fullList: stream([]),
 
   index: () =>
     HabitDateStore.show_all()
       .then((response) => JSON.parse(response.data).habit_dates)
-      .then(HabitDateStore.list)
+      .then(HabitDateStore.fullList)
       .catch(handleErrorType),
 
   submit: (attrs) => {
@@ -26,14 +27,16 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
 
   runFilter: (habitId) =>
     HabitDateStore.list(
-      HabitDateStore.list().filter((habitDate) => habitDate.habit_id == habitId)
+      HabitDateStore.fullList().filter(
+        (habitDate) => habitDate.habit_id == habitId
+      )
     ),
 
   runUpdate: (isDemo, values) => {
-    console.log(isDemo);
+    const payload = JSON.stringify(values);
     (isDemo
-      ? clientRoutes("/demo/habit_dates").replace("", values)
-      : HabitDateStore.replace("", values)
+      ? clientRoutes(`/demo/habit_dates/${values.date_id}`).replace("", payload)
+      : HabitDateStore.replace("", payload)
     )
       .then(HabitDateStore.current)
       .catch(handleErrorType);

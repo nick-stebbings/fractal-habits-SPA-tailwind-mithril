@@ -191,11 +191,11 @@ const renderTree = function (
       HabitStore.runCurrentFilterByNode(nodeId);
       console.log(HabitStore.current());
       console.log(DateStore.current());
-      const requestBody = JSON.stringify({
+      const requestBody = {
         habit_id: HabitStore.current().id,
         date_id: DateStore.current().id,
         completed_status: oppositeStatus(currentStatus),
-      });
+      };
       HabitDateStore.runUpdate(isDemo, requestBody);
     }
   };
@@ -237,6 +237,7 @@ const renderTree = function (
     .on("wheel", (event) => event.preventDefault());
 
   const rootData = TreeStore.root();
+  debugger;
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
 
   if (m.route.param("demo")) {
@@ -393,4 +394,7 @@ export {
   expandTree,
   zooms,
   debounce,
+  positiveCol,
+  neutralCol,
+  negativeCol,
 };
