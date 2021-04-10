@@ -15,6 +15,9 @@ const HabitFilterList = function () {
 
       filterInput.addEventListener("change", (e) => {
         currentInput(e.target.value);
+        if (currentInput() == "") {
+          return;
+        }
         m.redraw();
         HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
         HabitStore.list(HabitStore.filterByName(currentInput()));
@@ -23,6 +26,7 @@ const HabitFilterList = function () {
       document
         .querySelector("button[name=reset]")
         .addEventListener("click", (e) => {
+          console.log("fired click");
           currentInput("");
           m.redraw();
           HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
