@@ -18,7 +18,6 @@ import { d3visPageMaker } from "./assets/scripts/d3-utilities";
 import { redraw, handleErrorType } from "./assets/scripts/utilities";
 
 const spinnerOpen = stream(true);
-
 const formNeeded = stream(false);
 
 function populateStores({ demo }) {

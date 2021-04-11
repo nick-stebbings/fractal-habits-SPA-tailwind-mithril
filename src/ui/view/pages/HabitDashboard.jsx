@@ -170,7 +170,6 @@ const HabitDashboard = {
                         name={"d"}
                         disabled={false}
                         label={"Delete"}
-                        // class={""}
                       />
                     </td>
                   </tr>

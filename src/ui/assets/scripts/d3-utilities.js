@@ -106,7 +106,7 @@ const renderTree = function (
     .classed("canvas", true)
     .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
 
-  let scale = 1.2;
+  let scale = isDemo ? 1.25 : 2.5;
   let clickScale = 3;
   const zoomBase = canvas;
   const levelsWide = 12;
