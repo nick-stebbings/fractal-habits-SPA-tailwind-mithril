@@ -7,7 +7,7 @@ import HabitDateStore from "../../store/habit-date-store";
 
 let canvasHeight, canvasWidth;
 const margin = {
-  top: 20,
+  top: 30,
   right: 0,
   bottom: 20,
   left: 0,
@@ -109,7 +109,7 @@ const renderTree = function (
   let scale = isDemo ? 1.25 : 2.5;
   let clickScale = 3;
   const zoomBase = canvas;
-  const levelsWide = 12;
+  const levelsWide = 9;
   const levelsHigh = 3;
   const nodeRadius = 15 * scale;
   const dx = (window.innerWidth / levelsWide) * scale;
@@ -121,7 +121,7 @@ const renderTree = function (
     viewportX = 0;
     viewportY = 0;
     viewportW = canvasWidth * 3;
-    viewportH = canvasHeight * 3;
+    viewportH = canvasHeight * 2;
     zoomed.translateX = -3 * (viewportW / 2);
     zoomed.translateY = -3 * (viewportH / 2);
     zoomed.viewportW = scale * viewportW;
@@ -174,10 +174,12 @@ const renderTree = function (
       .on("mouseover", function () {
         const g = select(this);
         g.select(".label").transition().duration(750).style("opacity", "1");
+        g.select(".tooltip").transition().duration(250).style("opacity", "1");
       })
       .on("mouseout", function () {
         const g = select(this);
         g.select(".label").transition().duration(750).style("opacity", "0");
+        g.select(".tooltip").transition().duration(250).style("opacity", "0");
       });
 
     function handleStatusToggle(circle, node) {
@@ -286,17 +288,38 @@ const renderTree = function (
     .attr("transform", (d) => `translate(${d.x},${d.y})`)
     .call(handleEvents);
 
+  const gTooltip = enteringNodes
+    .append("g")
+    .classed("tooltip", true)
+    .attr("transform", `translate(${20}, ${-120})`)
+    .attr("opacity", "0");
+
+  gTooltip
+    .append("rect")
+    .attr("width", 25)
+    .attr("height", 25)
+    .attr("x", -5)
+    .attr("y", 78);
+
+  gTooltip
+    .append("rect")
+    .attr("width", 200)
+    .attr("height", 100)
+    .attr("rx", nodeRadius)
+    .append("text")
+    .text((d) => d.data.name)
+
   enteringNodes
     .append("text")
     .attr("class", "label left")
-    .attr("dx", -35)
+    .attr("dx", -45)
     .attr("dy", 5)
     .text((d) => parseTreeValues(d.data.content).left);
 
   enteringNodes
     .append("text")
     .attr("class", "label right")
-    .attr("dx", 15)
+    .attr("dx", 35)
     .attr("dy", 5)
     .text((d) => parseTreeValues(d.data.content).right);
 
@@ -304,9 +327,9 @@ const renderTree = function (
     .append("text")
     .attr("class", "label")
     .attr("dx", 15)
-    .attr("dy", 45)
+    .attr("dy", -25)
     .style("fill", "pink")
-    .text((d) => cumulativeValue(d));
+    .text((d) => { cumulativeValue(d) == 0 ? console.log(d) : '' ; return cumulativeValue(d)});
 
   enteringNodes
     .append("text")
