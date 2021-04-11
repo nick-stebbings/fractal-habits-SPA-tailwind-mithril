@@ -26,10 +26,15 @@ g.tooltip rect {
 
 g.tooltip text {
 	fill: #1A140E !important;
-  stroke: #1A140E !important;
+  stroke: #F8F8F8 !important;
 	stroke-width: 1px;
 }
 
+.habit-label-dash-button {
+	fill: #1A140E !important;
+  stroke: #a9c471 !important;
+	stroke-width: 1px;
+}
 g.tooltip rect:first-of-type {
 	fill: #47301f !important;
 }

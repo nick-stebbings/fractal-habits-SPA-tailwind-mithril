@@ -112,7 +112,6 @@ const renderTree = function (
   const levelsWide = 9;
   const levelsHigh = 3;
   const nodeRadius = 15 * scale;
-  console.log(nodeRadius, "nodeRadius");
   const dx = (window.innerWidth / levelsWide) * scale;
   const dy = (window.innerHeight / levelsHigh) * scale ** 2;
   let viewportX, viewportY, viewportW, viewportH, defaultView;
@@ -157,6 +156,10 @@ const renderTree = function (
   const handleEvents = function (selection) {
     selection
       .on("click", function (event, node) {
+        if (event.target.tagName === "rect") {
+          return;
+        }
+
         const c = select(this).selectAll(".the-node circle");
         if (node.data.content !== undefined) handleStatusToggle(c, node);
         let a = event.target;
@@ -292,7 +295,7 @@ const renderTree = function (
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
-    .attr("transform", `translate(${nodeRadius * 1.2}, ${-(6.5*nodeRadius)})`)
+    .attr("transform", `translate(${nodeRadius * 1.2}, ${-(6.5*nodeRadius + (isDemo ? 0 : -100))})`)
     .attr("opacity", "0");
 
   gTooltip
@@ -306,11 +309,12 @@ const renderTree = function (
     .append("rect")
     .attr("width", 200)
     .attr("height", 100)
-    .attr("rx", nodeRadius);
+    .attr("rx", nodeRadius/2);
 
+    // Split the name label into two parts:
     gTooltip
       .append("text")
-      .attr("x", 15)
+      .attr("x", 10)
       .attr("y", 25)
       .text((d) => {
         const words = d.data.name.split(" ").slice(0, 6);
@@ -327,6 +331,28 @@ const renderTree = function (
         const words = allWords.slice(0, 6);
         return `${words[4] || ""} ${words[5] || ""} ${words[6] || ''} ${allWords.length > 7 ? '...' : ''}`;
       });
+
+    const button = gTooltip
+      .append("rect")
+      .classed("habit-label-dash-button", true)
+      .attr("x", 108)
+      .attr("y", 65)
+      .attr("rx", nodeRadius / 2)
+      .attr("width", 80)
+      .attr("height", 30)
+      .on("click", (e, n) => {
+        HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
+        m.route.set(
+          m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
+          );
+          e.stopProgagation();
+      });
+      
+      button.append("text")
+      .text((d) => "DETAILS")
+      .attr("x", 10)
+      .attr("y", 25)
+      .classed("habit-label-text", true);
 
   enteringNodes
     .append("text")

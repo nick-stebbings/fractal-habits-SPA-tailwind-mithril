@@ -50,7 +50,7 @@ const HabitDashboard = {
       row.addEventListener("mouseover", (e) => {
         e.stopPropagation();
         if (e.currentTarget.tagName === 'TR') {
-          e.currentTarget.style.backgroundColor = "#d8ecae";
+          e.currentTarget.style.backgroundColor = "#F0F0F0";
         }
       });
       row.addEventListener("click", (e) => {
