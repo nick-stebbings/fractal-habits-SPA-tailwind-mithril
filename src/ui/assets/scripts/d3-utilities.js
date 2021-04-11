@@ -80,6 +80,15 @@ const cumulativeValue = (node) => {
   }
 };
 
+const makePatchOrPutRequest = function (isDemo, currentStatus) {
+  const requestBody = {
+    habit_id: HabitStore.current().id,
+    date_id: DateStore.current().id,
+    completed_status: oppositeStatus(currentStatus),
+  };
+  HabitDateStore.runUpdate(isDemo, requestBody).then(m.redraw);
+};
+
 const renderTree = function (
   svg,
   isDemo,
@@ -185,21 +194,12 @@ const renderTree = function (
         "fill",
         currentStatus === "false" ? positiveCol : negativeCol
       );
-      makePatchOrPutRequest(currentStatus);
-    }
-
-    function makePatchOrPutRequest(currentStatus) {
       const nodeId = NodeStore.current().id;
       HabitStore.runCurrentFilterByNode(nodeId);
-
-      const requestBody = {
-        habit_id: HabitStore.current().id,
-        date_id: DateStore.current().id,
-        completed_status: oppositeStatus(currentStatus),
-      };
-      HabitDateStore.runUpdate(isDemo, requestBody);
+      makePatchOrPutRequest(isDemo, currentStatus);
     }
   };
+
   const getTransform = function (node, xScale) {
     if (typeof node === "undefined") return;
     var x = node.__data__ ? node.__data__.x : node.x;
@@ -398,4 +398,5 @@ export {
   positiveCol,
   neutralCol,
   negativeCol,
+  makePatchOrPutRequest
 };

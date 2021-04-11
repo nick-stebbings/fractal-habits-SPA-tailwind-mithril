@@ -60,7 +60,7 @@ function populateStores({ demo }) {
       .init()
       .then(() => {
         spinnerOpen(false);
-        importData.populate()
+        // importData.populate()
       })
       .then(m.redraw)
       .catch((err) => {

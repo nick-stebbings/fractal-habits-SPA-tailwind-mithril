@@ -9,22 +9,18 @@ import {
   positiveCol,
   neutralCol,
   negativeCol,
+  makePatchOrPutRequest,
 } from "../../assets/scripts/d3-utilities";
 
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 
 const getStatusColor = (habit) => {
-  // TODO refactor filter running into store
   let status =
-    HabitDateStore.runFilter(habit.id).filter(
-      (habitDate) => habitDate.date_id === DateStore.current().id
-    ).length > 0 &&
-    String(
-      HabitDateStore.list().filter(
-        (habitDate) => habitDate.date_id === DateStore.current().id
-      )[0].completed_status
-    );
+    HabitDateStore.runFilter(habit.id) &&
+    HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id).length >
+      0 &&
+    String(HabitDateStore.list()[0].completed_status);
   switch (status) {
     case "true":
       return positiveCol;
@@ -34,11 +30,19 @@ const getStatusColor = (habit) => {
       return neutralCol;
   }
 };
+
 const HabitDashboard = {
-  oncreate: () => {
+  oninit: () => HabitDateStore.index().then(() => {
+      HabitDateStore.runFilter(HabitStore.current().id);
+      HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
+    }),
+  oncreate: () => {  
+    const demoData = m.route.param("demo");
+    // Add selected habit row styles
     const selectedHabitName = [...document.querySelectorAll('p:first-of-type')].filter(node => node.textContent == HabitStore.current().name)[0];
     if(selectedHabitName) selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add('selected');
 
+    // Add hover/active styles
     [...document.querySelectorAll('table tr')].forEach(row => {
       row.addEventListener("mouseover", (e) => {
         e.stopPropagation();
@@ -47,18 +51,22 @@ const HabitDashboard = {
         }
       });
       row.addEventListener("click", (e) => {
-        e.stopPropagation();
         if (e.currentTarget.tagName === 'TR') {
           const habitName = e.currentTarget.querySelector("p:first-child")
-            .textContent;
-            
+          .textContent;
+          
           e.currentTarget.classList.add('selected')
           HabitStore.current(HabitStore.filterByName(habitName)[0])
           m.redraw()
         }
+        if (e.target.tagName == "circle") {
+          const currentStatusCol = e.target.getAttribute("fill")
+          const currentStatus = currentStatusCol === positiveCol ? 'true' : 'false';
+          e.target.setAttribute("fill", currentStatusCol === positiveCol ? negativeCol : positiveCol);
+          makePatchOrPutRequest(demoData, currentStatus)
+          m.redraw()
+        }
       });
-    });
-    [...document.querySelectorAll('table tr')].forEach(row => {
       row.addEventListener("mouseout", (e) => {
         e.stopPropagation();
         if (e.currentTarget.tagName === 'TR') {
@@ -66,6 +74,7 @@ const HabitDashboard = {
         }
       });
     });
+
   },
   view: () => (
     <div class="container mx-auto max-w-3/4">
