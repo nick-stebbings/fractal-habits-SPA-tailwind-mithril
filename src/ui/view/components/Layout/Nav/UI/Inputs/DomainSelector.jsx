@@ -7,7 +7,7 @@ const DomainSelector = {
     m(
       "select.form-select#domain-selector",
       {
-        class: "w-full lg:w-48 py-1 lg:pt-2 pl-0 pr-6 -mr-4 rounded-2xl",
+        class: "w-full py-1 lg:pt-2 pl-0 pr-6 mr-1 ml-3 rounded-2xl",
       },
       DomainStore.list().map((domain, idx) =>
         m(DomainOption, { value: domain.name, selected: !idx }, domain.name)

@@ -83,27 +83,25 @@ const MaskHeader = function () {
               <nav className="top-16 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-desat lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-pshades-dark lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray absolute left-0 z-20 flex-col hidden w-full border-b-4">
                 <div className="md:pl-16 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between px-4 pt-1 pb-2">
                   <div
-                    tabindex="4"
                     className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full"
                   >
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
                       <label htmlFor="domain-selector">Domain</label>
                     </span>
-                    <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-none h-full pl-1 pr-4 mr-2 bg-white rounded-full">
+                    <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-none w-56 h-full pl-1 pr-4 mr-2 bg-white rounded-full">
                       <span className="text-balance-sshades-brighten block w-full pt-2 mb-1">
                         <DomainSelector></DomainSelector>
                       </span>
                     </div>
                   </div>
                   <div
-                    tabindex="3"
-                    className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row lg:border-2 border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full"
+                    className="pr-2 nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row lg:border-2 border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full"
                   >
                     <span className="lg:hidden xl:block md:pt-2 pt-0 pb-0 mx-4 mb-1">
                       <label htmlFor="date-today">Date</label>
                     </span>
-                    <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-none h-full bg-white rounded-full">
-                      <span className="lg:pt-2 text-balance-sshades-brighten block w-full mx-4 mb-1">
+                    <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none w-56 h-full bg-white rounded-full">
+                      <span className="lg:pt-2 text-balance-sshades-brighten flex justify-around block w-full mb-1">
                         <i
                           id="prev-date-selector"
                           className="fa fa-chevron-circle-left pr-2"

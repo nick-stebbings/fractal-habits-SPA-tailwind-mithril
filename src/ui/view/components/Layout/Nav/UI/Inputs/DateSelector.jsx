@@ -25,21 +25,17 @@ const DateSelector = function () {
       parsedDates = DateStore.listForHabit().map(
         (d) => DateTime.fromSQL(d.h_date).ts
       );
-      minDate = DateTime.fromMillis(
-        Math.min.apply(null, parsedDates)
-      );
-      maxDate = DateTime.fromMillis(
-        Math.max.apply(null, parsedDates)
-      );
-      if (DateStore.current() && (maxDate < todaysDate)) {
-        DateStore.submit({ h_date: maxDate.plus({days: 1}).toISODate() });
+      minDate = DateTime.fromMillis(Math.min.apply(null, parsedDates));
+      maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates));
+      if (DateStore.current() && maxDate < todaysDate) {
+        DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() });
       }
 
       const nextDate = document.getElementById("next-date-selector");
       const prevDate = document.getElementById("prev-date-selector");
-      
+
       prevDate.addEventListener("click", () => {
-        if(!HabitStore.current()) return;
+        if (!HabitStore.current()) return;
         if (currentDate.toLocaleString() !== minDate.toLocaleString()) {
           dateIndex--;
           DateStore.current(DateStore.listForHabit()[dateIndex]);
@@ -49,7 +45,7 @@ const DateSelector = function () {
 
       nextDate.addEventListener("click", () => {
         if (!HabitStore.current()) return;
-        if ( currentDate.toLocaleString() !== maxDate.toLocaleString()) {
+        if (currentDate.toLocaleString() !== maxDate.toLocaleString()) {
           dateIndex++;
           DateStore.current(DateStore.listForHabit()[dateIndex]);
         }
@@ -59,6 +55,7 @@ const DateSelector = function () {
     view: () => (
       <fieldset>
         <input
+          tabindex="3"
           id="date-today"
           class="form-input w-full text-xl lg:pt-4 -mr-8 px-2"
           type="date"

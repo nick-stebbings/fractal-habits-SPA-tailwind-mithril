@@ -14,6 +14,7 @@ import {
 
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
+import { openModal } from "../../assets/scripts/animations";
 
 const getStatusColor = (habit) => {
   let status =
@@ -35,8 +36,9 @@ const HabitDashboard = {
   oninit: () => HabitDateStore.index().then(() => {
       HabitDateStore.runFilter(HabitStore.current().id);
       HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
-    }),
-    onupdate: () => m.redraw(),
+    }
+  ),
+  onupdate: () => m.redraw(),
   oncreate: () => {  
     const demoData = m.route.param("demo");
     // Add selected habit row styles
@@ -65,6 +67,13 @@ const HabitDashboard = {
             e.target.setAttribute("fill", currentStatusCol === positiveCol ? negativeCol : positiveCol);
             makePatchOrPutRequest(demoData, currentStatus)
           }
+          console.log(e.target.tagName);
+          if (e.target.tagName == "BUTTON") {
+            // Delete button action
+            debugger;
+            openModal(true)
+            HabitStore.runDelete(HabitStore.current().id)
+          }
         }
       });
       row.addEventListener("mouseout", (e) => {
@@ -74,7 +83,6 @@ const HabitDashboard = {
         }
       });
     });
-
   },
   view: () => (
     <div class="container mx-auto max-w-3/4">
@@ -160,7 +168,7 @@ const HabitDashboard = {
                       <CancelButton
                         id={`delete-habit-${habit.id}`}
                         name={"d"}
-                        disabled={"false"}
+                        disabled={false}
                         label={"Delete"}
                         // class={""}
                       />
