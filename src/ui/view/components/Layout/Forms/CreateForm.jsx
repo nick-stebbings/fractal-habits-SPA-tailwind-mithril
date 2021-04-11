@@ -19,7 +19,6 @@ const processFormData = function (dom, attrs) {
 
       const data = {};
       const FD = new FormData(form);
-      debugger;
       FD.forEach((value, key) => {
         data[key.replace(/-/g, "_")] = value;
       }); // Assign values while swapping for snake_case
@@ -43,6 +42,8 @@ const processFormData = function (dom, attrs) {
           console.log("Could not submit data.");
           openModal(false);
         });
+        
+      attrs.formNeeded(false);
       form.reset();
     });
 };

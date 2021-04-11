@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 import HabitStore from "../../store/habit-store";
 import HabitDateStore from "../../store/habit-date-store";
 import DateStore from "../../store/date-store";
@@ -36,18 +38,18 @@ const getStatusColor = (habit) => {
 const HabitDashboard = {
   oninit: () => {},
   view: () => (
-    <div class="container mx-auto max-w-3xl">
+    <div class="container mx-auto max-w-3/4">
       {/* List component from www.tailwind-kit.com */}
       <div class="py-8">
         <FilterList></FilterList>
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
           <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-            <table class="min-w-full leading-normal">
+            <table class="min-w-full leading-normal table-fixed">
               <thead>
                 <tr>
                   <th
                     scope="col"
-                    class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    class="w-1/2 px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
                     Habit
                   </th>
@@ -59,50 +61,51 @@ const HabitDashboard = {
                   </th>
                   <th
                     scope="col"
-                    class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    class="w-1/12 text-center px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-sm uppercase font-normal"
                   >
-                    Initiated On
+                    Initiated
                   </th>
                   <th
                     scope="col"
-                    class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    class="w-1/12 text-center px-5 py-3 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   >
-                    Completion Today
+                    Completion
                   </th>
                   <th
                     scope="col"
-                    class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    class="w-1/12 px-5 py-3 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   ></th>
                 </tr>
               </thead>
               <tbody>
                 {HabitStore.list().map((habit) => (
                   <tr>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-lg">
                       <div class="flex items-center">
                         <div>
-                          <p class="text-gray-900 whitespace-no-wrap">
+                          <p class="text-gray-900 whitespace-no-wrap font-semibold">
                             {habit.name}
+                          </p>
+                          <p class="text-gray-900 whitespace-no-wrap">
+                            {habit.description}
                           </p>
                         </div>
                       </div>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-lg">
                       <p class="text-gray-900 whitespace-no-wrap">
                         {DomainStore.current().name}
                       </p>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-lg">
                       <p class="text-gray-900 whitespace-no-wrap">
-                        {habit.initiation_date}
+                        {DateTime.fromSQL(
+                          habit.initiation_date
+                        ).toLocaleString()}
                       </p>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="h-24 flex items-center justify-center px-5 py-2 border-b border-gray-200 bg-white text-sm">
                       <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                        <span
-                          aria-hidden="true"
-                          class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                        ></span>
                         <span class="relative">
                           <svg class="h-12 w-12">
                             <circle
@@ -114,7 +117,7 @@ const HabitDashboard = {
                         </span>
                       </span>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
                       <CancelButton
                         id={`delete-habit-${habit.id}`}
                         name={"d"}
@@ -127,7 +130,7 @@ const HabitDashboard = {
                 ))}
               </tbody>
             </table>
-            <div class="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
+            <div class="px-5 bg-white py-2 flex flex-col xs:flex-row items-center xs:justify-between">
               <div class="flex items-center">
                 <button
                   type="button"

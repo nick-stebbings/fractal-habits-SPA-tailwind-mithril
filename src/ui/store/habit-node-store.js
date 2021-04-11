@@ -33,6 +33,9 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
   filterByMptt: (lft, rgt) =>
     NodeStore.list().filter((n) => n.lft === +lft && n.rgt === +rgt),
 
+  filterLeavesByMptt: () =>
+    NodeStore.list().filter((n) => n.lft === (n.rgt - 1)),
+
   runCurrentFilterByHabit: (habit) =>
     NodeStore.current(
       NodeStore.list().filter((node) => node.id == +habit.habit_node_id)[0]

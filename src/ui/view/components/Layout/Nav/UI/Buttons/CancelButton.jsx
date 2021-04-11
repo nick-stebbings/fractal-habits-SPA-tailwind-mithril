@@ -15,7 +15,7 @@ const CancelButton = {
         disabled={attrs.disabled}
         className={
           !!attrs.class
-            ? `${attrs.class} flex-no-shrink rounded-3xl text-balance-buttontext-neutral font-heavy flex items-center h-8 px-2 my-1 font-sans tracking-wide uppercase`
+            ? `${attrs.class} flex-no-shrinkrounded-3xl text-balance-buttontext-neutral font-heavy flex items-center h-8 px-2 my-1 font-sans tracking-wide uppercase`
             : "flex-no-shrink text-balance-buttontext-neutral font-heavy flex items-center h-8 px-2 my-1 font-sans tracking-wide uppercase"
         }
       >

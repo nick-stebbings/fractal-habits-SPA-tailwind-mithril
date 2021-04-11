@@ -32,6 +32,7 @@ const Modal = {
                 resourceName="Habit"
                 domain={DomainStore.current}
                 resourceDescription="A way of keeping track of your daily behaviours"
+                formNeeded={attrs.formNeeded}
               />
             )}
           </div>

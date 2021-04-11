@@ -1,20 +1,11 @@
 import DateStore from "../../../../../../store/date-store";
 import HabitStore from "../../../../../../store/habit-store";
-import HabitDateStore from "../../../../../../store/habit-date-store";
 import { DateTime } from "luxon";
 
 const sanitiseForDataList = function (date) {
   return typeof date === "object" && typeof date.h_date === "string"
     ? date.h_date.split(" ")[0]
     : new Date().toDateInputValue();
-};
-
-const dateIncrementDateObject = (increment, d) => {
-  return d.setDate(d.getDate() + increment);
-};
-
-const timeStampToday = () => {
-  return new Date(new Date().toDateString()).toString();
 };
 
 const DateSelector = function () {
@@ -26,13 +17,7 @@ const DateSelector = function () {
   return {
     oninit: () => {
       DateStore.indexDatesOfHabit(HabitStore.current());
-      let a = DateStore.listForHabit();
-      let b = DateStore.current()
       dateIndex = DateStore.listForHabit().indexOf(DateStore.current());
-      console.log(DateStore.listForHabit());
-      console.log(DateStore.list());
-      
-      console.log(dateIndex, 'starting index');
     },
     oncreate: () => {
       let todaysDate = DateTime.now().startOf("day");
@@ -55,24 +40,18 @@ const DateSelector = function () {
       
       prevDate.addEventListener("click", () => {
         if(!HabitStore.current()) return;
-        const initDate = DateTime.fromSQL(HabitStore.current().initiation_date);
         if (currentDate.toLocaleString() !== minDate.toLocaleString()) {
           dateIndex--;
           DateStore.current(DateStore.listForHabit()[dateIndex]);
-          let newCurrent = DateStore.listForHabit()[dateIndex];
         }
         m.redraw();
       });
 
       nextDate.addEventListener("click", () => {
         if (!HabitStore.current()) return;
-        const todaysDate = DateTime.now();
-        
         if ( currentDate.toLocaleString() !== maxDate.toLocaleString()) {
           dateIndex++;
           DateStore.current(DateStore.listForHabit()[dateIndex]);
-          
-          let newCurrent = DateStore.listForHabit()[dateIndex];
         }
         m.redraw();
       });

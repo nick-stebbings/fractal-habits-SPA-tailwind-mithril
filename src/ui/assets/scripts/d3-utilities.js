@@ -190,19 +190,8 @@ const renderTree = function (
 
     function makePatchOrPutRequest(currentStatus) {
       const nodeId = NodeStore.current().id;
-      // console.log(NodeStore.current().id);
-      // console.log(HabitStore.fullList());
-      // console.log(
-      // HabitStore.fullList().filter((habit) => habit.habit_node_id === +nodeId)
-      // );
       HabitStore.runCurrentFilterByNode(nodeId);
-      // console.log(
-      // HabitStore.fullList().filter(
-      // (habit) => habit.habit_node_id === +nodeId
-      // )[0]
-      // );
-      // console.log(HabitStore.current());
-      // console.log(DateStore.current());
+
       const requestBody = {
         habit_id: HabitStore.current().id,
         date_id: DateStore.current().id,
