@@ -1,4 +1,5 @@
 import stream from "mithril/stream";
+import { DateTime } from "luxon";
 import { clientRoutes, handleErrorType } from "./client";
 
 const basePath = "/dates";
@@ -35,9 +36,11 @@ const DateStore = Object.assign(clientRoutes(basePath), {
       })
       .catch(handleErrorType),
 
+  to_h_date: (sqlDate) => DateTime.fromSQL(sqlDate.h_date),
+
   filterForHabit: (habit) =>
     habit
-      ? DateStore.list().filter((date) => date.h_date >= habit.initiation_date)
+      ? DateStore.list().filter((date) => DateStore.to_h_date(date) >= DateTime.fromSQL(habit.initiation_date)).sort((a,b) => a - b)
       : [],
 
   indexDatesOfHabit: (habit) => {
