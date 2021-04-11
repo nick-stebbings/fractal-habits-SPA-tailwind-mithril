@@ -106,12 +106,13 @@ const renderTree = function (
     .classed("canvas", true)
     .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
 
-  let scale = isDemo ? 1.25 : 2.5;
+  let scale = isDemo ? 1.2 : 2.4;
   let clickScale = 3;
   const zoomBase = canvas;
   const levelsWide = 9;
   const levelsHigh = 3;
   const nodeRadius = 15 * scale;
+  console.log(nodeRadius, "nodeRadius");
   const dx = (window.innerWidth / levelsWide) * scale;
   const dy = (window.innerHeight / levelsHigh) * scale ** 2;
   let viewportX, viewportY, viewportW, viewportH, defaultView;
@@ -291,7 +292,7 @@ const renderTree = function (
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
-    .attr("transform", `translate(${20}, ${-120})`)
+    .attr("transform", `translate(${nodeRadius * 1.2}, ${-(6.5*nodeRadius)})`)
     .attr("opacity", "0");
 
   gTooltip
@@ -305,9 +306,27 @@ const renderTree = function (
     .append("rect")
     .attr("width", 200)
     .attr("height", 100)
-    .attr("rx", nodeRadius)
-    .append("text")
-    .text((d) => d.data.name)
+    .attr("rx", nodeRadius);
+
+    gTooltip
+      .append("text")
+      .attr("x", 15)
+      .attr("y", 25)
+      .text((d) => {
+        const words = d.data.name.split(" ").slice(0, 6);
+        return `${words[0] || ""} ${words[1] || ""} ${words[2] || ""} ${
+          words[3] || ""
+        }`;
+      });
+    gTooltip
+      .append("text")
+      .attr("x", 15)
+      .attr("y", 55)
+      .text((d) => {
+        const allWords = d.data.name.split(" ");
+        const words = allWords.slice(0, 6);
+        return `${words[4] || ""} ${words[5] || ""} ${words[6] || ''} ${allWords.length > 7 ? '...' : ''}`;
+      });
 
   enteringNodes
     .append("text")
@@ -326,10 +345,12 @@ const renderTree = function (
   enteringNodes //VALUE label
     .append("text")
     .attr("class", "label")
-    .attr("dx", 15)
+    .attr("dx", 45)
     .attr("dy", -25)
     .style("fill", "pink")
-    .text((d) => { cumulativeValue(d) == 0 ? console.log(d) : '' ; return cumulativeValue(d)});
+    .text((d) => { cumulativeValue(d) == 0
+      ? console.log(d.data.name.split(" ").slice(0, 4).join` `)
+      : ""; return cumulativeValue(d)});
 
   enteringNodes
     .append("text")
