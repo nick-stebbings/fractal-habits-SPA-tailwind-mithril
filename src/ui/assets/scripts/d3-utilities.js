@@ -86,7 +86,7 @@ const makePatchOrPutRequest = function (isDemo, currentStatus) {
     date_id: DateStore.current().id,
     completed_status: oppositeStatus(currentStatus),
   };
-  HabitDateStore.runUpdate(isDemo, requestBody).then(m.redraw);
+  return HabitDateStore.runUpdate(isDemo, requestBody);
 };
 
 const renderTree = function (

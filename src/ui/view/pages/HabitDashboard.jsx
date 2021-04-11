@@ -36,6 +36,7 @@ const HabitDashboard = {
       HabitDateStore.runFilter(HabitStore.current().id);
       HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
     }),
+    onupdate: () => m.redraw(),
   oncreate: () => {  
     const demoData = m.route.param("demo");
     // Add selected habit row styles
@@ -54,17 +55,16 @@ const HabitDashboard = {
         if (e.currentTarget.tagName === 'TR') {
           const habitName = e.currentTarget.querySelector("p:first-child")
           .textContent;
-          
-          e.currentTarget.classList.add('selected')
-          HabitStore.current(HabitStore.filterByName(habitName)[0])
-          m.redraw()
-        }
-        if (e.target.tagName == "circle") {
-          const currentStatusCol = e.target.getAttribute("fill")
-          const currentStatus = currentStatusCol === positiveCol ? 'true' : 'false';
-          e.target.setAttribute("fill", currentStatusCol === positiveCol ? negativeCol : positiveCol);
-          makePatchOrPutRequest(demoData, currentStatus)
-          m.redraw()
+          document.querySelector('.selected').classList.remove('selected');
+          e.currentTarget.classList.add('selected');
+
+          HabitStore.current(HabitStore.filterByName(habitName)[0]);
+          if (e.target.tagName == "circle") {
+            const currentStatusCol = e.target.getAttribute("fill")
+            const currentStatus = currentStatusCol === positiveCol ? 'true' : 'false';
+            e.target.setAttribute("fill", currentStatusCol === positiveCol ? negativeCol : positiveCol);
+            makePatchOrPutRequest(demoData, currentStatus)
+          }
         }
       });
       row.addEventListener("mouseout", (e) => {
