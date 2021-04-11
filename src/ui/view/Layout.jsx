@@ -6,7 +6,6 @@ import MaskHeader from "./components/Layout/Nav/MaskHeader.jsx";
 import MainStage from "./components/Layout/MainStage.jsx";
 import Footer from "./components/Layout/Footer.jsx";
 
-import DateStore from "../store/date-store";
 import DomainStore from "../store/domain-store";
 import { openModal, openSpinner } from "../assets/scripts/animations.js";
 

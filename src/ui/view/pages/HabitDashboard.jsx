@@ -9,6 +9,7 @@ import {
   positiveCol,
   neutralCol,
   negativeCol,
+  noNodeCol,
   makePatchOrPutRequest,
 } from "../../assets/scripts/d3-utilities";
 
@@ -22,11 +23,14 @@ const getStatusColor = (habit) => {
     HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id).length >
       0 &&
     String(HabitDateStore.list()[0].completed_status);
+    console.log(status);
   switch (status) {
     case "true":
       return positiveCol;
     case "false":
       return negativeCol;
+    case "":
+    return noNodeCol;
     default:
       return neutralCol;
   }
@@ -72,7 +76,7 @@ const HabitDashboard = {
             // Delete button action
             debugger;
             openModal(true)
-            HabitStore.runDelete(HabitStore.current().id)
+            HabitNodeStore.runDelete(HabitNodeStore.current().id)
           }
         }
       });
@@ -84,7 +88,7 @@ const HabitDashboard = {
       });
     });
   },
-  view: () => (
+  view: ({attrs}) => (
     <div class="container mx-auto max-w-3/4">
       {/* List component from www.tailwind-kit.com */}
       <div class="py-8">
@@ -170,6 +174,7 @@ const HabitDashboard = {
                         name={"d"}
                         disabled={false}
                         label={"Delete"}
+                        formNeeded={attrs.formNeeded}
                       />
                     </td>
                   </tr>

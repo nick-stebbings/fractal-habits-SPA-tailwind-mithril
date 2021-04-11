@@ -15,7 +15,7 @@ const margin = {
 
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
-const noNodeCol = "#g2aa53";
+const noNodeCol = "#211912";
 const neutralCol = "#888";
 
 const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
@@ -130,7 +130,7 @@ const renderTree = function (
   };
 
   const reset = function () {
-    scale = 1.0;
+    scale = isDemo ? 1.2 : 2.4;
     svg.attr("viewBox", defaultView);
     expandTree();
     zoomBase.call(zoomer.transform, zoomIdentity);
@@ -146,6 +146,7 @@ const renderTree = function (
       .filter((n) => n.depth == node.depth && n !== node);
     descendantsToCollapse.forEach(collapse);
     siblings.forEach(collapse);
+    debugger;
   };
 
   const highlightSubtree = function (node) {
@@ -156,24 +157,23 @@ const renderTree = function (
   const handleEvents = function (selection) {
     selection
       .on("click", function (event, node) {
-        if (event.target.tagName === "rect") {
-          return;
-        }
+        const targ = event.target;
+        if (targ.tagName == "circle") {
+          const c = select(this).selectAll(".the-node circle");
+          if (node.data.content !== undefined) handleStatusToggle(c, node);
 
-        const c = select(this).selectAll(".the-node circle");
-        if (node.data.content !== undefined) handleStatusToggle(c, node);
-        let a = event.target;
-
-        if (event.target.classList.contains("active")) {
-          debugger;
-          event.target.classList.remove("active");
-          reset();
-          return;
-        }
-        collapseAroundAndUnder(node) &&
+          if (targ.classList.contains("active")) {
+            debugger;
+            targ.classList.remove("active");
+            reset();
+            return;
+          }
+          collapseAroundAndUnder(node) &&
           renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
-        highlightSubtree(node);
-        if (zoomClicked === undefined) clickedZoom(event, this);
+          highlightSubtree(node);
+          debugger;
+          if (zoomClicked === undefined) clickedZoom(event, this);
+        }
       })
       .on("mouseover", function () {
         const g = select(this);
@@ -244,6 +244,7 @@ const renderTree = function (
     .on("wheel", (event) => event.preventDefault());
 
   const rootData = TreeStore.root();
+  rootData.each(node => console.log(node.data.content));
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   rootData.sum((d) => {
     rootData.descendants().find((node) => node.data == d);
@@ -332,59 +333,66 @@ const renderTree = function (
         return `${words[4] || ""} ${words[5] || ""} ${words[6] || ''} ${allWords.length > 7 ? '...' : ''}`;
       });
 
-    const button = gTooltip
-      .append("rect")
+    const gButton = gTooltip
+      .append("g")
       .classed("habit-label-dash-button", true)
-      .attr("x", 108)
-      .attr("y", 65)
-      .attr("rx", nodeRadius / 2)
+
+      .attr(
+        "transform",
+        `translate(${108}, ${65})`
+      );
+      
+      gButton
+      .append("rect")
+      .attr("rx", nodeRadius/2)
       .attr("width", 80)
       .attr("height", 30)
-      .on("click", (e, n) => {
-        HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
-        m.route.set(
-          m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
+      .on("click", e => {
+          e.stopPropagation();
+      });
+      gButton.append("text")
+      .attr("x", 10)
+      .attr("y", 20)
+      .text((d) => "DETAILS")
+      .on("click", (e,n) => {
+          HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
+          m.route.set(
+            m.route.param("demo")
+              ? "/habits/list?demo=true"
+              : "/habits/list"
           );
-          e.stopProgagation();
       });
       
-      button.append("text")
-      .text((d) => "DETAILS")
-      .attr("x", 10)
-      .attr("y", 25)
-      .classed("habit-label-text", true);
 
-  enteringNodes
-    .append("text")
-    .attr("class", "label left")
-    .attr("dx", -45)
-    .attr("dy", 5)
-    .text((d) => parseTreeValues(d.data.content).left);
+  // enteringNodes
+  //   .append("text")
+  //   .attr("class", "label left")
+  //   .attr("dx", -45)
+  //   .attr("dy", 5)
+  //   .text((d) => parseTreeValues(d.data.content).left);
 
-  enteringNodes
-    .append("text")
-    .attr("class", "label right")
-    .attr("dx", 35)
-    .attr("dy", 5)
-    .text((d) => parseTreeValues(d.data.content).right);
+  // enteringNodes
+  //   .append("text")
+  //   .attr("class", "label right")
+  //   .attr("dx", 35)
+  //   .attr("dy", 5)
+  //   .text((d) => parseTreeValues(d.data.content).right);
 
-  enteringNodes //VALUE label
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 45)
-    .attr("dy", -25)
-    .style("fill", "pink")
-    .text((d) => { cumulativeValue(d) == 0
-      ? console.log(d.data.name.split(" ").slice(0, 4).join` `)
-      : ""; return cumulativeValue(d)});
+  // enteringNodes //VALUE label
+  //   .append("text")
+  //   .attr("class", "label")
+  //   .attr("dx", 45)
+  //   .attr("dy", -25)
+  //   .style("fill", "pink")
+  //   .text((d) => { return (d.value)});
 
-  enteringNodes
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 5)
-    .attr("dy", 25)
-    .style("fill", "green")
-    .text(cumulativeValue);
+  // enteringNodes
+  //   .append("text")
+  //   .attr("class", "label")
+  //   .attr("dx", 5)
+  //   .attr("dy", 25)
+  //   .style("fill", "green")
+  //   .text(cumulativeValue);
 
   enteringNodes.append("circle").attr("r", nodeRadius);
 
@@ -468,5 +476,6 @@ export {
   positiveCol,
   neutralCol,
   negativeCol,
+  noNodeCol,
   makePatchOrPutRequest
 };
