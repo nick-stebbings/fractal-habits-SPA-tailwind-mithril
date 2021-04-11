@@ -34,9 +34,39 @@ const getStatusColor = (habit) => {
       return neutralCol;
   }
 };
-
 const HabitDashboard = {
-  oninit: () => {},
+  oncreate: () => {
+    const selectedHabitName = [...document.querySelectorAll('p:first-of-type')].filter(node => node.textContent == HabitStore.current().name)[0];
+    if(selectedHabitName) selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add('selected');
+
+    [...document.querySelectorAll('table tr')].forEach(row => {
+      row.addEventListener("mouseover", (e) => {
+        e.stopPropagation();
+        if (e.currentTarget.tagName === 'TR') {
+          e.currentTarget.style.backgroundColor = "#d8ecae";
+        }
+      });
+      row.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (e.currentTarget.tagName === 'TR') {
+          const habitName = e.currentTarget.querySelector("p:first-child")
+            .textContent;
+            
+          e.currentTarget.classList.add('selected')
+          HabitStore.current(HabitStore.filterByName(habitName)[0])
+          m.redraw()
+        }
+      });
+    });
+    [...document.querySelectorAll('table tr')].forEach(row => {
+      row.addEventListener("mouseout", (e) => {
+        e.stopPropagation();
+        if (e.currentTarget.tagName === 'TR') {
+          e.currentTarget.style.backgroundColor = "white";
+        }
+      });
+    });
+  },
   view: () => (
     <div class="container mx-auto max-w-3/4">
       {/* List component from www.tailwind-kit.com */}
@@ -49,38 +79,38 @@ const HabitDashboard = {
                 <tr>
                   <th
                     scope="col"
-                    class="w-1/2 px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    class="w-1/2 px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
                     Habit
                   </th>
                   <th
                     scope="col"
-                    class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    class="px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
                     Domain
                   </th>
                   <th
                     scope="col"
-                    class="w-1/12 text-center px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-sm uppercase font-normal"
+                    class="w-1/12 text-center px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-sm uppercase font-normal"
                   >
                     Initiated
                   </th>
                   <th
                     scope="col"
-                    class="w-1/12 text-center px-5 py-3 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
+                    class="w-1/12 text-center px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   >
                     Completion
                   </th>
                   <th
                     scope="col"
-                    class="w-1/12 px-5 py-3 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
+                    class="w-1/12 px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   ></th>
                 </tr>
               </thead>
               <tbody>
                 {HabitStore.list().map((habit) => (
                   <tr>
-                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-lg">
+                    <td class="bg-transparent px-2 py-2 border-b border-gray-200 bg-white text-lg">
                       <div class="flex items-center">
                         <div>
                           <p class="text-gray-900 whitespace-no-wrap font-semibold">
@@ -92,19 +122,19 @@ const HabitDashboard = {
                         </div>
                       </div>
                     </td>
-                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-lg">
+                    <td class="bg-transparent px-2 py-2 border-b border-gray-200 bg-white text-lg">
                       <p class="text-gray-900 whitespace-no-wrap">
                         {DomainStore.current().name}
                       </p>
                     </td>
-                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-lg">
+                    <td class="bg-transparent px-2 py-2 border-b border-gray-200 bg-white text-lg">
                       <p class="text-gray-900 whitespace-no-wrap">
                         {DateTime.fromSQL(
                           habit.initiation_date
                         ).toLocaleString()}
                       </p>
                     </td>
-                    <td class="h-24 flex items-center justify-center px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                    <td class="bg-transparent h-24 flex items-center justify-center px-2 py-2 border-b border-gray-200 bg-white text-sm">
                       <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                         <span class="relative">
                           <svg class="h-12 w-12">
@@ -117,7 +147,7 @@ const HabitDashboard = {
                         </span>
                       </span>
                     </td>
-                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                    <td class="bg-transparent px-2 py-2 border-b border-gray-200 bg-white text-sm">
                       <CancelButton
                         id={`delete-habit-${habit.id}`}
                         name={"d"}
@@ -130,7 +160,7 @@ const HabitDashboard = {
                 ))}
               </tbody>
             </table>
-            <div class="px-5 bg-white py-2 flex flex-col xs:flex-row items-center xs:justify-between">
+            <div class="px-2 bg-white py-2 flex flex-col xs:flex-row items-center xs:justify-between">
               <div class="flex items-center">
                 <button
                   type="button"
