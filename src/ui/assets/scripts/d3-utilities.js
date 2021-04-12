@@ -123,7 +123,7 @@ const renderTree = function (
 
   const calibrateViewPort = function () {
     viewportX = 0;
-    viewportY = 0;
+    viewportY = 100;
     viewportW = canvasWidth * 3;
     viewportH = canvasHeight * 2;
     zoomed.translateX = -3 * (viewportW / 2);
@@ -163,6 +163,17 @@ const renderTree = function (
 
   const handleEvents = function (selection) {
     selection
+      .on("contextmenu", function (event, node) {
+        event.preventDefault();
+        const c = select(this).selectAll(".the-node circle");
+        if (node.data.content !== undefined) handleStatusToggle(c, node);
+        renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
+          event,
+          node,
+          content: node.data.content,
+        });
+      });
+    selection
       .on("click", function (event, node) {
         const targ = event.target;
         if (targ.tagName == "circle") {
@@ -186,12 +197,10 @@ const renderTree = function (
       })
       .on("mouseover", function () {
         const g = select(this);
-        // g.select(".label").transition().duration(750).style("opacity", "1");
         g.select(".tooltip").transition().duration(250).style("opacity", "1");
       })
       .on("mouseout", function () {
         const g = select(this);
-        // g.select(".label").transition().duration(750).style("opacity", "0");
         g.select(".tooltip").transition().duration(250).style("opacity", "0");
       });
 
@@ -303,6 +312,9 @@ const renderTree = function (
     .enter()
     .append("path")
     .classed("link", true)
+    .attr("stroke-opacity", (d) =>
+    activeNode && activeNode.descendants().includes(d.source) ? 0.5 : 0.1
+    )
     .attr(
       "d",
       linkVertical()
@@ -341,8 +353,8 @@ const renderTree = function (
     .classed("tooltip", true)
     .attr(
       "transform",
-      `translate(${nodeRadius * 1.2}, ${-(
-        6.5 * nodeRadius +
+      `translate(${nodeRadius/2 * scale}, ${-(
+        scale * 2 * nodeRadius +
         (isDemo ? 0 : -100)
       )})`
     )
