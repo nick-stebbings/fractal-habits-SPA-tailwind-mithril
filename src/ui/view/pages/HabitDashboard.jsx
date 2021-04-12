@@ -74,7 +74,7 @@ const HabitDashboard = {
           console.log(e.target.tagName);
           if (e.target.tagName == "BUTTON") {
             // Delete button action
-            debugger;
+            // debugger;
             openModal(true)
             HabitNodeStore.runDelete(HabitNodeStore.current().id)
           }

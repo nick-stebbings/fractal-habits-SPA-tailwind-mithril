@@ -101,6 +101,7 @@ const renderTree = function (
   let currentYTranslate = margin.top;
 
   svg.selectAll("*").remove();
+
   const canvas = svg
     .append("g")
     .classed("canvas", true)
@@ -113,9 +114,12 @@ const renderTree = function (
   const levelsHigh = 3;
   const nodeRadius = 15 * scale;
   const dx = (window.innerWidth / levelsWide) * scale;
-  const dy = (window.innerHeight / levelsHigh) * scale ** 2;
+  const dy =
+    (window.innerHeight / levelsHigh) * (isDemo ? scale / 3 : scale ** 2);
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
+
+  let activeNode;
 
   const calibrateViewPort = function () {
     viewportX = 0;
@@ -138,15 +142,17 @@ const renderTree = function (
 
   const collapseAroundAndUnder = function (node) {
     let minExpandedDepth = node.depth + 3;
+    // For collapsing the nodes 'two levels lower' than selected
     let descendantsToCollapse = node
       .descendants()
       .filter((n) => n.depth == minExpandedDepth);
-    let siblings = TreeStore.root()
+
+    // For collapsing cousin nodes (saving width)
+    let cousins = TreeStore.root()
       .descendants()
       .filter((n) => n.depth == node.depth && n !== node);
     descendantsToCollapse.forEach(collapse);
-    siblings.forEach(collapse);
-    debugger;
+    cousins.forEach(collapse);
   };
 
   const highlightSubtree = function (node) {
@@ -168,10 +174,14 @@ const renderTree = function (
             reset();
             return;
           }
-          collapseAroundAndUnder(node) &&
-          renderTree(svg, canvasWidth, canvasHeight, zoomer, { event, node });
-          highlightSubtree(node);
+          collapseAroundAndUnder(node);
+          renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
+            event,
+            node,
+            content: node.data.content,
+          });
           debugger;
+          highlightSubtree(node);
           if (zoomClicked === undefined) clickedZoom(event, this);
         }
       })
@@ -244,24 +254,38 @@ const renderTree = function (
     .on("wheel", (event) => event.preventDefault());
 
   const rootData = TreeStore.root();
-  rootData.each(node => console.log(node.data.content));
-  const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   rootData.sum((d) => {
-    rootData.descendants().find((node) => node.data == d);
+    // Return a binary interpretation of whether the habit was completed that day
+    const thisNode = rootData.descendants().find((node) => node.data == d);
+    return +JSON.parse(parseTreeValues(thisNode.data.content).status);
   });
 
   while (rootData.descendants().some((node) => node.value > 1)) {
-    // Convert node values to binary
+    // Convert node values to binary based on whether their descendant nodes are all completed
     rootData.each((node) => {
-      if (node.value > 1) {
+      if (node.value > 0) {
         node.value = cumulativeValue(node);
         console.log(node, "val", node.value);
       }
     });
   }
 
+  const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   treeLayout(rootData);
 
+  // Re-fire the click event for habit-status changes
+  if (typeof zoomClicked !== "undefined") {
+    clickedZoom(zoomClicked.event, zoomClicked.node);
+    
+    rootData.each((n) => {
+        if(
+          n.data.content.split("-").slice(0, 1)[0] ==
+            zoomClicked.content.split("-").slice(0, 1)[0]
+        ){
+          activeNode = n.data;
+        }
+    });
+  }
   const gLink = canvas
     .append("g")
     .classed("links", true)
@@ -289,6 +313,11 @@ const renderTree = function (
     .enter()
     .append("g")
     .classed("the-node solid", true)
+    .attr("class", (d) =>
+      activeNode &&  (d.data.content === activeNode.content)
+        ? "the-node solid active"
+        : "the-node solid"
+    )
     .style("fill", nodeStatusColours)
     .attr("transform", (d) => `translate(${d.x},${d.y})`)
     .call(handleEvents);
@@ -296,7 +325,13 @@ const renderTree = function (
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
-    .attr("transform", `translate(${nodeRadius * 1.2}, ${-(6.5*nodeRadius + (isDemo ? 0 : -100))})`)
+    .attr(
+      "transform",
+      `translate(${nodeRadius * 1.2}, ${-(
+        6.5 * nodeRadius +
+        (isDemo ? 0 : -100)
+      )})`
+    )
     .attr("opacity", "0");
 
   gTooltip
@@ -310,59 +345,56 @@ const renderTree = function (
     .append("rect")
     .attr("width", 200)
     .attr("height", 100)
-    .attr("rx", nodeRadius/2);
+    .attr("rx", nodeRadius / 2);
 
-    // Split the name label into two parts:
-    gTooltip
-      .append("text")
-      .attr("x", 10)
-      .attr("y", 25)
-      .text((d) => {
-        const words = d.data.name.split(" ").slice(0, 6);
-        return `${words[0] || ""} ${words[1] || ""} ${words[2] || ""} ${
-          words[3] || ""
-        }`;
-      });
-    gTooltip
-      .append("text")
-      .attr("x", 15)
-      .attr("y", 55)
-      .text((d) => {
-        const allWords = d.data.name.split(" ");
-        const words = allWords.slice(0, 6);
-        return `${words[4] || ""} ${words[5] || ""} ${words[6] || ''} ${allWords.length > 7 ? '...' : ''}`;
-      });
+  // Split the name label into two parts:
+  gTooltip
+    .append("text")
+    .attr("x", 10)
+    .attr("y", 25)
+    .text((d) => {
+      const words = d.data.name.split(" ").slice(0, 6);
+      return `${words[0] || ""} ${words[1] || ""} ${words[2] || ""} ${
+        words[3] || ""
+      }`;
+    });
+  gTooltip
+    .append("text")
+    .attr("x", 15)
+    .attr("y", 55)
+    .text((d) => {
+      const allWords = d.data.name.split(" ");
+      const words = allWords.slice(0, 6);
+      return `${words[4] || ""} ${words[5] || ""} ${words[6] || ""} ${
+        allWords.length > 7 ? "..." : ""
+      }`;
+    });
 
-    const gButton = gTooltip
-      .append("g")
-      .classed("habit-label-dash-button", true)
+  const gButton = gTooltip
+    .append("g")
+    .classed("habit-label-dash-button", true)
 
-      .attr(
-        "transform",
-        `translate(${108}, ${65})`
+    .attr("transform", `translate(${108}, ${65})`);
+
+  gButton
+    .append("rect")
+    .attr("rx", nodeRadius / 2)
+    .attr("width", 80)
+    .attr("height", 30)
+    .on("click", (e) => {
+      e.stopPropagation();
+    });
+  gButton
+    .append("text")
+    .attr("x", 10)
+    .attr("y", 20)
+    .text((d) => "DETAILS")
+    .on("click", (e, n) => {
+      HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
+      m.route.set(
+        m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
       );
-      
-      gButton
-      .append("rect")
-      .attr("rx", nodeRadius/2)
-      .attr("width", 80)
-      .attr("height", 30)
-      .on("click", e => {
-          e.stopPropagation();
-      });
-      gButton.append("text")
-      .attr("x", 10)
-      .attr("y", 20)
-      .text((d) => "DETAILS")
-      .on("click", (e,n) => {
-          HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
-          m.route.set(
-            m.route.param("demo")
-              ? "/habits/list?demo=true"
-              : "/habits/list"
-          );
-      });
-      
+    });
 
   enteringNodes
     .append("text")
@@ -384,7 +416,9 @@ const renderTree = function (
     .attr("dx", 45)
     .attr("dy", -25)
     .style("fill", "pink")
-    .text((d) => { return (d.value)});
+    .text((d) => {
+      return d.value;
+    });
 
   enteringNodes
     .append("text")
@@ -395,10 +429,6 @@ const renderTree = function (
     .text(cumulativeValue);
 
   enteringNodes.append("circle").attr("r", nodeRadius);
-
-  // Re-fire the click event for habit-status changes
-  typeof zoomClicked !== "undefined" &&
-    clickedZoom(zoomClicked.event, zoomClicked.node);
 };
 
 function expandTree() {
