@@ -81,14 +81,14 @@ module Hht
       end
     
     ## Tree::TreeNode Mappings
-      def map_immediathabite_children_to_tree_nodes(parent_id)
+      def map_children_to_tree_nodes(parent_id)
         nest_parent_with_immediate_child_nodes(parent_id)
           .to_a
           .reject { |node| node.parent.nil? }
           .map(&:to_tree_node)
       end
 
-      def map_node_and_immediate_children_to_tree_nodes(parent_id)
+      def map_node_and_children_to_tree_nodes(parent_id)
         nest_parent_with_immediate_child_nodes(parent_id)
           .to_a
           .select { |node| !node.parent.nil? || node.id == parent_id }

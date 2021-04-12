@@ -77,7 +77,7 @@ class Subtree
       nodes_array = nodes.to_a
       root_node = nodes_array.shift
 
-      subtree = Subtree.new(root_node.to_tree_node, nodes_array)
+      subtree = Subtree.new(root_node.to_tree_node_with_habit_status(date_id), nodes_array)
       subtree.build_from_tuples(date_id, @@node_repo)
       subtree
     end

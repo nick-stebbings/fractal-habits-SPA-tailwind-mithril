@@ -32,3 +32,44 @@ export default {
     </div>
   ),
 };
+
+ function getContact(id,) {
+  return new Promise((resolve, reject) =>  {
+    const request = new XMLHttpRequest();
+    request.open('GET', `http://localhost:3000/api/contacts/${id}`);
+    request.responseType = 'json';
+    request.onload = () => {
+      if (this.status == 200) {
+        resolve(request.response)
+      } else {
+        reject('Error!')
+      }
+    };
+
+    request.send();
+  });
+}
+
+function makeRequest(method, url) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url);
+    xhr.onload = function () {
+      if (this.status >= 200 && this.status < 300) {
+        resolve(xhr.response);
+      } else {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText,
+        });
+      }
+    };
+    xhr.onerror = function () {
+      reject({
+        status: this.status,
+        statusText: xhr.statusText,
+      });
+    };
+    xhr.send();
+  });
+}

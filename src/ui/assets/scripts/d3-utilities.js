@@ -15,8 +15,8 @@ const margin = {
 
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
-const noNodeCol = "#211912";
-const neutralCol = "#888";
+const noNodeCol = "#888";
+const neutralCol = "#d7dbc5";
 
 const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
   const page = {};
@@ -177,12 +177,12 @@ const renderTree = function (
       })
       .on("mouseover", function () {
         const g = select(this);
-        g.select(".label").transition().duration(750).style("opacity", "1");
+        // g.select(".label").transition().duration(750).style("opacity", "1");
         g.select(".tooltip").transition().duration(250).style("opacity", "1");
       })
       .on("mouseout", function () {
         const g = select(this);
-        g.select(".label").transition().duration(750).style("opacity", "0");
+        // g.select(".label").transition().duration(750).style("opacity", "0");
         g.select(".tooltip").transition().duration(250).style("opacity", "0");
       });
 
@@ -364,35 +364,35 @@ const renderTree = function (
       });
       
 
-  // enteringNodes
-  //   .append("text")
-  //   .attr("class", "label left")
-  //   .attr("dx", -45)
-  //   .attr("dy", 5)
-  //   .text((d) => parseTreeValues(d.data.content).left);
+  enteringNodes
+    .append("text")
+    .attr("class", "label left")
+    .attr("dx", -45)
+    .attr("dy", 5)
+    .text((d) => parseTreeValues(d.data.content).left);
 
-  // enteringNodes
-  //   .append("text")
-  //   .attr("class", "label right")
-  //   .attr("dx", 35)
-  //   .attr("dy", 5)
-  //   .text((d) => parseTreeValues(d.data.content).right);
+  enteringNodes
+    .append("text")
+    .attr("class", "label right")
+    .attr("dx", 35)
+    .attr("dy", 5)
+    .text((d) => parseTreeValues(d.data.content).right);
 
-  // enteringNodes //VALUE label
-  //   .append("text")
-  //   .attr("class", "label")
-  //   .attr("dx", 45)
-  //   .attr("dy", -25)
-  //   .style("fill", "pink")
-  //   .text((d) => { return (d.value)});
+  enteringNodes //VALUE label
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 45)
+    .attr("dy", -25)
+    .style("fill", "pink")
+    .text((d) => { return (d.value)});
 
-  // enteringNodes
-  //   .append("text")
-  //   .attr("class", "label")
-  //   .attr("dx", 5)
-  //   .attr("dy", 25)
-  //   .style("fill", "green")
-  //   .text(cumulativeValue);
+  enteringNodes
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 5)
+    .attr("dy", 25)
+    .style("fill", "green")
+    .text(cumulativeValue);
 
   enteringNodes.append("circle").attr("r", nodeRadius);
 
