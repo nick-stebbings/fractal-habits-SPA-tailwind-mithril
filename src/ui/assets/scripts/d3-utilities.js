@@ -15,8 +15,8 @@ const margin = {
 
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
-const noNodeCol = "#888";
-const neutralCol = "#d7dbc5";
+const noNodeCol = "#634a36";
+const neutralCol = "#888";
 
 const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
   const page = {};
@@ -107,13 +107,13 @@ const renderTree = function (
     .classed("canvas", true)
     .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
 
-  let scale = isDemo ? 1.2 : 2.4;
+  let scale = isDemo ? 2 : 2.4;
   let clickScale = 3;
   const zoomBase = canvas;
-  const levelsWide = 9;
-  const levelsHigh = 3;
+  const levelsWide = 6;
+  const levelsHigh = 3; 
   const nodeRadius = 15 * scale;
-  const dx = (window.innerWidth / levelsWide) * scale;
+  const dx = (window.innerWidth / levelsWide) * scale/3;
   const dy =
     (window.innerHeight / levelsHigh) * (isDemo ? scale / 3 : scale ** 2);
   let viewportX, viewportY, viewportW, viewportH, defaultView;
@@ -134,9 +134,10 @@ const renderTree = function (
   };
 
   const reset = function () {
-    scale = isDemo ? 1.2 : 2.4;
+    scale = isDemo ? 2 : 2.4;
     svg.attr("viewBox", defaultView);
     expandTree();
+    activeNode = null;
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
@@ -168,20 +169,18 @@ const renderTree = function (
           const c = select(this).selectAll(".the-node circle");
           if (node.data.content !== undefined) handleStatusToggle(c, node);
 
-          if (targ.classList.contains("active")) {
-            debugger;
-            targ.classList.remove("active");
+          if (targ.closest(".the-node").classList.contains("active")) {
+            targ.closest(".the-node").classList.remove("active");
             reset();
             return;
           }
+          expand(node);
           collapseAroundAndUnder(node);
           renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
             event,
             node,
             content: node.data.content,
           });
-          debugger;
-          highlightSubtree(node);
           if (zoomClicked === undefined) clickedZoom(event, this);
         }
       })
@@ -212,7 +211,10 @@ const renderTree = function (
       );
       const nodeId = NodeStore.current().id;
       HabitStore.runCurrentFilterByNode(nodeId);
-      makePatchOrPutRequest(isDemo, currentStatus);
+      if(!node.data.name.includes("Sub-Habit")) {
+        // If this was not a 'ternarising' sub habit that we created for more even distribution
+        makePatchOrPutRequest(isDemo, currentStatus)
+      };
     }
   };
 
@@ -254,6 +256,7 @@ const renderTree = function (
     .on("wheel", (event) => event.preventDefault());
 
   const rootData = TreeStore.root();
+  console.log(rootData);
   rootData.sum((d) => {
     // Return a binary interpretation of whether the habit was completed that day
     const thisNode = rootData.descendants().find((node) => node.data == d);
@@ -265,7 +268,6 @@ const renderTree = function (
     rootData.each((node) => {
       if (node.value > 0) {
         node.value = cumulativeValue(node);
-        console.log(node, "val", node.value);
       }
     });
   }
@@ -273,7 +275,7 @@ const renderTree = function (
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   treeLayout(rootData);
 
-  // Re-fire the click event for habit-status changes
+  // Re-fire the click event for habit-status changes and find the active node
   if (typeof zoomClicked !== "undefined") {
     clickedZoom(zoomClicked.event, zoomClicked.node);
     
@@ -282,7 +284,7 @@ const renderTree = function (
           n.data.content.split("-").slice(0, 1)[0] ==
             zoomClicked.content.split("-").slice(0, 1)[0]
         ){
-          activeNode = n.data;
+          activeNode = n;
         }
     });
   }
@@ -309,19 +311,31 @@ const renderTree = function (
     );
 
   const nodes = gNode.selectAll("g.node").data(rootData.descendants());
+
   const enteringNodes = nodes
     .enter()
     .append("g")
     .classed("the-node solid", true)
     .attr("class", (d) =>
-      activeNode &&  (d.data.content === activeNode.content)
+      activeNode && d.data.content === activeNode.data.content
         ? "the-node solid active"
         : "the-node solid"
     )
     .style("fill", nodeStatusColours)
+    .style("opacity", (d) =>
+      !activeNode || activeNode && d.ancestors().includes(activeNode)
+        ? "1"
+        : "0.25"
+    )
+    .style("stroke-width", (d) =>
+      activeNode !== undefined && d.ancestors().includes(activeNode)
+        ? "2px"
+        : "0"
+    )
     .attr("transform", (d) => `translate(${d.x},${d.y})`)
     .call(handleEvents);
-
+    
+  enteringNodes.append("circle").attr("r", nodeRadius);
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
@@ -333,7 +347,30 @@ const renderTree = function (
       )})`
     )
     .attr("opacity", "0");
+  enteringNodes
+    .append("text")
+    .attr("class", "label right")
+    .attr("dx", 35)
+    .attr("dy", 5)
+    .text((d) => parseTreeValues(d.data.content).right);
 
+  enteringNodes //VALUE label
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 45)
+    .attr("dy", -25)
+    .style("fill", "pink")
+    .text((d) => {
+      return d.value;
+    });
+
+  enteringNodes
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 5)
+    .attr("dy", 25)
+    .style("fill", "green")
+    .text(cumulativeValue);
   gTooltip
     .append("rect")
     .attr("width", 25)
@@ -358,6 +395,11 @@ const renderTree = function (
         words[3] || ""
       }`;
     });
+  gTooltip
+    .append("text")
+    .attr("x", 15)
+    .attr("x", 75)
+    .text((d) => d.data.content)
   gTooltip
     .append("text")
     .attr("x", 15)
@@ -395,40 +437,6 @@ const renderTree = function (
         m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
       );
     });
-
-  enteringNodes
-    .append("text")
-    .attr("class", "label left")
-    .attr("dx", -45)
-    .attr("dy", 5)
-    .text((d) => parseTreeValues(d.data.content).left);
-
-  enteringNodes
-    .append("text")
-    .attr("class", "label right")
-    .attr("dx", 35)
-    .attr("dy", 5)
-    .text((d) => parseTreeValues(d.data.content).right);
-
-  enteringNodes //VALUE label
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 45)
-    .attr("dy", -25)
-    .style("fill", "pink")
-    .text((d) => {
-      return d.value;
-    });
-
-  enteringNodes
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 5)
-    .attr("dy", 25)
-    .style("fill", "green")
-    .text(cumulativeValue);
-
-  enteringNodes.append("circle").attr("r", nodeRadius);
 };
 
 function expandTree() {

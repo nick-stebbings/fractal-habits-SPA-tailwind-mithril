@@ -3,19 +3,11 @@ g.nodes {
   pointer-events: all;
 }
 
-circle.active {
-  fill: pink;
-}
 svg path.link {
-  stroke-opacity: 0.5;
+  stroke-opacity: 0.05;
   stroke: gray;
   fill: none;
   stroke-width: 2.5;
-}
-
-.label {
-  opacity: 1;
-  fill: red;
 }
 
 g.tooltip rect {
