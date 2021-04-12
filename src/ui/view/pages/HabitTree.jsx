@@ -1,5 +1,6 @@
 import stream from "mithril/stream";
 import { select, zoom } from "d3";
+import { legendColor } from "d3-svg-legend";
 import {
   debounce,
   zooms,

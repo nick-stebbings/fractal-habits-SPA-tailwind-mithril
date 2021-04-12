@@ -1,9 +1,10 @@
-import { select, tree, easeCircleOut, zoomIdentity, linkVertical } from "d3";
+import { select, tree, easeCircleOut, zoomIdentity, linkVertical, scaleOrdinal } from "d3";
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
 import DateStore from "../../store/date-store";
 import HabitStore from "../../store/habit-store";
 import HabitDateStore from "../../store/habit-date-store";
+import { legendColor } from "d3-svg-legend";
 
 let canvasHeight, canvasWidth;
 const margin = {
@@ -99,14 +100,14 @@ const renderTree = function (
 ) {
   let currentXTranslate = margin.left;
   let currentYTranslate = margin.top;
-
+  
   svg.selectAll("*").remove();
-
   const canvas = svg
     .append("g")
     .classed("canvas", true)
     .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
 
+  // SETTINGS
   let scale = isDemo ? 2 : 2.4;
   let clickScale = 3;
   const zoomBase = canvas;
@@ -116,10 +117,14 @@ const renderTree = function (
   const dx = (window.innerWidth / levelsWide) * scale/3;
   const dy =
     (window.innerHeight / levelsHigh) * (isDemo ? scale / 3 : scale ** 2);
+
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
-
   let activeNode;
+  let ordinal = scaleOrdinal()
+    .domain(["Completed", "Not Yet Tracked", "Incomplete", "No Record for Day"])
+    .range(
+      [positiveCol, neutralCol, negativeCol, noNodeCol]);
 
   const calibrateViewPort = function () {
     viewportX = 0;
@@ -138,6 +143,7 @@ const renderTree = function (
     svg.attr("viewBox", defaultView);
     expandTree();
     activeNode = null;
+    document.querySelector(".the-node.active").classList.remove("active");
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
@@ -305,6 +311,35 @@ const renderTree = function (
     .append("g")
     .classed("nodes", true)
     .attr("transform", `translate(${viewportW / 2},${scale})`);
+
+    svg
+      .append("g")
+      .attr("class", "legend")
+      .attr("transform", "translate(50,-200)");
+
+    // Borrowing the habit label for the legend
+    let habitLabelValue;
+    let habitLabel = document.getElementById("current-habit");
+    let habitSpan = habitLabel.nextElementSibling;
+
+    const colorLegend = legendColor()
+      .labels(['', '', '', '', '']).orient("horizontal")
+      .shape("circle")
+      .shapeRadius(50)
+      .shapePadding(-5)
+      .on("cellover", function (d) {
+        habitLabel.textContent = "Key:";
+        habitLabelValue = habitSpan.textContent;
+        habitSpan.textContent = d.target.__data__;
+      })
+      .on("cellout", function (d) {
+        habitLabel.textContent = "Selected:";
+        habitSpan.textContent = d.target.__data__;
+        habitSpan.textContent = habitLabelValue;
+      })
+      .scale(ordinal);
+
+    svg.select(".legend").call(colorLegend);
 
   const links = gLink.selectAll("line.link").data(rootData.links());
 
