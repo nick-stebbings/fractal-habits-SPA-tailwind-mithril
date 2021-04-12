@@ -3,6 +3,10 @@ g.nodes {
   pointer-events: all;
 }
 
+.the-node.active circle {
+  stroke: #5568d2;
+}
+
 svg path.link {
   stroke: gray;
   fill: none;

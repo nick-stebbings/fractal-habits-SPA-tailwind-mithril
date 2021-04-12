@@ -72,6 +72,12 @@ const HabitTree = function () {
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document));
 
       document
+        .getElementById("reset-tree")
+        .addEventListener("click", (e) => {
+          expandTree(TreeStore.root());
+          renderTree(svg, demoData, canvasWidth, canvasHeight, zoomer)
+        });
+      document
         .getElementById("collapse-tree")
         .addEventListener("click", (e) => {
           e.target.textContent.includes("Collapse")
@@ -86,8 +92,8 @@ const HabitTree = function () {
     onupdate: updateStoresAndRenderTree,
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
-        <button type="button" id="activate-demo">
-          Generate Demo Data
+        <button type="button" id="reset-tree">
+          Reset Tree
         </button>
         <button type="button" id="collapse-tree">
           Collapse Tree

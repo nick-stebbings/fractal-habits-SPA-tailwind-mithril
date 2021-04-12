@@ -143,7 +143,7 @@ const renderTree = function (
     svg.attr("viewBox", defaultView);
     expandTree();
     activeNode = null;
-    document.querySelector(".the-node.active").classList.remove("active");
+    document.querySelector(".the-node.active") && document.querySelector(".the-node.active").classList.remove("active");
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
@@ -162,12 +162,16 @@ const renderTree = function (
     cousins.forEach(collapse);
   };
 
-  const highlightSubtree = function (node) {
-    //TODO
-    node.descendants().forEach((n) => {});
-  };
-
   const handleEvents = function (selection) {
+    selection.on("dblclick", function (event, node) {
+      const c = select(this).selectAll(".the-node circle");
+      if (node.data.content !== undefined) handleStatusToggle(c, node);
+      node.content = null; // Stop active class addition
+      renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
+        event,
+        node,
+      });
+    });
     selection
       .on("contextmenu", function (event, node) {
         event.preventDefault();
@@ -220,10 +224,8 @@ const renderTree = function (
         /true|false/,
         oppositeStatus(currentStatus)
       );
-      circle.style(
-        "fill",
-        currentStatus === "false" ? positiveCol : negativeCol
-      );
+      circle.style( "fill", currentStatus === "false" ? positiveCol : negativeCol );
+
       const nodeId = NodeStore.current().id;
       HabitStore.runCurrentFilterByNode(nodeId);
       if(!node.data.name.includes("Sub-Habit")) {
@@ -293,14 +295,14 @@ const renderTree = function (
   // Re-fire the click event for habit-status changes and find the active node
   if (typeof zoomClicked !== "undefined") {
     clickedZoom(zoomClicked.event, zoomClicked.node);
-    
+
     rootData.each((n) => {
-        if(
-          n.data.content.split("-").slice(0, 1)[0] ==
-            zoomClicked.content.split("-").slice(0, 1)[0]
-        ){
-          activeNode = n;
-        }
+      if (zoomClicked.content && 
+        n.data.content.split("-").slice(0, 1)[0] ==
+        zoomClicked.content.split("-").slice(0, 1)[0]
+      ) {
+        activeNode = n;
+      }
     });
   }
   const gLink = canvas
@@ -323,6 +325,7 @@ const renderTree = function (
     let habitSpan = habitLabel.nextElementSibling;
 
     const colorLegend = legendColor()
+      .labels(['', '', '', '', '']).orient("horizontal")
       .labels(['', '', '', '', '']).orient("horizontal")
       .shape("circle")
       .shapeRadius(50)
@@ -348,7 +351,7 @@ const renderTree = function (
     .append("path")
     .classed("link", true)
     .attr("stroke-opacity", (d) =>
-    activeNode && activeNode.descendants().includes(d.source) ? 0.5 : 0.1
+    activeNode && activeNode.descendants().includes(d.source) ? 0.5 : 0.2
     )
     .attr(
       "d",

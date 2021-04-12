@@ -67,7 +67,7 @@ body[class^="scroll"] .mask-wrapper {
 
   div.mask-wrapper:hover {
     #current-habit-label {
-      @apply fixed top-10;
+      @apply fixed top-10 max-w-7xl overflow-auto;
     }
 
     .hoverable:hover div.mask-wrapper {
