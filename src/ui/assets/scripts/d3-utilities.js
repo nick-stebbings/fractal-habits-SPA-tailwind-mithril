@@ -16,7 +16,7 @@ const margin = {
 
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
-const noNodeCol = "#634a36";
+const noNodeCol = "#fff";
 const neutralCol = "#888";
 
 const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
@@ -72,10 +72,11 @@ const sumChildrenValues = (node) =>
   node.children.reduce((sum, n) => sum + n.value, 0);
 
 const cumulativeValue = (node) => {
+  const content = parseTreeValues(node.data.content).status;
   try {
     return node && node.children
       ? +(sumChildrenValues(node) === node.children.length)
-      : +JSON.parse(parseTreeValues(node.data.content).status || 0);
+      : (content === undefined || content === "incomplete" || content === false) ? 0 : 1;
   } catch (err) {
     console.log("Could not accumulate.");
   }
@@ -221,10 +222,17 @@ const renderTree = function (
 
       const currentStatus = parseTreeValues(node.data.content).status;
       node.data.content = node.data.content.replace(
-        /true|false/,
+        /true|false|incomplete/,
         oppositeStatus(currentStatus)
       );
-      circle.style( "fill", currentStatus === "false" ? positiveCol : negativeCol );
+
+      console.log(currentStatus);
+      circle.style(
+        "fill",
+        currentStatus === "false" || currentStatus === "incomplete"
+          ? positiveCol
+          : negativeCol
+      );
 
       const nodeId = NodeStore.current().id;
       HabitStore.runCurrentFilterByNode(nodeId);
@@ -277,7 +285,10 @@ const renderTree = function (
   rootData.sum((d) => {
     // Return a binary interpretation of whether the habit was completed that day
     const thisNode = rootData.descendants().find((node) => node.data == d);
-    return +JSON.parse(parseTreeValues(thisNode.data.content).status);
+    let status = parseTreeValues(thisNode.data.content).status;
+    if (status === "incomplete") return 0;
+    const statusValue = JSON.parse(status);
+    return +statusValue;
   });
 
   while (rootData.descendants().some((node) => node.value > 1)) {
@@ -527,19 +538,20 @@ const parseTreeValues = (valueString) => {
 };
 
 const oppositeStatus = (current) =>
-  current === "undefined" || current === "false" ? "true" : "false";
+  current === undefined || current === "false" || current == 'incomplete' ? "true" : "false";
 
 const nodeStatusColours = (d) => {
-  if (typeof d === "undefined" || typeof d.data.content === "undefined")
-    return neutralCol;
+  if (typeof d === "undefined" || typeof d.data.content === "undefined") return neutralCol;
   const status = parseTreeValues(d.data.content).status;
+  console.log(cumulativeValue(d), status);
   switch (cumulativeValue(d)) {
     case 1:
       return positiveCol;
-    case 0:
-      if (status === "") return noNodeCol;
-      return status === "false" ? negativeCol : neutralCol;
-    default:
+      case 0:
+        if (status === "") return noNodeCol;
+        if (status === "false") return negativeCol;
+      default:
+          return neutralCol;
   }
 };
 
