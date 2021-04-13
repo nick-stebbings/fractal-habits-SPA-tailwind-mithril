@@ -145,6 +145,7 @@ const renderTree = function (
     expandTree();
     activeNode = null;
     document.querySelector(".the-node.active") && document.querySelector(".the-node.active").classList.remove("active");
+    renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer);
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
@@ -164,27 +165,30 @@ const renderTree = function (
   };
 
   const handleEvents = function (selection) {
-    selection.on("dblclick", function (event, node) {
+    selection.on("contextmenu", function (event, node) {
+      event.preventDefault();
+      if (event.target.closest(".the-node").classList.contains("active")) {
+        return;
+      }
       const c = select(this).selectAll(".the-node circle");
       if (node.data.content !== undefined) handleStatusToggle(c, node);
-      node.content = null; // Stop active class addition
       renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
         event,
         node,
       });
     });
-    selection
-      .on("contextmenu", function (event, node) {
-        event.preventDefault();
-        const c = select(this).selectAll(".the-node circle");
-        if (node.data.content !== undefined) handleStatusToggle(c, node);
-        renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
-          event,
-          node,
-          content: node.data.content,
-        });
+    selection.on("mousewheel.zoom", function (event, node) {
+      if (event.deltaY >= 0) return reset();
+
+      const c = select(this).selectAll(".the-node circle");
+      if (node.data.content !== undefined) handleStatusToggle(c, node);
+
+      renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
+        event,
+        node,
+        content: node.data.content,
       });
-    selection
+    })
       .on("click", function (event, node) {
         const targ = event.target;
         if (targ.tagName == "circle") {
@@ -192,7 +196,6 @@ const renderTree = function (
           if (node.data.content !== undefined) handleStatusToggle(c, node);
 
           if (targ.closest(".the-node").classList.contains("active")) {
-            targ.closest(".the-node").classList.remove("active");
             reset();
             return;
           }
@@ -543,7 +546,6 @@ const oppositeStatus = (current) =>
 const nodeStatusColours = (d) => {
   if (typeof d === "undefined" || typeof d.data.content === "undefined") return neutralCol;
   const status = parseTreeValues(d.data.content).status;
-  console.log(cumulativeValue(d), status);
   switch (cumulativeValue(d)) {
     case 1:
       return positiveCol;

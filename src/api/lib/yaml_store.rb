@@ -33,14 +33,22 @@ class YAMLStore
     @@data
   end
 
-  def replace_or_insert_tree!(dom_id, date_id, habit_date, attrs)
+  def get_string_status_replacement(node_content, new_status)
+    ["#{node_content}-incomplete", "#{node_content}-#{!new_status}", "#{node_content}-#{new_status}"]
+  end
+
+  def replace_tree!(dom_id, date_id, habit_date, attrs)
     node_id_to_change = habits.restrict(id: attrs[:habit_id]).one[:habit_node_id]
     node_to_change = habit_nodes.restrict(id: node_id_to_change).one
     node_content = "L#{node_to_change[:lft]}R#{node_to_change[:rgt]}"
 
-    sub_strings = ["#{node_content}-#{!habit_date[:completed_status]}", "#{node_content}-#{habit_date[:completed_status]}"]
+    sub_strings = get_string_status_replacement(node_content, habit_date[:completed_status])
     tree_to_edit = tree[dom_id][date_id.to_s] || tree[dom_id][:default].dup
-    tree[dom_id][date_id.to_s] = (tree_to_edit).gsub!(*sub_strings)
+    # We have three possible states so need to gsub both possible values for new status, then assign the changed string
+    replace_incomplete = tree_to_edit.gsub(sub_strings[0], sub_strings[2])
+    replace_boolean = tree_to_edit.gsub(sub_strings[1], sub_strings[2])
+    tree[dom_id][date_id.to_s] = (tree_to_edit == replace_incomplete ? replace_boolean : replace_incomplete)
+    binding.pry
   end
 
   def populate_yaml_relations(days_to_track)

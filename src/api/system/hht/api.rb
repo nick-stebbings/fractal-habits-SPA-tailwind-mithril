@@ -94,7 +94,7 @@ module Hht
           habit_dates.delete(found)
         end
 
-        YAML.replace_or_insert_tree!(dom_id, date_id, habit_date, attrs)
+        YAML.replace_tree!(dom_id, date_id, habit_date, attrs)
         204
       end
 
