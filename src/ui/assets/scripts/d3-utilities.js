@@ -16,7 +16,7 @@ const margin = {
 
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
-const noNodeCol = "#fff";
+const noNodeCol = "#f000ff";
 const neutralCol = "#888";
 
 const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
@@ -76,7 +76,7 @@ const cumulativeValue = (node) => {
   try {
     return node && node.children
       ? +(sumChildrenValues(node) === node.children.length)
-      : (content === undefined || content === "incomplete" || content === false) ? 0 : 1;
+      : [undefined, "incomplete", false, ''].includes(content) ? 0 : 1;
   } catch (err) {
     console.log("Could not accumulate.");
   }
@@ -145,7 +145,7 @@ const renderTree = function (
     expandTree();
     activeNode = null;
     document.querySelector(".the-node.active") && document.querySelector(".the-node.active").classList.remove("active");
-    renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer);
+    // renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer);
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
@@ -167,9 +167,10 @@ const renderTree = function (
   const handleEvents = function (selection) {
     selection.on("contextmenu", function (event, node) {
       event.preventDefault();
-      if (event.target.closest(".the-node").classList.contains("active")) {
-        return;
-      }
+      // if (event.target.closest(".the-node").classList.contains("active")) {
+      //   return;
+      // }
+      console.log(node);
       const c = select(this).selectAll(".the-node circle");
       if (node.data.content !== undefined) handleStatusToggle(c, node);
       renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
@@ -178,27 +179,22 @@ const renderTree = function (
       });
     });
     selection.on("mousewheel.zoom", function (event, node) {
-      if (event.deltaY >= 0) return reset();
+        if (event.deltaY >= 0) return reset();
 
-      const c = select(this).selectAll(".the-node circle");
-      if (node.data.content !== undefined) handleStatusToggle(c, node);
-
-      renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
-        event,
-        node,
-        content: node.data.content,
-      });
-    })
+        const c = select(this).selectAll(".the-node circle");
+        renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
+          event,
+          node,
+          content: undefined
+        });
+      })
       .on("click", function (event, node) {
         const targ = event.target;
         if (targ.tagName == "circle") {
           const c = select(this).selectAll(".the-node circle");
           if (node.data.content !== undefined) handleStatusToggle(c, node);
 
-          if (targ.closest(".the-node").classList.contains("active")) {
-            reset();
-            return;
-          }
+          if (targ.closest(".the-node").classList.contains("active")) return reset();
           expand(node);
           collapseAroundAndUnder(node);
           renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
@@ -219,7 +215,7 @@ const renderTree = function (
       });
 
     function handleStatusToggle(circle, node) {
-      if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have generated
+      if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have generated status
       const nodeContent = parseTreeValues(node.data.content);
       NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
 
@@ -229,13 +225,13 @@ const renderTree = function (
         oppositeStatus(currentStatus)
       );
 
-      console.log(currentStatus);
       circle.style(
         "fill",
         currentStatus === "false" || currentStatus === "incomplete"
           ? positiveCol
           : negativeCol
       );
+      debugger;
 
       const nodeId = NodeStore.current().id;
       HabitStore.runCurrentFilterByNode(nodeId);
@@ -284,13 +280,14 @@ const renderTree = function (
     .on("wheel", (event) => event.preventDefault());
 
   const rootData = TreeStore.root();
-  console.log(rootData);
+
   rootData.sum((d) => {
     // Return a binary interpretation of whether the habit was completed that day
     const thisNode = rootData.descendants().find((node) => node.data == d);
-    let status = parseTreeValues(thisNode.data.content).status;
-    if (status === "incomplete") return 0;
-    const statusValue = JSON.parse(status);
+    let content = parseTreeValues(thisNode.data.content);
+    if (content.status === "incomplete" || content.status === "")
+      return 0;
+    const statusValue = JSON.parse(content.status);
     return +statusValue;
   });
 
@@ -319,6 +316,7 @@ const renderTree = function (
       }
     });
   }
+  debugger;
   const gLink = canvas
     .append("g")
     .classed("links", true)

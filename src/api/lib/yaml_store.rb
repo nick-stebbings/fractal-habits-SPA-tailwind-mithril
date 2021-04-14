@@ -48,7 +48,6 @@ class YAMLStore
     replace_incomplete = tree_to_edit.gsub(sub_strings[0], sub_strings[2])
     replace_boolean = tree_to_edit.gsub(sub_strings[1], sub_strings[2])
     tree[dom_id][date_id.to_s] = (tree_to_edit == replace_incomplete ? replace_boolean : replace_incomplete)
-    binding.pry
   end
 
   def populate_yaml_relations(days_to_track)
