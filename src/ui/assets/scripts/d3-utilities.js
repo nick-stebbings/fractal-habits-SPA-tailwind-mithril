@@ -165,12 +165,9 @@ const renderTree = function (
   };
 
   const handleEvents = function (selection) {
+  
     selection.on("contextmenu", function (event, node) {
       event.preventDefault();
-      // if (event.target.closest(".the-node").classList.contains("active")) {
-      //   return;
-      // }
-      console.log(node);
       const c = select(this).selectAll(".the-node circle");
       if (node.data.content !== undefined) handleStatusToggle(c, node);
       renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
@@ -185,24 +182,25 @@ const renderTree = function (
         renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
           event,
           node,
-          content: undefined
+          content: node.data.content,
         });
       })
       .on("click", function (event, node) {
         const targ = event.target;
         if (targ.tagName == "circle") {
+          if (targ.closest(".the-node").classList.contains("active")) return reset();
+
           const c = select(this).selectAll(".the-node circle");
           if (node.data.content !== undefined) handleStatusToggle(c, node);
 
-          if (targ.closest(".the-node").classList.contains("active")) return reset();
           expand(node);
           collapseAroundAndUnder(node);
+          // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
           renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
-            event,
-            node,
+            event: undefined,
+            node: undefined,
             content: node.data.content,
           });
-          if (zoomClicked === undefined) clickedZoom(event, this);
         }
       })
       .on("mouseover", function () {
@@ -231,7 +229,6 @@ const renderTree = function (
           ? positiveCol
           : negativeCol
       );
-      debugger;
 
       const nodeId = NodeStore.current().id;
       HabitStore.runCurrentFilterByNode(nodeId);
@@ -252,7 +249,8 @@ const renderTree = function (
     var ty = -by;
     return { translate: [tx, ty], scale: xScale };
   };
-
+  const contentEqual = (node, zoomClicked) => node.content.split("-").slice(0, 1)[0] == zoomClicked.content.split("-").slice(0, 1)[0];
+  
   function clickedZoom(e, that) {
     if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
@@ -304,19 +302,14 @@ const renderTree = function (
   treeLayout(rootData);
 
   // Re-fire the click event for habit-status changes and find the active node
-  if (typeof zoomClicked !== "undefined") {
-    clickedZoom(zoomClicked.event, zoomClicked.node);
+  if (zoomClicked !== undefined) {
+    if(zoomClicked.event !== undefined) clickedZoom(zoomClicked.event, zoomClicked.node);
 
     rootData.each((n) => {
-      if (zoomClicked.content && 
-        n.data.content.split("-").slice(0, 1)[0] ==
-        zoomClicked.content.split("-").slice(0, 1)[0]
-      ) {
-        activeNode = n;
-      }
-    });
-  }
-  debugger;
+        if (zoomClicked.content && contentEqual(n.data, zoomClicked)) activeNode = n;
+      });
+      debugger;
+    }
   const gLink = canvas
     .append("g")
     .classed("links", true)
