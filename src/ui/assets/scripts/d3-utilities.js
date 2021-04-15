@@ -165,15 +165,14 @@ const renderTree = function (
   const handleEvents = function (selection) {
     selection.on("contextmenu", function (event, node) {
       event.preventDefault();
+      setActiveNode(node)
       renderTree(svg, isDemo, zoomer, {
         event,
         node,
         content: node.data,
         highlight: false
       });
-
-      const c = svg.selectAll(".the-node.active circle");
-      if (node.data.content !== undefined) handleStatusToggle(c, node);
+      handleStatusToggle(node);
       renderTree(svg, isDemo, zoomer)
     });
     selection
@@ -194,7 +193,6 @@ const renderTree = function (
           if (targ.closest(".the-node").classList.contains("active"))
             return reset();
 
-      setActiveNode(node.data);
           expand(node);
           collapseAroundAndUnder(node);
           setActiveNode(node.data);
@@ -215,7 +213,7 @@ const renderTree = function (
         g.select(".tooltip").transition().duration(250).style("opacity", "0");
       });
 
-    function handleStatusToggle(circle, node) {
+    function handleStatusToggle(node) {
       if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have auto-generated cumulative status
       const nodeContent = parseTreeValues(node.data.content);
       NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
@@ -225,18 +223,13 @@ const renderTree = function (
         /true|false|incomplete/,
         oppositeStatus(currentStatus)
       );
-      circle.style(
-        "fill",
-        currentStatus === "false" || currentStatus === "incomplete"
-          ? positiveCol
-          : negativeCol
-      );
       const nodeId = NodeStore.current().id;
       HabitStore.runCurrentFilterByNode(nodeId);
       if (!node.data.name.includes("Sub-Habit")) {
         // If this was not a 'ternarising' sub habit that we created for more even distribution
         makePatchOrPutRequest(isDemo, currentStatus);
       }
+      return oppositeStatus(currentStatus)
     }
   };
 
@@ -250,7 +243,7 @@ const renderTree = function (
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
-  const collapseAroundAndUnder = function (node) {
+  const collapseAroundAndUnder = function (node, cousinCollapse = true, auntCollapse = true) {
     let minExpandedDepth = node.depth + 3;
     // For collapsing the nodes 'two levels lower' than selected
     let descendantsToCollapse = node
@@ -258,11 +251,12 @@ const renderTree = function (
       .filter((n) => n.depth == minExpandedDepth);
 
     // For collapsing cousin nodes (saving width)
-    let cousins = TreeStore.root()
-      .descendants()
-      .filter((n) => n.depth == node.depth && n !== node);
-    descendantsToCollapse.forEach(collapse);
-    cousins.forEach(collapse);
+    let nodeCousins = [];
+    if(cousinCollapse) {nodeCousins = cousins(node, rootData); }
+    // For collapsing cousin nodes (saving width)
+    let aunts = [];
+    if(node.depth > 1 && auntCollapse && rootData.children) { aunts = greatAunts(node, rootData);}
+    descendantsToCollapse.concat(nodeCousins).concat(aunts).forEach(collapse);
   };
 
   function calibrateViewPort() {
@@ -553,10 +547,14 @@ const oppositeStatus = (current) =>
 const nodeStatusColours = (d) => {
   if (typeof d === "undefined" || typeof d.data.content === "undefined") return neutralCol;
   const status = parseTreeValues(d.data.content).status;
+  if (status == "false") {
+    return negativeCol;
+  }
   switch (cumulativeValue(d)) {
     case 1:
       return positiveCol;
       case 0:
+        console.log(status);
         if (status === "") return noNodeCol;
         if (status === "false") return negativeCol;
       default:
