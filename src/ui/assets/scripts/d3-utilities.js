@@ -1,4 +1,4 @@
-import { select, tree, easeCircleOut, zoomIdentity, linkVertical, scaleOrdinal } from "d3";
+import { select, tree, easeCircleOut, zoomIdentity, linkVertical, scaleOrdinal, schemeBrBG } from "d3";
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
 import DateStore from "../../store/date-store";
@@ -6,6 +6,7 @@ import HabitStore from "../../store/habit-store";
 import DomainStore from "../../store/domain-store";
 import HabitDateStore from "../../store/habit-date-store";
 import { legendColor } from "d3-svg-legend";
+import { openModal } from "./animations";
 
 let canvasHeight, canvasWidth;
 const margin = {
@@ -108,9 +109,10 @@ const renderTree = function (
 
   svg.selectAll("*").remove();
   const canvas = svg
-    .append("g")
-    .classed("canvas", true)
-    .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
+  .append("g")
+  .classed("canvas", true)
+  .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
+
   let rootData = TreeStore.root();
 
   // SETTINGS
@@ -137,6 +139,11 @@ const renderTree = function (
   .call(zoomer)
   .on("wheel", (event) => event.preventDefault());
   
+  // Append separate legend svg
+  const l = document.createElement("svg");
+  l.className = "legendSvg top-8 w-36 fixed right-0 h-12";
+  svg.node().parentNode.appendChild(l);
+  const legendSvg = select("svg");
 
   const ordinal = scaleOrdinal()
     .domain(["Completed", "Not Yet Tracked", "Incomplete", "No Record for Day"])
@@ -214,16 +221,17 @@ const renderTree = function (
       })
       .on("mouseleave", function () {
         const g = select(this);
-        g.select(".tooltip").transition().duration(50).style("opacity", "0");
+        g.select(".tooltip").transition().duration(250).style("opacity", "0");
         g.select(".habit-label-dash-button")
           .transition()
-          .delay(500)
-          .duration(50)
+          .delay(2500)
+          .duration(250)
           .style("opacity", "0");
           setTimeout(() => {
+            
             currentTooltip = false;
             currentButton = false;
-          }, 1400);
+          }, 3500);
       });
 
     function updateCurrentHabit(node, redraw = true) {
@@ -294,7 +302,7 @@ const renderTree = function (
 
   function calibrateViewPort() {
     viewportX = 0;
-    viewportY = 40;
+    viewportY = 60;
     viewportW = canvasWidth * 3;
     viewportH = canvasHeight * 2;
     zoomed.translateX = -3 * (viewportW / 2);
@@ -364,10 +372,11 @@ const renderTree = function (
     .classed("nodes", true)
     .attr("transform", `translate(${viewportW / 2},${scale})`);
 
-  svg
+  legendSvg
     .append("g")
-    .attr("class", "legend")
-    .attr("transform", "translate(50,-200)");
+    .attr("class", "legend").attr('width', 200 )
+    .attr("class", "legend").attr('height', 100);
+
   // Borrowing the habit label for the legend
   let habitLabelValue;
   let habitLabel = document.getElementById("current-habit");
@@ -379,7 +388,7 @@ const renderTree = function (
     .labels(["", "", "", "", ""])
     .orient("horizontal")
     .shape("circle")
-    .shapeRadius(50)
+    .shapeRadius(5)
     .shapePadding(-5)
     .on("cellover", function (d) {
       habitLabel.textContent = "Key:";
@@ -393,7 +402,7 @@ const renderTree = function (
     })
     .scale(ordinal);
 
-  svg.select(".legend").call(colorLegend);
+  select(".legend").call(colorLegend);
 
   const links = gLink.selectAll("line.link").data(rootData.links());
 
@@ -434,21 +443,6 @@ const renderTree = function (
     .call(handleEvents);
     
     const gCircle = enteringNodes.append("g");
-
-    
-    // Append circles and add hover event
-    const gTooltip = enteringNodes
-    .append("g")
-    .classed("tooltip", true)
-    .attr(
-      "transform",
-      `translate(${(nodeRadius / 2) * scale}, ${-(
-        scale * 2 * nodeRadius +
-        (isDemo ? -155 : -200)
-        )})`
-    )
-    .attr("opacity", "0");
-
     gCircle
       .append("circle")
       .attr("r", nodeRadius)
@@ -468,6 +462,20 @@ const renderTree = function (
           currentButton.transition().delay(200).duration(850).style("opacity", "1");
         };
       });
+
+    
+    // Append circles and add hover event
+    const gTooltip = enteringNodes
+    .append("g")
+    .classed("tooltip", true)
+    .attr(
+      "transform",
+      `translate(${(nodeRadius / 2) * scale}, ${-(
+        scale * 2 * nodeRadius +
+        (isDemo ? -155 : -200)
+        )})`
+    )
+    .attr("opacity", "0");
 
     gTooltip
     .append("rect")
@@ -506,10 +514,10 @@ const renderTree = function (
     });
     
     const gButton = gCircle
-    .append("g")
-    .classed("habit-label-dash-button", true)
-    .attr("transform", `translate(${65}, ${10})`)
-    .attr("style", "opacity: 0") ;
+      .append("g")
+      .classed("habit-label-dash-button", true)
+      .attr("transform", `translate(${65}, ${isDemo ? 10 : 0})`)
+      .attr("style", "opacity: 0"); ;
 
     gButton
       .append("rect")
@@ -530,6 +538,10 @@ const renderTree = function (
           m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
           );
         });
+
+    if (m.route.param("demo")) { //TODO
+      
+    }
     gButton
     .append("rect")
     .attr("rx", nodeRadius / 2)
@@ -546,9 +558,7 @@ const renderTree = function (
     .text((d) => "APPEND")
     .on("click", (e, n) => {
       HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
-      m.route.set(
-        m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
-      );
+        m.route.param("demo") ? openModal(true) : "/habits/list"
     });
 };
 
