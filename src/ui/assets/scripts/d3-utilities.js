@@ -9,7 +9,7 @@ import { legendColor } from "d3-svg-legend";
 
 let canvasHeight, canvasWidth;
 const margin = {
-  top: 30,
+  top: 50,
   right: 0,
   bottom: 20,
   left: 0,
@@ -171,7 +171,7 @@ const renderTree = function (
         event,
         node,
         content: node.data,
-        highlight: false
+        highlight: true
       });
       handleStatusToggle(node);
       renderTree(svg, isDemo, zoomer)
@@ -180,9 +180,11 @@ const renderTree = function (
       .on("mousewheel.zoom", function (event, node) {
         if (event.deltaY >= 0) return reset();
 
-      expand(node);
-      collapseAroundAndUnder(node);
-      setActiveNode(node.data);
+        expand(node);
+        collapseAroundAndUnder(node);
+        setActiveNode(node.data);
+        
+        updateCurrentHabit(node, false);
         renderTree(svg, isDemo, zoomer, {
           event,
           node,
@@ -205,17 +207,31 @@ const renderTree = function (
             node: undefined,
             content: node.data,
           });
+          updateCurrentHabit(node);
         }
       })
       .on("mouseout", function () {
         const g = select(this);
         g.select(".tooltip").transition().duration(250).style("opacity", "0");
+        g.select(".habit-label-dash-button")
+          .transition()
+          .delay(1000)
+          .duration(250)
+          .style("opacity", "0");
       });
+
+    function updateCurrentHabit(node, redraw = true) {
+      const nodeContent = parseTreeValues(node.data.content);
+      NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
+      HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+      redraw && m.redraw();
+    };
 
     function handleStatusToggle(node) {
       if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status
       const nodeContent = parseTreeValues(node.data.content);
       NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
+      HabitStore.runCurrentFilterByNode(NodeStore.current().id);
 
       const currentStatus = nodeContent.status;
       node.data.content = node.data.content.replace(
@@ -228,7 +244,6 @@ const renderTree = function (
         // If this was not a 'ternarising' sub habit that we created for more even distribution
         makePatchOrPutRequest(isDemo, currentStatus);
       }
-      return oppositeStatus(currentStatus)
     }
   };
 
@@ -273,7 +288,7 @@ const renderTree = function (
 
   function calibrateViewPort() {
     viewportX = 0;
-    viewportY = 100;
+    viewportY = 40;
     viewportW = canvasWidth * 3;
     viewportH = canvasHeight * 2;
     zoomed.translateX = -3 * (viewportW / 2);
@@ -400,11 +415,12 @@ const renderTree = function (
         ? "the-node solid active"
         : "the-node solid")
     .style("fill", nodeStatusColours)
-    .style("opacity", (d) =>
-    !activeNode || (zoomClicked && !zoomClicked.highlight) || (activeNode && d.ancestors().includes(activeNode))
-    ? "1"
-    : "0.25"
-    )
+    .style("opacity", (d) =>{
+      if (zoomClicked && !zoomClicked.highlight && activeNode && d.ancestors().includes(activeNode)) return 1;
+      return (!!activeNode || !zoomClicked)
+      ? "1"
+      : "0.4"
+    })
     .style("stroke-width", (d) =>
     activeNode !== undefined && d.ancestors().includes(activeNode)
     ? "2px"
@@ -413,30 +429,36 @@ const renderTree = function (
     .attr("transform", (d) => `translate(${d.x},${d.y})`)
     .call(handleEvents);
     
+    const gCircle = enteringNodes.append("g");
+
+    
+    // Append circles and add hover event
     const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
-    .attr("data-id", (d, i) => i)
     .attr(
       "transform",
       `translate(${(nodeRadius / 2) * scale}, ${-(
         scale * 2 * nodeRadius +
-        (isDemo ? 0 : -100)
+        (isDemo ? -155 : -200)
         )})`
     )
     .attr("opacity", "0");
 
-    const gCircle = enteringNodes.append("g");
-
-    // Append circles and add hover event
     gCircle
       .append("circle")
       .attr("r", nodeRadius)
       .on("mouseover", (e, d) => {
-        let chosenTooltip = svg.selectAll("g.tooltip").filter((t, tD) => {
+        let chosenTooltip = svg.selectAll("g.tooltip").filter((t) => {
           return d == t;
         });
+        let chosenBtn = svg
+          .selectAll("g.habit-label-dash-button")
+          .filter((t) => {
+            return d == t;
+          });
         chosenTooltip.transition().duration(250).style("opacity", "1");
+        chosenBtn.transition().duration(250).style("opacity", "1");
       });
 
     gTooltip
@@ -444,19 +466,19 @@ const renderTree = function (
     .attr("width", 25)
     .attr("height", 25)
     .attr("x", -5)
-    .attr("y", 78);
+    .attr("y", -5);
     
     gTooltip
     .append("rect")
     .attr("width", 230)
-    .attr("height", 100)
+    .attr("height", 60)
     .attr("rx", nodeRadius / 2);
     
     // Split the name label into two parts:
     gTooltip
     .append("text")
     .attr("x", 10)
-    .attr("y", 25)
+    .attr("y", 20)
     .text((d) => {
       const words = d.data.name.split(" ").slice(0, 6);
       return `${words[0] || ""} ${words[1] || ""} ${words[2] || ""} ${
@@ -471,7 +493,7 @@ const renderTree = function (
     gTooltip
     .append("text")
     .attr("x", 15)
-    .attr("y", 55)
+    .attr("y", 50)
     .text((d) => {
       const allWords = d.data.name.split(" ");
       const words = allWords.slice(0, 6);
@@ -480,31 +502,51 @@ const renderTree = function (
       }`;
     });
     
-    const gButton = gTooltip
+    const gButton = gCircle
     .append("g")
     .classed("habit-label-dash-button", true)
-    
-    .attr("transform", `translate(${108}, ${65})`);
-    
+    .attr("transform", `translate(${65}, ${10})`)
+    .attr("style", "opacity: 0") ;
+
+    gButton
+      .append("rect")
+      .attr("rx", nodeRadius / 2)
+      .attr("width", 80)
+      .attr("height", 30)
+      .on("click", (e) => {
+        e.stopPropagation();
+      });
+    gButton
+      .append("text")
+      .attr("x", 10)
+      .attr("y", 20)
+      .text((d) => "DETAILS")
+      .on("click", (e, n) => {
+        HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
+        m.route.set(
+          m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
+          );
+        });
     gButton
     .append("rect")
     .attr("rx", nodeRadius / 2)
+    .attr("x", 70)
     .attr("width", 80)
     .attr("height", 30)
     .on("click", (e) => {
       e.stopPropagation();
     });
-    gButton
+  gButton
     .append("text")
-    .attr("x", 10)
+    .attr("x", 80)
     .attr("y", 20)
-    .text((d) => "DETAILS")
+    .text((d) => "APPEND")
     .on("click", (e, n) => {
       HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
       m.route.set(
         m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
-        );
-      });
+      );
+    });
 };
 
 function expandTree() {
@@ -557,7 +599,6 @@ const nodeStatusColours = (d) => {
     case 1:
       return positiveCol;
       case 0:
-        console.log(status);
         if (status === "") return noNodeCol;
         if (status === "false") return negativeCol;
       default:
