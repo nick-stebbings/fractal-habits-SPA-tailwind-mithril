@@ -207,17 +207,13 @@ const renderTree = function (
           });
         }
       })
-      .on("mouseover", function () {
-        const g = select(this);
-        g.select(".tooltip").transition().duration(250).style("opacity", "1");
-      })
       .on("mouseout", function () {
         const g = select(this);
         g.select(".tooltip").transition().duration(250).style("opacity", "0");
       });
 
     function handleStatusToggle(node) {
-      if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have auto-generated cumulative status
+      if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status
       const nodeContent = parseTreeValues(node.data.content);
       NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
 
@@ -355,6 +351,7 @@ const renderTree = function (
   let habitLabelValue;
   let habitLabel = document.getElementById("current-habit");
   let habitSpan = habitLabel.nextElementSibling;
+  
   const colorLegend = legendColor()
     .labels(["", "", "", "", ""])
     .orient("horizontal")
@@ -415,58 +412,48 @@ const renderTree = function (
     )
     .attr("transform", (d) => `translate(${d.x},${d.y})`)
     .call(handleEvents);
-
-  enteringNodes.append("circle").attr("r", nodeRadius);
-  const gTooltip = enteringNodes
+    
+    const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
+    .attr("data-id", (d, i) => i)
     .attr(
       "transform",
       `translate(${(nodeRadius / 2) * scale}, ${-(
         scale * 2 * nodeRadius +
         (isDemo ? 0 : -100)
-      )})`
+        )})`
     )
     .attr("opacity", "0");
-  enteringNodes
-    .append("text")
-    .attr("class", "label right")
-    .attr("dx", 35)
-    .attr("dy", 5)
-    .text((d) => parseTreeValues(d.data.content).right);
 
-  enteringNodes //VALUE label
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 45)
-    .attr("dy", -25)
-    .style("fill", "pink")
-    .text((d) => {
-      return d.value;
-    });
+    const gCircle = enteringNodes.append("g");
 
-  enteringNodes
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 5)
-    .attr("dy", 25)
-    .style("fill", "green")
-    .text(cumulativeValue);
-  gTooltip
+    // Append circles and add hover event
+    gCircle
+      .append("circle")
+      .attr("r", nodeRadius)
+      .on("mouseover", (e, d) => {
+        let chosenTooltip = svg.selectAll("g.tooltip").filter((t, tD) => {
+          return d == t;
+        });
+        chosenTooltip.transition().duration(250).style("opacity", "1");
+      });
+
+    gTooltip
     .append("rect")
     .attr("width", 25)
     .attr("height", 25)
     .attr("x", -5)
     .attr("y", 78);
-
-  gTooltip
+    
+    gTooltip
     .append("rect")
-    .attr("width", 200)
+    .attr("width", 230)
     .attr("height", 100)
     .attr("rx", nodeRadius / 2);
-
-  // Split the name label into two parts:
-  gTooltip
+    
+    // Split the name label into two parts:
+    gTooltip
     .append("text")
     .attr("x", 10)
     .attr("y", 25)
@@ -476,12 +463,12 @@ const renderTree = function (
         words[3] || ""
       }`;
     });
-  gTooltip
+    gTooltip
     .append("text")
     .attr("x", 15)
     .attr("x", 75)
     .text((d) => d.data.content);
-  gTooltip
+    gTooltip
     .append("text")
     .attr("x", 15)
     .attr("y", 55)
@@ -492,14 +479,14 @@ const renderTree = function (
         allWords.length > 7 ? "..." : ""
       }`;
     });
-
-  const gButton = gTooltip
+    
+    const gButton = gTooltip
     .append("g")
     .classed("habit-label-dash-button", true)
-
+    
     .attr("transform", `translate(${108}, ${65})`);
-
-  gButton
+    
+    gButton
     .append("rect")
     .attr("rx", nodeRadius / 2)
     .attr("width", 80)
@@ -507,7 +494,7 @@ const renderTree = function (
     .on("click", (e) => {
       e.stopPropagation();
     });
-  gButton
+    gButton
     .append("text")
     .attr("x", 10)
     .attr("y", 20)
@@ -516,8 +503,8 @@ const renderTree = function (
       HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
       m.route.set(
         m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
-      );
-    });
+        );
+      });
 };
 
 function expandTree() {
