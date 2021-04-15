@@ -127,6 +127,8 @@ const renderTree = function (
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
   let activeNode;
+  let currentTooltip;
+  let currentButton;
   
   calibrateViewPort();
   svg
@@ -141,8 +143,8 @@ const renderTree = function (
     .range([positiveCol, neutralCol, negativeCol, noNodeCol]);
 
   const contentEqual = (node, other) =>
-  node.content.split("-").slice(0, 1)[0] ==
-  other.content.split("-").slice(0, 1)[0];
+    node.content.split("-").slice(0, 1)[0] ==
+    other.content.split("-").slice(0, 1)[0];
   
   const setActiveNode = (clickedNode) => {
     activeNode = findNodeByContent(clickedNode);
@@ -210,14 +212,18 @@ const renderTree = function (
           updateCurrentHabit(node);
         }
       })
-      .on("mouseout", function () {
+      .on("mouseleave", function () {
         const g = select(this);
-        g.select(".tooltip").transition().duration(250).style("opacity", "0");
+        g.select(".tooltip").transition().duration(50).style("opacity", "0");
         g.select(".habit-label-dash-button")
           .transition()
-          .delay(1000)
-          .duration(250)
+          .delay(500)
+          .duration(50)
           .style("opacity", "0");
+          setTimeout(() => {
+            currentTooltip = false;
+            currentButton = false;
+          }, 1400);
       });
 
     function updateCurrentHabit(node, redraw = true) {
@@ -416,10 +422,8 @@ const renderTree = function (
         : "the-node solid")
     .style("fill", nodeStatusColours)
     .style("opacity", (d) =>{
-      if (zoomClicked && !zoomClicked.highlight && activeNode && d.ancestors().includes(activeNode)) return 1;
-      return (!!activeNode || !zoomClicked)
-      ? "1"
-      : "0.4"
+      if( activeNode && d.ancestors().includes(activeNode)) return "1";
+      return !zoomClicked ? "1" : "0.2"
     })
     .style("stroke-width", (d) =>
     activeNode !== undefined && d.ancestors().includes(activeNode)
@@ -448,17 +452,21 @@ const renderTree = function (
     gCircle
       .append("circle")
       .attr("r", nodeRadius)
-      .on("mouseover", (e, d) => {
-        let chosenTooltip = svg.selectAll("g.tooltip").filter((t) => {
-          return d == t;
-        });
-        let chosenBtn = svg
-          .selectAll("g.habit-label-dash-button")
-          .filter((t) => {
+      .on("mouseenter", (e, d) => {
+        if(!currentTooltip) {
+          currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
             return d == t;
           });
-        chosenTooltip.transition().duration(250).style("opacity", "1");
-        chosenBtn.transition().duration(250).style("opacity", "1");
+          currentTooltip.transition().duration(450).style("opacity", "1")
+        };
+        if(!currentButton) {
+          currentButton = svg
+            .selectAll("g.habit-label-dash-button")
+            .filter((t) => {
+              return d == t;
+            });
+          currentButton.transition().delay(200).duration(850).style("opacity", "1");
+        };
       });
 
     gTooltip
@@ -485,11 +493,6 @@ const renderTree = function (
         words[3] || ""
       }`;
     });
-    gTooltip
-    .append("text")
-    .attr("x", 15)
-    .attr("x", 75)
-    .text((d) => d.data.content);
     gTooltip
     .append("text")
     .attr("x", 15)
