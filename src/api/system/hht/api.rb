@@ -79,9 +79,9 @@ module Hht
         YAML.tree[id.to_i - 1][date_id.to_s] || YAML.tree[id.to_i - 1][:default]
       end
 
-      put '/habit_dates/:date_id/' do
-        dom_id = params[:domain_id].to_i
-        date_id = params[:date_id].to_i
+      put '/domains/:domain_id/habit_dates/:date_id/' do |domain_id, date_id|
+        dom_id = domain_id.to_i
+        date_id = date_id.to_i
 
         habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
         habit_date[:completed_status] = habit_date[:completed_status] == 'true'
@@ -93,8 +93,7 @@ module Hht
           habit_dates.insert(habit_date)
           habit_dates.delete(found)
         end
-
-        YAML.replace_tree!(dom_id, date_id, habit_date, attrs)
+        YAML.replace_tree!(dom_id - 1, date_id, habit_date, attrs)
         204
       end
 

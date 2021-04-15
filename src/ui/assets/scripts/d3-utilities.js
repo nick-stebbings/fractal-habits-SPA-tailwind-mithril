@@ -3,6 +3,7 @@ import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
 import DateStore from "../../store/date-store";
 import HabitStore from "../../store/habit-store";
+import DomainStore from "../../store/domain-store";
 import HabitDateStore from "../../store/habit-date-store";
 import { legendColor } from "d3-svg-legend";
 
@@ -88,7 +89,7 @@ const makePatchOrPutRequest = function (isDemo, currentStatus) {
     date_id: DateStore.current().id,
     completed_status: oppositeStatus(currentStatus),
   };
-  return HabitDateStore.runUpdate(isDemo, requestBody);
+  return HabitDateStore.runUpdate(isDemo, requestBody, DomainStore.current().id);
 };
 
 const renderTree = function (
@@ -178,7 +179,9 @@ const renderTree = function (
     selection
       .on("mousewheel.zoom", function (event, node) {
         if (event.deltaY >= 0) return reset();
-        
+
+      expand(node);
+      collapseAroundAndUnder(node);
       setActiveNode(node.data);
         renderTree(svg, isDemo, zoomer, {
           event,
@@ -243,7 +246,16 @@ const renderTree = function (
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
-  const collapseAroundAndUnder = function (node, cousinCollapse = true, auntCollapse = true) {
+  const cousins = (node, root) =>
+    root.descendants().filter((n) => n.depth == node.depth && n !== node);
+  const greatAunts = (node, root) =>
+    root.children.filter((n) => !node.ancestors().includes(n));
+
+  const collapseAroundAndUnder = function (
+    node,
+    cousinCollapse = true,
+    auntCollapse = true
+  ) {
     let minExpandedDepth = node.depth + 3;
     // For collapsing the nodes 'two levels lower' than selected
     let descendantsToCollapse = node
@@ -252,10 +264,14 @@ const renderTree = function (
 
     // For collapsing cousin nodes (saving width)
     let nodeCousins = [];
-    if(cousinCollapse) {nodeCousins = cousins(node, rootData); }
+    if (cousinCollapse) {
+      nodeCousins = cousins(node, rootData);
+    }
     // For collapsing cousin nodes (saving width)
     let aunts = [];
-    if(node.depth > 1 && auntCollapse && rootData.children) { aunts = greatAunts(node, rootData);}
+    if (node.depth > 1 && auntCollapse && rootData.children) {
+      aunts = greatAunts(node, rootData);
+    }
     descendantsToCollapse.concat(nodeCousins).concat(aunts).forEach(collapse);
   };
 

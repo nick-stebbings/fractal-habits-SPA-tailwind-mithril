@@ -37,10 +37,13 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
       HabitDateStore.list().filter((habitDate) => habitDate.date_id === +dateId)
     ),
 
-  runUpdate: (isDemo, values) => {
+  runUpdate: (isDemo, values, domainId) => {
     const payload = JSON.stringify(values);
+    console.log(domainId, 'DOMAINID');
     return (isDemo
-      ? clientRoutes(`/demo/habit_dates/${values.date_id}`).replace("", payload)
+      ? clientRoutes(
+          `/demo/domains/${domainId}/habit_dates/${values.date_id}`
+        ).replace("", payload)
       : HabitDateStore.replace("", payload)
     )
       .then(HabitDateStore.current)
