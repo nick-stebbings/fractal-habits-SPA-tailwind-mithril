@@ -23,25 +23,31 @@ const getStatusColor = (habit) => {
     HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id).length >
       0 &&
     String(HabitDateStore.list()[0].completed_status);
-    console.log(status);
+    console.log(HabitDateStore.list());
   switch (status) {
     case "true":
       return positiveCol;
     case "false":
-      return negativeCol;
+      return neutralCol;
     case "":
     return noNodeCol;
     default:
-      return neutralCol;
+      return positiveCol;
   }
 };
 
 const HabitDashboard = {
-  oninit: () => HabitDateStore.index().then(() => {
-      HabitDateStore.runFilter(HabitStore.current().id);
-      HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
-    }
-  ),
+  oninit: () =>{
+    if (!m.route.param("demo")) {
+        HabitDateStore.index().then(() => {
+        HabitDateStore.runFilter(HabitStore.current().id);
+      });
+    } else {
+        HabitDateStore.runFilter(HabitStore.current().id);
+        HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
+
+      }
+    },
   onupdate: () => m.redraw(),
   oncreate: () => {  
     const demoData = m.route.param("demo");
@@ -71,7 +77,6 @@ const HabitDashboard = {
             e.target.setAttribute("fill", currentStatusCol === positiveCol ? negativeCol : positiveCol);
             makePatchOrPutRequest(demoData, currentStatus)
           }
-          console.log(e.target.tagName);
           if (e.target.tagName == "BUTTON") {
             // Delete button action
             // debugger;

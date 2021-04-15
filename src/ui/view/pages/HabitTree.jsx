@@ -1,6 +1,5 @@
 import stream from "mithril/stream";
 import { select, zoom } from "d3";
-import { legendColor } from "d3-svg-legend";
 import {
   debounce,
   zooms,
@@ -26,7 +25,7 @@ const HabitTree = function () {
   let svg;
   const debounceInterval = 150;
   const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
-  function updateStoresAndRenderTree() {
+  function updateStoresAndRenderTree(formNeeded) {
     DateStore.current().id &&
       TreeStore.index(
         demoData,
@@ -45,12 +44,12 @@ const HabitTree = function () {
         .then(() => {
           TreeStore.root() &&
             svg &&
-            renderTree(svg, demoData, zoomer, canvasWidth, canvasHeight);
+            renderTree(svg, demoData, zoomer, {}, canvasWidth, canvasHeight, formNeeded);
         });
   }
   return {
     type: "vis",
-    oninit: () => {
+    oninit: ({attrs}) => {
       const oldWindowWidth = stream(window.innerWidth);
       window.onresize = debounce(() => {
         let factor = 1 - 1 / (window.innerWidth / oldWindowWidth());
@@ -58,7 +57,7 @@ const HabitTree = function () {
         oldWindowWidth(document.body.getBoundingClientRect().width);
       }, debounceInterval);
 
-      updateStoresAndRenderTree();
+      updateStoresAndRenderTree(attrs.formNeeded);
     },
     oncreate: ({ attrs }) => {
       svg = select(`div#${attrs.divId}`)
@@ -75,7 +74,14 @@ const HabitTree = function () {
         .getElementById("reset-tree")
         .addEventListener("click", (e) => {
           expandTree(TreeStore.root());
-          renderTree(svg, demoData, zoomer, canvasWidth, canvasHeight);
+          renderTree(
+            svg,
+            demoData,
+            zoomer, {},
+            canvasWidth,
+            canvasHeight,
+            attrs.formNeeded
+          );
         });
       document
         .getElementById("collapse-tree")
@@ -86,7 +92,14 @@ const HabitTree = function () {
           e.target.textContent = e.target.textContent.includes("Collapse")
             ? "Expand Tree"
             : "Collapse Tree";
-          renderTree(svg, demoData, zoomer, canvasWidth, canvasHeight);
+          renderTree(
+            svg,
+            demoData,
+            zoomer, {},
+            canvasWidth,
+            canvasHeight,
+            attrs.formNeeded
+          );
         });
     },
     onupdate: updateStoresAndRenderTree,

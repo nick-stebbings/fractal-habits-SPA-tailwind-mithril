@@ -1,12 +1,14 @@
+import stream from "mithril/stream";
 import { select, tree, easeCircleOut, zoomIdentity, linkVertical, scaleOrdinal, schemeBrBG } from "d3";
+import { legendColor } from "d3-svg-legend";
+import { openModal } from "./animations";
+
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
 import DateStore from "../../store/date-store";
 import HabitStore from "../../store/habit-store";
 import DomainStore from "../../store/domain-store";
 import HabitDateStore from "../../store/habit-date-store";
-import { legendColor } from "d3-svg-legend";
-import { openModal } from "./animations";
 
 let canvasHeight, canvasWidth;
 const margin = {
@@ -16,6 +18,7 @@ const margin = {
   left: 0,
 };
 
+let formNeeded;
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
 const noNodeCol = "#f000ff";
@@ -29,12 +32,12 @@ const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
 
   page.view = () => {
     // Pass unique selection id to the vis component for d3 selection
-    const d3Container = m("div", { id: divId });
+    const d3Container = m("div", { id: divId});
 
     return m(
       layout,
       { spinnerState: spinnerState, formNeeded: formNeeded },
-      m(component, { divId }, d3Container)
+      m(component, { divId, formNeeded }, d3Container)
     );
   };
   return page;
@@ -99,12 +102,14 @@ const renderTree = function (
   zoomer,
   zoomClicked,
   cW = canvasWidth,
-  cH = canvasHeight
+  cH = canvasHeight,
+  fNeeded = formNeeded
 ) {
   let currentXTranslate = margin.left;
   let currentYTranslate = margin.top;
   canvasWidth = cW;
   canvasHeight = cH;
+  formNeeded = fNeeded;
   // TODO change this to private data once more than one vis is live
 
   svg.selectAll("*").remove();
@@ -539,9 +544,6 @@ const renderTree = function (
           );
         });
 
-    if (m.route.param("demo")) { //TODO
-      
-    }
     gButton
     .append("rect")
     .attr("rx", nodeRadius / 2)
@@ -557,8 +559,17 @@ const renderTree = function (
     .attr("y", 20)
     .text((d) => "APPEND")
     .on("click", (e, n) => {
-      HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
-        m.route.param("demo") ? openModal(true) : "/habits/list"
+      openModal(true)
+      if (!isDemo) {
+        formNeeded(true);
+      } else {
+        formNeeded('confirm')
+        setTimeout(() => {
+          formNeeded(false);
+          m.redraw();
+        }, 2000);
+      } 
+      m.redraw();
     });
 };
 
