@@ -45,7 +45,7 @@ const HabitTree = function () {
         .then(() => {
           TreeStore.root() &&
             svg &&
-            renderTree(svg, demoData, canvasWidth, canvasHeight, zoomer);
+            renderTree(svg, demoData, zoomer, canvasWidth, canvasHeight);
         });
   }
   return {
@@ -75,7 +75,7 @@ const HabitTree = function () {
         .getElementById("reset-tree")
         .addEventListener("click", (e) => {
           expandTree(TreeStore.root());
-          renderTree(svg, demoData, canvasWidth, canvasHeight, zoomer)
+          renderTree(svg, demoData, zoomer, canvasWidth, canvasHeight);
         });
       document
         .getElementById("collapse-tree")
@@ -86,7 +86,7 @@ const HabitTree = function () {
           e.target.textContent = e.target.textContent.includes("Collapse")
             ? "Expand Tree"
             : "Collapse Tree";
-          renderTree(svg, demoData, canvasWidth, canvasHeight, zoomer);
+          renderTree(svg, demoData, zoomer, canvasWidth, canvasHeight);
         });
     },
     onupdate: updateStoresAndRenderTree,

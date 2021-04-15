@@ -94,49 +94,150 @@ const makePatchOrPutRequest = function (isDemo, currentStatus) {
 const renderTree = function (
   svg,
   isDemo,
-  canvasWidth,
-  canvasHeight,
   zoomer,
-  zoomClicked
+  zoomClicked,
+  cW = canvasWidth,
+  cH = canvasHeight
 ) {
   let currentXTranslate = margin.left;
   let currentYTranslate = margin.top;
-  
+  canvasWidth = cW;
+  canvasHeight = cH;
+  // TODO change this to private data once more than one vis is live
+
   svg.selectAll("*").remove();
   const canvas = svg
     .append("g")
     .classed("canvas", true)
     .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
+  let rootData = TreeStore.root();
 
   // SETTINGS
   let scale = isDemo ? 2 : 2.4;
   let clickScale = 3;
   const zoomBase = canvas;
   const levelsWide = 6;
-  const levelsHigh = 3; 
+  const levelsHigh = 3;
   const nodeRadius = 15 * scale;
-  const dx = (window.innerWidth / levelsWide) * scale/3;
+  const dx = ((window.innerWidth / levelsWide) * scale) / 3;
   const dy =
     (window.innerHeight / levelsHigh) * (isDemo ? scale / 3 : scale ** 2);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
   let activeNode;
-  let ordinal = scaleOrdinal()
-    .domain(["Completed", "Not Yet Tracked", "Incomplete", "No Record for Day"])
-    .range(
-      [positiveCol, neutralCol, negativeCol, noNodeCol]);
+  
+  calibrateViewPort();
+  svg
+  .attr("viewBox", defaultView)
+  .attr("preserveAspectRatio", "xMidYMid meet")
+  .call(zoomer)
+  .on("wheel", (event) => event.preventDefault());
+  
 
-  const calibrateViewPort = function () {
-    viewportX = 0;
-    viewportY = 100;
-    viewportW = canvasWidth * 3;
-    viewportH = canvasHeight * 2;
-    zoomed.translateX = -3 * (viewportW / 2);
-    zoomed.translateY = -3 * (viewportH / 2);
-    zoomed.viewportW = scale * viewportW;
-    zoomed.viewportH = scale * viewportH;
-    defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
+  const ordinal = scaleOrdinal()
+    .domain(["Completed", "Not Yet Tracked", "Incomplete", "No Record for Day"])
+    .range([positiveCol, neutralCol, negativeCol, noNodeCol]);
+
+  const contentEqual = (node, other) =>
+  node.content.split("-").slice(0, 1)[0] ==
+  other.content.split("-").slice(0, 1)[0];
+  
+  const setActiveNode = (clickedNode) => {
+    activeNode = findNodeByContent(clickedNode);
+  };  
+
+  const findNodeByContent = (node) => {
+    if (node === undefined || node.content === undefined) return;
+    let found;
+    rootData.each((n) => {
+      if (contentEqual(n.data, node)) { found = n };
+    });
+    return found;
+  };
+
+  // Re-fire the click event for habit-status changes and find the active node
+  if (zoomClicked !== undefined) {
+    if (zoomClicked.event !== undefined) clickedZoom(zoomClicked.event, zoomClicked.node);
+    if (zoomClicked.content !== undefined) setActiveNode(zoomClicked.content);
+  }
+
+  const handleEvents = function (selection) {
+    selection.on("contextmenu", function (event, node) {
+      event.preventDefault();
+      renderTree(svg, isDemo, zoomer, {
+        event,
+        node,
+        content: node.data,
+        highlight: false
+      });
+
+      const c = svg.selectAll(".the-node.active circle");
+      if (node.data.content !== undefined) handleStatusToggle(c, node);
+      renderTree(svg, isDemo, zoomer)
+    });
+    selection
+      .on("mousewheel.zoom", function (event, node) {
+        if (event.deltaY >= 0) return reset();
+        
+      setActiveNode(node.data);
+        renderTree(svg, isDemo, zoomer, {
+          event,
+          node,
+          content: node.data,
+        });
+
+      })
+      .on("click", function (event, node) {
+        const targ = event.target;
+        if (targ.tagName == "circle") {
+          if (targ.closest(".the-node").classList.contains("active"))
+            return reset();
+
+      setActiveNode(node.data);
+          expand(node);
+          collapseAroundAndUnder(node);
+          setActiveNode(node.data);
+          // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
+          renderTree(svg, isDemo, zoomer, {
+            event: undefined,
+            node: undefined,
+            content: node.data,
+          });
+        }
+      })
+      .on("mouseover", function () {
+        const g = select(this);
+        g.select(".tooltip").transition().duration(250).style("opacity", "1");
+      })
+      .on("mouseout", function () {
+        const g = select(this);
+        g.select(".tooltip").transition().duration(250).style("opacity", "0");
+      });
+
+    function handleStatusToggle(circle, node) {
+      if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have auto-generated cumulative status
+      const nodeContent = parseTreeValues(node.data.content);
+      NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
+
+      const currentStatus = nodeContent.status;
+      node.data.content = node.data.content.replace(
+        /true|false|incomplete/,
+        oppositeStatus(currentStatus)
+      );
+      circle.style(
+        "fill",
+        currentStatus === "false" || currentStatus === "incomplete"
+          ? positiveCol
+          : negativeCol
+      );
+      const nodeId = NodeStore.current().id;
+      HabitStore.runCurrentFilterByNode(nodeId);
+      if (!node.data.name.includes("Sub-Habit")) {
+        // If this was not a 'ternarising' sub habit that we created for more even distribution
+        makePatchOrPutRequest(isDemo, currentStatus);
+      }
+    }
   };
 
   const reset = function () {
@@ -144,8 +245,8 @@ const renderTree = function (
     svg.attr("viewBox", defaultView);
     expandTree();
     activeNode = null;
-    document.querySelector(".the-node.active") && document.querySelector(".the-node.active").classList.remove("active");
-    // renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer);
+    document.querySelector(".the-node.active") &&
+      document.querySelector(".the-node.active").classList.remove("active");
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
@@ -164,82 +265,19 @@ const renderTree = function (
     cousins.forEach(collapse);
   };
 
-  const handleEvents = function (selection) {
-  
-    selection.on("contextmenu", function (event, node) {
-      event.preventDefault();
-      const c = select(this).selectAll(".the-node circle");
-      if (node.data.content !== undefined) handleStatusToggle(c, node);
-      renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
-        event,
-        node,
-      });
-    });
-    selection.on("mousewheel.zoom", function (event, node) {
-        if (event.deltaY >= 0) return reset();
-
-        const c = select(this).selectAll(".the-node circle");
-        renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
-          event,
-          node,
-          content: node.data.content,
-        });
-      })
-      .on("click", function (event, node) {
-        const targ = event.target;
-        if (targ.tagName == "circle") {
-          if (targ.closest(".the-node").classList.contains("active")) return reset();
-
-          const c = select(this).selectAll(".the-node circle");
-          if (node.data.content !== undefined) handleStatusToggle(c, node);
-
-          expand(node);
-          collapseAroundAndUnder(node);
-          // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
-          renderTree(svg, isDemo, canvasWidth, canvasHeight, zoomer, {
-            event: undefined,
-            node: undefined,
-            content: node.data.content,
-          });
-        }
-      })
-      .on("mouseover", function () {
-        const g = select(this);
-        g.select(".tooltip").transition().duration(250).style("opacity", "1");
-      })
-      .on("mouseout", function () {
-        const g = select(this);
-        g.select(".tooltip").transition().duration(250).style("opacity", "0");
-      });
-
-    function handleStatusToggle(circle, node) {
-      if (!rootData.leaves().includes(node)) return; // Non-leaf nodes have generated status
-      const nodeContent = parseTreeValues(node.data.content);
-      NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
-
-      const currentStatus = parseTreeValues(node.data.content).status;
-      node.data.content = node.data.content.replace(
-        /true|false|incomplete/,
-        oppositeStatus(currentStatus)
-      );
-
-      circle.style(
-        "fill",
-        currentStatus === "false" || currentStatus === "incomplete"
-          ? positiveCol
-          : negativeCol
-      );
-
-      const nodeId = NodeStore.current().id;
-      HabitStore.runCurrentFilterByNode(nodeId);
-      if(!node.data.name.includes("Sub-Habit")) {
-        // If this was not a 'ternarising' sub habit that we created for more even distribution
-        makePatchOrPutRequest(isDemo, currentStatus)
-      };
-    }
+  function calibrateViewPort() {
+    viewportX = 0;
+    viewportY = 100;
+    viewportW = canvasWidth * 3;
+    viewportH = canvasHeight * 2;
+    zoomed.translateX = -3 * (viewportW / 2);
+    zoomed.translateY = -3 * (viewportH / 2);
+    zoomed.viewportW = scale * viewportW;
+    zoomed.viewportH = scale * viewportH;
+    defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
   };
 
-  const getTransform = function (node, xScale) {
+  function getTransform (node, xScale) {
     if (typeof node === "undefined") return;
     var x = node.__data__ ? node.__data__.x : node.x;
     var y = node.__data__ ? node.__data__.y : node.y;
@@ -249,8 +287,7 @@ const renderTree = function (
     var ty = -by;
     return { translate: [tx, ty], scale: xScale };
   };
-  const contentEqual = (node, zoomClicked) => node.content.split("-").slice(0, 1)[0] == zoomClicked.content.split("-").slice(0, 1)[0];
-  
+
   function clickedZoom(e, that) {
     if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
@@ -270,21 +307,11 @@ const renderTree = function (
       );
   }
 
-  calibrateViewPort();
-  svg
-    .attr("viewBox", defaultView)
-    .attr("preserveAspectRatio", "xMidYMid meet")
-    .call(zoomer)
-    .on("wheel", (event) => event.preventDefault());
-
-  const rootData = TreeStore.root();
-
   rootData.sum((d) => {
     // Return a binary interpretation of whether the habit was completed that day
     const thisNode = rootData.descendants().find((node) => node.data == d);
     let content = parseTreeValues(thisNode.data.content);
-    if (content.status === "incomplete" || content.status === "")
-      return 0;
+    if (content.status === "incomplete" || content.status === "") return 0;
     const statusValue = JSON.parse(content.status);
     return +statusValue;
   });
@@ -301,15 +328,6 @@ const renderTree = function (
   const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   treeLayout(rootData);
 
-  // Re-fire the click event for habit-status changes and find the active node
-  if (zoomClicked !== undefined) {
-    if(zoomClicked.event !== undefined) clickedZoom(zoomClicked.event, zoomClicked.node);
-
-    rootData.each((n) => {
-        if (zoomClicked.content && contentEqual(n.data, zoomClicked)) activeNode = n;
-      });
-      debugger;
-    }
   const gLink = canvas
     .append("g")
     .classed("links", true)
@@ -319,35 +337,35 @@ const renderTree = function (
     .classed("nodes", true)
     .attr("transform", `translate(${viewportW / 2},${scale})`);
 
-    svg
-      .append("g")
-      .attr("class", "legend")
-      .attr("transform", "translate(50,-200)");
+  svg
+    .append("g")
+    .attr("class", "legend")
+    .attr("transform", "translate(50,-200)");
+  // Borrowing the habit label for the legend
+  let habitLabelValue;
+  let habitLabel = document.getElementById("current-habit");
+  let habitSpan = habitLabel.nextElementSibling;
+  const colorLegend = legendColor()
+    .labels(["", "", "", "", ""])
+    .orient("horizontal")
+    .labels(["", "", "", "", ""])
+    .orient("horizontal")
+    .shape("circle")
+    .shapeRadius(50)
+    .shapePadding(-5)
+    .on("cellover", function (d) {
+      habitLabel.textContent = "Key:";
+      habitLabelValue = habitSpan.textContent;
+      habitSpan.textContent = d.target.__data__;
+    })
+    .on("cellout", function (d) {
+      habitLabel.textContent = "Selected:";
+      habitSpan.textContent = d.target.__data__;
+      habitSpan.textContent = habitLabelValue;
+    })
+    .scale(ordinal);
 
-    // Borrowing the habit label for the legend
-    let habitLabelValue;
-    let habitLabel = document.getElementById("current-habit");
-    let habitSpan = habitLabel.nextElementSibling;
-
-    const colorLegend = legendColor()
-      .labels(['', '', '', '', '']).orient("horizontal")
-      .labels(['', '', '', '', '']).orient("horizontal")
-      .shape("circle")
-      .shapeRadius(50)
-      .shapePadding(-5)
-      .on("cellover", function (d) {
-        habitLabel.textContent = "Key:";
-        habitLabelValue = habitSpan.textContent;
-        habitSpan.textContent = d.target.__data__;
-      })
-      .on("cellout", function (d) {
-        habitLabel.textContent = "Selected:";
-        habitSpan.textContent = d.target.__data__;
-        habitSpan.textContent = habitLabelValue;
-      })
-      .scale(ordinal);
-
-    svg.select(".legend").call(colorLegend);
+  svg.select(".legend").call(colorLegend);
 
   const links = gLink.selectAll("line.link").data(rootData.links());
 
@@ -356,7 +374,7 @@ const renderTree = function (
     .append("path")
     .classed("link", true)
     .attr("stroke-opacity", (d) =>
-    activeNode && activeNode.descendants().includes(d.source) ? 0.5 : 0.2
+      activeNode && activeNode.descendants().includes(d.source) ? 0.5 : 0.2
     )
     .attr(
       "d",
@@ -371,32 +389,30 @@ const renderTree = function (
     .enter()
     .append("g")
     .classed("the-node solid", true)
-    .attr("class", (d) =>
-      activeNode && d.data.content === activeNode.data.content
+    .attr("class", (d) => activeNode && d.data.content === activeNode.data.content
         ? "the-node solid active"
-        : "the-node solid"
-    )
+        : "the-node solid")
     .style("fill", nodeStatusColours)
     .style("opacity", (d) =>
-      !activeNode || activeNode && d.ancestors().includes(activeNode)
-        ? "1"
-        : "0.25"
+    !activeNode || (zoomClicked && !zoomClicked.highlight) || (activeNode && d.ancestors().includes(activeNode))
+    ? "1"
+    : "0.25"
     )
     .style("stroke-width", (d) =>
-      activeNode !== undefined && d.ancestors().includes(activeNode)
-        ? "2px"
-        : "0"
+    activeNode !== undefined && d.ancestors().includes(activeNode)
+    ? "2px"
+    : "0"
     )
     .attr("transform", (d) => `translate(${d.x},${d.y})`)
     .call(handleEvents);
-    
+
   enteringNodes.append("circle").attr("r", nodeRadius);
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
     .attr(
       "transform",
-      `translate(${nodeRadius/2 * scale}, ${-(
+      `translate(${(nodeRadius / 2) * scale}, ${-(
         scale * 2 * nodeRadius +
         (isDemo ? 0 : -100)
       )})`
@@ -454,7 +470,7 @@ const renderTree = function (
     .append("text")
     .attr("x", 15)
     .attr("x", 75)
-    .text((d) => d.data.content)
+    .text((d) => d.data.content);
   gTooltip
     .append("text")
     .attr("x", 15)
