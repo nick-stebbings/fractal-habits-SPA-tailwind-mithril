@@ -15,6 +15,7 @@ export default {
   oncreate: ({ attrs: { spinnerState, formNeeded } }) => {
     openSpinner(true);
     spinnerState.map(openSpinner);
+    if (formNeeded()) openModal(true);
 
     document.getElementById("domain-selector").selectedIndex = Math.max(
       0,

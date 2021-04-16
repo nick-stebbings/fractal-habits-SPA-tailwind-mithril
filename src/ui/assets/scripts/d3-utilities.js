@@ -180,10 +180,10 @@ const renderTree = function (
   let scale = isDemo ? 2 : 2.4;
   let clickScale = 3;
   const zoomBase = canvas;
-  const levelsWide = 6;
-  const levelsHigh = 3;
+  const levelsWide = canvasWidth < 600 ? 2 : 6;
+  const levelsHigh = canvasHeight < 600 ? 2 : 3;
   const nodeRadius = 15 * scale;
-  const dx = ((canvasWidth / levelsWide) * scale) / 3;
+  const dx = ((canvasWidth / levelsWide) * scale) / 2;
   const dy =
     (canvasHeight / levelsHigh) * (isDemo ? scale / 3 : scale);
 
@@ -200,7 +200,7 @@ const renderTree = function (
   .call(zoomer)
   .on("wheel", (event) => event.preventDefault());
 console.log(select("svg .legend"));
-  if(!select("svg .legend")[0] || !select("svg .controls")[0]) addLegend();
+  if(select("svg .legend").empty() && select("svg .controls").empty()) addLegend();
 
   const contentEqual = (node, other) =>
     node.content.split("-").slice(0, 1)[0] ==
@@ -242,9 +242,9 @@ console.log(select("svg .legend"));
       .on("mousewheel.zoom", function (event, node) {
         if (event.deltaY >= 0) return reset();
 
+        setActiveNode(node.data);
         expand(node);
         collapseAroundAndUnder(node);
-        setActiveNode(node.data);
         
         updateCurrentHabit(node, false);
         renderTree(svg, isDemo, zoomer, {
@@ -260,16 +260,15 @@ console.log(select("svg .legend"));
           if (targ.closest(".the-node").classList.contains("active"))
             return reset();
 
-          expand(node);
-          collapseAroundAndUnder(node);
           setActiveNode(node.data);
+          expand(node);
+          updateCurrentHabit(node);
           // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
           renderTree(svg, isDemo, zoomer, {
             event: undefined,
             node: undefined,
             content: node.data,
           });
-          updateCurrentHabit(node);
         }
       })
       .on("mouseleave", function () {
@@ -356,7 +355,7 @@ console.log(select("svg .legend"));
 
   function calibrateViewPort() {
     viewportX = 0;
-    viewportY = 60;
+    viewportY = 80;
     viewportW = canvasWidth * 3;
     viewportH = canvasHeight * 2;
     zoomed.translateX = -3 * (viewportW / 2);
