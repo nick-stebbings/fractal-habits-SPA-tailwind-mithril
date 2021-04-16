@@ -1,6 +1,7 @@
 import DomainStore from "../../../store/domain-store";
 
 import CreateForm from "../Layout/Forms/CreateForm.jsx";
+import Dialog from "../Layout/DialogBox.jsx";
 
 const Modal = {
   view: ({ attrs }) => (
@@ -17,7 +18,7 @@ const Modal = {
           id="modal"
           className={
             attrs.formNeeded() === "confirm"
-              ? "h-48 inset-y-1/3 inset-x-10 sm:inset-1/4 rounded-2xl shadow-tershades-gray absolute flex transition-opacity transition-transform duration-300 transform scale-150 -translate-y-full bg-white opacity-0"
+              ? "h-72 inset-y-1/3 inset-x-10 sm:inset-1/4 rounded-2xl shadow-tershades-gray absolute flex transition-opacity transition-transform duration-300 transform scale-150 -translate-y-full bg-white opacity-0"
               : "h-3/4 inset-4 sm:inset-12 rounded-2xl shadow-tershades-gray absolute bottom-auto flex transition-opacity transition-transform duration-300 transform scale-150 -translate-y-full bg-white opacity-0"
           }
         >
@@ -25,7 +26,7 @@ const Modal = {
             <div className="px-4 py-3 border-b border-gray-200">
               <h2 className="mt-2 text-xl font-semibold text-center text-gray-600">
                 { attrs.formNeeded() === "confirm" 
-                    ? "Message"
+                    ? "Message: You are about to..."
                     : "Create a new habit under the life domain"
                 }
               </h2>
@@ -40,17 +41,14 @@ const Modal = {
                 domain={DomainStore.current}
                 resourceDescription="A way of keeping track of your daily behaviours"
                 formNeeded={attrs.formNeeded}
-              />
-            )}
+                />
+                )}
             {attrs.formNeeded() === "confirm" && (
-              // <Dialog
-              //   addHeader={false}
-              //   resourceName="Habit"
-              //   domain={DomainStore.current}
-              //   resourceDescription="A way of keeping track of your daily behaviours"
-              //   formNeeded={attrs.formNeeded}
-              // />
-              <p> Hello</p>
+              <Dialog
+                title={"Delete Habit and all Child Habits"}
+                message={"Are you sure?"}
+                formNeeded={attrs.formNeeded}
+              />
             )}
           </div>
         </div>

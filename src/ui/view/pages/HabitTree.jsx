@@ -34,7 +34,7 @@ const HabitTree = function () {
       )
         .then(() => {
           DateStore.indexDatesOfHabit(HabitStore.current());
-          !demoData &&
+          !demoData && HabitStore.current() &&
             NodeStore.index().then(() => {
               HabitDateStore.index().then(() =>
                 NodeStore.runCurrentFilterByHabit(HabitStore.current())

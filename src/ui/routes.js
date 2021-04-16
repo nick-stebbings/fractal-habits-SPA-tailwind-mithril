@@ -88,7 +88,7 @@ const Routes = MenuRoutes.reduce(
                   m(
                     Layout,
                     { spinnerState: spinnerOpen, formNeeded: formNeeded },
-                    m(component)
+                    m(component, { formNeeded: formNeeded })
                   ),
               }),
       };

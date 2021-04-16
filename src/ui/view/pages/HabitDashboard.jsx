@@ -23,7 +23,6 @@ const getStatusColor = (habit) => {
     HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id).length >
       0 &&
     String(HabitDateStore.list()[0].completed_status);
-    console.log(HabitDateStore.list());
   switch (status) {
     case "true":
       return positiveCol;
@@ -45,12 +44,13 @@ const HabitDashboard = {
     } else {
         HabitDateStore.runFilter(HabitStore.current().id);
         HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
-
       }
     },
   onupdate: () => m.redraw(),
-  oncreate: () => {  
+  oncreate: ({attrs}) => {  
     const demoData = m.route.param("demo");
+    const confirmDeleteForm = document.getElementById('form-dialog');
+
     // Add selected habit row styles
     const selectedHabitName = [...document.querySelectorAll('p:first-of-type')].filter(node => node.textContent == HabitStore.current().name)[0];
     if(selectedHabitName) selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add('selected');
@@ -77,11 +77,16 @@ const HabitDashboard = {
             e.target.setAttribute("fill", currentStatusCol === positiveCol ? negativeCol : positiveCol);
             makePatchOrPutRequest(demoData, currentStatus)
           }
+          m.redraw()
           if (e.target.tagName == "BUTTON") {
             // Delete button action
-            // debugger;
+            attrs.formNeeded('confirm');
+            console.log(confirmDeleteForm);
+            confirmDeleteForm.addEventListener("submit", () => {
+              HabitNodeStore.runDelete(HabitNodeStore.current().id);
+            });
+            debugger;
             openModal(true)
-            HabitNodeStore.runDelete(HabitNodeStore.current().id)
           }
         }
       });
@@ -96,6 +101,7 @@ const HabitDashboard = {
   view: ({attrs}) => (
     <div class="container mx-auto max-w-3/4">
       {/* List component from www.tailwind-kit.com */}
+      { console.log(attrs, 'attrs from dash') }
       <div class="py-8">
         <FilterList></FilterList>
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
