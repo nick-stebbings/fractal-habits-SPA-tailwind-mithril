@@ -32,7 +32,7 @@ const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
 
   page.view = () => {
     // Pass unique selection id to the vis component for d3 selection
-    const d3Container = m("div", { id: divId});
+    const d3Container = m("div", { id: divId}, m("svg.legendSvg", {class: "top-20 w-36 fixed right-0 h-12"}));
 
     return m(
       layout,
@@ -50,6 +50,47 @@ const d3SetupCanvas = function (document) {
   canvasHeight = height - margin.top - margin.bottom;
 
   return { canvasWidth, canvasHeight };
+};
+
+
+
+const addLegend = (svg) => {
+  const ordinal = scaleOrdinal()
+    .domain(["Completed", "Not Yet Tracked", "Incomplete", "No Record for Day"])
+    .range([positiveCol, neutralCol, negativeCol, noNodeCol]);
+
+  const legendSvg = select("svg.legendSvg");
+  const gLegend = select("svg.legendSvg").append("g").attr("class", "legend")
+    .attr("transform", "translate(25, 20) scale(2)");
+
+  // Borrowing the habit label for the legend
+  let habitLabelValue;
+  let habitLabel = document.getElementById("current-habit");
+  let habitSpan = habitLabel.nextElementSibling;
+
+  const colorLegend = legendColor()
+    .labels(["", "", "", "", ""])
+    .orient("horizontal")
+    .labels(["", "", "", "", ""])
+    .orient("horizontal")
+    .shape("circle")
+    .shapeRadius(10)
+    .shapePadding(-5)
+    .on("cellover", function (d) {
+      habitLabel.textContent = "Key:";
+      habitLabelValue = habitSpan.textContent;
+      habitSpan.textContent = d.target.__data__;
+      document.documentElement.scrollTop = 0;
+      body.classList.remove('scroll-down');
+    })
+    .on("cellout", function (d) {
+      habitLabel.textContent = "Selected:";
+      habitSpan.textContent = d.target.__data__;
+      habitSpan.textContent = habitLabelValue;
+    })
+    .scale(ordinal);
+
+  gLegend.call(colorLegend);
 };
 
 const zooms = function (e) {
@@ -144,19 +185,8 @@ const renderTree = function (
   .attr("preserveAspectRatio", "xMidYMid meet")
   .call(zoomer)
   .on("wheel", (event) => event.preventDefault());
-  
-  // Append separate legend svg
-  const l = document.createElement("svg");
-  l.setAttribute('height', 100);
-  l.setAttribute('width', 200);
-  
-  l.className = "legendSvg top-8 w-36 fixed right-0 h-12";
-  svg.node().appendChild(l);
-  const legendSvg = select("svg.legendSvg");
 
-  const ordinal = scaleOrdinal()
-    .domain(["Completed", "Not Yet Tracked", "Incomplete", "No Record for Day"])
-    .range([positiveCol, neutralCol, negativeCol, noNodeCol]);
+  addLegend();
 
   const contentEqual = (node, other) =>
     node.content.split("-").slice(0, 1)[0] ==
@@ -380,36 +410,6 @@ const renderTree = function (
     .append("g")
     .classed("nodes", true)
     .attr("transform", `translate(${viewportW / 2},${scale})`);
-
-  const gLegend = svg
-    .append("g")
-    .attr("class", "legend");
-
-  // Borrowing the habit label for the legend
-  let habitLabelValue;
-  let habitLabel = document.getElementById("current-habit");
-  let habitSpan = habitLabel.nextElementSibling;
-  
-  const colorLegend = legendColor()
-    .labels(["", "", "", "", ""])
-    .orient("horizontal")
-    .labels(["", "", "", "", ""])
-    .orient("horizontal")
-    .shape("circle")
-    .shapeRadius(5)
-    .shapePadding(-5)
-    .on("cellover", function (d) {
-      habitLabel.textContent = "Key:";
-      habitLabelValue = habitSpan.textContent;
-      habitSpan.textContent = d.target.__data__;
-    })
-    .on("cellout", function (d) {
-      habitLabel.textContent = "Selected:";
-      habitSpan.textContent = d.target.__data__;
-      habitSpan.textContent = habitLabelValue;
-    })
-    .scale(ordinal);
-    gLegend.call(colorLegend);
 
   const links = gLink.selectAll("line.link").data(rootData.links());
 
