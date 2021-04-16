@@ -32,7 +32,7 @@ const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
 
   page.view = () => {
     // Pass unique selection id to the vis component for d3 selection
-    const d3Container = m("div", { id: divId}, m("svg.legendSvg", {class: "top-20 w-36 fixed right-0 h-12"}));
+    const d3Container = m("div", { id: divId}, [m("svg.legendSvg", {class: "top-20 w-36 fixed left-4 h-12"}), m("svg.controlsSvg", {class: "top-20 w-72 fixed right-0 h-16"})]);
 
     return m(
       layout,
@@ -60,13 +60,27 @@ const addLegend = (svg) => {
     .range([positiveCol, neutralCol, negativeCol, noNodeCol]);
 
   const legendSvg = select("svg.legendSvg");
-  const gLegend = select("svg.legendSvg").append("g").attr("class", "legend")
+  const controlsSvg = select("svg.controlsSvg");
+  const gText = controlsSvg.append("g").attr("class", "controls")
+    .attr("transform", "translate(265, 10) scale(0.8)");
+  const gLegend = legendSvg.append("g").attr("class", "legend")
     .attr("transform", "translate(25, 20) scale(2)");
 
   // Borrowing the habit label for the legend
   let habitLabelValue;
   let habitLabel = document.getElementById("current-habit");
   let habitSpan = habitLabel.nextElementSibling;
+  gText
+    .append('text')
+    .text('L/Click: Select Habit/Subtree');
+  gText
+    .append('text')
+    .attr('y', 25)
+    .text('R/Click: Toggle Status');
+  gText
+    .append('text')
+    .attr('y', 50)
+    .text('MouseWheel: Zoom');
 
   const colorLegend = legendColor()
     .labels(["", "", "", "", ""])
@@ -81,7 +95,7 @@ const addLegend = (svg) => {
       habitLabelValue = habitSpan.textContent;
       habitSpan.textContent = d.target.__data__;
       document.documentElement.scrollTop = 0;
-      body.classList.remove('scroll-down');
+      document.body.classList.remove('scroll-down');
     })
     .on("cellout", function (d) {
       habitLabel.textContent = "Selected:";
@@ -169,9 +183,9 @@ const renderTree = function (
   const levelsWide = 6;
   const levelsHigh = 3;
   const nodeRadius = 15 * scale;
-  const dx = ((window.innerWidth / levelsWide) * scale) / 3;
+  const dx = ((canvasWidth / levelsWide) * scale) / 3;
   const dy =
-    (window.innerHeight / levelsHigh) * (isDemo ? scale / 3 : scale ** 2);
+    (canvasHeight / levelsHigh) * (isDemo ? scale / 3 : scale);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
@@ -185,8 +199,8 @@ const renderTree = function (
   .attr("preserveAspectRatio", "xMidYMid meet")
   .call(zoomer)
   .on("wheel", (event) => event.preventDefault());
-
-  addLegend();
+console.log(select("svg .legend"));
+  if(!select("svg .legend")[0] || !select("svg .controls")[0]) addLegend();
 
   const contentEqual = (node, other) =>
     node.content.split("-").slice(0, 1)[0] ==

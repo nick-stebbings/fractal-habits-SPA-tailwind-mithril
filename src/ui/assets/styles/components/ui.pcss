@@ -116,13 +116,24 @@ main#append-habit .button-container.selected {
 }
 
 #reset-tree {
-  @apply top-40;
+  @apply top-36;
 }
 
 #collapse-tree {
-  @apply top-28;
+  @apply top-48;
 }
 
+div.domain-pills {
+  @apply lg:justify-center flex flex-wrap items-center justify-around mx-4 mt-6 p-2;
+}
+
+div.domain-pills button.domain-create {
+  @apply px-2;
+}
+
+div.domain-pills button.domain-create div:hover {
+  @apply text-balance-tershades-light bg-gradient-to-b from-gray-500 to-transparent;
+}
 /* Inputs */
 
 .mask-wrapper input[type="date"] {

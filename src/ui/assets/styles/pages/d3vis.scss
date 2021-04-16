@@ -19,9 +19,18 @@ g.tooltip rect {
 	stroke-width: 1px;
 }
 
-g.tooltip text {
+g.tooltip text, .controlsSvg text {
 	fill: #1A140E !important;
+	stroke: #1A140E !important;
 	stroke-width: 1px;
+}
+
+body[class^="scroll"] .legendSvg, body[class^="scroll"] .controlsSvg {
+	display:none;
+} 
+
+.controlsSvg text {
+	text-anchor: end;
 }
 
 .habit-label-dash-button text {
