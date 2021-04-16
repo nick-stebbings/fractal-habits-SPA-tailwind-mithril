@@ -277,14 +277,15 @@ console.log(select("svg .legend"));
         g.select(".tooltip").transition().duration(250).style("opacity", "0");
         g.select(".habit-label-dash-button")
           .transition()
-          .delay(2500)
+          .delay(1500)
           .duration(250)
           .style("opacity", "0");
           setTimeout(() => {
-            
-            currentTooltip = false;
             currentButton = false;
-          }, 3500);
+          }, 100);
+          setTimeout(() => {
+            currentTooltip = false;
+          }, 500);
       });
 
     function updateCurrentHabit(node, redraw = true) {
@@ -469,12 +470,14 @@ console.log(select("svg .legend"));
       .attr("r", nodeRadius)
       .on("mouseenter", (e, d) => {
         if(!currentTooltip) {
+          svg.select("g.tooltip").transition();
           currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
             return d == t;
           });
-          currentTooltip.transition().duration(450).style("opacity", "1")
+          currentTooltip.transition().duration(450).style("opacity", "1");
         };
         if(!currentButton) {
+          svg.select("g.habit-label-dash-button").transition();
           currentButton = svg
             .selectAll("g.habit-label-dash-button")
             .filter((t) => {
