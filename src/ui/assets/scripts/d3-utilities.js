@@ -119,6 +119,7 @@ const renderTree = function (
   .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
 
   let rootData = TreeStore.root();
+  if (rootData.name === '') return;
 
   // SETTINGS
   let scale = isDemo ? 2 : 2.4;
@@ -146,9 +147,12 @@ const renderTree = function (
   
   // Append separate legend svg
   const l = document.createElement("svg");
+  l.setAttribute('height', 100);
+  l.setAttribute('width', 200);
+  
   l.className = "legendSvg top-8 w-36 fixed right-0 h-12";
-  svg.node().parentNode.appendChild(l);
-  const legendSvg = select("svg");
+  svg.node().appendChild(l);
+  const legendSvg = select("svg.legendSvg");
 
   const ordinal = scaleOrdinal()
     .domain(["Completed", "Not Yet Tracked", "Incomplete", "No Record for Day"])
@@ -377,10 +381,9 @@ const renderTree = function (
     .classed("nodes", true)
     .attr("transform", `translate(${viewportW / 2},${scale})`);
 
-  legendSvg
+  const gLegend = svg
     .append("g")
-    .attr("class", "legend").attr('width', 200 )
-    .attr("class", "legend").attr('height', 100);
+    .attr("class", "legend");
 
   // Borrowing the habit label for the legend
   let habitLabelValue;
@@ -406,8 +409,7 @@ const renderTree = function (
       habitSpan.textContent = habitLabelValue;
     })
     .scale(ordinal);
-
-  select(".legend").call(colorLegend);
+    gLegend.call(colorLegend);
 
   const links = gLink.selectAll("line.link").data(rootData.links());
 
@@ -436,7 +438,7 @@ const renderTree = function (
         : "the-node solid")
     .style("fill", nodeStatusColours)
     .style("opacity", (d) =>{
-      if( activeNode && d.ancestors().includes(activeNode)) return "1";
+      if(!activeNode || activeNode && d.ancestors().includes(activeNode)) return "1";
       return !zoomClicked ? "1" : "0.2"
     })
     .style("stroke-width", (d) =>

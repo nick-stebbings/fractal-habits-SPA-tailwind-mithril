@@ -29,6 +29,7 @@ const TreeStore = {
       )
       .then(TreeStore.root)
       .catch((err) => {
+        TreeStore.root({ name: "", children: "" });
         console.log("Tree did not load!");
       });
   },
