@@ -37,7 +37,7 @@ const Modal = {
             {attrs.formNeeded() && attrs.formNeeded() !== "confirm" && (
               <CreateForm
                 addHeader={false}
-                resourceName="Habit"
+                resourceName={ "Habit"}
                 domain={DomainStore.current}
                 resourceDescription="A way of keeping track of your daily behaviours"
                 formNeeded={attrs.formNeeded}
@@ -45,6 +45,7 @@ const Modal = {
                 )}
             {attrs.formNeeded() === "confirm" && (
               <Dialog
+                type={"habit-delete"}
                 title={"Delete Habit and all Child Habits"}
                 message={"Are you sure?"}
                 formNeeded={attrs.formNeeded}

@@ -4,6 +4,7 @@ import HabitStore from "../../store/habit-store";
 import HabitDateStore from "../../store/habit-date-store";
 import DateStore from "../../store/date-store";
 import DomainStore from "../../store/domain-store";
+import NodeStore from "../../store/habit-node-store";
 
 import {
   positiveCol,
@@ -27,30 +28,29 @@ const getStatusColor = (habit) => {
     case "true":
       return positiveCol;
     case "false":
-      return neutralCol;
+      return negativeCol;
     case "":
     return noNodeCol;
     default:
-      return positiveCol;
+      return neutralCol;
   }
 };
 
 const HabitDashboard = {
   oninit: () =>{
-    if (!m.route.param("demo")) {
+    if (!m.route.param("demo") == 'true') {
         HabitDateStore.index().then(() => {
-        HabitDateStore.runFilter(HabitStore.current().id);
+          HabitDateStore.runFilter(HabitStore.current().id);
+          NodeStore.index();
       });
     } else {
-        HabitDateStore.runFilter(HabitStore.current().id);
-        HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
+      HabitDateStore.runFilter(HabitStore.current().id);
+      HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
       }
     },
   onupdate: () => m.redraw(),
   oncreate: ({attrs}) => {  
     const demoData = m.route.param("demo");
-    const confirmDeleteForm = document.getElementById('form-dialog');
-
     // Add selected habit row styles
     const selectedHabitName = [...document.querySelectorAll('p:first-of-type')].filter(node => node.textContent == HabitStore.current().name)[0];
     if(selectedHabitName) selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add('selected');
@@ -63,6 +63,7 @@ const HabitDashboard = {
           e.currentTarget.style.backgroundColor = "#F0F0F0";
         }
       });
+      
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === 'TR') {
           const habitName = e.currentTarget.querySelector("p:first-child")
@@ -79,14 +80,11 @@ const HabitDashboard = {
           }
           m.redraw()
           if (e.target.tagName == "BUTTON") {
+            console.log(NodeStore.list());
+            NodeStore.runCurrentFilterByHabit(HabitStore.current());
             // Delete button action
             attrs.formNeeded('confirm');
-            console.log(confirmDeleteForm);
-            confirmDeleteForm.addEventListener("submit", () => {
-              HabitNodeStore.runDelete(HabitNodeStore.current().id);
-            });
-            debugger;
-            openModal(true)
+            openModal(true);
           }
         }
       });

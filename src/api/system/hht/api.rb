@@ -188,7 +188,7 @@ module Hht
           tree = domain_list_as_json(yaml_container.relations.domains, dom_id).to_json
         else
           root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
-          root_node.exist? ? (tree= Subtree.generate(root_node.one.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
+          root_node.exist? ? (tree= Subtree.generate(root_node.to_a.first.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
         end
         status 200
         demo ? Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json : tree.to_d3_json
