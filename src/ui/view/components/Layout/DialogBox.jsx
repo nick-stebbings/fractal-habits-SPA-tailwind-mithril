@@ -9,7 +9,7 @@ const Dialog = {
       if (attrs.type === 'habit-delete') {
         console.log(NodeStore.list());
         NodeStore.runDelete(NodeStore.current().id);
-        attrs.formNeeded(false);
+        attrs.modalType(false);
       }
     })
   },
@@ -43,7 +43,7 @@ const Dialog = {
               id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
               name="close"
               label="Forget It"
-              formNeeded={attrs.formNeeded}
+              modalType={attrs.modalType}
             />
             <SubmitButton
               id={`submit-form-${String(Math.ceil(Math.random() * 100))}`}

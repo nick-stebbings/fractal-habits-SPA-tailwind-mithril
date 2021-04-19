@@ -11,7 +11,7 @@ const DomainPill = {
         hashtag: `#${vnode.attrs.name.toLowerCase().split(" ").join("-")}`,
       })
         .then(() => {
-          vnode.attrs.formNeeded(true);
+          vnode.attrs.modalType(true);
         })
         .then(() => {
           m.redraw();

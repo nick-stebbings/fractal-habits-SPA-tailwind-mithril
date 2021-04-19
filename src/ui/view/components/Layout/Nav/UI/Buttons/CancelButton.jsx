@@ -4,7 +4,7 @@ const CancelButton = {
   oncreate: ({ attrs, dom }) => {
     dom.addEventListener("click", () => {
       openModal(false);
-      attrs.formNeeded && attrs.formNeeded(false);
+      attrs.modalType && attrs.modalType(false);
     });
   },
   view: ({ attrs }) => (

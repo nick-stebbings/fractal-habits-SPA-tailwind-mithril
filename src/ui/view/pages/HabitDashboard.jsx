@@ -83,7 +83,7 @@ const HabitDashboard = {
             console.log(NodeStore.list());
             NodeStore.runCurrentFilterByHabit(HabitStore.current());
             // Delete button action
-            attrs.formNeeded('confirm');
+            attrs.modalType('confirm');
             openModal(true);
           }
         }
@@ -183,7 +183,7 @@ const HabitDashboard = {
                         name={"d"}
                         disabled={false}
                         label={"Delete"}
-                        formNeeded={attrs.formNeeded}
+                        modalType={attrs.modalType}
                       />
                     </td>
                   </tr>

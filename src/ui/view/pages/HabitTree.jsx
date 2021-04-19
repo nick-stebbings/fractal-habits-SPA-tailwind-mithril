@@ -25,7 +25,7 @@ const HabitTree = function () {
   let svg;
   const debounceInterval = 150;
   const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
-  function updateStoresAndRenderTree(formNeeded) {
+  function updateStoresAndRenderTree(modalType) {
     DateStore.current().id &&
       TreeStore.index(
         demoData,
@@ -44,7 +44,7 @@ const HabitTree = function () {
         .then(() => {
           TreeStore.root() &&
             svg &&
-            renderTree(svg, demoData, zoomer, {}, canvasWidth, canvasHeight, formNeeded);
+            renderTree(svg, demoData, zoomer, {}, canvasWidth, canvasHeight, modalType);
         });
   }
   return {
@@ -57,7 +57,7 @@ const HabitTree = function () {
         oldWindowWidth(document.body.getBoundingClientRect().width);
       }, debounceInterval);
 
-      updateStoresAndRenderTree(attrs.formNeeded);
+      updateStoresAndRenderTree(attrs.modalType);
     },
     oncreate: ({ attrs }) => {
       svg = select(`div#${attrs.divId}`)
@@ -80,7 +80,7 @@ const HabitTree = function () {
             zoomer, {},
             canvasWidth,
             canvasHeight,
-            attrs.formNeeded
+            attrs.modalType
           );
         });
       document
@@ -98,7 +98,7 @@ const HabitTree = function () {
             zoomer, {},
             canvasWidth,
             canvasHeight,
-            attrs.formNeeded
+            attrs.modalType
           );
         });
     },

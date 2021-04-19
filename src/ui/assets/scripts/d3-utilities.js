@@ -18,13 +18,13 @@ const margin = {
   left: 0,
 };
 
-let formNeeded;
+let modalType;
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
 const noNodeCol = "#f000ff";
 const neutralCol = "#888";
 
-const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
+const d3visPageMaker = function (layout, component, spinnerState, modalType) {
   const page = {};
 
   // Create a visualisation-containing div element with random ID
@@ -36,8 +36,8 @@ const d3visPageMaker = function (layout, component, spinnerState, formNeeded) {
 
     return m(
       layout,
-      { spinnerState: spinnerState, formNeeded: formNeeded },
-      m(component, { divId, formNeeded }, d3Container)
+      { spinnerState: spinnerState, modalType: modalType },
+      m(component, { divId, modalType }, d3Container)
     );
   };
   return page;
@@ -158,13 +158,13 @@ const renderTree = function (
   zoomClicked,
   cW = canvasWidth,
   cH = canvasHeight,
-  fNeeded = formNeeded
+  fNeeded = modalType
 ) {
   let currentXTranslate = margin.left;
   let currentYTranslate = margin.top;
   canvasWidth = cW;
   canvasHeight = cH;
-  formNeeded = fNeeded;
+  modalType = fNeeded;
   // TODO change this to private data once more than one vis is live
 
   svg.selectAll("*").remove();
@@ -579,11 +579,11 @@ console.log(select("svg .legend"));
     .on("click", (e, n) => {
       openModal(true)
       if (!isDemo) {
-        formNeeded(true);
+        modalType(true);
       } else {
-        formNeeded('confirm')
+        modalType('confirm')
         setTimeout(() => {
-          formNeeded(false);
+          modalType(false);
           m.redraw();
         }, 2000);
       } 

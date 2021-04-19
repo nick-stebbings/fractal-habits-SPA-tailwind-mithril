@@ -18,7 +18,7 @@ import { d3visPageMaker } from "./assets/scripts/d3-utilities";
 import { redraw, handleErrorType } from "./assets/scripts/utilities";
 
 const spinnerOpen = stream(true);
-const formNeeded = stream(false);
+const modalType = stream(false);
 
 function populateStores({ demo }) {
   if (!demo) {
@@ -80,15 +80,15 @@ const Routes = MenuRoutes.reduce(
         onmatch: populateStores,
         render: () =>
           menuSection.label === "Visualise"
-            ? m(d3visPageMaker(Layout, component, spinnerOpen, formNeeded), {
+            ? m(d3visPageMaker(Layout, component, spinnerOpen, modalType), {
                 heading: title,
               })
             : m({
                 view: () =>
                   m(
                     Layout,
-                    { spinnerState: spinnerOpen, formNeeded: formNeeded },
-                    m(component, { formNeeded: formNeeded })
+                    { spinnerState: spinnerOpen, modalType: modalType },
+                    m(component, { modalType: modalType })
                   ),
               }),
       };
@@ -107,9 +107,9 @@ const Routes = MenuRoutes.reduce(
               {
                 spinnerState: spinnerOpen,
                 index: true,
-                formNeeded: formNeeded,
+                modalType: modalType,
               },
-              m(HeroSection, { formNeeded: formNeeded })
+              m(HeroSection, { modalType: modalType })
             ),
         }),
     },

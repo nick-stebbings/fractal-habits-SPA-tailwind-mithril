@@ -12,10 +12,10 @@ import DateStore from "../store/date-store";
 import { openModal, openSpinner } from "../assets/scripts/animations.js";
 
 export default {
-  oncreate: ({ attrs: { spinnerState, formNeeded } }) => {
+  oncreate: ({ attrs: { spinnerState, modalType } }) => {
     openSpinner(true);
     spinnerState.map(openSpinner);
-    if (formNeeded()) openModal(true);
+    if (modalType()) openModal(true);
 
     document.getElementById("domain-selector").selectedIndex = Math.max(
       0,
@@ -35,7 +35,7 @@ export default {
   },
   view: ({ attrs, children: [componentNode] }) => (
     <div id="layout" className="w-full h-full">
-      <Modal spinnerNeeded={attrs.spinnerState} formNeeded={attrs.formNeeded} />
+      <Modal spinnerNeeded={attrs.spinnerState} modalType={attrs.modalType} />
       <LogoLink />
       <div id="app" className="flex flex-col justify-between min-h-screen">
         <MaskHeader />

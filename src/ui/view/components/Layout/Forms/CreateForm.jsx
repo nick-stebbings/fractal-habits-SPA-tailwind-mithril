@@ -43,7 +43,7 @@ const processFormData = function (dom, attrs) {
           openModal(false);
         });
         
-      attrs.formNeeded(false);
+      attrs.modalType(false);
       form.reset();
     });
 };
@@ -120,7 +120,7 @@ const CreateForm = {
             id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
             name="close"
             label="Forget It"
-            formNeeded={attrs.formNeeded}
+            modalType={attrs.modalType}
           />
           <SubmitButton
             id={`submit-form-${String(Math.ceil(Math.random() * 100))}`}

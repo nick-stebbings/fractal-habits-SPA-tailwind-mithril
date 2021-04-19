@@ -54,7 +54,7 @@ const HeroSection = {
               m(DomainPill, {
                 name: domain,
                 rank: idx,
-                formNeeded: attrs.formNeeded,
+                modalType: attrs.modalType,
               })
           )}
         </div>
