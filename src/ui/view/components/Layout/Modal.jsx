@@ -25,24 +25,26 @@ const Modal = {
           <div className="rounded-2xl flex flex-col items-center w-full">
             <div className="px-4 py-3 border-b border-gray-200">
               <h2 className="mt-2 text-xl font-semibold text-center text-gray-600">
-                { attrs.modalType() === "confirm" 
-                    ? "Message: You are about to..."
-                    : "Create a new habit under the life domain"
-                }
+                {attrs.modalType() === "confirm"
+                  ? "Message: You are about to..."
+                  : "Create a new habit under the life domain"}
               </h2>
               <h3 className="mt-2 text-2xl font-bold text-center">
-                { attrs.modalType() !== "confirm" && m("span", DomainStore.current().name) }
+                {attrs.modalType() !== "confirm" &&
+                  m("span", DomainStore.current().name)}
               </h3>
             </div>
             {attrs.modalType() && attrs.modalType() !== "confirm" && (
               <CreateForm
                 addHeader={false}
-                resourceName={attrs.modalType() === 'd3vis' ? 'append-habit' : "Habit"}
+                resourceName={
+                  attrs.modalType() === "d3vis" ? "new-habit-child" : "Habit"
+                }
                 domain={DomainStore.current}
                 resourceDescription="A way of keeping track of your daily behaviours"
                 modalType={attrs.modalType}
-                />
-                )}
+              />
+            )}
             {attrs.modalType() === "confirm" && (
               <Dialog
                 type={"habit-delete"}

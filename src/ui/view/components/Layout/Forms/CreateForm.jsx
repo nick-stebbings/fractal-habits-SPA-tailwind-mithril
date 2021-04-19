@@ -44,7 +44,7 @@ const processFormData = function (dom, attrs) {
         });
         
       attrs.modalType(false);
-      form.reset();
+      m.redraw();
     });
 };
 

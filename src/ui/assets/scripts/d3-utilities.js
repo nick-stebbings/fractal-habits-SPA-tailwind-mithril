@@ -169,12 +169,12 @@ const renderTree = function (
 
   svg.selectAll("*").remove();
   const canvas = svg
-  .append("g")
-  .classed("canvas", true)
-  .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
+    .append("g")
+    .classed("canvas", true)
+    .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
 
   let rootData = TreeStore.root();
-  if (rootData.name === '') return;
+  if (rootData.name === "") return;
 
   // SETTINGS
   let scale = isDemo ? 2 : 2.4;
@@ -184,59 +184,62 @@ const renderTree = function (
   const levelsHigh = canvasHeight < 600 ? 2 : 3;
   const nodeRadius = 15 * scale;
   const dx = ((canvasWidth / levelsWide) * scale) / 2;
-  const dy =
-    (canvasHeight / levelsHigh) * (isDemo ? scale / 3 : scale);
+  const dy = (canvasHeight / levelsHigh) * (isDemo ? scale / 3 : scale);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
   let activeNode;
   let currentTooltip;
   let currentButton;
-  
+
   calibrateViewPort();
   svg
-  .attr("viewBox", defaultView)
-  .attr("preserveAspectRatio", "xMidYMid meet")
-  .call(zoomer)
-  .on("wheel", (event) => event.preventDefault());
-console.log(select("svg .legend"));
-  if(select("svg .legend").empty() && select("svg .controls").empty()) addLegend();
+    .attr("viewBox", defaultView)
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .call(zoomer)
+    .on("wheel", (event) => event.preventDefault());
+  console.log(select("svg .legend"));
+  if (select("svg .legend").empty() && select("svg .controls").empty())
+    addLegend();
 
   const contentEqual = (node, other) =>
     node.content.split("-").slice(0, 1)[0] ==
     other.content.split("-").slice(0, 1)[0];
-  
+
   const setActiveNode = (clickedNode) => {
     activeNode = findNodeByContent(clickedNode);
-  };  
+  };
 
   const findNodeByContent = (node) => {
     if (node === undefined || node.content === undefined) return;
     let found;
     rootData.each((n) => {
-      if (contentEqual(n.data, node)) { found = n };
+      if (contentEqual(n.data, node)) {
+        found = n;
+      }
     });
     return found;
   };
 
   // Re-fire the click event for habit-status changes and find the active node
   if (zoomClicked !== undefined) {
-    if (zoomClicked.event !== undefined) clickedZoom(zoomClicked.event, zoomClicked.node);
+    if (zoomClicked.event !== undefined)
+      clickedZoom(zoomClicked.event, zoomClicked.node);
     if (zoomClicked.content !== undefined) setActiveNode(zoomClicked.content);
   }
 
   const handleEvents = function (selection) {
     selection.on("contextmenu", function (event, node) {
       event.preventDefault();
-      setActiveNode(node)
+      setActiveNode(node);
       renderTree(svg, isDemo, zoomer, {
         event,
         node,
         content: node.data,
-        highlight: true
+        highlight: true,
       });
       handleStatusToggle(node);
-      renderTree(svg, isDemo, zoomer)
+      renderTree(svg, isDemo, zoomer);
     });
     selection
       .on("mousewheel.zoom", function (event, node) {
@@ -245,14 +248,13 @@ console.log(select("svg .legend"));
         setActiveNode(node.data);
         expand(node);
         collapseAroundAndUnder(node);
-        
+
         updateCurrentHabit(node, false);
         renderTree(svg, isDemo, zoomer, {
           event,
           node,
           content: node.data,
         });
-
       })
       .on("click", function (event, node) {
         const targ = event.target;
@@ -279,20 +281,13 @@ console.log(select("svg .legend"));
           .delay(1500)
           .duration(250)
           .style("opacity", "0");
-          setTimeout(() => {
-            currentButton = false;
-          }, 100);
-          setTimeout(() => {
-            currentTooltip = false;
-          }, 500);
+        setTimeout(() => {
+          currentButton = false;
+        }, 100);
+        setTimeout(() => {
+          currentTooltip = false;
+        }, 500);
       });
-
-    function updateCurrentHabit(node, redraw = true) {
-      const nodeContent = parseTreeValues(node.data.content);
-      NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
-      HabitStore.runCurrentFilterByNode(NodeStore.current().id);
-      redraw && m.redraw();
-    };
 
     function handleStatusToggle(node) {
       if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status
@@ -363,9 +358,9 @@ console.log(select("svg .legend"));
     zoomed.viewportW = scale * viewportW;
     zoomed.viewportH = scale * viewportH;
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
-  };
+  }
 
-  function getTransform (node, xScale) {
+  function getTransform(node, xScale) {
     if (typeof node === "undefined") return;
     var x = node.__data__ ? node.__data__.x : node.x;
     var y = node.__data__ ? node.__data__.y : node.y;
@@ -374,7 +369,7 @@ console.log(select("svg .legend"));
     var tx = -bx - viewportW;
     var ty = -by;
     return { translate: [tx, ty], scale: xScale };
-  };
+  }
 
   function clickedZoom(e, that) {
     if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
@@ -394,6 +389,13 @@ console.log(select("svg .legend"));
           ")"
       );
   }
+
+  function updateCurrentHabit(node, redraw = true) {
+    const nodeContent = parseTreeValues(node.data.content);
+    NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
+    HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+    redraw && m.redraw();
+  };
 
   rootData.sum((d) => {
     // Return a binary interpretation of whether the habit was completed that day
@@ -447,48 +449,54 @@ console.log(select("svg .legend"));
     .enter()
     .append("g")
     .classed("the-node solid", true)
-    .attr("class", (d) => activeNode && d.data.content === activeNode.data.content
+    .attr("class", (d) =>
+      activeNode && d.data.content === activeNode.data.content
         ? "the-node solid active"
-        : "the-node solid")
+        : "the-node solid"
+    )
     .style("fill", nodeStatusColours)
-    .style("opacity", (d) =>{
-      if(!activeNode || activeNode && d.ancestors().includes(activeNode)) return "1";
-      return !zoomClicked ? "1" : "0.2"
+    .style("opacity", (d) => {
+      if (!activeNode || (activeNode && d.ancestors().includes(activeNode)))
+        return "1";
+      return !zoomClicked ? "1" : "0.2";
     })
     .style("stroke-width", (d) =>
-    activeNode !== undefined && d.ancestors().includes(activeNode)
-    ? "2px"
-    : "0"
+      activeNode !== undefined && d.ancestors().includes(activeNode)
+        ? "2px"
+        : "0"
     )
     .attr("transform", (d) => `translate(${d.x},${d.y})`)
     .call(handleEvents);
-    
-    const gCircle = enteringNodes.append("g");
-    gCircle
-      .append("circle")
-      .attr("r", nodeRadius)
-      .on("mouseenter", (e, d) => {
-        if(!currentTooltip) {
-          svg.select("g.tooltip").transition();
-          currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
+
+  const gCircle = enteringNodes.append("g");
+  gCircle
+    .append("circle")
+    .attr("r", nodeRadius)
+    .on("mouseenter", (e, d) => {
+      if (!currentTooltip) {
+        svg.select("g.tooltip").transition();
+        currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
+          return d == t;
+        });
+        currentTooltip.transition().duration(450).style("opacity", "1");
+      }
+      if (!currentButton) {
+        svg.select("g.habit-label-dash-button").transition();
+        currentButton = svg
+          .selectAll("g.habit-label-dash-button")
+          .filter((t) => {
             return d == t;
           });
-          currentTooltip.transition().duration(450).style("opacity", "1");
-        };
-        if(!currentButton) {
-          svg.select("g.habit-label-dash-button").transition();
-          currentButton = svg
-            .selectAll("g.habit-label-dash-button")
-            .filter((t) => {
-              return d == t;
-            });
-          currentButton.transition().delay(200).duration(850).style("opacity", "1");
-        };
-      });
+        currentButton
+          .transition()
+          .delay(200)
+          .duration(850)
+          .style("opacity", "1");
+      }
+    });
 
-    
-    // Append circles and add hover event
-    const gTooltip = enteringNodes
+  // Append circles and add hover event
+  const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
     .attr(
@@ -496,25 +504,25 @@ console.log(select("svg .legend"));
       `translate(${(nodeRadius / 2) * scale}, ${-(
         scale * 2 * nodeRadius +
         (isDemo ? -155 : -200)
-        )})`
+      )})`
     )
     .attr("opacity", "0");
 
-    gTooltip
+  gTooltip
     .append("rect")
     .attr("width", 25)
     .attr("height", 25)
     .attr("x", -5)
     .attr("y", -5);
-    
-    gTooltip
+
+  gTooltip
     .append("rect")
     .attr("width", 230)
     .attr("height", 60)
     .attr("rx", nodeRadius / 2);
-    
-    // Split the name label into two parts:
-    gTooltip
+
+  // Split the name label into two parts:
+  gTooltip
     .append("text")
     .attr("x", 10)
     .attr("y", 20)
@@ -524,7 +532,7 @@ console.log(select("svg .legend"));
         words[3] || ""
       }`;
     });
-    gTooltip
+  gTooltip
     .append("text")
     .attr("x", 15)
     .attr("y", 50)
@@ -535,34 +543,34 @@ console.log(select("svg .legend"));
         allWords.length > 7 ? "..." : ""
       }`;
     });
-    
-    const gButton = gCircle
-      .append("g")
-      .classed("habit-label-dash-button", true)
-      .attr("transform", `translate(${65}, ${isDemo ? 10 : 0})`)
-      .attr("style", "opacity: 0"); ;
 
-    gButton
-      .append("rect")
-      .attr("rx", nodeRadius / 2)
-      .attr("width", 80)
-      .attr("height", 30)
-      .on("click", (e) => {
-        e.stopPropagation();
-      });
-    gButton
-      .append("text")
-      .attr("x", 10)
-      .attr("y", 20)
-      .text((d) => "DETAILS")
-      .on("click", (e, n) => {
-        HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
-        m.route.set(
-          m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
-          );
-        });
+  const gButton = gCircle
+    .append("g")
+    .classed("habit-label-dash-button", true)
+    .attr("transform", `translate(${65}, ${isDemo ? 10 : 0})`)
+    .attr("style", "opacity: 0");
 
-    gButton
+  gButton
+    .append("rect")
+    .attr("rx", nodeRadius / 2)
+    .attr("width", 80)
+    .attr("height", 30)
+    .on("click", (e) => {
+      e.stopPropagation();
+    });
+  gButton
+    .append("text")
+    .attr("x", 10)
+    .attr("y", 20)
+    .text((d) => "DETAILS")
+    .on("click", (e, n) => {
+      HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
+      m.route.set(
+        m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
+      );
+    });
+
+  gButton
     .append("rect")
     .attr("rx", nodeRadius / 2)
     .attr("x", 70)
@@ -577,19 +585,20 @@ console.log(select("svg .legend"));
     .attr("y", 20)
     .text((d) => "APPEND")
     .on("click", (e, n) => {
-      openModal(true)
+      openModal(true);
       if (!isDemo) {
-        modalType(true);
+        updateCurrentHabit(n, false);
+        modalType("d3vis");
       } else {
-        modalType('confirm')
+        modalType("confirm");
         setTimeout(() => {
           modalType(false);
           m.redraw();
         }, 2000);
-      } 
+      }
       m.redraw();
     });
-};
+};;
 
 function expandTree() {
   expand(TreeStore.root());

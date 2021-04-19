@@ -44,8 +44,8 @@ const HabitDashboard = {
           NodeStore.index();
       });
     } else {
-      HabitDateStore.runFilter(HabitStore.current().id);
-      HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
+      HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);
+      DateStore.current() && HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
       }
     },
   onupdate: () => m.redraw(),
