@@ -29,10 +29,10 @@ const getStatusColor = (habit) => {
       return positiveCol;
     case "false":
       return negativeCol;
-    case "":
-    return noNodeCol;
-    default:
+    case "incomplete":
       return neutralCol;
+    default:
+      return noNodeCol;
   }
 };
 

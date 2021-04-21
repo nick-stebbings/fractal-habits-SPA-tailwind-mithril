@@ -75,8 +75,7 @@ module Hht
         unless YAMLStore.ready
           YAML = YAMLStore.new(length)
         end
-        tree_index = (id.to_i - 1) || 0
-        binding.pry
+        tree_index = id ? (id.to_i - 1) : 0
         # Return a default template (given all are the same length) if there isn't a tree for that date
         YAML.tree[tree_index][date_id.to_s] || YAML.tree[tree_index][:default]
       end

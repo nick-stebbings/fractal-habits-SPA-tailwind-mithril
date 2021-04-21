@@ -92,8 +92,7 @@ const addLegend = (svg) => {
       habitLabel.textContent = "Key:";
       habitLabelValue = habitSpan.textContent;
       habitSpan.textContent = d.target.__data__;
-      document.documentElement.scrollTop = 0;
-      document.body.classList.remove('scroll-down');
+      showHabitLabel();
     })
     .on("cellout", function (d) {
       habitLabel.textContent = "Selected:";
@@ -104,6 +103,9 @@ const addLegend = (svg) => {
 
   gLegend.call(colorLegend);
 };
+
+const showHabitLabel = () =>
+  (document.querySelector(".mask-wrapper").style.height = "6.3rem");
 
 const zooms = function (e) {
   const transform = e.transform;
@@ -207,6 +209,7 @@ const renderTree = function (
 
   const setActiveNode = (clickedNode) => {
     activeNode = findNodeByContent(clickedNode);
+    return activeNode
   };
 
   const findNodeByContent = (node) => {
@@ -263,8 +266,9 @@ const renderTree = function (
           if (targ.closest(".the-node").classList.contains("active"))
             return reset();
 
+            setActiveNode(node.data);
             expand(node);
-            updateCurrentHabit(node);
+            updateCurrentHabit(node, false);
             // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
             renderTree(svg, isDemo, zoomer, {
               event: undefined,
@@ -272,9 +276,9 @@ const renderTree = function (
               content: node.data,
             });
             
-          setActiveNode(node.data);
           debugger;
           activeNodeAnimation();
+          showHabitLabel();
         }
       })
       .on("mouseleave", function () {
@@ -481,6 +485,7 @@ const renderTree = function (
     .append("circle")
     .attr("r", nodeRadius)
     .on("mouseenter", (e, d) => {
+      if(parseTreeValues(d.data.content).status === '') return;
       if (!currentTooltip) {
         svg.select("g.tooltip").transition();
         currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
@@ -552,6 +557,8 @@ const renderTree = function (
       }`;
     });
 
+
+    // MY LABELS
   enteringNodes
     .append("text")
     .attr("class", "label")
@@ -568,6 +575,7 @@ const renderTree = function (
     .text((d) => {
       return d.data.content;
     });
+    //
 
   const gButton = gCircle
     .append("g")
@@ -693,6 +701,7 @@ const renderTree = function (
             return pulseScale(d);
           });
       }
+      showHabitLabel();
       transition();
     };
 };;
