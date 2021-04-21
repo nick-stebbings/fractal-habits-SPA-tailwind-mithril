@@ -1,5 +1,5 @@
 import stream from "mithril/stream";
-import { select, tree, easeCircleOut, zoomIdentity, linkVertical, scaleOrdinal, schemeBrBG } from "d3";
+import { select, tree, easeCircleOut, zoomIdentity, linkVertical, scaleOrdinal, scaleLinear } from "d3";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
 
@@ -21,7 +21,7 @@ const margin = {
 let modalType;
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
-const noNodeCol = "#f000ff";
+const noNodeCol = "#634a36";
 const neutralCol = "#888";
 
 const d3visPageMaker = function (layout, component, spinnerState, modalType) {
@@ -51,8 +51,6 @@ const d3SetupCanvas = function (document) {
 
   return { canvasWidth, canvasHeight };
 };
-
-
 
 const addLegend = (svg) => {
   const ordinal = scaleOrdinal()
@@ -226,7 +224,9 @@ const renderTree = function (
   if (zoomClicked !== undefined) {
     if (zoomClicked.event !== undefined)
       clickedZoom(zoomClicked.event, zoomClicked.node);
-    if (zoomClicked.content !== undefined) setActiveNode(zoomClicked.content);
+    if (zoomClicked.content !== undefined)  { 
+      setActiveNode(zoomClicked.content)
+    };
   }
 
   const handleEvents = function (selection) {
@@ -263,15 +263,18 @@ const renderTree = function (
           if (targ.closest(".the-node").classList.contains("active"))
             return reset();
 
+            expand(node);
+            updateCurrentHabit(node);
+            // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
+            renderTree(svg, isDemo, zoomer, {
+              event: undefined,
+              node: undefined,
+              content: node.data,
+            });
+            
           setActiveNode(node.data);
-          expand(node);
-          updateCurrentHabit(node);
-          // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
-          renderTree(svg, isDemo, zoomer, {
-            event: undefined,
-            node: undefined,
-            content: node.data,
-          });
+          debugger;
+          activeNodeAnimation();
         }
       })
       .on("mouseleave", function () {
@@ -451,7 +454,6 @@ const renderTree = function (
   const enteringNodes = nodes
     .enter()
     .append("g")
-    .classed("the-node solid", true)
     .attr("class", (d) =>
       activeNode && d.data.content === activeNode.data.content
         ? "the-node solid active"
@@ -472,6 +474,9 @@ const renderTree = function (
     .call(handleEvents);
 
   const gCircle = enteringNodes.append("g");
+
+  activeNode && activeNodeAnimation();
+
   gCircle
     .append("circle")
     .attr("r", nodeRadius)
@@ -612,7 +617,84 @@ const renderTree = function (
         }
         m.redraw();
       });
-  }
+
+    }
+    function activeNodeAnimation() {
+      const gCircle = svg.selectAll("g.the-node.solid.active g");
+      console.log(enteringNodes);
+      const pulseScale = scaleLinear()
+        .range(["orange", "steelblue", "purple"])
+        .domain([0, 3 * nodeRadius]);
+      const pulseData = [0, nodeRadius, nodeRadius * 2, nodeRadius * 3];
+      const pulseCircles = gCircle
+        .append("g")
+        .classed("active-circle", true)
+        .attr("fill", (d) => {
+          return activeNode && d.data.content === activeNode.data.content
+            ? "red"
+            : "none";
+        })
+        .attr("stroke-opacity", (d) => {
+          return activeNode && d.data.content === activeNode.data.content
+            ? "1"
+            : "0";
+        })
+        .selectAll("circle")
+        .data(pulseData)
+        .enter()
+        .append("circle")
+        .attr("r", function (d) {
+          return d;
+        })
+        .attr("fill", "none")
+        .style("stroke-width", "4")
+        .style("stroke", function (d) {
+          return pulseScale(d);
+        });
+
+      function transition() {
+        let data = pulseData.map(function (d) {
+          return d == 3 * nodeRadius ? 0 : d + nodeRadius;
+        });
+
+        var i = 0;
+        // Grow circles
+        pulseCircles
+          .data(data)
+          .filter(function (d) {
+            return d > 0;
+          })
+          .transition()
+          .ease(easeCircleOut)
+          .attr("r", function (d) {
+            return d;
+          })
+          .style("stroke", function (d) {
+            return pulseScale(d);
+          })
+          .style("opacity", function (d) {
+            return d == 3 * nodeRadius ? 0 : 1;
+          })
+          .duration(1000)
+          .on("end", function () {
+            if (++i == pulseCircles.size() - 1) {
+              transition();
+            }
+          });
+
+        // Reset pulseCircles where r == 0
+        pulseCircles
+          .filter(function (d) {
+            return d == 0;
+          })
+          .attr("r", 0)
+          .style("opacity", 1)
+          .style("stroke", function (d) {
+            return pulseScale(d);
+          });
+      }
+      transition();
+    };
 };;
 
 function expandTree() {
