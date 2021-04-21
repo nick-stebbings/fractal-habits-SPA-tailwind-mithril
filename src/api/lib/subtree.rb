@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './list'
-DEFAULT_MIN_LIST_LENGTH = 15
+DEFAULT_MIN_LIST_LENGTH = 24
 
 class Tree::TreeNode
   # Monkey patching a method for returning modified preordered tree traversal values and other node related data

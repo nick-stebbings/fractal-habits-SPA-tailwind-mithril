@@ -135,7 +135,7 @@ const cumulativeValue = (node) => {
   const content = parseTreeValues(node.data.content).status;
   try {
     return node && node.children
-      ? +(sumChildrenValues(node) === node.children.length)
+      ? +(sumChildrenValues(node) === node.children.length && node.children.every(n => cumulativeValue(n) === 1))
       : [undefined, "incomplete", false, ''].includes(content) ? 0 : 1;
   } catch (err) {
     console.log("Could not accumulate.");
@@ -175,6 +175,7 @@ const renderTree = function (
 
   let rootData = TreeStore.root();
   if (rootData.name === "") return;
+  console.log(rootData);
 
   // SETTINGS
   let scale = isDemo ? 2 : 2.4;
@@ -395,7 +396,7 @@ const renderTree = function (
     NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
     HabitStore.runCurrentFilterByNode(NodeStore.current().id);
     redraw && m.redraw();
-  };
+  }
 
   rootData.sum((d) => {
     // Return a binary interpretation of whether the habit was completed that day
@@ -434,7 +435,9 @@ const renderTree = function (
     .append("path")
     .classed("link", true)
     .attr("stroke-opacity", (d) =>
-      activeNode && activeNode.descendants().includes(d.source) ? 0.5 : 0.2
+      !activeNode || (activeNode && activeNode.descendants().includes(d.source))
+        ? 0.5
+        : 0.2
     )
     .attr(
       "d",
@@ -544,6 +547,23 @@ const renderTree = function (
       }`;
     });
 
+  enteringNodes
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 5)
+    .attr("dy", 25)
+    .style("fill", "green")
+    .text(cumulativeValue);
+  enteringNodes //VALUE label
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 45)
+    .attr("dy", -25)
+    .style("fill", "red")
+    .text((d) => {
+      return d.data.content;
+    });
+
   const gButton = gCircle
     .append("g")
     .classed("habit-label-dash-button", true)
@@ -569,35 +589,30 @@ const renderTree = function (
         m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
       );
     });
-
-  gButton
-    .append("rect")
-    .attr("rx", nodeRadius / 2)
-    .attr("x", 70)
-    .attr("width", 80)
-    .attr("height", 30)
-    .on("click", (e) => {
-      e.stopPropagation();
-    });
-  gButton
-    .append("text")
-    .attr("x", 80)
-    .attr("y", 20)
-    .text((d) => "APPEND")
-    .on("click", (e, n) => {
-      openModal(true);
-      if (!isDemo) {
-        updateCurrentHabit(n, false);
-        modalType("d3vis");
-      } else {
-        modalType("confirm");
-        setTimeout(() => {
-          modalType(false);
-          m.redraw();
-        }, 2000);
-      }
-      m.redraw();
-    });
+  if (!isDemo) {
+    gButton
+      .append("rect")
+      .attr("rx", nodeRadius / 2)
+      .attr("x", 70)
+      .attr("width", 80)
+      .attr("height", 30)
+      .on("click", (e) => {
+        e.stopPropagation();
+      });
+    gButton
+      .append("text")
+      .attr("x", 80)
+      .attr("y", 20)
+      .text((d) => "APPEND")
+      .on("click", (e, n) => {
+        openModal(true);
+        if (!isDemo) {
+          updateCurrentHabit(n, false);
+          modalType("d3vis");
+        }
+        m.redraw();
+      });
+  }
 };;
 
 function expandTree() {
@@ -643,17 +658,16 @@ const oppositeStatus = (current) =>
 const nodeStatusColours = (d) => {
   if (typeof d === "undefined" || typeof d.data.content === "undefined") return neutralCol;
   const status = parseTreeValues(d.data.content).status;
-  if (status == "false") {
-    return negativeCol;
-  }
+  console.log();
+  if (status == "false" && TreeStore.root().leaves().includes(d)) return negativeCol;
+  if (status === "") return noNodeCol;
   switch (cumulativeValue(d)) {
     case 1:
       return positiveCol;
       case 0:
-        if (status === "") return noNodeCol;
-        if (status === "false") return negativeCol;
+        return negativeCol;
       default:
-          return neutralCol;
+        return neutralCol;
   }
 };
 

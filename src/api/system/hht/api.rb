@@ -75,8 +75,10 @@ module Hht
         unless YAMLStore.ready
           YAML = YAMLStore.new(length)
         end
+        tree_index = (id.to_i - 1) || 0
+        binding.pry
         # Return a default template (given all are the same length) if there isn't a tree for that date
-        YAML.tree[id.to_i - 1][date_id.to_s] || YAML.tree[id.to_i - 1][:default]
+        YAML.tree[tree_index][date_id.to_s] || YAML.tree[tree_index][:default]
       end
 
       put '/domains/:domain_id/habit_dates/:date_id/' do |domain_id, date_id|
@@ -93,6 +95,7 @@ module Hht
           habit_dates.insert(habit_date)
           habit_dates.delete(found)
         end
+        
         YAML.replace_tree!(dom_id - 1, date_id, habit_date, attrs)
         204
       end
