@@ -38,8 +38,10 @@ const getStatusColor = (habit) => {
 
 const HabitDashboard = {
   oninit: () =>{
-    if (!m.route.param("demo") == 'true') {
-        HabitDateStore.index().then(() => {
+    if (!m.route.param("demo")) {
+      console.log(m.route.param("demo"));
+        HabitDateStore.index().then((result) => {
+          console.log(result);
           HabitDateStore.runFilter(HabitStore.current().id);
           NodeStore.index();
       });
