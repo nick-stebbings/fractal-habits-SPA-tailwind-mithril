@@ -149,6 +149,7 @@ div.domain-pills button.domain-create div:hover {
 }
 
 input[type="text"],
+.sm-selector-container select.domain-selector,
 input[type="date"] {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -156,15 +157,15 @@ input[type="date"] {
 }
 
 @media (max-width: 1024px) {
-  select#domain-selector::-ms-expand {
+  select.domain-selector::-ms-expand {
     display: none;
   }
-  select#domain-selector::after {
+  select.domain-selector::after {
     content: "<>";
     position: absolute;
     pointer-events: none;
   }
-  select#domain-selector {
+  select.domain-selector {
     display: block;
     float: right;
   }

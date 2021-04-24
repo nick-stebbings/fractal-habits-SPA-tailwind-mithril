@@ -12,18 +12,6 @@ import "../../../../assets/styles/components/MaskHeader.scss";
 
 const MaskHeader = function () {
   return {
-    oncreate: () => {
-      const domainSelector = document.getElementById("domain-selector");
-      const selectedHabitLabel = document.querySelector(
-        "#current-habit ~ span"
-      );
-      domainSelector.addEventListener("change", (e) => {
-        DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
-        HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        selectedHabitLabel.value = HabitStore.current();
-        m.redraw();
-      });
-    },
     view: () => (
       <div className="mask-wrapper">
         <header
@@ -84,7 +72,7 @@ const MaskHeader = function () {
                 <div className="md:pl-16 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between px-4 pt-1 pb-2">
                   <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
-                      <label htmlFor="domain-selector">Domain</label>
+                      <label>Domain</label>
                     </span>
                     <div className="lg:pr-0 lg:rounded-3xl lg:rounded-t-none w-56 h-full pl-1 pr-4 mr-2 bg-white rounded-full">
                       <span className="text-balance-sshades-brighten block w-full pt-2 mb-1">

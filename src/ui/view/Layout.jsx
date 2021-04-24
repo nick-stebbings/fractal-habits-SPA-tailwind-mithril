@@ -19,11 +19,28 @@ export default {
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
 
-    document.getElementById("domain-selector").selectedIndex = Math.max(
-      0,
-      DomainStore.list().indexOf(DomainStore.current())
-    );
+    document.querySelector(".domain-selector").selectedIndex = DomainStore.list().indexOf(DomainStore.current());
+              Array.from(document.querySelectorAll(".domain-selector option"))
+                .filter((opt) => opt.text === DomainStore.current().name)
+                .forEach((opt) => {
+                  opt.setAttribute("selected", "true");
+                  console.log(opt);
+                });
 
+      const domainSelectors = document.querySelectorAll(".domain-selector");
+      const selectedHabitLabel = document.querySelector(
+        "#current-habit ~ span"
+      );
+      [...domainSelectors].forEach(selector => {
+        selector
+        .addEventListener("change", (e) => {
+          DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
+          HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+          selectedHabitLabel.value = HabitStore.current();
+          // console.log(e.target.selectedOptions[0].text)
+          m.redraw();
+        });
+      });
     // Reset the current date when you switch to a habit with no record of that date
     if (
       HabitStore.current() &&
