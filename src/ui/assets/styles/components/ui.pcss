@@ -112,11 +112,27 @@ main#append-habit .button-container.selected {
 #vis button {
   z-index: 101;
   transition: right 0.2s ease-in;
-  @apply w-44 -right-36 active:outline-lighter focus:outline-none focus:outline-shadow fixed border-2 p-3 pl-2 pr-8 m-1 rounded-full shadow-md text-gray-100 bg-gray-700 uppercase;
+  @apply w-48 text-lg text-right -right-36 active:outline-lighter focus:outline-none focus:outline-shadow fixed border-2 p-3 pl-4 pr-8 m-1 rounded-full shadow-md text-gray-100 bg-gray-700 uppercase;
+}
+
+#vis button span {
+  @apply ml-4;
 }
 
 #vis button:hover {
   right: -2rem;
+}
+
+#vis button::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f137";
+  left: 1rem;
+  position: absolute;
+}
+
+#vis button:hover::before {
+  content: "";
 }
 
 #reset-tree {
