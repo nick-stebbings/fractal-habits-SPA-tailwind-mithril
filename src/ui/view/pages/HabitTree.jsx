@@ -9,6 +9,8 @@ import {
   expandTree,
 } from "../../assets/scripts/d3-utilities.js";
 
+import { addSwipeGestures } from "../../assets/scripts/animations";
+
 import TreeStore from "../../store/habit-tree-store.js";
 import DomainStore from "../../store/domain-store.js";
 import DateStore from "../../store/date-store.js";
@@ -60,6 +62,8 @@ const HabitTree = function () {
       updateStoresAndRenderTree(attrs.modalType);
     },
     oncreate: ({ attrs }) => {
+      addSwipeGestures();
+
       svg = select(`div#${attrs.divId}`)
         .classed("h-screen", true)
         .classed("w-full", true)

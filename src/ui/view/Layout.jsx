@@ -19,17 +19,9 @@ export default {
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
 
-    document.querySelector(".domain-selector").selectedIndex = DomainStore.list().indexOf(DomainStore.current());
-              Array.from(document.querySelectorAll(".domain-selector option"))
-                .filter((opt) => opt.text === DomainStore.current().name)
-                .forEach((opt) => {
-                  opt.setAttribute("selected", "true");
-                  console.log(opt);
-                });
-
-      const domainSelectors = document.querySelectorAll(".domain-selector");
-      const selectedHabitLabel = document.querySelector(
-        "#current-habit ~ span"
+    const domainSelectors = document.querySelectorAll(".domain-selector");
+    const selectedHabitLabel = document.querySelector(
+      "#current-habit ~ span"
       );
       [...domainSelectors].forEach(selector => {
         selector
@@ -41,6 +33,14 @@ export default {
           m.redraw();
         });
       });
+
+    document.querySelector(".domain-selector").selectedIndex = DomainStore.list().indexOf(DomainStore.current());
+    Array.from(document.querySelectorAll(".domain-selector option"))
+      .filter((opt) => opt.text === DomainStore.current()?.name)
+      .forEach((opt) => {
+        opt.setAttribute("selected", "true");
+      });
+
     // Reset the current date when you switch to a habit with no record of that date
     if (
       HabitStore.current() &&

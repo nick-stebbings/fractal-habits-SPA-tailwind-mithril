@@ -1,3 +1,5 @@
+import Hammer from "hammerjs";
+
 const openSpinner = function (open = true) {
   const modalOverlay = document.querySelector("#modal_overlay");
   open
@@ -30,6 +32,24 @@ const openModal = function (open = true) {
   }
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
+};
+
+const addSwipeGestures = function () {
+  const nextDate = document.getElementById("next-date-selector");
+  const prevDate = document.getElementById("prev-date-selector");
+  const swipeBase = document.querySelector("#app");
+  const manager = new Hammer.Manager(swipeBase);
+  const Swipe = new Hammer.Swipe();
+
+  manager.add(Swipe);
+  manager.on("swipe", function (e) {
+    if (Math.abs(e.deltaX) > 200) {
+      let dispEvent = new Event("click");
+      e.deltaX > 0
+        ? prevDate.dispatchEvent(dispEvent)
+        : nextDate.dispatchEvent(dispEvent);
+    }
+  });
 };
 
 const registerEventListeners = (function () {
@@ -67,4 +87,4 @@ const registerEventListeners = (function () {
   });
 })();
 
-export { registerEventListeners, openModal, openSpinner };
+export { registerEventListeners, openModal, openSpinner, addSwipeGestures };

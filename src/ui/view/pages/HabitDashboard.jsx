@@ -16,7 +16,7 @@ import {
 
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
-import { openModal } from "../../assets/scripts/animations";
+import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
 
 const getStatusColor = (habit) => {
   let status =
@@ -52,10 +52,14 @@ const HabitDashboard = {
       }
     },
   onupdate: () => m.redraw(),
-  oncreate: ({attrs}) => {  
+  oncreate: ({attrs}) => {
+    addSwipeGestures();
+
     const demoData = m.route.param("demo");
     // Add selected habit row styles
-    const selectedHabitName = [...document.querySelectorAll('p:first-of-type')].filter(node => node.textContent == HabitStore.current().name)[0];
+    const selectedHabitName = [
+      ...document.querySelectorAll("p:first-of-type"),
+    ].filter((node) => node.textContent == HabitStore.current()?.name)[0];
     if(selectedHabitName) selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add('selected');
 
     // Add hover/active styles
