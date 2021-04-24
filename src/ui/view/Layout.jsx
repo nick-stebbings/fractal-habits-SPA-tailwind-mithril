@@ -1,5 +1,7 @@
 import { DateTime } from "luxon";
 
+import DomainSelector from "./components/Layout/Nav/UI/Inputs/DomainSelector.jsx";
+import DateSelector from "./components/Layout/Nav/UI/Inputs/DateSelector.jsx";
 import LogoLink from "./components/Layout/Nav/UI/Buttons/LogoLink.jsx";
 import Modal from "./components/Layout/Modal.jsx";
 import MaskHeader from "./components/Layout/Nav/MaskHeader.jsx";
@@ -39,6 +41,10 @@ export default {
       <LogoLink />
       <div id="app" className="flex flex-col justify-between min-h-screen">
         <MaskHeader />
+        <div className="sm-selector-container top-3 md:top-1 inset-x-16 fixed z-50 flex w-2/3">
+          <DomainSelector></DomainSelector>
+          <DateSelector></DateSelector>
+        </div>
         <MainStage index={attrs.index}>{componentNode}</MainStage>
       </div>
       <Footer />

@@ -39,11 +39,12 @@ const getStatusColor = (habit) => {
 const HabitDashboard = {
   oninit: () =>{
     if (!m.route.param("demo")) {
-      console.log(m.route.param("demo"));
-        HabitDateStore.index().then((result) => {
-          console.log(result);
-          HabitDateStore.runFilter(HabitStore.current().id);
-          NodeStore.index();
+        HabitDateStore.index().then(() => {
+          console.log('indexed');
+          HabitStore.current() &&
+            HabitDateStore.runFilter(HabitStore.current().id);
+          DateStore.current() &&
+            HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
       });
     } else {
       HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);
@@ -180,13 +181,13 @@ const HabitDashboard = {
                       </span>
                     </td>
                     <td class="bg-transparent px-2 py-2 border-b border-gray-200 bg-white text-sm">
-                      <CancelButton
+                      {!m.route.param('demo') && <CancelButton
                         id={`delete-habit-${habit.id}`}
                         name={"d"}
                         disabled={false}
                         label={"Delete"}
                         modalType={attrs.modalType}
-                      />
+                      />}
                     </td>
                   </tr>
                 ))}
