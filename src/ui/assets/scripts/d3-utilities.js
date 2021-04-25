@@ -540,6 +540,7 @@ const renderTree = function (
     .attr("x", 10)
     .attr("y", 20)
     .text((d) => {
+      console.log(d.data);
       const words = d.data.name.split(" ").slice(0, 6);
       return `${words[0] || ""} ${words[1] || ""} ${words[2] || ""} ${
         words[3] || ""

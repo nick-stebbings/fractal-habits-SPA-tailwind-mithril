@@ -175,25 +175,16 @@ module Hht
       end
 
       # Get root node tree for domain for specific date
-      # PARAMS from query string parameters
-        # @demo to indicate if to read from YAML memory
-        # @dom_id to restrict domain
-        # @date_id to restrict date
       get '' do
-        tree = nil
-        demo = params[:demo] == 'true'
         dom_id = params[:domain_id].to_i
         date_id = params[:date_id].to_i
         
-        if(demo)
-          # This contains all json habit trees for all domains, referenced by @habits
-          tree = domain_list_as_json(yaml_container.relations.domains, dom_id).to_json
-        else
+        unless params[:demo] == 'true'
           root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
           root_node.exist? ? (tree= Subtree.generate(root_node.to_a.first.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
+          status 200
+          tree.to_d3_json
         end
-        status 200
-        demo ? Subtree.json_to_ternarised_and_listified_treenodes(tree).to_json : tree.to_d3_json
       end
 
       post '' do

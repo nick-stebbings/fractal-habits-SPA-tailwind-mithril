@@ -20,12 +20,12 @@ module Entities
     end
 
     def to_tree_node
-      Tree::TreeNode.new(id.to_s, "L#{lft}R#{rgt}")
+      Tree::TreeNode.new(@@habit_repo.by_id(habit_id).one.name, "L#{lft}R#{rgt}")
     end
     
     def to_tree_node_with_habit_status(date_id)
       completed_status = habit_id && @@habit_date_repo.completed_status_for_query(date_id, habit_id)
-      Tree::TreeNode.new(id.to_s, "L#{lft}R#{rgt}-#{completed_status}")
+      Tree::TreeNode.new(@@habit_repo.by_id(habit_id).one.name, "L#{lft}R#{rgt}-#{completed_status}")
     end
     
     def has_habit_node?
