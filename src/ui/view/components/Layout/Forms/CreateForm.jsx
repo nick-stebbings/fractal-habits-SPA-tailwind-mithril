@@ -36,7 +36,7 @@ const processFormData = function (dom, attrs) {
         .then(DateStore.index)
         .then(() => {
           HabitStore.indexHabitsOfDomain(data.domain_id);
-          m.route.set("/habits/new");
+          m.route.set(m.route.get());
         })
         .catch(() => {
           console.log("Could not submit data.");

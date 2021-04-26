@@ -1,5 +1,6 @@
 import stream from "mithril/stream";
 import { clientRoutes, handleErrorType } from "./client";
+import { DateTime } from "luxon";
 
 const basePath = "/habits";
 
@@ -26,6 +27,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       .then((habits) => {
         if (habits.length !== 0) {
           let list = HabitStore.fullList(habits);
+          HabitStore.sortByDate(true);
           HabitStore.current(list[list.length - 1]);
           return list;
         }
@@ -44,7 +46,8 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
 
   indexHabitsOfDomain: (id) => {
     HabitStore.runFilterByDomain(id);
-    HabitStore.current(HabitStore.list()[HabitStore.list().length - 1]);
+    HabitStore.sortByDate();
+    HabitStore.current(HabitStore.list()[0]);
   },
 
   filterByDomainId: (id) =>
@@ -62,6 +65,13 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
     return HabitStore.list().sort((habitA, habitB) =>
       asc ? habitA.name.localeCompare(habitB.name) : habitB.name.localeCompare(habitA.name)
     )},
+
+  sortByDate: (asc = true) => HabitStore.list(
+    HabitStore.list().sort((habitA, habitB) => asc
+        ? (DateTime.fromSQL(habitA.initiation_date).ts - DateTime.fromSQL(habitB.initiation_date).ts)
+        : +(DateTime.fromSQL(habitB.initiation_date).ts - DateTime.fromSQL(habitA.initiation_date).ts)
+        )
+    ),
 
   submit: (attrs) =>
     HabitStore.create(attrs)

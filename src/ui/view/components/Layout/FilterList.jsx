@@ -11,11 +11,8 @@ const currentInput = stream("");
 const FilterList = function () {
   return {
     oninit: () => {
-      
-      console.log(HabitStore.list(), "LIST");
     },
     oncreate: () => {
-      HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
       const filterInput = document.querySelector("input[name=filter-results]");
 
       filterInput.addEventListener("change", (e) => {
@@ -43,9 +40,9 @@ const FilterList = function () {
         HabitStore.list().length == 0
       ) {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id)
-          if (HabitStore.list().length == 0 && attrs.modalType) {
-            console.log("can make modal");
-          }
+        if (HabitStore.list().length == 0 && attrs.modalType) {
+          console.log("can make modal");
+        }
       }
     },
     view: ({ attrs }) => (

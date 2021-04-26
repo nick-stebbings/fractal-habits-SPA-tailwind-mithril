@@ -22,42 +22,44 @@ const modalType = stream(false);
 
 function populateStores({ demo }) {
   if (!demo) {
-    HabitStore.index()
-      .then(
-        (habits) =>
-          new Promise((resolve, reject) => {
-            habits.length !== 0
-              ? resolve(habits)
-              : reject("There are no habits to load, yet!");
+    (HabitStore.current()?.name == "Select a Life-Domain to start tracking"
+      ? HabitStore.index()
+      : new Promise((res, rej) => res(HabitStore.list())))
+          .then(
+            (habits) =>
+              new Promise((resolve, reject) => {
+                habits.length !== 0
+                  ? resolve(habits)
+                  : reject("There are no habits to load, yet!");
+              })
+          )
+          .then(() => {
+            return DomainStore.current()?.name == "No Domains Registered"
+              ? DomainStore.index()
+              : new Promise((res, rej) => res(DomainStore.list()));
           })
-      )
-      .then(() => {
-        return DomainStore.current()?.name == "No Domains Registered"
-        ? DomainStore.index()
-        : new Promise((res, rej) => res(DomainStore.list()));
-      })
-      .then(
-        (domains) =>
-          new Promise((resolve, reject) => {
-            domains.length !== 0 && HabitStore.fullList().length > 0
-              ? resolve(DomainStore.current().id)
-              : reject("There are no domains or domain habits, yet!");
+          .then(
+            (domains) =>
+              new Promise((resolve, reject) => {
+                domains.length !== 0 && HabitStore.fullList().length > 0
+                  ? resolve(DomainStore.current().id)
+                  : reject("There are no domains or domain habits, yet!");
+              })
+          )
+          .then(HabitStore.indexHabitsOfDomain)
+          .then(DateStore.index)
+          .catch((message) => {
+            handleErrorType(message, "info");
           })
-      )
-      .then(HabitStore.indexHabitsOfDomain)
-      .then(DateStore.index)
-      .catch((message) => {
-        handleErrorType(message, "info");
-      })
-      .then(() => {
-        spinnerOpen(false);
-      })
-      .then(redraw)
-      .catch((err) => {
-        spinnerOpen(false);
-        m.redraw();
-        console.log(err);
-      });
+          .then(() => {
+            spinnerOpen(false);
+          })
+          .then(redraw)
+          .catch((err) => {
+            spinnerOpen(false);
+            m.redraw();
+            console.log(err);
+          });
   } else {
     importData
       .init()

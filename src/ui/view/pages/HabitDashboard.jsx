@@ -40,6 +40,7 @@ const HabitDashboard = {
   oninit: () => {
     if (!m.route.param("demo") && HabitDateStore.fullList().length == 0) {
       HabitDateStore.index().then(() => {
+        HabitStore.sortByDate();
         HabitStore.current() &&
           HabitDateStore.runFilter(HabitStore.current().id);
         NodeStore.index();
@@ -53,14 +54,17 @@ const HabitDashboard = {
     }
   },
   oncreate: ({ attrs }) => {
+    const demoData = m.route.param("demo");
+    
     addSwipeGestures();
 
-    const demoData = m.route.param("demo");
+    // Add sorting events
     document.getElementById('sort-name-asc').addEventListener('click', (e) => {
       console.log(!HabitStore.listSorted);
       HabitStore.sortByName(!HabitStore.listSorted);
       m.redraw();
     })
+
     // Add selected habit row styles
     const selectedHabitName = [
       ...document.querySelectorAll("p:first-of-type"),
@@ -88,7 +92,9 @@ const HabitDashboard = {
 
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
 
+          // Add togglet status event
           if (e.target.tagName == "circle") {
+            if (demoData) return;
             const currentStatusCol = e.target.getAttribute("fill");
             const currentStatus =
               currentStatusCol === positiveCol ? "true" : "false";
@@ -96,18 +102,20 @@ const HabitDashboard = {
               "fill",
               currentStatusCol === positiveCol ? negativeCol : positiveCol
             );
-            makePatchOrPutRequest(demoData, currentStatus).then(m.redraw);
-            // debugger;
+            makePatchOrPutRequest(demoData, currentStatus)
+              .then(HabitDateStore.index)
+              .then(m.redraw);
           }
+          // Add delete  event
           if (e.target.tagName == "BUTTON") {
             NodeStore.runCurrentFilterByHabit(HabitStore.current());
-            // Delete button action
             attrs.modalType("confirm");
             openModal(true);
           }
           m.redraw();
         }
       });
+
       row.addEventListener("mouseout", (e) => {
         e.stopPropagation();
         if (e.currentTarget.tagName === "TR") {

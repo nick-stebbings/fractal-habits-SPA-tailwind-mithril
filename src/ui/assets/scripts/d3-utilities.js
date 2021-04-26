@@ -130,7 +130,9 @@ const zooms = function (e) {
   );
 };
 
-const deadNode = (event) => parseTreeValues(event.target.__data__.data.content)?.status == "";
+const deadNode = (event) =>
+  event.target.__data__.data && parseTreeValues(event.target.__data__.data.content)
+    ?.status == "";
 
 const sumChildrenValues = (node) =>
   node.children.reduce((sum, n) => sum + n.value, 0);
