@@ -128,6 +128,8 @@ const zooms = function (e) {
   );
 };
 
+const deadNode = (event) => parseTreeValues(event.target.__data__.data.content)?.status == "";
+
 const sumChildrenValues = (node) =>
   node.children.reduce((sum, n) => sum + n.value, 0);
 
@@ -233,6 +235,7 @@ const renderTree = function (
   const handleEvents = function (selection) {
     selection.on("contextmenu", function (event, node) {
       event.preventDefault();
+      if (deadNode(event)) return reset();
       setActiveNode(node);
       renderTree(svg, isDemo, zoomer, {
         event,
@@ -245,7 +248,7 @@ const renderTree = function (
     });
     selection
       .on("mousewheel.zoom", function (event, node) {
-        if (event.deltaY >= 0) return reset();
+        if (event.deltaY >= 0|| deadNode(event)) return reset();
 
         setActiveNode(node.data);
         expand(node);
@@ -262,21 +265,18 @@ const renderTree = function (
         const targ = event.target;
         if (targ.tagName == "circle") {
           event.stopPropagation()
-          if (targ.closest(".the-node").classList.contains("active") || parseTreeValues(targ.__data__.data.content)?.status == '')
-            return reset();
-
-            setActiveNode(node.data);
-            expand(node);
-            updateCurrentHabit(node, false);
-            // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
-            renderTree(svg, isDemo, zoomer, {
-              event: undefined,
-              node: undefined,
-              content: node.data,
-            });
-            
-          debugger;
+          if (targ.closest(".the-node").classList.contains("active") || deadNode(event)) return reset();
+          setActiveNode(node.data);
+          expand(node);
+          updateCurrentHabit(node, false);
+          // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
+          renderTree(svg, isDemo, zoomer, {
+            event: undefined,
+            node: undefined,
+            content: node.data,
+          });
           activeNodeAnimation();
+          setHabitLabel();
           showHabitLabel();
         }
       })
@@ -639,24 +639,17 @@ const renderTree = function (
 
     }
     function activeNodeAnimation() {
-      const gCircle = svg
-        .selectAll("g.the-node.solid.active g")
-        .filter((d, i) => {
-          console.log(select(this), d, i, "DI");
-          return true;
-        });
+      // https://stackoverflow.com/questions/45349849/concentric-emanating-circles-d3
+      // Credit: Andrew Reid
+
+      const gCircle = svg.selectAll("g.the-node.solid.active g:first-child");
       const pulseScale = scaleLinear()
-        .range(["orange", "steelblue", "purple"])
+        .range(["#211912", "#3349c1", "#5568d2"])
         .domain([0, 3 * nodeRadius]);
       const pulseData = [0, nodeRadius, nodeRadius * 2, nodeRadius * 3];
       const pulseCircles = gCircle
         .append("g")
         .classed("active-circle", true)
-        .attr("fill", (d) => {
-          return activeNode && d.data.content === activeNode.data.content
-            ? "red"
-            : "none";
-        })
         .attr("stroke-opacity", (d) => {
           return activeNode && d.data.content === activeNode.data.content
             ? "1"
@@ -698,12 +691,7 @@ const renderTree = function (
           .style("opacity", function (d) {
             return d == 3 * nodeRadius ? 0 : 1;
           })
-          .duration(1000)
-          .on("end", function () {
-            if (++i == pulseCircles.size() - 1) {
-              transition();
-            }
-          });
+          .duration(500);
 
         // Reset pulseCircles where r == 0
         pulseCircles
