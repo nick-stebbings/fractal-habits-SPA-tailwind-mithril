@@ -37,76 +37,88 @@ const getStatusColor = (habit) => {
 };
 
 const HabitDashboard = {
-  oninit: () =>{
-    if (!m.route.param("demo")) {
-        HabitDateStore.index().then(() => {
-          console.log('indexed');
-          HabitStore.current() &&
-            HabitDateStore.runFilter(HabitStore.current().id);
-          DateStore.current() &&
-            HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
+  oninit: () => {
+    if (!m.route.param("demo") && HabitDateStore.fullList().length == 0) {
+      HabitDateStore.index().then(() => {
+        HabitStore.current() &&
+          HabitDateStore.runFilter(HabitStore.current().id);
+        NodeStore.index();
+        DateStore.current() &&
+          HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
       });
     } else {
       HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);
-      DateStore.current() && HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id)
-      }
-    },
-  onupdate: () => m.redraw(),
-  oncreate: ({attrs}) => {
+      DateStore.current() &&
+        HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
+    }
+  },
+  oncreate: ({ attrs }) => {
     addSwipeGestures();
 
     const demoData = m.route.param("demo");
+    document.getElementById('sort-name-asc').addEventListener('click', (e) => {
+      console.log(!HabitStore.listSorted);
+      HabitStore.sortByName(!HabitStore.listSorted);
+      m.redraw();
+    })
     // Add selected habit row styles
     const selectedHabitName = [
       ...document.querySelectorAll("p:first-of-type"),
     ].filter((node) => node.textContent == HabitStore.current()?.name)[0];
-    if(selectedHabitName) selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add('selected');
+    if (selectedHabitName)
+      selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add(
+        "selected"
+      );
 
     // Add hover/active styles
-    [...document.querySelectorAll('table tr')].forEach(row => {
+    [...document.querySelectorAll("table tr")].forEach((row) => {
       row.addEventListener("mouseover", (e) => {
         e.stopPropagation();
-        if (e.currentTarget.tagName === 'TR') {
+        if (e.currentTarget.tagName === "TR") {
           e.currentTarget.style.backgroundColor = "#F0F0F0";
         }
       });
-      
+
       row.addEventListener("click", (e) => {
-        if (e.currentTarget.tagName === 'TR') {
+        if (e.currentTarget.tagName === "TR") {
           const habitName = e.currentTarget.querySelector("p:first-child")
-          .textContent;
-          document.querySelector('.selected').classList.remove('selected');
-          e.currentTarget.classList.add('selected');
+            .textContent;
+          document.querySelector(".selected").classList.remove("selected");
+          e.currentTarget.classList.add("selected");
 
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
+
           if (e.target.tagName == "circle") {
-            const currentStatusCol = e.target.getAttribute("fill")
-            const currentStatus = currentStatusCol === positiveCol ? 'true' : 'false';
-            e.target.setAttribute("fill", currentStatusCol === positiveCol ? negativeCol : positiveCol);
-            makePatchOrPutRequest(demoData, currentStatus)
+            const currentStatusCol = e.target.getAttribute("fill");
+            const currentStatus =
+              currentStatusCol === positiveCol ? "true" : "false";
+            e.target.setAttribute(
+              "fill",
+              currentStatusCol === positiveCol ? negativeCol : positiveCol
+            );
+            makePatchOrPutRequest(demoData, currentStatus).then(m.redraw);
+            // debugger;
           }
-          m.redraw()
           if (e.target.tagName == "BUTTON") {
-            console.log(NodeStore.list());
             NodeStore.runCurrentFilterByHabit(HabitStore.current());
             // Delete button action
-            attrs.modalType('confirm');
+            attrs.modalType("confirm");
             openModal(true);
           }
+          m.redraw();
         }
       });
       row.addEventListener("mouseout", (e) => {
         e.stopPropagation();
-        if (e.currentTarget.tagName === 'TR') {
+        if (e.currentTarget.tagName === "TR") {
           e.currentTarget.style.backgroundColor = "white";
         }
       });
     });
   },
-  view: ({attrs}) => (
+  view: ({ attrs }) => (
     <div class="container mx-auto max-w-3/4">
-      {/* List component from www.tailwind-kit.com */}
-      { console.log(attrs, 'attrs from dash') }
+      {/* List component from www.tailwind-kit.com */} 
       <div class="py-8">
         <FilterList></FilterList>
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -119,6 +131,7 @@ const HabitDashboard = {
                     class="w-1/2 px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
                     Habit
+                    <i id="sort-name-asc" class="fa fa-sort-desc" aria-hidden="true"></i>
                   </th>
                   <th
                     scope="col"
@@ -185,13 +198,15 @@ const HabitDashboard = {
                       </span>
                     </td>
                     <td class="bg-transparent px-2 py-2 border-b border-gray-200 bg-white text-sm">
-                      {!m.route.param('demo') && <CancelButton
-                        id={`delete-habit-${habit.id}`}
-                        name={"d"}
-                        disabled={false}
-                        label={"Delete"}
-                        modalType={attrs.modalType}
-                      />}
+                      {!m.route.param("demo") && (
+                        <CancelButton
+                          id={`delete-habit-${habit.id}`}
+                          name={"d"}
+                          disabled={false}
+                          label={"Delete"}
+                          modalType={attrs.modalType}
+                        />
+                      )}
                     </td>
                   </tr>
                 ))}

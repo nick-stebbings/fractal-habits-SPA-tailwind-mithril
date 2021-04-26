@@ -7,9 +7,9 @@ const Dialog = {
     const form = document.getElementById('form-dialog');
     form.addEventListener("submit", () => {
       if (attrs.type === 'habit-delete') {
-        console.log(NodeStore.list());
         NodeStore.runDelete(NodeStore.current().id);
         attrs.modalType(false);
+        m.route.set("/habits/list");
       }
     })
   },

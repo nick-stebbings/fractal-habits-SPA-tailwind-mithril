@@ -5,17 +5,18 @@ const basePath = "/habits";
 
 const HabitStore = Object.assign(clientRoutes(basePath), {
   current: stream({ name: "Select a Life-Domain to start tracking", id: 1 }),
-
+  
   get: (id) =>
     HabitStore.show_one(id)
-      .then((response) => JSON.parse(response.data))
-      .then(HabitStore.current)
-      .catch(handleErrorType),
+    .then((response) => JSON.parse(response.data))
+        .then(HabitStore.current)
+        .catch(handleErrorType),
+        
+        clear: () => {
+          HabitStore.current = stream({});
+        },
 
-  clear: () => {
-    HabitStore.current = stream({});
-  },
-
+  listSorted: null,
   list: stream([]),
   fullList: stream([]),
 
@@ -55,6 +56,12 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
     HabitStore.list().filter((habit) =>
       habit.name.match(new RegExp(filterString, "i"))
     ),
+
+  sortByName: (asc) => {
+    HabitStore.listSorted = !HabitStore.listSorted;
+    return HabitStore.list().sort((habitA, habitB) =>
+      asc ? habitA.name.localeCompare(habitB.name) : habitB.name.localeCompare(habitA.name)
+    )},
 
   submit: (attrs) =>
     HabitStore.create(attrs)

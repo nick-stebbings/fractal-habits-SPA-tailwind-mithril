@@ -35,9 +35,9 @@ class Subtree
     @descendant_nodes = nodes_array
   end
 
-  def build_from_tuples(date_id, repo)
-    root_id = root_node.name.to_s
-    node_dict = { root_id => root_node }
+  def build_from_tuples(root_node, date_id, repo)
+    root_id = root_node.id.to_s
+    node_dict = { root_id => root_node.to_tree_node_with_habit_status(date_id) }
 
     @descendant_nodes.select{ |n| n.has_habit_node? } # Reject nodes not linked to a habit
       .each do |node, _idx|
@@ -73,12 +73,12 @@ class Subtree
     def generate(root_id, date_id)
       nodes = @@node_repo.map_node_and_descendants_to_struct_nodes(root_id)
       return nil if nodes.nil?
-
+      
       nodes_array = nodes.to_a
       root_node = nodes_array.shift
 
       subtree = Subtree.new(root_node.to_tree_node_with_habit_status(date_id), nodes_array)
-      subtree.build_from_tuples(date_id, @@node_repo)
+      subtree.build_from_tuples(root_node, date_id, @@node_repo)
       subtree
     end
 

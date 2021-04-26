@@ -30,6 +30,8 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
 
   filterById: (id) => NodeStore.list().filter((n) => n.id === +id),
 
+  filterByHabit: (habit) => NodeStore.list().filter((n) => n.id === +habit.habit_node_id),
+
   filterByMptt: (lft, rgt) =>
     NodeStore.list().filter((n) => n.lft === +lft && n.rgt === +rgt),
 
@@ -38,7 +40,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
 
   runCurrentFilterByHabit: (habit) =>
     NodeStore.current(
-      NodeStore.list().filter((node) => node.id == +habit.habit_node_id)[0]
+      NodeStore.filterByHabit(habit)[0]
     ),
 
   runCurrentFilterById: (id) => NodeStore.current(NodeStore.filterById(id)[0]),
@@ -48,7 +50,6 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
 
   runReplace: (id, attrs) => {
     NodeStore.replace(id, attrs).catch((e) => {
-      console.log(e);
     });
   },
 
@@ -66,7 +67,7 @@ const NodeStore = Object.assign(clientRoutes(basePath), {
   runDelete: (id) => {
     NodeStore.delete(id)
       .then(() => {
-        NodeStore.list = NodeStore.list.filter((i) => i.id !== id);
+        NodeStore.list(NodeStore.list().filter((i) => i.id !== id));
       })
       .catch(handleErrorType);
   },

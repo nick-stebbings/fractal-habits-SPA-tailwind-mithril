@@ -39,7 +39,6 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
 
   runUpdate: (isDemo, values, domainId) => {
     const payload = JSON.stringify(values);
-    console.log(domainId, 'DOMAINID');
     return (isDemo
       ? clientRoutes(
           `/demo/domains/${domainId}/habit_dates/${values.date_id}`

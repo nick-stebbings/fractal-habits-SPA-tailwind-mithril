@@ -4,12 +4,18 @@ import HabitStore from "../../../store/habit-store.js";
 import DomainStore from "../../../store/domain-store.js";
 
 import GeneralButton from "../Layout/Nav/UI/Buttons/GeneralButton.jsx";
+import { openModal } from "../../../assets/scripts/animations.js";
 
 const currentInput = stream("");
 
 const FilterList = function () {
   return {
+    oninit: () => {
+      
+      console.log(HabitStore.list(), "LIST");
+    },
     oncreate: () => {
+      HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
       const filterInput = document.querySelector("input[name=filter-results]");
 
       filterInput.addEventListener("change", (e) => {
@@ -31,8 +37,18 @@ const FilterList = function () {
           HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
           HabitStore.list(HabitStore.filterByName(currentInput()));
         });
+
+      if (
+        DomainStore.current()?.name !== "No Domains Registered" ||
+        HabitStore.list().length == 0
+      ) {
+        HabitStore.indexHabitsOfDomain(DomainStore.current().id)
+          if (HabitStore.list().length == 0 && attrs.modalType) {
+            console.log("can make modal");
+          }
+      }
     },
-    view: () => (
+    view: ({ attrs }) => (
       <div class="mb-4">
         <h2 class="text-grey-darkest">
           Current Habits for {DomainStore.current().name}

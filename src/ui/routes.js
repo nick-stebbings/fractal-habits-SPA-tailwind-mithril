@@ -31,12 +31,16 @@ function populateStores({ demo }) {
               : reject("There are no habits to load, yet!");
           })
       )
-      .then(DomainStore.index)
+      .then(() => {
+        return DomainStore.current()?.name == "No Domains Registered"
+        ? DomainStore.index()
+        : new Promise((res, rej) => res(DomainStore.list()));
+      })
       .then(
         (domains) =>
           new Promise((resolve, reject) => {
             domains.length !== 0 && HabitStore.fullList().length > 0
-              ? resolve(domains[0].id)
+              ? resolve(DomainStore.current().id)
               : reject("There are no domains or domain habits, yet!");
           })
       )
