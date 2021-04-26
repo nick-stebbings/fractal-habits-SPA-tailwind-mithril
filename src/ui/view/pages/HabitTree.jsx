@@ -25,8 +25,10 @@ const HabitTree = function () {
   let canvasWidth;
   let canvasHeight;
   let svg;
+
   const debounceInterval = 150;
   const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
+
   function updateStoresAndRenderTree(modalType) {
     DateStore.current().id &&
       TreeStore.index(
@@ -49,6 +51,7 @@ const HabitTree = function () {
             renderTree(svg, demoData, zoomer, {}, canvasWidth, canvasHeight, modalType);
         });
   }
+
   return {
     type: "vis",
     oninit: ({attrs}) => {

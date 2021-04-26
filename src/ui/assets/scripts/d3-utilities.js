@@ -104,6 +104,8 @@ const addLegend = (svg) => {
   gLegend.call(colorLegend);
 };
 
+const setHabitLabel = (data) => { document.getElementById("current-habit").nextElementSibling.textContent = data?.name };
+
 const showHabitLabel = () =>
   (document.querySelector(".mask-wrapper").style.height = "6.3rem");
 
@@ -160,13 +162,13 @@ const renderTree = function (
   zoomClicked,
   cW = canvasWidth,
   cH = canvasHeight,
-  fNeeded = modalType
+  mType = modalType
 ) {
   let currentXTranslate = margin.left;
   let currentYTranslate = margin.top;
   canvasWidth = cW;
   canvasHeight = cH;
-  modalType = fNeeded;
+  modalType = mType;
   // TODO change this to private data once more than one vis is live
 
   svg.selectAll("*").remove();
@@ -276,7 +278,7 @@ const renderTree = function (
             content: node.data,
           });
           activeNodeAnimation();
-          setHabitLabel();
+          setHabitLabel(node.data);
           showHabitLabel();
         }
       })
