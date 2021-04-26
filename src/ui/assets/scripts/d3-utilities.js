@@ -175,7 +175,6 @@ const renderTree = function (
 
   let rootData = TreeStore.root();
   if (rootData.name === "") return;
-  console.log(rootData);
 
   // SETTINGS
   let scale = isDemo ? 2 : 2.4;
@@ -199,7 +198,6 @@ const renderTree = function (
     .attr("preserveAspectRatio", "xMidYMid meet")
     .call(zoomer)
     .on("wheel", (event) => event.preventDefault());
-  console.log(select("svg .legend"));
   if (select("svg .legend").empty() && select("svg .controls").empty())
     addLegend();
 
@@ -263,7 +261,8 @@ const renderTree = function (
       .on("click", function (event, node) {
         const targ = event.target;
         if (targ.tagName == "circle") {
-          if (targ.closest(".the-node").classList.contains("active"))
+          event.stopPropagation()
+          if (targ.closest(".the-node").classList.contains("active") || parseTreeValues(targ.__data__.data.content)?.status == '')
             return reset();
 
             setActiveNode(node.data);
@@ -540,7 +539,6 @@ const renderTree = function (
     .attr("x", 10)
     .attr("y", 20)
     .text((d) => {
-      console.log(d.data);
       const words = d.data.name.split(" ").slice(0, 6);
       return `${words[0] || ""} ${words[1] || ""} ${words[2] || ""} ${
         words[3] || ""
@@ -641,8 +639,12 @@ const renderTree = function (
 
     }
     function activeNodeAnimation() {
-      const gCircle = svg.selectAll("g.the-node.solid.active g");
-      console.log(enteringNodes);
+      const gCircle = svg
+        .selectAll("g.the-node.solid.active g")
+        .filter((d, i) => {
+          console.log(select(this), d, i, "DI");
+          return true;
+        });
       const pulseScale = scaleLinear()
         .range(["orange", "steelblue", "purple"])
         .domain([0, 3 * nodeRadius]);
@@ -762,7 +764,6 @@ const oppositeStatus = (current) =>
 const nodeStatusColours = (d) => {
   if (typeof d === "undefined" || typeof d.data.content === "undefined") return neutralCol;
   const status = parseTreeValues(d.data.content).status;
-  console.log();
   if (status == "false" && TreeStore.root().leaves().includes(d)) return negativeCol;
   if (status === "") return noNodeCol;
   switch (cumulativeValue(d)) {
