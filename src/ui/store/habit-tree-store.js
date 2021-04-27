@@ -38,7 +38,7 @@ const TreeStore = {
     if (!useDemoData) {
       return clientRoutes(
         `/habit_trees?domain_id=${domainId}&date_id=${dateId}`
-      ).show_all();
+      ).show_all().catch(handleErrorType);
     }
     return TreeStore.showAllForDomain(domainId, dateId)().catch(
       handleErrorType

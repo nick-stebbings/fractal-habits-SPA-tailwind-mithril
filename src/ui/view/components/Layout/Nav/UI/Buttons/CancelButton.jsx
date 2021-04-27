@@ -5,12 +5,15 @@ const CancelButton = {
     dom.addEventListener("click", () => {
       openModal(false);
       attrs.modalType && attrs.modalType(false);
+
+      [...document.querySelectorAll(".not-added")].forEach(label => label.classList.remove("not-added"));
     });
   },
   view: ({ attrs }) => (
     <div className="button-container cancel-button">
       <button
         id={attrs.id}
+        type='reset'
         name={attrs.name}
         disabled={attrs.disabled}
         className={

@@ -17,6 +17,16 @@ const processFormData = function (dom, attrs) {
     .addEventListener("click", (e) => {
       e.preventDefault();
       let form = document.querySelector(`form#create-${attrs.resourceName}`);
+      let inputs = [...form.querySelectorAll('input')];
+      if (inputs.some(i => !i.validity.valid)) {
+        inputs.forEach(i => {
+          if (!i.validity.valid) {
+            let label = i.previousElementSibling;
+            label.classList.add('not-added');
+          }
+        });
+        return;
+      }
 
       const data = {};
       const FD = new FormData(form);

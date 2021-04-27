@@ -2,6 +2,8 @@ import SubmitButton from "./Nav/UI/Buttons/SubmitButton.jsx";
 import CancelButton from "./Nav/UI/Buttons/CancelButton.jsx";
 import NodeStore from "../../../store/habit-node-store";
 
+const randId = String(Math.ceil(Math.random() * 100));
+
 const Dialog = {
   oncreate: ({attrs}) => {
     const form = document.getElementById('form-dialog');
@@ -40,13 +42,13 @@ const Dialog = {
         </div>
         <div className="button-group py-3 mb-2 mr-4 text-sm bg-white border-t border-gray-200">
             <CancelButton
-              id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
+              id={`close-modal-${randId}`}
               name="close"
               label="Forget It"
               modalType={attrs.modalType}
             />
             <SubmitButton
-              id={`submit-form-${String(Math.ceil(Math.random() * 100))}`}
+              id={`submit-form-${randId}`}
               name="submit"
               label="Confirm"
             />

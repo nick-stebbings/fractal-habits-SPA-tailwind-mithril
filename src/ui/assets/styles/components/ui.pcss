@@ -55,6 +55,15 @@ label.reqd::before {
   @apply text-lg text-balance-digblue-dark;
 }
 
+label.reqd.not-added::before {
+  @apply text-balance-buttonbg-close;
+}
+
+label.reqd.not-added::after {
+  content: '    - Please fill this in correctly!';
+  @apply text-balance-buttonbg-close font-bold;
+}
+
 /* Buttons */
 
 .button-group {
