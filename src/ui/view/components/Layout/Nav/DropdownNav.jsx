@@ -27,10 +27,11 @@ const DropdownNav = (function () {
             {m.route.param("demo") && <li id="demo-indicator">DEMO mode</li>}
             {routes.map((route, index) => (
               <HoverableLink
-                label={`${route.label}`}
+                label={route.label}
+                href={Object.keys(route.subpaths)[0]}
                 class={routes.selected === route.label ? "active" : "inactive"}
                 id={`nav-${route.label.toLowerCase()}`}
-                subpaths={`${route.subpaths}`}
+                subpaths={route.subpaths}
               >
                 {routes[index].subpaths}
               </HoverableLink>

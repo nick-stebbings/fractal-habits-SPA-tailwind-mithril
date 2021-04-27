@@ -9,6 +9,8 @@ import SubmitButton from "../Nav/UI/Buttons/SubmitButton.jsx";
 import CancelButton from "../Nav/UI/Buttons/CancelButton.jsx";
 import DomainStore from "../../../../store/domain-store.js";
 
+const randId = String(Math.ceil(Math.random() * 100));
+
 const processFormData = function (dom, attrs) {
   dom
     .querySelector("form button[type=submit]")
@@ -74,37 +76,43 @@ const CreateForm = {
           m(
             InputGroup,
             {
-              name: "habit-name",
+              name: `habit-title-${randId}`,
               label: "Habit Name",
+              class: "reqd",
             },
             m("input[type=text]", {
               name: "name",
-              id: `habit-title-${String(Math.ceil(Math.random() * 100))}`,
+              id: `habit-title-${randId}`,
               class: "form-input",
+              required: "true",
+              maxlength: "50",
               placeholder: "e.g. Hydrate in the A.M.",
             })
           ),
           m(
             InputGroup,
             {
-              name: "habit-description",
+              name: `habit-description-${randId}`,
               label: "Habit Description",
             },
             m("input[type=text]", {
               name: "description",
-              id: `habit-description-${String(Math.ceil(Math.random() * 100))}`,
+              id: `habit-description-${randId}`,
               class: "form-input",
+              maxlength: "80",
               placeholder: "e.g. Drinking water each day after waking",
             })
           ),
           m(
             InputGroup,
             {
-              name: "initiation_date",
+              name: `initiation-date-${randId}`,
               label: "Initiation Date",
+              class: "reqd",
             },
             m("input[type=date]", {
-              id: `initiation-date-${String(Math.ceil(Math.random() * 100))}`,
+              id: `initiation-date-${randId}`,
+              required: "true",
               name: "initiation-date",
               class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
               max: String(DateStore.currentDate()),
@@ -114,7 +122,7 @@ const CreateForm = {
 
         <div className="button-group py-3 mb-2 bg-white border-t border-gray-200">
           <CancelButton
-            id={`close-modal-${String(Math.ceil(Math.random() * 100))}`}
+            id={`close-modal-${randId}`}
             name="close"
             label="Forget It"
             modalType={attrs.modalType}

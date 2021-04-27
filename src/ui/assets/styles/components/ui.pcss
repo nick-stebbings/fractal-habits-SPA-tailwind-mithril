@@ -47,7 +47,12 @@ form#create-new-habit-child > .input-container {
 }
 
 label {
-  @apply leading-loose text-sm;
+  @apply leading-loose text-sm my-2;
+}
+
+label.reqd::before {
+  content: "*";
+  @apply text-lg text-balance-digblue-dark;
 }
 
 /* Buttons */
@@ -106,7 +111,7 @@ main#append-habit .button-container.selected {
 }
 
 #habit-list button.selected {
-  @apply bg-balance-buttonbg-digbluelighter hover:bg-balance-buttonbg-digblue text-white font-bold;
+  @apply bg-balance-buttonbg-digbluelighter hover:bg-balance-buttonbg-digblue text-white font-bold border-balance-sshades-gray border-2;
 }
 
 #vis button {

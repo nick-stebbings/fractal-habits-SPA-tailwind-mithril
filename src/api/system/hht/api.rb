@@ -211,7 +211,7 @@ module Hht
       get '/:root_id' do |root_id|
         date_id = params[:date_id].to_i
         tree = Subtree.generate(root_id, date_id)
-        status tree ? 200 : 404
+        status tree ? 200 :  halt(404, { message:'No habit data found!'}.to_json)
         return tree.to_d3_json if tree
       end
     end

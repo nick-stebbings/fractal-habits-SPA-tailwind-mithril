@@ -3,7 +3,7 @@ import MenuList from '../../MenuList.jsx';
 const HoverableLink = {
   view: ({ attrs, children }) => (
     <li className={`hoverable ${attrs.class}`}>
-      <a id={`${attrs.id}`}>{attrs.label}</a>
+      <m.route.Link id={attrs.id} selector="a" href={attrs.href}>{attrs.label}</m.route.Link>
       <div className="mega-menu">
         <div className="mega-menu-wrapper">
           <div className="inset-wrapper" />

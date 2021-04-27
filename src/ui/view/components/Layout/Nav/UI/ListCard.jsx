@@ -22,8 +22,8 @@ const ListCard = {
           }
           HabitStore.current(
             HabitStore.filterById(+e.target.getAttribute("data-id"))[0]
-          );
-          m.redraw();
+            );
+            document.getElementById("current-habit").nextElementSibling.textContent = HabitStore.current().name;
         }
       })}
       <div class="habit-list-details">
