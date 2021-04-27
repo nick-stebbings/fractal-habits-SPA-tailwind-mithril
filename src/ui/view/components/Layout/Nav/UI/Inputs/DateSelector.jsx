@@ -58,7 +58,6 @@ const DateSelector = function () {
           id="date-today"
           tabindex="3"
           required
-          pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
           class="form-input w-full text-xl lg:pt-4 -mr-8 px-2"
           type="date"
           value={DateStore.currentDate()}

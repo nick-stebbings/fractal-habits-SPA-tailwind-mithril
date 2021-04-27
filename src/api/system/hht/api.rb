@@ -369,7 +369,7 @@ module Hht
       put '/' do
         habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
         attrs = habit_date.reject { |k,v| k == :completed_status }
-        binding.pry
+        # binding.pry
         halt(404, { message:'Habit Date Not Found'}.to_json) unless habit_date_repo.by_attrs(attrs).exist?
         updated = habit_date_repo.update(habit_date)
         updated ? 204 : 

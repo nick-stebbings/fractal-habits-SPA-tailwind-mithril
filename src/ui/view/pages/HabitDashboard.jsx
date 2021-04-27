@@ -19,11 +19,12 @@ import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
 
 const getStatusColor = (habit) => {
-  let status =
-    HabitDateStore.runFilter(habit.id) &&
+  let status;
+  if (HabitDateStore.runFilter(habit.id) &&
     HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id).length >
-      0 &&
-    String(HabitDateStore.list()[0].completed_status);
+      0) {
+        status = String(HabitDateStore.list()[0].completed_status);
+      }
   switch (status) {
     case "true":
       return positiveCol;
@@ -100,19 +101,19 @@ const HabitDashboard = {
 
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
 
-          // Add togglet status event
+          // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;
             const currentStatusCol = e.target.getAttribute("fill");
             const currentStatus =
-              currentStatusCol === positiveCol ? "true" : "false";
+              currentStatusCol === positiveCol;
+              debugger;
             e.target.setAttribute(
               "fill",
               currentStatusCol === positiveCol ? negativeCol : positiveCol
             );
-            makePatchOrPutRequest(demoData, currentStatus)
-              .then(HabitDateStore.index)
-              .then(m.redraw);
+            makePatchOrPutRequest(demoData, String(currentStatus))
+              .then(HabitDateStore.index);
           }
           // Add delete  event
           if (e.target.tagName == "BUTTON") {
