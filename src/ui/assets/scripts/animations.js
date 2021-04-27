@@ -43,7 +43,7 @@ const addSwipeGestures = function () {
 
   manager.add(Swipe);
   manager.on("swipe", function (e) {
-    if (Math.abs(e.deltaX) > 200) {
+    if (Math.abs(e.deltaX) > 300) {
       let dispEvent = new Event("click");
       e.deltaX > 0
         ? prevDate.dispatchEvent(dispEvent)

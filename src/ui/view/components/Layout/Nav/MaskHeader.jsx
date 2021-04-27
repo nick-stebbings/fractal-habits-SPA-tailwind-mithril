@@ -26,6 +26,7 @@ const MaskHeader = function () {
             <m.route.Link
               selector="span"
               href="/"
+              tabindex={1}
               className="logo md:h-8 block h-10"
             >
               <svg
@@ -48,8 +49,10 @@ const MaskHeader = function () {
             >
               <div className="active:outline-light focus:outline-light hover:bg-balance-pshades-light md:w-8 md:h-8 flex items-center justify-center w-10 h-10 rounded-md">
                 <label
+                  id="hamburger-label"
                   htmlFor="hamburger"
                   className="text-balance-sshades-brighten border-1 lg:hidden md:w-6 md:h-6 block w-8 h-8"
+                  tabindex="4"
                 >
                   <svg
                     className="text-balance-sshades-brighten stroke-current"
@@ -69,7 +72,7 @@ const MaskHeader = function () {
               </div>
               <input type="checkbox" id="hamburger" className="hidden" />
               <nav className="top-16 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-desat lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row bg-balance-pshades-dark lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray absolute left-0 z-20 flex-col hidden w-full border-b-4">
-                <div className="md:pl-16 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between px-4 pt-1 pb-2">
+                <div className="md:pl-1 6 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between hidden px-4 pt-1 pb-2">
                   <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
                       <label>Domain</label>
@@ -101,7 +104,7 @@ const MaskHeader = function () {
                     </div>
                   </div>
                 </div>
-                <div className="sm:w-3/5 lg:border-none lg:w-auto lg:mt-1 text-md md:px-0 lg:flex-row flex flex-wrap items-center justify-around px-4 py-1 mt-3">
+                <div className="lg:block sm:w-3/5 lg:border-none lg:w-auto lg:mt-1 text-md md:px-0 lg:flex-row flex flex-wrap items-center justify-around hidden px-4 py-1 mt-3">
                   <div className="lg:border-1 border-balance-tershades-gray lg:flex-row-reverse bg-balance-tershades-light lg:bg-balance-pshades-light lg:py-0 lg:rounded-3xl lg:rounded-t-none flex items-center justify-between py-2 pl-4 mb-2 mr-1 border-2 rounded-full">
                     <img
                       className="lg:border-1 lg:border-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none border-1 border-balance-tershades-light flex-none object-cover w-10 h-10 rounded-full"
