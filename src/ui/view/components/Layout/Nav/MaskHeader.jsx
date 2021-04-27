@@ -1,8 +1,5 @@
 import MenuRoutes from "../../../../menu-routes";
 
-import DomainStore from "../../../../store/domain-store";
-import HabitStore from "../../../../store/habit-store";
-
 import ResponsiveNavGroup from "../Nav/ResponsiveNavGroup.jsx";
 import DomainSelector from "./UI/Inputs/DomainSelector.jsx";
 import DropdownNav from "../Nav/DropdownNav.jsx";

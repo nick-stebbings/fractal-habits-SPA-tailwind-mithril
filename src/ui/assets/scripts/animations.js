@@ -56,6 +56,13 @@ const registerEventListeners = (function () {
   const { body } = document;
 
   document.addEventListener("DOMContentLoaded", () => {
+    const respNavLabel = document.getElementById('hamburger-label');
+    const hamburgerCheckbox = document.getElementById('hamburger');
+    respNavLabel.addEventListener('focus', (e) => {
+      // Todo: add this and the logo as 'keyboard pressable' events
+      hamburgerCheckbox.checked = !hamburgerCheckbox.checked;
+    })
+
     document.getElementById("modal_overlay").addEventListener("click", (e) => {
       if (e.target.id.includes("close-modal")) {
         openModal(false);
