@@ -60,6 +60,7 @@ const DateSelector = function () {
           class="form-input w-full text-xl lg:pt-4 -mr-8 px-2"
           type="date"
           value={DateStore.currentDate()}
+          max={String(DateStore.currentDate())}
           list="current-habit-date-list"
         />
         <datalist id="current-habit-date-list">

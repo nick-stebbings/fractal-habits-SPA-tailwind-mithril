@@ -25,12 +25,13 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType);
   },
 
-  runFilter: (habitId) =>
-    HabitDateStore.list(
-      HabitDateStore.fullList().filter(
-        (habitDate) => habitDate.habit_id == habitId
-      )
+  filterListByHabitId: (habitId) =>
+    HabitDateStore.fullList().filter(
+      (habitDate) => habitDate.habit_id == +habitId
     ),
+
+  runFilter: (habitId) =>
+    HabitDateStore.list(HabitDateStore.filterListByHabitId()),
 
   runDateFilterOnCurrentList: (dateId) =>
     HabitDateStore.list(

@@ -6,6 +6,8 @@ require 'sinatra/reloader'
 require 'sinatra/cross_origin'
 require 'sinatra/json'
 require 'multi_json'
+require 'dry-validation'
+require 'dry-schema'
 
 require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
@@ -41,6 +43,20 @@ module Hht
       response.headers["Access-Control-Allow-Origin"] = 'http://localhost:8080'
       response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept"
       200
+    end
+
+    def unwrap_validation_error(failure_monad)
+      failure_monad.failure.errors.to_h.values[0][0]
+    end
+
+    def validate_form(form_attrs)
+      validator = Dry::Schema.Params do
+        required(:date_id).filled(:int?)
+        required(:habit_id).filled(:int?)
+        required(:completed_status).filled(:completed_status?)
+      end
+      # TODO ['TrueClass', 'FalseClass'].include? JSON.parse(value).class.name
+      validator.call(form_attrs)
     end
 
     include Import[
@@ -227,7 +243,7 @@ module Hht
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = domain_repo.create(domain)
         body = created.success? ? JSON.generate({id: created.flatten.to_s}) : ''
-        [(created.success? ? 201 : 400), { 'Location' => 'https://google.com'} , body]
+        [(created.success? ? 201 : halt(400, { message: unwrap_validation_error(created)}.to_json))]
       end
 
       put '/:domain_id' do |id|
@@ -241,7 +257,7 @@ module Hht
           response.headers['Location'] = url
           status 204
         else
-          status 422
+          halt(422, { message: unwrap_validation_error(updated)}.to_json)
         end
       end
 
@@ -258,7 +274,7 @@ module Hht
           response.headers['Location'] = url
           status 204
         else
-          status 422
+          halt(422, { message: unwrap_validation_error(updated)}.to_json)
         end
       end
 
@@ -293,35 +309,10 @@ module Hht
           headers 'Location' => url # Due to CORS this is not being received by client. TODO figure out why and don't send back
           status 204
         else
-          status 422
+          halt(422, { message: unwrap_validation_error(created)}.to_json)
         end
       end
 
-      # put '/:domain_id' do |id|
-      #   domain = MultiJson.load(request.body.read, :symbolize_keys => true)
-      #   # TODO: Use contract to validate payload is a full domain resource
-      #   existing = domain_repo.by_id(id)
-      #   halt(404, { message:'Domain Not Found'}.to_json) unless existing
-
-      #   domain_repo.update(id, domain)
-      #   # TODO: If returns success monad, we know it persisted
-      #   # So redirect
-      #   url = "http://localhost:9393/domains/#{id}"
-      #   response.headers['Location'] = url
-      #   status 204
-      # end
-
-      # patch '/:domain_id' do |id|
-      #   domain_client = MultiJson.load(request.body.read, :symbolize_keys => true)
-      #   domain_server = domain_repo.as_json(id)
-      #   halt(404, { message:'Domain Not Found'}.to_json) unless domain_server
-
-      #   domain_client.each do |key, value|
-      #     domain_server[key.to_sym] = value
-      #   end
-      #   domain_repo.update(id, domain_server)
-      #   status 204
-      # end
       delete '/:habit_id' do |id|
         habit = habit_repo.as_json(id)
         halt(404, { message:'Habit Not Found'}.to_json) unless habit
@@ -354,7 +345,7 @@ module Hht
           response.headers['Location'] = url
           status 204
         else
-          status 400
+          halt(400, { message: unwrap_validation_error(created)}.to_json)
         end
       end
     end
@@ -371,15 +362,18 @@ module Hht
       post '' do
         habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = habit_date_repo.create(habit_date)
-        created.success? ? 204 : 422
+        created.success? ? 204 : 
+          halt(422, { message: unwrap_validation_error(created)}.to_json)
       end
 
       put '/' do
         habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
         attrs = habit_date.reject { |k,v| k == :completed_status }
+        binding.pry
         halt(404, { message:'Habit Date Not Found'}.to_json) unless habit_date_repo.by_attrs(attrs).exist?
         updated = habit_date_repo.update(habit_date)
-        updated ? 204 : 422
+        updated ? 204 : 
+          halt(422, { message: unwrap_validation_error(updated)}.to_json)
       end
     end
   end

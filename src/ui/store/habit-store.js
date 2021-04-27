@@ -1,21 +1,22 @@
 import stream from "mithril/stream";
 import { clientRoutes, handleErrorType } from "./client";
 import { DateTime } from "luxon";
+import HabitDateStore from "./habit-date-store";
 
 const basePath = "/habits";
 
 const HabitStore = Object.assign(clientRoutes(basePath), {
   current: stream({ name: "Select a Life-Domain to start tracking", id: 1 }),
-  
+
   get: (id) =>
     HabitStore.show_one(id)
-    .then((response) => JSON.parse(response.data))
-        .then(HabitStore.current)
-        .catch(handleErrorType),
-        
-        clear: () => {
-          HabitStore.current = stream({});
-        },
+      .then((response) => JSON.parse(response.data))
+      .then(HabitStore.current)
+      .catch(handleErrorType),
+
+  clear: () => {
+    HabitStore.current = stream({});
+  },
 
   listSorted: null,
   list: stream([]),
@@ -60,17 +61,35 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       habit.name.match(new RegExp(filterString, "i"))
     ),
 
-  sortByName: (asc) => {
-    HabitStore.listSorted = !HabitStore.listSorted;
-    return HabitStore.list().sort((habitA, habitB) =>
-      asc ? habitA.name.localeCompare(habitB.name) : habitB.name.localeCompare(habitA.name)
-    )},
+  sortByName: (asc = true) =>
+    HabitStore.list(
+      HabitStore.list().sort((habitA, habitB) =>
+        asc
+          ? habitA.name.localeCompare(habitB.name)
+          : habitB.name.localeCompare(habitA.name)
+      )
+    ),
 
-  sortByDate: (asc = true) => HabitStore.list(
-    HabitStore.list().sort((habitA, habitB) => asc
-        ? (DateTime.fromSQL(habitA.initiation_date).ts - DateTime.fromSQL(habitB.initiation_date).ts)
-        : +(DateTime.fromSQL(habitB.initiation_date).ts - DateTime.fromSQL(habitA.initiation_date).ts)
-        )
+  sortByDate: (asc = true) =>
+    HabitStore.list(
+      HabitStore.list().sort((habitA, habitB) =>
+        asc
+          ? DateTime.fromSQL(habitA.initiation_date).ts -
+            DateTime.fromSQL(habitB.initiation_date).ts
+          : +(
+              DateTime.fromSQL(habitB.initiation_date).ts -
+              DateTime.fromSQL(habitA.initiation_date).ts
+            )
+      )
+    ),
+
+  getHabitStatusForHabitDateList: (habit) => HabitDateStore.filterListByHabitId(habit.id)[0]?.completed_status,
+
+  sortByStatus: (asc = true) =>
+    HabitStore.list(
+      HabitStore.list().sort((habitA, habitB) =>
+        HabitStore.getHabitStatusForHabitDateList(habitA) > HabitStore.getHabitStatusForHabitDateList(habitB) ? -1 : 1
+      )
     ),
 
   submit: (attrs) =>

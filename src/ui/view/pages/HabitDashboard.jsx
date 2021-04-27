@@ -55,15 +55,23 @@ const HabitDashboard = {
   },
   oncreate: ({ attrs }) => {
     const demoData = m.route.param("demo");
-    
+
     addSwipeGestures();
 
     // Add sorting events
-    document.getElementById('sort-name-asc').addEventListener('click', (e) => {
-      console.log(!HabitStore.listSorted);
-      HabitStore.sortByName(!HabitStore.listSorted);
+    document.getElementById("sort-name-desc").addEventListener("click", (e) => {
+      HabitStore.sortByName(false);
       m.redraw();
-    })
+    });
+    document.getElementById("sort-date-desc").addEventListener("click", (e) => {
+      HabitStore.sortByDate(true);
+      m.redraw();
+    });
+    document.getElementById("sort-completion-desc").addEventListener("click", (e) => {
+      // HabitStore.sortByStatus(false);
+      console.log(HabitStore.list());
+      m.redraw();
+    });
 
     // Add selected habit row styles
     const selectedHabitName = [
@@ -86,7 +94,7 @@ const HabitDashboard = {
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
           const habitName = e.currentTarget.querySelector("p:first-child")
-            .textContent;
+            ?.textContent;
           document.querySelector(".selected").classList.remove("selected");
           e.currentTarget.classList.add("selected");
 
@@ -126,7 +134,7 @@ const HabitDashboard = {
   },
   view: ({ attrs }) => (
     <div class="container mx-auto max-w-3/4">
-      {/* List component from www.tailwind-kit.com */} 
+      {/* List component from www.tailwind-kit.com */}
       <div class="py-8">
         <FilterList></FilterList>
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -139,25 +147,44 @@ const HabitDashboard = {
                     class="w-1/2 px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
                     Habit
-                    <i id="sort-name-asc" class="fa fa-sort-desc" aria-hidden="true"></i>
+                    <i
+                      id="sort-name-desc"
+                      class="fa fa-sort-desc"
+                      aria-hidden="true"
+                    ></i>
                   </th>
                   <th
                     scope="col"
                     class="px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
                     Domain
+                    <i
+                      id="sort-domain-desc"
+                      class="fa fa-sort-desc"
+                      aria-hidden="true"
+                    ></i>
                   </th>
                   <th
                     scope="col"
                     class="w-1/12 text-center px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-sm uppercase font-normal"
                   >
                     Initiated
+                    <i
+                      id="sort-date-desc"
+                      class="fa fa-sort-desc"
+                      aria-hidden="true"
+                    ></i>
                   </th>
                   <th
                     scope="col"
                     class="w-1/12 text-center px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   >
                     Completion
+                    <i
+                      id="sort-completion-desc"
+                      class="fa fa-sort-desc"
+                      aria-hidden="true"
+                    ></i>
                   </th>
                   <th
                     scope="col"

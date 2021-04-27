@@ -9,7 +9,6 @@ import SubmitButton from "../Nav/UI/Buttons/SubmitButton.jsx";
 import CancelButton from "../Nav/UI/Buttons/CancelButton.jsx";
 import DomainStore from "../../../../store/domain-store.js";
 
-let maxDate;
 const processFormData = function (dom, attrs) {
   dom
     .querySelector("form button[type=submit]")
@@ -32,6 +31,7 @@ const processFormData = function (dom, attrs) {
         .then(() => HabitStore.submit(data))
         .then(() => {
           openModal(false);
+          m.redraw();
         })
         .then(DateStore.index)
         .then(() => {
@@ -44,7 +44,6 @@ const processFormData = function (dom, attrs) {
         });
         
       attrs.modalType(false);
-      m.redraw();
     });
 };
 
@@ -55,8 +54,6 @@ const CreateForm = {
     document.querySelector(
       "input[name^=initiation-date]"
     ).value = new Date().toDateInputValue();
-
-    maxDate = String(DateStore.currentDate());
 
     processFormData(dom, attrs);
   },
@@ -110,7 +107,7 @@ const CreateForm = {
               id: `initiation-date-${String(Math.ceil(Math.random() * 100))}`,
               name: "initiation-date",
               class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
-              max: maxDate,
+              max: String(DateStore.currentDate()),
             })
           ),
         ])}

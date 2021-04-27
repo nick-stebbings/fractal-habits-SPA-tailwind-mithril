@@ -50,8 +50,8 @@ const handleErrorType = function (err, type = "warning") {
     }
   }
   const response =
-    typeof err.response === "number"
-      ? messages[Number(err.response.status)]
+    err.response?.status
+      ? err.response.data.message || messages[Number(err.response.status)] // Allow server side validation message first
       : err;
   switch (type) {
     case "info":

@@ -1,5 +1,5 @@
 import DomainStore from "../../../../../../store/domain-store";
-import { openModal } from "../../../../../../assets/scripts/animations";
+import { handleErrorType } from "../../../../../../store/client";
 
 const DomainPill = {
   oncreate: (vnode) => {
@@ -16,12 +16,7 @@ const DomainPill = {
         .then(() => {
           m.redraw();
         })
-        .catch((err) => {
-          console.log(err);
-          err.status
-            ? window.FlashMessage.error(err.status)
-            : window.FlashMessage.error("Unable to add Domain");
-        });
+        .catch(handleErrorType);
     });
   },
   view: ({ attrs }) => (

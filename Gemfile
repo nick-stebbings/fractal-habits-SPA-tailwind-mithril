@@ -50,5 +50,6 @@ gem 'rom-sql'
 gem 'rom-yaml'
 
 # Data structures
+gem 'dry-schema'
 gem 'json'
 gem 'rubytree'

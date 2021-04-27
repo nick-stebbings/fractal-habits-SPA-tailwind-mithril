@@ -40,7 +40,7 @@ const FilterList = function () {
         HabitStore.list().length == 0
       ) {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id)
-        if (HabitStore.list().length == 0 && attrs.modalType) {
+        if (HabitStore.list().length == 0) {
           console.log("can make modal");
         }
       }
