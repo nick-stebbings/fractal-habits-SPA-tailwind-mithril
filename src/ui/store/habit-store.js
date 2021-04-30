@@ -112,7 +112,6 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
           newList.pop();
         newList.push(current);
         HabitStore.fullList(newList);
-        console.log('THE LISR', HabitStore.fullList());
         return current;
       })
       .then(() => {

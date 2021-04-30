@@ -10,8 +10,6 @@ const currentInput = stream("");
 
 const FilterList = function () {
   return {
-    oninit: () => {
-    },
     oncreate: () => {
       const filterInput = document.querySelector("input[name=filter-results]");
 
@@ -41,7 +39,7 @@ const FilterList = function () {
       ) {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id)
         if (HabitStore.list().length == 0) {
-          console.log("can make modal");
+          // todo
         }
       }
     },

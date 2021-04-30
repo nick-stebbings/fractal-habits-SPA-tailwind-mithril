@@ -39,15 +39,22 @@ const getStatusColor = (habit) => {
 
 const HabitDashboard = {
   oninit: () => {
-    if (!m.route.param("demo") && HabitDateStore.fullList().length == 0) {
-      HabitDateStore.index().then(() => {
-        HabitStore.sortByDate();
-        HabitStore.current() &&
+    if (!m.route.param("demo")) {
+      if(HabitDateStore.list() == 0) {
+
+        HabitDateStore.index().then(() => {
+          HabitStore.sortByDate();
+          HabitStore.current() &&
           HabitDateStore.runFilter(HabitStore.current().id);
-        NodeStore.index();
-        DateStore.current() &&
+          DateStore.current() &&
           HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
-      });
+        }).then(m.redraw);
+        
+        console.log(HabitDateStore.list());
+        console.log(HabitStore.list());
+        console.log(DateStore.list());
+        console.log(DomainStore.list());
+      }
     } else {
       HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);
       DateStore.current() &&
@@ -68,11 +75,13 @@ const HabitDashboard = {
       HabitStore.sortByDate(true);
       m.redraw();
     });
-    document.getElementById("sort-completion-desc").addEventListener("click", (e) => {
-      // HabitStore.sortByStatus(false);
-      console.log(HabitStore.list());
-      m.redraw();
-    });
+    document
+      .getElementById("sort-completion-desc")
+      .addEventListener("click", (e) => {
+        // HabitStore.sortByStatus(false);
+        console.log(HabitStore.list());
+        m.redraw();
+      });
 
     // Add selected habit row styles
     const selectedHabitName = [
@@ -100,20 +109,19 @@ const HabitDashboard = {
           e.currentTarget.classList.add("selected");
 
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
-
+          console.log(HabitStore.current(), "CURRENT");
           // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;
             const currentStatusCol = e.target.getAttribute("fill");
-            const currentStatus =
-              currentStatusCol === positiveCol;
-              debugger;
+            const currentStatus = currentStatusCol === positiveCol;
             e.target.setAttribute(
               "fill",
               currentStatusCol === positiveCol ? negativeCol : positiveCol
             );
-            makePatchOrPutRequest(demoData, String(currentStatus))
-              .then(HabitDateStore.index);
+            makePatchOrPutRequest(demoData, String(currentStatus)).then(
+              HabitDateStore.index
+            ).then(m.redraw);
           }
           // Add delete  event
           if (e.target.tagName == "BUTTON") {

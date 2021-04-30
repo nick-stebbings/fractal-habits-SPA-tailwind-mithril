@@ -33,7 +33,6 @@ const Modal = {
                 {attrs.modalType() !== "confirm" &&
                   m("span", DomainStore.current().name)}
               </h3>
-              {console.log(DomainStore.current().id, 'ID')}
             </div>
             {attrs.modalType() && attrs.modalType() !== "confirm" && (
               <CreateForm

@@ -129,6 +129,7 @@ const CreateForm = {
               name: "initiation-date",
               class: "form-input w-3/4 sm:w-2/3 md:w-1/2",
               max: String(DateStore.currentDate()),
+              min: "2021-01-01",
             })
           ),
         ])}

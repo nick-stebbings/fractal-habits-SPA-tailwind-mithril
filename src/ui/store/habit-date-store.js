@@ -31,7 +31,7 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
     ),
 
   runFilter: (habitId) =>
-    HabitDateStore.list(HabitDateStore.filterListByHabitId()),
+    HabitDateStore.list(HabitDateStore.filterListByHabitId(habitId)),
 
   runDateFilterOnCurrentList: (dateId) =>
     HabitDateStore.list(

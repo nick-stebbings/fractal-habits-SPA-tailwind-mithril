@@ -23,11 +23,10 @@ const modalType = stream(false);
 function populateStores({ demo }) {
   if (!demo) {
     let habitLoad = (HabitStore.current()?.name == "Select a Life-Domain to start tracking" // If we still have default habit data
-      ? HabitStore.index()
-      : Promise.resolve(HabitStore.fullList())
-      )
-        .then((habits) => {
-        console.log(habits);        
+    ? HabitStore.index()
+    : HabitStore.index()//Promise.resolve(HabitStore.fullList())
+    )
+      .then((habits) => {
         return new Promise((resolve, reject) => {
             habits.length !== 0
               ? resolve(habits)
@@ -40,7 +39,7 @@ function populateStores({ demo }) {
 
     let domainLoad = (DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
       ? DomainStore.index()
-      : Promise.resolve(DomainStore.list())
+      : DomainStore.index()//Promise.resolve(DomainStore.list())
     )
       .then((domains) => {
         return new Promise((resolve, reject) => {
@@ -50,17 +49,23 @@ function populateStores({ demo }) {
         });
       })
       .then(HabitStore.indexHabitsOfDomain)
-      .then(() => {
-        DateStore.index()
-        spinnerOpen(false);
-        m.redraw()
-      })
       .catch((message) => {
+        spinnerOpen(false);
+        handleErrorType(message, "info");
+      });
+    
+    let dateLoad = DateStore.index()
+      .then(m.redraw)
+      .catch((err) => {
+        spinnerOpen(false);
         handleErrorType(message, "info");
       });
 
-    Promise.all([habitLoad, domainLoad])
-      .then(m.redraw)
+    Promise.all([habitLoad, domainLoad, dateLoad])
+      .then(() => {
+        m.redraw();
+        spinnerOpen(false);
+      })
       .catch((err) => {
         spinnerOpen(false);
         console.log(err, "Error loading data!");
