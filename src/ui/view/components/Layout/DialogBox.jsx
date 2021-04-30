@@ -1,6 +1,7 @@
 import SubmitButton from "./Nav/UI/Buttons/SubmitButton.jsx";
 import CancelButton from "./Nav/UI/Buttons/CancelButton.jsx";
 import NodeStore from "../../../store/habit-node-store";
+import HabitDateStore from "../../../store/habit-date-store";
 
 const randId = String(Math.ceil(Math.random() * 100));
 
@@ -8,7 +9,13 @@ const Dialog = {
   oncreate: ({attrs}) => {
     const form = document.getElementById('form-dialog');
     form.addEventListener("submit", () => {
+      console.log(attrs);
       if (attrs.type === 'habit-delete') {
+        console.log(attrs);
+        
+        console.log(NodeStore.list());
+        console.log(HabitDateStore.list());
+        
         NodeStore.runDelete(NodeStore.current().id);
         attrs.modalType(false);
         m.route.set("/habits/list");

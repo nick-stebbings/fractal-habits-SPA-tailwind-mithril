@@ -40,20 +40,15 @@ const getStatusColor = (habit) => {
 const HabitDashboard = {
   oninit: () => {
     if (!m.route.param("demo")) {
-      if(HabitDateStore.list() == 0) {
-
-        HabitDateStore.index().then(() => {
+      if(HabitDateStore.fullList().length == 0 || NodeStore.list().length == 0) {
+        HabitDateStore.index().then(
+        NodeStore.index).then(() => {
           HabitStore.sortByDate();
           HabitStore.current() &&
           HabitDateStore.runFilter(HabitStore.current().id);
           DateStore.current() &&
           HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
         }).then(m.redraw);
-        
-        console.log(HabitDateStore.list());
-        console.log(HabitStore.list());
-        console.log(DateStore.list());
-        console.log(DomainStore.list());
       }
     } else {
       HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);
@@ -125,7 +120,10 @@ const HabitDashboard = {
           }
           // Add delete  event
           if (e.target.tagName == "BUTTON") {
-            NodeStore.runCurrentFilterByHabit(HabitStore.current());
+            console.log(NodeStore.list())
+            console.log(
+              NodeStore.runCurrentFilterByHabit(HabitStore.current())
+            );
             attrs.modalType("confirm");
             openModal(true);
           }
