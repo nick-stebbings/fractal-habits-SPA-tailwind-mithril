@@ -243,7 +243,8 @@ module Hht
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = domain_repo.create(domain)
         body = created.success? ? JSON.generate({id: created.flatten.to_s}) : ''
-        [(created.success? ? 201 : halt(400, { message: unwrap_validation_error(created)}.to_json))]
+        created.success? ? (status 201) : halt(400, { message: unwrap_validation_error(created)}.to_json)
+        body
       end
 
       put '/:domain_id' do |id|
@@ -304,13 +305,9 @@ module Hht
       post '' do
         habit = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = habit_repo.create(habit)
-        if created.success?
-          url = "http://localhost:9393/habits/#{created.flatten}"
-          headers 'Location' => url # Due to CORS this is not being received by client. TODO figure out why and don't send back
-          status 204
-        else
-          halt(422, { message: unwrap_validation_error(created)}.to_json)
-        end
+        body = created.success? ? JSON.generate({id: created.flatten.to_s}) : ''
+        created.success? ? (status 201) : halt(400, { message: unwrap_validation_error(created)}.to_json)
+        body
       end
 
       delete '/:habit_id' do |id|

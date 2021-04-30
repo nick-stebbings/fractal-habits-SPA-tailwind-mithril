@@ -4,7 +4,7 @@ import { clientRoutes, handleErrorType } from "./client";
 const basePath = "/domains";
 
 const DomainStore = Object.assign(clientRoutes(basePath), {
-  current: stream({ name: "No Domains Registered", id: "1" }),
+  current: stream({ name: "No Domains Registered", id: 1 }),
 
   get: (id) =>
     DomainStore.show_one(id)
@@ -13,10 +13,10 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   clear: () => {
-    DomainStore.current = stream({ name: "No Domains Registered", id: "1" });
+    DomainStore.current = stream({ name: "No Domains Registered", id: 1 });
   },
 
-  list: stream([{ name: "No Domains Registered", id: "1" }]),
+  list: stream([{ name: "No Domains Registered", id: 1 }]),
 
   index: () =>
     DomainStore.show_all()
@@ -52,16 +52,6 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
         DomainStore.list(newList);
         return current;
       }),
-
-  runReplace: (id, value) =>
-    DomainStore.replace(id, value).catch(() => {
-      // TODO update list/current
-    }),
-
-  runUpdate: (id, value) =>
-    DomainStore.update(id, value).catch(() => {
-      // TODO update list/current
-    }),
 
   runDelete: (id) =>
     DomainStore.delete(id)

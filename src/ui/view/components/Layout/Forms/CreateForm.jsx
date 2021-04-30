@@ -12,10 +12,13 @@ import DomainStore from "../../../../store/domain-store.js";
 const randId = String(Math.ceil(Math.random() * 100));
 
 const processFormData = function (dom, attrs) {
+  document
+    .querySelector("form").addEventListener("submit", (e) => {
+      e.preventDefault()
+    });
   dom
     .querySelector("form button[type=submit]")
     .addEventListener("click", (e) => {
-      e.preventDefault();
       let form = document.querySelector(`form#create-${attrs.resourceName}`);
       let inputs = [...form.querySelectorAll('input')];
       if (inputs.some(i => !i.validity.valid)) {

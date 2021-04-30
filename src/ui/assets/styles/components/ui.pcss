@@ -181,9 +181,16 @@ div.domain-pills button.domain-create div:hover {
 input[type="text"],
 .sm-selector-container select.domain-selector,
 input[type="date"] {
+  @apply focus:ring-balance-sshades-brighten focus:border-balance-sshades-brighten border-2 text-sm lg:text-xl text-gray-600 border-gray-300 rounded-md;
   -moz-appearance: none;
   -webkit-appearance: none;
-  @apply focus:ring-balance-sshades-brighten focus:border-balance-sshades-brighten border-2 text-sm lg:text-xl text-gray-600 border-gray-300 rounded-md;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 @media (max-width: 1024px) {

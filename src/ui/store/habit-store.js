@@ -83,19 +83,38 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       )
     ),
 
-  getHabitStatusForHabitDateList: (habit) => HabitDateStore.filterListByHabitId(habit.id)[0]?.completed_status,
+  getHabitStatusForHabitDateList: (habit) =>
+    HabitDateStore.filterListByHabitId(habit.id)[0]?.completed_status,
 
   sortByStatus: (asc = true) =>
     HabitStore.list(
       HabitStore.list().sort((habitA, habitB) =>
-        HabitStore.getHabitStatusForHabitDateList(habitA) > HabitStore.getHabitStatusForHabitDateList(habitB) ? -1 : 1
+        HabitStore.getHabitStatusForHabitDateList(habitA) >
+        HabitStore.getHabitStatusForHabitDateList(habitB)
+          ? -1
+          : 1
       )
     ),
 
   submit: (attrs) =>
     HabitStore.create(attrs)
-      .then((response) => response.data)
-      .then((habit) => HabitStore.indexHabitsOfDomain(habit.domain_id))
+      .then((response) => ({
+        ...response.data,
+        ...JSON.parse(response.config.data),
+      }))
+      .then(HabitStore.current)
+      .then((current) => {
+        let newList = HabitStore.fullList();
+        if (
+          newList.length == 1 &&
+          newList[0].name === "Select a Life-Domain to start tracking"
+        )
+          newList.pop();
+        newList.push(current);
+        HabitStore.fullList(newList);
+        console.log('THE LISR', HabitStore.fullList());
+        return current;
+      })
       .then(() => {
         window.FlashMessage.success("A habit was added to the database!");
       })

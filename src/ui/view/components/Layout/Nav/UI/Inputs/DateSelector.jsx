@@ -58,7 +58,7 @@ const DateSelector = function () {
           id="date-today"
           tabindex="3"
           required
-          class="form-input w-full text-xl lg:pt-4 -mr-8 px-2"
+          class="form-input w-full text-xl lg:pt-4 -mr-4 px-4"
           type="date"
           value={DateStore.currentDate()}
           max={String(DateStore.currentDate())}

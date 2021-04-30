@@ -24,14 +24,15 @@ function populateStores({ demo }) {
   if (!demo) {
     let habitLoad = (HabitStore.current()?.name == "Select a Life-Domain to start tracking" // If we still have default habit data
       ? HabitStore.index()
-      : Promise.resolve(HabitStore.list())
+      : Promise.resolve(HabitStore.fullList())
       )
-        .then((habits) =>
-          new Promise((resolve, reject) => {
+        .then((habits) => {
+        console.log(habits);        
+        return new Promise((resolve, reject) => {
             habits.length !== 0
               ? resolve(habits)
               : reject("There are no habits to load, yet!");
-          })
+          })}
         )
         .catch((message) => {
           handleErrorType(message, "info");
@@ -42,7 +43,6 @@ function populateStores({ demo }) {
       : Promise.resolve(DomainStore.list())
     )
       .then((domains) => {
-        console.log(domains);
         return new Promise((resolve, reject) => {
           domains.length !== 0
             ? resolve(DomainStore.current().id)
@@ -60,9 +60,6 @@ function populateStores({ demo }) {
       });
 
     Promise.all([habitLoad, domainLoad])
-      .then((params) => {
-        
-      })
       .then(m.redraw)
       .catch((err) => {
         spinnerOpen(false);
@@ -83,6 +80,7 @@ function populateStores({ demo }) {
   }
 }
 
+// Map MenuRoutes object to Mithril router objects with rendering functions
 const Routes = MenuRoutes.reduce(
   (newRoutesObject, menuSection) => {
     const links = menuSection.subpaths;
@@ -109,6 +107,7 @@ const Routes = MenuRoutes.reduce(
 
     return newRoutesObject;
   },
+  // Index Route:
   {
     "/": {
       onmatch: populateStores,
