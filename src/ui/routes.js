@@ -15,57 +15,64 @@ import HeroSection from "./view/components/Layout/HeroSection.jsx";
 
 // Utils
 import { d3visPageMaker } from "./assets/scripts/d3-utilities";
-import { redraw, handleErrorType } from "./assets/scripts/utilities";
+import { handleErrorType } from "./assets/scripts/utilities";
 
 const spinnerOpen = stream(true);
 const modalType = stream(false);
 
 function populateStores({ demo }) {
   if (!demo) {
-    (HabitStore.current()?.name == "Select a Life-Domain to start tracking"
+    let habitLoad = (HabitStore.current()?.name == "Select a Life-Domain to start tracking" // If we still have default habit data
       ? HabitStore.index()
-      : new Promise((res, rej) => res(HabitStore.list())))
-          .then(
-            (habits) =>
-              new Promise((resolve, reject) => {
-                habits.length !== 0
-                  ? resolve(habits)
-                  : reject("There are no habits to load, yet!");
-              })
-          )
-          .then(() => {
-            return DomainStore.current()?.name == "No Domains Registered"
-              ? DomainStore.index()
-              : new Promise((res, rej) => res(DomainStore.list()));
+      : Promise.resolve(HabitStore.list())
+      )
+        .then((habits) =>
+          new Promise((resolve, reject) => {
+            habits.length !== 0
+              ? resolve(habits)
+              : reject("There are no habits to load, yet!");
           })
-          .then(
-            (domains) =>
-              new Promise((resolve, reject) => {
-                domains.length !== 0 && HabitStore.fullList().length > 0
-                  ? resolve(DomainStore.current().id)
-                  : reject("There are no domains or domain habits, yet!");
-              })
-          )
-          .then(HabitStore.indexHabitsOfDomain)
-          .then(DateStore.index)
-          .catch((message) => {
-            handleErrorType(message, "info");
-          })
-          .then(() => {
-            spinnerOpen(false);
-          })
-          .then(redraw)
-          .catch((err) => {
-            spinnerOpen(false);
-            m.redraw();
-            console.log(err);
-          });
+        )
+        .catch((message) => {
+          handleErrorType(message, "info");
+        });
+
+    let domainLoad = (DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
+      ? DomainStore.index()
+      : Promise.resolve(DomainStore.list())
+    )
+      .then((domains) => {
+        console.log(domains);
+        return new Promise((resolve, reject) => {
+          domains.length !== 0
+            ? resolve(DomainStore.current().id)
+            : reject("There are no domain yet!");
+        });
+      })
+      .then(HabitStore.indexHabitsOfDomain)
+      .then(() => {
+        DateStore.index()
+        spinnerOpen(false);
+        m.redraw()
+      })
+      .catch((message) => {
+        handleErrorType(message, "info");
+      });
+
+    Promise.all([habitLoad, domainLoad])
+      .then((params) => {
+        
+      })
+      .then(m.redraw)
+      .catch((err) => {
+        spinnerOpen(false);
+        console.log(err, "Error loading data!");
+      });
   } else {
     importData
       .init()
       .then(() => {
         spinnerOpen(false);
-        // importData.populate()
       })
       .then(m.redraw)
       .catch((err) => {

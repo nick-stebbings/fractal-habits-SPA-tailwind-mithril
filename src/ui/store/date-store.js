@@ -12,7 +12,7 @@ function sanitiseForValueChange(date) {
 const todaysDate = new Date().toDateInputValue();
 
 const DateStore = Object.assign(clientRoutes(basePath), {
-  current: stream(todaysDate),
+  current: stream([]),
 
   get: (id) =>
     DateStore.show_one(id)
@@ -32,7 +32,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
       .then((response) => JSON.parse(response.data).dates)
       .then(DateStore.list)
       .then((list) => {
-        return DateStore.current(list[list.length - 1]);
+        return list.length == 0 ? DateStore.clear() : DateStore.current(list[list.length - 1]);
       })
       .catch(handleErrorType),
 
