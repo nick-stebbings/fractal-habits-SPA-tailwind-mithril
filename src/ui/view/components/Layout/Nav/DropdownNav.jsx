@@ -37,7 +37,7 @@ const DropdownNav = (function () {
               </HoverableLink>
             ))}
           </ul>
-          <div id="current-habit-label">
+          <div class="hidden md:block" id="current-habit-label">
             <span id="current-habit">Selected:</span>
             {m(
               "span",

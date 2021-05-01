@@ -21,11 +21,13 @@ export default {
 
     const domainSelectors = document.querySelectorAll(".domain-selector");
     const selectedHabitLabel = document.querySelector("#current-habit ~ span");
+    const selectedHabitLabelSm = document.querySelector("#current-habit-sm ~ span");
     [...domainSelectors].forEach((selector) => {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
         selectedHabitLabel.value = HabitStore.current();
+        selectedHabitLabelSm.value = HabitStore.current();
         m.redraw();
       });
     });

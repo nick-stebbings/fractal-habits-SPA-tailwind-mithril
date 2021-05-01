@@ -24,6 +24,7 @@ const ListCard = {
             HabitStore.filterById(+e.target.getAttribute("data-id"))[0]
             );
             document.getElementById("current-habit").nextElementSibling.textContent = HabitStore.current().name;
+            document.getElementById("current-habit-sm").nextElementSibling.textContent = HabitStore.current().name;
         }
       })}
       <div class="habit-list-details">

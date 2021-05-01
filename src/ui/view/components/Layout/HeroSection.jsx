@@ -40,7 +40,7 @@ const HeroSection = {
           </div>
         ) : (
           <h2>Choose a life domain:</h2>
-          )}
+        )}
         <div class="domain-pills">
           {[
             "Physical Health",

@@ -26,7 +26,7 @@ const HabitTree = function () {
   let canvasHeight;
   let svg;
 
-  const debounceInterval = 150;
+  const debounceInterval = 350;
   const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
 
   function updateStoresAndRenderTree(modalType) {

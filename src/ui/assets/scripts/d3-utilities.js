@@ -32,7 +32,12 @@ const d3visPageMaker = function (layout, component, spinnerState, modalType) {
 
   page.view = () => {
     // Pass unique selection id to the vis component for d3 selection
-    const d3Container = m("div", { id: divId}, [m("svg.legendSvg", {class: "top-20 w-36 fixed left-4 h-12"}), m("svg.controlsSvg", {class: "top-20 w-72 fixed right-0 h-16"})]);
+    const d3Container = m("div", { id: divId }, [
+      m("svg.legendSvg", { class: "top-26 w-36 fixed left-4 h-12" }),
+      m("svg.controlsSvg", {
+        class: "top-20 w-72 fixed right-0 h-16 hidden md:block",
+      }),
+    ]);
 
     return m(
       layout,
@@ -66,8 +71,11 @@ const addLegend = (svg) => {
 
   // Borrowing the habit label for the legend
   let habitLabelValue;
+  let habitLabelValueSm;
   let habitLabel = document.getElementById("current-habit");
   let habitSpan = habitLabel.nextElementSibling;
+  let habitLabelSm = document.getElementById("current-habit-sm");
+  let habitSpanSm = habitLabelSm.nextElementSibling;
   gText
     .append('text')
     .text('L/Click: Select Habit/Subtree');
@@ -92,19 +100,30 @@ const addLegend = (svg) => {
       habitLabel.textContent = "Key:";
       habitLabelValue = habitSpan.textContent;
       habitSpan.textContent = d.target.__data__;
+
+      habitLabelSm.textContent = "Key:";
+      habitLabelValueSm = habitSpanSm.textContent;
+      habitSpanSm.textContent = d.target.__data__;
       showHabitLabel();
     })
     .on("cellout", function (d) {
       habitLabel.textContent = "Selected:";
       habitSpan.textContent = d.target.__data__;
       habitSpan.textContent = habitLabelValue;
+
+      habitLabelSm.textContent = "Selected:";
+      habitSpanSm.textContent = d.target.__data__;
+      habitSpanSm.textContent = habitLabelValueSm;
     })
     .scale(ordinal);
 
   gLegend.call(colorLegend);
 };
 
-const setHabitLabel = (data) => { document.getElementById("current-habit").nextElementSibling.textContent = data?.name };
+const setHabitLabel = (data) => { 
+  document.getElementById("current-habit").nextElementSibling.textContent = data?.name 
+  document.getElementById("current-habit-sm").nextElementSibling.textContent = data?.name 
+};
 
 const showHabitLabel = () =>
   (document.querySelector(".mask-wrapper").style.height = "6.3rem");
