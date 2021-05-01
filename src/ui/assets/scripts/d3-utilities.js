@@ -33,7 +33,7 @@ const d3visPageMaker = function (layout, component, spinnerState, modalType) {
   page.view = () => {
     // Pass unique selection id to the vis component for d3 selection
     const d3Container = m("div", { id: divId }, [
-      m("svg.legendSvg", { class: "top-26 w-36 fixed left-4 h-12" }),
+      m("svg.legendSvg", { class: "top-26 lg:top-20 w-36 fixed left-4 h-12" }),
       m("svg.controlsSvg", {
         class: "top-20 w-72 fixed right-0 h-16 hidden md:block",
       }),
@@ -202,7 +202,7 @@ const renderTree = function (
   if (rootData.name === "") return;
 
   // SETTINGS
-  let scale = isDemo ? 2 : 2.4;
+  let scale = isDemo ? 2 : 3;
   let clickScale = 3;
   const zoomBase = canvas;
   const levelsWide = canvasWidth < 600 ? 2 : 6;
