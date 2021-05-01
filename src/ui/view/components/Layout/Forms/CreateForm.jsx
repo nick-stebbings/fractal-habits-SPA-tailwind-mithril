@@ -44,12 +44,12 @@ const processFormData = function (dom, attrs) {
         .then(() => HabitStore.submit(data))
         .then(() => {
           openModal(false);
-          m.redraw();
         })
         .then(DateStore.index)
         .then(() => {
           HabitStore.indexHabitsOfDomain(data.domain_id);
           m.route.set(m.route.get());
+          m.redraw();
         })
         .catch(() => {
           console.log("Could not submit data.");

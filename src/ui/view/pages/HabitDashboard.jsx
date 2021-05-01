@@ -22,6 +22,9 @@ import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
 const nameOrderAsc = stream(true);
 const dateOrderAsc = stream(true);
 const statusOrderAsc = stream(true);
+function invert(inputStream) {
+  inputStream(!inputStream());
+};
 
 const getStatusColor = (habit) => {
   let status;
@@ -71,18 +74,20 @@ const HabitDashboard = {
 
     // Add sorting events
     document.getElementById("sort-name-desc").addEventListener("click", (e) => {
-      HabitStore.sortByName(false);
+      invert(nameOrderAsc)
+      HabitStore.sortByName(nameOrderAsc());
       m.redraw();
     });
     document.getElementById("sort-date-desc").addEventListener("click", (e) => {
-      HabitStore.sortByDate(true);
+      invert(dateOrderAsc)
+      HabitStore.sortByDate(dateOrderAsc());
       m.redraw();
     });
     document
       .getElementById("sort-completion-desc")
       .addEventListener("click", (e) => {
-        HabitStore.sortByStatus(false);
-        console.log(HabitStore.list());
+        invert(statusOrderAsc)
+        HabitStore.sortByStatus(statusOrderAsc());
         m.redraw();
       });
 
@@ -112,6 +117,8 @@ const HabitDashboard = {
           e.currentTarget.classList.add("selected");
 
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
+          NodeStore.runCurrentFilterByHabit(HabitStore.current());
+
           // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;
@@ -159,7 +166,7 @@ const HabitDashboard = {
                     Habit
                     <i
                       id="sort-name-desc"
-                      class="fa fa-sort-desc"
+                      class={nameOrderAsc() ? "relative left-2 fa fa-sort-asc": "relative left-2 fa fa-sort-desc"}
                       aria-hidden="true"
                     ></i>
                   </th>
@@ -168,11 +175,11 @@ const HabitDashboard = {
                     class="px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
                     Domain
-                    <i
+                    {/* <i
                       id="sort-domain-desc"
-                      class="fa fa-sort-desc"
+                      class={dateOrderAsc() ? "relative left-2 fa fa-sort-asc": "relative left-2 fa fa-sort-desc"}
                       aria-hidden="true"
-                    ></i>
+                    ></i> */}
                   </th>
                   <th
                     scope="col"
@@ -181,18 +188,18 @@ const HabitDashboard = {
                     Initiated
                     <i
                       id="sort-date-desc"
-                      class="fa fa-sort-desc"
+                      class={dateOrderAsc() ? "relative left-2 fa fa-sort-asc": "relative left-2 fa fa-sort-desc"}
                       aria-hidden="true"
                     ></i>
                   </th>
                   <th
                     scope="col"
-                    class="w-1/12 text-center px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
+                    class="flex w-1/12 text-center px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   >
                     Completion
                     <i
                       id="sort-completion-desc"
-                      class="fa fa-sort-desc"
+                      class={statusOrderAsc() ? "relative left-2 fa fa-sort-asc": "relative left-2 fa fa-sort-desc"}
                       aria-hidden="true"
                     ></i>
                   </th>

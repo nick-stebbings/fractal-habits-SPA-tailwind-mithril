@@ -7,6 +7,14 @@ import GeneralButton from "../Layout/Nav/UI/Buttons/GeneralButton.jsx";
 import { openModal } from "../../../assets/scripts/animations.js";
 
 const currentInput = stream("");
+const toggleButton = stream("Filter");
+const redrawLoadAndToggle = function () {
+  toggleButton(toggleButton() == "Clear" ? "Filter" : "Clear");
+
+  m.redraw();
+  HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
+  HabitStore.list(HabitStore.filterByName(currentInput()));
+};
 
 const FilterList = function () {
   return {
@@ -15,22 +23,15 @@ const FilterList = function () {
 
       filterInput.addEventListener("change", (e) => {
         currentInput(e.target.value);
-        if (currentInput() == "") {
-          return;
-        }
-        m.redraw();
-        HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
-        HabitStore.list(HabitStore.filterByName(currentInput()));
+        if (currentInput() == "") return;
+        redrawLoadAndToggle();
       });
-
+      
       document
-        .querySelector("button[name=reset]")
-        .addEventListener("click", (e) => {
-          e.target.textContent = "Filter";
-          currentInput("");
-          m.redraw();
-          HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
-          HabitStore.list(HabitStore.filterByName(currentInput()));
+      .querySelector("button[name=reset]")
+      .addEventListener("click", (e) => {
+        currentInput("");
+        redrawLoadAndToggle();
         });
 
       if (
@@ -38,9 +39,6 @@ const FilterList = function () {
         HabitStore.list().length == 0
       ) {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id)
-        if (HabitStore.list().length == 0) {
-          // todo
-        }
       }
     },
     view: ({ attrs }) => (
@@ -57,7 +55,7 @@ const FilterList = function () {
           />
           <GeneralButton
             color="balance-buttonbg-reset"
-            label="Filter"
+            label={toggleButton()}
             name="reset"
           />
         </div>
