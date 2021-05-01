@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import stream from "mithril/stream";
 
 import HabitStore from "../../store/habit-store";
 import HabitDateStore from "../../store/habit-date-store";
@@ -17,6 +18,10 @@ import {
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
+
+const nameOrderAsc = stream(true);
+const dateOrderAsc = stream(true);
+const statusOrderAsc = stream(true);
 
 const getStatusColor = (habit) => {
   let status;
@@ -76,7 +81,7 @@ const HabitDashboard = {
     document
       .getElementById("sort-completion-desc")
       .addEventListener("click", (e) => {
-        // HabitStore.sortByStatus(false);
+        HabitStore.sortByStatus(false);
         console.log(HabitStore.list());
         m.redraw();
       });
@@ -107,7 +112,6 @@ const HabitDashboard = {
           e.currentTarget.classList.add("selected");
 
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
-          console.log(HabitStore.current(), "CURRENT");
           // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;
@@ -123,10 +127,6 @@ const HabitDashboard = {
           }
           // Add delete  event
           if (e.target.tagName == "BUTTON") {
-            console.log(NodeStore.list())
-            console.log(
-              NodeStore.runCurrentFilterByHabit(HabitStore.current())
-            );
             attrs.modalType("confirm");
             openModal(true);
           }

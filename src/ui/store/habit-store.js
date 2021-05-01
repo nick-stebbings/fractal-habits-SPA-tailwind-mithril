@@ -18,7 +18,6 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
     HabitStore.current = stream({});
   },
 
-  listSorted: null,
   list: stream([]),
   fullList: stream([]),
 
@@ -88,12 +87,20 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
 
   sortByStatus: (asc = true) =>
     HabitStore.list(
-      HabitStore.list().sort((habitA, habitB) =>
-        HabitStore.getHabitStatusForHabitDateList(habitA) >
-        HabitStore.getHabitStatusForHabitDateList(habitB)
+      HabitStore.list().sort((habitA, habitB) => {
+        let statusA = HabitStore.getHabitStatusForHabitDateList(habitA);
+        let statusB = HabitStore.getHabitStatusForHabitDateList(habitB);
+        if (statusA === statusB) return 0;
+        return asc 
+        ? (statusA >
+        statusB
           ? -1
-          : 1
-      )
+          : 1)
+        : (statusB >
+        statusA
+          ? -1
+          : 1)
+      })
     ),
 
   submit: (attrs) =>
