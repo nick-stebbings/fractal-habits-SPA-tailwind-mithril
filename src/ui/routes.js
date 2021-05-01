@@ -17,14 +17,14 @@ import HeroSection from "./view/components/Layout/HeroSection.jsx";
 import { d3visPageMaker } from "./assets/scripts/d3-utilities";
 import { handleErrorType } from "./assets/scripts/utilities";
 
-const spinnerOpen = stream(true);
+const spinnerOpen = stream(true); 
 const modalType = stream(false);
 
 function populateStores({ demo }) {
   if (!demo) {
     let habitLoad = (HabitStore.current()?.name == "Select a Life-Domain to start tracking" // If we still have default habit data
     ? HabitStore.index()
-    : HabitStore.index()//Promise.resolve(HabitStore.fullList())
+    : Promise.resolve(HabitStore.fullList())
     )
       .then((habits) => {
         return new Promise((resolve, reject) => {
@@ -39,7 +39,7 @@ function populateStores({ demo }) {
 
     let domainLoad = (DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
       ? DomainStore.index()
-      : DomainStore.index()//Promise.resolve(DomainStore.list())
+      : Promise.resolve(DomainStore.list())
     )
       .then((domains) => {
         return new Promise((resolve, reject) => {

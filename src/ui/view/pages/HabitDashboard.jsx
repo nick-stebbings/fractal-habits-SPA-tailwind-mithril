@@ -40,15 +40,18 @@ const getStatusColor = (habit) => {
 const HabitDashboard = {
   oninit: () => {
     if (!m.route.param("demo")) {
-      if(HabitDateStore.fullList().length == 0 || NodeStore.list().length == 0) {
-        HabitDateStore.index().then(
-        NodeStore.index).then(() => {
-          HabitStore.sortByDate();
-          HabitStore.current() &&
-          HabitDateStore.runFilter(HabitStore.current().id);
-          DateStore.current() &&
-          HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
-        }).then(m.redraw);
+      if ( HabitDateStore.fullList().length == 0 || NodeStore.list().length == 0 ) {
+        if (HabitStore.current()?.name !== "Select a Life-Domain to start tracking") return;
+        HabitDateStore.index()
+          .then(NodeStore.index)
+          .then(() => {
+            HabitStore.sortByDate();
+            HabitStore.current() &&
+              HabitDateStore.runFilter(HabitStore.current().id);
+            DateStore.current() &&
+              HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
+          })
+          .then(m.redraw);
       }
     } else {
       HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);

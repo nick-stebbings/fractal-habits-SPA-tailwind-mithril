@@ -1,5 +1,6 @@
 import HabitStore from "../../../../store/habit-store.js";
 import DateStore from "../../../../store/date-store.js";
+import DomainStore from "../../../../store/domain-store.js";
 
 import { openModal } from "../../../../assets/scripts/animations";
 import FormHeader from "./FormHeader.jsx";
@@ -7,7 +8,6 @@ import FormBody from "./FormBody.jsx";
 import InputGroup from "./FormInputGroup.jsx";
 import SubmitButton from "../Nav/UI/Buttons/SubmitButton.jsx";
 import CancelButton from "../Nav/UI/Buttons/CancelButton.jsx";
-import DomainStore from "../../../../store/domain-store.js";
 
 const randId = String(Math.ceil(Math.random() * 100));
 
@@ -30,7 +30,6 @@ const processFormData = function (dom, attrs) {
         });
         return;
       }
-
       const data = {};
       const FD = new FormData(form);
       FD.forEach((value, key) => {
@@ -41,7 +40,6 @@ const processFormData = function (dom, attrs) {
         attrs.resourceName === "new-habit-child"
           ? HabitStore.current().id
           : null;
-
       DateStore.submit({ h_date: data.initiation_date })
         .then(() => HabitStore.submit(data))
         .then(() => {
@@ -63,6 +61,9 @@ const processFormData = function (dom, attrs) {
 };
 
 const CreateForm = {
+  onupdate: () => {
+    HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+  },
   oncreate: ({ attrs, dom }) => {
     if (m.route.param("demo")) return;
 
