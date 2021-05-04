@@ -124,8 +124,8 @@ const showHabitLabel = () =>
 const zooms = function (e) {
   const transform = e.transform;
   const scale = transform.k,
-    tbound = -canvasHeight * scale,
-    bbound = canvasHeight * scale;
+    tbound = -canvasHeight * scale*3,
+    bbound = canvasHeight * scale*3;
 
   const currentTranslation = [margin.left, margin.top];
 

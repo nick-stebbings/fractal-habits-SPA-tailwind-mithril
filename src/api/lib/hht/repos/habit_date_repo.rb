@@ -11,7 +11,7 @@ module Hht
       def update(attrs)
         tuple = by_attrs(attrs.reject { |k,v| k == :completed_status })
         new_status = attrs[:completed_status] == 'true'
-        tuple.update(completed_status: new_status) #Success() TODO
+        Hht::Transactions::HabitDates::Update.new.call(tuple, new_status)
       end
 
       def by_attrs(attrs)

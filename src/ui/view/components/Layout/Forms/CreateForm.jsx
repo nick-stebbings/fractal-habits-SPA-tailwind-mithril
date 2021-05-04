@@ -143,7 +143,7 @@ const CreateForm = {
           ),
         ])}
 
-        <div className="button-group py-3 mb-2 bg-white border-t border-gray-200">
+        <div className="button-group py-3 bg-white border-t border-gray-200">
           <CancelButton
             id={`close-modal-${randId}`}
             name="close"

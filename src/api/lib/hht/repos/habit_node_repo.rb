@@ -62,9 +62,10 @@ module Hht
       end
 
       # Single parent nodes for habit status updates
-      def single_parent__lineage_of_child(child_node)
+      def single_parent_lineage_of_child(child_node)
         habit_nodes
-          .where { lft < child_node[:lft] && rgt > child_node[:rgt]}
+          .where { lft < child_node[:lft]  }
+          .where { rgt > child_node[:rgt] }
           .where { lft - rgt >= -3 }
       end
 
