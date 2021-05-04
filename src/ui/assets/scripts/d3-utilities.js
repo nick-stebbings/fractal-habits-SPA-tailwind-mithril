@@ -131,14 +131,12 @@ const zooms = function (e) {
   const transform = e.transform;
   const scale = transform.k,
     tbound = -canvasHeight * scale,
-    bbound = canvasHeight * scale,
-    lbound = -canvasWidth * scale,
-    rbound = canvasWidth * scale;
+    bbound = canvasHeight * scale;
 
   const currentTranslation = [margin.left, margin.top];
 
   const translation = [
-    currentTranslation[0] + Math.max(Math.min(transform.x, rbound), lbound),
+    currentTranslation[0] + transform.x,
     currentTranslation[1] + Math.max(Math.min(transform.y, bbound), tbound),
   ];
 
