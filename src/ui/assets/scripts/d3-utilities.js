@@ -1,4 +1,3 @@
-import stream from "mithril/stream";
 import { select, tree, easeCircleOut, zoomIdentity, linkVertical, scaleOrdinal, scaleLinear } from "d3";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
@@ -291,6 +290,9 @@ const renderTree = function (
           if (targ.closest(".the-node").classList.contains("active") || deadNode(event)) return reset();
           setActiveNode(node.data);
           expand(node);
+          node.children.forEach(childNode => {
+            collapse(childNode)
+          });
           updateCurrentHabit(node, false);
           // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
           renderTree(svg, isDemo, zoomer, {
@@ -340,7 +342,7 @@ const renderTree = function (
   };
 
   const reset = function () {
-    scale = isDemo ? 2 : 2.4;
+    scale = isDemo ? 2 : 3;
     svg.attr("viewBox", defaultView);
     expandTree();
     activeNode = null;

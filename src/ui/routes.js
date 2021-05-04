@@ -24,7 +24,7 @@ function populateStores({ demo }) {
   if (!demo) {
     let habitLoad = (HabitStore.current()?.name == "Select a Life-Domain to start tracking" // If we still have default habit data
     ? HabitStore.index()
-    : Promise.resolve(HabitStore.fullList())
+    : HabitStore.index()// Promise.resolve(HabitStore.fullList())
     )
       .then((habits) => {
         return new Promise((resolve, reject) => {
@@ -39,7 +39,7 @@ function populateStores({ demo }) {
 
     let domainLoad = (DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
       ? DomainStore.index()
-      : Promise.resolve(DomainStore.list())
+      : DomainStore.index() //Promise.resolve(DomainStore.list())
     )
       .then((domains) => {
         return new Promise((resolve, reject) => {
