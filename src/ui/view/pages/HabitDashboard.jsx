@@ -132,6 +132,7 @@ const HabitDashboard = {
               HabitDateStore.index
             ).then(m.redraw);
           }
+
           // Add delete  event
           if (e.target.tagName == "BUTTON") {
             attrs.modalType("confirm");

@@ -9,6 +9,7 @@ import { importData } from "./store/populateDummyData";
 import DomainStore from "./store/domain-store";
 import HabitStore from "./store/habit-store";
 import DateStore from "./store/date-store";
+import NodeStore from "./store/habit-node-store";
 
 // Components
 import HeroSection from "./view/components/Layout/HeroSection.jsx";
@@ -24,7 +25,7 @@ function populateStores({ demo }) {
   if (!demo) {
     let habitLoad = (HabitStore.current()?.name == "Select a Life-Domain to start tracking" // If we still have default habit data
     ? HabitStore.index()
-    : HabitStore.index()// Promise.resolve(HabitStore.fullList())
+    : Promise.resolve(HabitStore.fullList())
     )
       .then((habits) => {
         return new Promise((resolve, reject) => {
@@ -39,7 +40,7 @@ function populateStores({ demo }) {
 
     let domainLoad = (DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
       ? DomainStore.index()
-      : DomainStore.index() //Promise.resolve(DomainStore.list())
+      : Promise.resolve(DomainStore.list())
     )
       .then((domains) => {
         return new Promise((resolve, reject) => {
@@ -54,14 +55,18 @@ function populateStores({ demo }) {
         handleErrorType(message, "info");
       });
     
+    let nodeLoad = NodeStore.index()
+      .catch((err) => {
+        handleErrorType(message, "info");
+      });
+    
     let dateLoad = DateStore.index()
       .then(m.redraw)
       .catch((err) => {
-        spinnerOpen(false);
         handleErrorType(message, "info");
       });
 
-    Promise.all([habitLoad, domainLoad, dateLoad])
+    Promise.all([habitLoad, domainLoad, dateLoad, nodeLoad])
       .then(() => {
         m.redraw();
         spinnerOpen(false);

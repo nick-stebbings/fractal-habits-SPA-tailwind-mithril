@@ -29,7 +29,7 @@ const processFormData = function (dom, attrs) {
           }
         });
         return;
-      }
+      };
       const data = {};
       const FD = new FormData(form);
       FD.forEach((value, key) => {
@@ -48,9 +48,14 @@ const processFormData = function (dom, attrs) {
         .then(DateStore.index)
         .then(() => {
           HabitStore.indexHabitsOfDomain(data.domain_id);
-          m.route.set(m.route.get());
-          m.redraw();
+          NodeStore.clear();
+          HabitStore.clear();
+          HabitDateStore.clear();
+          
         })
+      .then(() => {
+        m.route.set("/vis/habit-tree");
+      })
         .catch(() => {
           console.log("Could not submit data.");
           openModal(false);
