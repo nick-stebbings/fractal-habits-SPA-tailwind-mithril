@@ -58,7 +58,7 @@ module Hht
       end
 
       def habit_dates_restrict_on_completion_status_and_date_id(completion_string, date_id)
-        habit_dates_with_status_completion(completion_string) .exists(dates, dates[:id] => habit_dates[:date_id])
+        habit_dates_with_status_completion(completion_string).exists(dates, dates[:id] => habit_dates[:date_id])
       end
     end
   end

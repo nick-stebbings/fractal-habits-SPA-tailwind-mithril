@@ -57,7 +57,6 @@ const processFormData = function (dom, attrs) {
           HabitStore.indexHabitsOfDomain(attrs.domain().id);
           NodeStore.clear();
           HabitDateStore.clear();
-          console.log(HabitStore.current(), 'IS THE CURRENT HABIT');
         })
         .catch(() => {
           console.log("Could not repopulate.");

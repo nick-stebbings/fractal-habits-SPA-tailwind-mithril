@@ -53,24 +53,19 @@ module Hht
         children_of_parent(id).combine(:habit_nodes)
       end
 
-      # Nested relation of children (nesting retricted by parent_id)
-      def nest_parents_with_immediate_child_nodes(parent_id)
-        nest_parents = habit_nodes
-                        .combine(habit_nodes: :parent)
-                        .node(:parent) do |habit_node|
-                          habit_node.by_pk(parent_id)
-                        end
-
-        nest_parents
-          .order(:lft)
-      end
-
       # Nested relation of nodes with parents, retricted by lft/rgt values
       def nest_parent_with_descendant_nodes_between_lr(lft_val, rgt_val)
         habit_nodes
           .where { lft >= lft_val }
           .where { rgt <= rgt_val }
           .combine(habit_nodes: :parent)
+      end
+
+      # Single parent nodes for habit status updates
+      def single_parent__lineage_of_child(child_node)
+        habit_nodes
+          .where { lft < child_node[:lft] && rgt > child_node[:rgt]}
+          .where { lft - rgt >= -3 }
       end
 
     ## Subtree Mappings
