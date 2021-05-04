@@ -51,20 +51,26 @@ const HabitDashboard = {
       if ( HabitDateStore.fullList().length == 0 || NodeStore.list().length == 0 ) {
         if (HabitStore.current()?.name !== "Select a Life-Domain to start tracking") return;
         HabitDateStore.index()
-          .then(NodeStore.index)
-          .then(() => {
-            HabitStore.sortByDate();
-            HabitStore.current() &&
-              HabitDateStore.runFilter(HabitStore.current().id);
-            DateStore.current() &&
-              HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
-          })
-          .then(m.redraw);
+        .then(NodeStore.index)
+        .then(() => {
+          HabitStore.sortByDate();
+          HabitStore.current() &&
+          HabitDateStore.runFilter(HabitStore.current().id);
+          DateStore.current() &&
+          HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
+        })
+        .then(m.redraw);
       }
     } else {
       HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);
       DateStore.current() &&
-        HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
+      HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
+    }
+    if (m.route.param("currentHabit")) { 
+      HabitStore.current(
+        HabitStore.filterById(m.route.param("currentHabit"))[0]
+      );
+      console.log(HabitStore.current());
     }
   },
   oncreate: ({ attrs }) => {
@@ -108,7 +114,7 @@ const HabitDashboard = {
           e.currentTarget.style.backgroundColor = "#F0F0F0";
         }
       });
-
+      // Add click event for TR (Rows)
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
           const habitName = e.currentTarget.querySelector("p:first-child")

@@ -634,8 +634,9 @@ const renderTree = function (
     .text((d) => "DETAILS")
     .on("click", (e, n) => {
       HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
+      let currentId = HabitStore.current().id;
       m.route.set(
-        m.route.param("demo") ? "/habits/list?demo=true" : "/habits/list"
+        m.route.param("demo") ? `/habits/list?demo=true` : `/habits/list`, { currentHabit: currentId }
       );
     });
   if (!isDemo) {

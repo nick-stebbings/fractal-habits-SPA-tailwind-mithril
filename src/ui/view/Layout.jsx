@@ -13,6 +13,15 @@ import HabitStore from "../store/habit-store";
 import DateStore from "../store/date-store";
 import { openModal, openSpinner } from "../assets/scripts/animations.js";
 
+
+function goToBasePath() {
+  let url = m.route.get();
+  let newUrl = m.route.param("demo")
+    ? url.split("demo=true")[0] + "demo=true"
+    : url.split("?")[0];
+  m.route.set(newUrl, null);
+};
+
 export default {
   oncreate: ({ attrs: { spinnerState, modalType } }) => {
     openSpinner(true);
@@ -28,7 +37,8 @@ export default {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
         selectedHabitLabel.value = HabitStore.current();
         selectedHabitLabelSm.value = HabitStore.current();
-        m.redraw();
+
+        goToBasePath()
       });
     });
 
