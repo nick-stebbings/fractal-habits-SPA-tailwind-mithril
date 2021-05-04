@@ -70,7 +70,7 @@ const HabitDashboard = {
       HabitStore.current(
         HabitStore.filterById(m.route.param("currentHabit"))[0]
       );
-      console.log(HabitStore.current());
+      NodeStore.runCurrentFilterByHabit(HabitStore.current());
     }
   },
   oncreate: ({ attrs }) => {
@@ -142,6 +142,7 @@ const HabitDashboard = {
           // Add delete  event
           if (e.target.tagName == "BUTTON") {
             attrs.modalType("confirm");
+            console.log(NodeStore.current(), 'cuRRENT node');
             openModal(true);
           }
           m.redraw();

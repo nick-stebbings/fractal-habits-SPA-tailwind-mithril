@@ -109,7 +109,6 @@ const HabitTree = function () {
           );
         });
     },
-    onupdate: updateStoresAndRenderTree,
     view: (vnode) => (
       <div id="vis" className="w-full h-full mx-auto">
         <button type="button" id="reset-tree">

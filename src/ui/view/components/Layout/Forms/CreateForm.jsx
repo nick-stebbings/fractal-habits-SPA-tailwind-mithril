@@ -1,5 +1,7 @@
 import HabitStore from "../../../../store/habit-store.js";
+import HabitDateStore from "../../../../store/habit-date-store.js";
 import DateStore from "../../../../store/date-store.js";
+import NodeStore from "../../../../store/habit-node-store.js";
 import DomainStore from "../../../../store/domain-store.js";
 
 import { openModal } from "../../../../assets/scripts/animations";
@@ -45,23 +47,25 @@ const processFormData = function (dom, attrs) {
         .then(() => {
           openModal(false);
         })
-        .then(DateStore.index)
-        .then(() => {
-          HabitStore.indexHabitsOfDomain(data.domain_id);
-          NodeStore.clear();
-          HabitStore.clear();
-          HabitDateStore.clear();
-          
-        })
-      .then(() => {
-        m.route.set("/vis/habit-tree");
-      })
         .catch(() => {
           console.log("Could not submit data.");
           openModal(false);
         });
-        
+
+      DateStore.index()
+        .then(() => {
+          HabitStore.indexHabitsOfDomain(attrs.domain().id);
+          NodeStore.clear();
+          HabitDateStore.clear();
+          console.log(HabitStore.current(), 'IS THE CURRENT HABIT');
+        })
+        .catch(() => {
+          console.log("Could not repopulate.");
+          openModal(false);
+        });
+      
       attrs.modalType(false);
+      m.route.set(m.route.get(), null);
     });
 };
 

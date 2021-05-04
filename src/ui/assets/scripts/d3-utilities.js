@@ -204,11 +204,12 @@ const renderTree = function (
   let scale = isDemo ? 2 : 3;
   let clickScale = 3;
   const zoomBase = canvas;
-  const levelsWide = canvasWidth < 600 ? 2 : 6;
-  const levelsHigh = canvasHeight < 600 ? 2 : 3;
+  console.log(canvasWidth < 600 || !!zoomClicked);
+  const levelsWide = canvasWidth < 600 || !!zoomClicked ? 2 : 6;
+  const levelsHigh = canvasHeight < 600 || !!zoomClicked ? 2 : 3;
   const nodeRadius = 15 * scale;
-  const dx = ((canvasWidth / levelsWide) * scale) / 2;
-  const dy = (canvasHeight / levelsHigh) * (isDemo ? scale / 3 : scale);
+  const dx = ((canvasWidth / levelsHigh) * scale) / clickScale;
+  const dy = (canvasHeight / levelsWide) * (isDemo ? scale / 3 : 1);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let zoomed = {};
@@ -290,7 +291,7 @@ const renderTree = function (
           if (targ.closest(".the-node").classList.contains("active") || deadNode(event)) return reset();
           setActiveNode(node.data);
           expand(node);
-          node.children.forEach(childNode => {
+          node.children && node.children.forEach(childNode => {
             collapse(childNode)
           });
           updateCurrentHabit(node, false);
@@ -382,9 +383,9 @@ const renderTree = function (
 
   function calibrateViewPort() {
     viewportX = 0;
-    viewportY = 80;
-    viewportW = canvasWidth * 3;
-    viewportH = canvasHeight * 2;
+    viewportY = 50;
+    viewportW = canvasWidth * 5;
+    viewportH = canvasHeight * 5;
     zoomed.translateX = -3 * (viewportW / 2);
     zoomed.translateY = -3 * (viewportH / 2);
     zoomed.viewportW = scale * viewportW;
@@ -425,7 +426,7 @@ const renderTree = function (
   function updateCurrentHabit(node, redraw = true) {
     const nodeContent = parseTreeValues(node.data.content);
     NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
-    HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+    HabitStore.current() && HabitStore.runCurrentFilterByNode(NodeStore.current().id);
     redraw && m.redraw();
   }
 
@@ -634,7 +635,7 @@ const renderTree = function (
     .text((d) => "DETAILS")
     .on("click", (e, n) => {
       HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
-      let currentId = HabitStore.current().id;
+      let currentId = HabitStore.current()?.id;
       m.route.set(
         m.route.param("demo") ? `/habits/list?demo=true` : `/habits/list`, { currentHabit: currentId }
       );
