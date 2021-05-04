@@ -159,7 +159,7 @@ const cumulativeValue = (node) => {
   const content = parseTreeValues(node.data.content).status;
   try {
     return node && node.children
-      ? +(sumChildrenValues(node) === node.children.length && node.children.every(n => cumulativeValue(n) === 1))
+      ? +(sumChildrenValues(node) >= node.children.length && node.children.every(n => cumulativeValue(n) === 1))
       : [undefined, "incomplete", false, ''].includes(content) ? 0 : 1;
   } catch (err) {
     console.log("Could not accumulate.");
@@ -204,7 +204,6 @@ const renderTree = function (
   let scale = isDemo ? 2 : 3;
   let clickScale = 3;
   const zoomBase = canvas;
-  console.log(canvasWidth < 600 || !!zoomClicked);
   const levelsWide = canvasWidth < 600 || !!zoomClicked ? 2 : 6;
   const levelsHigh = canvasHeight < 600 || !!zoomClicked ? 2 : 3;
   const nodeRadius = 15 * scale;
