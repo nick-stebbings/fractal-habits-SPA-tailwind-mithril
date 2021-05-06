@@ -58,14 +58,14 @@ const processFormData = function (dom, attrs) {
           NodeStore.clear();
           HabitDateStore.clear();
         })
-        .then(m.redraw)
+        .then(() => {
+          attrs.modalType(false);
+          m.route.set(m.route.get(), null);
+        })
         .catch(() => {
           console.log("Could not repopulate.");
           openModal(false);
         });
-      
-      attrs.modalType(false);
-      m.route.set(m.route.get(), null);
     });
 };
 
