@@ -52,14 +52,14 @@ module Hht
       def habit_for_habit_node(habit_node_id)
         habits.join(:habit_nodes, id: :habit_node_id).where(habit_node_id:habit_node_id)
       end
+      # TODO: NEEDED?
+      # def habit_dates_with_status_completion(completed_string)
+      #   habit_dates.join(habits).select(:habit_id, :date_id).where(completed_status: completed_string)
+      # end
 
-      def habit_dates_with_status_completion(completed_string)
-        habit_dates.join(habits).select(:habit_id, :date_id).where(completed_status: completed_string)
-      end
-
-      def habit_dates_restrict_on_completion_status_and_date_id(completion_string, date_id)
-        habit_dates_with_status_completion(completion_string).exists(dates, dates[:id] => habit_dates[:date_id])
-      end
+      # def habit_dates_restrict_on_completion_status_and_date_id(completion_string, date_id)
+      #   habit_dates_with_status_completion(completion_string).exists(dates, dates[:id] => habit_dates[:date_id])
+      # end
     end
   end
 end

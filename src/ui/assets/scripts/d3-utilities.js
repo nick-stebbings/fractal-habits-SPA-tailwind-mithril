@@ -532,8 +532,8 @@ const renderTree = function (
       "transform",
       `translate(${(nodeRadius / 2) * scale}, ${-(
         scale * 2 * nodeRadius +
-        (isDemo ? -155 : -200)
-      )})`
+        (isDemo ? -155 : -300)
+      )}), scale(1.5)`
     )
     .attr("opacity", "0");
 

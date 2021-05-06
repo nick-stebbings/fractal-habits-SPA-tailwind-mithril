@@ -6,7 +6,11 @@ module Hht
       include Import['persistence.container']
       include Dry::Monads[:result]
 
-      commands :create, delete: :by_pk
+      commands delete: :by_pk
+
+      def create(attrs)
+        Hht::Transactions::HabitDates::Create.new.call(attrs)
+      end
 
       def update(attrs)
         tuple = by_attrs(attrs.reject { |k,v| k == :completed_status })

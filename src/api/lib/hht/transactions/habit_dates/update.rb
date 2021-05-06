@@ -23,13 +23,12 @@ module Hht
           habit = habit_node_repo.by_id(habit_id).one
 
           # Find direct ancestor nodes and toggle their status if they have only one child
-          single_child_parents = habit_node_repo.single_parent_lineage_of_child(habit.to_h).to_a
+          single_child_parents = habit_node_repo.materialised_single_parent_lineage_of_child(habit.to_h)
           single_child_parents.each do |ancestor|
-            
             habit_date = habit_date_repo.query(habit_id: ancestor[:id], date_id: values[:date_id])
             habit_date.update(completed_status: status)
           end
-          #TODO : copy for Create transaction, too
+          #TODO : dry this up 
           Success(existing_tuple.update(completed_status: status))
         end
       end

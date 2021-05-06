@@ -50,7 +50,7 @@ module Hht
       end
 
       def restrict_on_parent_id_combine_with_children(id)
-        children_of_parent(id).combine(:habit_nodes)
+        habit_nodes.children_of_parent(id).combine(:habit_nodes)
       end
 
       # Nested relation of nodes with parents, retricted by lft/rgt values
@@ -62,11 +62,15 @@ module Hht
       end
 
       # Single parent nodes for habit status updates
-      def single_parent_lineage_of_child(child_node)
-        habit_nodes
+      def materialised_single_parent_lineage_of_child(child_node)
+        ids = habit_nodes
           .where { lft < child_node[:lft]  }
           .where { rgt > child_node[:rgt] }
-          .where { lft - rgt >= -3 }
+          .to_a
+          .map { |node| node.id }
+
+        # Do a second query to restrict only to 'single parents'
+        nodes = ids.select { |id| restrict_on_parent_id_combine_with_children(id).to_a.size == 1 } .map { |id| by_id(id) } .map(&:one)
       end
 
     ## Subtree Mappings
