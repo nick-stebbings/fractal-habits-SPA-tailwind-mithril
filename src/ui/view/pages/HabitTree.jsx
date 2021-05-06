@@ -30,7 +30,7 @@ const HabitTree = function () {
   const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
 
   function updateStoresAndRenderTree(modalType) {
-    DateStore.current().id &&
+    DateStore.current()?.id &&
       TreeStore.index(
         demoData,
         DomainStore.current().id,
@@ -39,11 +39,9 @@ const HabitTree = function () {
         .then(() => {
           DateStore.indexDatesOfHabit(HabitStore.current());
           !demoData && HabitStore.current() &&
-            NodeStore.index().then(() => {
-              HabitDateStore.index().then(() =>
-                NodeStore.runCurrentFilterByHabit(HabitStore.current())
-              );
-            });
+          HabitDateStore.index().then(() =>
+            NodeStore.runCurrentFilterByHabit(HabitStore.current())
+          );
         })
         .then(() => {
           TreeStore.root() &&
@@ -62,7 +60,8 @@ const HabitTree = function () {
         oldWindowWidth(document.body.getBoundingClientRect().width);
       }, debounceInterval);
 
-      updateStoresAndRenderTree(attrs.modalType);
+      HabitStore.list().length > 0 &&
+        updateStoresAndRenderTree(attrs.modalType);
     },
     oncreate: ({ attrs }) => {
       addSwipeGestures();

@@ -58,6 +58,7 @@ const processFormData = function (dom, attrs) {
           NodeStore.clear();
           HabitDateStore.clear();
         })
+        .then(m.redraw)
         .catch(() => {
           console.log("Could not repopulate.");
           openModal(false);

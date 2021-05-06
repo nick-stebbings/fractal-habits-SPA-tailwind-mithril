@@ -27,6 +27,14 @@ const redraw = () => {
   m.redraw();
 };
 
+const setRouteToBasePath = function () {
+  let url = m.route.get();
+  let newUrl = m.route.param("demo")
+    ? url.split("demo=true")[0] + "demo=true"
+    : url.split("?")[0];
+  m.route.set(newUrl, null);
+};
+
 const handleAndRethrow = function (err) {
   if (!err.response) {
     window.FlashMessage.error("Network Error: API is unavailable");
@@ -66,4 +74,4 @@ const handleErrorType = function (err, type = "warning") {
   }
   throw err;
 };
-export { handleAndRethrow, handleErrorType, addActiveMenuStyles, redraw };
+export { handleAndRethrow, handleErrorType, addActiveMenuStyles, redraw, setRouteToBasePath };

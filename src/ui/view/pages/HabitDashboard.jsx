@@ -18,6 +18,7 @@ import {
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
+import { setRouteToBasePath } from "../../assets/scripts/utilities";
 
 const nameOrderAsc = stream(true);
 const dateOrderAsc = stream(true);
@@ -117,6 +118,9 @@ const HabitDashboard = {
       // Add click event for TR (Rows)
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
+          // Stop the query parameters from persisting past first load
+          if (m.route.param("currentHabit") && e.target.tagName !== "BUTTON") setRouteToBasePath();
+
           const habitName = e.currentTarget.querySelector("p:first-child")
             ?.textContent;
           document.querySelector(".selected").classList.remove("selected");
@@ -143,6 +147,7 @@ const HabitDashboard = {
           if (e.target.tagName == "BUTTON") {
             attrs.modalType("confirm");
             console.log(NodeStore.current(), 'cuRRENT node');
+            console.log(HabitStore.current(), 'cuRRENT abit');
             openModal(true);
           }
           m.redraw();

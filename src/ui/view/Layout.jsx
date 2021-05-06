@@ -11,16 +11,8 @@ import Footer from "./components/Layout/Footer.jsx";
 import DomainStore from "../store/domain-store";
 import HabitStore from "../store/habit-store";
 import DateStore from "../store/date-store";
-import { openModal, openSpinner } from "../assets/scripts/animations.js";
-
-
-function goToBasePath() {
-  let url = m.route.get();
-  let newUrl = m.route.param("demo")
-    ? url.split("demo=true")[0] + "demo=true"
-    : url.split("?")[0];
-  m.route.set(newUrl, null);
-};
+import { openModal, openSpinner } from "../assets/scripts/animations";
+import { setRouteToBasePath } from "../assets/scripts/utilities";
 
 export default {
   oncreate: ({ attrs: { spinnerState, modalType } }) => {
@@ -38,7 +30,7 @@ export default {
         selectedHabitLabel.value = HabitStore.current();
         selectedHabitLabelSm.value = HabitStore.current();
 
-        goToBasePath()
+        setRouteToBasePath()
       });
     });
 
