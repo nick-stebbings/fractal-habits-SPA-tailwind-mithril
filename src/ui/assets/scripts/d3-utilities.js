@@ -417,7 +417,7 @@ const renderTree = function (
   function updateCurrentHabit(node, redraw = true) {
     const nodeContent = parseTreeValues(node.data.content);
     NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
-    HabitStore.current() && HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+    HabitStore.current() && HabitStore.runCurrentFilterByNode(NodeStore.current()?.id);
     redraw && m.redraw();
   }
 
@@ -648,14 +648,33 @@ const renderTree = function (
       .text((d) => "APPEND")
       .on("click", (e, n) => {
         openModal(true);
-        if (!isDemo) {
-          updateCurrentHabit(n, false);
-          modalType("d3vis");
-        }
+        updateCurrentHabit(n, false);
+        modalType("d3vis");
+        m.redraw();
+      })
+    };
+    gButton
+      .append("rect")
+      .attr("style", (d) => d.parent ? "opacity: 0" : "opacity: 1")
+      .attr("rx", nodeRadius / 2)
+      .attr("x", 145)
+      .attr("width", 80)
+      .attr("height", 30)
+      .on("click", (e) => {
+        e.stopPropagation();
+      });
+    gButton
+      .append("text")
+      .attr("x", 155)
+      .attr("y", 20)
+      .text((d) => "PREPEND")
+      .on("click", (e, n) => {
+        openModal(true);
+        updateCurrentHabit(n, false);
+        modalType("d3vis-prepend");
         m.redraw();
       });
 
-    }
     function activeNodeAnimation() {
       // https://stackoverflow.com/questions/45349849/concentric-emanating-circles-d3
       // Credit: Andrew Reid
