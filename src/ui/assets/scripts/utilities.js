@@ -62,9 +62,8 @@ const handleErrorType = function (err, type = "warning") {
       ? err.response.data.message || messages[Number(err.response.status)] // Allow server side validation message first
       : err;
   const opts = {
-    progress: true,
     interactive: true,
-    timeout: 2000 
+    timeout: 1000 
   };
   switch (type) {
     case "info":

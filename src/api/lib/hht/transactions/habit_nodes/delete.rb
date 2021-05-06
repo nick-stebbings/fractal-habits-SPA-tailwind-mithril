@@ -28,7 +28,6 @@ module Hht
             rgt = resource[:rgt]
             modified = habit_node_repo.modify_nodes_after(rgt, :del, parent_id)
           end
-
           begin
             Success(habit_node_repo.by_id(resource[:id]).delete)
           rescue

@@ -70,9 +70,10 @@ const HabitDashboard = {
     if (m.route.param("currentHabit")) { 
       HabitStore.current(
         HabitStore.filterById(m.route.param("currentHabit"))[0]
-      );
+        );
+        NodeStore.index();
+      }
       NodeStore.runCurrentFilterByHabit(HabitStore.current());
-    }
   },
   oncreate: ({ attrs }) => {
     const demoData = m.route.param("demo");

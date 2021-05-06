@@ -12,6 +12,12 @@ module Hht
       end
 
       def delete(pk)
+        node = by_id(pk)
+        node_descendants = nest_parent_with_descendant_nodes_between_lr(node.lft, node.rgt).map { |n| n.id }
+        binding.pry
+        node_descendants.each do |descendant_id|
+          delete(descendant_id)
+        end
         Hht::Transactions::HabitNodes::Delete.new.call(pk)
       end
 
@@ -79,7 +85,17 @@ module Hht
         root = by_id(root_id).exist? ? by_id(root_id).one : nil
         nest_parent_with_descendant_nodes_between_lr(root.lft, root.rgt) unless root.nil?
       end
-    
+    # Nested relation of children (nesting retricted by parent_id)
+      def nest_parent_with_immediate_child_nodes(parent_id)
+        nest_parents = habit_nodes
+                        .combine(habit_nodes: :parent)
+                        .node(:parent) do |habit_node|
+                          habit_node.by_pk(parent_id)
+                        end
+        nest_parents
+          .order(:lft)
+      end
+
     ## Tree::TreeNode Mappings
       def map_children_to_tree_nodes(parent_id)
         nest_parent_with_immediate_child_nodes(parent_id)
@@ -147,6 +163,7 @@ module Hht
       def modify_nodes_after(rgt_val, operation, parent_id)
         mptt_queries(rgt_val).each do |node_set|
           # Size of 1 means there is no meaningful data, so skip
+          binding.pry
           mptt_node_adjust!(node_set, operation) unless node_set.size == 1
         end
         #TODO add failure branch
