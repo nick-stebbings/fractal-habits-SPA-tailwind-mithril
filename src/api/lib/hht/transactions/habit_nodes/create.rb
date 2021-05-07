@@ -23,8 +23,21 @@ module Hht
 
         def persist(result)
           parent_id = result.values.data[:parent_id]
+          old_root = nil
+          prepended_node = nil
+
+          if parent_id.is_a?(String)
+            old_root = habit_node_repo.habit_node.root_id_of_domain(parent_id[1..-1].to_i)
+            prepended_node = true
+            parent_id = nil
+          end
+          binding.pry
           if parent_id.nil? # i.e. it is a new root node
-            Success(habit_node_repo.habit_nodes.insert(root_node_attributes))
+            inserted = habit_node_repo.habit_nodes.insert(root_node_attributes)
+            binding.pry
+            # TODO: make new node a parent of old root_node.. old_root.update(parent_id:)
+            # TODO: update ALL other nodes lft/rgt values to be one greater.
+            Success(inserted)
           else
             siblings = habit_node_repo.habit_nodes.children_of_parent(parent_id).to_a
             # Find siblings to append after, else append after parent.

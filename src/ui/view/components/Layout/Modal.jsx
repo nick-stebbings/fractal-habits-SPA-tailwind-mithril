@@ -38,7 +38,7 @@ const Modal = {
               <CreateForm
                 addHeader={false}
                 resourceName={
-                  attrs.modalType() === "d3vis" ? "new-habit-child" : "Habit"
+                  typeof attrs.modalType() === 'string' && attrs.modalType().includes("d3vis") ? "new-habit-child" : "Habit"
                 }
                 domain={DomainStore.current}
                 resourceDescription="A way of keeping track of your daily behaviours"

@@ -38,11 +38,11 @@ const processFormData = function (dom, attrs) {
         data[key.replace(/-/g, "_")] = value;
       }); // Assign values while swapping for snake_case
       data.domain_id = attrs.domain().id;
-
       if (attrs.resourceName === "new-habit-child") {
-        // Assign a -1 id for parent if it is a d3vis-prepend modalType (root node) to signal to the API to reorder nodes
+        // Assign a -1 id for parent if it is a d3vis-prepend modalType (root node)
+        // Then pass the domain_id as a string to signal to the API to reorder nodes
         data.parent_node_id =
-          (attrs.modalType() === "d3vis-prepend" ? -1 : HabitStore.current().id);
+          (attrs.modalType() === "d3vis-prepend" ? `D${data.domain_id}` : HabitStore.current().id);
       } else {
         // Assume it is the front page modal and thus a root node
         data.parent_node_id = null;

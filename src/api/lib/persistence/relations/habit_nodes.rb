@@ -10,8 +10,6 @@ module Persistence
         attribute :rgt, Types::Integer
 
         primary_key :id
-        # attribute :habit_id, Types::ForeignKey(:habits)
-
         associations do
           belongs_to :habits, as: :habit_node
           belongs_to :habit_nodes, as: :parent

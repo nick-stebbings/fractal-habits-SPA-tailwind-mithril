@@ -2,7 +2,7 @@
 
 DATE_INSERTION_STARTPOINT = <<-SQL.chomp
   SELECT
-    (h_date + '1 day' :: interval)
+    h_date
   FROM
     last_date_entry
 SQL
