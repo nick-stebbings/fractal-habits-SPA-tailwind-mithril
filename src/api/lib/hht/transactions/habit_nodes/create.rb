@@ -3,12 +3,6 @@
 module Hht
   module Transactions
     module HabitNodes
-      class MpttChangeset < ROM::Changeset::Update
-        map do |tuple|
-          tuple.merge({lft: tuple[:lft]+1, rgt: tuple[:rgt]+1})
-        end
-      end
-
       class Create
         include Dry::Monads[:result]
         include Dry::Monads::Do.for(:call)
@@ -35,22 +29,21 @@ module Hht
           prepended_node = nil
 
           if parent_id.is_a?(String)
-            binding.pry
-            old_root = @@habit_node_relation.root_id_of_domain(parent_id[1..-1].to_i).one
+            # Extract domain_id from the string we passed as a flag and get domain for new root node
+            old_root = @@habit_node_relation
+              .root_id_of_domain(parent_id[1..-1].to_i)
+              .one
             prepended_node = true
             parent_id = nil
           end
           if parent_id.nil? # i.e. it is a new root node
-            increment_all_non_root_mptt_values_by_one
+            habit_node_repo.increment_all_non_root_mptt_values_by_one!
+
+            inserted_id = @@habit_node_relation.insert(root_node_attributes(old_root))
+            habit_node_repo.update_parent_id!(old_root, inserted_id) if prepended_node
+
             binding.pry
-            
-            inserted = @@habit_node_relation.insert(root_node_attributes(old_root))
-            
-            habit_node_repo
-              .by_id(old_root.id)
-              .update(parent_id: inserted) if prepended_node
-            binding.pry
-            Success(inserted)
+            Success(inserted_id)
           else
             siblings = @@habit_node_relation.children_of_parent(parent_id).to_a
             # Find siblings to append after, else append after parent.
@@ -61,14 +54,6 @@ module Hht
         end
 
         private
-
-        def increment_all_non_root_mptt_values_by_one
-          @@habit_node_relation.map do |relation|
-            changeset = @@habit_node_relation.changeset(MpttChangeset, relation.to_h)
-            habit_node_repo.update(changeset[:id], changeset.to_h)
-            puts 'success!'
-          end
-        end
 
         def root_node_attributes(old_root)
           !old_root ? { 

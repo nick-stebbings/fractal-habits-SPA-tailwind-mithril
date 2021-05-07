@@ -2,6 +2,13 @@
 
 module Hht
   module Repos
+    # One-use changeset for incrementing lft/rgt values:
+    class MpttChangeset < ROM::Changeset::Update
+      map do |tuple|
+        tuple.merge({lft: tuple[:lft]+1, rgt: tuple[:rgt]+1})
+      end
+    end
+
     class HabitNodeRepo < ROM::Repository[:habit_nodes]
       include Import['persistence.container']
       struct_namespace Entities
@@ -52,7 +59,7 @@ module Hht
         { :habit_nodes => ids.to_a.map{ |id| as_json(id)} }.to_json
       end
 
-      def restrict_on_id_combine_with_domain(id) # WORKING?
+      def restrict_on_id_combine_with_domain(id)
         habit_nodes.combine(:domains).by_pk(id)
       end
 
@@ -78,6 +85,11 @@ module Hht
 
         # Do a second query to restrict only to 'single parents'
         nodes = ids.select { |id| restrict_on_parent_id_combine_with_children(id).to_a.size == 1 } .map { |id| by_id(id) } .map(&:one)
+      end
+
+      def update_parent_id!(node, new_parent_id)
+        by_id(node.id)
+          .update(parent_id: new_parent_id)
       end
 
     ## Subtree Mappings
@@ -113,6 +125,13 @@ module Hht
       end
 
     ## Modified preorder traversal queries:
+      def increment_all_non_root_mptt_values_by_one!
+        habit_nodes.map do |relation|
+          changeset = habit_nodes.changeset(MpttChangeset, relation.to_h)
+          update(changeset[:id], changeset.to_h)
+        end
+      end
+
       # For adjusting 'further right than candidate' nodes
       def nodes_to_adjust_both_values(val)
         habit_nodes
@@ -132,7 +151,7 @@ module Hht
           .where { lft <= val }
       end
 
-      # This method splits the modified pre-order traversal 
+      # This method splits the modified pre-order traversal
       # into a minimum number of update queries
       def mptt_node_adjust!(nodes, operation)
         direction = nodes.shift; # Which 'direction' needs updating, (lft/rgt)
