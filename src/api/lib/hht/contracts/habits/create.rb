@@ -7,10 +7,10 @@ module Hht
         include Import['repos.habit_repo']
         params do
           required(:name).filled(:string)
-          required(:description).filled(:string)
+          required(:description).maybe(:string)
           required(:initiation_date).filled(:date)
           required(:domain_id).filled(:integer)
-          required(:habit_node_id).maybe(:integer)
+          required(:habit_node_id)
         end
       end
     end

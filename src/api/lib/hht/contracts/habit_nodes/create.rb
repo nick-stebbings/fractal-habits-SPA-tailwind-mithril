@@ -6,19 +6,19 @@ module Hht
       class Create < Dry::Validation::Contract
         include Import['repos.habit_node_repo']
         params do
-          required(:parent_id).maybe(:integer)
+          required(:parent_id)
         end
 
         rule(:parent_id) do
-          key.failure('Must not be a string') if (value.is_a? String)
+          key.failure('Must not be a string') if ((value.is_a? String) && !(value[0] == 'D')) # Exclude our domain id flag needed for node prepend
         end
 
         rule(:parent_id) do
-          key.failure('Must be a positive integer or NULL') unless (value.nil? || (value.is_a? Integer) && value > 0)
+          key.failure('Must be a positive integer or NULL') unless (value.nil? || ((value.is_a? String) && (value[0] == 'D')) || (value.is_a? Integer) && value > 0)
         end
 
         rule(:parent_id) do
-          key.failure('Parent does not exist') unless value.nil? || habit_node_repo.by_id(value).one
+          key.failure('Parent does not exist') unless value.nil? || ((value.is_a? String) && (value[0] == 'D')) || habit_node_repo.by_id(value).one
         end
       end
     end

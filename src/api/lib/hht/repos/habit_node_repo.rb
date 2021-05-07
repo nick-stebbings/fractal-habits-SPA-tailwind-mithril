@@ -8,7 +8,6 @@ module Hht
       commands update: :by_pk
 
       def create(parent)
-        binding.pry
         Hht::Transactions::HabitNodes::Create.new.call(parent)
       end
 
@@ -18,7 +17,6 @@ module Hht
           .order { (rgt - lft).asc }
           .map { |n| n[:id] }
           .to_a
-          binding.pry
         node_descendants.each do |descendant_id|
           Hht::Transactions::HabitNodes::Delete.new.call({ id: descendant_id })
         end

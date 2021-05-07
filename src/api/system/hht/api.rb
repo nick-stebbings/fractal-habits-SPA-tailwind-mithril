@@ -306,6 +306,7 @@ module Hht
         habit = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = habit_repo.create(habit)
         body = created.success? ? JSON.generate({id: created.flatten.to_s}) : ''
+        binding.pry
         created.success? ? (status 201) : halt(400, { message: unwrap_validation_error(created)}.to_json)
         body
       end
