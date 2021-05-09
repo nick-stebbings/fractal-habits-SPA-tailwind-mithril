@@ -60,27 +60,30 @@ module Hht
             dates
           ORDER BY h_date DESC
           LIMIT 1
-          )
-          INSERT INTO
-            dates (h_date)
-          SELECT
-            generate_series as generated_date
-          FROM
-            generate_series(
+          ),
+          series AS (
+            SELECT generate_series(
               (
                 #{start_date}
               ),
               #{end_date},
               '1 day' :: interval
             )
+          )
+          INSERT INTO
+            dates (h_date)
+          SELECT
+            generate_series
+          FROM
+            series
           WHERE NOT EXISTS
             (
               SELECT h_date
-                    FROM dates as d
-                  WHERE d.h_date = generated_date
+              FROM dates as d
+              WHERE d.h_date IN (SELECT generate_series FROM series)
             );
         SQL
-        # puts query
+        puts query
         connection.run(query)
       end
     end
