@@ -10,7 +10,7 @@ module Hht
           'contracts.habit_nodes.create',
           'repos.habit_node_repo',
         ]
-        
+
         def call(input)
           @@habit_node_relation = habit_node_repo.habit_nodes
 
@@ -42,7 +42,6 @@ module Hht
             inserted_id = @@habit_node_relation.insert(root_node_attributes(old_root))
             habit_node_repo.update_parent_id!(old_root, inserted_id) if prepended_node
 
-            binding.pry
             Success(inserted_id)
           else
             siblings = @@habit_node_relation.children_of_parent(parent_id).to_a

@@ -197,6 +197,7 @@ module Hht
         
         unless params[:demo] == 'true'
           root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
+          binding.pry
           root_node.exist? ? (tree= Subtree.generate(root_node.to_a.first.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
           status 200
           tree.to_d3_json
@@ -306,7 +307,6 @@ module Hht
         habit = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = habit_repo.create(habit)
         body = created.success? ? JSON.generate({id: created.flatten.to_s}) : ''
-        binding.pry
         created.success? ? (status 201) : halt(400, { message: unwrap_validation_error(created)}.to_json)
         body
       end

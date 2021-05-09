@@ -64,7 +64,7 @@ module Hht
           INSERT INTO
             dates (h_date)
           SELECT
-            generate_series
+            generate_series as generated_date
           FROM
             generate_series(
               (
@@ -72,6 +72,12 @@ module Hht
               ),
               #{end_date},
               '1 day' :: interval
+            )
+          WHERE NOT EXISTS
+            (
+              SELECT h_date
+                    FROM dates as d
+                  WHERE d.h_date = generated_date
             );
         SQL
         # puts query

@@ -5,7 +5,7 @@ import MainSubSection from "../components/Layout/MainSubSection.jsx";
 import HabitFilterList from "../components/Layout/HabitFilterList.jsx";
 
 const AppendHabit = {
-  view: () =>
+  view: (attrs) =>
     m("main#append-habit", [
       m(
         MainSubSection,
@@ -16,6 +16,7 @@ const AppendHabit = {
         MainSubSection,
         { heading: "2: Fill in habit details" },
         m(CreateForm, {
+          modalType: attrs.modalType,
           addHeader: false,
           resourceName: "new-habit-child",
           domain: DomainStore.current,

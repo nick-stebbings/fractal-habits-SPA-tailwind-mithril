@@ -59,7 +59,7 @@ const HabitTree = function () {
         zoomer.scaleBy(svg.transition().duration(250), 1 - factor);
         oldWindowWidth(document.body.getBoundingClientRect().width);
       }, debounceInterval);
-
+      console.log(HabitStore.list(), "HAB LIST");
       HabitStore.list().length > 0 &&
         updateStoresAndRenderTree(attrs.modalType);
     },

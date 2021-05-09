@@ -49,31 +49,44 @@ const getStatusColor = (habit) => {
 const HabitDashboard = {
   oninit: () => {
     if (!m.route.param("demo")) {
-      if ( HabitDateStore.fullList().length == 0 || NodeStore.list().length == 0 ) {
-        if (HabitStore.current()?.name !== "Select a Life-Domain to start tracking") return;
+      if (
+        HabitDateStore.fullList().length == 0 ||
+        NodeStore.list().length == 0 ||
+        m.route.param("currentHabit")
+      ) {
+        if (
+          HabitStore.current()?.name !==
+          "Select a Life-Domain to start tracking"
+        )
+          return;
         HabitDateStore.index()
-        .then(NodeStore.index)
-        .then(() => {
-          HabitStore.sortByDate();
-          HabitStore.current() &&
-          HabitDateStore.runFilter(HabitStore.current().id);
-          DateStore.current() &&
-          HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
-        })
-        .then(m.redraw);
+          .then(NodeStore.index)
+          .then(() => {
+            HabitStore.sortByDate();
+            HabitStore.current() &&
+              HabitDateStore.runFilter(HabitStore.current().id);
+            DateStore.current() &&
+              HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
+          })
+          .then(m.redraw);
       }
     } else {
       HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);
       DateStore.current() &&
       HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
     }
+
+    // When being linked from a visualisation page:
     if (m.route.param("currentHabit")) { 
       HabitStore.current(
         HabitStore.filterById(m.route.param("currentHabit"))[0]
         );
         NodeStore.index();
       }
-      NodeStore.runCurrentFilterByHabit(HabitStore.current());
+
+      
+console.log(HabitStore.current(), 'CURRENT HAB');
+      HabitStore.current() && NodeStore.runCurrentFilterByHabit(HabitStore.current());
   },
   oncreate: ({ attrs }) => {
     const demoData = m.route.param("demo");
@@ -122,11 +135,13 @@ const HabitDashboard = {
           // Stop the query parameters from persisting past first load
           if (m.route.param("currentHabit") && e.target.tagName !== "BUTTON") setRouteToBasePath();
 
+          // Add selected styles
           const habitName = e.currentTarget.querySelector("p:first-child")
             ?.textContent;
           document.querySelector(".selected").classList.remove("selected");
           e.currentTarget.classList.add("selected");
 
+          // Set the current habit and node
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
           NodeStore.runCurrentFilterByHabit(HabitStore.current());
 
