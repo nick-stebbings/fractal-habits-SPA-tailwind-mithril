@@ -10,24 +10,29 @@ module Hht
   module Repos
     class DateRepo < ROM::Repository[:dates]
       include Import[
-          'persistence.container',
-          'db.connection',
-          'repos.habit_date_repo',
-          'repos.habit_repo']
+        'persistence.container',
+        'db.connection',
+        'repos.habit_date_repo',
+        'repos.habit_repo']
+      include Dry::Monads[:result]
 
       commands update: :by_pk
 
       def create(data, insert_all_habit_dates = true)
         date_creation = Hht::Transactions::Dates::Create.new.call({h_date: Date.new(*parse(data))})
+        # When creating dates we also need to create habit_dates for those dates:
         created_date_ids = date_creation.flatten
+        habit_date_monads = []
+
         if insert_all_habit_dates
           created_date_ids.each do |date_id|
             habit_repo.ids.each do |habit_id|
-              habit_date_repo.create({habit_id: habit_id, date_id: date_id, completed_status: 'f'})
+              new_habit_date = {habit_id: habit_id, date_id: date_id, completed_status: 'f'}
+              habit_date_monads << Hht::Transactions::HabitDates::Create.new.call(new_habit_date)
             end
           end
         end
-        date_creation
+        Success(habit_date_monads << date_creation)
       end
 
       def delete(pk)

@@ -336,7 +336,7 @@ module Hht
       post '' do
         date = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = date_repo.create(date)
-        if created && created.success?
+        if created.success?
           url = "http://localhost:9393/dates/#{created.flatten}"
           response.headers['Location'] = url
           status 204

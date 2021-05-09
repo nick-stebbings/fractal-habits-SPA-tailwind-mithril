@@ -43,8 +43,7 @@ module Hht
             habit_date = { habit_id: habit_id, date_id: date_id, completed_status: 'f'}
             monads_array.push(Success(habit_date_repo.create(habit_date)))
           end
-          # TODO combine all monads
-          habit_creation
+          [habit_creation, *monads_array]
         end
       end
     end
