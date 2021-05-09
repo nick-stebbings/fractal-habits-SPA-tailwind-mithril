@@ -9,12 +9,25 @@ SQL
 module Hht
   module Repos
     class DateRepo < ROM::Repository[:dates]
-      include Import['persistence.container', 'db.connection']
+      include Import[
+          'persistence.container',
+          'db.connection',
+          'repos.habit_date_repo',
+          'repos.habit_repo']
 
       commands update: :by_pk
 
-      def create(data)
-        Hht::Transactions::Dates::Create.new.call({h_date: Date.new(*parse(data))})
+      def create(data, insert_all_habit_dates = true)
+        date_creation = Hht::Transactions::Dates::Create.new.call({h_date: Date.new(*parse(data))})
+        created_date_ids = date_creation.flatten
+        if insert_all_habit_dates
+          created_date_ids.each do |date_id|
+            habit_repo.ids.each do |habit_id|
+              habit_date_repo.create({habit_id: habit_id, date_id: date_id, completed_status: 'f'})
+            end
+          end
+        end
+        date_creation
       end
 
       def delete(pk)
@@ -26,6 +39,8 @@ module Hht
       def find(given_date); dates.where(h_date: given_date); end
 
       def earliest; dates.order(:h_date).first; end
+
+      def latest; dates.order(:h_date).last; end
 
       def all_after(given_date); dates.where{ h_date >= given_date }; end
 
@@ -52,6 +67,8 @@ module Hht
       end
 
       def insert_upto_today!(start_date = DATE_INSERTION_STARTPOINT, end_date = 'NOW()')
+        current_latest = latest
+
         query = <<-SQL.chomp
           WITH last_date_entry AS (
           SELECT
@@ -85,6 +102,11 @@ module Hht
         SQL
         puts query
         connection.run(query)
+
+        # Return the ids of the new dates
+        a = all_after(current_latest.h_date).map(:id)[1..-1]
+        puts a
+        a
       end
     end
   end

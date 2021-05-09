@@ -8,7 +8,7 @@ module Hht
         include Dry::Monads::Do.for(:call)
         include Import[
           'contracts.dates.create',
-          'repos.date_repo',
+          'repos.date_repo'
         ]
 
         def call(input)
@@ -23,20 +23,20 @@ module Hht
 
         def persist(result)
           date = result[:h_date]
+          new_date_ids = nil
           # Find out if it will be the oldest date:
           oldest = before_records_began?(result)
-          
-          if (!oldest && date.to_time > date_repo.earliest.h_date)
-            date_repo.insert_upto_today! # Fills in dates after the current lastest h_date to today
-            return Success('The necessary dates are already persisted.') 
-          end
-          # Return if the dates are already persisted
 
-          begin
-            oldest ? date_repo.send("insert_upto_today!", sql_query_start_timestamp(date), sql_query_end_timestamp(date)) : date_repo.insert_upto_today!
-            Success('Dates were inserted with raw SQL')
-          rescue => e
-            Failure(e)
+          if (!oldest && date.to_time > date_repo.earliest.h_date)
+            new_date_ids = date_repo.insert_upto_today! # Fills in dates after the current lastest h_date to today
+            return Success(new_date_ids) 
+          else
+            begin
+              new_date_ids = oldest ? date_repo.send("insert_upto_today!", sql_query_start_timestamp(date), sql_query_end_timestamp(date)) : date_repo.insert_upto_today!
+              Success(new_date_ids)
+            rescue => e
+              Failure(e)
+            end
           end
         end
 
