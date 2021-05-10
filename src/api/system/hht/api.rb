@@ -192,11 +192,11 @@ module Hht
 
       # Get root node tree for domain for specific date
       get '' do
+        binding.pry
         dom_id = params[:domain_id].to_i
         date_id = params[:date_id].to_i
         
         unless params[:demo] == 'true'
-          #
           root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
           root_node.exist? ? (tree= Subtree.generate(root_node.to_a.first.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
           status 200

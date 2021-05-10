@@ -27,7 +27,6 @@ module Hht
           parent_id = result.values.data[:parent_id]
           old_root = nil
           prepended_node = nil
-
           if parent_id.is_a?(String)
             # Extract domain_id from the string we passed as a flag and get domain for new root node
             old_root = @@habit_node_relation
@@ -37,10 +36,9 @@ module Hht
             parent_id = nil
           end
           if parent_id.nil? # i.e. it is a new root node
-            habit_node_repo.increment_all_non_root_mptt_values_by_one!
-
             inserted_id = @@habit_node_relation.insert(root_node_attributes(old_root))
             if prepended_node
+              habit_node_repo.increment_all_non_root_mptt_values_by_one!
               begin
                 parent_update_success = habit_node_repo.update_parent_id!(old_root, inserted_id)
               rescue

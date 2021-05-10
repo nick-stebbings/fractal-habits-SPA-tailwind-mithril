@@ -22,7 +22,9 @@ export default {
 
     const domainSelectors = document.querySelectorAll(".domain-selector");
     const selectedHabitLabel = document.querySelector("#current-habit ~ span");
-    const selectedHabitLabelSm = document.querySelector("#current-habit-sm ~ span");
+    const selectedHabitLabelSm = document.querySelector(
+      "#current-habit-sm ~ span"
+    );
     [...domainSelectors].forEach((selector) => {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
@@ -30,7 +32,7 @@ export default {
         selectedHabitLabel.value = HabitStore.current();
         selectedHabitLabelSm.value = HabitStore.current();
 
-        setRouteToBasePath()
+        setRouteToBasePath();
       });
     });
 
@@ -65,7 +67,9 @@ export default {
           <DomainSelector></DomainSelector>
           <DateSelector></DateSelector>
         </div>
-        <MainStage index={attrs.index}>{componentNode}</MainStage>
+        <MainStage index={attrs.index} modalType={attrs.modalType}>
+          {componentNode}
+        </MainStage>
       </div>
       <Footer />
     </div>

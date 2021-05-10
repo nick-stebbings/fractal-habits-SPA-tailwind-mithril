@@ -18,7 +18,7 @@ const Dialog = {
         HabitStore.clear();
         HabitDateStore.clear();
         attrs.modalType(false);
-        m.route.set("/habits/list");
+        m.route.set("/habits/list", null);
       }
     })
   },

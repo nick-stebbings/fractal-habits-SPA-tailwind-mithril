@@ -59,10 +59,8 @@ const processFormData = function (dom, attrs) {
           console.log("Could not submit data.");
           openModal(false);
         });
-
-          attrs.modalType(false);
-          console.log(HabitStore.current());
-
+      // Close the modal
+      attrs.modalType(false);
     });
 };
 
