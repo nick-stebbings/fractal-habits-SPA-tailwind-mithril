@@ -192,7 +192,6 @@ module Hht
 
       # Get root node tree for domain for specific date
       get '' do
-        binding.pry
         dom_id = params[:domain_id].to_i
         date_id = params[:date_id].to_i
         
@@ -242,6 +241,7 @@ module Hht
   
       post '' do
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)
+        binding.pry
         created = domain_repo.create(domain)
         body = created.success? ? JSON.generate({id: created.flatten.to_s}) : ''
         created.success? ? (status 201) : halt(400, { message: unwrap_validation_error(created)}.to_json)

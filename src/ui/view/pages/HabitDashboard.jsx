@@ -25,15 +25,17 @@ const dateOrderAsc = stream(true);
 const statusOrderAsc = stream(true);
 function invert(inputStream) {
   inputStream(!inputStream());
-};
+}
 
 const getStatusColor = (habit) => {
   let status;
-  if (HabitDateStore.runFilter(habit.id) &&
-    HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id).length >
-      0) {
-        status = String(HabitDateStore.list()[0].completed_status);
-      }
+  if (
+    HabitDateStore.runFilter(habit.id) &&
+    DateStore.current()?.id &&
+    HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id).length > 0
+  ) {
+    status = String(HabitDateStore.list()[0].completed_status);
+  }
   switch (status) {
     case "true":
       return positiveCol;
@@ -46,45 +48,49 @@ const getStatusColor = (habit) => {
   }
 };
 
+function preLoadData() {
+  if (!m.route.param("demo")) {
+    if (
+      HabitDateStore.fullList().length == 0 ||
+      NodeStore.list().length == 0 ||
+      m.route.param("currentHabit")
+    ) {
+      if (
+        HabitStore.current()?.name !== "Select a Life-Domain to start tracking"
+      )
+        return;
+      HabitDateStore.index()
+        .then(NodeStore.index)
+        .then(() => {
+          HabitStore.sortByDate();
+          HabitStore.current() &&
+            HabitDateStore.runFilter(HabitStore.current()?.id);
+          DateStore.current() &&
+            HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
+        })
+        .then(m.redraw);
+    }
+  } else {
+    HabitStore.current() && HabitDateStore.runFilter(HabitStore.current()?.id);
+    DateStore.current() &&
+      HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
+  }
+}
+
 const HabitDashboard = {
   oninit: () => {
-    if (!m.route.param("demo")) {
-      if (
-        HabitDateStore.fullList().length == 0 ||
-        NodeStore.list().length == 0 ||
-        m.route.param("currentHabit")
-      ) {
-        if (
-          HabitStore.current()?.name !==
-          "Select a Life-Domain to start tracking"
-        )
-          return;
-        HabitDateStore.index()
-          .then(NodeStore.index)
-          .then(() => {
-            HabitStore.sortByDate();
-            HabitStore.current() &&
-              HabitDateStore.runFilter(HabitStore.current().id);
-            DateStore.current() &&
-              HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
-          })
-          .then(m.redraw);
-      }
-    } else {
-      HabitStore.current() && HabitDateStore.runFilter(HabitStore.current().id);
-      DateStore.current() &&
-      HabitDateStore.runDateFilterOnCurrentList(DateStore.current().id);
-    }
+    preLoadData();
 
     // When being linked from a visualisation page:
-    if (m.route.param("currentHabit")) { 
+    if (m.route.param("currentHabit")) {
       HabitStore.current(
         HabitStore.filterById(m.route.param("currentHabit"))[0]
-        );
-        NodeStore.index();
-      }
+      );
+      NodeStore.index();
+    }
 
-      HabitStore.current() && NodeStore.runCurrentFilterByHabit(HabitStore.current());
+    HabitStore.current() &&
+      NodeStore.runCurrentFilterByHabit(HabitStore.current());
   },
   oncreate: ({ attrs }) => {
     const demoData = m.route.param("demo");
@@ -93,19 +99,19 @@ const HabitDashboard = {
 
     // Add sorting events
     document.getElementById("sort-name-desc").addEventListener("click", (e) => {
-      invert(nameOrderAsc)
+      invert(nameOrderAsc);
       HabitStore.sortByName(nameOrderAsc());
       m.redraw();
     });
     document.getElementById("sort-date-desc").addEventListener("click", (e) => {
-      invert(dateOrderAsc)
+      invert(dateOrderAsc);
       HabitStore.sortByDate(dateOrderAsc());
       m.redraw();
     });
     document
       .getElementById("sort-completion-desc")
       .addEventListener("click", (e) => {
-        invert(statusOrderAsc)
+        invert(statusOrderAsc);
         HabitStore.sortByStatus(statusOrderAsc());
         m.redraw();
       });
@@ -131,7 +137,8 @@ const HabitDashboard = {
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
           // Stop the query parameters from persisting past first load
-          if (m.route.param("currentHabit") && e.target.tagName !== "BUTTON") setRouteToBasePath();
+          if (m.route.param("currentHabit") && e.target.tagName !== "BUTTON")
+            setRouteToBasePath();
 
           // Add selected styles
           const habitName = e.currentTarget.querySelector("p:first-child")
@@ -152,9 +159,9 @@ const HabitDashboard = {
               "fill",
               currentStatusCol === positiveCol ? negativeCol : positiveCol
             );
-            makePatchOrPutRequest(demoData, String(currentStatus)).then(
-              HabitDateStore.index
-            ).then(m.redraw);
+            makePatchOrPutRequest(demoData, String(currentStatus))
+              .then(HabitDateStore.index)
+              .then(m.redraw);
           }
 
           // Add delete  event
@@ -191,7 +198,11 @@ const HabitDashboard = {
                     Habit
                     <i
                       id="sort-name-desc"
-                      class={nameOrderAsc() ? "relative left-2 fa fa-sort-asc": "relative left-2 fa fa-sort-desc"}
+                      class={
+                        nameOrderAsc()
+                          ? "relative left-2 fa fa-sort-asc"
+                          : "relative left-2 fa fa-sort-desc"
+                      }
                       aria-hidden="true"
                     ></i>
                   </th>
@@ -213,7 +224,11 @@ const HabitDashboard = {
                     Initiated
                     <i
                       id="sort-date-desc"
-                      class={dateOrderAsc() ? "relative left-2 fa fa-sort-asc": "relative left-2 fa fa-sort-desc"}
+                      class={
+                        dateOrderAsc()
+                          ? "relative left-2 fa fa-sort-asc"
+                          : "relative left-2 fa fa-sort-desc"
+                      }
                       aria-hidden="true"
                     ></i>
                   </th>
@@ -224,7 +239,11 @@ const HabitDashboard = {
                     Completion
                     <i
                       id="sort-completion-desc"
-                      class={statusOrderAsc() ? "relative left-2 fa fa-sort-asc": "relative left-2 fa fa-sort-desc"}
+                      class={
+                        statusOrderAsc()
+                          ? "relative left-2 fa fa-sort-asc"
+                          : "relative left-2 fa fa-sort-desc"
+                      }
                       aria-hidden="true"
                     ></i>
                   </th>
