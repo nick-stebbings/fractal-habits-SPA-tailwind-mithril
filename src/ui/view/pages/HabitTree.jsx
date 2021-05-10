@@ -52,6 +52,12 @@ const HabitTree = function () {
 
   return {
     type: "vis",
+    onupdate: ({attrs}) => {
+            if (HabitStore.list().length > 0 && TreeStore.root()?.name == "") {
+              updateStoresAndRenderTree(attrs.modalType);
+            }
+
+    },
     oninit: ({attrs}) => {
       const oldWindowWidth = stream(window.innerWidth);
       window.onresize = debounce(() => {
@@ -59,9 +65,15 @@ const HabitTree = function () {
         zoomer.scaleBy(svg.transition().duration(250), 1 - factor);
         oldWindowWidth(document.body.getBoundingClientRect().width);
       }, debounceInterval);
-      console.log(HabitStore.list(), "HAB LIST");
-      HabitStore.list().length > 0 &&
-        updateStoresAndRenderTree(attrs.modalType);
+            console.log(HabitStore.list(), "HAB LIST");
+            console.log(TreeStore.root().name == "");
+            console.log(TreeStore.root() == { name: "", children: "" });
+            if (
+              HabitStore.list().length > 0 &&
+              TreeStore.root()?.name == ""
+            ) {
+              updateStoresAndRenderTree(attrs.modalType);
+            }
     },
     oncreate: ({ attrs }) => {
       addSwipeGestures();

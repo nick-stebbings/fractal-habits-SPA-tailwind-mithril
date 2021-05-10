@@ -95,8 +95,8 @@ module Hht
     ## Subtree Mappings
       def map_node_and_descendants_to_struct_nodes(root_id)
         root = by_id(root_id).exist? ? by_id(root_id).one : nil
-        #
-        nest_parent_with_descendant_nodes_between_lr(root.lft, root.rgt) unless root.nil?
+        nest_parent_with_descendant_nodes_between_lr(root.lft, root.rgt)
+          .order(:lft) unless root.nil?
       end
     # Nested relation of children (nesting retricted by parent_id)
       def nest_parent_with_immediate_child_nodes(parent_id)

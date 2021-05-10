@@ -23,7 +23,6 @@ module Hht
         date_creation = Hht::Transactions::Dates::Create.new.call({h_date: Date.new(*parse(data))})
         # When creating dates we also need to create habit_dates for those dates:
         created_date_ids = date_creation.success? ? date_creation.flatten : []
-        #
         habit_date_monads = []
 
         if insert_all_habit_dates

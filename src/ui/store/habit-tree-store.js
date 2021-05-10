@@ -12,7 +12,7 @@ const TreeStore = {
   },
 
   current: stream({}),
-  root: stream(hierarchy({ name: "", children: "" })),
+  root: stream({ name: "", children: "" }),
 
   clear: () => {
     TreeStore.current = stream({});

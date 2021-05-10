@@ -45,7 +45,7 @@ class Subtree
         id = node.id
         parent_id = node.parent_id
         new_tree_node = node.to_tree_node_with_habit_status(date_id)
-        node_dict[id.to_s] = new_tree_node
+        node_dict[id.to_s] = new_tree_node unless node_dict[id.to_s]
         (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
       end
 
@@ -73,7 +73,6 @@ class Subtree
     # Generates a Tree::TreeNode root node from tuples
     def generate(root_id, date_id)
       nodes = @@node_repo.map_node_and_descendants_to_struct_nodes(root_id)
-      #
       return nil if nodes.nil?
       
       nodes_array = nodes.to_a
