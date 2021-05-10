@@ -45,15 +45,15 @@ export default {
       });
 
     // Reset the current date when you switch to a habit with no record of that date
-    // if (
-    //   HabitStore.current() &&
-    //   DateTime.fromSQL(HabitStore.current().initiation_date) >
-    //     DateTime.fromSQL(DateStore.current().h_date)
-    // ) {
-    //   let newListForHabit = DateStore.filterForHabit(HabitStore.current());
-    //   DateStore.current(newListForHabit[newListForHabit.length - 1]);
-    //   m.redraw();
-    // }
+    if (
+      HabitStore.current() &&
+      DateTime.fromSQL(HabitStore.current().initiation_date) >
+        DateTime.fromSQL(DateStore.current().h_date)
+    ) {
+      let newListForHabit = DateStore.filterForHabit(HabitStore.current());
+      DateStore.current(newListForHabit[newListForHabit.length - 1]);
+      m.redraw();
+    }
   },
   view: ({ attrs, children: [componentNode] }) => (
     <div id="layout" className="w-full h-full">

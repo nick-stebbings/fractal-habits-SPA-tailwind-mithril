@@ -6,6 +6,7 @@ DATE_INSERTION_STARTPOINT = <<-SQL.chomp
   FROM
     last_date_entry
 SQL
+
 module Hht
   module Repos
     class DateRepo < ROM::Repository[:dates]
@@ -21,7 +22,8 @@ module Hht
       def create(data, insert_all_habit_dates = true)
         date_creation = Hht::Transactions::Dates::Create.new.call({h_date: Date.new(*parse(data))})
         # When creating dates we also need to create habit_dates for those dates:
-        created_date_ids = date_creation.flatten
+        created_date_ids = date_creation.success? ? date_creation.flatten : []
+        #
         habit_date_monads = []
 
         if insert_all_habit_dates
@@ -105,13 +107,10 @@ module Hht
               WHERE d.h_date IN (SELECT generate_series FROM series)
             );
         SQL
-        puts query
         connection.run(query)
 
         # Return the ids of the new dates
-        a = all_after(current_latest.h_date).map(:id)[1..-1]
-        puts a
-        a
+        all_after(current_latest.h_date).map(:id)[1..-1]
       end
     end
   end

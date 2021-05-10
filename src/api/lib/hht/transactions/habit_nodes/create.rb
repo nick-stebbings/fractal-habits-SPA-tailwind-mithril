@@ -40,8 +40,13 @@ module Hht
             habit_node_repo.increment_all_non_root_mptt_values_by_one!
 
             inserted_id = @@habit_node_relation.insert(root_node_attributes(old_root))
-            habit_node_repo.update_parent_id!(old_root, inserted_id) if prepended_node
-
+            if prepended_node
+              begin
+                parent_update_success = habit_node_repo.update_parent_id!(old_root, inserted_id)
+              rescue
+                return Failure('Could not add alter root node parent')
+              end
+            end
             Success(inserted_id)
           else
             siblings = @@habit_node_relation.children_of_parent(parent_id).to_a

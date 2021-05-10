@@ -196,6 +196,7 @@ module Hht
         date_id = params[:date_id].to_i
         
         unless params[:demo] == 'true'
+          #
           root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
           root_node.exist? ? (tree= Subtree.generate(root_node.to_a.first.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
           status 200
@@ -337,8 +338,6 @@ module Hht
         date = MultiJson.load(request.body.read, :symbolize_keys => true)
         created = date_repo.create(date)
         if created.success?
-          url = "http://localhost:9393/dates/#{created.flatten}"
-          response.headers['Location'] = url
           status 204
         else
           halt(400, { message: unwrap_validation_error(created)}.to_json)

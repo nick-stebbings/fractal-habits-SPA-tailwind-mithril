@@ -38,12 +38,13 @@ module Hht
           habit_creation = Success(habit_repo.habits.insert(result.values.data))
           habit_id = habit_creation.flatten
           
+          monads_array = []
           # Validate and insert each habit_date
           insertions = habit_dates_to_insert.reduce([]) do |monads_array, date_id|
             habit_date = { habit_id: habit_id, date_id: date_id, completed_status: 'f'}
             monads_array.push(Success(habit_date_repo.create(habit_date)))
           end
-          [habit_creation, *monads_array]
+          Success(monads_array.concat([habit_creation]))
         end
       end
     end

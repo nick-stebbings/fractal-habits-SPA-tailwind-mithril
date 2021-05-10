@@ -29,6 +29,10 @@ const DateSelector = function () {
       maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates));
       if (DateStore.current() && maxDate < todaysDate) {
         DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() });
+        maxDate = DateTime.fromMillis(
+          DateTime.fromSQL(DateStore.current().h_date)
+        );
+        debugger;
       }
 
       const nextDate = document.getElementById("next-date-selector");

@@ -30,7 +30,7 @@ module Persistence
 
       def root_id_of_domain(domain_id)
         join(:habits, habit_node_id: :id)
-          .root_node
+          .where(lft: 1)
           .where(domain_id: domain_id)
       end
 
