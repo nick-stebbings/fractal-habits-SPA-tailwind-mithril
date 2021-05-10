@@ -15,7 +15,7 @@ const TreeStore = {
   root: stream({ name: "", children: "" }),
 
   clear: () => {
-    TreeStore.current = stream({});
+    TreeStore.root = stream({ name: "", children: "" });
   },
 
   index: (isDemo, domainId, dateId) => {

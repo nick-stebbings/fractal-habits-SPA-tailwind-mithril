@@ -41,7 +41,6 @@ class Subtree
 
     @descendant_nodes.select{ |n| n.has_habit_node? } # Reject nodes not linked to a habit
       .each do |node, _idx|
-        binding.pry
         id = node.id
         parent_id = node.parent_id
         new_tree_node = node.to_tree_node_with_habit_status(date_id)
@@ -77,7 +76,6 @@ class Subtree
       
       nodes_array = nodes.to_a
       root_node = @@node_repo.by_id(root_id).one
-      binding.pry
       subtree = Subtree.new(root_node.to_tree_node_with_habit_status(date_id), nodes_array)
       subtree.build_from_tuples(root_node, date_id, @@node_repo)
       subtree

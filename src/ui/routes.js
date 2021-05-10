@@ -23,6 +23,12 @@ const modalType = stream(false);
 
 function populateStores({ demo }) {
   if (!demo) {
+    
+    console.log(
+      HabitStore.current()?.name == "Select a Life-Domain to start tracking"
+        ? "Habits Indexed"
+        : "Habits loaded from the Store"
+    );
     let habitLoad = (HabitStore.current()?.name == "Select a Life-Domain to start tracking" // If we still have default habit data
     ? HabitStore.index()
     : Promise.resolve(HabitStore.fullList())
@@ -38,6 +44,7 @@ function populateStores({ demo }) {
           handleErrorType(message, "info");
         });
 
+    console.log(DomainStore.current()?.name == "No Domains Registered" ? 'Domains Indexed' : 'Domains loaded from the Store');
     let domainLoad = (DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
       ? DomainStore.index()
       : Promise.resolve(DomainStore.list())
@@ -49,9 +56,7 @@ function populateStores({ demo }) {
             : reject("There are no domain yet!");
         });
       })
-      .then(HabitStore.indexHabitsOfDomain)
       .catch((message) => {
-        spinnerOpen(false);
         handleErrorType(message, "info");
       });
     
@@ -61,13 +66,16 @@ function populateStores({ demo }) {
       });
     
     let dateLoad = DateStore.index()
-      .then(m.redraw)
       .catch((err) => {
         handleErrorType(message, "info");
       });
 
     Promise.all([habitLoad, domainLoad, dateLoad, nodeLoad])
       .then(() => {
+        
+        HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+        console.log(HabitStore.current());
+        console.log(DomainStore.current());
         m.redraw();
         spinnerOpen(false);
       })
@@ -76,6 +84,7 @@ function populateStores({ demo }) {
         console.log(err, "Error loading data!");
       });
   } else {
+    // Load Demo data
     importData
       .init()
       .then(() => {
@@ -90,7 +99,7 @@ function populateStores({ demo }) {
   }
 }
 
-// Map MenuRoutes object to Mithril router objects with rendering functions
+// Map MenuRoutes object -> Mithril router objects with rendering functions
 const Routes = MenuRoutes.reduce(
   (newRoutesObject, menuSection) => {
     const links = menuSection.subpaths;

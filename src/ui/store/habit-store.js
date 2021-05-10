@@ -15,7 +15,10 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   clear: () => {
-    HabitStore.current = stream({});
+    HabitStore.current({
+      name: "Select a Life-Domain to start tracking",
+      id: 1,
+    });
   },
 
   list: stream([]),
@@ -109,7 +112,6 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
         ...response.data,
         ...JSON.parse(response.config.data),
       }))
-      .then(HabitStore.current)
       .then((current) => {
         let newList = HabitStore.fullList();
         if (
@@ -119,6 +121,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
           newList.pop();
         newList.push(current);
         HabitStore.fullList(newList);
+        HabitStore.clear();
         return current;
       })
       .then(() => {

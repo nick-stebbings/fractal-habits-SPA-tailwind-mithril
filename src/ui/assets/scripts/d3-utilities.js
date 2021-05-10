@@ -374,7 +374,7 @@ const renderTree = function (
 
   function calibrateViewPort() {
     viewportX = 0;
-    viewportY = 100;
+    viewportY = canvasHeight/10;
     viewportW = canvasWidth * 5;
     viewportH = canvasHeight * 5;
     zoomed.translateX = -3 * (viewportW / 2);

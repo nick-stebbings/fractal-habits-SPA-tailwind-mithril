@@ -84,8 +84,6 @@ const HabitDashboard = {
         NodeStore.index();
       }
 
-      
-console.log(HabitStore.current(), 'CURRENT HAB');
       HabitStore.current() && NodeStore.runCurrentFilterByHabit(HabitStore.current());
   },
   oncreate: ({ attrs }) => {
@@ -162,8 +160,6 @@ console.log(HabitStore.current(), 'CURRENT HAB');
           // Add delete  event
           if (e.target.tagName == "BUTTON") {
             attrs.modalType("confirm");
-            console.log(NodeStore.current(), 'cuRRENT node');
-            console.log(HabitStore.current(), 'cuRRENT abit');
             openModal(true);
           }
           m.redraw();
