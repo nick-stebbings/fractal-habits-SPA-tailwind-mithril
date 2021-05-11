@@ -177,12 +177,16 @@ module Hht
         dom_id = params[:domain_id].to_i
         date_id = params[:date_id].to_i
         
-        unless params[:demo] == 'true'
-          root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
-          root_node.exist? ? (tree= Subtree.generate(root_node.to_a.first.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
-          status 200
-          tree.to_d3_json
+        if params[:demo] == 'true'
+          url = "http://localhost:9393/api/demo/domain/#{id}/habit_tree"
+          response.headers['Location'] = url
+          halt(302, { message:'Use the /api/demo path for demo data.'}.to_json)
         end
+
+        root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
+        root_node.exist? ? (tree= Subtree.generate(root_node.to_a.first.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
+        status 200
+        tree.to_d3_json
       end
 
       post '' do
@@ -193,8 +197,9 @@ module Hht
       get '/:root_id' do |root_id|
         date_id = params[:date_id].to_i
         tree = Subtree.generate(root_id, date_id)
-        status tree ? 200 :  halt(404, { message:'No habit data found!'}.to_json)
-        return tree.to_d3_json if tree
+        halt(404, { message:'No habit data found!'}.to_json) unless tree
+        status 200
+        tree.to_d3_json
       end
     end
 
@@ -213,11 +218,12 @@ module Hht
       end
         
       get '/:domain_id/habits' do |id|
-        status 200
         habits = domain_repo
           .by_id_nest_with_habits(id)
           .one.habits
           .map(&:to_h)
+
+        status 200
         json ({ habits: habits }.to_json)
       end
 
@@ -225,9 +231,10 @@ module Hht
         domain = MultiJson.load(request.body.read, :symbolize_keys => true)
         domain = sanitise_values(domain)
         created = domain_repo.create(domain)
-        body = created.success? ? {id: created.flatten.to_s}.to_json : ''
-        created.success? ? (status 201) : halt(400, { message: unwrap_validation_error(created)}.to_json)
-        body
+
+        halt(400, { message: unwrap_validation_error(created)}.to_json) unless created.success?
+        status 201
+        json ({id: created.flatten.to_s}.to_json)
       end
 
       put '/:domain_id' do |id|
@@ -237,8 +244,8 @@ module Hht
         halt(404, { message:'Domain Not Found'}.to_json) unless existing.exist?
         updated = domain_repo.update(id, domain)
 
-        return status 204 if updated.success?
-        halt(422, { message: unwrap_validation_error(updated)}.to_json)
+        halt(422, { message: unwrap_validation_error(updated)}.to_json) unless updated.success?
+        status 204
       end
 
       patch '/:domain_id' do |id|
@@ -249,8 +256,8 @@ module Hht
         domain_client.each { |key, value| domain_server[key.to_s] = value }
         updated = domain_repo.update(id, domain_server)
 
-        return status 204 if updated.success?
-        halt(422, { message: unwrap_validation_error(updated)}.to_json)
+        halt(422, { message: unwrap_validation_error(updated)}.to_json) unless updated.success?
+        status 204
       end
 
       delete '/:domain_id' do |id|
@@ -281,9 +288,9 @@ module Hht
         habit = sanitise_values(habit)
         created = habit_repo.create(habit)
 
-        body = created.success? ? {id: created.flatten.to_s}.to_json : ''
-        created.success? ? (status 201) : halt(400, { message: unwrap_validation_error(created)}.to_json)
-        body
+        halt(400, { message: unwrap_validation_error(created)}.to_json) unless created.success?
+        status 201
+        json ({id: created.flatten.to_s}.to_json)
       end
 
       delete '/:habit_id' do |id|
@@ -311,18 +318,21 @@ module Hht
       end
         
       get '/:date_id' do |id|
+        date = date_repo.as_json(id)
+        halt(404, { message:'No Date Found'}.to_json) unless date
+
         status 200
-        json date_repo.as_json(id)
+        json date
       end
       
       post '' do
-        date = MultiJson.load(request.body.read, :symbolize_keys => true)
+        date = MultiJson.load(request.body.read, :symbolize_keys => true)        
+        halt(404, { message:'No Date Found'}.to_json) unless date
+
         created = date_repo.create(date)
-        if created.success?
-          status 204
-        else
-          halt(400, { message: unwrap_validation_error(created)}.to_json)
-        end
+
+        halt(422, { message: unwrap_validation_error(created)}.to_json) unless created.success?
+        status 204
       end
 
       [:put, :patch, :delete].each do |method|
@@ -335,26 +345,31 @@ module Hht
     namespace '/api/habit_dates' do
       get '' do
         habit_date_list = habit_date_repo.all_as_json
-        halt(404, { message:'No Dates Found'}.to_json) unless habit_date_list
-        
+        halt(404, { message:'No Habit Dates Found'}.to_json) unless habit_date_list
+
         status 200
         json habit_date_list
       end
 
       post '' do
         habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
-        created = habit_date_repo.create(habit_date)
-        created.success? ? 204 : 
-          halt(422, { message: unwrap_validation_error(created)}.to_json)
-      end
+        halt(404, { message:'No Habit Date Found'}.to_json) unless habit_date
 
+        created = habit_date_repo.create(habit_date)
+
+        halt(422, { message: unwrap_validation_error(created)}.to_json) unless created.success?
+        status 204
+      end
+      
       put '/' do
         habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
         attrs = habit_date.reject { |k,v| k == :completed_status }
         halt(404, { message:'Habit Date Not Found'}.to_json) unless habit_date_repo.by_attrs(attrs).exist?
+
         updated = habit_date_repo.update(habit_date)
-        updated ? 204 : 
-        halt(422, { message: unwrap_validation_error(updated)}.to_json)
+
+        halt(422, { message: unwrap_validation_error(updated)}.to_json) unless updated.success?
+        status 204
       end
 
       [:patch, :delete].each do |method|
