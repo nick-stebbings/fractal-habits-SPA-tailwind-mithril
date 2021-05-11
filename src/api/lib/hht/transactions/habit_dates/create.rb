@@ -12,7 +12,7 @@ module Hht
           'repos.habit_repo',
           'repos.habit_node_repo',
         ]
-        
+
         def call(input)
           values = yield validate(input)
           habit_date = yield persist(values)

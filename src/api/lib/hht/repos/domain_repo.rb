@@ -11,12 +11,14 @@ module Hht
         Success(created_unique_domain)
       end
 
-      def update(id, data)
+      def update(_id, data)
         updated_domain = yield Hht::Transactions::Domains::Update.new.call(data)
         Success(updated_domain)
       end
 
-      def query(conditions); domains.where(conditions); end
+      def query(conditions)
+        domains.where(conditions)
+      end
 
       def ids
         domains.pluck(:id)
@@ -32,17 +34,17 @@ module Hht
 
       def as_json(id)
         domain = domains.by_pk(id).one
-        { 
+        {
           'id' => domain.fetch(:id),
           'name' => domain.fetch(:name),
           'description' => domain.fetch(:description),
           'rank' => domain.fetch(:rank),
-          'hashtag' => domain.fetch(:hashtag),
+          'hashtag' => domain.fetch(:hashtag)
         }
       end
 
       def all_as_json
-        { :domains => domains.all }.to_json
+        { domains: domains.all }.to_json
       end
     end
   end

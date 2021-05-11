@@ -1,0 +1,7 @@
+# .rubocop.yml
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false

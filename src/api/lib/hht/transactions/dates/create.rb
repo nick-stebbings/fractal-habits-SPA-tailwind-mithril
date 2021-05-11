@@ -17,7 +17,7 @@ module Hht
           Success(date)
         end
 
-        def validate(input)   
+        def validate(input)
           create.call(input).to_monad
         end
 
@@ -25,13 +25,18 @@ module Hht
           date = result[:h_date]
           # Find out if it will be the oldest date:
           oldest = before_records_began?(result)
-          if (!oldest && date.to_time > date_repo.earliest.h_date)
-            return Success(date_repo.insert_upto_today!) 
+          if !oldest && date.to_time > date_repo.earliest.h_date
+            Success(date_repo.insert_upto_today!)
           else
             begin
-              new_date_ids = (oldest ? date_repo.send("insert_upto_today!", sql_query_start_timestamp(date), sql_query_end_timestamp(date)) : date_repo.insert_upto_today!)
+              new_date_ids = (if oldest
+                                date_repo.send('insert_upto_today!', sql_query_start_timestamp(date),
+                                               sql_query_end_timestamp(date))
+                              else
+                                date_repo.insert_upto_today!
+                              end)
               Success(new_date_ids)
-            rescue => e
+            rescue StandardError => e
               Failure(e)
             end
           end
@@ -50,10 +55,10 @@ module Hht
         end
 
         def sql_query_start_timestamp(date)
-          Date.today != date ? "\'#{date}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW()):: timestamptz' 
+          Date.today != date ? "\'#{date}\' :: timestamptz" : 'DATE_TRUNC(\'day\', NOW()):: timestamptz'
         end
 
-        def sql_query_end_timestamp(date)
+        def sql_query_end_timestamp(_date)
           # If the input date is older than the oldest recorded date,
           # query will fill in from there to the current oldest date, exclusive.
           # Use NOW() as a fallback in case this will be the first tuple.

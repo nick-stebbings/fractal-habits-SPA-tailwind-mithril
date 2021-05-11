@@ -30,8 +30,8 @@ module Hht
           if parent_id.is_a?(String)
             # Extract domain_id from the string we passed as a flag and get domain for new root node
             old_root = @@habit_node_relation
-              .root_id_of_domain(parent_id[1..-1].to_i)
-              .one
+                       .root_id_of_domain(parent_id[1..-1].to_i)
+                       .one
             prepended_node = true
             parent_id = nil
           end
@@ -41,7 +41,7 @@ module Hht
               habit_node_repo.increment_all_non_root_mptt_values_by_one!
               begin
                 parent_update_success = habit_node_repo.update_parent_id!(old_root, inserted_id)
-              rescue
+              rescue StandardError
                 return Failure('Could not add alter root node parent')
               end
             end
@@ -49,7 +49,7 @@ module Hht
           else
             siblings = @@habit_node_relation.children_of_parent(parent_id).to_a
             # Find siblings to append after, else append after parent.
-            rgt = !siblings.empty? ? siblings.last.rgt :  (habit_node_repo.by_id(parent_id).one.rgt - 1)
+            rgt = !siblings.empty? ? siblings.last.rgt : (habit_node_repo.by_id(parent_id).one.rgt - 1)
             modified = habit_node_repo.modify_nodes_after(rgt, :add, parent_id)
             modified ? Success(@@habit_node_relation.insert(modified)) : Failure('Could not modify other nodes. Cannot create new node.')
           end
@@ -58,15 +58,19 @@ module Hht
         private
 
         def root_node_attributes(old_root)
-          !old_root ? { 
-            parent_id: nil,
-            lft: 1,
-            rgt: 2
-          } : {
-            parent_id: nil,
-            lft: 1,
-            rgt: (old_root.rgt + 2)
-          }
+          if !old_root
+            {
+              parent_id: nil,
+              lft: 1,
+              rgt: 2
+            }
+          else
+            {
+              parent_id: nil,
+              lft: 1,
+              rgt: (old_root.rgt + 2)
+            }
+          end
         end
       end
     end

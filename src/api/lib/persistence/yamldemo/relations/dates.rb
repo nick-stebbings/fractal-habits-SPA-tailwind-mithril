@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Yamldemo
   module Relations
     class Dates < ROM::Relation[:yaml]

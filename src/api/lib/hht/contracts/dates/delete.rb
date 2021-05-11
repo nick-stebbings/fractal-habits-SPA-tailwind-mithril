@@ -8,9 +8,9 @@ module Hht
         params do
           required(:id).filled(:integer)
         end
-        
+
         rule(:id) do
-          key.failure('Must be a positive integer.') unless (value.is_a? Integer) && value > 0
+          key.failure('Must be a positive integer.') unless (value.is_a? Integer) && value.positive?
         end
 
         rule(:id) do

@@ -21,7 +21,7 @@ module Hht
 
     configure :development, :test do
       register Sinatra::Reloader
-      set :protection, :except => :json_csrf
+      set :protection, except: :json_csrf
     end
 
     configure do
@@ -30,27 +30,27 @@ module Hht
       register Sinatra::CrossOrigin
       enable :cross_origin
       set :allow_origin, :any
-      set :allow_methods, [:get, :post, :options, :delete, :put, :patch]
+      set :allow_methods, %i[get post options delete put patch]
       set :allow_credentials, true
-      set :max_age, "1728000"
+      set :max_age, '1728000'
       set :expose_headers, ['Content-Type']
     end
 
     options '*' do
-      response.headers["Allow"] = "GET, POST, OPTIONS, DELETE, PUT, PATCH"
-      response.headers["Access-Control-Allow-Origin"] = 'http://localhost:8080'
-      response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept"
+      response.headers['Allow'] = 'GET, POST, OPTIONS, DELETE, PUT, PATCH'
+      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:8080'
+      response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
       200
     end
-    
+
     def unwrap_validation_error(failure_monad)
       failure_monad.failure.errors.to_h.values[0][0]
     end
 
     def sanitise_values(attrs)
-      attrs.each_with_object({}) { |(k,v), sanitised| sanitised[k] = Rack::Utils.escape_html(v)}
+      attrs.transform_values { |v| Rack::Utils.escape_html(v) }
     end
-    
+
     include Import[
       'repos.domain_repo',
       'repos.habit_node_repo',
@@ -61,9 +61,9 @@ module Hht
     ]
 
     namespace '/api' do
-      [:get, :post, :put, :patch, :delete].each do |method|
+      %i[get post put patch delete].each do |method|
         send(method, '') do
-          halt(405, { message:'Verb Not Permitted'}.to_json)
+          halt(405, { message: 'Verb Not Permitted' }.to_json)
         end
       end
     end
@@ -76,13 +76,11 @@ module Hht
         status 200
         json demo_data_payload
       end
-      
+
       get '/domain/:id/habit_tree' do |id|
         date_id = params[:date_id].to_i
         length = params['tracking_length'].to_i || 28
-        unless YAMLStore.ready
-          YAML = YAMLStore.new(length)
-        end
+        YAML = YAMLStore.new(length) unless YAMLStore.ready
         tree_index = id ? (id.to_i - 1) : 0
         # Return a default template (given all are the same length) if there isn't a tree for that date
         YAML.tree[tree_index][date_id.to_s] || YAML.tree[tree_index][:default]
@@ -92,24 +90,24 @@ module Hht
         dom_id = domain_id.to_i
         date_id = date_id.to_i
 
-        habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
+        habit_date = MultiJson.load(request.body.read, symbolize_keys: true)
         habit_date[:completed_status] = habit_date[:completed_status] == 'true'
-        attrs = habit_date.reject { |k,v| k == :completed_status }
-        # TODO validation
+        attrs = habit_date.reject { |k, _v| k == :completed_status }
+        # TODO: validation
         habit_dates = YAMLStore.ready ? YAML.habit_dates : YAMLStore.new.habit_dates
         found = habit_dates.by_attrs(attrs).one
         if found
           habit_dates.insert(habit_date)
           habit_dates.delete(found)
         end
-        
+
         YAML.replace_tree!(dom_id - 1, date_id, habit_date, attrs)
         status 204
       end
 
-      [:post, :patch, :delete].each do |method|
+      %i[post patch delete].each do |method|
         send(method, '') do
-          halt(405, { message:'Verb Not Permitted'}.to_json)
+          halt(405, { message: 'Verb Not Permitted' }.to_json)
         end
       end
     end
@@ -117,37 +115,42 @@ module Hht
     namespace '/api/habit_trees/nodes' do
       get '' do
         nodes_list = habit_node_repo.all_as_json
-        halt(404, { message:'No Nodes Found'}.to_json) unless nodes_list
+        halt(404, { message: 'No Nodes Found' }.to_json) unless nodes_list
         status 200
         json nodes_list
       end
 
       get '/:node_id' do |node_id|
         habit_node = habit_node_repo.as_json(node_id)
-        halt(404, { message:'Node Not Found'}.to_json) unless habit_node
+        halt(404, { message: 'Node Not Found' }.to_json) unless habit_node
         status 200
         json habit_node
       end
 
       post '' do
-        habit_node = MultiJson.load(request.body.read, :symbolize_keys => true)
+        habit_node = MultiJson.load(request.body.read, symbolize_keys: true)
 
         created = habit_node_repo.create(habit_node)
         status 204 if created.success?
       end
 
       put '/:node_id' do |node_id|
-        habit_node = MultiJson.load(request.body.read, :symbolize_keys => true)
+        habit_node = MultiJson.load(request.body.read, symbolize_keys: true)
         existing_node = habit_node_repo.as_json(node_id)
-        result = existing_node ? habit_node_repo.update(node_id, habit_node) : habit_node_repo.create(node_id, habit_node)
+        result = if existing_node
+                   habit_node_repo.update(node_id,
+                                          habit_node)
+                 else
+                   habit_node_repo.create(node_id, habit_node)
+                 end
 
         existing_node ? (status 204) : (status 201; result)
       end
 
       patch '/:node_id' do |node_id|
-        habit_node_client = MultiJson.load(request.body.read, :symbolize_keys => true)
+        habit_node_client = MultiJson.load(request.body.read, symbolize_keys: true)
         habit_node_server = habit_node_repo.as_json(node_id)
-        halt(404, { message:'Node Not Found'}.to_json) unless habit_node_server
+        halt(404, { message: 'Node Not Found' }.to_json) unless habit_node_server
 
         habit_node_client.each do |key, value|
           habit_node_server[key.to_sym] = value
@@ -158,17 +161,17 @@ module Hht
 
       delete '/:node_id' do |node_id|
         node = habit_node_repo.as_json(node_id)
-        halt(404, { message:'Node Not Found'}.to_json) unless node
+        halt(404, { message: 'Node Not Found' }.to_json) unless node
 
-        habit_node_repo.delete({ id: node_id.to_i})
+        habit_node_repo.delete({ id: node_id.to_i })
         status 204
       end
     end
 
     namespace '/api/habit_trees' do
-      [:put, :patch, :delete].each do |method|
+      %i[put patch delete].each do |method|
         send(method, '') do
-          halt(405, { message:'Verb Not Permitted'}.to_json)
+          halt(405, { message: 'Verb Not Permitted' }.to_json)
         end
       end
 
@@ -176,28 +179,35 @@ module Hht
       get '' do
         dom_id = params[:domain_id].to_i
         date_id = params[:date_id].to_i
-        
+
         if params[:demo] == 'true'
           url = "http://localhost:9393/api/demo/domain/#{id}/habit_tree"
           response.headers['Location'] = url
-          halt(302, { message:'Use the /api/demo path for demo data.'}.to_json)
+          halt(302, { message: 'Use the /api/demo path for demo data.' }.to_json)
         end
 
         root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
-        root_node.exist? ? (tree= Subtree.generate(root_node.to_a.first.id, date_id)) : (halt(404, { message:'No nodes for this domain'}.to_json))
+        if root_node.exist?
+          (tree = Subtree.generate(root_node.to_a.first.id,
+                                   date_id))
+        else
+          halt(404,
+               { message: 'No nodes for this domain' }.to_json)
+        end
         status 200
         tree.to_d3_json
       end
 
       post '' do
-        halt(405, { message:'A habit tree is a composition of habit nodes, to create one use node parent/child references'}.to_json)
+        halt(405,
+             { message: 'A habit tree is a composition of habit nodes, to create one use node parent/child references' }.to_json)
       end
 
       # Get subtree by root node id
       get '/:root_id' do |root_id|
         date_id = params[:date_id].to_i
         tree = Subtree.generate(root_id, date_id)
-        halt(404, { message:'No habit data found!'}.to_json) unless tree
+        halt(404, { message: 'No habit data found!' }.to_json) unless tree
         status 200
         tree.to_d3_json
       end
@@ -206,63 +216,63 @@ module Hht
     namespace '/api/domains' do
       get '' do
         domain_list = domain_repo.all_as_json
-        halt(404, { message:'No Domains Found'}.to_json) unless domain_list
+        halt(404, { message: 'No Domains Found' }.to_json) unless domain_list
 
         status 200
         json domain_list
       end
-        
+
       get '/:domain_id' do |id|
         status 200
         json domain_repo.as_json(id)
       end
-        
+
       get '/:domain_id/habits' do |id|
         habits = domain_repo
-          .by_id_nest_with_habits(id)
-          .one.habits
-          .map(&:to_h)
+                 .by_id_nest_with_habits(id)
+                 .one.habits
+                 .map(&:to_h)
 
         status 200
-        json ({ habits: habits }.to_json)
+        json({ habits: habits }.to_json)
       end
 
       post '' do
-        domain = MultiJson.load(request.body.read, :symbolize_keys => true)
+        domain = MultiJson.load(request.body.read, symbolize_keys: true)
         domain = sanitise_values(domain)
         created = domain_repo.create(domain)
 
-        halt(400, { message: unwrap_validation_error(created)}.to_json) unless created.success?
+        halt(400, { message: unwrap_validation_error(created) }.to_json) unless created.success?
         status 201
-        json ({id: created.flatten.to_s}.to_json)
+        json({ id: created.flatten.to_s }.to_json)
       end
 
       put '/:domain_id' do |id|
-        domain = MultiJson.load(request.body.read, :symbolize_keys => true)
+        domain = MultiJson.load(request.body.read, symbolize_keys: true)
         existing = domain_repo.by_id(id)
 
-        halt(404, { message:'Domain Not Found'}.to_json) unless existing.exist?
+        halt(404, { message: 'Domain Not Found' }.to_json) unless existing.exist?
         updated = domain_repo.update(id, domain)
 
-        halt(422, { message: unwrap_validation_error(updated)}.to_json) unless updated.success?
+        halt(422, { message: unwrap_validation_error(updated) }.to_json) unless updated.success?
         status 204
       end
 
       patch '/:domain_id' do |id|
-        domain_client = MultiJson.load(request.body.read, :symbolize_keys => true)
+        domain_client = MultiJson.load(request.body.read, symbolize_keys: true)
         domain_server = domain_repo.as_json(id)
-        halt(404, { message:'Domain Not Found'}.to_json) unless domain_server
-        
+        halt(404, { message: 'Domain Not Found' }.to_json) unless domain_server
+
         domain_client.each { |key, value| domain_server[key.to_s] = value }
         updated = domain_repo.update(id, domain_server)
 
-        halt(422, { message: unwrap_validation_error(updated)}.to_json) unless updated.success?
+        halt(422, { message: unwrap_validation_error(updated) }.to_json) unless updated.success?
         status 204
       end
 
       delete '/:domain_id' do |id|
         domain = domain_repo.as_json(id)
-        halt(404, { message:'Domain Not Found'}.to_json) unless domain
+        halt(404, { message: 'Domain Not Found' }.to_json) unless domain
 
         domain_repo.delete(id.to_i)
         status 204
@@ -272,7 +282,7 @@ module Hht
     namespace '/api/habits' do
       get '' do
         habit_list = habit_repo.all_as_json
-        halt(404, { message:'No Habits Found'}.to_json) unless habit_list
+        halt(404, { message: 'No Habits Found' }.to_json) unless habit_list
 
         status 200
         json habit_list
@@ -284,26 +294,26 @@ module Hht
       end
 
       post '' do
-        habit = MultiJson.load(request.body.read, :symbolize_keys => true)
+        habit = MultiJson.load(request.body.read, symbolize_keys: true)
         habit = sanitise_values(habit)
         created = habit_repo.create(habit)
 
-        halt(400, { message: unwrap_validation_error(created)}.to_json) unless created.success?
+        halt(400, { message: unwrap_validation_error(created) }.to_json) unless created.success?
         status 201
-        json ({id: created.flatten.to_s}.to_json)
+        json({ id: created.flatten.to_s }.to_json)
       end
 
       delete '/:habit_id' do |id|
         habit = habit_repo.as_json(id)
-        halt(404, { message:'Habit Not Found'}.to_json) unless habit
+        halt(404, { message: 'Habit Not Found' }.to_json) unless habit
 
         habit_repo.delete(id.to_i)
         status 204
       end
 
-      [:patch, :delete].each do |method|
+      %i[patch delete].each do |method|
         send(method, '') do
-          halt(405, { message:'Verb Not Permitted'}.to_json)
+          halt(405, { message: 'Verb Not Permitted' }.to_json)
         end
       end
     end
@@ -311,33 +321,33 @@ module Hht
     namespace '/api/dates' do
       get '' do
         date_list = date_repo.all_as_json
-        halt(404, { message:'No Dates Found'}.to_json) unless date_list
-        
+        halt(404, { message: 'No Dates Found' }.to_json) unless date_list
+
         status 200
         json date_list
       end
-        
+
       get '/:date_id' do |id|
         date = date_repo.as_json(id)
-        halt(404, { message:'No Date Found'}.to_json) unless date
+        halt(404, { message: 'No Date Found' }.to_json) unless date
 
         status 200
         json date
       end
-      
+
       post '' do
-        date = MultiJson.load(request.body.read, :symbolize_keys => true)        
-        halt(404, { message:'No Date Found'}.to_json) unless date
+        date = MultiJson.load(request.body.read, symbolize_keys: true)
+        halt(404, { message: 'No Date Found' }.to_json) unless date
 
         created = date_repo.create(date)
 
-        halt(422, { message: unwrap_validation_error(created)}.to_json) unless created.success?
+        halt(422, { message: unwrap_validation_error(created) }.to_json) unless created.success?
         status 204
       end
 
-      [:put, :patch, :delete].each do |method|
+      %i[put patch delete].each do |method|
         send(method, '') do
-          halt(405, { message:'Verb Not Permitted'}.to_json)
+          halt(405, { message: 'Verb Not Permitted' }.to_json)
         end
       end
     end
@@ -345,36 +355,36 @@ module Hht
     namespace '/api/habit_dates' do
       get '' do
         habit_date_list = habit_date_repo.all_as_json
-        halt(404, { message:'No Habit Dates Found'}.to_json) unless habit_date_list
+        halt(404, { message: 'No Habit Dates Found' }.to_json) unless habit_date_list
 
         status 200
         json habit_date_list
       end
 
       post '' do
-        habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
-        halt(404, { message:'No Habit Date Found'}.to_json) unless habit_date
+        habit_date = MultiJson.load(request.body.read, symbolize_keys: true)
+        halt(404, { message: 'No Habit Date Found' }.to_json) unless habit_date
 
         created = habit_date_repo.create(habit_date)
 
-        halt(422, { message: unwrap_validation_error(created)}.to_json) unless created.success?
+        halt(422, { message: unwrap_validation_error(created) }.to_json) unless created.success?
         status 204
       end
-      
+
       put '/' do
-        habit_date = MultiJson.load(request.body.read, :symbolize_keys => true)
-        attrs = habit_date.reject { |k,v| k == :completed_status }
-        halt(404, { message:'Habit Date Not Found'}.to_json) unless habit_date_repo.by_attrs(attrs).exist?
+        habit_date = MultiJson.load(request.body.read, symbolize_keys: true)
+        attrs = habit_date.reject { |k, _v| k == :completed_status }
+        halt(404, { message: 'Habit Date Not Found' }.to_json) unless habit_date_repo.by_attrs(attrs).exist?
 
         updated = habit_date_repo.update(habit_date)
 
-        halt(422, { message: unwrap_validation_error(updated)}.to_json) unless updated.success?
+        halt(422, { message: unwrap_validation_error(updated) }.to_json) unless updated.success?
         status 204
       end
 
-      [:patch, :delete].each do |method|
+      %i[patch delete].each do |method|
         send(method, '') do
-          halt(405, { message:'Verb Not Permitted'}.to_json)
+          halt(405, { message: 'Verb Not Permitted' }.to_json)
         end
       end
     end

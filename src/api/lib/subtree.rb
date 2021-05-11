@@ -3,24 +3,22 @@
 require_relative './list'
 DEFAULT_MIN_LIST_LENGTH = 24
 
-class Tree::TreeNode
-  # Monkey patching a method for returning modified preordered tree traversal values and other node related data
-  def yield_d3_values(domain_index)
-    left_counter = 1
-    used_numbers = []
-    preordered_each do |n, i|
-      while used_numbers.include?(left_counter)
-        left_counter += 1
+module Tree
+  class TreeNode
+    # Monkey patching a method for returning modified preordered tree traversal values and other node related data
+    def yield_d3_values(_domain_index)
+      left_counter = 1
+      used_numbers = []
+      preordered_each do |n, i|
+        left_counter += 1 while used_numbers.include?(left_counter)
+        lft = left_counter
+        rgt = (n.size == 1 ? (lft + 1) : lft + 2 * n.size - 1)
+        rgt += 1 while used_numbers.include?(rgt)
+        used_numbers.push(lft)
+        used_numbers.push(rgt)
+        n.content = "L#{lft}R#{rgt}-incomplete" if block_given?
+        yield({ id: i, lft: lft, rgt: rgt }, n.name, n.content) if block_given?
       end
-      lft = left_counter
-      rgt = (n.size == 1 ? (lft + 1) : lft + 2 * n.size - 1)
-      while used_numbers.include?(rgt)
-        rgt += 1
-      end
-      used_numbers.push(lft)
-      used_numbers.push(rgt)
-      n.content = "L#{lft}R#{rgt}-incomplete" if block_given?
-      yield({id: i, lft: lft, rgt: rgt}, n.name, n.content) if block_given?
     end
   end
 end
@@ -28,25 +26,26 @@ end
 # Acts as a Repo for methods pertaining to SQL -> Tree:TreeNode -> JSON conversion and subsequent manipulation
 class Subtree
   attr_reader :root_node
-  @@node_repo =  Hht::Container.resolve('repos.habit_node_repo')
-  
+
+  @@node_repo = Hht::Container.resolve('repos.habit_node_repo')
+
   def initialize(root_node = '', nodes_array = [])
     @root_node = root_node
     @descendant_nodes = nodes_array
   end
 
-  def build_from_tuples(root_node, date_id, repo)
+  def build_from_tuples(root_node, date_id, _repo)
     root_id = root_node.id.to_s
     node_dict = { root_id => root_node.to_tree_node_with_habit_status(date_id) }
 
-    @descendant_nodes.select{ |n| n.has_habit_node? } # Reject nodes not linked to a habit
-      .each do |node, _idx|
-        id = node.id
-        parent_id = node.parent_id
-        new_tree_node = node.to_tree_node_with_habit_status(date_id)
-        node_dict[id.to_s] = new_tree_node unless node_dict[id.to_s]
-        (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
-      end
+    @descendant_nodes.select(&:has_habit_node?) # Reject nodes not linked to a habit
+                     .each do |node, _idx|
+      id = node.id
+      parent_id = node.parent_id
+      new_tree_node = node.to_tree_node_with_habit_status(date_id)
+      node_dict[id.to_s] = new_tree_node unless node_dict[id.to_s]
+      (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
+    end
 
     @root_node = node_dict[root_id]
     self
@@ -55,12 +54,14 @@ class Subtree
   def as_d3_json
     root_json = @root_node.as_json
     new_json = { 'content' => root_json[:content].to_s, 'name' => root_json[:name].to_s }
-    
+
     children_json = if root_json['children']
-      { 'content' => root_json[:content].to_s, 'children' => root_json['children'].map { |child| Subtree.new(child).as_d3_json } }
-    else
-    { 'children' => [] }
-    end
+                      { 'content' => root_json[:content].to_s, 'children' => root_json['children'].map do |child|
+                                                                               Subtree.new(child).as_d3_json
+                                                                             end }
+                    else
+                      { 'children' => [] }
+                    end
     new_json.merge(children_json)
   end
 
@@ -73,7 +74,7 @@ class Subtree
     def generate(root_id, date_id)
       nodes = @@node_repo.map_node_and_descendants_to_struct_nodes(root_id)
       return nil if nodes.nil?
-      
+
       nodes_array = nodes.to_a
       root_node = @@node_repo.by_id(root_id).one
       subtree = Subtree.new(root_node.to_tree_node_with_habit_status(date_id), nodes_array)
@@ -86,11 +87,12 @@ class Subtree
       each_after_json_to_treenodes(json_tree) do |node|
         children = node.content[:children]
         next if children.nil?
-        if (!children.empty?)
-          if(children.size > lower_list_limit)
+
+        unless children.empty?
+          if children.size > lower_list_limit
             node.replace_with(listify(node, children))
-          elsif(children.size > 3)
-            node.parent ? node.replace_with(ternarise(node, children)) : node 
+          elsif children.size > 3
+            node.parent ? node.replace_with(ternarise(node, children)) : node
           end
         end
       end
@@ -103,7 +105,7 @@ class Subtree
       new_parent = Tree::TreeNode.new(parent.name)
 
       child_node_array.each_slice(3) do |sub_array|
-        subpart_name = 'Sub-Habit ' + subpart_counter.to_s
+        subpart_name = "Sub-Habit #{subpart_counter}"
         new_subpart = Tree::TreeNode.new(subpart_name, sub_array)
         # TODO: create a new habit here, link it to the node-id
         append_treenode_children(new_subpart, sub_array)
@@ -120,25 +122,29 @@ class Subtree
     end
 
     # Preorder traversal of json tree, converting each node to Tree::TreeNode and yielding
-    def each_after_json_to_treenodes(json_tree, parent = nil)
+    def each_after_json_to_treenodes(json_tree, _parent = nil)
       hash_node = JSON.parse(json_tree)
       # Create a new parent node and store the JSON as 'content' in the TreeNode
-      node = Tree::TreeNode.new(hash_node['name'], {content: hash_node['content'], children: hash_node['children']})
+      node = Tree::TreeNode.new(hash_node['name'], { content: hash_node['content'], children: hash_node['children'] })
 
       nodes = [node]
       next_nodes = []
 
       # Map ALL json nodes to singleton TreeNodes
-      while (node = nodes.pop())
+      while (node = nodes.pop)
         next_nodes.push(node)
-        if ((node.content['children'] || node.content[:children]) && (children = (node.content['children'] || node.content[:children])) && !children.empty?)
-          children.each { |child| nodes.push(Tree::TreeNode.new(child['name'], {content: '', children: child['children']}))}
+        unless (node.content['children'] || node.content[:children]) && (children = (node.content['children'] || node.content[:children])) && !children.empty?
+          next
+        end
+
+        children.each do |child|
+          nodes.push(Tree::TreeNode.new(child['name'], { content: '', children: child['children'] }))
         end
       end
 
-      next_nodes.sort_by{ |node| node.name.to_i }.each do |node|
-        (node.content['children'] || node.content[:children]) && (node.content['children'] || node.content[:children]).each do |child|
-          node << next_nodes.find{ |next_child| child['name'] == next_child.name }
+      next_nodes.sort_by { |node| node.name.to_i }.each do |node|
+        (node.content['children'] || node.content[:children])&.each do |child|
+          node << next_nodes.find { |next_child| child['name'] == next_child.name }
         end
         yield node if block_given?
       end
@@ -146,7 +152,9 @@ class Subtree
     end
 
     def append_treenode_children(parent, child_node_array)
-      child_node_array.each_with_object(parent) { |child, parent_node| parent_node << each_after_json_to_treenodes(child.to_json, parent_node) }
+      child_node_array.each_with_object(parent) do |child, parent_node|
+        parent_node << each_after_json_to_treenodes(child.to_json, parent_node)
+      end
     end
   end
 end

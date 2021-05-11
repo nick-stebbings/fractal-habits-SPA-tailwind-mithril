@@ -28,7 +28,7 @@ module Hht
             habit_date = habit_date_repo.query(habit_id: ancestor[:id], date_id: values[:date_id])
             habit_date.update(completed_status: status)
           end
-          #TODO : dry this up 
+          # TODO : dry this up
           Success(existing_tuple.update(completed_status: status))
         end
       end

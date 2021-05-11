@@ -10,15 +10,19 @@ module Hht
         end
 
         rule(:parent_id) do
-          key.failure('Must not be a string') if ((value.is_a? String) && !(value[0] == 'D')) # Exclude our domain id flag needed for node prepend
+          key.failure('Must not be a string') if (value.is_a? String) && value[0] != 'D'
         end
 
         rule(:parent_id) do
-          key.failure('Must be a positive integer or NULL') unless (value.nil? || ((value.is_a? String) && (value[0] == 'D')) || ((value.is_a? Integer) && value > 0))
+          unless value.nil? || ((value.is_a? String) && (value[0] == 'D')) || ((value.is_a? Integer) && value.positive?)
+            key.failure('Must be a positive integer or NULL')
+          end
         end
 
         rule(:parent_id) do
-          key.failure('Parent does not exist') unless (value.nil? || ((value.is_a? String) && (value[0] == 'D')) || ((value.is_a? Integer) && habit_node_repo.by_id(value).one))
+          unless value.nil? || ((value.is_a? String) && (value[0] == 'D')) || ((value.is_a? Integer) && habit_node_repo.by_id(value).one)
+            key.failure('Parent does not exist')
+          end
         end
       end
     end

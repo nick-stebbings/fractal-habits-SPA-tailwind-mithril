@@ -2,14 +2,13 @@
 
 # Gemfile
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.5.0'
 
 gem 'rake'
 
 # Frameworks
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'rack-cors'
 
 group :production do
   gem 'puma'
@@ -31,20 +30,17 @@ group :test do
   gem 'rspec'
   gem 'multi_json'
   gem 'faker'
-  # gem 'fuubar'
-  # gem 'webmock'
-  # gem 'capybara'
-  # gem 'selenium-webdriver',  '~> 3.142', '>= 3.142.2'
 end
 
 # Environment
 gem 'dotenv'
-gem 'dry-system'
+gem'dry-system', '~> 0.19.0'
 
 # Persistence Layer
 gem 'dry-monads'
 gem 'dry-validation'
 gem 'pg'
+gem 'sequel_pg'
 gem 'rom'
 gem 'rom-sql'
 gem 'rom-yaml'
