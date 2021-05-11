@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 RSpec.describe 'Feature: domains resource' do
   context 'Given a valid domain json' do
     before do

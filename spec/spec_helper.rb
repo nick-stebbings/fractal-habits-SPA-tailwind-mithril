@@ -11,8 +11,6 @@ require 'rack/test'
 require 'database_cleaner-sequel'
 require 'factory_bot'
 require 'faker'
-# require 'capybara/rspec'
-# require 'capybara/dsl'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods

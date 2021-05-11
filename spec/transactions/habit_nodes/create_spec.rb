@@ -113,7 +113,7 @@ RSpec.describe Hht::Transactions::HabitNodes::Create do
     end
   end
 
-  # APPEND SIBLING
+  # APPEND SIBLING / PREPEND PARENT
   context 'Given a valid (child) habit node json AND a persisted (parent) node tuple AND a persisted (child) node tuple' do
   #   before do
   #     @parent_node = valid_new_parent_node

@@ -14,11 +14,11 @@ module Hht
         end
 
         rule(:parent_id) do
-          key.failure('Must be a positive integer or NULL') unless (value.nil? || ((value.is_a? String) && (value[0] == 'D')) || (value.is_a? Integer) && value > 0)
+          key.failure('Must be a positive integer or NULL') unless (value.nil? || ((value.is_a? String) && (value[0] == 'D')) || ((value.is_a? Integer) && value > 0))
         end
 
         rule(:parent_id) do
-          key.failure('Parent does not exist') unless value.nil? || ((value.is_a? String) && (value[0] == 'D')) || habit_node_repo.by_id(value).one
+          key.failure('Parent does not exist') unless (value.nil? || ((value.is_a? String) && (value[0] == 'D')) || ((value.is_a? Integer) && habit_node_repo.by_id(value).one))
         end
       end
     end

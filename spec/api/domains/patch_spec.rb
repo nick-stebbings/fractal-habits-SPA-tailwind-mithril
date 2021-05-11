@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry'
 RSpec.describe 'Feature: domains resource' do
   context 'Given a valid domain update json AND a persisted domain tuple' do
     let(:resource) { JSON.load response.body }

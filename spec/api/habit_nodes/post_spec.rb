@@ -19,10 +19,6 @@ RSpec.describe 'Feature: habit_nodes resource' do
       it 'And it persisted the habit_node' do
         expect(habit_node_repo.as_json(@habit_node_id)).to eq (parse_json @habit_node_as_json)
       end
-
-      it 'And it forwards to the URI of the persisted node' do
-        expect(response.headers['Location']).to match(/.*(?:habit_trees\/nodes\/#{@habit_node_id})/)
-      end
     end
   end
 end
