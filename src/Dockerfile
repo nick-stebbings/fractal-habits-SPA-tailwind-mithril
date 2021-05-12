@@ -17,4 +17,12 @@ RUN bundle install
 COPY api /home/app/api
 RUN chown -R app:app /home/app/api
 
+EXPOSE 4567
+
+# Tell Docker that when we run "docker run", we want it to
+# run the following command:
+# $ bundle exec rackup --host 0.0.0.0 -p 4567.
+WORKDIR /home/app/api
+CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4567"]
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
