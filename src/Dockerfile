@@ -12,7 +12,6 @@ RUN mkdir /home/app/api
 
 WORKDIR /tmp
 COPY api/Gemfile /tmp/
-# COPY api/Gemfile.lock /tmp/
 RUN bundle install
 
 COPY api /home/app/api

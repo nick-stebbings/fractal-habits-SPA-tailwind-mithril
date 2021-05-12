@@ -1,3 +1,7 @@
+api:
+  build: .
+  ports:
+    - "4567:80"
 db:
   image: "postgres:11"
   environment:
