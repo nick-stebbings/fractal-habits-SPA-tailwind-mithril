@@ -18,4 +18,7 @@ RUN bundle install
 COPY api /home/app/api
 RUN chown -R app:app /home/app/api
 
+RUN cd api
+RUN bundle exec rackup
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
