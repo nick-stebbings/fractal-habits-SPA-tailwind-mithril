@@ -1,0 +1,9 @@
+db:
+  image: "postgres:11"
+  environment:
+    POSTGRES_USER: sinatra
+    POSTGRES_PASSWORD: sinatra
+    POSTGRES_DB: sinatra
+    TZ: "Pacific/Auckland"
+  ports:
+    - "5432:5432"

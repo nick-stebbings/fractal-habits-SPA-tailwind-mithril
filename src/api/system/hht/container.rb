@@ -7,7 +7,6 @@ module Hht
   class Container < Dry::System::Container
     configure do |config|
       config.name = :hht
-      binding.pry
       config.root = APP_ROOT
       config.component_dirs.default_namespace = "hht"
       config.component_dirs.add "lib"
