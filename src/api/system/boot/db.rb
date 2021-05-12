@@ -7,7 +7,7 @@ Hht::Container.boot(:db, namespace: true) do
 
     options = {
       adapter: :postgres,
-      host: ENV['HOST'],
+      # host: ENV['HOST'],
       port: ENV['PORT'],
       database: ENV['DATABASE_NAME'],
       user: ENV['DATABASE_USER'],
