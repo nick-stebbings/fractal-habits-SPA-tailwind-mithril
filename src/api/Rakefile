@@ -1,4 +1,4 @@
-require_relative 'src/api/system/boot'
+require_relative 'system/boot'
 require 'rom-sql'
 require 'rom/sql/rake_task'
 require 'rspec/core/rake_task'

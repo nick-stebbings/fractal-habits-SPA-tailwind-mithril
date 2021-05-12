@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ENV['APP_ENV'] = 'test'
-require_relative '../src/api/system/boot'
+require_relative '../system/boot'
 require_relative 'support/db/helpers'
 
 # Require test libraries
