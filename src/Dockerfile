@@ -6,7 +6,7 @@ CMD ["/sbin/my_init"]
 
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
-ADD config/vhost.conf /etc/nginx/sites-enabled/app.conf
+ADD api/config/vhost.conf /etc/nginx/sites-enabled/app.conf
 
 RUN mkdir /home/app/api
 
