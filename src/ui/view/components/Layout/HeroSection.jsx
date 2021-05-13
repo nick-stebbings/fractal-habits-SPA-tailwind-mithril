@@ -2,12 +2,12 @@ import DomainPill from './Nav/UI/Buttons/DomainPill.jsx';
 
 const HeroSection = {
   view: ({ attrs }) => (
-    <section id="hero">
+    <section id="hero" className="max-h-3/4 bg-gradient-to-b from-gray-50 to-gray-100">
       <header className="md:h-56 lg:h-1/2 flex-none h-auto mx-8 mt-12">
         <h1 className="sm:flex sm:justify-center">
           Find
           {' '}
-          <em className="px-4 text-balance-sshades-brighten sm:px-4 md:px-8">
+          <em className="text-balance-sshades-brighten sm:px-4 md:px-8 px-4">
             your
           </em>
           {' '}
@@ -16,18 +16,17 @@ const HeroSection = {
         <h2>
           Drill down (or soar up) and
           {' '}
-          <br className="hidden lg:block" />
+          <br className="lg:block hidden" />
           {' '}
-          leverage
-          the power
+          leverage the power
           {' '}
-          <br className="hidden lg:block" />
+          <br className="lg:block hidden" />
           of incremental behavioural change.
         </h2>
       </header>
       <div
         id="call-to-action"
-        className="flex flex-col px-12 pb-4 mt-6 bg-gradient-to-b from-transparent md:mt-20 md:pb-12 sm:mt-4 lg:space-x-4 to-white"
+        className="bg-gradient-to-b from-transparent md:mt-20 md:pb-12 sm:mt-6 lg:space-x-4 to-white flex flex-col px-12 pb-4 mt-8"
       >
         {m.route.param('demo') ? (
           <div>

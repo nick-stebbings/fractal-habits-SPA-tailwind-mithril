@@ -119,7 +119,7 @@ const setHabitLabel = (data) => {
 };
 
 const showHabitLabel = () =>
-  (document.querySelector(".mask-wrapper").style.height = "6.3rem");
+  (document.querySelector(".mask-wrapper").style.height = "6rem");
 
 const zooms = function (e) {
   const transform = e.transform;

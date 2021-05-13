@@ -1,35 +1,39 @@
-import HabitStore from "../../../../store/habit-store";
+import HabitStore from '../../../../store/habit-store';
 
-import HoverableLink from "./UI/Buttons/HoverableLink.jsx";
+import HoverableLink from './UI/Buttons/HoverableLink.jsx';
 
 const DropdownNav = (function () {
-  const showMegaMenu = () =>
-    (document.querySelector(".mask-wrapper").style.height = "346px");
-  const hideMegaMenu = () =>
-    (document.querySelector(".mask-wrapper").style.height = "6.3rem");
+  const showMegaMenu = () => {
+    document.querySelector('#app > main').style.position = 'absolute';
+    document.querySelector('.mask-wrapper').style.height = '346px';
+  };
+  const hideMegaMenu = () => {
+    document.querySelector('#app > main').style.position = 'initial';
+    document.querySelector('.mask-wrapper').style.height = '6rem';
+  };
   return {
     oncreate: () => {
       document
-        .querySelector(".mega-menu")
-        .addEventListener("mouseover", showMegaMenu);
+        .querySelector('.mega-menu')
+        .addEventListener('mouseover', showMegaMenu);
       document
-        .querySelector(".nav")
-        .addEventListener("mouseover", showMegaMenu);
-      document.querySelector(".nav").addEventListener("mouseout", hideMegaMenu);
+        .querySelector('.nav')
+        .addEventListener('mouseover', showMegaMenu);
+      document.querySelector('.nav').addEventListener('mouseout', hideMegaMenu);
       document
-        .querySelector(".mega-menu")
-        .addEventListener("mouseout", hideMegaMenu);
+        .querySelector('.mega-menu')
+        .addEventListener('mouseout', hideMegaMenu);
     },
     view: ({ attrs: { routes } }) => (
       <nav className="nav">
         <div className="nav-container">
           <ul className="nav-links">
-            {m.route.param("demo") && <li id="demo-indicator">DEMO mode</li>}
+            {m.route.param('demo') && <li id="demo-indicator">DEMO mode</li>}
             {routes.map((route, index) => (
               <HoverableLink
                 label={route.label}
                 href={Object.keys(route.subpaths)[0]}
-                class={routes.selected === route.label ? "active" : "inactive"}
+                class={routes.selected === route.label ? 'active' : 'inactive'}
                 id={`nav-${route.label.toLowerCase()}`}
                 subpaths={route.subpaths}
               >
@@ -37,19 +41,19 @@ const DropdownNav = (function () {
               </HoverableLink>
             ))}
           </ul>
-          <div class="hidden md:block" id="current-habit-label">
+          <div className="md:block hidden" id="current-habit-label">
             <span id="current-habit">Selected:</span>
             {m(
-              "span",
+              'span',
               HabitStore.current()
                 ? HabitStore.current().name
-                : "No Habits Registered"
+                : 'No Habits Registered',
             )}
           </div>
         </div>
       </nav>
     ),
   };
-})();
+}());
 
 export default DropdownNav;

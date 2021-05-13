@@ -70,8 +70,8 @@ export default {
         <MainStage index={attrs.index} modalType={attrs.modalType}>
           {componentNode}
         </MainStage>
+        <Footer />
       </div>
-      <Footer />
     </div>
   ),
 };

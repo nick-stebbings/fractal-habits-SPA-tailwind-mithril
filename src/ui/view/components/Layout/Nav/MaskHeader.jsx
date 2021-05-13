@@ -1,4 +1,5 @@
 import MenuRoutes from "../../../../menu-routes";
+import HabitStore from "../../../../store/habit-store";
 
 import ResponsiveNavGroup from "../Nav/ResponsiveNavGroup.jsx";
 import DomainSelector from "./UI/Inputs/DomainSelector.jsx";
@@ -144,6 +145,15 @@ const MaskHeader = function () {
             <DropdownNav routes={MenuRoutes} />
           </nav>
         </header>
+        <div
+          class="lg:hidden border-balance-digblue-light flex items-baseline justify-start leading-10 sm:leading-9 md:leading-7"
+          id="current-habit-label-sm"
+        >
+          <span id="current-habit-sm" class="px-2">
+            Selected:
+          </span>
+          <span>{HabitStore.current()?.name}</span>
+        </div>
       </div>
     ),
   };
