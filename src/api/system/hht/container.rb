@@ -5,11 +5,14 @@ require 'dry/system/components'
 
 module Hht
   class Container < Dry::System::Container
-    configure do |config|
+    configure do
       config.name = :hht
+
       config.root = APP_ROOT
-      config.component_dirs.default_namespace = "hht"
-      config.component_dirs.add "lib"
+      config.default_namespace = 'hht'
+      config.auto_register = %w[lib/hht]
     end
+
+    load_paths! 'lib'
   end
 end

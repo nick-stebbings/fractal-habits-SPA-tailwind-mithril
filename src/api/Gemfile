@@ -35,7 +35,7 @@ end
 
 # Environment
 gem 'dotenv'
-gem'dry-system', '~> 0.19.0'
+gem'dry-system', '~> 0.17.0'
 
 # Persistence Layer
 gem 'dry-monads'

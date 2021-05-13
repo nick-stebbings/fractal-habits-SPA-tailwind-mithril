@@ -8,7 +8,6 @@ module Hht
         tuple.merge({ lft: tuple[:lft] + 1, rgt: tuple[:rgt] + 1 })
       end
     end
-
     class HabitNodeRepo < ROM::Repository[:habit_nodes]
       include Import['persistence.container']
       # struct_namespace Entities
