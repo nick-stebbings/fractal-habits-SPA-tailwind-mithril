@@ -3,16 +3,25 @@ import DomainPill from './Nav/UI/Buttons/DomainPill.jsx';
 const HeroSection = {
   view: ({ attrs }) => (
     <section id="hero" className="max-h-3/4">
-      <header className="lg:h-1/2 flex flex-col items-end flex-none w-full h-auto mx-8 mt-12">
-        <h1 className="flex text-center" style="font-size:600%">
-          HabitFract
+      <header className="sm:md-12 md:px-16 lg:w-3/4 lg:mx-auto md:mx-8 flex flex-col items-end flex-none w-full h-auto px-2 mx-2 mt-12">
+        <h1 className="md:flex-row flex flex-col text-center" style="font-size:900%">
+          <span>Habit</span>
+          <span>
+            <em
+              className="right-2 text-balance-sshades-dark top-6 relative z-10"
+              style="text-shadow: none;-webkit-text-stroke-width: 0px;"
+            >
+              /
+            </em>
+            <span className="z-10">Fract</span>
+          </span>
         </h1>
-        <h1 className="lg:flex flex-wrap justify-end">
+        <h1 className="flex flex-col flex-wrap justify-end">
           Find
-          <em className="top-1 md:mx-10 text-balance-pshades-gray outline-light relative p-4 px-6 mx-8">
+          <em className="md:mx-12 text-balance-pshades-gray outline-light relative flex py-6 pl-16 pr-6 mx-8 my-6">
             your
           </em>
-          infinity
+          <span className="relative pl-4">infinity</span>
         </h1>
         <h2>
           Drill down (or soar up) and
@@ -27,7 +36,7 @@ const HeroSection = {
       </header>
       <div
         id="call-to-action"
-        className="bg-gradient-to-b from-transparent lg:space-x-4 md:mt-36 sm:pt-18 md:pb-16 to-white pt-26 flex flex-col px-12 pb-24"
+        className="bg-gradient-to-b from-transparent lg:space-x-4 md:mt-16 sm:pt-18 md:pb-16 to-white pt-26 flex flex-col px-12 pb-24"
       >
         {m.route.param('demo') ? (
           <div>

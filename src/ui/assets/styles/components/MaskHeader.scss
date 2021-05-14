@@ -1,4 +1,4 @@
-$maskimage: url("../../images/fib-mask-1900-380.svg");
+$maskimage: url("../../images/fib-mask-1900-420.svg");
 $watermarkimage: url("../../images/watermark.png");
 
 @layer utilities {
@@ -72,7 +72,7 @@ body[class^="scroll"] .mask-wrapper {
     }
 
     .hoverable:hover div.mask-wrapper {
-      height: 346px;
+      height: 446px;
     }
   }
 }
@@ -121,7 +121,7 @@ li.hoverable {
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -0.25rem $watermarkimage;
       height: 330px;
-      margin-top: -0.4rem;
+      margin-top: 0.6rem;
       padding-right: 0.6em;
       @apply flex bg-balance-pshades-dark;
 
@@ -129,7 +129,7 @@ li.hoverable {
         @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-tershades-gray;
 
         h2 {
-          @apply px-4 py-2 w-2/3 mt-14 lg:mt-16 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
+          @apply px-4 py-2 w-2/3 mt-14 lg:mt-12 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
         }
 
         p {
@@ -138,7 +138,7 @@ li.hoverable {
       }
 
       .inset {
-        @apply bg-balance-tershades-gray grid rounded-xl rounded-l-none w-3/4 grid-cols-4 grid-rows-1 gap-2 p-0 pr-2 pt-2 mb-8;
+        @apply bg-gray-100 grid rounded-xl rounded-l-none w-3/4 grid-cols-3 grid-rows-1 gap-2 p-0 pr-2 pt-2 mb-8;
 
         .menu-card.disabled {
           p,
@@ -158,14 +158,14 @@ li.hoverable {
         }
 
         .menu-card {
-          @apply flex mb-6 pt-4;
+          @apply flex mb-6 pt-4 shadow-md;
           h3 {
             line-height: 2rem;
           }
 
           .menu-card-button {
-            top: 4.5rem;
-            @apply absolute border-2 mt-12 p-3 m-2 rounded-full shadow-md text-gray-100 bg-gray-700 uppercase;
+            top: 5.5rem;
+            @apply absolute border-2 mt-12 p-3 m-2 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
           }
 
           .menu-card-button:focus,
@@ -174,16 +174,15 @@ li.hoverable {
           }
 
           .menu-card-button:hover {
-            @apply text-gray-100 bg-gradient-to-b from-gray-500 to-transparent;
+            @apply text-gray-50 bg-gradient-to-b from-gray-500 to-transparent;
           }
 
           .menu-card-button.active:hover {
-            --tw-gradient-from: #db7f0f;
-            @apply text-white;
+            @apply text-gray-50 from-transparent;
           }
 
           p {
-            @apply px-4;
+            @apply px-4 mt-2;
           }
         }
 
@@ -209,11 +208,11 @@ li.hoverable {
   display: none;
 }
 
-.hoverable:hover .inset {
+.hoverable:hover .inset, .mask-wrapper:hover .inset {
   display: grid;
 }
 
-.hoverable:hover .mega-menu {
+.hoverable:hover .mega-menu, .mask-wrapper:hover .mega-menu {
   display: block;
 }
 
