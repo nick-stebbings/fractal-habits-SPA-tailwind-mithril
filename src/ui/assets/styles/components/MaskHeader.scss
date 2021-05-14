@@ -96,7 +96,7 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 .nav-container > div:last-child {
-  @apply h-12 px-2 top-9 left-4 bg-balance-pshades-light border-balance-buttonbg-disabled absolute flex items-center mt-2 rounded-sm;
+  @apply h-12 px-2 top-9 left-4 bg-gray-700 border-balance-buttonbg-disabled absolute flex items-center mt-2 rounded-sm;
   pointer-events: none;
 }
 
@@ -265,7 +265,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
 /* ---  Scroll behaviour --- */
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
-  @apply text-gray-100 bg-balance-pshades-light border-0;
+  @apply text-gray-100 bg-gray-700 border-0;
   padding-left: 11rem;
   margin-left: -1.3rem;
   min-width: 12rem;

@@ -3,14 +3,15 @@ import DomainPill from './Nav/UI/Buttons/DomainPill.jsx';
 const HeroSection = {
   view: ({ attrs }) => (
     <section id="hero" className="max-h-3/4">
-      <header className="lg:h-1/2 md:h-56 flex flex-col items-end flex-none w-full h-auto mx-8 mt-12">
-        <h1 className="sm:flex sm:justify-center">
+      <header className="lg:h-1/2 flex flex-col items-end flex-none w-full h-auto mx-8 mt-12">
+        <h1 className="flex text-center" style="font-size:600%">
+          HabitFract
+        </h1>
+        <h1 className="lg:flex flex-wrap justify-end">
           Find
-          {' '}
-          <em className="text-balance-sshades-brighten sm:px-4 md:px-8 px-4">
+          <em className="top-1 md:mx-10 text-balance-pshades-gray outline-light relative p-4 px-6 mx-8">
             your
           </em>
-          {' '}
           infinity
         </h1>
         <h2>
@@ -26,7 +27,7 @@ const HeroSection = {
       </header>
       <div
         id="call-to-action"
-        className="bg-gradient-to-b from-transparent md:mt-20 md:pb-12 sm:mt-6 lg:space-x-4 to-white flex flex-col px-12 pb-4 mt-8"
+        className="bg-gradient-to-b from-transparent lg:space-x-4 md:mt-36 sm:pt-18 md:pb-16 to-white pt-26 flex flex-col px-12 pb-24"
       >
         {m.route.param('demo') ? (
           <div>
