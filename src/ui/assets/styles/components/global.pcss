@@ -14,6 +14,11 @@ body {
   z-index: 0;
 }
 
+#hero {
+  background: no-repeat 18px 18px url("../images/fib-circles.svg");
+  background-size: 50%;
+}
+
 #hero > header {
   @apply sm:px-12 md:px-16 px-6;
 }
@@ -61,10 +66,9 @@ div.sm-selector-container .domain-selector {
 }
 
 @media (min-width: 1024px) {
-
-div.sm-selector-container {
-  @apply hidden h-8;
-}
+  div.sm-selector-container {
+    @apply hidden h-8;
+  }
 
   nav > ul > li:first-of-type {
     border: 0;

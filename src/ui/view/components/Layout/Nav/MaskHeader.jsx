@@ -146,7 +146,7 @@ const MaskHeader = function () {
           </nav>
         </header>
         <div
-          class="lg:hidden border-balance-digblue-light flex items-baseline justify-start leading-10 sm:leading-9 md:leading-7"
+          class="lg:hidden text-gray-50 flex items-baseline justify-center leading-10 sm:leading-9 md:leading-7"
           id="current-habit-label-sm"
         >
           <span id="current-habit-sm" class="px-2">

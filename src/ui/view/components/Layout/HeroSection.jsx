@@ -2,8 +2,8 @@ import DomainPill from './Nav/UI/Buttons/DomainPill.jsx';
 
 const HeroSection = {
   view: ({ attrs }) => (
-    <section id="hero" className="max-h-3/4 bg-gradient-to-b from-gray-50 to-gray-100">
-      <header className="md:h-56 lg:h-1/2 flex-none h-auto mx-8 mt-12">
+    <section id="hero" className="max-h-3/4">
+      <header className="lg:h-1/2 md:h-56 flex flex-col items-end flex-none w-full h-auto mx-8 mt-12">
         <h1 className="sm:flex sm:justify-center">
           Find
           {' '}
