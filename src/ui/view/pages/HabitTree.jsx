@@ -52,12 +52,21 @@ const HabitTree = function () {
 
   return {
     type: "vis",
-    onupdate: ({attrs}) => {
-      if (HabitStore.list().length > 0 && TreeStore.root()?.name === "") {
+    onupdate: ({ attrs }) => {
+      const selectedDomain = document.querySelector(
+        "option[selected=true]"
+      ).value;
+      if (HabitStore.list().length > 0 && TreeStore.root()?.name === "" && DomainStore.current().name === selectedDomain) {
         updateStoresAndRenderTree(attrs.modalType);
         console.log("Habit Tree indexed");
       } else {
-        console.log("Habit Tree loaded from store");
+        if (HabitStore.list().length === 0) {
+          TreeStore.clear();
+          console.log('No habits for tree!');
+          return;
+        } else {
+          console.log("Habit Tree loaded from store");
+        }
         renderTree(
           svg,
           demoData,
@@ -95,9 +104,8 @@ const HabitTree = function () {
 
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document));
 
-      TreeStore.root() &&
-        svg &&
-        renderTree(
+      if (HabitStore.list().length !== 0 && TreeStore.root() &&
+        svg) renderTree(
           svg,
           demoData,
           zoomer,

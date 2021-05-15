@@ -72,10 +72,7 @@ function populateStores({ demo }) {
 
     Promise.all([habitLoad, domainLoad, dateLoad, nodeLoad])
       .then(() => {
-        
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        console.log(HabitStore.current());
-        console.log(DomainStore.current());
         m.redraw();
         spinnerOpen(false);
       })
