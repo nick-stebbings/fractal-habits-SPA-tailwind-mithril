@@ -6,15 +6,15 @@ CMD ["/sbin/my_init"]
 
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
-ADD api/config/vhost.conf /etc/nginx/sites-enabled/app.conf
+ADD ./src/api/config/vhost.conf /etc/nginx/sites-enabled/app.conf
 
 RUN mkdir /home/app/api
 
 WORKDIR /tmp
-COPY api/Gemfile /tmp/
+COPY ./src/api/Gemfile /tmp/
 RUN bundle install
 
-COPY api /home/app/api
+COPY ./src/api /home/app/api
 RUN chown -R app:app /home/app/api
 
 EXPOSE 4567

@@ -11,7 +11,7 @@ $watermarkimage: url("../../images/watermark.png");
     }
     .outline-shadow {
       @apply rounded-full;
-      box-shadow: 0 0 10px 0.75rem rgb(255 172 15 / 30%);
+      box-shadow: 0 0 10px 0.75rem rgb(255 172 15);
     }
     .outline-dashed {
       @apply outline-light;
