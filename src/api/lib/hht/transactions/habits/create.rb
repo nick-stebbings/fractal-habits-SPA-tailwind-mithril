@@ -29,11 +29,13 @@ module Hht
           .by_id(habit_id)
           .one
           .habit_node_id
-          .to_i unless (parent_node_id.is_a? String) && parent_node_id[0] == 'D'
+          .to_i unless (habit_id.is_a?(String) && (habit_id[0] == 'D' || habit_id == ''))
 
-          input[:parent_node_id] = parent_node_id
+          # It is necessary to create a habit_node and give an id for validation
+          parent_id = domain_root_node.exist? ? (parent_node_id || habit_id) : nil
           input[:habit_node_id] =
-          habit_node_repo.create(parent_id: (!domain_root_node.exist? ? nil : parent_node_id)).flatten
+          habit_node_repo.create(parent_id: parent_id).flatten
+
           create.call(input).to_monad
         end
         

@@ -31,7 +31,7 @@ module Hht
             # Extract domain_id from the string we passed as a flag and get domain for new root node
             old_root = @@habit_node_relation
               .root_id_of_domain(parent_id[1..-1].to_i)
-              .one
+              .to_a[0]
             prepended_node = true
             parent_id = nil
           end
