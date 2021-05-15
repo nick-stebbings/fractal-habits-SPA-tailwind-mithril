@@ -30,15 +30,15 @@ module Hht
           if parent_id.is_a?(String)
             # Extract domain_id from the string we passed as a flag and get domain for new root node
             old_root = @@habit_node_relation
-                       .root_id_of_domain(parent_id[1..-1].to_i)
-                       .one
+              .root_id_of_domain(parent_id[1..-1].to_i)
+              .one
             prepended_node = true
             parent_id = nil
           end
           if parent_id.nil? # i.e. it is a new root node
             inserted_id = @@habit_node_relation.insert(root_node_attributes(old_root))
             if prepended_node
-              habit_node_repo.increment_all_non_root_mptt_values_by_one!
+              habit_node_repo.increment_all_non_root_mptt_values_by_one!(result[:parent_id][1].to_i)
               begin
                 parent_update_success = habit_node_repo.update_parent_id!(old_root, inserted_id)
               rescue StandardError

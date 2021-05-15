@@ -29,7 +29,8 @@ const DomainStore = Object.assign(clientRoutes(basePath), {
     })
     .catch(handleErrorType),
 
-  filterByDomainName: (domainName) => {DomainStore.list().filter((domain) => domain.name == domainName)[0],
+  filterByDomainName: (domainName) => DomainStore.list()
+    .filter((domain) => domain.name === domainName)[0],
 
   runFilterCurrent: (domainName) => DomainStore.current(DomainStore.filterByDomainName(domainName)),
 

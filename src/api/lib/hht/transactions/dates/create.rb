@@ -31,7 +31,7 @@ module Hht
             begin
               new_date_ids = (if oldest
                                 date_repo.send('insert_upto_today!', sql_query_start_timestamp(date),
-                                               sql_query_end_timestamp(date))
+                                sql_query_end_timestamp(date))
                               else
                                 date_repo.insert_upto_today!
                               end)

@@ -29,13 +29,14 @@ export default {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        selectedHabitLabel.value = HabitStore.current();
-        selectedHabitLabelSm.value = HabitStore.current();
 
+        console.log(DomainStore.current());
+        console.log(HabitStore.current());
+        console.log(DomainStore.list().indexOf(DomainStore.current()));
         setRouteToBasePath();
       });
     });
-
+    
     document.querySelector(
       ".domain-selector"
     ).selectedIndex = DomainStore.list().indexOf(DomainStore.current());
@@ -60,7 +61,6 @@ export default {
   view: ({ attrs, children: [componentNode] }) => (
     <div id="layout" className="w-full h-full">
       <Modal spinnerNeeded={attrs.spinnerState} modalType={attrs.modalType} />
-      { console.log(DomainStore.current())}
       <LogoLink />
       <div id="app" className="flex flex-col justify-between min-h-screen">
         <MaskHeader />

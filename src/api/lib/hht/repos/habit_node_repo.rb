@@ -8,9 +8,10 @@ module Hht
         tuple.merge({ lft: tuple[:lft] + 1, rgt: tuple[:rgt] + 1 })
       end
     end
+
     class HabitNodeRepo < ROM::Repository[:habit_nodes]
       include Import['persistence.container']
-      # struct_namespace Entities
+      struct_namespace Entities
       commands update: :by_pk
 
       def create(parent)
@@ -20,9 +21,9 @@ module Hht
       def delete(attrs)
         node = by_id(attrs[:id]).one
         node_descendants = nest_parent_with_descendant_nodes_between_lr(node[:lft], node[:rgt])
-                           .order { (rgt - lft).asc }
-                           .map { |n| n[:id] }
-                           .to_a
+          .order { (rgt - lft).asc }
+          .map { |n| n[:id] }
+          .to_a
         node_descendants.each do |descendant_id|
           Hht::Transactions::HabitNodes::Delete.new.call({ id: descendant_id })
         end
@@ -59,8 +60,11 @@ module Hht
         { habit_nodes: ids.to_a.map { |id| as_json(id) } }.to_json
       end
 
-      def restrict_on_id_combine_with_domain(id)
-        habit_nodes.combine(:domains).by_pk(id)
+      def restrict_on_domain_combine_with_habit(id)
+        habits.where(domain_id: id)
+          .combine(:habit_nodes)
+          .to_a
+          .map{|h| h[:habit_node]}
       end
 
       def restrict_on_parent_id_combine_with_children(id)
@@ -106,8 +110,8 @@ module Hht
       # Nested relation of children (nesting retricted by parent_id)
       def nest_parent_with_immediate_child_nodes(parent_id)
         nest_parents = habit_nodes
-                       .combine(habit_nodes: :parent)
-                       .node(:parent) do |habit_node|
+          .combine(habit_nodes: :parent)
+          .node(:parent) do |habit_node|
           habit_node.by_pk(parent_id)
         end
         nest_parents
@@ -130,11 +134,12 @@ module Hht
       end
 
       ## Modified preorder traversal queries:
-      def increment_all_non_root_mptt_values_by_one!
-        habit_nodes.map do |relation|
-          changeset = habit_nodes.changeset(MpttChangeset, relation.to_h)
-          update(changeset[:id], changeset.to_h)
-        end
+      def increment_all_non_root_mptt_values_by_one!(domain_id)
+        restrict_on_domain_combine_with_habit(domain_id)
+          .map do |relation|
+            changeset = habit_nodes.changeset(MpttChangeset, relation.to_h)
+            update(changeset[:id], changeset.to_h)
+          end
       end
 
       # For adjusting 'further right than candidate' nodes

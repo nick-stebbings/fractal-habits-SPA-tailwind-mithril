@@ -53,9 +53,20 @@ const HabitTree = function () {
   return {
     type: "vis",
     onupdate: ({attrs}) => {
-      if (TreeStore.root()?.name == "") {
+      if (HabitStore.list().length > 0 && TreeStore.root()?.name === "") {
         updateStoresAndRenderTree(attrs.modalType);
-        console.log('Habit Tree indexed');
+        console.log("Habit Tree indexed");
+      } else {
+        console.log("Habit Tree loaded from store");
+        renderTree(
+          svg,
+          demoData,
+          zoomer,
+          {},
+          canvasWidth,
+          canvasHeight,
+          attrs.modalType
+        );
       }
     },
     oninit: ({attrs}) => {
@@ -65,6 +76,7 @@ const HabitTree = function () {
         zoomer.scaleBy(svg.transition().duration(250), 1 - factor);
         oldWindowWidth(document.body.getBoundingClientRect().width);
       }, debounceInterval);
+
       if (HabitStore.list().length > 0 && TreeStore.root()?.name == "") {
         updateStoresAndRenderTree(attrs.modalType);
         console.log("Habit Tree indexed");
@@ -82,6 +94,18 @@ const HabitTree = function () {
         .attr("style", "pointer-events: all");
 
       ({ canvasWidth, canvasHeight } = d3SetupCanvas(document));
+
+      TreeStore.root() &&
+        svg &&
+        renderTree(
+          svg,
+          demoData,
+          zoomer,
+          {},
+          canvasWidth,
+          canvasHeight,
+          attrs.modalType
+        );
 
       document
         .getElementById("reset-tree")
