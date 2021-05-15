@@ -60,6 +60,7 @@ export default {
   view: ({ attrs, children: [componentNode] }) => (
     <div id="layout" className="w-full h-full">
       <Modal spinnerNeeded={attrs.spinnerState} modalType={attrs.modalType} />
+      { console.log(DomainStore.current())}
       <LogoLink />
       <div id="app" className="flex flex-col justify-between min-h-screen">
         <MaskHeader />
