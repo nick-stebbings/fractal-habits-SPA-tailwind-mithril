@@ -43,7 +43,7 @@ jobs:
           context: .
           dockerfile: src/Dockerfile
           push: true
-          tags: latest
+          tags: nickstebb/hht-api:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
