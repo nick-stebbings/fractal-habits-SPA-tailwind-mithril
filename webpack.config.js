@@ -30,7 +30,7 @@ module.exports = smp.wrap({
     }),
   ],
   optimization: {
-    minimize: false,
+    minimize: true,
     minimizer: [new TerserPlugin()],
   },
   devServer: {
