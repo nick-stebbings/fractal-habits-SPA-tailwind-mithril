@@ -13,7 +13,7 @@ RUN chown -R app:app /home/app
 
 EXPOSE 4567
 
-WORKDIR /home/app/api
+WORKDIR /home/app
 CMD ["RACK_ENV=development", "rake", "db:migrate"]
 CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4567"]
 
