@@ -4,24 +4,17 @@ ENV HOME /root
 
 CMD ["/sbin/my_init"]
 
-RUN rm -f /etc/service/nginx/down
-RUN rm /etc/nginx/sites-enabled/default
-ADD ./src/api/config/vhost.conf /etc/nginx/sites-enabled/app.conf
-
-RUN mkdir /home/app/api
+RUN mkdir /home/app
 
 WORKDIR /tmp
 COPY ./src/api/Gemfile /tmp/
 RUN bundle install
 
-COPY ./src/api /home/app/api
-RUN chown -R app:app /home/app/api
+COPY ./src/api /home/app
+RUN chown -R app:app /home/app
 
 EXPOSE 4567
 
-# Tell Docker that when we run "docker run", we want it to
-# run the following command:
-# $ bundle exec rackup --host 0.0.0.0 -p 4567.
 WORKDIR /home/app/api
 CMD ["rake", "db:migrate"]
 CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4567"]

@@ -38,7 +38,7 @@ module Hht
 
     options '*' do
       response.headers['Allow'] = 'GET, POST, OPTIONS, DELETE, PUT, PATCH'
-      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:8080'
+      response.headers['Access-Control-Allow-Origin'] = *
       response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
       200
     end
