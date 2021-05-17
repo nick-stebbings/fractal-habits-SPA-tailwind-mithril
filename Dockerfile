@@ -3,6 +3,5 @@ WORKDIR /usr/src/app
 COPY package.json ./
 RUN npm install
 COPY . ./
-RUN ls -ls
-CMD ["npm", "run", "build"]
+RUN npm run build
 CMD ["node", "server.js"]
