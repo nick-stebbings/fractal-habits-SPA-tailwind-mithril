@@ -7,9 +7,7 @@
     "start": "webpack-dev-server --mode=development --hot --config webpack.config.js",
     "dev:analyze": "npm start -- --env.addons=bundleanalyzer",
     "build": "NODE_ENV=production node_modules/.bin/webpack --env.env=prod",
-    "build:analyze": "npm run-script build -- --env.addons=bundleanalyzer",
-    "start-api": "bundle exec rackup",
-    "test": "rake spec"
+    "build:analyze": "npm run-script build -- --env.addons=bundleanalyzer"
   },
   "author": "",
   "license": "ISC",

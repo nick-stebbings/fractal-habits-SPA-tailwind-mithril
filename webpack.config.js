@@ -21,7 +21,7 @@ module.exports = smp.wrap({
     new webpack.ProvidePlugin({
       m: 'mithril', // Global access
     }),
-    new MiniCssExtractPlugin({ filename: 'bundle.css' }),
+    new MiniCssExtractPlugin({ filename: './bundle.[contenthash].css' }),
     new CleanWebpackPlugin({ verbose: true }),
     // new ESLintPlugin(),
     new HtmlWebpackPlugin({
