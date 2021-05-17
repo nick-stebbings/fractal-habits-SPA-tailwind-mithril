@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import DateTime from 'luxon/src/datetime.js';
 
 import DomainSelector from "./components/Layout/Nav/UI/Inputs/DomainSelector.jsx";
 import DateSelector from "./components/Layout/Nav/UI/Inputs/DateSelector.jsx";

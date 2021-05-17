@@ -1,14 +1,6 @@
 import stream from "mithril/stream";
-import { select, zoom } from "d3";
-import {
-  debounce,
-  zooms,
-  d3SetupCanvas,
-  renderTree,
-  collapseTree,
-  expandTree,
-} from "../../assets/scripts/d3-utilities.js";
-
+import { select } from "d3-selection"
+import { zoom } from "d3-zoom";
 import { addSwipeGestures } from "../../assets/scripts/animations";
 
 import TreeStore from "../../store/habit-tree-store.js";
@@ -27,8 +19,8 @@ const HabitTree = function () {
   let svg;
 
   const debounceInterval = 350;
-  const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
-
+  return import('../../assets/scripts/d3-utilities.js').then(({ default: d3utils }) => {
+    const zoomer = zoom().scaleExtent([0, 5]).on("zoom", d3utils.zooms);
   function updateStoresAndRenderTree(modalType) {
     DateStore.current()?.id &&
       TreeStore.index(
@@ -46,7 +38,7 @@ const HabitTree = function () {
         .then(() => {
           TreeStore.root() &&
             svg &&
-            renderTree(svg, demoData, zoomer, {}, canvasWidth, canvasHeight, modalType);
+            d3utils.renderTree(svg, demoData, zoomer, {}, canvasWidth, canvasHeight, modalType);
         });
   }
 
@@ -67,7 +59,7 @@ const HabitTree = function () {
         } else {
           console.log("Habit Tree loaded from store");
         }
-        renderTree(
+        d3utils.renderTree(
           svg,
           demoData,
           zoomer,
@@ -80,7 +72,7 @@ const HabitTree = function () {
     },
     oninit: ({attrs}) => {
       const oldWindowWidth = stream(window.innerWidth);
-      window.onresize = debounce(() => {
+      window.onresize = d3utils.debounce(() => {
         let factor = 1 - 1 / (window.innerWidth / oldWindowWidth());
         zoomer.scaleBy(svg.transition().duration(250), 1 - factor);
         oldWindowWidth(document.body.getBoundingClientRect().width);
@@ -102,10 +94,10 @@ const HabitTree = function () {
         .attr("height", "100%")
         .attr("style", "pointer-events: all");
 
-      ({ canvasWidth, canvasHeight } = d3SetupCanvas(document));
+      ({ canvasWidth, canvasHeight } = d3utils.d3SetupCanvas(document));
 
       if (HabitStore.list().length !== 0 && TreeStore.root() &&
-        svg) renderTree(
+        svg) d3utils.renderTree(
           svg,
           demoData,
           zoomer,
@@ -118,8 +110,8 @@ const HabitTree = function () {
       document
         .getElementById("reset-tree")
         .addEventListener("click", (e) => {
-          expandTree(TreeStore.root());
-          renderTree(
+          d3utils.expandTree(TreeStore.root());
+          d3utils.renderTree(
             svg,
             demoData,
             zoomer, {},
@@ -132,8 +124,8 @@ const HabitTree = function () {
         .getElementById("collapse-tree")
         .addEventListener("click", (e) => {
           e.target.textContent.includes("Collapse")
-            ? collapseTree()
-            : expandTree();
+            ? d3utils.collapseTree()
+            : d3utils.expandTree();
           e.target.textContent = e.target.textContent.includes("Collapse")
             ? "Expand Tree"
             : "Collapse Tree";
@@ -159,6 +151,7 @@ const HabitTree = function () {
       </div>
     ),
   };
+});
 };
 
 export default HabitTree;

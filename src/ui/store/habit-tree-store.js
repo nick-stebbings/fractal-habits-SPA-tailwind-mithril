@@ -1,5 +1,5 @@
 import stream from 'mithril/stream';
-import { hierarchy } from 'd3';
+import { hierarchy } from 'd3-hierarchy';
 import { clientRoutes, handleErrorType } from './client';
 
 const basePath = '/habit_trees';

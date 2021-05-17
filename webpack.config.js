@@ -1,29 +1,38 @@
+const mode = process.env.NODE_ENV || 'development';
+
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
 
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 
 const smp = new SpeedMeasurePlugin();
 
 module.exports = smp.wrap({
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'build.js',
+    filename: '[name].build.js',
+    chunkFilename: '[name].build.js',
   },
-  devtool: 'eval-cheap-module-source-map',
+  mode,
+  devtool: mode === 'development' ? 'cheap-module-eval-source-map' : false,
   plugins: [
     new webpack.ProvidePlugin({
       m: 'mithril', // Global access
     }),
     new MiniCssExtractPlugin({ filename: './bundle.[contenthash].css' }),
     new CleanWebpackPlugin({ verbose: true }),
-    // new ESLintPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',

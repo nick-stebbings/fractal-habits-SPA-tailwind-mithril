@@ -1,6 +1,6 @@
 import stream from "mithril/stream";
 import { clientRoutes, handleErrorType } from "./client";
-import { DateTime } from "luxon";
+import DateTime from 'luxon/src/datetime.js';
 import HabitDateStore from "./habit-date-store";
 
 const basePath = "/habits";

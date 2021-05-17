@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import DateTime from 'luxon/src/datetime.js';
 import stream from "mithril/stream";
 
 import HabitStore from "../../store/habit-store";

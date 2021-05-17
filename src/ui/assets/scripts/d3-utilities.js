@@ -1,4 +1,9 @@
-import { select, tree, easeCircleOut, zoomIdentity, linkVertical, scaleOrdinal, scaleLinear } from "d3";
+import { select } from "d3-selection"
+import { scaleOrdinal, scaleLinear } from "d3-scale";
+import { zoomIdentity } from "d3-zoom";
+import { linkVertical } from "d3-shape";
+import { tree } from "d3-hierarchy";
+import { easeCircleOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
 

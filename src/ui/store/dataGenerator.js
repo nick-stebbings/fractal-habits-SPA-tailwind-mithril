@@ -1,4 +1,4 @@
-import * as fc from 'd3fc';
+// import * as fc from 'd3fc';
 
 const mapToHash = function (ary) {
   const jsonObj = {};
@@ -13,21 +13,21 @@ const trueOrFalse = function (num) {
 };
 
 const generateData = function (numHabits = 1, length = 28) {
-  let data = [];
+  const data = [];
   for (let i = 1; i <= numHabits; i++) {
     data.push(
       mapToHash(
         fc
-        .randomGeometricBrownianMotion()
-        .mu(0.75)
-        .sigma(0.65)
-        .period(2)
-        .steps(length - 1)(0.35)
-        .map(trueOrFalse)
-      )
+          .randomGeometricBrownianMotion()
+          .mu(0.75)
+          .sigma(0.65)
+          .period(2)
+          .steps(length - 1)(0.35)
+          .map(trueOrFalse),
+      ),
     );
   }
-  return data
+  return data;
 };
 
 export { generateData };
