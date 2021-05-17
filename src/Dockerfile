@@ -4,8 +4,6 @@ ENV HOME /root
 
 CMD ["/sbin/my_init"]
 
-RUN mkdir /home/app
-
 WORKDIR /tmp
 COPY ./src/api/Gemfile /tmp/
 RUN bundle install
@@ -16,7 +14,7 @@ RUN chown -R app:app /home/app
 EXPOSE 4567
 
 WORKDIR /home/app/api
-CMD ["rake", "db:migrate"]
+CMD ["RACK_ENV=development", "rake", "db:migrate"]
 CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4567"]
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
