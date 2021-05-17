@@ -5,3 +5,4 @@ RUN npm install
 COPY . ./
 RUN ls -ls
 CMD ["npm", "run", "build"]
+CMD ["node", "server.js"]
