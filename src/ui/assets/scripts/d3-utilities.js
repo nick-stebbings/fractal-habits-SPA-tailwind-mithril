@@ -28,30 +28,6 @@ const negativeCol = "#f2aa53";
 const noNodeCol = "#634a36";
 const neutralCol = "#888";
 
-const d3visPageMaker = function (layout, component, spinnerState, modalType) {
-  const page = {};
-
-  // Create a visualisation-containing div element with random ID
-  const divId = `svg_container_${Math.floor(Math.random() * 1000000000)}${1}`;
-
-  page.view = () => {
-    // Pass unique selection id to the vis component for d3 selection
-    const d3Container = m("div", { id: divId }, [
-      m("svg.legendSvg", { class: "top-26 lg:top-20 w-36 fixed left-4 h-12" }),
-      m("svg.controlsSvg", {
-        class: "top-20 w-72 fixed right-0 h-16 hidden md:block",
-      }),
-    ]);
-
-    return m(
-      layout,
-      { spinnerState: spinnerState, modalType: modalType },
-      m(component, { divId, modalType }, d3Container)
-    );
-  };
-  return page;
-};
-
 const d3SetupCanvas = function (document) {
   const { width, height } = document.body.getBoundingClientRect();
 
@@ -817,7 +793,6 @@ const debounce = function (func, delay) {
 };
 
 export {
-  d3visPageMaker,
   d3SetupCanvas,
   renderTree,
   collapseTree,

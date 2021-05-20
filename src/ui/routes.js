@@ -15,15 +15,38 @@ import NodeStore from "./store/habit-node-store";
 import HeroSection from "./view/components/Layout/HeroSection.jsx";
 
 // Utils
-import { d3visPageMaker } from "./assets/scripts/d3-utilities";
 import { handleErrorType } from "./assets/scripts/utilities";
 
 const spinnerOpen = stream(true); 
+const visSpinnerComponent = stream({ view: () => m("p", "Loading") }); 
 const modalType = stream(false);
 
-function populateStores({ demo }) {
+const d3visPageMaker = function (layout, component, spinnerState, modalType) {
+  const page = {};
+
+  // Create a visualisation-containing div element with random ID
+  const divId = `svg_container_${Math.floor(Math.random() * 1000000000)}${1}`;
+
+  page.view = () => {
+    // Pass unique selection id to the vis component for d3 selection
+    const d3Container = m("div", { id: divId }, [
+      m("svg.legendSvg", { class: "top-26 lg:top-20 w-36 fixed left-4 h-12" }),
+      m("svg.controlsSvg", {
+        class: "top-20 w-72 fixed right-0 h-16 hidden md:block",
+      }),
+    ]);
+
+    return m(
+      layout,
+      { spinnerState: spinnerState, modalType: modalType },
+      m(component, { divId, modalType }, d3Container)
+    );
+  };
+  return page;
+};
+
+function populateStores({demo}) {
   if (!demo) {
-    
     console.log(
       HabitStore.current()?.name == "Select a Life-Domain to start tracking"
         ? "Habits Indexed"
@@ -104,10 +127,17 @@ const Routes = MenuRoutes.reduce(
     Object.keys(links).forEach((path) => {
       const { title, component } = links[path];
       newRoutesObject[path] = {
-        onmatch: populateStores,
-        render: () =>
+        onmatch: function (vnode) {
+          return menuSection.label === "Visualise" ? import(
+            /* webpackChunkName: "HabitTree" */ "./view/pages/HabitTree.jsx"
+          ).then(({default: HabitTree}) => {
+            populateStores(vnode);
+            visSpinnerComponent(HabitTree);
+          }) : component;
+          },
+        render: (e) =>
           menuSection.label === "Visualise"
-            ? m(d3visPageMaker(Layout, component, spinnerOpen, modalType), {
+            ? m(d3visPageMaker(Layout, visSpinnerComponent(), spinnerOpen, modalType), {
                 heading: title,
               })
             : m({
