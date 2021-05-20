@@ -72,14 +72,17 @@ function updateDomainSelectors () {
   document.querySelectorAll(".domain-selector").forEach(selector => {
     let current = DomainStore.current();
     let newIndex = DomainStore.list().indexOf(current);
-    selector.selectedIndex = newIndex
+    selector.selectedIndex = newIndex;
   });
-  console.log('changed!');
+
   Array.from(document.querySelectorAll(".domain-selector option"))
-    .filter((opt) => opt.text === DomainStore.current()?.name)
+  .filter((opt) => opt.text === DomainStore.current()?.name)
     .forEach((opt) => {
-      opt.setAttribute("selected", "true");
-    });
+      debugger;
+    opt.setAttribute("selected", "true");
+  });
+
+  m.redraw();
 };
 
 const updateSelectorStates = () => {
@@ -93,8 +96,8 @@ const updateSelectorStates = () => {
     DateStore.current(newListForHabit[newListForHabit.length - 1]);
     outOfDateBoundary(false);
   }
-  
-  m.redraw()
+
+  m.redraw();
 };
 
 export default {
@@ -102,8 +105,7 @@ export default {
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
-    preLoadHabitDateData()
-    
+    preLoadHabitDateData();
 
     const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {
@@ -117,8 +119,12 @@ export default {
             DomainStore.current().id,
             DateStore.current().id
           ).then(m.redraw);
-        }
+        };
         updateDomainSelectors();
+
+    console.log(DomainStore.current());
+        debugger;
+        m.redraw()
       });
     });
   },

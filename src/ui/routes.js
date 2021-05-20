@@ -118,7 +118,7 @@ function populateStores({demo}) {
         console.log(err);
       });
   }
-}
+};
 
 // Map MenuRoutes object -> Mithril router objects with rendering functions
 const Routes = MenuRoutes.reduce(

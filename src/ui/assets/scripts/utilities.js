@@ -27,6 +27,10 @@ const redraw = () => {
   m.redraw();
 };
 
+function invert(inputStream) {
+  inputStream(!inputStream());
+};
+
 const setRouteToBasePath = function () {
   let url = m.route.get();
   let newUrl = m.route.param("demo")
@@ -78,4 +82,4 @@ const handleErrorType = function (err, type = "warning") {
   }
   throw err;
 };
-export { handleAndRethrow, handleErrorType, addActiveMenuStyles, redraw, setRouteToBasePath };
+export { handleAndRethrow, invert, handleErrorType, addActiveMenuStyles, redraw, setRouteToBasePath };

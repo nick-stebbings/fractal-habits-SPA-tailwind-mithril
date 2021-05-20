@@ -18,14 +18,11 @@ import {
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
-import { setRouteToBasePath } from "../../assets/scripts/utilities";
+import { setRouteToBasePath, invert } from "../../assets/scripts/utilities";
 
 const nameOrderAsc = stream(true);
 const dateOrderAsc = stream(true);
 const statusOrderAsc = stream(true);
-function invert(inputStream) {
-  inputStream(!inputStream());
-};
 
 const getStatusColor = (habit) => {
   let status;
