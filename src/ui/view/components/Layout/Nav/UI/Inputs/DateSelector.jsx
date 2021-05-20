@@ -32,7 +32,6 @@ const DateSelector = function () {
         maxDate = DateTime.fromMillis(
           DateTime.fromSQL(DateStore.current().h_date),
         );
-        debugger;
       }
 
       const nextDate = document.getElementById('next-date-selector');
@@ -62,7 +61,7 @@ const DateSelector = function () {
           id="date-today"
           tabIndex="3"
           required
-          className="form-input w-full text-xl lg:pt-4 -mr-4 px-4"
+          className="form-input lg:pt-4 w-full px-4 -mr-4 text-xl"
           type="date"
           value={DateStore.currentDate()}
           max={String(DateStore.currentDate())}

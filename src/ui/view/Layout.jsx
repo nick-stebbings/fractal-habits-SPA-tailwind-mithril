@@ -78,7 +78,6 @@ function updateDomainSelectors () {
   Array.from(document.querySelectorAll(".domain-selector option"))
   .filter((opt) => opt.text === DomainStore.current()?.name)
     .forEach((opt) => {
-      debugger;
     opt.setAttribute("selected", "true");
   });
 
@@ -122,8 +121,6 @@ export default {
         };
         updateDomainSelectors();
 
-    console.log(DomainStore.current());
-        debugger;
         m.redraw()
       });
     });
