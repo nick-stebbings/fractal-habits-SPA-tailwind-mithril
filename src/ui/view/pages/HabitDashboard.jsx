@@ -25,7 +25,7 @@ const dateOrderAsc = stream(true);
 const statusOrderAsc = stream(true);
 function invert(inputStream) {
   inputStream(!inputStream());
-}
+};
 
 const getStatusColor = (habit) => {
   let status;
@@ -48,39 +48,8 @@ const getStatusColor = (habit) => {
   }
 };
 
-function preLoadData() {
-  if (!m.route.param("demo")) {
-    if (
-      HabitDateStore.fullList().length == 0 ||
-      NodeStore.list().length == 0 ||
-      m.route.param("currentHabit")
-    ) {
-      if (
-        HabitStore.current()?.name !== "Select a Life-Domain to start tracking"
-      )
-        return;
-      HabitDateStore.index()
-        .then(NodeStore.index)
-        .then(() => {
-          HabitStore.sortByDate();
-          HabitStore.current() &&
-            HabitDateStore.runFilter(HabitStore.current()?.id);
-          DateStore.current() &&
-            HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
-        })
-        .then(m.redraw);
-    }
-  } else {
-    HabitStore.current() && HabitDateStore.runFilter(HabitStore.current()?.id);
-    DateStore.current() &&
-      HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
-  }
-}
-
 const HabitDashboard = {
   oninit: () => {
-    preLoadData();
-
     // When being linked from a visualisation page:
     if (m.route.param("currentHabit")) {
       HabitStore.current(
@@ -94,7 +63,6 @@ const HabitDashboard = {
   },
   oncreate: ({ attrs }) => {
     const demoData = m.route.param("demo");
-
     addSwipeGestures();
 
     // Add sorting events

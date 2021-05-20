@@ -11,15 +11,43 @@ import Footer from "./components/Layout/Footer.jsx";
 
 import DomainStore from "../store/domain-store";
 import HabitStore from "../store/habit-store";
+import HabitDateStore from "../store/habit-date-store";
 import DateStore from "../store/date-store";
 import TreeStore from "../store/habit-tree-store";
+import NodeStore from "../store/habit-node-store";
 import { openModal, openSpinner } from "../assets/scripts/animations";
 
 const changedFromDemo = stream();
 const changedToDemo = stream();
 const outOfDateBoundary = stream();
 
-function checkUpdateConditions() {
+function preLoadHabitDateData() {
+  if (!m.route.param("demo")) {
+    if (
+      HabitDateStore.fullList().length == 0 ||
+      NodeStore.list().length == 0 ||
+      m.route.param("currentHabit")
+    ) {
+      if ( HabitStore.current()?.name !== "Select a Life-Domain to start tracking" ) return;
+      HabitDateStore.index()
+        .then(NodeStore.index)
+        .then(() => {
+          HabitStore.sortByDate();
+          HabitStore.current() &&
+            HabitDateStore.runFilter(HabitStore.current()?.id);
+          DateStore.current() &&
+            HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
+        })
+        .then(m.redraw);
+    }
+  } else {
+    HabitStore.current() && HabitDateStore.runFilter(HabitStore.current()?.id);
+    DateStore.current() &&
+      HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
+  }
+};
+
+function changeOfModelContext() {
   // Reset the data when we have switched from demo to real or back
   changedFromDemo(
     !m.route.param("demo") &&
@@ -40,26 +68,23 @@ function checkUpdateConditions() {
   return (changedFromDemo() || changedToDemo() || outOfDateBoundary())
 };
 
-function updateDomains () {
+function updateDomainSelectors () {
   document.querySelectorAll(".domain-selector").forEach(selector => {
     let current = DomainStore.current();
     let newIndex = DomainStore.list().indexOf(current);
     selector.selectedIndex = newIndex
   });
-console.log('changed!');
+  console.log('changed!');
   Array.from(document.querySelectorAll(".domain-selector option"))
     .filter((opt) => opt.text === DomainStore.current()?.name)
     .forEach((opt) => {
       opt.setAttribute("selected", "true");
-      debugger;
     });
 };
 
-const repopulateStores = () => {
+const updateSelectorStates = () => {
   if (changedFromDemo() || changedToDemo()) {
-    updateDomains();
-    console.log(changedFromDemo());
-    console.log(changedToDemo());
+    updateDomainSelectors();
     changedToDemo(false);
     changedFromDemo(false);
   }
@@ -77,6 +102,8 @@ export default {
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
+    preLoadHabitDateData()
+    
 
     const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {
@@ -91,17 +118,15 @@ export default {
             DateStore.current().id
           ).then(m.redraw);
         }
-        debugger;
-        updateDomains();
-        m.redraw();
+        updateDomainSelectors();
       });
     });
   },
   onupdate: () => {
-    if(checkUpdateConditions()) repopulateStores;
+    if(changeOfModelContext()) updateSelectorStates();
   },
   oninit: () => {
-    if(checkUpdateConditions()) repopulateStores;
+    if(changeOfModelContext()) updateSelectorStates();
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },
