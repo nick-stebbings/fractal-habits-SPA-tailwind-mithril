@@ -30,6 +30,7 @@ module.exports = smp.wrap({
     }),
     new MiniCssExtractPlugin({ filename: './bundle.[contenthash].css' }),
     new CleanWebpackPlugin({ verbose: true }),
+    new OptimizeCssAssetsPlugin({}),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
     }),
