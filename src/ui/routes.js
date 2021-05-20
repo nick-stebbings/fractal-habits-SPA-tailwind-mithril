@@ -17,7 +17,7 @@ import HeroSection from "./view/components/Layout/HeroSection.jsx";
 // Utils
 import { handleErrorType } from "./assets/scripts/utilities";
 
-const spinnerOpen = stream(true); 
+const spinnerState = stream(true); 
 const visSpinnerComponent = stream({ view: () => m("p", "Loading") }); 
 const modalType = stream(false);
 
@@ -38,7 +38,7 @@ const d3visPageMaker = function (layout, component, spinnerState, modalType) {
 
     return m(
       layout,
-      { spinnerState: spinnerState, modalType: modalType },
+      { spinnerState, modalType },
       m(component, { divId, modalType }, d3Container)
     );
   };
@@ -97,22 +97,23 @@ function populateStores({demo}) {
       .then(() => {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
         m.redraw();
-        spinnerOpen(false);
+        spinnerState(false);
       })
       .catch((err) => {
-        spinnerOpen(false);
+        spinnerState(false);
         console.log(err, "Error loading data!");
       });
   } else {
     // Load Demo data
+    console.log('gfte');
     importData
       .init()
       .then(() => {
-        spinnerOpen(false);
+        spinnerState(false);
       })
       .then(m.redraw)
       .catch((err) => {
-        spinnerOpen(false);
+        spinnerState(false);
         m.redraw();
         console.log(err);
       });
@@ -128,26 +129,26 @@ const Routes = MenuRoutes.reduce(
       const { title, component } = links[path];
       newRoutesObject[path] = {
         onmatch: function (vnode) {
+          populateStores(vnode);
           return menuSection.label === "Visualise" ? import(
             /* webpackChunkName: "HabitTree" */ "./view/pages/HabitTree.jsx"
-          ).then(({default: HabitTree}) => {
-            populateStores(vnode);
+          ).then(({ default: HabitTree }) => {
             visSpinnerComponent(HabitTree);
-          }) : component;
+          }).catch(console.log) : null;
           },
         render: (e) =>
           menuSection.label === "Visualise"
-            ? m(d3visPageMaker(Layout, visSpinnerComponent(), spinnerOpen, modalType), {
+            ? m(d3visPageMaker(Layout, visSpinnerComponent(), spinnerState, modalType), {
                 heading: title,
               })
             : m({
                 view: () =>
                   m(
                     Layout,
-                    { spinnerState: spinnerOpen, modalType: modalType },
-                    m(component, { modalType: modalType })
+                    { spinnerState, modalType },
+                    m(component, { modalType })
                   ),
-              }),
+            }),
       };
     });
 
@@ -163,11 +164,11 @@ const Routes = MenuRoutes.reduce(
             m(
               Layout,
               {
-                spinnerState: spinnerOpen,
-                index: true,
+                spinnerState: spinnerState,
+                isIndex: true,
                 modalType: modalType,
               },
-              m(HeroSection, { modalType: modalType })
+              m(HeroSection, { modalType })
             ),
         }),
     },

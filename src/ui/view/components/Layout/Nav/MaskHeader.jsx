@@ -155,7 +155,7 @@ const MaskHeader = function () {
           <span>{HabitStore.current()?.name}</span>
         </div>
       </div>
-    ),
+    )
   };
 };
 

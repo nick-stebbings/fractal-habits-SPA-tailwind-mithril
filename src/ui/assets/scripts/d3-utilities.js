@@ -194,7 +194,6 @@ const renderTree = function (
     .attr("viewBox", defaultView)
     .attr("preserveAspectRatio", "xMidYMid meet")
     .call(zoomer);
-    // .on("wheel", (event) => event.preventDefault());
   if (select("svg .legend").empty() && select("svg .controls").empty())
     addLegend();
 
@@ -255,7 +254,7 @@ const renderTree = function (
           node,
           content: node.data,
         });
-      }, {passive: false})
+      }, {passive: true})
       .on("click", function (event, node) {
         const targ = event.target;
         if (targ.tagName == "circle") {
