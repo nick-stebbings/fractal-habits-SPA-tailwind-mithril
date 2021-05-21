@@ -24,11 +24,11 @@ import {
 } from '../assets/scripts/controller';
 
 function loadTreeData() {
-  if (DomainStore.current() && DateStore.current()) { 
-  TreeStore.index(
-    m.route.param('demo'),
-    DomainStore.current()?.id,
-    DateStore.current()?.id,
+  if (DomainStore.current() && DateStore.current()) {
+    TreeStore.index(
+      m.route.param("demo"),
+      DomainStore.current()?.id,
+      DateStore.current()?.id
     ).then(m.redraw);
   }
 };
