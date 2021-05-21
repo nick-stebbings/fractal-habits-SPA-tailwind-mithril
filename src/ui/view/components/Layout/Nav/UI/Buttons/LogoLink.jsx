@@ -1,6 +1,10 @@
 // src/view/components/Nav/UI/Buttons/LogoLink.jsx
 
 const LogoLink = {
+  oncreate: ({ dom, attrs }) => {
+    dom.querySelector('svg').addEventListener('click', () => {
+    });
+  },
   view: () => m(
     m.route.Link,
     {

@@ -105,7 +105,6 @@ function populateStores({demo}) {
       });
   } else {
     // Load Demo data
-    console.log('gfte');
     importData
       .init()
       .then(() => {

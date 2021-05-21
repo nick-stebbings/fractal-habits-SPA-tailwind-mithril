@@ -1,7 +1,7 @@
 import DateTime from 'luxon/src/datetime.js';
 import DateStore from '../../../../../../store/date-store';
 import HabitStore from '../../../../../../store/habit-store';
-import { updateSelectorStates, updatedMinAndMaxForCurrentHabit } from '../../../../../../assets/scripts/controller';
+import { resetContextStates, updatedMinAndMaxForCurrentHabit, changedDate } from '../../../../../../assets/scripts/controller';
 
 const sanitiseForDataList = function (date) {
   return typeof date === 'object' && typeof date.h_date === 'string'
@@ -20,33 +20,35 @@ const DateSelector = function () {
       dateIndex = DateStore.listForHabit().indexOf(DateStore.current());
     },
     oncreate: () => {
-      const todaysDate = DateTime.now().startOf("day");
-      currentHabitDate = DateTime.fromSQL(DateStore.current().h_date);
+      const todaysDate = DateTime.now().startOf('day');
+      currentHabitDate = DateStore.current() && DateTime.fromSQL(DateStore.current().h_date);
 
       [minDate, maxDate] = updatedMinAndMaxForCurrentHabit();
       if (DateStore.current() && maxDate < todaysDate) {
         DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() });
         maxDate = DateTime.fromMillis(
-          DateTime.fromSQL(DateStore.current().h_date).ts
+          DateTime.fromSQL(DateStore.current().h_date).ts,
         );
-        updateSelectorStates();
+        resetContextStates();
       }
-      const prevDateSelector = document.getElementById("prev-date-selector");
-      const nextDateSelector = document.getElementById("next-date-selector");
-      prevDateSelector.addEventListener("click", () => {
+      const prevDateSelector = document.getElementById('prev-date-selector');
+      const nextDateSelector = document.getElementById('next-date-selector');
+      prevDateSelector.addEventListener('click', () => {
         if (!HabitStore.current()) return;
         if (currentHabitDate.toLocaleString() !== minDate.toLocaleString()) {
           dateIndex--;
           DateStore.current(DateStore.listForHabit()[dateIndex]);
         }
+        changedDate(true);
         m.redraw();
       });
-      nextDateSelector.addEventListener("click", () => {
+      nextDateSelector.addEventListener('click', () => {
         if (!HabitStore.current()) return;
         if (currentHabitDate.toLocaleString() !== maxDate.toLocaleString()) {
           dateIndex++;
           DateStore.current(DateStore.listForHabit()[dateIndex]);
         }
+        changedDate(true);
         m.redraw();
       });
     },
@@ -64,17 +66,12 @@ const DateSelector = function () {
           max={String(DateStore.currentDate())}
           list="current-habit-date-list"
         />
-        {console.log(
-          sanitiseForDataList(DateStore.list()[dateIndex]?.h_date)
-        )}
         <datalist id="current-habit-date-list">
-          {HabitStore.current() &&
-            DateStore.listForHabit().map((dateElement) =>
-              m("option", {
-                value: sanitiseForDataList(dateElement),
-                name: `date-option-date-id-${dateElement.id}`,
-              })
-            )}
+          {HabitStore.current()
+            && DateStore.listForHabit().map((dateElement) => m('option', {
+              value: sanitiseForDataList(dateElement),
+              name: `date-option-date-id-${dateElement.id}`,
+            }))}
         </datalist>
       </fieldset>
     ),
