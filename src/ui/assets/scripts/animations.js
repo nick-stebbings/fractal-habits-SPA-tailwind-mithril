@@ -71,12 +71,30 @@ const addIntersectionObserver = function () {
       observer.unobserve(entry.target);
     });
   };
-  const observer = new IntersectionObserver(callback);
+  const observer = new IntersectionObserver(callback, options);
+  const observerForPageFooter = new IntersectionObserver((entries) => {
+    const buttonGroup = document.querySelector('#create-new-habit-child .button-group');
+    const habitInput = document.querySelector('.sub-section-container:last-of-type');
+    if (!entries[0].isIntersecting) {
+      buttonGroup && (buttonGroup.style.opacity = 1);
+      habitInput && (habitInput.style.opacity = 1);
+      return;
+    }
+    if (buttonGroup) {
+      buttonGroup.style.opacity = (buttonGroup.style.opacity === 0 ? 1 : 0);
+    }
+    if (habitInput) {
+      habitInput.style.opacity = (habitInput.style.opacity === 0 ? 1 : 0);
+    }
+  }, options);
 
   const infoCards = document.querySelectorAll('section.info-cards > div');
-  infoCards.forEach((infoCard) => {
+  infoCards && infoCards.forEach((infoCard) => {
     observer.observe(infoCard);
   });
+
+  const pageFooter = document.querySelector('footer');
+  observerForPageFooter && observerForPageFooter.observe(pageFooter);
 };
 
 const registerEventListeners = (function () {

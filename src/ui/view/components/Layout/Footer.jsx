@@ -1,5 +1,6 @@
 import GeneralButton from './Nav/UI/Buttons/GeneralButton.jsx';
 import habitPyramidMan from '../../../assets/images/pyramid_dude.svg';
+import LogoLink from './Nav/UI/Buttons/LogoLink.jsx';
 
 const Footer = {
   view: () => (
@@ -25,7 +26,7 @@ const Footer = {
                   <input
                     type="text"
                     name="comment"
-                    className="focus:outline-none flex p-2 m-1 text-sm text-gray-100 appearance-none"
+                    className="focus:outline-none flex w-full p-2 m-1 text-sm text-gray-100 appearance-none"
                     placeholder="Leave your comment"
                     required
                   />
@@ -34,7 +35,7 @@ const Footer = {
                   <input
                     type="email"
                     name="email"
-                    className="focus:outline-none flex p-2 m-1 text-sm text-gray-100 appearance-none"
+                    className="focus:outline-none flex w-full p-2 m-1 text-sm text-gray-100 appearance-none"
                     placeholder="Enter your email"
                     required
                   />
@@ -53,11 +54,7 @@ const Footer = {
           </div>
           <hr className="h-px mt-6 bg-gray-100 border-none" />
           <div className="md:flex-row flex flex-col items-center justify-between mt-6">
-            <div>
-              <a href="#" className="text-xl font-bold">
-                Brand
-              </a>
-            </div>
+            <LogoLink />
             <div className="md:m-0 flex mt-4">
               <div className="-mx-4">
                 <a href="#" className="px-4 text-sm">
