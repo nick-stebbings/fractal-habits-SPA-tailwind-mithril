@@ -1,11 +1,11 @@
 html,
 body {
-  @apply h-full w-full;
-  font-size: 15px;
+  @apply h-full w-full overflow-auto;
+  font-size: 16px;
 }
 
 #modal .input-container {
-  @apply overflow-y-auto absolute bottom-auto;
+  @apply absolute bottom-auto;
 }
 
 #app > main {
@@ -24,7 +24,7 @@ body {
 }
 
 #hero > header > h1, #hero > header > h2 {
-  @apply pl-2 lg:pl-8 pr-4 lg:pr-16;
+  @apply pl-8 lg:pl-8 pr-4 lg:pr-16;
 }
 
 section.cards {

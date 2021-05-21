@@ -44,9 +44,9 @@ export default {
     if (modalType()) openModal(true);
     addIntersectionObserver();
 
-    const domainSelectors = document.querySelectorAll('.domain-selector');
+    const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {
-      selector.addEventListener('change', (e) => {
+      selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
         loadTreeData();
@@ -85,7 +85,10 @@ export default {
     <div id="layout" className="w-full h-full">
       <Modal spinnerNeeded={spinnerState} modalType={modalType} />
       <LogoLink isDemo={changedFromDemo} />
-      <div id="app" className="flex flex-col justify-between min-h-screen">
+      <div
+        id="app"
+        className="flex flex-col justify-between min-h-screen;"
+      >
         <MaskHeader />
         <div className="sm-selector-container top-3 md:top-1 inset-x-16 absolute z-40 flex w-2/3">
           <DomainSelector />

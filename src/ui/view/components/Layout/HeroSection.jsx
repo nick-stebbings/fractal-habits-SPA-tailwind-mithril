@@ -4,7 +4,10 @@ const HeroSection = {
   view: ({ attrs }) => (
     <section id="hero" className="max-h-3/4">
       <header className="sm:md-12 md:px-16 lg:w-3/4 lg:mx-auto md:mx-8 flex flex-col items-end flex-none w-full h-auto px-2 mx-2 mt-12">
-        <h1 className="md:flex-row flex flex-col text-center" style="font-size:900%">
+        <h1
+          className="md:flex-row flex flex-col flex-wrap text-center"
+          style="font-size:900%"
+        >
           <span>Habit</span>
           <span>
             <em
@@ -36,7 +39,7 @@ const HeroSection = {
       </header>
       <div
         id="call-to-action"
-        className="bg-gradient-to-b from-transparent lg:space-x-4 md:mt-16 sm:pt-18 md:pb-16 to-white pt-26 flex flex-col px-12 pb-24"
+        className="bg-gradient-to-b from-transparent lg:space-x-8 md:mt-16 sm:pt-18 md:pb-16 to-white pt-26 flex flex-col px-12 pb-24"
       >
         {m.route.param('demo') ? (
           <div>
