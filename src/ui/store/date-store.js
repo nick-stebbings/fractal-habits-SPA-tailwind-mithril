@@ -57,4 +57,5 @@ const DateStore = Object.assign(clientRoutes(basePath), {
 DateStore.currentDate = stream.combine(sanitiseForValueChange, [
   DateStore.current,
 ]);
+
 export default DateStore;
