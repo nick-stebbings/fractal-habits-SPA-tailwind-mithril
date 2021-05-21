@@ -12,7 +12,7 @@ import NodeStore from '../store/habit-node-store';
 import DateStore from '../store/date-store';
 import TreeStore from '../store/habit-tree-store';
 import HabitDateStore from '../store/habit-date-store.js';
-import { openModal, openSpinner } from '../assets/scripts/animations';
+import { openModal, openSpinner, addIntersectionObserver } from '../assets/scripts/animations';
 import {
   changedFromDemo,
   preLoadHabitDateData,
@@ -41,8 +41,8 @@ export default {
   oncreate: ({ attrs: { spinnerState, modalType } }) => {
     openSpinner(true);
     spinnerState.map(openSpinner);
-
     if (modalType()) openModal(true);
+    addIntersectionObserver();
 
     const domainSelectors = document.querySelectorAll('.domain-selector');
     [...domainSelectors].forEach((selector) => {
@@ -80,7 +80,7 @@ export default {
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },
-    children: [componentNode],
+    children: componentNodes,
   }) => (
     <div id="layout" className="w-full h-full">
       <Modal spinnerNeeded={spinnerState} modalType={modalType} />
@@ -92,7 +92,8 @@ export default {
           <DateSelector />
         </div>
         <MainStage isIndex={isIndex} modalType={modalType}>
-          {componentNode}
+          {componentNodes[0]}
+          {componentNodes[1]}
         </MainStage>
         <Footer />
       </div>

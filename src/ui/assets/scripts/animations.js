@@ -55,6 +55,30 @@ const addSwipeGestures = function () {
   });
 };
 
+const addIntersectionObserver = function () {
+  const options = {
+    threshold: 0.3,
+    rootMargin: '0px 0px -100px 0px',
+  };
+  const callback = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      if (!entry.target.classList.contains('slide-center')) {
+        entry.target.classList.add('slide-center');
+      } else {
+        entry.target.classList.remove('slide-center');
+      }
+      observer.unobserve(entry.target);
+    });
+  };
+  const observer = new IntersectionObserver(callback);
+
+  const infoCards = document.querySelectorAll('section.info-cards > div');
+  infoCards.forEach((infoCard) => {
+    observer.observe(infoCard);
+  });
+};
+
 const registerEventListeners = (function () {
   const { body } = document;
 
@@ -98,5 +122,5 @@ const registerEventListeners = (function () {
 }());
 
 export {
-  registerEventListeners, openModal, openSpinner, addSwipeGestures,
+  registerEventListeners, openModal, openSpinner, addSwipeGestures, addIntersectionObserver,
 };

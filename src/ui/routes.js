@@ -13,6 +13,7 @@ import NodeStore from "./store/habit-node-store";
 
 // Components
 import HeroSection from "./view/components/Layout/HeroSection.jsx";
+import FeatureDisplay from "./view/components/Layout/FeatureDisplay.jsx";
 
 // Utils
 import { handleErrorType } from "./assets/scripts/utilities";
@@ -166,8 +167,10 @@ const Routes = MenuRoutes.reduce(
                 spinnerState: spinnerState,
                 isIndex: true,
                 modalType: modalType,
-              },
-              m(HeroSection, { modalType })
+              }, [
+                m(HeroSection, { modalType }),
+                m(FeatureDisplay)
+              ]
             ),
         }),
     },

@@ -8,7 +8,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 
 const smp = new SpeedMeasurePlugin();
@@ -31,9 +31,9 @@ module.exports = smp.wrap({
     new MiniCssExtractPlugin({ filename: './bundle.[contenthash].css' }),
     new CleanWebpackPlugin({ verbose: true }),
     // new OptimizeCssAssetsPlugin({}),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    // }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',
