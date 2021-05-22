@@ -34,7 +34,7 @@ function loadTreeData() {
   }
 };
 
-const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain())|| newRecord();
+const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain()|| newRecord());
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 

@@ -31,8 +31,20 @@ const DateSelector = function () {
         );
         resetContextStates();
       }
+      const dateInputs = document.querySelectorAll('#date-today');
       const prevDateSelector = document.getElementById('prev-date-selector');
       const nextDateSelector = document.getElementById('next-date-selector');
+      [...dateInputs].forEach((input) => {
+        input.addEventListener("change", (e) => {
+          e.stopPropagation();
+          dateIndex = DateStore.listForHabit()
+            .map(sanitiseForDataList)
+            .indexOf(e.target.value);
+            let newDate = DateStore.listForHabit()[dateIndex];
+            DateStore.current(newDate);
+            changedDate(true);
+        });
+      });
       prevDateSelector.addEventListener('click', () => {
         if (!HabitStore.current()) return;
         if (currentHabitDate?.toLocaleString() !== minDate?.toLocaleString()) {
