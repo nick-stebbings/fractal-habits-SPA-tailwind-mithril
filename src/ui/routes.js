@@ -101,6 +101,10 @@ function populateStores({demo}) {
         spinnerState(false);
       })
       .catch((err) => {
+        DateStore.clear()
+        console.log(DateStore.current(), 'date current');
+        console.log(DomainStore.current(), 'domain current');
+        console.log(HabitStore.current(), 'habit current');
         spinnerState(false);
         console.log(err, "Error loading data!");
       });

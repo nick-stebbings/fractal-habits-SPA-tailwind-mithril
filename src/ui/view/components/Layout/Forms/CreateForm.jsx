@@ -5,6 +5,7 @@ import NodeStore from '../../../../store/habit-node-store.js';
 import DomainStore from '../../../../store/domain-store.js';
 
 import { openModal } from '../../../../assets/scripts/animations';
+import { newRecord } from '../../../../assets/scripts/controller';
 import FormHeader from './FormHeader.jsx';
 import FormBody from './FormBody.jsx';
 import InputGroup from './FormInputGroup.jsx';
@@ -51,6 +52,7 @@ const processFormData = function (dom, attrs) {
       DateStore.submit({ h_date: data.initiation_date })
         .then(() => HabitStore.submit(data))
         .then(() => {
+          newRecord(true);
           openModal(false);
           TreeStore.clear();
           m.route.set(m.route.get(), null);

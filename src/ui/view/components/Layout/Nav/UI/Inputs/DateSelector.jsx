@@ -35,9 +35,10 @@ const DateSelector = function () {
       const nextDateSelector = document.getElementById('next-date-selector');
       prevDateSelector.addEventListener('click', () => {
         if (!HabitStore.current()) return;
-        if (currentHabitDate.toLocaleString() !== minDate.toLocaleString()) {
+        if (currentHabitDate?.toLocaleString() !== minDate?.toLocaleString()) {
           dateIndex--;
-          DateStore.current(DateStore.listForHabit()[dateIndex]);
+          let newDate = DateStore.listForHabit()[dateIndex] || DateStore.current();
+          DateStore.current(newDate);
         }
         changedDate(true);
         m.redraw();
@@ -46,7 +47,8 @@ const DateSelector = function () {
         if (!HabitStore.current()) return;
         if (currentHabitDate.toLocaleString() !== maxDate.toLocaleString()) {
           dateIndex++;
-          DateStore.current(DateStore.listForHabit()[dateIndex]);
+          let newDate = DateStore.listForHabit()[dateIndex] || DateStore.current();
+          DateStore.current(newDate);
         }
         changedDate(true);
         m.redraw();

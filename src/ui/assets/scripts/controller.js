@@ -11,6 +11,7 @@ const changedToDemo = stream();
 const outOfDateBoundary = stream();
 const changedDate = stream();
 const changedDomain = stream();
+const newRecord = stream();
 const parsedDates = DateStore.listForHabit().map(
   (d) => DateTime.fromSQL(d?.h_date).ts
 );
@@ -68,7 +69,7 @@ function changeOfModelContext() {
   if (DateStore.current() && maxDate < todaysDate) {
     outOfDateBoundary(true);
   };
-  return (changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || changedDate());
+  return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || changedDate());
 };
 
 function updateDomainSelectors() {
@@ -95,6 +96,9 @@ const resetContextStates = () => {
     DateStore.current(newListForHabit[newListForHabit.length - 1]);
     outOfDateBoundary(false);
   }
+  if (newRecord()) {
+    newRecord(false);
+  }
   if (changedDomain() || changedDate()) {
     changedDomain(false);
     changedDate(false);
@@ -108,6 +112,7 @@ function updatedMinAndMaxForCurrentHabit () {
 };
 
 export {
+  newRecord,
   changedFromDemo,
   changedDate,
   changedDomain,

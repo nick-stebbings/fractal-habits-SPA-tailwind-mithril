@@ -15,6 +15,7 @@ import HabitDateStore from '../store/habit-date-store.js';
 import { openModal, openSpinner, addIntersectionObserver } from '../assets/scripts/animations';
 import {
   changedFromDemo,
+  newRecord,
   preLoadHabitDateData,
   changeOfModelContext,
   updateDomainSelectors,
@@ -33,7 +34,7 @@ function loadTreeData() {
   }
 };
 
-const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain());
+const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain())|| newRecord();
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
@@ -43,40 +44,45 @@ export default {
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
     addIntersectionObserver();
-
     const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        loadTreeData();
-        if (changeOfModelContext()) {
-          HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-          updateDomainSelectors();
-          resetContextStates();
-          m.redraw();
-        }
+        updateDomainSelectors();
+        resetContextStates();
+        if (isVisPage()) loadTreeData();
+        m.redraw();
       });
     });
   },
   oninit: () => {
+    console.log('resetNeeded() && isVisPage() :>> ', resetNeeded() && isVisPage());
     if (resetNeeded() && isVisPage()) {
       loadTreeData();
       resetContextStates();
     }
     if (changeOfModelContext()) {
+      console.log('changeOfModelContext() :>> ', changeOfModelContext());
       HabitStore.indexHabitsOfDomain(DomainStore.current().id);
       updateDomainSelectors();
       resetContextStates();
-      m.route.set(m.route.get(), null);
+      m.redraw();
     }
-    if (
-      HabitDateStore.fullList().length === 0 ||
-      NodeStore.list().length === 0 ||
-      m.route.param("currentHabit")
-    ) {
-      preLoadHabitDateData();
-    }
+    console.log(changedDate(), 'changedDate');
+    console.log(DomainStore.current());
+    console.log(HabitStore.current());
+    console.log(DateStore.current());
+    console.log(NodeStore.current());
+    // if (
+    //   HabitDateStore.fullList().length === 0 ||
+    //   NodeStore.list().length === 0 ||
+    //   m.route.param("currentHabit")
+    // ) {
+      
+    //   console.log('preLoadHabitDateData(); :>> ', preLoadHabitDateData());
+    //   preLoadHabitDateData();
+    // }
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },

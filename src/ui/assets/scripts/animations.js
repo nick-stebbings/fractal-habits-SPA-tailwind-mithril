@@ -35,11 +35,11 @@ const openModal = function (open = true) {
 };
 
 const addSwipeGestures = function () {
-  const nextDate = document.getElementById('next-date-selector');
-  const prevDate = document.getElementById('prev-date-selector');
   const swipeBase = document.querySelector('#app');
   const manager = new Hammer.Manager(swipeBase);
   const Swipe = new Hammer.Swipe();
+  const nextDate = document.getElementById('next-date-selector');
+  const prevDate = document.getElementById('prev-date-selector');
 
   manager.add(Swipe);
   manager.on('swipe', (e) => {
