@@ -5,7 +5,7 @@ ENV HOME /root
 CMD ["/sbin/my_init"]
 
 WORKDIR /tmp
-COPY ./Gemfile /tmp/
+COPY Gemfile /tmp/
 RUN bundle install
 
 COPY . /home/app
