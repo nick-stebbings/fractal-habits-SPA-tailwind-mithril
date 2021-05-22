@@ -1,9 +1,10 @@
 module.exports = {
   purge: [
-    './src/ui/**/*.html',
-    './src/ui/**/*.scss',
-    './src/ui/**/*.pcss',
-    './src/ui/**/*.jsx',
+    './**/*.html',
+    './**/*.scss',
+    './**/*.pcss',
+    './**/*.jsx',
+    './**/*.js',
   ],
   theme: {
     colors: {

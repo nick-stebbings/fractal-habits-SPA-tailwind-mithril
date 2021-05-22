@@ -15,7 +15,7 @@ const smp = new SpeedMeasurePlugin();
 
 module.exports = smp.wrap({
   entry: {
-    index:  path.resolve(__dirname, '..', 'index.js',
+    index: path.resolve(__dirname, '..', 'index.js'),
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -35,7 +35,7 @@ module.exports = smp.wrap({
       analyzerMode: 'static',
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: path.resolve(__dirname, '..', 'index.html'),
       filename: './index.html',
     }),
   ],
