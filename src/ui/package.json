@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode=development --hot --config webpack.config.js",
     "dev:analyze": "npm start -- --env.addons=bundleanalyzer",
-    "build": "webpack --mode production",
+    "build": "webpack --display-error-details --mode production",
     "build:analyze": "npm run-script build -- --env.addons=bundleanalyzer"
   },
   "author": "Nicholas Stebbings",

@@ -26,7 +26,7 @@ module.exports = smp.wrap({
   mode,
   resolve:  mode === "development" ? {
     modules: [
-      "ui/node_modules"
+      "node_modules"
     ]
   } : {},
   devtool: mode === "development" ? "cheap-module-eval-source-map" : false,
