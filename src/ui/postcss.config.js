@@ -1,15 +1,15 @@
 module.exports = {
   plugins: [
-    require('postcss-import')({
-      plugins: [
-      ],
-      path: ['./node_modules'],
+    require("postcss-import")({
+      plugins: [],
+      path: ["./node_modules"],
     }),
-    require('tailwindcss')('./tailwind.config.js'),
-    require('postcss-preset-env')({
-      autoprefixer: { },
+    require("tailwindcss")("./tailwind.config.js"),
+    require("postcss-preset-env")({
+      autoprefixer: {},
       features: {
-        'nesting-rules': true,
+        "nesting-rules": true,
+        "focus-within-pseudo-class": false,
       },
     }),
   ],

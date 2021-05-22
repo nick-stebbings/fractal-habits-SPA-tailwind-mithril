@@ -14,29 +14,35 @@ const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
 
 module.exports = smp.wrap({
+  context: path.resolve(__dirname),
   entry: {
-    index: path.resolve(__dirname, '..', 'index.js'),
+    index: "../index.js",
   },
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].build.js',
-    chunkFilename: '[name].build.js',
+    path: path.join(__dirname, "dist"),
+    filename: "[name].build.js",
+    chunkFilename: "[name].build.js",
   },
   mode,
-  devtool: mode === 'development' ? 'cheap-module-eval-source-map' : false,
+  resolve: {
+    modules: [
+      "ui/node_modules"
+    ]
+  },
+  devtool: mode === "development" ? "cheap-module-eval-source-map" : false,
   plugins: [
     new webpack.ProvidePlugin({
-      m: 'mithril', // Global access
+      m: "mithril", // Global access
     }),
-    new MiniCssExtractPlugin({ filename: './bundle.[contenthash].css' }),
+    new MiniCssExtractPlugin({ filename: "./bundle.[contenthash].css" }),
     new CleanWebpackPlugin({ verbose: true }),
     new OptimizeCssAssetsPlugin({}),
     new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
+      analyzerMode: "static",
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '..', 'index.html'),
-      filename: './index.html',
+      template: "../index.html",
+      filename: "index.html",
     }),
   ],
   optimization: {
@@ -53,17 +59,17 @@ module.exports = smp.wrap({
       {
         test: /\.html$/,
         exclude: /node_modules/,
-        use: ['html-loader'],
+        use: ["html-loader"],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
-              outputPath: 'img',
+              name: "[name].[ext]",
+              outputPath: "img",
               esModule: false,
             },
           },
@@ -75,21 +81,21 @@ module.exports = smp.wrap({
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader?sourceMap', // translates CSS into CommonJS modules
+            loader: "css-loader?sourceMap", // translates CSS into CommonJS modules
           },
           {
-            loader: 'resolve-url-loader',
+            loader: "resolve-url-loader",
           },
           {
-            loader: 'postcss-loader', // Run post css actions
+            loader: "postcss-loader", // Run post css actions
             options: {
               postcssOptions: {
-                config: path.resolve(__dirname, 'postcss.config.js'),
+                config: path.resolve(__dirname, "postcss.config.js"),
               },
             },
           },
           {
-            loader: 'sass-loader?sourceMap', // compiles Sass to CSS
+            loader: "sass-loader?sourceMap", // compiles Sass to CSS
           },
         ],
       },
@@ -98,12 +104,12 @@ module.exports = smp.wrap({
         exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          "css-loader",
           {
-            loader: 'postcss-loader', // Run post css actions
+            loader: "postcss-loader", // Run post css actions
             options: {
               postcssOptions: {
-                config: path.resolve(__dirname, 'postcss.config.js'),
+                config: path.resolve(__dirname, "postcss.config.js"),
               },
             },
           },
@@ -113,7 +119,7 @@ module.exports = smp.wrap({
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: { esModule: false },
           },
         ],
@@ -122,7 +128,7 @@ module.exports = smp.wrap({
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader?cacheDirectory',
+          loader: "babel-loader?cacheDirectory",
         },
       },
     ],
