@@ -5,10 +5,10 @@ ENV HOME /root
 CMD ["/sbin/my_init"]
 
 WORKDIR /tmp
-COPY ./src/api/Gemfile /tmp/
+COPY ./Gemfile /tmp/
 RUN bundle install
 
-COPY ./src/api /home/app
+COPY . /home/app
 RUN chown -R app:app /home/app
 
 EXPOSE 4567

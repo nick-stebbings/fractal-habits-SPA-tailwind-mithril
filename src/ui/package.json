@@ -1,7 +1,7 @@
 {
   "name": "Fractal_Habit_Triangles_Single_Page_Application",
   "version": "1.0.1",
-  "description": "",
+  "description": "A single page application for visualising habit tracking data.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode=development --hot --config webpack.config.js",
@@ -9,8 +9,8 @@
     "build": "NODE_ENV=production node_modules/.bin/webpack --env.env=prod",
     "build:analyze": "npm run-script build -- --env.addons=bundleanalyzer"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Nicholas Stebbings",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.17",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",

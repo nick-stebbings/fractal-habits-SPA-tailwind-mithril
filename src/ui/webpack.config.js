@@ -30,10 +30,10 @@ module.exports = smp.wrap({
     }),
     new MiniCssExtractPlugin({ filename: './bundle.[contenthash].css' }),
     new CleanWebpackPlugin({ verbose: true }),
-    // new OptimizeCssAssetsPlugin({}),
-    // new BundleAnalyzerPlugin({
-    //   analyzerMode: 'static',
-    // }),
+    new OptimizeCssAssetsPlugin({}),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',
@@ -46,16 +46,6 @@ module.exports = smp.wrap({
   devServer: {
     open: true,
     hot: true,
-    // contentBase: '/',
-    // proxy: {
-    //   "/api": {
-    //     target: {
-    //       host: "localhost",
-    //       protocol: "http:",
-    //       port: 9292,
-    //     },
-    //   },
-    // },
   },
   watch: true,
   module: {
