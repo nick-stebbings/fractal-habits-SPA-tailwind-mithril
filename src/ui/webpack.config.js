@@ -15,7 +15,7 @@ const smp = new SpeedMeasurePlugin();
 
 module.exports = smp.wrap({
   entry: {
-    index: './src/index.js',
+    index:  path.resolve(__dirname, '..', 'index.js',
   },
   output: {
     path: path.join(__dirname, 'dist'),
