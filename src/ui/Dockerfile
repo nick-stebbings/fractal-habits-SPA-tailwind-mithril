@@ -1,7 +1,7 @@
 FROM node:lts-alpine
 WORKDIR /usr/src/app
 COPY package.json ./
-RUN apt-get install npm -g -y
+RUN apk add --update nodejs nodejs-npm
 RUN npm install
 COPY ../.. ./
 CMD ["NODE_ENV=production", "npm", "run", "build"]
