@@ -24,11 +24,11 @@ module.exports = smp.wrap({
     chunkFilename: "[name].build.js",
   },
   mode,
-  resolve: {
+  resolve:  mode === "development" ? {
     modules: [
       "ui/node_modules"
     ]
-  },
+  } : {},
   devtool: mode === "development" ? "cheap-module-eval-source-map" : false,
   plugins: [
     new webpack.ProvidePlugin({
