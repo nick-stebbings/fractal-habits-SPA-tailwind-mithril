@@ -11,7 +11,7 @@ import "../../../../assets/styles/components/MaskHeader.scss";
 const MaskHeader = function () {
   return {
     view: () => (
-      <div className="mask-wrapper">
+      <div className={m.route.param("demo") ? "mask-wrapper bg-gray-600" : "mask-wrapper bg-balance-pshades-dark"}>
         <header
           className={
             m.route.param("demo") ? "bg-gray-600" : "bg-balance-pshades-dark"
@@ -146,7 +146,9 @@ const MaskHeader = function () {
           </nav>
         </header>
         <div
-          class="lg:hidden text-gray-50 flex items-baseline justify-center leading-10 sm:leading-9 md:leading-7"
+          className={
+            m.route.param("demo") ? "bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6" : "bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6"
+          }
           id="current-habit-label-sm"
         >
           <span id="current-habit-sm" class="px-2">
@@ -155,7 +157,7 @@ const MaskHeader = function () {
           <span>{HabitStore.current()?.name}</span>
         </div>
       </div>
-    )
+    ),
   };
 };
 

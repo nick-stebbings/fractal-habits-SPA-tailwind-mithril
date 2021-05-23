@@ -3,36 +3,36 @@ import HabitStore from '../../../../store/habit-store';
 import HoverableLink from './UI/Buttons/HoverableLink.jsx';
 
 const DropdownNav = (function () {
-  const showMegaMenu = (e) => {
-    // const wrapper = document.querySelector('.mask-wrapper');
-    // if (wrapper.style.position === 'absolute') return;
-    // document.querySelector('#app > main').style.position = 'absolute';
-    document.querySelector('.mask-wrapper').style.height = '420px';
-    // const navItem = e.target.closest('li').querySelector('.mega-menu');
-    // if (navItem) (navItem.style.display = 'initial');
+  const showMegaMenu = (id) => {
+    document.querySelector('.mask-wrapper').style.height = '357px';
+    [...document.querySelectorAll('.mega-menu')].forEach((menu, idx) => {
+      if (id === idx) {
+        menu.style.display = 'block';
+      } else {
+        menu.style.display = 'none';
+      }
+    });
+    // [...document.querySelectorAll('.inset')].forEach((menu, idx) => { if (id === idx) { menu.style.display = 'grid' } });
+    document.querySelector('.mask-wrapper').style.zIndex = "40";
   };
   const hideMegaMenu = () => {
-    // document.querySelector('#app > main').style.position = 'initial';
-    document.querySelector('.mask-wrapper').style.height = '6rem';
-    // document.querySelectorAll('.mask-wrapper .mega-menu').forEach((menu) => { menu.style.display = 'none'; });
+    document.querySelector('.mask-wrapper').style.height = '6.3rem';
+    [...document.querySelectorAll('.mega-menu')].forEach(menu => {
+      menu.style.display = 'none';
+    });
+    document.querySelector('.mask-wrapper').style.zIndex = "10";
   };
   return {
     oncreate: () => {
-      document
-        .querySelector('#hamburger-wrapper')
-        .addEventListener('mouseenter', hideMegaMenu);
-      document
-        .querySelector('.mega-menu')
-        .addEventListener('mouseenter', showMegaMenu);
-      // [...document
-      //   .querySelectorAll('.nav li.hoverable')].forEach((navItem) => {
-      //   navItem.addEventListener('mouseenter', showMegaMenu, true);
-      // });
-      // [...document
-      //   .querySelectorAll('.nav li.hoverable')].forEach((navItem) => {
-      //   navItem.addEventListener('mouseleave', hideMegaMenu);
-      // });
-      document.querySelector('.nav').addEventListener('mouseleave', hideMegaMenu);
+      [...document
+        .querySelectorAll('.nav li.hoverable')].forEach((navItem) => {
+          navItem.addEventListener("click", (e) => {
+          let id = e.target.id;
+          let idx = ["nav-visualise", "nav-habits"].indexOf(id);
+          showMegaMenu(idx);
+        });
+      });
+      document.querySelector('nav.nav').addEventListener('mouseenter', hideMegaMenu);
     },
     view: ({ attrs: { routes } }) => (
       <nav className="nav">

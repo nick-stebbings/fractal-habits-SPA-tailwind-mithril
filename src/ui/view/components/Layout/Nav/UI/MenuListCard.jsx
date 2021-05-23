@@ -26,7 +26,7 @@ const MenuListCard = {
           },
           "Let's Go"
         )}
-        <p className="text-tershades-gray">{attrs.subtitle}</p>
+        <p className="text-tershades-gray mt-4">{attrs.subtitle}</p>
       </div>
     </div>
   ),

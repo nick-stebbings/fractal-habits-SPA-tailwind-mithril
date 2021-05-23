@@ -42,11 +42,16 @@ nav span {
 
 div.mask-wrapper {
   mask: initial;
-  @apply bg-balance-buttontext-reset;
+  height: 6.3rem;
+  z-index:10;
 
   > header {
     @apply md:h-12 z-10 flex-none h-16;
   }
+}
+
+div.mask-wrapper::after, div.mask-wrapper::before {
+  border: 0 !important;
 }
 
 body[class^="scroll"] #subnav {
@@ -63,17 +68,14 @@ body[class^="scroll"] .mask-wrapper {
     mask: no-repeat 10px -20px $maskimage;
   }
   body[class^="scroll"] div.mask-wrapper:hover {
-    height: 5rem;
+    height: 6.3rem;
   }
 
   div.mask-wrapper:hover {
     #current-habit-label {
       @apply fixed top-10 max-w-7xl overflow-auto;
     }
-
-    .hoverable:hover div.mask-wrapper {
-      height: 446px;
-    }
+    height: 357px;
   }
 }
 
@@ -123,7 +125,7 @@ li.hoverable {
       height: 330px;
       margin-top: 0.6rem;
       padding-right: 0.6em;
-      @apply flex bg-balance-pshades-dark;
+      @apply flex;
 
       .hero-message {
         @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-tershades-gray;
@@ -203,18 +205,6 @@ li.hoverable {
 }
 
 /* Hoverable Menu Activation */
-.inset,
-.mega-menu {
-  display: none;
-}
-
-.hoverable:hover .inset, .mask-wrapper:hover .inset {
-  display: grid;
-}
-
-.hoverable:hover .mega-menu, .mask-wrapper:hover .mega-menu {
-  display: block;
-}
 
 body[class^="scroll"] #subnav .nav-links .mega-menu {
   display: none;
