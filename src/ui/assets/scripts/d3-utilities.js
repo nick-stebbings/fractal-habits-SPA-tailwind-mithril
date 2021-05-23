@@ -226,6 +226,21 @@ const renderTree = function (
     };
   }
 
+  const handleZoom = function (event, node) {
+    if (event.deltaY >= 0 || deadNode(event)) return reset();
+
+    setActiveNode(node.data);
+    expand(node);
+    collapseAroundAndUnder(node);
+
+    updateCurrentHabit(node, false);
+    renderTree(svg, isDemo, zoomer, {
+      event,
+      node,
+      content: node.data,
+    });
+  };
+
   const handleEvents = function (selection) {
     selection.on("contextmenu", function (event, node) {
       event.preventDefault();
@@ -241,20 +256,8 @@ const renderTree = function (
       renderTree(svg, isDemo, zoomer);
     });
     selection
-      .on("mousewheel.zoom", function (event, node) {
-        if (event.deltaY >= 0|| deadNode(event)) return reset();
-
-        setActiveNode(node.data);
-        expand(node);
-        collapseAroundAndUnder(node);
-
-        updateCurrentHabit(node, false);
-        renderTree(svg, isDemo, zoomer, {
-          event,
-          node,
-          content: node.data,
-        });
-      }, {passive: true})
+      .on("mousewheel.zoom", handleZoom, { passive: true })
+      .on("touchstart", handleZoom, { passive: true })
       .on("click", function (event, node) {
         const targ = event.target;
         if (targ.tagName == "circle") {
