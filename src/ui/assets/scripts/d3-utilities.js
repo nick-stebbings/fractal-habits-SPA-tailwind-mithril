@@ -6,6 +6,7 @@ import { tree } from "d3-hierarchy";
 import { easeCircleOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
+import { isTouchDevice } from "./utilities";
 
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
@@ -45,7 +46,7 @@ const addLegend = (svg) => {
   const legendSvg = select("svg.legendSvg");
   const controlsSvg = select("svg.controlsSvg");
   const gText = controlsSvg.append("g").attr("class", "controls")
-    .attr("transform", "translate(265, 30) scale(0.8)");
+    .attr("transform", "translate(265, 40) scale(0.8)");
   const gLegend = legendSvg.append("g").attr("class", "legend")
     .attr("transform", "translate(25, 20) scale(2)");
 
@@ -56,11 +57,16 @@ const addLegend = (svg) => {
   let habitSpan = habitLabel.nextElementSibling;
   let habitLabelSm = document.getElementById("current-habit-sm");
   let habitSpanSm = habitLabelSm.nextElementSibling;
-  gText.append("text").text("L/Click ----> Habit Select");
-  gText
-    .append('text')
-    .attr('y', 25)
-    .text('R/Click --> Toggle Status');
+  if (isTouchDevice()) {
+    gText.append("text").text("Swipe Left ----> Next Day");
+    gText.append("text").text("Swipe Right ----> Last Day");
+  } else {
+    gText.append("text").text("L/Click ----> Habit Select");
+    gText
+      .append('text')
+      .attr('y', 25)
+      .text('R/Click --> Toggle Status');
+  }
 
   const colorLegend = legendColor()
     .labels(["", "", "", "", ""])

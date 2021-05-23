@@ -23,6 +23,14 @@ const addActiveMenuStyles = function () {
   });
 };
 
+function isTouchDevice() {
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0
+  );
+};
+
 const redraw = () => {
   m.redraw();
 };
@@ -82,4 +90,4 @@ const handleErrorType = function (err, type = "warning") {
   }
   throw err;
 };
-export { handleAndRethrow, invert, handleErrorType, addActiveMenuStyles, redraw, setRouteToBasePath };
+export { isTouchDevice, handleAndRethrow, invert, handleErrorType, addActiveMenuStyles, redraw, setRouteToBasePath };

@@ -2,6 +2,7 @@ import DateTime from 'luxon/src/datetime.js';
 import DateStore from '../../../../../../store/date-store';
 import HabitStore from '../../../../../../store/habit-store';
 import { resetContextStates, updatedMinAndMaxForCurrentHabit, changedDate } from '../../../../../../assets/scripts/controller';
+import { isTouchDevice } from '../../../../../../assets/scripts/utilities';
 
 const sanitiseForDataList = function (date) {
   return typeof date === 'object' && typeof date.h_date === 'string'
@@ -35,6 +36,10 @@ const DateSelector = function () {
       const prevDateSelector = document.getElementById('prev-date-selector');
       const nextDateSelector = document.getElementById('next-date-selector');
       [...dateInputs].forEach((input) => {
+        if (isTouchDevice()) {
+          input.disabled = true;
+        }
+
         input.addEventListener("change", (e) => {
           e.stopPropagation();
           dateIndex = DateStore.listForHabit()

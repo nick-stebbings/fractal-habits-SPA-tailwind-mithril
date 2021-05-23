@@ -4,6 +4,7 @@ const GeneralButton = {
       className={`bg-${attrs.color} hover:bg-${attrs.color}lighter button-container general-button`}
     >
       <button
+      type="submit"
         id={attrs.id}
         name={attrs.name}
         data-id={attrs.dataAttr}

@@ -63,6 +63,8 @@ const addIntersectionObserver = function () {
   const callback = (entries, observer) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
+      const respNav = document.querySelector('#hamburger');
+      respNav.checked = false;
       if (!entry.target.classList.contains('slide-center')) {
         entry.target.classList.add('slide-center');
       } else {

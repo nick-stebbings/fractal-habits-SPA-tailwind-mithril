@@ -2,13 +2,13 @@ import img1 from '../../../assets/images/journal.png';
 import img2 from '../../../assets/images/hierarchy-blocks.png';
 import img3 from "../../../assets/images/inspiring-blocks.png";
 import img4 from '../../../assets/images/block-triangle.png';
-import img5 from '../../../assets/images/block-triangle.png';
+import img5 from '../../../assets/images/screenshot-demo-data.png';
 
 const FeatureDisplay = {
   view: () => (
     <section className="info-cards w-full">
       <div className="relative">
-        <div className="right-slider border-balance-buttonbg-successlighter relative flex w-full -mr-1 overflow-hidden border-4 rounded-full rounded-r-none">
+        <div className="right-slider border-balance-buttonbg-successlighter relative flex w-full -mr-1 border-4 rounded-full rounded-r-none">
           <div className="slider-img pb-1/3 lg:pb-2/3">
             <img
               src={img1}
@@ -17,7 +17,7 @@ const FeatureDisplay = {
             />
           </div>
         </div>
-        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-12 my-12 rounded-full">
+        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-16 my-12 rounded-full">
           <h3 className="w-1/3 mb-8">Everyone Loves a Streak</h3>
           <p>
             If you know the satisfaction of completing a list, or marking off a
@@ -29,7 +29,7 @@ const FeatureDisplay = {
         </div>
       </div>
       <div className="relative">
-        <div className="left-slider border-balance-buttonbg-successlighter relative flex w-full -ml-1 overflow-hidden border-4 rounded-full rounded-l-none">
+        <div className="left-slider border-balance-buttonbg-successlighter relative flex w-full -ml-1 border-4 rounded-full rounded-l-none">
           <div className="slider-img pb-1/3 lg:pb-2/3">
             <img
               src={img3}
@@ -38,7 +38,7 @@ const FeatureDisplay = {
             />
           </div>
         </div>
-        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-12 my-12 rounded-full">
+        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-16 my-12 rounded-full">
           <h3 className="w-1/3 mb-8">
             Use Personal Data as the Building Blocks for Change
           </h3>
@@ -53,7 +53,7 @@ const FeatureDisplay = {
       </div>
 
       <div className="relative">
-        <div className="right-slider border-balance-buttonbg-successlighter relative flex w-full -mr-1 overflow-hidden border-4 rounded-full rounded-r-none">
+        <div className="right-slider border-balance-buttonbg-successlighter relative flex w-full -mr-1 border-4 rounded-full rounded-r-none">
           <div className="slider-img pb-1/3 lg:pb-2/3">
             <img
               src={img2}
@@ -62,7 +62,7 @@ const FeatureDisplay = {
             />
           </div>
         </div>
-        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-12 my-12 rounded-full">
+        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-16 my-12 rounded-full">
           <h3 className="w-1/3 mb-8">
             Use Natural Fractal Structure to Build Bigger Habits
           </h3>
@@ -80,7 +80,7 @@ const FeatureDisplay = {
       </div>
 
       <div className="relative">
-        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-12 my-12 rounded-full">
+        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-16 my-12 rounded-full">
           <h3 className="w-1/3 mb-8">Make a Strong Foundation for Change</h3>
           <p>
             Inspired by behavioural science, staying rooted in the now, and the
@@ -89,7 +89,7 @@ const FeatureDisplay = {
             behaviour.
           </p>
         </div>
-        <div className="left-slider border-balance-buttonbg-successlighter relative flex w-full -ml-1 overflow-hidden border-4 rounded-full rounded-l-none">
+        <div className="left-slider border-balance-buttonbg-successlighter relative flex w-full -ml-1 border-4 rounded-full rounded-l-none">
           <div className="slider-img pb-1/3 lg:pb-2/3">
             <img
               src={img4}
@@ -101,7 +101,7 @@ const FeatureDisplay = {
       </div>
 
       <div className="relative">
-        <div className="right-slider border-balance-buttonbg-successlighter relative flex w-full -mr-1 overflow-hidden border-4 rounded-full rounded-r-none">
+        <div className="right-slider border-balance-buttonbg-successlighter relative flex w-full -mr-1 border-4 rounded-full rounded-r-none">
           <div className="slider-img pb-1/3 lg:pb-2/3">
             <img
               src={img5}
@@ -110,7 +110,7 @@ const FeatureDisplay = {
             />
           </div>
         </div>
-        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-12 my-12 rounded-full">
+        <div className="top-48 slider-text absolute right-0 z-40 flex flex-col items-center px-6 py-16 my-12 rounded-full">
           <h3 className="w-1/3 mb-8">
             Utilise Demo Data to Envision Your Desired Objectives
           </h3>
