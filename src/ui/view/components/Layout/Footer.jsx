@@ -28,13 +28,13 @@ const Footer = {
                 <form
                   method="get"
                   enctype="text/plain"
-                  className="p-0 text-black"
+                  className="p-0"
                   action="mailto:nickofstebbs@gmail.com"
                 >
                   <label htmlFor="comment" className="flex w-full">
                     <textarea
                       name="comment"
-                      className="focus:outline-none flex w-full p-2 m-1 text-sm text-gray-100 appearance-none"
+                      className="focus:outline-none flex w-full p-2 m-1 text-sm text-black appearance-none"
                       placeholder="Leave your comment"
                       required
                     />
@@ -50,7 +50,6 @@ const Footer = {
                   <GeneralButton
                     id="submit-comments"
                     name="submit-comments"
-                    data-attr=""
                     label="Submit"
                     color={"balance-sshades-light"}
                     >
