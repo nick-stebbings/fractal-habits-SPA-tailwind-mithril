@@ -93,7 +93,7 @@ export default {
       <LogoLink isDemo={changedFromDemo} />
       <div
         id="app"
-        className="flex flex-col justify-between min-h-screen;"
+        className="flex flex-col justify-between min-h-screen w-full;"
       >
         <MaskHeader />
         <div className="sm-selector-container top-3 md:top-1 inset-x-16 absolute z-40 flex w-2/3">

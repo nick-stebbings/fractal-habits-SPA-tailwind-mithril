@@ -3,7 +3,6 @@ const mode = process.env.NODE_ENV || 'development';
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -35,7 +34,7 @@ module.exports = smp.wrap({
       m: require.resolve("mithril"), // Global access
     }),
     new MiniCssExtractPlugin({ filename: "./bundle.[contenthash].css" }),
-    new CleanWebpackPlugin({ verbose: true }),,
+    new CleanWebpackPlugin({ verbose: true }),
     new BundleAnalyzerPlugin({
       analyzerMode: "static",
     }),
@@ -65,7 +64,7 @@ module.exports = smp.wrap({
         exclude: /node_modules/,
         use: [
           {
-            loader: "file-loader",
+            loader: "url-loader",
             options: {
               name: "[name].[ext]",
               outputPath: "img",

@@ -85,7 +85,8 @@ module.exports = {
 
     extend: {
       spacing: {
-        '2/3': '300px',
+        '1/3': '33%',
+        '2/3': '66%',
       },
       boxShadow: {
         button: '0 0 0 1px #47301f',

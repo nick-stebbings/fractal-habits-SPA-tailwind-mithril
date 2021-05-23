@@ -174,7 +174,7 @@ const renderTree = function (
   if (rootData.name === "") return;
 
   // SETTINGS
-  let scale = isDemo ? 2 : 3;
+  let scale = isDemo ? 2.5 : 3.5;
   let clickScale = 3;
   const zoomBase = canvas;
   const levelsWide = canvasWidth < 600 || !!zoomClicked ? 2 : 6;
