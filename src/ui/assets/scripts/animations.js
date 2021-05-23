@@ -88,8 +88,12 @@ const addIntersectionObserver = function () {
     }
   }, options);
 
-  const infoCards = document.querySelectorAll('section.info-cards > div');
-  infoCards && infoCards.forEach((infoCard) => {
+  const infoCardsL = document.querySelectorAll('section.info-cards div.left-slider');
+  const infoCardsR = document.querySelectorAll('section.info-cards div.right-slider');
+  infoCardsL && infoCardsL.forEach((infoCard) => {
+    observer.observe(infoCard);
+  });
+  infoCardsR && infoCardsR.forEach((infoCard) => {
     observer.observe(infoCard);
   });
 

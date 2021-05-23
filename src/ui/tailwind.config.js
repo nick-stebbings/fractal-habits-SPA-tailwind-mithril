@@ -1,10 +1,10 @@
 module.exports = {
   purge: [
-    './**/*.html',
-    './**/*.scss',
-    './**/*.pcss',
-    './**/*.jsx',
-    './**/*.js',
+    'view/**/*.html',
+    'view/**/*.scss',
+    'view/**/*.pcss',
+    'view/**/*.jsx',
+    'view/**/*.js',
   ],
   theme: {
     colors: {
@@ -85,7 +85,7 @@ module.exports = {
 
     extend: {
       spacing: {
-        '1/5': '20%',
+        '2/3': '300px',
       },
       boxShadow: {
         button: '0 0 0 1px #47301f',

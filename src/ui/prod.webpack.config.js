@@ -1,4 +1,4 @@
-const mode = process.env.NODE_ENV || 'development';
+const mode = 'production';
 
 const path = require('path');
 const webpack = require('webpack');
@@ -6,14 +6,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 
-const smp = new SpeedMeasurePlugin();
-
-module.exports = smp.wrap({
+module.exports = {
   context: path.resolve(__dirname),
   entry: {
     index: "./index.js",
@@ -23,22 +18,17 @@ module.exports = smp.wrap({
     filename: "[name].build.js",
     chunkFilename: "[name].build.js",
   },
-  mode,
+  mode: mode,
   resolve: {
-    modules: [
-      "node_modules"
-    ]
+    modules: ["node_modules"],
   },
-  devtool: "cheap-module-eval-source-map",
+  devtool: false,
   plugins: [
     new webpack.ProvidePlugin({
       m: require.resolve("mithril"), // Global access
     }),
     new MiniCssExtractPlugin({ filename: "./bundle.[contenthash].css" }),
-    new CleanWebpackPlugin({ verbose: true }),,
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-    }),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./index.html",
       filename: "./index.html",
@@ -46,13 +36,18 @@ module.exports = smp.wrap({
   ],
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin()],
+    minimizer: [
+      new TerserPlugin(),
+      new OptimizeCssAssetsPlugin({
+        cssProcessorOptions: {
+          map: {
+            inline: false,
+            annotation: true,
+          },
+        },
+      }),
+    ],
   },
-  devServer: {
-    open: true,
-    hot: true,
-  },
-  watch: true,
   module: {
     rules: [
       {
@@ -132,4 +127,4 @@ module.exports = smp.wrap({
       },
     ],
   },
-});
+};

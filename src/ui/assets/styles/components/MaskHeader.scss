@@ -58,6 +58,10 @@ body[class^="scroll"] #subnav {
   mask: no-repeat 10px -20px $maskimage;
 }
 
+body[class^="scroll"] .sm-selector-container, body[class^="scroll"] #hamburger-wrapper nav {
+  display:none;
+}
+
 body[class^="scroll"] .mask-wrapper {
   mask: initial;
 }
