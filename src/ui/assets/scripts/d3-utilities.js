@@ -7,6 +7,7 @@ import { easeCircleOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
 import { isTouchDevice } from "./utilities";
+import Hammer from 'hammerjs';
 
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
@@ -59,7 +60,7 @@ const addLegend = (svg) => {
   let habitSpanSm = habitLabelSm.nextElementSibling;
   if (isTouchDevice()) {
     gText.append("text").text("Swipe Left ----> Next Day");
-    gText.append("text").text("Swipe Right ----> Last Day");
+    gText.append("text").text("Swipe Right ----> Last Day").attr("y", - 25);
   } else {
     gText.append("text").text("L/Click ----> Habit Select");
     gText
@@ -247,6 +248,34 @@ const renderTree = function (
     });
   };
 
+  const handleNodeToggle = function (event, node) {
+    const targ = event.target;
+    if (targ.tagName == "circle") {
+      event.stopPropagation();
+      if (
+        targ.closest(".the-node").classList.contains("active") ||
+        deadNode(event)
+      )
+        return reset();
+      setActiveNode(node.data);
+      expand(node);
+      node.children &&
+        node.children.forEach((childNode) => {
+          collapse(childNode);
+        });
+      updateCurrentHabit(node, false);
+      // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
+      renderTree(svg, isDemo, zoomer, {
+        event: undefined,
+        node: undefined,
+        content: node.data,
+      });
+      activeNodeAnimation();
+      setHabitLabel(node.data);
+      showHabitLabel();
+    }
+  };
+
   const handleEvents = function (selection) {
     selection.on("contextmenu", function (event, node) {
       event.preventDefault();
@@ -264,28 +293,7 @@ const renderTree = function (
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
       .on("touchstart", handleZoom, { passive: true })
-      .on("click", function (event, node) {
-        const targ = event.target;
-        if (targ.tagName == "circle") {
-          event.stopPropagation()
-          if (targ.closest(".the-node").classList.contains("active") || deadNode(event)) return reset();
-          setActiveNode(node.data);
-          expand(node);
-          node.children && node.children.forEach(childNode => {
-            collapse(childNode)
-          });
-          updateCurrentHabit(node, false);
-          // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
-          renderTree(svg, isDemo, zoomer, {
-            event: undefined,
-            node: undefined,
-            content: node.data,
-          });
-          activeNodeAnimation();
-          setHabitLabel(node.data);
-          showHabitLabel();
-        }
-      })
+      .on("click", handleNodeToggle)
       .on("mouseleave", function () {
         const g = select(this);
         g.select(".tooltip").transition().duration(250).style("opacity", "0");
@@ -300,7 +308,20 @@ const renderTree = function (
         setTimeout(() => {
           currentTooltip = false;
         }, 500);
+
       });
+          debugger;
+      const node = document.querySelector(selection);
+      const manager = new Hammer.Manager(node);
+      // Create a recognizer
+      const DoubleTap = new Hammer.Tap({
+        event: 'doubletap',
+        taps: 2
+      });
+    debugger;
+      // Add the recognizer to the manager
+      manager.add(DoubleTap);
+      manager.on('doubletap', handleNodeToggle)
 
     function handleStatusToggle(node) {
       if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status
@@ -563,23 +584,23 @@ const renderTree = function (
     });
 
 
-    // MY LABELS
-  enteringNodes
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 5)
-    .attr("dy", 25)
-    .style("fill", "green")
-    .text(cumulativeValue);
-  enteringNodes //VALUE label
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 45)
-    .attr("dy", -25)
-    .style("fill", "red")
-    .text((d) => {
-      return d.data.content;
-    });
+    // MY LABELS (for modified tree traversal)
+  // enteringNodes
+  //   .append("text")
+  //   .attr("class", "label")
+  //   .attr("dx", 5)
+  //   .attr("dy", 25)
+  //   .style("fill", "green")
+  //   .text(cumulativeValue);
+  // enteringNodes //VALUE label
+  //   .append("text")
+  //   .attr("class", "label")
+  //   .attr("dx", 45)
+  //   .attr("dy", -25)
+  //   .style("fill", "red")
+  //   .text((d) => {
+  //     return d.data.content;
+  //   });
     
     //
     enteringNodes

@@ -3,6 +3,7 @@ import HabitStore from '../../../../store/habit-store';
 import HoverableLink from './UI/Buttons/HoverableLink.jsx';
 
 const DropdownNav = (function () {
+
   const showMegaMenu = (id) => {
     document.querySelector('.mask-wrapper').style.height = '357px';
     [...document.querySelectorAll('.mega-menu')].forEach((menu, idx) => {
@@ -12,7 +13,6 @@ const DropdownNav = (function () {
         menu.style.display = 'none';
       }
     });
-    // [...document.querySelectorAll('.inset')].forEach((menu, idx) => { if (id === idx) { menu.style.display = 'grid' } });
     document.querySelector('.mask-wrapper').style.zIndex = "40";
   };
   const hideMegaMenu = () => {
@@ -28,8 +28,11 @@ const DropdownNav = (function () {
         .querySelectorAll('.nav li.hoverable')].forEach((navItem) => {
           navItem.addEventListener("click", (e) => {
           let id = e.target.id;
-          let idx = ["nav-visualise", "nav-habits"].indexOf(id);
-          showMegaMenu(idx);
+            let idx = ["nav-visualise", "nav-habits"].indexOf(id);
+            let menuVisible = (document.querySelector(
+              ".mask-wrapper"
+            ).style.height === "6.3rem");
+          menuVisible ? showMegaMenu(idc) : hideMegaMenu();
         });
       });
       document.querySelector('nav.nav').addEventListener('mouseenter', hideMegaMenu);
