@@ -32,7 +32,7 @@ module.exports = smp.wrap({
   devtool: mode === "development" ? "cheap-module-eval-source-map" : false,
   plugins: [
     new webpack.ProvidePlugin({
-      m: "mithril", // Global access
+      m: require.resolve("mithril"), // Global access
     }),
     new MiniCssExtractPlugin({ filename: "./bundle.[contenthash].css" }),
     new CleanWebpackPlugin({ verbose: true }),
