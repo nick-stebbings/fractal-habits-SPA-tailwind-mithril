@@ -50,10 +50,15 @@ module Hht
         result.exist? ? result.one.completed_status : nil
       end
 
-      def habit_dates_for_one_habit_node(habit_node_id)
-        dates
+      def habit_dates_for_one_habit_node(habit_id)
+        date_ids = dates
           .assoc(:habits)
-          .where(habit_node_id: habit_node_id)
+          .where(habit_id: habit_id)
+          .map{|habit| habit[:date_id] }
+        
+        habit_dates
+          .where(date_id: date_ids, habit_id: habit_id)
+          .order(:date_id)
       end
     end
   end

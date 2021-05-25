@@ -508,6 +508,7 @@ const renderTree = function (
 
   activeNode && activeNodeAnimation();
 
+  // Append circles and add hover event
   gCircle
     .append("circle")
     .attr("r", nodeRadius)
@@ -535,7 +536,6 @@ const renderTree = function (
       }
     });
 
-  // Append circles and add hover event
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)

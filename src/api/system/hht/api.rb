@@ -295,13 +295,15 @@ module Hht
       
       get '/:habit_id/habit_dates' do |habit_id|
         habit_id = habit_id.to_i
-        habit_node_id_exists = habit_repo.by_id(habit_id).exist?
-        habit_node_id_exists ? (habit_node_id = habit_repo.by_id(habit_id).one.habit_node_id) : halt(404, { message: 'No Habit Found' }.to_json)
-        habit_date_list = habit_date_repo.habit_dates_for_one_habit_node(habit_node_id).to_a
+        halt(404, { message: 'No Habit Found' }.to_json) unless habit_repo.by_id(habit_id).exist?
 
+        habit_date_list = habit_date_repo
+          .habit_dates_for_one_habit_node(habit_id)
+          .to_a
+          .map(&:to_h)
         halt(404, { message: 'No Habit Dates Found' }.to_json) unless habit_date_list.length > 0
         status 200
-        json json ({habit_dates: habit_date_list})
+        json (json({habit_dates: habit_date_list}))
       end
 
       post '' do
