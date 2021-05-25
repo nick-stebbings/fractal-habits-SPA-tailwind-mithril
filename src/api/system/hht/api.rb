@@ -11,6 +11,7 @@ require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
 require File.join(APP_ROOT, 'lib', 'yaml_store')
 
+require 'pry'
 module Hht
   YAML = YAMLStore.new # For demo data
 
@@ -138,11 +139,11 @@ module Hht
         habit_node = MultiJson.load(request.body.read, symbolize_keys: true)
         existing_node = habit_node_repo.as_json(node_id)
         result = if existing_node
-                   habit_node_repo.update(node_id,
-                                          habit_node)
-                 else
-                   habit_node_repo.create(node_id, habit_node)
-                 end
+            habit_node_repo.update(node_id,
+                                  habit_node)
+          else
+            habit_node_repo.create(node_id, habit_node)
+          end
 
         existing_node ? (status 204) : (status 201; result)
       end
@@ -188,11 +189,10 @@ module Hht
 
         root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
         if root_node.exist?
-          (tree = Subtree.generate(root_node.to_a.first.id,
-                                   date_id))
+          (tree = Subtree.generate(root_node.to_a.first.id, date_id))
         else
           halt(404,
-               { message: 'No nodes for this domain' }.to_json)
+          { message: 'No nodes for this domain' }.to_json)
         end
         status 200
         tree.to_d3_json
@@ -200,7 +200,7 @@ module Hht
 
       post '' do
         halt(405,
-             { message: 'A habit tree is a composition of habit nodes, to create one use node parent/child references' }.to_json)
+        { message: 'A habit tree is a composition of habit nodes, to create one use node parent/child references' }.to_json)
       end
 
       # Get subtree by root node id
@@ -229,9 +229,9 @@ module Hht
 
       get '/:domain_id/habits' do |id|
         habits = domain_repo
-                 .by_id_nest_with_habits(id)
-                 .one.habits
-                 .map(&:to_h)
+          .by_id_nest_with_habits(id)
+          .one.habits
+          .map(&:to_h)
 
         status 200
         json({ habits: habits }.to_json)
@@ -291,6 +291,17 @@ module Hht
       get '/:habit_id' do |id|
         status 200
         json habit_repo.as_json(id)
+      end
+      
+      get '/:habit_id/habit_dates' do |habit_id|
+        habit_id = habit_id.to_i
+        habit_node_id_exists = habit_repo.by_id(habit_id).exist?
+        habit_node_id_exists ? (habit_node_id = habit_repo.by_id(habit_id).one.habit_node_id) : halt(404, { message: 'No Habit Found' }.to_json)
+        habit_date_list = habit_date_repo.habit_dates_for_one_habit_node(habit_node_id).to_a
+
+        halt(404, { message: 'No Habit Dates Found' }.to_json) unless habit_date_list.length > 0
+        status 200
+        json json ({habit_dates: habit_date_list})
       end
 
       post '' do
