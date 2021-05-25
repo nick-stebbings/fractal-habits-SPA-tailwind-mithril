@@ -105,12 +105,11 @@ const addIntersectionObserver = function () {
 
 const registerEventListeners = (function () {
   const { body } = document;
-
   document.addEventListener('DOMContentLoaded', () => {
     const hamburgerCheckbox = document.getElementById('hamburger');
     const respNavLabel = document.getElementById('hamburger-label');
     respNavLabel && respNavLabel.addEventListener('focus', (e) => {
-      // Todo: add this and the logo as 'keyboard pressable' events
+      // Todo: add this and the logo as 'keyboard pressable' events for accessibility
       hamburgerCheckbox.checked = !hamburgerCheckbox.checked;
     });
 
@@ -119,14 +118,14 @@ const registerEventListeners = (function () {
         openModal(false);
       }
     });
-    window.addEventListener('scroll', handleScroll);
+    document.body.addEventListener('scroll', handleScroll);
 
     const removeBodyScrollClass = () => body.setAttribute('class', '');
     const scrollUp = 'scroll-up';
     const scrollDown = 'scroll-down';
     let lastScroll = 0;
     function handleScroll() {
-      const currentScroll = window.pageYOffset;
+      const currentScroll = body.scrollTop;
       if (currentScroll < 5) return removeBodyScrollClass();
       if (currentScroll > lastScroll && !body.classList.contains(scrollDown)) {
         // down

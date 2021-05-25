@@ -4,9 +4,9 @@ import "./assets/styles/app-components.pcss";
 import "./assets/styles/app-utilities.pcss";
 import "./assets/styles/vendor/flashJS/import";
 
+// Vendor JS
 import "./assets/scripts/vendor/flash.min.js";
-import { registerEventListeners } from "./assets/scripts/animations.js";
-import { DefaultRoute, Routes } from "./routes";
 
+import { DefaultRoute, Routes } from "./routes";
 const $root = document.body;
 m.route($root, DefaultRoute, Routes);

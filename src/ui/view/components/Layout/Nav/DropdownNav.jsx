@@ -32,7 +32,7 @@ const DropdownNav = (function () {
             let menuVisible = (document.querySelector(
               ".mask-wrapper"
             ).style.height === "6.3rem");
-          menuVisible ? showMegaMenu(idc) : hideMegaMenu();
+          menuVisible ? showMegaMenu(idx) : hideMegaMenu();
         });
       });
       document.querySelector('nav.nav').addEventListener('mouseenter', hideMegaMenu);

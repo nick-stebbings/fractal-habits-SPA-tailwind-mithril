@@ -33,12 +33,12 @@ module Hht
 
       def all_as_json
         { habit_dates: habit_dates.order(:date_id).map do |habit_date|
-                         {
-                           'date_id' => habit_date.fetch(:date_id),
-                           'habit_id' => habit_date.fetch(:habit_id),
-                           'completed_status' => habit_date.fetch(:completed_status)
-                         }
-                       end }.to_json
+          {
+            'date_id' => habit_date.fetch(:date_id),
+            'habit_id' => habit_date.fetch(:habit_id),
+            'completed_status' => habit_date.fetch(:completed_status)
+          }
+        end }.to_json
       end
 
       def query(criteria)
@@ -48,6 +48,12 @@ module Hht
       def completed_status_for_query(date_id, habit_id)
         result = query({ date_id: date_id, habit_id: habit_id })
         result.exist? ? result.one.completed_status : nil
+      end
+
+      def habit_dates_for_one_habit_node(habit_node_id)
+        dates
+          .assoc(:habits)
+          .where(habit_node_id: habit_node_id)
       end
     end
   end

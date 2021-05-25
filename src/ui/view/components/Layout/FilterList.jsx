@@ -26,19 +26,19 @@ const FilterList = function () {
         if (currentInput() == "") return;
         redrawLoadAndToggle();
       });
-      
+
       document
-      .querySelector("button[name=reset]")
-      .addEventListener("click", (e) => {
-        currentInput("");
-        redrawLoadAndToggle();
+        .querySelector("button[name=reset]")
+        .addEventListener("click", (e) => {
+          currentInput("");
+          redrawLoadAndToggle();
         });
 
       if (
         DomainStore.current()?.name !== "No Domains Registered" ||
         HabitStore.list().length == 0
       ) {
-        HabitStore.indexHabitsOfDomain(DomainStore.current().id)
+        HabitStore.indexHabitsOfDomain(DomainStore.current().id);
       }
     },
     view: ({ attrs }) => (
@@ -54,7 +54,7 @@ const FilterList = function () {
             value={currentInput()}
           />
           <GeneralButton
-            color="balance-buttonbg-reset"
+            color="hover:bg-bg-balance-buttonbg-reset-lighter bg-balance-buttonbg-reset"
             label={toggleButton()}
             name="reset"
           />

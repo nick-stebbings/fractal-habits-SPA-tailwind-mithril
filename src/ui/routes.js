@@ -17,6 +17,7 @@ import FeatureDisplay from "./view/components/Layout/FeatureDisplay.jsx";
 
 // Utils
 import { handleErrorType } from "./assets/scripts/utilities";
+import { registerEventListeners } from "./assets/scripts/animations.js";
 
 const spinnerState = stream(true); 
 const visSpinnerComponent = stream({ view: () => m("p", "Loading") }); 

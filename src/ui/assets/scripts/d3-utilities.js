@@ -289,6 +289,8 @@ const renderTree = function (
       });
       handleStatusToggle(node);
       renderTree(svg, isDemo, zoomer);
+      
+    debugger;
     });
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
@@ -311,17 +313,16 @@ const renderTree = function (
 
       });
           debugger;
-      const node = document.querySelector(selection);
-      const manager = new Hammer.Manager(node);
+      const manager = new Hammer.Manager(svg);
       // Create a recognizer
       const DoubleTap = new Hammer.Tap({
         event: 'doubletap',
         taps: 2
       });
     debugger;
-      // Add the recognizer to the manager
-      manager.add(DoubleTap);
-      manager.on('doubletap', handleNodeToggle)
+    // Add the recognizer to the manager
+    manager.add(DoubleTap);
+    manager.on('doubletap', handleNodeToggle)
 
     function handleStatusToggle(node) {
       if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status

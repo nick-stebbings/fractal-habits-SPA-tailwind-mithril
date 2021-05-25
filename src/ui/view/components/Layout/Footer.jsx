@@ -51,7 +51,7 @@ const Footer = {
                     id="submit-comments"
                     name="submit-comments"
                     label="Submit"
-                    color={"balance-sshades-light"}
+                    color="bg-balance-buttonbg-reset hover:bg-balance-buttonbg-resetlighter"
                     >
                     Submit Comment
                   </GeneralButton>

@@ -260,6 +260,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
   @apply text-gray-100 bg-gray-700 border-0;
   padding-left: 11rem;
+  padding-top: 1rem;
   margin-left: -1.3rem;
   min-width: 12rem;
   order: 1; /* Send it to the front of the flex row to display */
