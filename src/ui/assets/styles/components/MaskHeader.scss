@@ -116,7 +116,8 @@ li.hoverable {
   }
 
   > div.mega-menu {
-    @apply absolute inset-x-0 z-10 pt-2 w-full;
+    @apply absolute inset-x-0 z-10 pt-14 top-0 w-full;
+    height: 350px;
 
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -0.25rem $watermarkimage;
@@ -129,7 +130,7 @@ li.hoverable {
         @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-tershades-gray;
 
         h2 {
-          @apply px-4 py-2 w-2/3 mt-14 lg:mt-12 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
+          @apply px-4 py-2 w-2/3 lg:mt-8 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
         }
 
         p {
@@ -164,8 +165,7 @@ li.hoverable {
           }
 
           .menu-card-button {
-            top: 5.5rem;
-            @apply absolute border-2 mt-12 p-3 m-2 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
+            @apply absolute bottom-2 border-2 mt-12 p-3 m-2 rounded-full shadow-md text-gray-50 bg-gray-700 uppercase;
           }
 
           .menu-card-button:focus,

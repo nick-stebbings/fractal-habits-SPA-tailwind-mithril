@@ -312,17 +312,17 @@ const renderTree = function (
         }, 500);
 
       });
-          debugger;
-      const manager = new Hammer.Manager(svg);
-      // Create a recognizer
-      const DoubleTap = new Hammer.Tap({
-        event: 'doubletap',
-        taps: 2
-      });
-    debugger;
-    // Add the recognizer to the manager
-    manager.add(DoubleTap);
-    manager.on('doubletap', handleNodeToggle)
+      //     debugger;
+      // const manager = new Hammer.Manager(svg);
+      // // Create a recognizer
+      // const DoubleTap = new Hammer.Tap({
+      //   event: 'doubletap',
+      //   taps: 2
+      // });
+    // debugger;
+    // // Add the recognizer to the manager
+    // manager.add(DoubleTap);
+    // manager.on('doubletap', handleNodeToggle)
 
     function handleStatusToggle(node) {
       if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status
@@ -541,9 +541,9 @@ const renderTree = function (
     .classed("tooltip", true)
     .attr(
       "transform",
-      `translate(${(nodeRadius / 2) * scale}, ${-(
+      `translate(${(nodeRadius / 4) * scale}, ${-(
         scale * 2 * nodeRadius +
-        (isDemo ? -155 : -300)
+        (isDemo ? -195 : -400)
       )}), scale(1.5)`
     )
     .attr("opacity", "0");

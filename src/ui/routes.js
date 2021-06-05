@@ -245,6 +245,7 @@ const Routes = MenuRoutes.reduce(
               [
                 m(LogoSection),
                 m(SloganSection),
+                m('div', { class: 'cta-header' }, 'Choose a life domain:'),
                 m(PillSection, {
                   modalType: modalType,
                   pillTitles: ["Spirituality", "Mental Health", "Giving"],

@@ -91,13 +91,9 @@ const HabitDashboard = {
       );
 
     // Add hover/active styles
-    [...document.querySelectorAll("table tr")].forEach((row) => {
-      row.addEventListener("mouseover", (e) => {
-        e.stopPropagation();
-        if (e.currentTarget.tagName === "TR") {
-          e.currentTarget.style.backgroundColor = "#F0F0F0";
-        }
-      });
+    [...document.querySelectorAll("table tr")].forEach((row, index) => {
+      if (index === 0) return;
+
       // Add click event for TR (Rows)
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
@@ -214,7 +210,7 @@ const HabitDashboard = {
                   </th>
                   <th
                     scope="col"
-                    class="w-1/12 px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
+                    class="w-full px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   ></th>
                 </tr>
               </thead>
