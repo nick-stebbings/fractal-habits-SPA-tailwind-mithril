@@ -92,12 +92,13 @@ export default {
           {componentNodes[0]}
           {componentNodes[1]}
           {componentNodes[2]}
+          {componentNodes[3]}
           {isIndex && (
             <div class="cloud-man-vector object-cover w-full col-span-5">
               <img src={cloudMan} alt="Man thinking outside the box" />
             </div>
           )}
-          {componentNodes[3]}
+          {componentNodes[4]} 
         </MainStage>
       </div>
     </div>

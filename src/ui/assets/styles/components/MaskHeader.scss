@@ -121,13 +121,12 @@ li.hoverable {
 
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -0.25rem $watermarkimage;
-      height: 330px;
       margin-top: 0.6rem;
       padding-right: 0.6em;
-      @apply flex;
+      @apply flex h-full;
 
       .hero-message {
-        @apply w-1/4 pl-4 pr-2 mb-8 bg-gradient-to-r from-transparent to-balance-tershades-gray;
+        @apply w-1/4 pl-4 pr-2 mb-1 bg-gradient-to-r from-transparent to-balance-tershades-gray;
 
         h2 {
           @apply px-4 py-2 w-2/3 lg:mt-8 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
@@ -139,7 +138,7 @@ li.hoverable {
       }
 
       .inset {
-        @apply bg-gray-100 grid rounded-xl rounded-l-none w-3/4 grid-cols-3 grid-rows-1 gap-2 p-0 pr-2 pt-2 mb-8;
+        @apply bg-balance-tershades-light grid rounded-xl rounded-l-none w-3/4 grid-cols-3 grid-rows-1 gap-2 p-0 pr-2 pt-2 mb-2;
 
         .menu-card.disabled {
           p,

@@ -25,12 +25,13 @@ const FeatureCard = {
             const contentContainer = vnode.dom.querySelector(
               '.feature-card-content',
             );
+            console.log('hi');
+            debugger;
             const button = vnode.dom.querySelector('button');
             button.textContent = button.textContent == 'Hide' ? 'Find out more' : 'Hide';
             vnode.dom
               .querySelectorAll('p.long-content')
               .forEach((paragraph) => {
-                debugger;
                 paragraph.classNameList.toggle('hidden');
               });
             const height = contentContainer.scrollHeight;

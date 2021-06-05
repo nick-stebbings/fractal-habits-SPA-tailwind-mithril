@@ -175,19 +175,19 @@ const renderTree = function (
   const canvas = svg
     .append("g")
     .classed("canvas", true)
-    .attr("transform", `scale(1.2) translate(${currentXTranslate},${currentYTranslate})`);
+    .attr("transform", `scale(1.2), translate(${currentXTranslate},${currentYTranslate})`);
 
   let rootData = TreeStore.root();
   if (rootData.name === "") return;
 
   // SETTINGS
-  let scale = isDemo ? 2.5 : 3.5;
+  let scale = isDemo ? 4 : 5;
   let clickScale = 3;
   const zoomBase = canvas;
   const levelsWide = canvasWidth < 600 || !!zoomClicked ? 2 : 6;
   const levelsHigh = canvasHeight < 600 || !!zoomClicked ? 2 : 3;
-  const nodeRadius = 15 * scale;
-  const dx = ((canvasWidth / levelsHigh) * scale) / clickScale;
+  const nodeRadius = 20 * scale;
+  const dx = ((canvasWidth / levelsHigh)) / clickScale;
   const dy = (canvasHeight / levelsWide) * (isDemo ? scale / 3 : 1);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
@@ -541,10 +541,7 @@ const renderTree = function (
     .classed("tooltip", true)
     .attr(
       "transform",
-      `translate(${(nodeRadius / 4) * scale}, ${-(
-        scale * 2 * nodeRadius +
-        (isDemo ? -195 : -400)
-      )}), scale(1.5)`
+      `translate(${(nodeRadius / 8) * scale}, 75), scale(2)`
     )
     .attr("opacity", "0");
 
@@ -557,14 +554,14 @@ const renderTree = function (
 
   gTooltip
     .append("rect")
-    .attr("width", 230)
+    .attr("width", 300)
     .attr("height", 60)
-    .attr("rx", nodeRadius / 2);
+    .attr("rx", nodeRadius / 8);
 
   // Split the name label into two parts:
   gTooltip
     .append("text")
-    .attr("x", 10)
+    .attr("x", 5)
     .attr("y", 20)
     .text((d) => {
       const words = d.data.name.split(" ").slice(0, 6);
@@ -619,7 +616,7 @@ const renderTree = function (
   const gButton = gCircle
     .append("g")
     .classed("habit-label-dash-button", true)
-    .attr("transform", `translate(${65}, ${isDemo ? 10 : 0})`)
+    .attr("transform", `translate(${65}, 40)`)
     .attr("style", "opacity: 0");
 
   gButton
@@ -668,7 +665,7 @@ const renderTree = function (
     .attr("style", (d) => d.parent ? "opacity: 0" : "opacity: 1")
     .attr("rx", nodeRadius / 2)
     .attr("x", 175)
-    .attr("width", 100)
+    .attr("width", 110)
     .attr("height", 30)
     .on("click", (e) => {
       e.stopPropagation();

@@ -102,7 +102,7 @@ const MaskHeader = function () {
                     </div>
                   </div>
                 </div>
-                <div className="lg:block sm:w-3/5 lg:border-none lg:w-auto lg:mt-1 text-md md:px-0 lg:flex-row flex flex-wrap items-center justify-around hidden px-4 py-1 mt-3">
+                <div className="lg:block sm:w-3/5 lg:border-none lg:w-auto lg:mt-1 text-md md:px-0 lg:flex-row flex flex-wrap items-center justify-around hidden px-4 py-1 mt-3 mr-3">
                   <div className="lg:border-1 border-balance-tershades-gray lg:flex-row-reverse bg-balance-tershades-light lg:bg-gray-700 lg:py-0 lg:rounded-3xl lg:rounded-t-none flex items-center justify-between py-2 pl-4 mb-2 mr-1 border-2 rounded-full">
                     <img
                       className="lg:border-1 lg:border-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none border-1 border-balance-tershades-light flex-none object-cover w-10 h-10 rounded-full"
