@@ -24,6 +24,16 @@ module.exports = {
       black: '#1A140E',
       transparent: 'transparent',
       balance: {
+        basic: {
+          dark: '#C2DA8D',
+          sec: '#E1A761',
+          ter: '#3D3229',
+          dgray: '#686C7A',
+          gray: '#C4C4C4',
+          black: '#261C15',
+          digblue: '#6478E9',
+          default: '#DADECD',
+        },
         digblue: {
           light: '#5568d2',
           dark: '#283a99',
@@ -98,22 +108,14 @@ module.exports = {
       fontFamily: {
         sans: [
           'Silka',
+          'Montserrat',
           'Nunito',
-          'Inter',
-          'system-ui',
-          '-apple-system',
-          'BlinkMacSystemFont',
           '"Segoe UI"',
           'Roboto',
-          '"Helvetica Neue"',
-          'Arial',
-          '"Noto Sans"',
           'sans-serif',
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-          '"Noto Color Emoji"',
         ],
+        std: ['Poppins', 'Nunito', 'Roboto', 'sans-serif'],
+        serif: ['"DejaVu Serif"', 'Georgia', 'serif'],
       },
     },
     // Replace the default Tailwind config here

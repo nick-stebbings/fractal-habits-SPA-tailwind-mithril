@@ -19,7 +19,7 @@ const MaskHeader = function () {
         >
           <div
             id="responsive-nav"
-            className="md:h-12 md:px-2 lg:px-0 flex items-center justify-between h-16 px-4"
+            className="md:h-12 lg:px-0 sm:px-2 flex items-center justify-between h-16 px-1"
           >
             <m.route.Link
               selector="span"
@@ -81,7 +81,7 @@ const MaskHeader = function () {
                       </span>
                     </div>
                   </div>
-                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row lg:border-2 border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 rounded-full">
+                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 rounded-full">
                     <span className="lg:hidden xl:block md:pt-2 pt-0 pb-0 mx-4 mb-1">
                       <label htmlFor="date-today">Date</label>
                     </span>
@@ -147,12 +147,12 @@ const MaskHeader = function () {
         </header>
         <div
           className={
-            m.route.param("demo") ? "bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6" : "bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6"
+            m.route.param("demo") ? "bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6" : "bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 md:leading-6"
           }
           id="current-habit-label-sm"
         >
-          <span id="current-habit-sm" class="px-2">
-            Selected:
+          <span id="current-habit-sm" class="pl-1.5 pr-3">
+            Habit
           </span>
           <span>{HabitStore.current()?.name}</span>
         </div>

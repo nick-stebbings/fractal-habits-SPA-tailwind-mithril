@@ -84,7 +84,7 @@ export default {
       <LogoLink isDemo={changedFromDemo} />
       <div id="app" className="bg-gray-50 flex flex-col items-center m-0">
         <MaskHeader />
-        <div className="sm-selector-container top-3 md:top-1 inset-x-16 absolute z-40 flex w-2/3">
+        <div className="sm-selector-container top-3 md:top-1 inset-x-16 absolute z-40 flex flex-wrap w-2/3">
           <DomainSelector />
           <DateSelector />
         </div>

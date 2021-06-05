@@ -100,9 +100,10 @@ li#demo-indicator {
 }
 
 .nav-container span:first-child {
-  @apply uppercase lg:px-4 lg:pl-6 xl:text-xl lg:px-4 lg:leading-9 leading-10;
+  @apply uppercase lg:px-4 lg:pl-6 xl:text-xl lg:px-4 lg:leading-9 leading-10 block;
   font-family: B612, Lato, Nunito, sans;
   font-weight: 700;
+  line-height: 1.2;
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable a {
@@ -194,7 +195,7 @@ nav .menu-card p {
 }
 
 .wrapper {
-  width: calc(100% - 2em);
+  width: calc(100% - 2vw);
   margin-top: 1em;
   display: flex;
   justify-content: center;

@@ -67,20 +67,9 @@ body[class^="scroll"] .mask-wrapper {
   mask: initial;
 }
 
-@media (min-width: 1024px) {
-  div.mask-wrapper {
-    @apply relative z-40 overflow-hidden;
-    mask: no-repeat 10px -20px $maskimage;
-  }
-  body[class^="scroll"] div.mask-wrapper:hover {
-    height: 6.3rem;
-  }
-
-  div.mask-wrapper:hover {
-    #current-habit-label {
-      @apply fixed top-10 max-w-7xl overflow-auto;
-    }
-    height: 357px;
+@media (min-width: 640px) {
+  .sm-selector-container #date-today {
+    @apply h-8;
   }
 }
 
@@ -117,6 +106,10 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 li.hoverable {
+  height: 8vh;
+  max-height: 75px;
+  @apply flex items-center;
+
   a {
     cursor: pointer;
     @apply pt-1;
@@ -304,4 +297,41 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover a {
 span.logo svg path,
 .nav-label-primary {
   @apply focus:outline-none focus:outline-shadow active:outline-dashed;
+}
+
+
+@media (min-width: 1024px) {
+  /* Stack domain, date selectors; */
+  .nav-label-primary:first-of-type {
+    @apply z-20;
+  }
+  .nav-label-primary:last-of-type {
+    top: 1.85rem;
+    left: 15.05rem;
+    width:14.6rem;
+    border: 0;
+    @apply relative z-0;
+  }
+
+  div.mask-wrapper {
+    @apply relative z-40 overflow-hidden;
+    mask: no-repeat 10px -20px $maskimage;
+  }
+  body[class^="scroll"] div.mask-wrapper:hover {
+    height: 6.3rem;
+  }
+
+  div.mask-wrapper:hover {
+    #current-habit-label {
+      @apply fixed top-10 max-w-7xl overflow-auto;
+    }
+    height: 357px;
+  }
+}
+
+@media (min-width: 1280px) {
+  nav > div > .nav-label-primary:last-of-type {
+    left: 20rem;
+    width: 17.6rem
+  }
 }

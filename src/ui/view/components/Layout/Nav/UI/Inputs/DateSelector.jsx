@@ -21,20 +21,21 @@ const DateSelector = function () {
       dateIndex = DateStore.listForHabit().indexOf(DateStore.current());
     },
     oncreate: () => {
-      const todaysDate = DateTime.now().startOf('day');
-      currentHabitDate = DateStore.current() && DateTime.fromSQL(DateStore.current().h_date);
+      const todaysDate = DateTime.now().startOf("day");
+      currentHabitDate =
+        DateStore.current() && DateTime.fromSQL(DateStore.current().h_date);
 
       [minDate, maxDate] = updatedMinAndMaxForCurrentHabit();
       if (DateStore.current() && maxDate < todaysDate) {
         DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() });
         maxDate = DateTime.fromMillis(
-          DateTime.fromSQL(DateStore.current().h_date).ts,
+          DateTime.fromSQL(DateStore.current().h_date).ts
         );
         resetContextStates();
       }
-      const dateInputs = document.querySelectorAll('#date-today');
-      const prevDateSelector = document.getElementById('prev-date-selector');
-      const nextDateSelector = document.getElementById('next-date-selector');
+      const dateInputs = document.querySelectorAll("#date-today");
+      const prevDateSelector = document.getElementById("prev-date-selector");
+      const nextDateSelector = document.getElementById("next-date-selector");
       [...dateInputs].forEach((input) => {
         if (isTouchDevice()) {
           input.disabled = true;
@@ -45,26 +46,28 @@ const DateSelector = function () {
           dateIndex = DateStore.listForHabit()
             .map(sanitiseForDataList)
             .indexOf(e.target.value);
-            let newDate = DateStore.listForHabit()[dateIndex];
-            DateStore.current(newDate);
-            changedDate(true);
+          let newDate = DateStore.listForHabit()[dateIndex];
+          DateStore.current(newDate);
+          changedDate(true);
         });
       });
-      prevDateSelector.addEventListener('click', () => {
+      prevDateSelector.addEventListener("click", () => {
         if (!HabitStore.current()) return;
         if (currentHabitDate?.toLocaleString() !== minDate?.toLocaleString()) {
           dateIndex--;
-          let newDate = DateStore.listForHabit()[dateIndex] || DateStore.current();
+          let newDate =
+            DateStore.listForHabit()[dateIndex] || DateStore.current();
           DateStore.current(newDate);
         }
         changedDate(true);
         m.redraw();
       });
-      nextDateSelector.addEventListener('click', () => {
+      nextDateSelector.addEventListener("click", () => {
         if (!HabitStore.current()) return;
         if (currentHabitDate.toLocaleString() !== maxDate.toLocaleString()) {
           dateIndex++;
-          let newDate = DateStore.listForHabit()[dateIndex] || DateStore.current();
+          let newDate =
+            DateStore.listForHabit()[dateIndex] || DateStore.current();
           DateStore.current(newDate);
         }
         changedDate(true);
@@ -77,20 +80,20 @@ const DateSelector = function () {
           id="date-today"
           tabIndex="3"
           required
-          className="form-input lg:pt-4 w-full px-4 -mr-4 text-xl"
+          className="form-input lg:pt-4 md:h-8 w-full h-6 px-4 mt-1 -mr-4 text-xl"
           type="date"
-          value={
-            DateStore.currentDate()
-          }
+          value={DateStore.currentDate()}
           max={String(DateStore.currentDate())}
           list="current-habit-date-list"
         />
         <datalist id="current-habit-date-list">
-          {HabitStore.current()
-            && DateStore.listForHabit().map((dateElement) => m('option', {
-              value: sanitiseForDataList(dateElement),
-              name: `date-option-date-id-${dateElement.id}`,
-            }))}
+          {HabitStore.current() &&
+            DateStore.listForHabit().map((dateElement) =>
+              m("option", {
+                value: sanitiseForDataList(dateElement),
+                name: `date-option-date-id-${dateElement.id}`,
+              })
+            )}
         </datalist>
       </fieldset>
     ),
