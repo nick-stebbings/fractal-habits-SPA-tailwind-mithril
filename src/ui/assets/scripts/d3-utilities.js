@@ -175,7 +175,7 @@ const renderTree = function (
   const canvas = svg
     .append("g")
     .classed("canvas", true)
-    .attr("transform", `translate(${currentXTranslate},${currentYTranslate})`);
+    .attr("transform", `scale(1.2) translate(${currentXTranslate},${currentYTranslate})`);
 
   let rootData = TreeStore.root();
   if (rootData.name === "") return;
@@ -625,7 +625,7 @@ const renderTree = function (
   gButton
     .append("rect")
     .attr("rx", nodeRadius / 2)
-    .attr("width", 80)
+    .attr("width", 100)
     .attr("height", 30)
     .on("click", (e) => {
       e.stopPropagation();
@@ -646,15 +646,15 @@ const renderTree = function (
     gButton
       .append("rect")
       .attr("rx", nodeRadius / 2)
-      .attr("x", 70)
-      .attr("width", 80)
+      .attr("x", 90)
+      .attr("width", 100)
       .attr("height", 30)
       .on("click", (e) => {
         e.stopPropagation();
       });
     gButton
       .append("text")
-      .attr("x", 80)
+      .attr("x", 100)
       .attr("y", 20)
       .text((d) => "APPEND")
       .on("click", (e, n) => {
@@ -667,15 +667,15 @@ const renderTree = function (
     .append("rect")
     .attr("style", (d) => d.parent ? "opacity: 0" : "opacity: 1")
     .attr("rx", nodeRadius / 2)
-    .attr("x", 145)
-    .attr("width", 80)
+    .attr("x", 175)
+    .attr("width", 100)
     .attr("height", 30)
     .on("click", (e) => {
       e.stopPropagation();
     });
     gButton
     .append("text")
-    .attr("x", 155)
+    .attr("x", 195)
     .attr("y", 20)
     .text((d) => "PREPEND")
     .on("click", (e, n) => {
