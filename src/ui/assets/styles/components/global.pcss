@@ -1,7 +1,6 @@
 html,
 body {
-  @apply h-full w-full overflow-y-auto overflow-x-hidden;
-  font-size: 16px;
+  @apply h-full w-screen;
 }
 
 #modal .input-container {
@@ -9,22 +8,12 @@ body {
 }
 
 #app > main {
-  @apply border-t-4 border-balance-pshades-dark bg-gradient-to-b from-gray-50 to-transparent ;
   min-height: 95vh;
   z-index: 0;
 }
 
-#hero {
-  background: no-repeat 4% 1% url("../images/fib-circles.svg");
-  background-size: 50%;
-}
-
-#hero > header > h2 {
-  @apply mb-20;
-}
-
-#hero > header > h1, #hero > header > h2 {
-  @apply pl-8 lg:pl-8 pr-4 lg:pr-16;
+.cta-pills {
+  @apply col-span-5;
 }
 
 section.cards {
@@ -69,25 +58,9 @@ div.sm-selector-container .domain-selector {
   @apply sm:w-1/2;
 }
 
-@media (min-width: 1024px) {
-  div.sm-selector-container {
-    @apply hidden h-8;
-  }
-
-  nav > ul > li:first-of-type {
-    border: 0;
-  }
-}
-
 footer {
   height: 625px;
   background-color:#211912;
-}
-
-@media (min-width: 768px) {
-  footer {
-    height: 525px;
-  }
 }
 
 footer .responsive-nav-group {
@@ -98,4 +71,20 @@ footer .responsive-nav-group {
 
 footer svg {
   color: white !important;
+}
+
+@media (min-width: 768px) {
+  footer {
+    height: 525px;
+  }
+}
+
+@media (min-width: 1024px) {
+  div.sm-selector-container {
+    @apply hidden h-8;
+  }
+
+  nav > ul > li:first-of-type {
+    border: 0;
+  }
 }

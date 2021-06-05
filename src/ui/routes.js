@@ -12,12 +12,69 @@ import DateStore from "./store/date-store";
 import NodeStore from "./store/habit-node-store";
 
 // Components
-import HeroSection from "./view/components/Layout/HeroSection.jsx";
-import FeatureDisplay from "./view/components/Layout/FeatureDisplay.jsx";
+import PillSection from "./view/components/Layout/PillSection.jsx";
+import LogoSection from "./view/components/Layout/LogoSection.jsx";
+import SloganSection from "./view/components/Layout/SloganSection.jsx";
+import FeatureCardSection from "./view/components/Layout/FeatureCardSection.jsx";
 
 // Utils
 import { handleErrorType } from "./assets/scripts/utilities";
 import { registerEventListeners } from "./assets/scripts/animations.js";
+
+// Copy
+
+let cardCopy = [
+  {
+    title: "Everyone Loves a Streak",
+    short:
+      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+    long: [
+      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
+      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+    ],
+    imgUrl: "./images/1.png",
+  },
+  {
+    title: "Everyone Loves a Streak",
+    short:
+      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+    long: [
+      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
+      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+    ],
+    imgUrl: "./images/1.png",
+  },
+  {
+    title: "Everyone Loves a Streak",
+    short:
+      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+    long: [
+      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
+      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+    ],
+    imgUrl: "./images/1.png",
+  },
+  {
+    title: "Everyone Loves a Streak",
+    short:
+      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+    long: [
+      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
+      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+    ],
+    imgUrl: "./images/1.png",
+  },
+  {
+    title: "Everyone Loves a Streak",
+    short:
+      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+    long: [
+      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
+      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+    ],
+    imgUrl: "./images/1.png",
+  },
+];
 
 const spinnerState = stream(true); 
 const visSpinnerComponent = stream({ view: () => m("p", "Loading") }); 
@@ -135,17 +192,29 @@ const Routes = MenuRoutes.reduce(
       newRoutesObject[path] = {
         onmatch: function (vnode) {
           populateStores(vnode);
-          return menuSection.label === "Visualise" ? import(
-            /* webpackChunkName: "HabitTree" */ "./view/pages/HabitTree.jsx"
-          ).then(({ default: HabitTree }) => {
-            visSpinnerComponent(HabitTree);
-          }).catch(console.log) : null;
-          },
+          return menuSection.label === "Visualise"
+            ? import(
+                /* webpackChunkName: "HabitTree" */ "./view/pages/HabitTree.jsx"
+              )
+                .then(({ default: HabitTree }) => {
+                  visSpinnerComponent(HabitTree);
+                })
+                .catch(console.log)
+            : null;
+        },
         render: (e) =>
           menuSection.label === "Visualise"
-            ? m(d3visPageMaker(Layout, visSpinnerComponent(), spinnerState, modalType), {
-                heading: title,
-              })
+            ? m(
+                d3visPageMaker(
+                  Layout,
+                  visSpinnerComponent(),
+                  spinnerState,
+                  modalType
+                ),
+                {
+                  heading: title,
+                }
+              )
             : m({
                 view: () =>
                   m(
@@ -153,7 +222,7 @@ const Routes = MenuRoutes.reduce(
                     { spinnerState, modalType },
                     m(component, { modalType })
                   ),
-            }),
+              }),
       };
     });
 
@@ -172,9 +241,15 @@ const Routes = MenuRoutes.reduce(
                 spinnerState: spinnerState,
                 isIndex: true,
                 modalType: modalType,
-              }, [
-                m(HeroSection, { modalType }),
-                m(FeatureDisplay)
+              },
+              [
+                m(LogoSection),
+                m(SloganSection),
+                m(PillSection, {
+                  modalType: modalType,
+                  pillTitles: ["Spirituality", "Mental Health", "Giving"],
+                }),
+                m(FeatureCardSection, {cardCopy}),
               ]
             ),
         }),

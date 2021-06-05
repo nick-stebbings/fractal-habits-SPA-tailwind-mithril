@@ -4,34 +4,6 @@ html {
 
 /* Section-specific */
 
-#hero > header h1 {
-  font-size: 5.75rem;
-  font-family: "Palanquin Dark", sans-serif;
-  @apply sm:mt-12 text-6xl md:text-7xl xl:text-9xl md:text-center text-balance-pshades-dark mt-4 md:mt-16 lg:mt-24 font-semibold tracking-wider;
-  line-height: 6.5rem;
-  font-weight: boldest;
-}
-
-#hero > header em {
-  font-size: 115%;
-  font-family: 'Great Vibes', cursive, sans-serif;
-}
-
-#hero > header > h1:first-of-type{
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #d0790f;
-  text-shadow: 2px 2px 8px #898989
-}
-
-#hero > header h2 {
-  @apply text-right md:mb-6 sm:mt-6 md:mt-12 md:text-5xl lg:text-4xl md:text-right text-balance-pshades-dark mt-16 mb-12 lg:my-24 text-4xl font-bold;
-  line-height: 3.5rem;
-}
-
-#hero h3 {
-  @apply text-center text-3xl leading-6 text-balance-pshades-light py-2;
-}
-
 #call-to-action h2,
 section.info-cards h3,
 section > h2:first-of-type {
@@ -52,7 +24,6 @@ section > h2:first-of-type {
   @apply mt-4 underline text-center;
 }
 
-section#hero h3,
 .domain-pills,
 .user-nav-label,
 .menu-card-button {
@@ -76,8 +47,6 @@ section#hero h3,
 }
 
 section > h2:first-of-type,
-section.info-cards h3,
-section#hero h3 > span:hover,
 .nav-label-primary > span:hover,
 .responsive-nav-group > a:hover {
   text-decoration: underline;
@@ -107,14 +76,6 @@ form label {
 }
 
 /* Page-specific */
-
-.info-cards p {
-  width: 66%;
-  font-family: Silka, "Palanquin Dark", sans-serif;
-  font-weight: 200;
-  line-height: 3rem;
-  @apply text-2xl;
-}
 
 .habit-list-details-name {
   @apply text-balance-pshades-dark font-bold uppercase;
@@ -158,8 +119,6 @@ nav .hero-message p {
   font-weight: 600;
 }
 
-section#hero h3 > span,
-section.info-cards h3,
 nav .menu-card.enabled h3 {
   @apply text-xl text-center text-balance-pshades-dark;
   cursor: default;
@@ -191,4 +150,108 @@ nav .menu-card p {
   width: 4px;
   height: 4px;
   transform: rotate(39deg) scale(0.35);
+}
+
+.slogan h1 {
+    color: #B7C892;
+    font: 800 54pt 'Poppins', sans-serif; 
+    text-shadow:
+      -1px -1px 0 #000,  
+      1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    -webkit-text-stroke: 1px #261C15;
+    letter-spacing: .05em;
+    line-height: 1.25em;
+    margin-top: 3rem;
+  }
+
+  h1.main-logo {
+    @apply text-black;
+    font: 600 54pt 'Oleo Script Swash Caps', cursive;
+    letter-spacing: .05em;
+    line-height: 1.25em;
+  }
+
+  h1.main-logo span {
+    color: #fb9417;
+    background: -webkit-linear-gradient(90deg, rgba(255,255,2550,.15) 0%, rgba(251,148,23,1) 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-left: .5rem;
+  }
+
+  h2.tagline {
+    font: 100 .85rem 'Silka', sans-serif; 
+    letter-spacing: .01em;
+    margin-top: -.75rem;
+  }
+
+.feature-card:nth-child(n) h2::after {
+  content: 'asds';
+  font-size: 3rem;
+  display: none;
+}
+
+.wrapper {
+  width: calc(100% - 2em);
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .wrapper > .cloud-man-vector {
+    grid-column: 2/span 3;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+#app  > .wrapper {
+    width: calc(100% - 6em);
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+#app  > .wrapper {
+    width: calc(100% - 12em);
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(6, 15vh);
+  }
+
+#app  > .wrapper > .logo, #app > .wrapper > .slogan {
+    grid-column: 6 / span 5;
+  }
+
+#app  > .wrapper > .logo {
+    grid-row: 1;
+  }
+
+#app  > .wrapper > .slogan {
+    grid-row: 2;
+  }
+
+#app  > .wrapper > .cta-header {
+    grid-row: 5;
+    font-size: 1.25rem;
+  }
+
+#app  > .wrapper > .cloud-man-vector {
+    grid-column: 2 / span 6;
+    grid-row: 4 / span 3;
+  }
+
+#app  > .wrapper > .cta-header {
+    grid-column: 7 / span 3;
+  }
+#app  > .wrapper > #pill-section {
+    grid-row: 3;
+    grid-column: 10 / span 5;
+    margin-left: -4rem;
+  }
+  
+#app  > .wrapper h1 {
+    font-size: 5rem;
+  }
+
 }
