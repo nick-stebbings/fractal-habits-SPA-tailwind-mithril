@@ -105,7 +105,7 @@
   border-radius: 1.5rem;
   margin-left: clamp(4vw, .1vw, 6rem);
 }
-
+  
 .feature-card.img-loaded:nth-child(1)::after {
   background-image: url('../../images/photos/journal-masked.png');  
 }
@@ -151,18 +151,21 @@
   .feature-card::after {
     width:33%;
   }
-  
-  .feature-card-content {
+ 
+  .feature-card.wide > .feature-card-content {
+    position: relative;
     width: 75%;
     min-height: fit-content;
   }
 
   .feature-card.wide > .feature-card-content {
     width: 100%;
+    padding-bottom: 8rem;
+    max-height: none;
   }
   
   .feature-card.wide > .feature-card-content button {
-    bottom: 15rem;
+    bottom: -0.5rem;
   }
 }
 
@@ -184,7 +187,7 @@
   .feature-card-section {
     grid-row-gap: 0;
     grid-template-columns: repeat(13, 1fr);
-    grid-template-rows: repeat(17, minmax(100px, 1fr));
+    grid-template-rows: repeat(17, 100px);
   }
   .feature-card:nth-child(2) {
     grid-column: span 5;

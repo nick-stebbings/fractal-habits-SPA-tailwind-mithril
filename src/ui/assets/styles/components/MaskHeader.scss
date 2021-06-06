@@ -21,6 +21,7 @@ $watermarkimage: url("../../images/watermark.png");
 .logo-link {
   @apply fixed text-transparent z-50 w-12 hidden lg:block;
   left: 5px;
+  top: 5px;
 }
 
 .logo-link,
@@ -55,7 +56,7 @@ div.mask-wrapper::after, div.mask-wrapper::before {
 }
 
 body[class^="scroll"] #subnav {
-  mask: no-repeat 10px -20px $maskimage;
+  mask: no-repeat 15px -20px $maskimage;
 }
 
 body[class^="scroll"] .sm-selector-container, body[class^="scroll"] #hamburger-wrapper nav {

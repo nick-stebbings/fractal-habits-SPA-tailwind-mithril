@@ -28,7 +28,7 @@ const FeatureCardSection = {
   },
   view: ({ attrs }) => (
     <div className="wrapper">
-      <div className="wrapper feature-card-section grid">
+      <div className="wrapper feature-card-section xl:grid flex flex-col">
         {attrs.cardCopy
           && attrs.cardCopy.map((content, idx) => {
             const {

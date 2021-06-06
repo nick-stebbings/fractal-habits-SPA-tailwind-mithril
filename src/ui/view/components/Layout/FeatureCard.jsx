@@ -1,6 +1,21 @@
 // src/view/components/Layout/FeatureCard.jsx
 
 const FeatureCard = {
+  oncreate: (vnode) => {
+    vnode.dom.querySelector('button').addEventListener('click', () => {
+      const contentContainer = vnode.dom.querySelector('.feature-card-content');
+      const button = vnode.dom.querySelector('button');
+      button.textContent = button.textContent == 'Hide' ? 'Find out more' : 'Hide';
+      vnode.dom.querySelectorAll('p.long-content').forEach((paragraph) => {
+        paragraph.classList.toggle('hidden');
+      });
+      document.querySelector('.feature-card-section').style.gridTemplateRows = 'repeat(17, minmax(100px, 1fr))';
+
+      const height = contentContainer.scrollHeight;
+      const { maxHeight } = window.getComputedStyle(contentContainer);
+      contentContainer.style.maxHeight = maxHeight !== '128px' ? `${height + 16}px` : '128px';
+    });
+  },
   view: (vnode) => (
     <div
       className={
@@ -21,22 +36,6 @@ const FeatureCard = {
         ))}
         <button
           type="button"
-          onClick={function () {
-            const contentContainer = vnode.dom.querySelector(
-              '.feature-card-content',
-            );
-            debugger;
-            const button = vnode.dom.querySelector('button');
-            button.textContent = button.textContent == 'Hide' ? 'Find out more' : 'Hide';
-            vnode.dom
-              .querySelectorAll('p.long-content')
-              .forEach((paragraph) => {
-                paragraph.classNameList.toggle('hidden');
-              });
-            const height = contentContainer.scrollHeight;
-            const { maxHeight } = window.getComputedStyle(contentContainer);
-            contentContainer.style.maxHeight = maxHeight !== '128px' ? `${height + 16}px` : '128px';
-          }}
           className="button font-std hover:bg-balance-basic-digblue rounded-l-2xl rounded-b-2xl bottom-12 absolute px-4 py-1 font-semibold tracking-widest uppercase"
         >
           Find Out More
