@@ -98,8 +98,8 @@ export default {
               <img src={cloudMan} alt="Man thinking outside the box" />
             </div>
           )}
-          {componentNodes[4]} 
         </MainStage>
+        {componentNodes[4]}
       </div>
     </div>
   ),

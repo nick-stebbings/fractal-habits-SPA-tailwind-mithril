@@ -237,12 +237,8 @@
     width: 66%;
     text-align: left;
   }
-
-  .feature-card:nth-child(2n + 1) h2 {
-    left: -35vw;
-  }
-
-  .feature-card:nth-child(n) h2::before {
+  
+  .wrapper .feature-card:nth-child(n) h2::before {
     position: absolute;
     content: '';
     width: 50%;
@@ -251,20 +247,26 @@
     top: 1em;
     z-index: -1;
   }
-
-  .feature-card:nth-child(n) h2::after {
+  
+  .wrapper .feature-card:nth-child(n) h2::after {
     display: block;
     margin: 4rem 0;
   }
 
-  .feature-card:nth-child(2n + 1) h2::after {
+  .wrapper .feature-card:nth-child(2n + 1) h2 {
+    left: -38vw;
+  }
+  
+  .wrapper .feature-card:nth-child(2n + 1) h2 , .wrapper .feature-card:nth-child(2n + 1) h2::after {
     text-align: left;
   }
-  .feature-card:nth-child(2n) h2 {
-    left: 50vw;
+
+  .wrapper .feature-card:nth-child(2n) h2 {
+    left: 39vw;
     text-align: right;
   }
-  .feature-card:nth-child(2n) h2::after {
+
+  .wrapper .feature-card:nth-child(2n) h2::after {
     text-align: right;
   }
 }

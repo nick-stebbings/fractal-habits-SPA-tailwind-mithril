@@ -181,12 +181,12 @@ const renderTree = function (
   if (rootData.name === "") return;
 
   // SETTINGS
-  let scale = isDemo ? 4 : 5;
+  let scale = isDemo ? 3.5 : 4.5;
   let clickScale = 3;
   const zoomBase = canvas;
   const levelsWide = canvasWidth < 600 || !!zoomClicked ? 2 : 6;
   const levelsHigh = canvasHeight < 600 || !!zoomClicked ? 2 : 3;
-  const nodeRadius = 20 * scale;
+  const nodeRadius = 17 * scale;
   const dx = ((canvasWidth / levelsHigh)) / clickScale;
   const dy = (canvasHeight / levelsWide) * (isDemo ? scale / 3 : 1);
 

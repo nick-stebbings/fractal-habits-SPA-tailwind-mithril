@@ -154,57 +154,44 @@ nav .menu-card p {
 }
 
 .slogan h1 {
-    color: #B7C892;
-    font: 800 54pt 'Poppins', sans-serif; 
-    text-shadow:
-      -1px -1px 0 #000,  
-      1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000;
-    -webkit-text-stroke: 1px #261C15;
-    letter-spacing: .05em;
-    line-height: 1.25em;
-    margin-top: 3rem;
-  }
+  color: #B7C892;
+  font: 800 54pt 'Poppins', sans-serif; 
+  text-shadow:
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  -webkit-text-stroke: 1px #261C15;
+  letter-spacing: .05em;
+  line-height: 1.25em;
+  margin-top: 3rem;
+}
 
-  h1.main-logo {
-    @apply text-black;
-    font: 600 54pt 'Oleo Script Swash Caps', cursive;
-    letter-spacing: .05em;
-    line-height: 1.25em;
-  }
+h1.main-logo {
+  @apply text-black;
+  font: 600 54pt 'Oleo Script Swash Caps', cursive;
+  letter-spacing: .05em;
+  line-height: 1.25em;
+}
 
-  h1.main-logo span {
-    color: #fb9417;
-    background: -webkit-linear-gradient(90deg, rgba(255,255,2550,.15) 0%, rgba(251,148,23,1) 50%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    padding-left: .5rem;
-  }
+h1.main-logo span {
+  color: #fb9417;
+  background: -webkit-linear-gradient(90deg, rgba(255,255,2550,.15) 0%, rgba(251,148,23,1) 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-left: .5rem;
+}
 
-  h2.tagline {
-    font: 100 .85rem 'Silka', sans-serif; 
-    letter-spacing: .01em;
-    margin-top: -.75rem;
-  }
+h2.tagline {
+  font: 100 .85rem 'Silka', sans-serif; 
+  letter-spacing: .01em;
+  margin-top: -.75rem;
+}
 
 .feature-card:nth-child(n) h2::after {
   content: 'asds';
   font-size: 3rem;
   display: none;
-}
-
-.wrapper {
-  width: calc(100% - 2vw);
-  margin-top: 1em;
-  display: flex;
-  justify-content: center;
-}
-
-@media only screen and (min-width: 768px) {
-  .wrapper > .cloud-man-vector {
-    grid-column: 2/span 3;
-  }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -214,45 +201,7 @@ nav .menu-card p {
 }
 
 @media only screen and (min-width: 1920px) {
-#app  > .wrapper {
-    width: calc(100% - 12em);
-    grid-template-columns: repeat(15, 1fr);
-    grid-template-rows: repeat(6, 15vh);
-  }
-
-#app  > .wrapper > .logo, #app > .wrapper > .slogan {
-    grid-column: 6 / span 5;
-  }
-
-#app  > .wrapper > .logo {
-    grid-row: 1;
-  }
-
-#app  > .wrapper > .slogan {
-    grid-row: 2;
-  }
-
-#app  > .wrapper > .cta-header {
-    grid-row: 5;
-    font-size: 1.25rem;
-  }
-
-#app  > .wrapper > .cloud-man-vector {
-    grid-column: 2 / span 6;
-    grid-row: 4 / span 3;
-  }
-
-#app  > .wrapper > .cta-header {
-    grid-column: 7 / span 3;
-  }
-#app  > .wrapper > #pill-section {
-    grid-row: 3;
-    grid-column: 10 / span 5;
-    margin-left: -4rem;
-  }
-  
-#app  > .wrapper h1 {
-    font-size: 5rem;
-  }
-
+  #app  > .wrapper h1 {
+      font-size: 5rem;
+    }
 }

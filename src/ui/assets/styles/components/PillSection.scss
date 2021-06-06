@@ -7,11 +7,8 @@ main .cta-pills svg {
   left: 0;
 }
 
-#pill-section {
-  grid-column: 2 / span 4;
-}
-
 .cta-pills {
+  grid-column: 2 / span 4;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -64,10 +61,8 @@ main .cta-pills svg {
 }
 
 @media only screen and (min-width: 680px) {
-  #pill-section {
-    grid-column: 1 / span 5;
-  }
   .cta-pills {
+    grid-column: 1 / span 5;
     justify-content: stretch;
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -76,6 +71,8 @@ main .cta-pills svg {
     align-items: center;
     margin-top: -2rem;
     margin-left: 0;
+    overflow: initial;
+    width: 100%;
   }
 
   .nav-pill {
@@ -102,30 +99,29 @@ main .cta-pills svg {
     width: 66%;
     margin-bottom: 6rem;
   }
-
 }
 
 @media only screen and (min-width: 1920px) {
-  #pill-section .cta-pills {
+  #app main .cta-pills {
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(3, 150px);
     align-items: flex-start;
   }
 
-  #pill-section .cta-pills .nav-pill {
+  #app main .cta-pills .nav-pill {
     width: 100%;
   }
 
-  #pill-section .cta-pills .nav-pill:nth-of-type(1) {
+  #app main .cta-pills .nav-pill:nth-of-type(1) {
     grid-row: 3/ span 1;
   }
 
-  #pill-section .cta-pills .nav-pill:nth-of-type(2) {
+  #app main .cta-pills .nav-pill:nth-of-type(2) {
     grid-column: 2/ span 1;
     margin-top: 0;
   }
 
-  #pill-section .cta-pills .nav-pill:nth-of-type(3) {
+  #app main .cta-pills .nav-pill:nth-of-type(3) {
     grid-column: 3/ span 1;
   }
 }

@@ -2,8 +2,8 @@ const MenuListCard = {
   oncreate: ({ attrs, dom }) => {
     if (attrs.enabled) {
       dom.classList.add('enabled');
-      dom.classList.toggle('disabled');
     }
+    dom.classList.toggle('disabled');
   },
   view: ({ attrs }) => (
     <div className="menu-card disabled rounded-2xl flex flex-col justify-between h-full text-black bg-gray-100 shadow-xl">

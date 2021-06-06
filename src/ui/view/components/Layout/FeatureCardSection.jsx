@@ -27,23 +27,25 @@ const FeatureCardSection = {
     });
   },
   view: ({ attrs }) => (
-    <div className="wrapper feature-card-section gap-y-12 grid">
-      {attrs.cardCopy
-        && attrs.cardCopy.map((content, idx) => {
-          const {
-            title,
-            short: shortContentParagaph,
-            long: longContentParagraphs,
-          } = content;
-          return (
-            <FeatureCard
-              wide={[1, 2, 3, 4].includes(idx)}
-              title={title}
-              shortContent={shortContentParagaph}
-              longContent={longContentParagraphs}
-            />
-          );
-        })}
+    <div className="wrapper">
+      <div className="wrapper feature-card-section gap-y-12 grid">
+        {attrs.cardCopy
+          && attrs.cardCopy.map((content, idx) => {
+            const {
+              title,
+              short: shortContentParagaph,
+              long: longContentParagraphs,
+            } = content;
+            return (
+              <FeatureCard
+                wide={[1, 2, 3, 4].includes(idx)}
+                title={title}
+                shortContent={shortContentParagaph}
+                longContent={longContentParagraphs}
+              />
+            );
+          })}
+      </div>
     </div>
   ),
 };

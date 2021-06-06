@@ -3,18 +3,28 @@ body {
   @apply h-full w-screen;
 }
 
+div.inactive {
+  @apply hidden;
+}
+
 #app > main {
   min-height: 95vh;
   z-index: 0;
+  width: 100%;
 }
 
-.cta-pills, .cta-header {
-  @apply col-span-5;
+.wrapper {
+  width: calc(100% - 2vw);
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
 }
 
 section.cards {
   @apply px-4;
 }
+
+/*  Form Layout */
 
 form {
   @apply w-full flex flex-col items-center px-4 pt-6 pb-20;
@@ -37,9 +47,8 @@ form#create-new-habit-child > .input-container {
   @apply h-1/2 px-8 xl:w-3/4 w-full mt-2 text-xl;
 }
 
-div.inactive {
-  @apply hidden;
-}
+
+/*  Nav Layout  */
 
 #hamburger-wrapper,
 .logo {
@@ -55,19 +64,14 @@ div.sm-selector-container .domain-selector {
   max-width: 85%;
 }
 
-footer {
-  height: 625px;
-  background-color:#211912;
+.cta-pills, .cta-header {
+  @apply col-span-5;
 }
 
-footer .responsive-nav-group {
-  width: 50% !important;
-  padding: 0 2rem !important;
-  margin: 0 !important;
-}
-
-footer svg {
-  color: white !important;
+@media only screen and (min-width: 768px) {
+  .wrapper > .cloud-man-vector {
+    grid-column: 2/span 3;
+  }
 }
 
 @media (min-width: 768px) {
@@ -83,5 +87,41 @@ footer svg {
 
   nav > ul > li:first-of-type {
     border: 0;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  #app  > .wrapper {
+    width: calc(100% - 12em);
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(6, 15vh);
+  }
+
+  #app  > .wrapper > .logo, #app > .wrapper > .slogan {
+    grid-column: 6 / span 5;
+  }
+
+  #app  > .wrapper > .logo {
+    grid-row: 1;
+  }
+
+  #app  > .wrapper > .slogan {
+    grid-row: 2;
+  }
+
+  #app  > .wrapper > .cta-header {
+    grid-row: 5;
+    font-size: 1.25rem;
+    grid-column: 7 / span 3;
+  }
+
+  #app  > .wrapper > .cloud-man-vector {
+    grid-column: 1 / span 6;
+    grid-row: 4 / span 3;
+  }
+
+  #app  > .wrapper > .cta-pills {
+    grid-row: 4;
+    grid-column: 11 / span 5;
   }
 }
