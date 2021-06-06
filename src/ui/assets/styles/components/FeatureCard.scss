@@ -171,6 +171,10 @@
     display: relative !important;
   }
 
+  .wrapper > .feature-card-section >.feature-card::after {
+    border-top-left-radius: unset;
+  }
+
   .wrapper >.feature-card > .feature-card-content > button {
     bottom: 1rem;
   }
@@ -207,6 +211,7 @@
 
 @media only screen and (min-width: 1920px) {
   .feature-card-section {
+    grid-row-gap: 12rem;
     grid-template-rows: unset;
   }
   .feature-card:nth-child(n) {
@@ -231,14 +236,13 @@
   }
   
 /* Move titles into whitespace */
-  .wrappper > .feature-card:nth-child(n) > h2 {
+  .wrapper > .feature-card.wide > h2, .wrapper > .feature-card > h2 {
     position: absolute;
-    top: 5vh;
-    width: 66%;
-    text-align: left;
+    top: 8rem;
+    width: 50%;
   }
   
-  .wrapper .feature-card:nth-child(n) h2::before {
+  .wrapper .feature-card h2::before {
     position: absolute;
     content: '';
     width: 50%;
@@ -248,13 +252,13 @@
     z-index: -1;
   }
   
-  .wrapper .feature-card:nth-child(n) h2::after {
+  .wrapper .feature-card h2::after {
     display: block;
     margin: 4rem 0;
   }
 
   .wrapper .feature-card:nth-child(2n + 1) h2 {
-    left: -38vw;
+    left: -34vw;
   }
   
   .wrapper .feature-card:nth-child(2n + 1) h2 , .wrapper .feature-card:nth-child(2n + 1) h2::after {
@@ -262,7 +266,7 @@
   }
 
   .wrapper .feature-card:nth-child(2n) h2 {
-    left: 39vw;
+    left: 58vw;
     text-align: right;
   }
 

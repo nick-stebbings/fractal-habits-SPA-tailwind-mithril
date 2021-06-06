@@ -28,7 +28,7 @@ const FeatureCardSection = {
   },
   view: ({ attrs }) => (
     <div className="wrapper">
-      <div className="wrapper feature-card-section gap-y-12 grid">
+      <div className="wrapper feature-card-section grid">
         {attrs.cardCopy
           && attrs.cardCopy.map((content, idx) => {
             const {
