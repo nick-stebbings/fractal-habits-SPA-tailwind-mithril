@@ -60,12 +60,30 @@ form#create-new-habit-child > .input-container {
 }
 
 div.sm-selector-container .domain-selector {
-  @apply sm:w-1/2;
+  @apply sm:w-1/2 text-xs;
   max-width: 85%;
 }
 
+.main-logo::before {
+  position: absolute;
+  right: 20px;
+  top: -20px;
+  content: '\f005';
+  width: 1rem;
+  height: 1rem;
+  @apply bg-balance-basic-digblue;
+}
+
+.main-logo::after {
+  @apply font-std;
+  position: absolute;
+  content: 'Demo';
+  font-size: 1rem;
+  color: white;
+}
+
 .cta-pills, .cta-header {
-  @apply col-span-5;
+  @apply col-span-5 pr-8 md:pr-0;
 }
 
 @media only screen and (min-width: 768px) {
@@ -97,6 +115,20 @@ div.sm-selector-container .domain-selector {
     grid-template-rows: repeat(6, 15vh);
   }
 
+  #app .feature-card:first-child, #app .feature-card:last-child {
+    margin-bottom: 8rem;
+  }
+
+  #app  > .wrapper:last-child::before {
+    background: no-repeat url('../images/big-pyramid.svg');
+    background-size: cover;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-position-x: center;
+    position: fixed;
+  }
+
   #app  > .wrapper > .logo, #app > .wrapper > .slogan {
     grid-column: 6 / span 5;
   }
@@ -122,6 +154,6 @@ div.sm-selector-container .domain-selector {
 
   #app  > .wrapper > .cta-pills {
     grid-row: 4;
-    grid-column: 11 / span 5;
+    grid-column: 10 / span 5;
   }
 }

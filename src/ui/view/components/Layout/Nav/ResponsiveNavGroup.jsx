@@ -1,11 +1,11 @@
-import ResponsiveNavLink from "./UI/Buttons/ResponsiveNavLink.jsx";
+import ResponsiveNavLink from './UI/Buttons/ResponsiveNavLink.jsx';
 
 const ResponsiveNavGroup = {
   oncreate: ({ dom }) => {
-    dom.addEventListener("click", (e) => {
-      if (e.target.tagName === "A") {
+    dom.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
         // Collapse responsive menu when you click active link
-        document.getElementById("hamburger").checked = false;
+        document.getElementById('hamburger').checked = false;
       }
     });
   },
@@ -19,10 +19,9 @@ const ResponsiveNavGroup = {
         {
           id: attrs.id,
           class: attrs.class,
-          // href: attrs.url,
-          style: "flex-basis: 100%",
+          style: 'flex-basis: 100%',
         },
-        attrs.label
+        attrs.label,
       )}
       <ul className="responsive-nav-link flex flex-wrap justify-around h-full">
         {Object.keys(subpaths).map((path) => (

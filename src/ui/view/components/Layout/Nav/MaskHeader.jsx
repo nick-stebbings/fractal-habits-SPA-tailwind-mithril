@@ -45,7 +45,7 @@ const MaskHeader = function () {
               id="hamburger-wrapper"
               className="md:h-8 lg:flex-auto flex h-10"
             >
-              <div className="active:outline-light focus:outline-light hover:bg-gray-700 md:w-8 md:h-8 flex items-center justify-center w-10 h-10 rounded-md">
+              <div className="active:outline-light focus:outline-light hover:bg-gray-700 md:w-8 md:h-8 flex items-center justify-center w-10 h-10 mr-2 rounded-md">
                 <label
                   id="hamburger-label"
                   htmlFor="hamburger"
@@ -82,20 +82,20 @@ const MaskHeader = function () {
                     </div>
                   </div>
                   <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 rounded-full">
-                    <span className="lg:hidden xl:block md:pt-2 pt-0 pb-0 mx-4 mb-1">
+                    <span className="lg:hidden xl:block md:pt-6 pt-0 pb-0 mx-4 mb-1 ml-6">
                       <label htmlFor="date-today">Date</label>
                     </span>
                     <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none w-56 h-full bg-white rounded-full">
                       <span className="lg:pt-2 text-balance-sshades-brighten flex justify-around block w-full mb-1">
                         <i
                           id="prev-date-selector"
-                          className="fa fa-chevron-circle-left pr-2"
+                          className="fa fa-chevron-circle-left pt-2 pr-2"
                           aria-hidden="true"
                         />
                         <DateSelector></DateSelector>
                         <i
                           id="next-date-selector"
-                          className="fa fa-chevron-circle-right"
+                          className="fa fa-chevron-circle-right pt-2"
                           aria-hidden="true"
                         />
                       </span>

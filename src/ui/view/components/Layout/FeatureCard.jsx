@@ -9,7 +9,7 @@ const FeatureCard = {
       vnode.dom.querySelectorAll('p.long-content').forEach((paragraph) => {
         paragraph.classList.toggle('hidden');
       });
-      document.querySelector('.feature-card-section').style.gridTemplateRows = 'repeat(17, minmax(100px, 1fr))';
+      document.querySelector('.feature-card-section').style.gridTemplateRows = 'repeat(17, minmax(100px, 200px))';
 
       const height = contentContainer.scrollHeight;
       const { maxHeight } = window.getComputedStyle(contentContainer);
@@ -27,16 +27,14 @@ const FeatureCard = {
       <h2 className="font-std md:w-3/4 md:text-center relative z-10 self-end w-1/2 font-extrabold text-right">
         {vnode.attrs.title}
       </h2>
-      <div className="feature-card-content bg-balance-basic-black opacity-90 z-20 mt-8 font-serif font-bold leading-10 tracking-wide text-white">
-        <p className="mb-4">{vnode.attrs.shortContent}</p>
+      <div className="feature-card-content lg:rounded-full xl:feature-card-content-wide bg-balance-basic-black opacity-90 z-20 mt-8 font-serif font-bold leading-10 tracking-wide text-white">
+        <p>{vnode.attrs.shortContent}</p>
         {vnode.attrs.longContent.map((paragraphText) => (
-          <p className="long-content hidden mb-4">
-            {paragraphText}
-          </p>
+          <p className="long-content hidden">{paragraphText}</p>
         ))}
         <button
           type="button"
-          className="button font-std hover:bg-balance-basic-digblue rounded-l-2xl rounded-b-2xl bottom-12 absolute px-4 py-1 font-semibold tracking-widest uppercase"
+          className="xl:feature-card-content-wide-button button font-std hover:bg-balance-basic-digblue rounded-l-2xl rounded-b-2xl -bottom-1 absolute right-0 px-4 py-1 font-semibold tracking-widest uppercase"
         >
           Find Out More
         </button>

@@ -8,9 +8,9 @@ const HoverableLink = {
         <div className={m.route.param("demo") ? "mega-menu-wrapper bg-gray-600" : "mega-menu-wrapper bg-balance-pshades-dark"}>
           <div className="inset-wrapper" />
           <div className="hero-message">
-            <h2>View your Habits and Objectives</h2>
+            <h2>View your Habits</h2>
             <p>
-              Take control of your behaviour with one of these views...
+              Track and visualise using these views:
             </p>
           </div>
           <div className="inset"><MenuList>{children}</MenuList></div>

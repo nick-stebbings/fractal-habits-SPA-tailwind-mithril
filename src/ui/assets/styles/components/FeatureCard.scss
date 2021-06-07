@@ -4,49 +4,34 @@
 
 @layer utilities {
   @variants responsive {
-    .feature-card.narrow {
-      padding-bottom: 5rem;
-    }
-
-    .feature-card.wide {
-      padding-left: clamp(4vw, .1vw, 6rem);
-      padding-bottom: 18rem;
-    }
-
-    .feature-card.wide::after {
-      border-bottom-right-radius: 10vw;
+    .wide::after {
+      border-radius: 20rem;
       width: 100%;
-      height: 60%;
-      top: 40%;
+      height: 67%;
+      top: 33%;
     }
 
-    .feature-card.wide > .feature-card-content {
-      margin-left: 0;
-    }
-
-    .feature-card.wide > h2 {
-      text-align: center;
-      width: 100%;
-    }
-
-    .feature-card.wide .feature-card-content > p {
+    .feature-card-content-wide {
+      @apply relative ml-0;
+      padding-bottom: 4.5rem;
+      padding-top: 2rem;
+      margin-top: -1.5rem;
       text-align: center;
     }
+    
+    .wide > h2 {
+      @apply text-center w-full;
+      margin-bottom: 2rem;
+      width: 75%;
+    }
 
-    .feature-card.wide > .feature-card-content button {
+    .feature-card-content-wide-button {
       bottom: 1.5rem;
-      left: calc(50% - 6rem);
+      right: calc(50% - 6rem) !important;
     }
 
-    .feature-card.wide::after {
+    .wide::after {
       background-position-x: 80%;
-    }
-
-    .scroll-snap-x {
-      scroll-snap-type: x;
-    }
-    .scroll-snap-y {
-      scroll-snap-type: y;
     }
   }
 }
@@ -54,18 +39,15 @@
 .feature-card-section {
   grid-row-gap: 2rem;
   grid-template-columns: repeat(1, 1fr);
-  margin-top: 4rem;
   @apply col-span-5;
 }
 
 .feature-card {
-  padding-right: clamp(4vw, .1vw, 6rem);
-  padding-bottom: 5rem;
-  padding-top: 3rem;
+  padding: 6rem clamp(4vw, .1vw, 6rem) 8rem;
   background: #686C7A;
   background: linear-gradient(0deg, rgba(104,108,122,1) 17%, rgba(194,218,141,0.65) 87%);
   box-shadow: 0 0 rgba(0,0,0,0), 0 0 rgba(0,0,0,0), var(--faint-shadow);
-  border-radius: 10vw;
+  border-radius: 10rem;
 }
 
 .feature-card::before {
@@ -85,22 +67,23 @@
 .feature-card::after {
   content: '';
   position: absolute;
-  top: 0;
+  bottom: 40px;
   left: 0;
   width: 275px;
-  height: 100%;
-  border-top-left-radius: 10vw;
-  border-bottom-left-radius: 10vw;
+  height: 50%;
+  border-radius: 20rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   z-index: 1;
   opacity: 0.5;
-  background: no-repeat 100% url('../../images/icons/pyramid.svg');
+  background: no-repeat -40px url('../../images/icons/pyramid.svg');
   background-size: cover;
 }
 
 .feature-card-content {
   transition: max-height 1s ease-in;
   overflow: hidden;
-  padding: 1em;
+  padding: 2em;
   max-height: 256px;
   border-radius: 1.5rem;
   margin-left: clamp(4vw, .1vw, 6rem);
@@ -115,7 +98,7 @@
 }
 
 .feature-card.img-loaded:nth-child(3)::after {
-  background-position-x: 25%;
+  background-position-x: 50%;
   background-image: url('../../images/photos/blocks_pyramid_masked.png');  
 }
 
@@ -129,9 +112,9 @@
 
 .feature-card p {
   font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-  line-height: 125%; 
+  line-height: 1.4; 
   font-weight: 200;
-  margin-bottom: .75rem;
+  margin-bottom: 1.75rem;
 }
 
 .feature-card h2 {
@@ -149,10 +132,10 @@
 
 @media only screen and (min-width: 768px) {
   .feature-card::after {
-    width:33%;
+    width:100%;
   }
- 
-  .feature-card.wide > .feature-card-content {
+
+  #app .feature-card > .feature-card-content {
     position: relative;
     width: 75%;
     min-height: fit-content;
@@ -160,30 +143,27 @@
 
   .feature-card.wide > .feature-card-content {
     width: 100%;
-    padding-bottom: 8rem;
+    padding-bottom: 4.5rem;
+    padding-top: 2rem;
     max-height: none;
   }
   
   .feature-card.wide > .feature-card-content button {
-    bottom: -0.5rem;
+    bottom: 0.5rem;
   }
 }
 
 @media only screen and (min-width: 1024px) {
-  .feature-card-content {
-    display: relative !important;
-  }
-
-  .wrapper > .feature-card-section >.feature-card::after {
-    border-top-left-radius: unset;
-  }
-
   .wrapper >.feature-card > .feature-card-content > button {
     bottom: 1rem;
+    right: calc(50% - 6rem);
   }
 }
 
 @media (min-width: 1440px) {
+  .feature-card {
+    padding: 2rem clamp(4vw, 0.1vw, 6rem) 3rem;
+  }
   .feature-card-section {
     grid-row-gap: 0;
     grid-template-columns: repeat(13, 1fr);
@@ -213,6 +193,9 @@
 }
 
 @media only screen and (min-width: 1920px) {
+  .feature-card {
+    padding: 6rem clamp(4vw, 0.1vw, 6rem) 4rem;
+  }
   .feature-card-section {
     grid-row-gap: 12rem;
     grid-template-rows: unset;
@@ -224,20 +207,40 @@
   .feature-card:nth-child(2n + 1) {
     grid-column: -1 / -8;
   }
-  .feature-card-content {
-    scroll-snap-align: start; /* THIS NEEDS TO BE PIXEL WIDE */
-  }
 
   .feature-card-content, .feature-card.wide .feature-card-content {
-    border-radius: 5vw;
+    border-radius: 5rem;
     padding: 4rem;
     text-align: left;
     text-justify: auto;
+    max-height: none;
   }
+
   .feature-card-content button {
     display: none;
   }
-  
+
+  p.long-content {
+    display: initial;
+  }
+
+  #app .wrapper > .feature-card-section >.feature-card::after, .wrapper > .feature-card-section >.feature-card.wide::after {
+    top: 50%;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+  }
+
+  .wrapper > .feature-card-section >.feature-card:nth-of-type(2n)::after {
+    left: 85%;
+  }
+  #app .wrapper > .feature-card-section >.feature-card:nth-of-type(2n+1)::after {
+    left: -50%;
+  }
+
+  .cloud-man-vector img {
+    @apply mt-12;
+  }
+
 /* Move titles into whitespace */
   .wrapper > .feature-card.wide > h2, .wrapper > .feature-card > h2 {
     position: absolute;

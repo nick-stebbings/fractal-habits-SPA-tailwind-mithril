@@ -27,8 +27,8 @@ const FeatureCardSection = {
     });
   },
   view: ({ attrs }) => (
-    <div className="wrapper">
-      <div className="wrapper feature-card-section xl:grid flex flex-col">
+    <div className="wrapper mb-12">
+      <div className="wrapper feature-card-section xl:grid flex flex-col overflow-hidden">
         {attrs.cardCopy
           && attrs.cardCopy.map((content, idx) => {
             const {

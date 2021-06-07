@@ -1,4 +1,5 @@
 $maskimage: url("../../images/fib-mask-1900-420.svg");
+$maskimagewide: url("../../images/fib-mask-3800-378.svg");
 $watermarkimage: url("../../images/watermark.png");
 
 @layer utilities {
@@ -69,7 +70,8 @@ body[class^="scroll"] .mask-wrapper {
 
 @media (min-width: 640px) {
   .sm-selector-container #date-today {
-    @apply h-8;
+    @apply h-12;
+    transform: translateY(-0.2rem);
   }
 }
 
@@ -287,12 +289,12 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:hover {
   @apply bg-gradient-to-r from-black to-transparent;
 }
 
-#subnav .nav-links > li.hoverable:hover a,
-body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover a {
+#subnav .nav-links > li.hoverable:hover,
+body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover {
   @apply text-balance-sshades-sat;
 }
 
-#subnav .nav-links a,
+#subnav .nav-links li.hoverable,
 span.logo svg path,
 .nav-label-primary {
   @apply focus:outline-none focus:outline-shadow active:outline-dashed;
@@ -307,7 +309,8 @@ span.logo svg path,
   .nav-label-primary:last-of-type {
     top: 1.85rem;
     left: 15.05rem;
-    width:14.6rem;
+    margin-right: 0.55rem;
+    width:14.5rem;
     border: 0;
     @apply relative z-0;
   }
@@ -316,6 +319,7 @@ span.logo svg path,
     @apply relative z-40 overflow-hidden;
     mask: no-repeat 10px -20px $maskimage;
   }
+
   body[class^="scroll"] div.mask-wrapper:hover {
     height: 6.3rem;
   }
@@ -332,5 +336,11 @@ span.logo svg path,
   nav > div > .nav-label-primary:last-of-type {
     left: 20rem;
     width: 17.6rem
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  div.mask-wrapper {
+    mask: no-repeat 10px -20px $maskimagewide;
   }
 }
