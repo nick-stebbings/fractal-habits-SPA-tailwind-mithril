@@ -1,6 +1,7 @@
 import MenuRoutes from "../../../../menu-routes";
 import HabitStore from "../../../../store/habit-store";
 
+import CalendarWidget from "./CalendarWidget.jsx";
 import ResponsiveNavGroup from "../Nav/ResponsiveNavGroup.jsx";
 import DomainSelector from "./UI/Inputs/DomainSelector.jsx";
 import DropdownNav from "../Nav/DropdownNav.jsx";
@@ -11,7 +12,14 @@ import "../../../../assets/styles/components/MaskHeader.scss";
 const MaskHeader = function () {
   return {
     view: () => (
-      <div className={m.route.param("demo") ? "mask-wrapper bg-gray-600" : "mask-wrapper bg-balance-pshades-dark"}>
+      <div
+        className={
+          m.route.param("demo")
+            ? "mask-wrapper bg-gray-600"
+            : "mask-wrapper bg-balance-pshades-dark"
+        }
+      >
+        <CalendarWidget />
         <header
           className={
             m.route.param("demo") ? "bg-gray-600" : "bg-balance-pshades-dark"
@@ -147,7 +155,9 @@ const MaskHeader = function () {
         </header>
         <div
           className={
-            m.route.param("demo") ? "bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6" : "bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 md:leading-6"
+            m.route.param("demo")
+              ? "bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6"
+              : "bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 md:leading-6"
           }
           id="current-habit-label-sm"
         >
