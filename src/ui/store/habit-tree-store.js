@@ -6,6 +6,7 @@ const basePath = '/habit_trees';
 
 const TreeStore = {
   showAll: clientRoutes(basePath).show_all,
+
   showAllForDomain(domainId, dateId) {
     return clientRoutes(`/demo/domain/${domainId}/habit_tree?date_id=${dateId}`)
       .show_all;
@@ -25,7 +26,7 @@ const TreeStore = {
     .then(TreeStore.root)
     .catch((err) => {
       TreeStore.root({ name: '', children: '' });
-      console.log('Tree did not load!');
+      console.log('Tree did not load!', err);
     }),
 
   getForDomainDate: (useDemoData, domainId, dateId) => {

@@ -1,9 +1,9 @@
-import stream from "mithril/stream";
-import { clientRoutes, handleErrorType } from "./client";
+import stream from 'mithril/stream';
+import { clientRoutes, handleErrorType } from './client';
 
-const basePath = "/habit_dates";
+const basePath = '/habit_dates';
 
-var HabitDateStore = Object.assign(clientRoutes(basePath), {
+const HabitDateStore = Object.assign(clientRoutes(basePath), {
   current: stream({}),
 
   clear: () => {
@@ -13,11 +13,17 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
   list: stream([]),
   fullList: stream([]),
 
-  index: () =>
-    HabitDateStore.show_all()
-      .then((response) => JSON.parse(response.data).habit_dates)
-      .then(HabitDateStore.fullList)
-      .catch(handleErrorType),
+  showPeriodForHabit: (habitId, periodLength) => clientRoutes(`/habits/${habitId}/habit_dates?length=${periodLength}`).show_all(),
+
+  index: () => HabitDateStore.show_all()
+    .then((response) => JSON.parse(response.data).habit_dates)
+    .then(HabitDateStore.fullList)
+    .catch(handleErrorType),
+
+  indexForHabitPeriod: (id, length) => HabitDateStore.showPeriodForHabit(id, length)
+    .then((response) => JSON.parse(response.data).habit_dates)
+    .then(HabitDateStore.list)
+    .catch(handleErrorType),
 
   submit: (attrs) => {
     HabitDateStore.create(attrs)
@@ -25,26 +31,24 @@ var HabitDateStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType);
   },
 
-  filterListByHabitId: (habitId) =>
-    HabitDateStore.fullList().filter(
-      (habitDate) => habitDate.habit_id == +habitId
-    ),
+  filterListByHabitId: (habitId) => HabitDateStore.fullList().filter(
+    (habitDate) => habitDate.habit_id == +habitId,
+  ),
 
-  runFilter: (habitId) =>
-    HabitDateStore.list(HabitDateStore.filterListByHabitId(habitId)),
+  runFilter: (habitId) => HabitDateStore.list(HabitDateStore.filterListByHabitId(habitId)),
 
-  runDateFilterOnCurrentList: (dateId) =>
-    HabitDateStore.list(
-      HabitDateStore.list().filter((habitDate) => habitDate.date_id === +dateId)
-    ),
+  runDateFilterOnCurrentList: (dateId) => HabitDateStore.list(
+    HabitDateStore.list().filter((habitDate) => habitDate.date_id === +dateId),
+  ),
 
   runUpdate: (isDemo, values, domainId) => {
     const payload = JSON.stringify(values);
-    return (isDemo
-      ? clientRoutes(
-          `/demo/domains/${domainId}/habit_dates/${values.date_id}`
-        ).replace("", payload)
-      : HabitDateStore.replace("", payload)
+    return (
+      isDemo
+        ? clientRoutes(
+          `/demo/domains/${domainId}/habit_dates/${values.date_id}`,
+        ).replace('', payload)
+        : HabitDateStore.replace('', payload)
     )
       .then(HabitDateStore.current)
       .catch(handleErrorType);

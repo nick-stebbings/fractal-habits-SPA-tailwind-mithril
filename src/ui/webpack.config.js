@@ -15,32 +15,32 @@ const smp = new SpeedMeasurePlugin();
 module.exports = smp.wrap({
   context: path.resolve(__dirname),
   entry: {
-    index: "./index.js",
+    index: './index.js',
   },
   output: {
-    path: path.join(__dirname, "dist"),
-    filename: "[name].build.js",
-    chunkFilename: "[name].build.js",
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].build.js',
+    chunkFilename: '[name].build.js',
   },
   mode,
   resolve: {
     modules: [
-      "node_modules"
-    ]
+      'node_modules',
+    ],
   },
-  devtool: "cheap-module-eval-source-map",
+  devtool: 'cheap-module-eval-source-map',
   plugins: [
     new webpack.ProvidePlugin({
-      m: require.resolve("mithril"), // Global access
+      m: require.resolve('mithril'), // Global access
     }),
-    new MiniCssExtractPlugin({ filename: "./bundle.[contenthash].css" }),
+    new MiniCssExtractPlugin({ filename: './bundle.[contenthash].css' }),
     new CleanWebpackPlugin({ verbose: true }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: "static",
+    // }),
     new HtmlWebpackPlugin({
-      template: "./index.html",
-      filename: "./index.html",
+      template: './index.html',
+      filename: './index.html',
     }),
   ],
   optimization: {
@@ -57,17 +57,17 @@ module.exports = smp.wrap({
       {
         test: /\.html$/,
         exclude: /node_modules/,
-        use: ["html-loader"],
+        use: ['html-loader'],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
-              name: "[name].[ext]",
-              outputPath: "img",
+              name: '[name].[ext]',
+              outputPath: 'img',
               esModule: false,
             },
           },
@@ -79,21 +79,21 @@ module.exports = smp.wrap({
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader", // translates CSS into CommonJS modules
+            loader: 'css-loader', // translates CSS into CommonJS modules
           },
           {
-            loader: "resolve-url-loader",
+            loader: 'resolve-url-loader',
           },
           {
-            loader: "postcss-loader", // Run post css actions
+            loader: 'postcss-loader', // Run post css actions
             options: {
               postcssOptions: {
-                config: path.resolve(__dirname, "postcss.config.js"),
+                config: path.resolve(__dirname, 'postcss.config.js'),
               },
             },
           },
           {
-            loader: "sass-loader", // compiles Sass to CSS
+            loader: 'sass-loader', // compiles Sass to CSS
           },
         ],
       },
@@ -102,12 +102,12 @@ module.exports = smp.wrap({
         exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
+          'css-loader',
           {
-            loader: "postcss-loader", // Run post css actions
+            loader: 'postcss-loader', // Run post css actions
             options: {
               postcssOptions: {
-                config: path.resolve(__dirname, "postcss.config.js"),
+                config: path.resolve(__dirname, 'postcss.config.js'),
               },
             },
           },
@@ -117,7 +117,7 @@ module.exports = smp.wrap({
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: { esModule: false },
           },
         ],
@@ -126,7 +126,7 @@ module.exports = smp.wrap({
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
       },
     ],
