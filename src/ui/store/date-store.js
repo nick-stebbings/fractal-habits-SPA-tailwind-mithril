@@ -45,7 +45,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
     DateStore.listForHabit(
       DateStore.filterForHabit(habit).sort((a, b) =>
         DateStore.to_h_date(a) >= DateStore.to_h_date(b) ? 1 : -1
-      ).slice(-6));
+      ));
   },
 
   filterById: (dateId) => DateStore.list().filter((date) => date.id === +dateId),

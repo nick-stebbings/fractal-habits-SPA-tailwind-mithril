@@ -13,7 +13,7 @@ const HabitDateStore = Object.assign(clientRoutes(basePath), {
   list: stream([]),
   fullList: stream([]),
 
-  showPeriodForHabit: (habitId, periodLength = 7) => clientRoutes(`/habits/${habitId}/habit_dates?length=${periodLength}`).show_all(),
+  showPeriodForHabit: (habitId, periodLength = 6) => clientRoutes(`/habits/${habitId}/habit_dates?length=${periodLength}`).show_all(),
 
   index: () => HabitDateStore.show_all()
     .then((response) => JSON.parse(response.data).habit_dates)
