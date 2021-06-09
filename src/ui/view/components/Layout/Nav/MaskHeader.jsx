@@ -77,7 +77,7 @@ const MaskHeader = function () {
                 </label>
               </div>
               <input type="checkbox" id="hamburger" className="hidden" />
-              <nav className="top-16 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-gray lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray absolute left-0 z-20 flex-col hidden w-full border-b-4">
+              <nav className="top-16 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-gray lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray max-w-1/2 absolute left-0 z-20 flex-col hidden w-full border-b-4">
                 <div className="md:pl-1 6 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between hidden px-4 pt-1 pb-2">
                   <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">

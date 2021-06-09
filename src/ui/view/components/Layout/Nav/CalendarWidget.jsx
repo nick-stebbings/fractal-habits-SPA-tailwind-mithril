@@ -11,7 +11,7 @@ const statuses = stream([]);
 
 const CalendarWidget = {
   oninit: () => {
-    DateStore.index().then(() => {
+    !DateStore.current() && DateStore.index().then(() => {
       DateStore.indexDatesOfHabit(HabitStore.current()?.id);
     })
     const currentHabit = HabitStore.current();
@@ -22,9 +22,9 @@ const CalendarWidget = {
       })));
 
       const dates = statuses().map((statusObj) => {
-        console.log(
-          statusObj, DateStore.listForHabit()
-          );
+        // console.log(
+        //   statusObj, DateStore.listForHabit()
+        //   );
           return DateStore.dateFromDateObjectArray(
             statusObj.date_id,
             DateStore.list()
@@ -33,9 +33,6 @@ const CalendarWidget = {
 
       calendarDates(dates);
     });
-  },
-  onupdate: () => {
-
   },
   view: () => (
     <div className="h-3/4 left-32 top-28 rounded-3xl lg:flex absolute justify-end hidden w-5/6">
