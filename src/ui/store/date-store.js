@@ -34,7 +34,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
 
   to_h_date: (sqlDate) => DateTime.fromSQL(sqlDate.h_date),
 
-  dateFromDateObjectArray: (dateId, array) => DateStore.to_h_date(array.filter((dateObject) => dateObject.id === dateId)[0]?.h_date),
+  dateFromDateObjectArray: (dateId, array) => DateStore.to_h_date(array.filter((dateObject) => dateObject.id === dateId)[0]),
 
   filterForHabit: (habit) => (habit
     ? DateStore.list().filter((date) => DateStore.to_h_date(date) >= DateTime.fromSQL(habit.initiation_date)).sort((a, b) => a - b)
