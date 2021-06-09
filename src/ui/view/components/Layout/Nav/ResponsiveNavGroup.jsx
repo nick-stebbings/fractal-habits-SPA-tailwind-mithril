@@ -11,7 +11,7 @@ const ResponsiveNavGroup = {
   },
   view: ({ attrs, children: [subpaths] }) => (
     <li
-      className="responsive-nav-group active:outline-light hover:outline-light flex flex-wrap w-3/4 py-4 mx-auto mt-2"
+      className="responsive-nav-group flex flex-wrap w-3/4 py-4 mx-auto mt-2"
       id={attrs.id}
     >
       {m(
