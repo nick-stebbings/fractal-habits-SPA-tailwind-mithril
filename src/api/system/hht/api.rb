@@ -295,6 +295,7 @@ module Hht
       
       get '/:habit_id/habit_dates' do |habit_id|
         habit_id = habit_id.to_i
+        length = params['length'].to_i
         halt(404, { message: 'No Habit Found' }.to_json) unless habit_repo.by_id(habit_id).exist?
 
         habit_date_list = habit_date_repo
@@ -302,8 +303,10 @@ module Hht
           .to_a
           .map(&:to_h)
         halt(404, { message: 'No Habit Dates Found' }.to_json) unless habit_date_list.length > 0
+        
+        halt(422, { message: 'Invalid Length' }.to_json) unless length > 0 && length <= habit_date_list.length
         status 200
-        json (json({habit_dates: habit_date_list}))
+        json (json({habit_dates: habit_date_list.slice(-length, length)}))
       end
 
       post '' do
