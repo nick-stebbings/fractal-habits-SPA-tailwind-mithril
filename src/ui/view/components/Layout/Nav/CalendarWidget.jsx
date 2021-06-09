@@ -23,7 +23,7 @@ const CalendarWidget = {
 
       const dates = statuses().map((statusObj) => {
         console.log(
-          statusObj, DateStore.list()
+          statusObj, DateStore.listForHabit()
           );
           return DateStore.dateFromDateObjectArray(
             statusObj.date_id,
@@ -39,8 +39,7 @@ const CalendarWidget = {
   },
   view: () => (
     <div className="h-3/4 left-32 top-28 rounded-3xl lg:flex absolute justify-end hidden w-5/6">
-      <svg className="this z-20 mr-4 bg-transparent" />
-      <div className="date-card-wrapper rounded-3xl flex-end z-10 flex gap-1 -mt-8 bg-transparent">
+      <div className="date-card-wrapper rounded-3xl flex-end flex gap-1 -mt-8 bg-transparent">
         {calendarDates().map((date, idx) => <DateCard date={date} completedStatus={statuses()[idx]?.completed_status} />)}
       </div>
     </div>
