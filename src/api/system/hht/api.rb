@@ -296,7 +296,6 @@ module Hht
       get '/:habit_id/habit_dates' do |habit_id|
         habit_id = habit_id.to_i
         length = params['length'].to_i
-
         halt(404, { message: 'No Habit Found' }.to_json) unless habit_repo.by_id(habit_id).exist?
 
         habit_date_list = habit_date_repo

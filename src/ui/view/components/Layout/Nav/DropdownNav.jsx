@@ -34,7 +34,8 @@ const DropdownNav = (function () {
             ).style.height === "6.3rem");
           menuVisible ? showMegaMenu(idx) : hideMegaMenu();
         });
-      });
+        });
+      document.querySelector('.date-card-wrapper').addEventListener('mousenter', showMegaMenu);
       document.querySelector('nav.nav').addEventListener('mouseenter', hideMegaMenu);
     },
     view: ({ attrs: { routes } }) => (

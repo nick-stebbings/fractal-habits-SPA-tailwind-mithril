@@ -21,7 +21,7 @@ const CalendarWidget = {
         date_id: date.date_id,
         completed_status: date.completed_status,
       })));
-
+      console.log(statuses().length);
       const dates = statuses().map((statusObj) => {
         // console.log(
         //   statusObj, DateStore.listForHabit()
