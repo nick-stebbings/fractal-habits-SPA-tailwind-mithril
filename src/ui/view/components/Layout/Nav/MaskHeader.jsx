@@ -27,7 +27,7 @@ const MaskHeader = function () {
         >
           <div
             id="responsive-nav"
-            className="md:h-12 lg:px-0 sm:px-2 flex items-center justify-between h-16 px-1"
+            className="sm:h-12 lg:px-0 sm:px-2 lg:justify-end flex items-center justify-between h-16 px-1"
           >
             <m.route.Link
               selector="span"
@@ -37,7 +37,7 @@ const MaskHeader = function () {
             >
               <svg
                 id="logo"
-                className="hover:text-gray-100 md:ml-1 md:w-8 md:h-8 w-10 h-10 text-gray-100 fill-current stroke-current"
+                className="hover:text-gray-100 md:ml-1 w-10 h-10 text-gray-100 fill-current stroke-current"
                 width="54"
                 height="54"
                 viewBox="0 0 54 54"
@@ -79,7 +79,7 @@ const MaskHeader = function () {
               <input type="checkbox" id="hamburger" className="hidden" />
               <nav className="top-16 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-gray lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray max-w-1/2 absolute left-0 z-20 flex-col hidden w-full border-b-4">
                 <div className="md:pl-1 6 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between hidden px-4 pt-1 pb-2">
-                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
+                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 text-sm text-black rounded-full">
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
                       <label>Domain</label>
                     </span>
@@ -89,11 +89,11 @@ const MaskHeader = function () {
                       </span>
                     </div>
                   </div>
-                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 rounded-full">
-                    <span className="lg:hidden xl:block md:pt-6 pt-0 pb-0 mx-4 mb-1 ml-6">
+                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 text-sm text-black rounded-full">
+                    <span className="lg:hidden xl:block md:pt-6 xl:pt-3 pt-0 pb-0 mx-4 mb-1 ml-6">
                       <label htmlFor="date-today">Date</label>
                     </span>
-                    <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none w-56 h-full bg-white rounded-full">
+                    <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none xl:-mt-3 w-56 h-full bg-white rounded-full">
                       <span className="lg:pt-2 text-balance-sshades-brighten flex justify-around block w-full mb-1">
                         <i
                           id="prev-date-selector"
@@ -156,15 +156,15 @@ const MaskHeader = function () {
         <div
           className={
             m.route.param("demo")
-              ? "bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6"
-              : "bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 md:leading-6"
+              ? "h-8 bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 pb-2 md:leading-6"
+              : "h-8 bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 pb-2 md:leading-6"
           }
-          id="current-habit-label-sm"
+          id="current-habit-label-sm leading-4"
         >
-          <span id="current-habit-sm" class="pl-1.5 pr-3">
-            Habit
+          <span id="current-habit-sm" class="block ml-3 pr-2 py-0">
+            HABIT:
           </span>
-          <span>{HabitStore.current()?.name}</span>
+          <span class="block">{HabitStore.current()?.name}</span>
         </div>
       </div>
     ),

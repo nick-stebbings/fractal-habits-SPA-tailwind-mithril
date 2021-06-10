@@ -93,7 +93,7 @@ li#demo-indicator {
 }
 
 #current-habit-label-sm > span:first-of-type,
-#subnav .nav-links > li.hoverable a {
+#subnav .nav-links > li.hoverable a, #current-habit-sm span {
   @apply uppercase pt-2 lg:px-4 xl:text-2xl lg:text-xl lg:leading-9 leading-10;
   font-family: B612, Lato, Nunito, sans;
   font-weight: 700;
@@ -108,7 +108,6 @@ li#demo-indicator {
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable a {
   @apply text-2xl;
-  line-height: 1.5rem;
 }
 
 nav .hero-message > h2 {
@@ -130,11 +129,9 @@ nav .menu-card.disabled .overlay h3 {
   @apply text-xl text-center text-gray-100 font-bold;
 }
 
-#current-habit-sm,
-#current-habit,
 nav .menu-card p {
   font-family: Montserrat, serif;
-  @apply text-base text-black font-light tracking-wide text-center;
+  @apply text-sm text-black font-light tracking-wide text-center;
 }
 
 .resp-nav-link {
@@ -165,12 +162,12 @@ nav .menu-card p {
   -webkit-text-stroke: 1px #261C15;
   letter-spacing: .05em;
   line-height: 1.25em;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 h1.main-logo {
   @apply text-black;
-  font: 600 54pt 'Oleo Script Swash Caps', cursive;
+  font: 600 3rem 'Oleo Script Swash Caps', cursive;
   letter-spacing: .05em;
   line-height: 1.25em;
 }

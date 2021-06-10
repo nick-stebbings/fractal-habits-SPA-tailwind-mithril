@@ -6,7 +6,7 @@ const DomainSelector = {
     m(
       "select.form-select.domain-selector",
       {
-        class: "w-full lg:pt-2 pl-2 md:h-12 h-6 py-0 md:p-2 mr-1 rounded-2xl",
+        class: "w-full lg:pt-2 pl-2 sm:h-10 h-6 py-0 md:p-2 mr-1 rounded-2xl",
         selectedIndex: DomainStore.list().indexOf(DomainStore.current()),
         tabindex: 2,
       },

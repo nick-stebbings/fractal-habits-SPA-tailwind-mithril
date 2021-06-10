@@ -21,8 +21,8 @@ $watermarkimage: url("../../images/watermark.png");
 
 .logo-link {
   @apply fixed text-transparent z-50 w-12 hidden lg:block;
-  left: 5px;
-  top: 5px;
+  left: -2px;
+  top: -2px;
 }
 
 .logo-link,
@@ -43,12 +43,17 @@ nav span {
 
 div.mask-wrapper {
   mask: initial;
-  height: 6.3rem;
+  height: 5rem;
   z-index:10;
   width: 100%;
+  transition: height 0.3s ease;
 
   > header {
-    @apply md:h-12 z-10 flex-none h-16;
+    @apply sm:h-12 lg:h-16 z-10 flex-none h-16;
+  }
+
+  #current-habit-label span {
+      @apply -mt-2;
   }
 }
 
@@ -70,8 +75,7 @@ body[class^="scroll"] .mask-wrapper {
 
 @media (min-width: 640px) {
   .sm-selector-container #date-today {
-    @apply h-12;
-    transform: translateY(-0.2rem);
+    transform: translateY(-0.22rem);
   }
 }
 
@@ -98,10 +102,6 @@ body[class^="scroll"] .mask-wrapper {
   pointer-events: none;
 }
 
-.nav-container > div span:last-child {
-  @apply my-2;
-}
-
 .nav-label-primary > div,
 .nav-label-primary > div > span {
   @apply flex items-center;
@@ -123,7 +123,7 @@ li.hoverable {
 
     .mega-menu-wrapper {
       background: no-repeat 0.5rem -0.25rem $watermarkimage;
-      margin-top: 0.6rem;
+      margin-top: 1.2rem;
       padding-right: 0.6em;
       @apply flex h-full;
 
@@ -131,11 +131,11 @@ li.hoverable {
         @apply w-1/4 pl-4 pr-2 mb-1 bg-gradient-to-r from-transparent to-balance-tershades-gray;
 
         h2 {
-          @apply px-4 py-2 w-2/3 lg:mt-8 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
+          @apply px-4 py-2 w-2/3 lg:mt-6 float-right bg-gray-900 rounded-2xl rounded-br-none bg-opacity-60;
         }
 
         p {
-          @apply float-right sm:w-1/2 xl:w-48 bg-gray-900 rounded-2xl rounded-t-none p-4 pt-0 bg-opacity-60;
+          @apply float-right sm:w-1/2 bg-gray-900 rounded-2xl rounded-t-none p-4 pt-0 bg-opacity-60;
         }
       }
 
@@ -160,7 +160,7 @@ li.hoverable {
         }
 
         .menu-card {
-          @apply flex mb-6 pt-4 shadow-md;
+          @apply flex mb-4 pt-4 shadow-md;
           h3 {
             line-height: 2rem;
           }
@@ -245,8 +245,8 @@ li.hoverable {
 }
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
-  top: 54px;
-  left: 29px;
+  top: 63px;
+  left: 25px;
   transform: rotate(-142deg) scale(0.9);
 }
 
@@ -254,8 +254,7 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable:last-of-type::before {
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
   @apply text-gray-100 bg-gray-700 border-0;
-  padding-left: 11rem;
-  padding-top: 1rem;
+  padding-left:8rem;
   margin-left: -1.3rem;
   min-width: 12rem;
   order: 1; /* Send it to the front of the flex row to display */
@@ -278,11 +277,6 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {
   margin-left: -6rem;
 }
 
-body[class^="scroll"] #subnav .nav-links > li.hoverable.active {
-  margin-top: -1px;
-  @apply h-12;
-}
-
 /* ---  Hover States --- */
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable:hover {
@@ -302,24 +296,13 @@ span.logo svg path,
 
 
 @media (min-width: 1024px) {
-  /* Stack domain, date selectors; */
-  .nav-label-primary:first-of-type {
-    @apply z-20;
-  }
-  .nav-label-primary:last-of-type {
-    top: 1.85rem;
-    left: 15.05rem;
-    margin-right: 0.55rem;
-    width:14.5rem;
-    border: 0;
-    @apply relative z-0;
-  }
-
   div.mask-wrapper {
     @apply relative z-40 overflow-hidden;
     mask: no-repeat 10px -20px $maskimage;
   }
-
+  .mask-wrapper .logo {
+    display:none;
+  }  
   body[class^="scroll"] div.mask-wrapper:hover {
     height: 6.3rem;
   }
@@ -332,10 +315,34 @@ span.logo svg path,
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) and (max-width: 1339px) {
+  /* Stack domain, date selectors; */  
+
+  .nav-label-primary i {
+    line-height: 3rem;
+  }
+
+  .nav-label-primary:first-of-type {
+    @apply z-20;
+  }
+  .nav-label-primary:last-of-type {
+    top: 1.85rem;
+    left: 15.05rem;
+    margin-right: 0.55rem;
+    width:14.5rem;
+    border: 0;
+    @apply relative z-0;
+  }
+
+}
+
+@media (min-width: 1340px) {
   nav > div > .nav-label-primary:last-of-type {
     left: 20rem;
     width: 17.6rem
+  }
+  .hero-message  p {
+    width: 12rem;
   }
 }
 

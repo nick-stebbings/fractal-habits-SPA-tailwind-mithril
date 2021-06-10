@@ -6,7 +6,7 @@ import ListCard from './Nav/UI/ListCard.jsx';
 const HabitFilterList = function () {
   return {
     view: () => (
-      <div className="p-6">
+      <div className="lg:p-6 p-1">
         {/* Tailwind TodoList Component originally by nickjbasile */}
         {m(FilterList)}
         {m(
