@@ -29,6 +29,7 @@ const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
 const noNodeCol = "#634a36";
 const neutralCol = "#888";
+let globalZoom;
 
 const d3SetupCanvas = function (document) {
   const { width, height } = document.body.getBoundingClientRect();
@@ -121,10 +122,12 @@ const zooms = function (e) {
     currentTranslation[0] + transform.x,
     currentTranslation[1] + Math.max(Math.min(transform.y, bbound), tbound),
   ];
+  console.log(globalZoom, 'globalZoom');
+  console.log( "translate(" + translation + ")" + " scale(" + (globalZoom ? globalZoom : scale )+ ")", 'globalZoom');
 
   select(".canvas").attr(
     "transform",
-    "translate(" + translation + ")" + " scale(" + scale + ")"
+    "translate(" + translation + ")" + " scale(" + (globalZoom ? globalZoom : scale )+ ")"
   );
 };
 
@@ -166,26 +169,36 @@ const renderTree = function (
 ) {
   let currentXTranslate = margin.left;
   let currentYTranslate = margin.top;
+  let currentScale = zoomClicked?.scale;
+  globalZoom = currentScale;
   canvasWidth = cW;
   canvasHeight = cH;
   modalType = mType;
   // TODO change this to private data once more than one vis is live
 
+  
+  let rootData = TreeStore.root();
+  if (rootData.name === "") return;
+  
+  // SETTINGS
+  let scale = isDemo ? 3 : 4;
+  let clickScale = 2;
+  const zoomBase = canvas;
+  let levelsWide;
+  let levelsHigh;
   svg.selectAll("*").remove();
   const canvas = svg
     .append("g")
     .classed("canvas", true)
-    .attr("transform", `scale(1.2), translate(${currentXTranslate},${currentYTranslate})`);
+    .attr("transform", `scale(${currentScale ? currentScale : clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
 
-  let rootData = TreeStore.root();
-  if (rootData.name === "") return;
-
-  // SETTINGS
-  let scale = isDemo ? 3.5 : 4.5;
-  let clickScale = 3;
-  const zoomBase = canvas;
-  const levelsWide = canvasWidth < 600 || !!zoomClicked ? 2 : 6;
-  const levelsHigh = canvasHeight < 600 || !!zoomClicked ? 2 : 3;
+  if (canvasWidth < 600) {
+    levelsWide = zoomClicked ? 8 : 4;
+    levelsHigh = zoomClicked ? 0.3 : 3;
+  } else {
+    levelsWide = zoomClicked ? 2 : 1;
+    levelsHigh = 2;
+  }
   const nodeRadius = 17 * scale;
   const dx = ((canvasWidth / levelsHigh)) / clickScale;
   const dy = (canvasHeight / levelsWide) * (isDemo ? scale / 3 : 1);
@@ -267,9 +280,11 @@ const renderTree = function (
       // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
       renderTree(svg, isDemo, zoomer, {
         event: undefined,
-        node: undefined,
+        node: node,
         content: node.data,
+        scale: clickedZoom ? clickScale : scale
       });
+      // debugger;
       activeNodeAnimation();
       setHabitLabel(node.data);
       showHabitLabel();
@@ -282,15 +297,16 @@ const renderTree = function (
       if (deadNode(event)) return reset();
       setActiveNode(node);
       renderTree(svg, isDemo, zoomer, {
-        event,
-        node,
+        event: event,
+        node: node,
         content: node.data,
-        highlight: true,
+        highlight: true
       });
       handleStatusToggle(node);
-      renderTree(svg, isDemo, zoomer);
-      
-    debugger;
+      renderTree(svg, isDemo, zoomer, {
+        node: node,
+        scale: clickedZoom ? clickScale : scale,
+      });
     });
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
@@ -384,7 +400,7 @@ const renderTree = function (
   };
 
   function calibrateViewPort() {
-    viewportX = 0;
+    viewportX = !!zoomClicked ? 0 : 500;
     viewportY = canvasHeight/10;
     viewportW = canvasWidth * 5;
     viewportH = canvasHeight * 5;
@@ -401,14 +417,15 @@ const renderTree = function (
     var y = node.__data__ ? node.__data__.y : node.y;
     var bx = x * xScale;
     var by = y * xScale;
-    var tx = -bx - viewportW;
+    var tx = -bx - viewportW/2;
     var ty = -by;
     return { translate: [tx, ty], scale: xScale };
   }
 
   function clickedZoom(e, that) {
-    if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
+    if (e?.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
+    console.log('transformer.scale :>> ', transformer.scale);
     select(".canvas")
       .transition()
       .ease(easeCircleOut)
