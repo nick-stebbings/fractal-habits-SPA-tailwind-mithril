@@ -27,7 +27,7 @@ const MaskHeader = function () {
         >
           <div
             id="responsive-nav"
-            className="md:h-12 lg:px-0 sm:px-2 flex items-center justify-between h-16 px-1"
+            className="sm:h-12 lg:px-0 lg:justify-end flex items-center justify-between h-16"
           >
             <m.route.Link
               selector="span"
@@ -37,7 +37,7 @@ const MaskHeader = function () {
             >
               <svg
                 id="logo"
-                className="hover:text-gray-100 md:ml-1 md:w-8 md:h-8 w-10 h-10 text-gray-100 fill-current stroke-current"
+                className="hover:text-gray-100 md:ml-1 w-10 h-10 text-gray-100 fill-current stroke-current"
                 width="54"
                 height="54"
                 viewBox="0 0 54 54"
@@ -53,7 +53,7 @@ const MaskHeader = function () {
               id="hamburger-wrapper"
               className="md:h-8 lg:flex-auto flex h-10"
             >
-              <div className="active:outline-light focus:outline-light hover:bg-gray-700 md:w-8 md:h-8 flex items-center justify-center w-10 h-10 mr-2 rounded-md">
+              <div className="active:outline-light focus:outline-light hover:bg-gray-700 md:w-8 md:h-8 flex items-center justify-center w-10 h-10 rounded-md">
                 <label
                   id="hamburger-label"
                   htmlFor="hamburger"
@@ -77,9 +77,9 @@ const MaskHeader = function () {
                 </label>
               </div>
               <input type="checkbox" id="hamburger" className="hidden" />
-              <nav className="top-16 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-gray lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray max-w-1/2 absolute left-0 z-20 flex-col hidden w-full border-b-4">
+              <nav className="top-16 sm:top-18 md:top-20 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-gray lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray max-w-1/2 absolute left-0 z-20 flex-col hidden w-full border-b-4">
                 <div className="md:pl-1 6 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between hidden px-4 pt-1 pb-2">
-                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 rounded-full">
+                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 text-sm text-black rounded-full">
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
                       <label>Domain</label>
                     </span>
@@ -89,11 +89,11 @@ const MaskHeader = function () {
                       </span>
                     </div>
                   </div>
-                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none text-blacktext-sm lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 rounded-full">
-                    <span className="lg:hidden xl:block md:pt-6 pt-0 pb-0 mx-4 mb-1 ml-6">
+                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 text-sm text-black rounded-full">
+                    <span className="lg:hidden xl:block md:pt-6 xl:pt-3 pt-0 pb-0 mx-4 mb-1 ml-6">
                       <label htmlFor="date-today">Date</label>
                     </span>
-                    <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none w-56 h-full bg-white rounded-full">
+                    <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none xl:-mt-3 w-56 h-full bg-white rounded-full">
                       <span className="lg:pt-2 text-balance-sshades-brighten flex justify-around block w-full mb-1">
                         <i
                           id="prev-date-selector"
@@ -111,14 +111,14 @@ const MaskHeader = function () {
                   </div>
                 </div>
                 <div className="lg:block sm:w-3/5 lg:border-none lg:w-auto lg:mt-1 text-md md:px-0 lg:flex-row flex flex-wrap items-center justify-around hidden px-4 py-1 mt-3 mr-3">
-                  <div className="lg:border-1 border-balance-tershades-gray lg:flex-row-reverse bg-balance-tershades-light lg:bg-gray-700 lg:py-0 lg:rounded-3xl lg:rounded-t-none flex items-center justify-between py-2 pl-4 mb-2 mr-1 border-2 rounded-full">
+                  <div className=" xl:block lg:border-1 border-balance-tershades-gray lg:flex-row-reverse bg-balance-tershades-light lg:bg-gray-700 lg:py-0 lg:rounded-3xl lg:rounded-t-none flex-nowrap flex items-center justify-between hidden py-2 pl-4 mb-2 mr-1 border-2 rounded-full">
                     <img
-                      className="lg:border-1 lg:border-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none border-1 border-balance-tershades-light flex-none object-cover w-10 h-10 rounded-full"
+                      className="lg:border-1 lg:border-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none border-1 border-balance-tershades-light flex flex-none object-cover w-10 h-10 rounded-full"
                       src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"
                       alt=""
                     />
-                    <span className="user-nav-label lg:text-gray-100 sm:px-0 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 px-2 mx-4 font-light">
-                      Your Name Is <span>Dave</span>
+                    <span className="user-nav-label lg:text-gray-100 sm:px-0 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 flex block px-2 mx-4 font-light">
+                      <span>Bob</span>
                     </span>
                   </div>
                   <div className="lg:hidden flex flex-col px-4 font-bold tracking-wide">
@@ -156,15 +156,20 @@ const MaskHeader = function () {
         <div
           className={
             m.route.param("demo")
-              ? "bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 md:leading-6"
-              : "bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 md:leading-6"
+              ? "h-8 bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 pb-2"
+              : "h-8 bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 pb-2 md:leading-6"
           }
-          id="current-habit-label-sm"
+          id="current-habit-label-sm leading-4"
         >
-          <span id="current-habit-sm" class="pl-1.5 pr-3">
-            Habit
+          <span
+            id="current-habit-sm"
+            class="block sm:hidden md:block ml-3 pr-2 py-0"
+          >
+            HABIT:
           </span>
-          <span>{HabitStore.current()?.name}</span>
+          <span class="block sm:hidden md:block">
+            {HabitStore.current()?.name}
+          </span>
         </div>
       </div>
     ),

@@ -27,7 +27,7 @@ const FeatureCard = {
       <h2 className="font-std md:w-3/4 md:text-center relative z-10 self-end w-1/2 font-extrabold text-right">
         {vnode.attrs.title}
       </h2>
-      <div className="feature-card-content lg:rounded-full xl:feature-card-content-wide bg-balance-basic-black opacity-90 z-20 mt-8 font-serif font-bold leading-10 tracking-wide text-white">
+      <div className="feature-card-content lg:rounded-full md:feature-card-content-wide bg-balance-basic-black opacity-90 z-20 mt-8 font-serif font-bold leading-10 tracking-wide text-white">
         <p>{vnode.attrs.shortContent}</p>
         {vnode.attrs.longContent.map((paragraphText) => (
           <p className="long-content hidden">{paragraphText}</p>

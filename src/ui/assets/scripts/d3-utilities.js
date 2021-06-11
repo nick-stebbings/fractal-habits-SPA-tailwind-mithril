@@ -29,6 +29,7 @@ const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
 const noNodeCol = "#634a36";
 const neutralCol = "#888";
+let globalZoom, globalTranslate;
 
 const d3SetupCanvas = function (document) {
   const { width, height } = document.body.getBoundingClientRect();
@@ -107,24 +108,31 @@ const setHabitLabel = (data) => {
 };
 
 const showHabitLabel = () =>
-  (document.querySelector(".mask-wrapper").style.height = "6rem");
+  (document.querySelector(".mask-wrapper").style.height = "5rem");
 
 const zooms = function (e) {
   const transform = e.transform;
-  const scale = transform.k,
+  let scale = transform.k,
     tbound = -canvasHeight * scale*3,
     bbound = canvasHeight * scale*3;
-
+  scale = globalZoom ? globalZoom : scale;
   const currentTranslation = [margin.left, margin.top];
 
+  globalTranslate = null;
   const translation = [
-    currentTranslation[0] + transform.x,
-    currentTranslation[1] + Math.max(Math.min(transform.y, bbound), tbound),
+    (globalTranslate ? globalTranslate[0] : (currentTranslation[0] + transform.x)),
+    (globalTranslate ? ((currentTranslation[1] + globalTranslate[1])) : (currentTranslation[1] + transform.y))
   ];
 
+  console.log(translation);
   select(".canvas").attr(
     "transform",
-    "translate(" + translation + ")" + " scale(" + scale + ")"
+    "translate(" +
+      translation +
+      ")" +
+      " scale(" +
+      scale +
+      ")"
   );
 };
 
@@ -164,34 +172,44 @@ const renderTree = function (
   cH = canvasHeight,
   mType = modalType
 ) {
-  let currentXTranslate = margin.left;
-  let currentYTranslate = margin.top;
   canvasWidth = cW;
   canvasHeight = cH;
   modalType = mType;
   // TODO change this to private data once more than one vis is live
 
+  let rootData = TreeStore.root();
+  if (rootData.name === "") return;
+  
+  // SETTINGS
+  let scale = isDemo ? 3 : 4;
+  let clickScale = 2;
+  let currentXTranslate = margin.left;
+  let currentYTranslate = margin.top;
+  let currentScale = zoomClicked ? zoomClicked?.scale : null;
+  globalZoom = currentScale;
+
+  const zoomBase = canvas;
+  let levelsWide;
+  let levelsHigh;
   svg.selectAll("*").remove();
   const canvas = svg
     .append("g")
     .classed("canvas", true)
-    .attr("transform", `scale(1.2), translate(${currentXTranslate},${currentYTranslate})`);
+    .attr("transform", `scale(${currentScale ? currentScale : clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
 
-  let rootData = TreeStore.root();
-  if (rootData.name === "") return;
-
-  // SETTINGS
-  let scale = isDemo ? 3.5 : 4.5;
-  let clickScale = 3;
-  const zoomBase = canvas;
-  const levelsWide = canvasWidth < 600 || !!zoomClicked ? 2 : 6;
-  const levelsHigh = canvasHeight < 600 || !!zoomClicked ? 2 : 3;
-  const nodeRadius = 17 * scale;
+  if (canvasWidth < 600) {
+    levelsWide = zoomClicked ? 8 : 4;
+    levelsHigh = zoomClicked ? 0.5 : 2;
+  } else {
+    levelsWide = zoomClicked ? 10 : 5;
+    levelsHigh = 2;
+  }
+  const nodeRadius = (canvasWidth < 600 ? 15 : 10) * scale;
+  let widthBeteen = isDemo ? scale / 3 : 1;
   const dx = ((canvasWidth / levelsHigh)) / clickScale;
-  const dy = (canvasHeight / levelsWide) * (isDemo ? scale / 3 : 1);
+  const dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
-  let zoomed = {};
   let activeNode;
   let currentTooltip;
   let currentButton;
@@ -234,16 +252,15 @@ const renderTree = function (
   }
 
   const handleZoom = function (event, node) {
-    if (event.deltaY >= 0 || deadNode(event)) return reset();
-
+    if (event.deltaY >= 0 || activeNode || deadNode(event)) return reset();
     setActiveNode(node.data);
     expand(node);
     collapseAroundAndUnder(node);
 
     updateCurrentHabit(node, false);
     renderTree(svg, isDemo, zoomer, {
-      event,
-      node,
+      event: undefined,
+      node: undefined,
       content: node.data,
     });
   };
@@ -266,9 +283,10 @@ const renderTree = function (
       updateCurrentHabit(node, false);
       // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
       renderTree(svg, isDemo, zoomer, {
-        event: undefined,
-        node: undefined,
+        event: event,
+        node: node,
         content: node.data,
+        scale: clickedZoom ? clickScale : scale,
       });
       activeNodeAnimation();
       setHabitLabel(node.data);
@@ -282,15 +300,17 @@ const renderTree = function (
       if (deadNode(event)) return reset();
       setActiveNode(node);
       renderTree(svg, isDemo, zoomer, {
-        event,
-        node,
+        event: event,
+        node: node,
         content: node.data,
-        highlight: true,
+        highlight: true
       });
+      // globalTranslate = [node.x, node.y]
       handleStatusToggle(node);
-      renderTree(svg, isDemo, zoomer);
-      
-    debugger;
+      renderTree(svg, isDemo, zoomer, {
+        node: node,
+        scale: clickedZoom ? clickScale : scale,
+      });
     });
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
@@ -301,7 +321,7 @@ const renderTree = function (
         g.select(".tooltip").transition().duration(250).style("opacity", "0");
         g.select(".habit-label-dash-button")
           .transition()
-          .delay(1500)
+          .delay(500)
           .duration(250)
           .style("opacity", "0");
         setTimeout(() => {
@@ -345,7 +365,7 @@ const renderTree = function (
   };
 
   const reset = function () {
-    scale = isDemo ? 2 : 3;
+    scale = isDemo ? 3 : 4;
     svg.attr("viewBox", defaultView);
     expandTree();
     activeNode = null;
@@ -384,14 +404,11 @@ const renderTree = function (
   };
 
   function calibrateViewPort() {
-    viewportX = 0;
-    viewportY = canvasHeight/10;
-    viewportW = canvasWidth * 5;
-    viewportH = canvasHeight * 5;
-    zoomed.translateX = -3 * (viewportW / 2);
-    zoomed.translateY = -3 * (viewportH / 2);
-    zoomed.viewportW = scale * viewportW;
-    zoomed.viewportH = scale * viewportH;
+    viewportY = canvasHeight/90;
+    viewportW = canvasWidth * 3;
+    viewportX = viewportW / 2// + (globalTranslate ? (globalTranslate[0] / 2) : 0);
+    viewportH =
+      canvasHeight * 5;// + (globalTranslate ? (globalTranslate[1] / 2) : 0);
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
   }
 
@@ -401,18 +418,19 @@ const renderTree = function (
     var y = node.__data__ ? node.__data__.y : node.y;
     var bx = x * xScale;
     var by = y * xScale;
-    var tx = -bx - viewportW;
+    var tx = -bx;
     var ty = -by;
     return { translate: [tx, ty], scale: xScale };
   }
 
   function clickedZoom(e, that) {
-    if (e.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
+    if (e?.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
+    // globalTranslate = transformer.translate;
     select(".canvas")
       .transition()
       .ease(easeCircleOut)
-      .duration(1500)
+      .duration(10)
       .attr(
         "transform",
         "translate(" +

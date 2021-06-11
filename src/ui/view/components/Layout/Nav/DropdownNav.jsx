@@ -3,7 +3,6 @@ import HabitStore from '../../../../store/habit-store';
 import HoverableLink from './UI/Buttons/HoverableLink.jsx';
 
 const DropdownNav = (function () {
-
   const showMegaMenu = (id) => {
     document.querySelector('.mask-wrapper').style.height = '357px';
     [...document.querySelectorAll('.mega-menu')].forEach((menu, idx) => {
@@ -13,29 +12,30 @@ const DropdownNav = (function () {
         menu.style.display = 'none';
       }
     });
-    document.querySelector('.mask-wrapper').style.zIndex = "40";
+    document.querySelector('.mask-wrapper').style.zIndex = '40';
   };
   const hideMegaMenu = () => {
-    document.querySelector('.mask-wrapper').style.height = '6.3rem';
-    [...document.querySelectorAll('.mega-menu')].forEach(menu => {
+    document.querySelector('.mask-wrapper').style.height = '5rem';
+    [...document.querySelectorAll('.mega-menu')].forEach((menu) => {
       menu.style.display = 'none';
     });
-    document.querySelector('.mask-wrapper').style.zIndex = "10";
+    document.querySelector('.mask-wrapper').style.zIndex = '10';
   };
   return {
     oncreate: () => {
       [...document
         .querySelectorAll('.nav li.hoverable')].forEach((navItem) => {
-          navItem.addEventListener("click", (e) => {
-          let id = e.target.id;
-            let idx = ["nav-visualise", "nav-habits"].indexOf(id);
-            let menuVisible = (document.querySelector(
-              ".mask-wrapper"
-            ).style.height === "6.3rem");
+        navItem.addEventListener('click', (e) => {
+          const { id } = e.target;
+          const idx = ['nav-visualise', 'nav-habits'].indexOf(id);
+          const menuVisible = (document.querySelector(
+            '.mask-wrapper',
+          ).style.height === '5rem');
           menuVisible ? showMegaMenu(idx) : hideMegaMenu();
         });
-        });
-      document.querySelector('.date-card-wrapper').addEventListener('mousenter', showMegaMenu);
+      });
+      document.querySelector('.date-card-wrapper').addEventListener('mouseenter', showMegaMenu);
+      document.querySelector('.date-card-wrapper').addEventListener('mouseleave', hideMegaMenu);
       document.querySelector('nav.nav').addEventListener('mouseenter', hideMegaMenu);
     },
     view: ({ attrs: { routes } }) => (
@@ -56,7 +56,7 @@ const DropdownNav = (function () {
             ))}
           </ul>
           <div className="md:block hidden" id="current-habit-label">
-            <span id="current-habit">Selected:</span>
+            <span id="current-habit">Habit:</span>
             {m(
               'span',
               HabitStore.current()

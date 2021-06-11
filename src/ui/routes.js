@@ -31,8 +31,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ],
-    imgUrl: "./images/1.png",
+    ]
   },
   {
     title: "Everyone Loves a Streak",
@@ -41,8 +40,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ],
-    imgUrl: "./images/1.png",
+    ]
   },
   {
     title: "Everyone Loves a Streak",
@@ -51,8 +49,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ],
-    imgUrl: "./images/1.png",
+    ]
   },
   {
     title: "Everyone Loves a Streak",
@@ -61,8 +58,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ],
-    imgUrl: "./images/1.png",
+    ]
   },
   {
     title: "Everyone Loves a Streak",
@@ -71,8 +67,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ],
-    imgUrl: "./images/1.png",
+    ]
   },
 ];
 
@@ -89,9 +84,9 @@ const d3visPageMaker = function (layout, component, spinnerState, modalType) {
   page.view = () => {
     // Pass unique selection id to the vis component for d3 selection
     const d3Container = m("div", { id: divId }, [
-      m("svg.legendSvg", { class: "top-26 lg:top-20 w-36 fixed left-4 h-12" }),
+      m("svg.legendSvg", { class: "top-24 lg:top-16 w-36 fixed left-4 h-12" }),
       m("svg.controlsSvg", {
-        class: "top-20 w-72 fixed right-0 h-16 hidden md:block",
+        class: "top-16 w-72 fixed right-0 h-14 hidden md:block",
       }),
     ]);
 

@@ -82,6 +82,7 @@ module Hht
         date_id = params[:date_id].to_i
         length = params['tracking_length'].to_i || 28
         YAML = YAMLStore.new(length) unless YAMLStore.ready
+        halt(404, { message: 'No Demo Data Found' }.to_json) unless YAML
         tree_index = id ? (id.to_i - 1) : 0
         # Return a default template (given all are the same length) if there isn't a tree for that date
         YAML.tree[tree_index][date_id.to_s] || YAML.tree[tree_index][:default]
@@ -182,8 +183,6 @@ module Hht
         date_id = params[:date_id].to_i
 
         if params[:demo] == 'true'
-          url = "http://localhost:9393/api/demo/domain/#{id}/habit_tree"
-          response.headers['Location'] = url
           halt(302, { message: 'Use the /api/demo path for demo data.' }.to_json)
         end
 

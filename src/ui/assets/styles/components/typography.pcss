@@ -24,7 +24,6 @@ section > h2:first-of-type {
   @apply mt-4 underline text-center;
 }
 
-.domain-pills,
 .user-nav-label,
 .menu-card-button {
   font-family: B612, Lato, Nunito, sans;
@@ -62,11 +61,6 @@ section > h2:first-of-type,
 .user-nav-label span {
   font-weight: 700;
 }
-
-.domain-pills {
-  @apply text-gray-200 tracking-widest text-4xl;
-}
-
 .user-nav-label {
   @apply text-balance-pshades-dark font-bold text-2xl lg:text-base tracking-wider;
 }
@@ -93,7 +87,7 @@ li#demo-indicator {
 }
 
 #current-habit-label-sm > span:first-of-type,
-#subnav .nav-links > li.hoverable a {
+#subnav .nav-links > li.hoverable a, #current-habit-sm span {
   @apply uppercase pt-2 lg:px-4 xl:text-2xl lg:text-xl lg:leading-9 leading-10;
   font-family: B612, Lato, Nunito, sans;
   font-weight: 700;
@@ -108,7 +102,6 @@ li#demo-indicator {
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable a {
   @apply text-2xl;
-  line-height: 1.5rem;
 }
 
 nav .hero-message > h2 {
@@ -116,9 +109,10 @@ nav .hero-message > h2 {
 }
 
 nav .hero-message p {
-  @apply leading-5 xl:leading-7 text-gray-100 text-right;
+  @apply leading-5 text-gray-100 text-right;
   font-weight: 100;
   letter-spacing: 1px;
+  line-height: 1.25rem;
 }
 
 nav .menu-card.enabled h3 {
@@ -130,11 +124,9 @@ nav .menu-card.disabled .overlay h3 {
   @apply text-xl text-center text-gray-100 font-bold;
 }
 
-#current-habit-sm,
-#current-habit,
 nav .menu-card p {
   font-family: Montserrat, serif;
-  @apply text-base text-black font-light tracking-wide text-center;
+  @apply text-sm text-black font-light tracking-wide text-center;
 }
 
 .resp-nav-link {
@@ -165,12 +157,12 @@ nav .menu-card p {
   -webkit-text-stroke: 1px #261C15;
   letter-spacing: .05em;
   line-height: 1.25em;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 h1.main-logo {
   @apply text-black;
-  font: 600 54pt 'Oleo Script Swash Caps', cursive;
+  font: 600 3rem 'Oleo Script Swash Caps', cursive;
   letter-spacing: .05em;
   line-height: 1.25em;
 }
@@ -195,14 +187,11 @@ h2.tagline {
   display: none;
 }
 
-@media only screen and (min-width: 1440px) {
-#app  > .wrapper {
-    width: calc(100% - 6em);
-  }
-}
 
 @media only screen and (min-width: 1920px) {
   #app  > .wrapper h1 {
       font-size: 5rem;
     }
+    
+  nav .menu-card p { max-width: 75%; font-size: 1.2rem; line-height:1.6; }
 }

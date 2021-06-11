@@ -14,8 +14,8 @@ const PillSection = {
           <style />
         </defs>
       </svg>
-      {attrs.pillTitles.map((title) => (
-        <FeaturePill title={title} clipPathUrl="#clipPath" />
+      {attrs.pillTitles.map((title, idx) => (
+        <FeaturePill title={title} rank={idx} clipPathUrl="#clipPath" name={title} modalType={attrs.modalType} />
       ))}
     </div>
   ),

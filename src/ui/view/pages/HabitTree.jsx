@@ -106,7 +106,7 @@ const HabitTree = function () {
       }
     },
     oncreate: ({ attrs }) => {
-      addSwipeGestures();
+      canvasWidth < 600 && addSwipeGestures();
 
       svg = select(`div#${attrs.divId}`)
         .classed("h-screen", true)

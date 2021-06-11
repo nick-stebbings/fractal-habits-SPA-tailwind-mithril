@@ -10,8 +10,13 @@ const calendarDates = stream(['','','','','','','',]);
 const statuses = stream([]);
 
 const CalendarWidget = {
+<<<<<<< HEAD
   oninit: () => {
     console.log(DateStore.current());
+=======
+  onupdate: () => {
+    console.log(DateStore.current())
+>>>>>>> frontpage
     !DateStore.current() && DateStore.index().then(() => {
       DateStore.indexDatesOfHabit(HabitStore.current()?.id);
     })
@@ -36,8 +41,8 @@ const CalendarWidget = {
     });
   },
   view: () => (
-    <div className="h-3/4 left-32 top-28 rounded-3xl lg:flex absolute justify-end hidden w-5/6">
-      <div className="date-card-wrapper rounded-3xl flex-end flex gap-1 -mt-8 bg-transparent">
+    <div className="h-3/4 top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full pt-1">
+      <div className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex w-full gap-2 bg-transparent" style="max-width:60%">
         {calendarDates().map((date, idx) => <DateCard date={date} completedStatus={statuses()[idx]?.completed_status} />)}
       </div>
     </div>

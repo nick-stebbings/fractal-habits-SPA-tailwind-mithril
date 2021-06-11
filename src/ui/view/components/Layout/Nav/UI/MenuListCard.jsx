@@ -1,17 +1,19 @@
 const MenuListCard = {
   oncreate: ({ attrs, dom }) => {
     if (attrs.enabled) {
+      console.log(attrs);
       dom.classList.add('enabled');
+    } else {
+      dom.classList.add('disabled');
     }
-    dom.classList.toggle('disabled');
   },
   view: ({ attrs }) => (
-    <div className="menu-card disabled rounded-2xl flex flex-col justify-between h-full text-black bg-gray-100 shadow-xl">
+    <div className="menu-card rounded-2xl flex flex-col justify-between h-full text-black bg-gray-100 shadow-xl">
       <div className="overlay flex items-center justify-center">
         <h3>Under Construction</h3>
       </div>
       <div className="flex items-center justify-center">
-        <h3 className="flex px-2">{attrs.title}</h3>
+        <h3 className="flex px-2 mb-2">{attrs.title}</h3>
         <div className="text-balance-pshades-dark w-18 h-18 flex items-center justify-center">
           {m.trust(attrs.icon)}
         </div>

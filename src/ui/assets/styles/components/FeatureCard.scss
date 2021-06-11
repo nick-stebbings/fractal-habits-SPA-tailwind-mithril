@@ -4,15 +4,16 @@
 
 @layer utilities {
   @variants responsive {
-    .wide::after {
+    .feature-card.wide::after {
       border-radius: 20rem;
       width: 100%;
-      height: 67%;
-      top: 33%;
+      max-width: 100%;
+      height: 50%;
+      bottom: 0;
     }
 
     .feature-card-content-wide {
-      @apply relative ml-0;
+      @apply relative ml-0 mb-64 md:mb-32;
       padding-bottom: 4.5rem;
       padding-top: 2rem;
       margin-top: -1.5rem;
@@ -20,18 +21,13 @@
     }
     
     .wide > h2 {
-      @apply text-center w-full;
-      margin-bottom: 2rem;
+      @apply text-center w-full mb-12;
       width: 75%;
     }
 
     .feature-card-content-wide-button {
       bottom: 1.5rem;
       right: calc(50% - 6rem) !important;
-    }
-
-    .wide::after {
-      background-position-x: 80%;
     }
   }
 }
@@ -42,12 +38,15 @@
   @apply col-span-5;
 }
 
+
 .feature-card {
-  padding: 6rem clamp(4vw, .1vw, 6rem) 8rem;
+  padding-right: clamp(4vw, .1vw, 6rem);
+  padding-bottom: 5rem;
+  padding-top: 3rem;
   background: #686C7A;
   background: linear-gradient(0deg, rgba(104,108,122,1) 17%, rgba(194,218,141,0.65) 87%);
   box-shadow: 0 0 rgba(0,0,0,0), 0 0 rgba(0,0,0,0), var(--faint-shadow);
-  border-radius: 10rem;
+  border-radius: 10vw;
 }
 
 .feature-card::before {
@@ -67,14 +66,12 @@
 .feature-card::after {
   content: '';
   position: absolute;
-  bottom: 40px;
   left: 0;
-  width: 275px;
-  height: 50%;
-  border-radius: 20rem;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  z-index: 1;
+  max-width: 50%;
+  height: 100%;
+  border-top-left-radius: 10vw;
+  border-bottom-left-radius: 10vw;
+  z-index: 0;
   opacity: 0.5;
   background: no-repeat -40px url('../../images/icons/pyramid.svg');
   background-size: cover;
@@ -87,6 +84,7 @@
   max-height: 256px;
   border-radius: 1.5rem;
   margin-left: clamp(4vw, .1vw, 6rem);
+  margin-bottom: 8rem;
 }
   
 .feature-card.img-loaded:nth-child(1)::after {

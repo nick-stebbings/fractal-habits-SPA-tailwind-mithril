@@ -1,4 +1,4 @@
-import DateTime from 'luxon/src/datetime.js';
+import DateTime from "luxon/src/datetime.js";
 import stream from "mithril/stream";
 
 import HabitStore from "../../store/habit-store";
@@ -89,6 +89,11 @@ const HabitDashboard = {
       selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add(
         "selected"
       );
+    
+    if (m.route.param("currentHabit")) {
+      let param = m.route.param('currentHabit');
+      document.querySelector(`tr:nth-child(${param})`).scrollIntoView();
+    }
 
     // Add hover/active styles
     [...document.querySelectorAll("table tr")].forEach((row, index) => {
@@ -98,12 +103,11 @@ const HabitDashboard = {
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
           // Stop the query parameters from persisting past first load
-          if (m.route.param("currentHabit") && e.target.tagName !== "BUTTON")
             setRouteToBasePath();
 
           // Add selected styles
-          const habitName = e.currentTarget.querySelector("p:first-child")
-            ?.textContent;
+          const habitName =
+            e.currentTarget.querySelector("p:first-child")?.textContent;
           document.querySelector(".selected").classList.remove("selected");
           e.currentTarget.classList.add("selected");
 
@@ -149,27 +153,27 @@ const HabitDashboard = {
         <FilterList></FilterList>
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
           <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-            <table class="min-w-full leading-normal table-fixed">
+            <table class="min-w-full leading-normal table-auto">
               <thead>
-                <tr>
+                <tr class="flex flex-nowrap">
                   <th
                     scope="col"
-                    class="w-1/2 px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    class="flex flex-col px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
-                    Habit
                     <i
                       id="sort-name-desc"
                       class={
                         nameOrderAsc()
-                          ? "relative left-2 fa fa-sort-asc"
-                          : "relative left-2 fa fa-sort-desc"
+                          ? "relative text-center md:text-left left-2 fa mr-4 fa-sort-asc"
+                          : "relative text-center md:text-left left-2 fa mr-4 fa-sort-desc"
                       }
                       aria-hidden="true"
                     ></i>
+                    Habit
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    class="py-1 mt-auto flex flex-col justify-end bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                   >
                     Domain
                     {/* <i
@@ -180,37 +184,38 @@ const HabitDashboard = {
                   </th>
                   <th
                     scope="col"
-                    class="w-1/12 text-center px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-sm uppercase font-normal"
+                    class="flex flex-col text-center md:text-left px-2 py-1 bg-white  border-b border-gray-200 text-gray-800  text-sm uppercase font-normal"
+                    Domain
                   >
-                    Initiated
                     <i
                       id="sort-date-desc"
                       class={
                         dateOrderAsc()
-                          ? "relative left-2 fa fa-sort-asc"
-                          : "relative left-2 fa fa-sort-desc"
+                          ? "relative left-2 text-center md:text-left fa mr-4 fa-sort-asc"
+                          : "relative left-2 text-center md:text-left fa mr-4 fa-sort-desc"
                       }
                       aria-hidden="true"
                     ></i>
+                    Initiated
                   </th>
                   <th
                     scope="col"
-                    class="flex w-1/12 text-center px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
+                    class="flex flex-col text-center md:text-left px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   >
-                    Completion
                     <i
                       id="sort-completion-desc"
                       class={
                         statusOrderAsc()
-                          ? "relative left-2 fa fa-sort-asc"
-                          : "relative left-2 fa fa-sort-desc"
+                          ? "relative left-2 text-center md:text-left fa mr-4 fa-sort-asc"
+                          : "relative left-2 text-center md:text-left fa mr-4 fa-sort-desc"
                       }
                       aria-hidden="true"
                     ></i>
+                    Completion
                   </th>
                   <th
                     scope="col"
-                    class="w-full px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
+                    class=" mt-auto px-2 py-1 bg-white  border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
                   ></th>
                 </tr>
               </thead>
@@ -229,20 +234,20 @@ const HabitDashboard = {
                         </div>
                       </div>
                     </td>
-                    <td class="bg-transparent px-2 py-2 border-b border-gray-200 bg-white text-lg">
+                    <td class="bg-transparent py-2 border-b border-gray-200 bg-white text-lg">
                       <p class="text-gray-900 whitespace-no-wrap">
                         {DomainStore.current().name}
                       </p>
                     </td>
                     <td class="bg-transparent px-2 py-2 border-b border-gray-200 bg-white text-lg">
-                      <p class="text-gray-900 whitespace-no-wrap">
+                      <p class="text-gray-900 whitespace-no-wrap text-center md:text-left">
                         {DateTime.fromSQL(
                           habit.initiation_date
                         ).toLocaleString()}
                       </p>
                     </td>
-                    <td class="bg-transparent h-24 flex items-center justify-center px-2 py-2 border-b border-gray-200 bg-white text-sm">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                    <td class="flex py-2 border-b border-gray-200 justify-center" style="width: 100%">
+                      <span class="relative inline-block px-3 py-1 font-semibold leading-tight">
                         <span class="relative">
                           <svg class="h-12 w-12">
                             <circle
@@ -269,7 +274,7 @@ const HabitDashboard = {
                 ))}
               </tbody>
             </table>
-            <div class="px-2 bg-white py-2 flex flex-col xs:flex-row items-center xs:justify-between">
+            {/* <div class="px-2 bg-white py-2 flex flex-col xs:flex-row items-center xs:justify-between">
               <div class="flex items-center">
                 <button
                   type="button"
@@ -325,8 +330,8 @@ const HabitDashboard = {
                     <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
                   </svg>
                 </button>
-              </div>
-            </div>
+              </div> 
+            </div>*/}
           </div>
         </div>
       </div>
