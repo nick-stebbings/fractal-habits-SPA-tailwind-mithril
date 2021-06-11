@@ -133,14 +133,16 @@ div.sm-selector-container .domain-selector {
     margin-bottom: 8rem;
   }
 
-  #app  > .wrapper:last-child::before {
-    background: no-repeat url('../images/big-pyramid.svg');
+  #app  > .wrapper::after {
+    background: no-repeat url('../images/big-pyramid.png');
     background-size: cover;
     content: '';
-    width: 100%;
-    height: 100%;
-    background-position-x: center;
+    left: 0;
+    top: -30%;
+    bottom: 0;
+    right: 0;
     position: fixed;
+    opacity: 0.01;
   }
 
   #app  > .wrapper > .logo, #app > .wrapper > .slogan {

@@ -90,7 +90,6 @@ const HabitDashboard = {
         "selected"
       );
     
-     
     if (m.route.param("currentHabit")) {
       let param = m.route.param('currentHabit');
       document.querySelector(`tr:nth-child(${param})`).scrollIntoView();
