@@ -38,7 +38,7 @@ const FeatureCardSection = {
             } = content;
             return (
               <FeatureCard
-                wide={[1, 2, 3, 4].includes(idx)}
+                wide
                 title={title}
                 shortContent={shortContentParagaph}
                 longContent={longContentParagraphs}

@@ -89,6 +89,12 @@ const HabitDashboard = {
       selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add(
         "selected"
       );
+    
+     
+    if (m.route.param("currentHabit")) {
+      let param = m.route.param('currentHabit');
+      document.querySelector(`tr:nth-child(${param})`).scrollIntoView();
+    }
 
     // Add hover/active styles
     [...document.querySelectorAll("table tr")].forEach((row, index) => {
@@ -98,7 +104,6 @@ const HabitDashboard = {
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
           // Stop the query parameters from persisting past first load
-          if (m.route.param("currentHabit") && e.target.tagName !== "BUTTON")
             setRouteToBasePath();
 
           // Add selected styles

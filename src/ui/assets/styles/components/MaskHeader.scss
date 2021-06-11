@@ -350,6 +350,12 @@ span.logo svg path,
 
 @media only screen and (min-width: 1920px) {
   div.mask-wrapper {
-    mask: no-repeat 10px -20px $maskimagewide;
+    mask: none;
+  }
+  #subnav .nav-links {
+    li::last-of-type {
+      padding-left: 1rem;
+    }
+    padding-left: 0;
   }
 }
