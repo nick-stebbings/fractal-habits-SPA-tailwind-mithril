@@ -80,7 +80,7 @@ const DateSelector = function () {
           id="date-today"
           tabIndex="3"
           required
-          className="sm:h-10 w-full h-6 px-4 py-1 mt-1 text-xl"
+          className="sm:h-10 w-full h-6 px-4 py-1 mt-1 xl:text-xl"
           type="date"
           value={DateStore.currentDate()}
           max={String(DateStore.currentDate())}

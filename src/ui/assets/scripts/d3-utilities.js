@@ -118,7 +118,7 @@ const zooms = function (e) {
   scale = globalZoom ? globalZoom : scale;
   const currentTranslation = [margin.left, margin.top];
 
-  // globalTranslate = null;
+  globalTranslate = null;
   const translation = [
     (globalTranslate ? globalTranslate[0] : (currentTranslation[0] + transform.x)),
     (globalTranslate ? ((currentTranslation[1] + globalTranslate[1])) : (currentTranslation[1] + transform.y))
@@ -204,7 +204,7 @@ const renderTree = function (
     levelsWide = zoomClicked ? 10 : 5;
     levelsHigh = 2;
   }
-  const nodeRadius = 15 * scale;
+  const nodeRadius = (canvasWidth < 600 ? 15 : 10) * scale;
   let widthBeteen = isDemo ? scale / 3 : 1;
   const dx = ((canvasWidth / levelsHigh)) / clickScale;
   const dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
@@ -305,7 +305,7 @@ const renderTree = function (
         content: node.data,
         highlight: true
       });
-      globalTranslate = [node.x, node.y]
+      // globalTranslate = [node.x, node.y]
       handleStatusToggle(node);
       renderTree(svg, isDemo, zoomer, {
         node: node,
@@ -406,9 +406,9 @@ const renderTree = function (
   function calibrateViewPort() {
     viewportY = canvasHeight/90;
     viewportW = canvasWidth * 3;
-    viewportX = viewportW / 2 + (globalTranslate ? (globalTranslate[0] / 2) : 0);
+    viewportX = viewportW / 2// + (globalTranslate ? (globalTranslate[0] / 2) : 0);
     viewportH =
-      canvasHeight * 5 + (globalTranslate ? (globalTranslate[1] / 2) : 0);
+      canvasHeight * 5;// + (globalTranslate ? (globalTranslate[1] / 2) : 0);
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
   }
 
@@ -426,7 +426,7 @@ const renderTree = function (
   function clickedZoom(e, that) {
     if (e?.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
-    globalTranslate = transformer.translate;
+    // globalTranslate = transformer.translate;
     select(".canvas")
       .transition()
       .ease(easeCircleOut)

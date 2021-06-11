@@ -22,7 +22,7 @@ thead, tbody {
 }
 
 tr {
-  @apply flex flex-col md:flex-row w-full items-center;
+  @apply flex flex-col md:flex-row w-full items-center border-balance-tershades-gray md:border-0 border-2;
   background-color: white;
   transition: background-color ease 0.6s;
 }
@@ -54,7 +54,7 @@ form#create-new-habit-child > .input-container {
 }
 
 .input-container {
-  @apply h-full px-8 xl:w-3/4 w-full mt-4 text-xl;
+  @apply h-full px-8 xl:w-5/6 w-full mt-4 text-xl;
 }
 
 #modal .input-container {
@@ -84,6 +84,10 @@ label.reqd.not-added::after {
 }
 
 /* Buttons */
+
+#append-habit .button-group {
+  @apply pr-6;
+}
 
 .button-group {
   @apply rounded-2xl w-full h-24 sm:h-16 text-sm fixed bottom-0 gap-3 flex flex-row justify-end items-center inset-x-0;
@@ -218,11 +222,11 @@ input[type="date"] {
     display: inline-table;
   }
 
-  tr > *:first-of-type {width: 30%}
+  tr > *:first-of-type {width: 30%; padding-right: 2rem;}
   tr > *:nth-of-type(2) {width: 20%}
   tr > *:nth-of-type(3) {width: 15%;}
-  tr > *:nth-of-type(4) {width: 15%;}
-  tr > *:nth-of-type(5) {width: 10%}
+  tr > *:nth-of-type(4) {width: 18%;}
+  tr > *:nth-of-type(5) {width: 17%}
 }
 
 @media (min-width: 1024px) {

@@ -24,7 +24,6 @@ section > h2:first-of-type {
   @apply mt-4 underline text-center;
 }
 
-.domain-pills,
 .user-nav-label,
 .menu-card-button {
   font-family: B612, Lato, Nunito, sans;
@@ -61,10 +60,6 @@ section > h2:first-of-type,
 
 .user-nav-label span {
   font-weight: 700;
-}
-
-.domain-pills {
-  @apply text-gray-200 tracking-widest text-4xl;
 }
 
 .user-nav-label {
@@ -115,9 +110,10 @@ nav .hero-message > h2 {
 }
 
 nav .hero-message p {
-  @apply leading-5 xl:leading-7 text-gray-100 text-right;
+  @apply leading-5 text-gray-100 text-right;
   font-weight: 100;
   letter-spacing: 1px;
+  line-height: 1.25rem;
 }
 
 nav .menu-card.enabled h3 {
@@ -192,11 +188,6 @@ h2.tagline {
   display: none;
 }
 
-@media only screen and (min-width: 1440px) {
-#app  > .wrapper {
-    width: calc(100% - 6em);
-  }
-}
 
 @media only screen and (min-width: 1920px) {
   #app  > .wrapper h1 {

@@ -77,7 +77,7 @@ const MaskHeader = function () {
                 </label>
               </div>
               <input type="checkbox" id="hamburger" className="hidden" />
-              <nav className="top-16 sm:top-18 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-gray lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray max-w-1/2 absolute left-0 z-20 flex-col hidden w-full border-b-4">
+              <nav className="top-16 sm:top-18 md:top-20 lg:-mt-4 lg:border-balance-tershades-gray bg-balance-tershades-gray lg:border-0 md:top-12 lg:flex lg:justify-end lg:items-center lg:static lg:flex-row lg:bg-transparent sm:flex-row sm:flex-wrap lg:flex-nowrap shadow-tershades-gray max-w-1/2 absolute left-0 z-20 flex-col hidden w-full border-b-4">
                 <div className="md:pl-1 6 sm:pl-24 sm:my-2 sm:w-2/5 lg:w-auto lg:p-0 lg:border-0 lg:flex lg:flex-1 lg:justify-end lg:flex-row-reverse flex flex-col content-center justify-between hidden px-4 pt-1 pb-2">
                   <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none lg:-mt-3 lg:mr-2 flex items-center justify-between mt-2 text-sm text-black rounded-full">
                     <span className="lg:hidden xl:block pt-2 pb-0 mx-4 mb-1">
@@ -113,12 +113,12 @@ const MaskHeader = function () {
                 <div className="lg:block sm:w-3/5 lg:border-none lg:w-auto lg:mt-1 text-md md:px-0 lg:flex-row flex flex-wrap items-center justify-around hidden px-4 py-1 mt-3 mr-3">
                   <div className=" xl:block lg:border-1 border-balance-tershades-gray lg:flex-row-reverse bg-balance-tershades-light lg:bg-gray-700 lg:py-0 lg:rounded-3xl lg:rounded-t-none flex-nowrap flex items-center justify-between hidden py-2 pl-4 mb-2 mr-1 border-2 rounded-full">
                     <img
-                      className="lg:border-1 lg:border-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none border-1 border-balance-tershades-light flex-none object-cover w-10 h-10 rounded-full"
+                      className="lg:border-1 lg:border-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none border-1 border-balance-tershades-light flex flex-none object-cover w-10 h-10 rounded-full"
                       src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"
                       alt=""
                     />
-                    <span className="user-nav-label lg:text-gray-100 sm:px-0 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 block px-2 mx-4 font-light">
-                      User: <span>Bob</span>
+                    <span className="user-nav-label lg:text-gray-100 sm:px-0 lg:ml-0 lg:mr-4 lg:mb-1 lg:px-0 flex block px-2 mx-4 font-light">
+                      <span>Bob</span>
                     </span>
                   </div>
                   <div className="lg:hidden flex flex-col px-4 font-bold tracking-wide">
@@ -156,15 +156,20 @@ const MaskHeader = function () {
         <div
           className={
             m.route.param("demo")
-              ? "h-8 bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 pb-2 md:leading-6"
+              ? "h-8 bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 pb-2"
               : "h-8 bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 pb-2 md:leading-6"
           }
           id="current-habit-label-sm leading-4"
         >
-          <span id="current-habit-sm" class="block ml-3 pr-2 py-0">
+          <span
+            id="current-habit-sm"
+            class="block sm:hidden md:block ml-3 pr-2 py-0"
+          >
             HABIT:
           </span>
-          <span class="block">{HabitStore.current()?.name}</span>
+          <span class="block sm:hidden md:block">
+            {HabitStore.current()?.name}
+          </span>
         </div>
       </div>
     ),

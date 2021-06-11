@@ -36,7 +36,7 @@ const CalendarWidget = {
     });
   },
   view: () => (
-    <div className="h-3/4 left-48 top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden pt-1">
+    <div className="h-3/4 top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full pt-1">
       <div className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex w-full gap-2 bg-transparent" style="max-width:60%">
         {calendarDates().map((date, idx) => <DateCard date={date} completedStatus={statuses()[idx]?.completed_status} />)}
       </div>
