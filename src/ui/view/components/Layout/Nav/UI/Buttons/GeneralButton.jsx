@@ -1,12 +1,12 @@
 const GeneralButton = {
   view: ({ attrs }) => (
     <div
-      className={"button-container general-button"}
+      className="button-container general-button"
     >
-      <span className={attrs.color&& attrs.color}>
-      : 
+      <span className={attrs.color && attrs.color}>
+        :
         <button
-        type="submit"
+          type="submit"
           id={attrs.id}
           name={attrs.name}
           data-id={attrs.dataAttr}

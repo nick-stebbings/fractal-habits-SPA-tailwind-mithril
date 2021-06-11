@@ -10,7 +10,7 @@ const calendarDates = stream(['','','','','','','',]);
 const statuses = stream([]);
 
 const CalendarWidget = {
-  oninit: () => {
+  onupdate: () => {
     console.log(DateStore.current())
     !DateStore.current() && DateStore.index().then(() => {
       DateStore.indexDatesOfHabit(HabitStore.current()?.id);

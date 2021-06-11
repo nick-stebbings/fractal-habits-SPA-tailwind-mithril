@@ -320,6 +320,9 @@ span.logo svg path,
 }
 
 @media (min-width: 1024px) and (max-width: 1339px) {
+  .mask-wrapper div:first-child {
+    right: 32rem;
+  }
   /* Stack domain, date selectors; */  
 
   // .nav-label-primary:first-of-type {
