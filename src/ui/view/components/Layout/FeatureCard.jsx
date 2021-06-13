@@ -20,8 +20,8 @@ const FeatureCard = {
     <div
       className={
         vnode.attrs.wide
-          ? 'feature-card wide relative flex flex-col items-end col-span-5 text-right shadow-lg'
-          : 'feature-card xl:wide relative flex flex-col items-end col-span-5 text-right shadow-lg'
+          ? 'feature-card mb-4 wide relative flex flex-col items-end col-span-5 text-right shadow-lg'
+          : 'feature-card mb-4 xl:wide relative flex flex-col items-end col-span-5 text-right shadow-lg'
       }
     >
       <h2 className="font-std md:w-3/4 md:text-center relative z-10 self-end w-1/2 font-extrabold text-right">

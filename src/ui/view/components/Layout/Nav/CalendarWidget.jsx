@@ -11,13 +11,14 @@ const statuses = stream([]);
 
 const CalendarWidget = {
   oninit: () => {
-    console.log('!DateStore.current()?.h_date :>> ', !DateStore.current()?.h_date);
-    !DateStore.current()?.h_date && DateStore.index().then(() => {
-      DateStore.indexDatesOfHabit(HabitStore.current()?.id);
-    })
+    if (DateStore.list().length === 0) {
+      DateStore.index().then(() => {
+        DateStore.indexDatesOfHabit(HabitStore.current()?.id);
+      });
+    }
     const currentHabit = HabitStore.current();
-    let trackedDates = HabitDateStore.list().length;
-    trackedDates === 0 && HabitDateStore.indexForHabitPeriod(currentHabit.id, 7).then(
+    let trackedDates = HabitDateStore.list()?.length;
+    trackedDates == 0 && HabitDateStore.indexForHabitPeriod(currentHabit.id, 7).then(
       (data) => {
         statuses(
           data.map((date) => ({
@@ -26,6 +27,7 @@ const CalendarWidget = {
           }))
         );
         console.log(data, 'habit statuses');
+        console.log('HabitDateStore.list() :>> ', HabitDateStore.list());
         const dates = statuses().map((statusObj) => {
           return DateStore.dateFromDateObjectArray(
             statusObj.date_id,
@@ -34,13 +36,14 @@ const CalendarWidget = {
         });
 
         calendarDates(dates);
+        console.log('calendarDates() :>> ', calendarDates());
       }
     );
   },
   view: () => (
-    <div className="h-full top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full pt-1">
+    <div className="top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full h-full pt-1">
       <div className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex w-full gap-2 bg-transparent" style="max-width:60%">
-        {calendarDates().map((date, idx) => <DateCard date={date} completedStatus={statuses()[idx]?.completed_status} />)}
+        {calendarDates().map((date, idx) => <DateCard date={date} current={date} completedStatus={statuses()[idx]?.completed_status} />)}
       </div>
     </div>
   ),

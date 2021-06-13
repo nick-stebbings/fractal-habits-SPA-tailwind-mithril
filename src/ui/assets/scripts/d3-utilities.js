@@ -372,6 +372,7 @@ const renderTree = function (
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
       .on("touchstart", handleHover, { passive: true })
+      .on("touchend", handleNodeToggle, { passive: true })
       .on("click", handleNodeToggle)
       .on("mouseleave", function () {
         const g = select(this);
@@ -390,7 +391,9 @@ const renderTree = function (
 
       });
 
-    const manager = new Hammer.Manager(document.querySelector('.canvas'));
+    const manager = new Hammer.Manager(
+      document.querySelector("#vis div svg:last-of-type")
+    );
     // Create a recognizer
     const DoubleTap = new Hammer.Tap({
       event: 'doubletap',
@@ -398,10 +401,11 @@ const renderTree = function (
     });
     // debugger;
     manager.add(DoubleTap);
-    manager.on('doubletap', () => {
-      handleZoom();
+    manager.on('doubletap', (ev) => {
+      handleZoom(ev, ev.target.closest('.the-node'));
       handleNodeToggle();
-      alert('doubletap!')
+      alert(ev);
+      alert(ev.target.closest(".the-node"));
     })
 
     function handleStatusToggle(node) {
