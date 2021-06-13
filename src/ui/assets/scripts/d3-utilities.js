@@ -204,7 +204,7 @@ const renderTree = function (
     levelsWide = zoomClicked ? 10 : 5;
     levelsHigh = 2;
   }
-  const nodeRadius = (canvasWidth < 600 ? 15 : 10) * scale;
+  const nodeRadius = (canvasWidth < 600 ? 10 : 8) * scale;
   let widthBeteen = isDemo ? scale / 3 : 1;
   const dx = ((canvasWidth / levelsHigh)) / clickScale;
   const dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
@@ -371,15 +371,15 @@ const renderTree = function (
     });
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
-      .on("touchstart", handleToggle, { passive: true })
+      .on("touchstart", handleHover, { passive: true })
       .on("click", handleNodeToggle)
       .on("mouseleave", function () {
         const g = select(this);
-        g.select(".tooltip").transition().duration(250).style("opacity", "0");
+        g.select(".tooltip").transition().duration(50).style("opacity", "0");
         g.select(".habit-label-dash-button")
           .transition()
           .delay(500)
-          .duration(250)
+          .duration(150)
           .style("opacity", "0");
         setTimeout(() => {
           currentButton = false;
@@ -400,6 +400,7 @@ const renderTree = function (
     manager.add(DoubleTap);
     manager.on('doubletap', () => {
       handleZoom();
+      handleNodeToggle();
       alert('doubletap!')
     })
 
@@ -704,7 +705,7 @@ const renderTree = function (
 
       const gCircle = svg.selectAll("g.the-node.solid.active g:first-child");
       const pulseScale = scaleLinear()
-        .range(["#C2DA8D", "#5568d2", "#3349c1"])
+        .range(["#d0790f", "#5568d2", "#3349c1"])
         .domain([0, 3 * nodeRadius]);
       const pulseData = [0, nodeRadius, nodeRadius * 2, nodeRadius * 3];
       const pulseCircles = gCircle

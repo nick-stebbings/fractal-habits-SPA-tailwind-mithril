@@ -86,7 +86,7 @@ const d3visPageMaker = function (layout, component, spinnerState, modalType) {
     const d3Container = m("div", { id: divId }, [
       m("svg.legendSvg", { class: "bottom-1 w-36 fixed left-4 h-12" }),
       m("svg.controlsSvg", {
-        class: "bottom-8 w-72 fixed right-0 h-14 hidden md:block",
+        class: "bottom-2 w-72 fixed right-0 h-14 hidden md:block",
       }),
     ]);
 

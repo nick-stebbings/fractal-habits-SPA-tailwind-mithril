@@ -53,7 +53,7 @@ div.mask-wrapper {
   }
 
   #current-habit-label span {
-      @apply -mt-2;
+    @apply -mt-2;
   }
 }
 
@@ -277,18 +277,14 @@ body[class^="scroll"] #subnav .nav-links > li.hoverable.active a {
 
 body[class^="scroll"] #subnav .nav-links > li.hoverable.inactive {
   order: 2;
-  transition: width 2s ease-in,
-    margin-left 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: width 2s ease-in;
+    // margin-left 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   width: 0%;
   overflow: hidden;
   margin-left: -6rem;
 }
 
 /* ---  Hover States --- */
-
-body[class^="scroll"] #subnav .nav-links > li.hoverable:hover {
-  @apply bg-gradient-to-r from-black to-transparent;
-}
 
 #subnav .nav-links > li.hoverable:hover,
 body[class^="scroll"] #subnav .nav-links > li.hoverable.active:hover {

@@ -17,7 +17,7 @@ const DateCard = {
       })
       .split(/\W+/);
     return (
-      <div className="date-card bg-gray-50 rounded-2xl flex flex-col items-center justify-start flex-grow h-48 gap-1 p-2 pt-2 -mt-2">
+      <div className="date-card bg-gray-50 rounded-3xl flex flex-col items-center justify-start flex-grow gap-1 p-2 pt-2 -mt-2">
         <span className="font-std block uppercase">{weekday}</span>
         <span className="font-std block text-5xl">{monthday}</span>
         <span className="block">{month}</span>

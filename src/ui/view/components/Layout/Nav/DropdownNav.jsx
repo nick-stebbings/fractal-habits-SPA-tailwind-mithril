@@ -27,6 +27,10 @@ const DropdownNav = (function () {
         .querySelectorAll('.nav li.hoverable')].forEach((navItem) => {
         navItem.addEventListener('click', (e) => {
           const { id } = e.target;
+          if (document.body.classList.contains('scroll-down') || document.body.classList.contains('scroll-up')) {
+            // Allow finding the top of the page again using active nav list item
+            document.body.scroll(0, 0);
+          }
           const idx = ['nav-visualise', 'nav-habits'].indexOf(id);
           const menuVisible = (document.querySelector(
             '.mask-wrapper',
