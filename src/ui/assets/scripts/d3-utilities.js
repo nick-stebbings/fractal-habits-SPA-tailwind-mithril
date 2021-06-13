@@ -371,7 +371,7 @@ const renderTree = function (
     });
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
-      .on("touchstart", handleZoom, { passive: true })
+      .on("touchstart", handleToggle, { passive: true })
       .on("click", handleNodeToggle)
       .on("mouseleave", function () {
         const g = select(this);
@@ -399,8 +399,8 @@ const renderTree = function (
     // debugger;
     manager.add(DoubleTap);
     manager.on('doubletap', () => {
-      handleHover();
-      console.log("dt");
+      handleZoom();
+      alert('doubletap!')
     })
 
     function handleStatusToggle(node) {
@@ -424,7 +424,7 @@ const renderTree = function (
   };
 
   function calibrateViewPort() {
-    viewportY = -100;
+    viewportY = canvasWidth < 768 ? -250 : -100;
     viewportW = canvasWidth * 3;
     viewportX = viewportW / 2;
     viewportH =
