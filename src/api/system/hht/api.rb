@@ -302,7 +302,7 @@ module Hht
           .to_a
           .map(&:to_h)
         halt(404, { message: 'No Habit Dates Found' }.to_json) unless habit_date_list.length > 0
-        halt(422, { message: 'Invalid Length' }.to_json) unless length > 0 && length <= habit_date_list.length
+        halt(422, { message: 'Invalid Length' }.to_json) unless length > 0
 
         status 200
         json (json({habit_dates: habit_date_list.slice(-length, length)}))

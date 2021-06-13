@@ -11,11 +11,13 @@ const statuses = stream([]);
 
 const CalendarWidget = {
   oninit: () => {
+    console.log('!DateStore.current()?.h_date :>> ', !DateStore.current()?.h_date);
     !DateStore.current()?.h_date && DateStore.index().then(() => {
       DateStore.indexDatesOfHabit(HabitStore.current()?.id);
     })
     const currentHabit = HabitStore.current();
-    HabitDateStore.list().length === 0 && HabitDateStore.indexForHabitPeriod(currentHabit.id).then(
+    let trackedDates = HabitDateStore.list().length;
+    trackedDates === 0 && HabitDateStore.indexForHabitPeriod(currentHabit.id, 7).then(
       (data) => {
         statuses(
           data.map((date) => ({

@@ -425,7 +425,7 @@ const renderTree = function (
   };
 
   function calibrateViewPort() {
-    viewportY = canvasWidth < 768 ? -250 : -100;
+    viewportY = canvasWidth < 768 ? -250 : -200;
     viewportW = canvasWidth * 3;
     viewportX = viewportW / 2;
     viewportH =
