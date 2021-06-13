@@ -141,12 +141,15 @@ const deadNode = (event) =>
   event.target.__data__.data && parseTreeValues(event.target.__data__.data.content)
     ?.status == "";
 
-const sumChildrenValues = (node) =>
+const sumChildrenValues = (node, hidden=false) => hidden ? node._children.reduce((sum, n) => sum + n.value, 0) : 
   node.children.reduce((sum, n) => sum + n.value, 0);
 
 const cumulativeValue = (node) => {
   const content = parseTreeValues(node.data.content).status;
   try {
+    if (node?._children) {
+      return +( sumChildrenValues(node, true) >= node._children.length && node._children.every((n) => cumulativeValue(n) === 1) )
+    }
     return node && node.children
       ? +(sumChildrenValues(node) >= node.children.length && node.children.every(n => cumulativeValue(n) === 1))
       : [undefined, "incomplete", false, ''].includes(content) ? 0 : 1;
@@ -284,15 +287,15 @@ const renderTree = function (
   };
 
   const handleZoom = function (event, node) {
-    // if (!event || !node || event.deltaY >= 0 || activeNode || deadNode(event))
+    if (!event || !node || event.deltaY >= 0 || deadNode(event))
     //   return reset();
     event.preventDefault();
     globalZoom = clickScale;
     globalTranslate = [node.x, node.y];
     console.log("ZOOM NO RESET");
-    // setActiveNode(node.data);
-    // expand(node);
-    // updateCurrentHabit(node, false);
+    setActiveNode(node.data);
+    expand(node);
+    updateCurrentHabit(node, false);
     renderTree(svg, isDemo, zoomer, {
       event: event,
       node: node,
@@ -608,22 +611,22 @@ const renderTree = function (
 
 
     // MY LABELS (for modified tree traversal)
-  // enteringNodes
-  //   .append("text")
-  //   .attr("class", "label")
-  //   .attr("dx", 5)
-  //   .attr("dy", 25)
-  //   .style("fill", "green")
-  //   .text(cumulativeValue);
-  // enteringNodes //VALUE label
-  //   .append("text")
-  //   .attr("class", "label")
-  //   .attr("dx", 45)
-  //   .attr("dy", -25)
-  //   .style("fill", "red")
-  //   .text((d) => {
-  //     return d.data.content;
-  //   });
+  enteringNodes
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 5)
+    .attr("dy", 25)
+    .style("fill", "green")
+    .text(cumulativeValue);
+  enteringNodes //VALUE label
+    .append("text")
+    .attr("class", "label")
+    .attr("dx", 45)
+    .attr("dy", -25)
+    .style("fill", "red")
+    .text((d) => {
+      return d.data.content;
+    });
     
     //
     enteringNodes
@@ -820,7 +823,11 @@ const oppositeStatus = (current) =>
   current === undefined || current === "false" || current == 'incomplete' ? "true" : "false";
 
 const nodeStatusColours = (d) => {
-  if (typeof d === "undefined" || typeof d.data.content === "undefined") return neutralCol;
+  if (
+    typeof d === "undefined" ||
+    typeof d.data.content === "undefined"
+  )
+    return neutralCol;
   const status = parseTreeValues(d.data.content).status;
   if (status == "false" && TreeStore.root().leaves().includes(d)) return negativeCol;
   if (status === "") return noNodeCol;
