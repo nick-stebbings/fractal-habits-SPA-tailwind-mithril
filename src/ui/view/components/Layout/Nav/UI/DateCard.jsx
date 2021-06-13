@@ -9,7 +9,6 @@ import tree from '../../../../../assets/images/icons/tree.svg';
 
 const DateCard = {
   view: ({ attrs: { date, completedStatus } }) => {
-    console.log(completedStatus);
     const [weekday, month, monthday] = date
       .toLocaleString({
         month: 'short',

@@ -116,8 +116,9 @@ const zooms = function (e) {
     tbound = -canvasHeight * scale*3,
     bbound = canvasHeight * scale*3;
   scale = globalZoom ? globalZoom : scale;
+  console.log('scale :>> ', scale);
   const currentTranslation = [margin.left, margin.top];
-
+  globalZoom = null;
   globalTranslate = null;
   const translation = [
     (globalTranslate ? globalTranslate[0] : (currentTranslation[0] + transform.x)),
@@ -183,10 +184,9 @@ const renderTree = function (
   // SETTINGS
   let scale = isDemo ? 3 : 4;
   let clickScale = 2;
-  let currentXTranslate = margin.left;
-  let currentYTranslate = margin.top;
-  let currentScale = zoomClicked ? zoomClicked?.scale : null;
-  globalZoom = currentScale;
+  let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
+  let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
+  console.log('currentXTranslate :>> ', currentXTranslate);
 
   const zoomBase = canvas;
   let levelsWide;
@@ -195,7 +195,7 @@ const renderTree = function (
   const canvas = svg
     .append("g")
     .classed("canvas", true)
-    .attr("transform", `scale(${currentScale ? currentScale : clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
+    .attr("transform", `scale(${clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
 
   if (canvasWidth < 600) {
     levelsWide = zoomClicked ? 8 : 4;
@@ -242,28 +242,73 @@ const renderTree = function (
     return found;
   };
 
+  const cousins = (node, root) =>
+    root.descendants().filter((n) => n.depth == node.depth && n !== node);
+
+  const greatAunts = (node, root) =>
+    root.children.filter((n) => !node.ancestors().includes(n));
+
+  const collapseAroundAndUnder = function (
+    node,
+    cousinCollapse = true,
+    auntCollapse = true
+  ) {
+    let minExpandedDepth = node.depth + 3;
+    // For collapsing the nodes 'two levels lower' than selected
+    let descendantsToCollapse = node
+      .descendants()
+      .filter((n) => n.depth == minExpandedDepth);
+
+    // For collapsing cousin nodes (saving width)
+    let nodeCousins = [];
+    if (cousinCollapse) {
+      nodeCousins = cousins(node, rootData);
+    }
+    // For collapsing cousin nodes (saving width)
+    let aunts = [];
+    if (node.depth > 1 && auntCollapse && rootData.children) {
+      aunts = greatAunts(node, rootData);
+    }
+    descendantsToCollapse.concat(nodeCousins).concat(aunts).forEach(collapse);
+  };
+
+  const reset = function () {
+    if (zoomBase === undefined) return;
+    scale = isDemo ? 3 : 4;
+    svg.attr("viewBox", defaultView);
+    expandTree();
+    activeNode = null;
+    document.querySelector(".the-node.active") &&
+      document.querySelector(".the-node.active").classList.remove("active");
+    zoomBase.call(zoomer.transform, zoomIdentity);
+  };
+
+  const handleZoom = function (event, node) {
+    // if (!event || !node || event.deltaY >= 0 || activeNode || deadNode(event))
+    //   return reset();
+    event.preventDefault();
+    globalZoom = clickScale;
+    globalTranslate = [node.x, node.y];
+    console.log("ZOOM NO RESET");
+    // setActiveNode(node.data);
+    // expand(node);
+    // updateCurrentHabit(node, false);
+    renderTree(svg, isDemo, zoomer, {
+      event: event,
+      node: node,
+      content: node.data,
+      scale: clickedZoom ? clickScale : scale,
+    });
+  };
+
   // Re-fire the click event for habit-status changes and find the active node
   if (zoomClicked !== undefined) {
     if (zoomClicked.event !== undefined)
       clickedZoom(zoomClicked.event, zoomClicked.node);
-    if (zoomClicked.content !== undefined)  { 
-      setActiveNode(zoomClicked.content)
-    };
+    if (zoomClicked.content !== undefined) {
+      setActiveNode(zoomClicked.content);
+    }
   }
-
-  const handleZoom = function (event, node) {
-    if (event.deltaY >= 0 || activeNode || deadNode(event)) return reset();
-    setActiveNode(node.data);
-    expand(node);
-    collapseAroundAndUnder(node);
-
-    updateCurrentHabit(node, false);
-    renderTree(svg, isDemo, zoomer, {
-      event: undefined,
-      node: undefined,
-      content: node.data,
-    });
-  };
 
   const handleNodeToggle = function (event, node) {
     const targ = event.target;
@@ -280,6 +325,7 @@ const renderTree = function (
         node.children.forEach((childNode) => {
           collapse(childNode);
         });
+      collapseAroundAndUnder(node, true, true);
       updateCurrentHabit(node, false);
       // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
       renderTree(svg, isDemo, zoomer, {
@@ -302,15 +348,15 @@ const renderTree = function (
       renderTree(svg, isDemo, zoomer, {
         event: event,
         node: node,
-        content: node.data,
-        highlight: true
+        content: node.data
       });
       // globalTranslate = [node.x, node.y]
       handleStatusToggle(node);
-      renderTree(svg, isDemo, zoomer, {
-        node: node,
-        scale: clickedZoom ? clickScale : scale,
-      });
+      handleZoom(event, node.parent);
+      // renderTree(svg, isDemo, zoomer, {
+      //   node: node,
+      //   scale: clickedZoom ? clickScale : scale,
+      // });
     });
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
@@ -362,45 +408,6 @@ const renderTree = function (
         makePatchOrPutRequest(isDemo, currentStatus);
       }
     }
-  };
-
-  const reset = function () {
-    scale = isDemo ? 3 : 4;
-    svg.attr("viewBox", defaultView);
-    expandTree();
-    activeNode = null;
-    document.querySelector(".the-node.active") &&
-      document.querySelector(".the-node.active").classList.remove("active");
-    zoomBase.call(zoomer.transform, zoomIdentity);
-  };
-
-  const cousins = (node, root) =>
-    root.descendants().filter((n) => n.depth == node.depth && n !== node);
-  const greatAunts = (node, root) =>
-    root.children.filter((n) => !node.ancestors().includes(n));
-
-  const collapseAroundAndUnder = function (
-    node,
-    cousinCollapse = true,
-    auntCollapse = true
-  ) {
-    let minExpandedDepth = node.depth + 3;
-    // For collapsing the nodes 'two levels lower' than selected
-    let descendantsToCollapse = node
-      .descendants()
-      .filter((n) => n.depth == minExpandedDepth);
-
-    // For collapsing cousin nodes (saving width)
-    let nodeCousins = [];
-    if (cousinCollapse) {
-      nodeCousins = cousins(node, rootData);
-    }
-    // For collapsing cousin nodes (saving width)
-    let aunts = [];
-    if (node.depth > 1 && auntCollapse && rootData.children) {
-      aunts = greatAunts(node, rootData);
-    }
-    descendantsToCollapse.concat(nodeCousins).concat(aunts).forEach(collapse);
   };
 
   function calibrateViewPort() {

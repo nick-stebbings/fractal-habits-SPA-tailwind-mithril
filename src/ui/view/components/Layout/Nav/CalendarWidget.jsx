@@ -11,29 +11,29 @@ const statuses = stream([]);
 
 const CalendarWidget = {
   oninit: () => {
-    console.log(DateStore.current());
-    !DateStore.current() && DateStore.index().then(() => {
+    !DateStore.current()?.h_date && DateStore.index().then(() => {
       DateStore.indexDatesOfHabit(HabitStore.current()?.id);
     })
     const currentHabit = HabitStore.current();
-    HabitDateStore.indexForHabitPeriod(currentHabit.id).then((data) => {
-      statuses(data.map((date) => ({
-        date_id: date.date_id,
-        completed_status: date.completed_status,
-      })));
-      console.log(statuses().length);
-      const dates = statuses().map((statusObj) => {
-        // console.log(
-        //   statusObj, DateStore.listForHabit()
-        //   );
+    HabitDateStore.list().length === 0 && HabitDateStore.indexForHabitPeriod(currentHabit.id).then(
+      (data) => {
+        statuses(
+          data.map((date) => ({
+            date_id: date.date_id,
+            completed_status: date.completed_status,
+          }))
+        );
+        console.log(data, 'habit statuses');
+        const dates = statuses().map((statusObj) => {
           return DateStore.dateFromDateObjectArray(
             statusObj.date_id,
             DateStore.list()
           );
-      });
+        });
 
-      calendarDates(dates);
-    });
+        calendarDates(dates);
+      }
+    );
   },
   view: () => (
     <div className="h-3/4 top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full pt-1">
