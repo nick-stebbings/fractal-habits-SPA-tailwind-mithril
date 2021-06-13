@@ -338,6 +338,24 @@ const renderTree = function (
     }
   };
 
+  const handleHover = (e, d) => {
+    if (parseTreeValues(d.data.content).status === "") return;
+    if (!currentTooltip) {
+      svg.select("g.tooltip").transition();
+      currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
+        return d == t;
+      });
+      currentTooltip.transition().duration(450).style("opacity", "1");
+    }
+    if (!currentButton) {
+      svg.select("g.habit-label-dash-button").transition();
+      currentButton = svg.selectAll("g.habit-label-dash-button").filter((t) => {
+        return d == t;
+      });
+      currentButton.transition().delay(200).duration(850).style("opacity", "1");
+    }
+  };
+
   const handleEvents = function (selection) {
     selection.on("contextmenu", function (event, node) {
       event.preventDefault();
@@ -371,15 +389,17 @@ const renderTree = function (
         }, 500);
 
       });
-      const manager = new Hammer.Manager(document.querySelector('.canvas'));
-      // Create a recognizer
-      const DoubleTap = new Hammer.Tap({
-        event: 'doubletap',
-        taps: 2
-      });
+
+    const manager = new Hammer.Manager(document.querySelector('.canvas'));
+    // Create a recognizer
+    const DoubleTap = new Hammer.Tap({
+      event: 'doubletap',
+      taps: 2
+    });
     // debugger;
     manager.add(DoubleTap);
     manager.on('doubletap', () => {
+      handleHover();
       console.log("dt");
     })
 
@@ -529,29 +549,7 @@ const renderTree = function (
   gCircle
     .append("circle")
     .attr("r", nodeRadius)
-    .on("mouseenter", (e, d) => {
-      if(parseTreeValues(d.data.content).status === '') return;
-      if (!currentTooltip) {
-        svg.select("g.tooltip").transition();
-        currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
-          return d == t;
-        });
-        currentTooltip.transition().duration(450).style("opacity", "1");
-      }
-      if (!currentButton) {
-        svg.select("g.habit-label-dash-button").transition();
-        currentButton = svg
-          .selectAll("g.habit-label-dash-button")
-          .filter((t) => {
-            return d == t;
-          });
-        currentButton
-          .transition()
-          .delay(200)
-          .duration(850)
-          .style("opacity", "1");
-      }
-    });
+    .on("mouseenter", handleHover);
 
   const gTooltip = enteringNodes
     .append("g")
@@ -706,7 +704,7 @@ const renderTree = function (
 
       const gCircle = svg.selectAll("g.the-node.solid.active g:first-child");
       const pulseScale = scaleLinear()
-        .range(["#211912", "#3349c1", "#5568d2"])
+        .range(["#C2DA8D", "#5568d2", "#3349c1"])
         .domain([0, 3 * nodeRadius]);
       const pulseData = [0, nodeRadius, nodeRadius * 2, nodeRadius * 3];
       const pulseCircles = gCircle
