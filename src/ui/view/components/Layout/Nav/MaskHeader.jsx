@@ -156,8 +156,8 @@ const MaskHeader = function () {
         <div
           className={
             m.route.param("demo")
-              ? "h-8 bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 pb-2"
-              : "h-8 bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 pb-2 md:leading-6"
+              ? "px-0.5 max-h-20 overflow-hidden bg-gray-600 lg:hidden text-gray-50 flex items-baseline justify-center leading-8 sm:leading-7 pb-2"
+              : "px-0.5 max-h-20 overflow-hidden bg-balance-pshades-dark lg:hidden text-gray-50 flex items-baseline leading-8 sm:leading-7 pb-2 md:leading-6"
           }
           id="current-habit-label-sm leading-4"
         >

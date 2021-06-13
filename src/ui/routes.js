@@ -84,9 +84,9 @@ const d3visPageMaker = function (layout, component, spinnerState, modalType) {
   page.view = () => {
     // Pass unique selection id to the vis component for d3 selection
     const d3Container = m("div", { id: divId }, [
-      m("svg.legendSvg", { class: "top-24 lg:top-16 w-36 fixed left-4 h-12" }),
+      m("svg.legendSvg", { class: "bottom-1 w-36 fixed left-4 h-12" }),
       m("svg.controlsSvg", {
-        class: "top-16 w-72 fixed right-0 h-14 hidden md:block",
+        class: "bottom-8 w-72 fixed right-0 h-14 hidden md:block",
       }),
     ]);
 

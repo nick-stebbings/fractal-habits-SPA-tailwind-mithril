@@ -37,9 +37,9 @@ const DateSelector = function () {
       const prevDateSelector = document.getElementById("prev-date-selector");
       const nextDateSelector = document.getElementById("next-date-selector");
       [...dateInputs].forEach((input) => {
-        if (isTouchDevice()) {
-          input.disabled = true;
-        }
+        // if (isTouchDevice()) {
+        //   input.disabled = true;
+        // }
 
         input.addEventListener("change", (e) => {
           e.stopPropagation();

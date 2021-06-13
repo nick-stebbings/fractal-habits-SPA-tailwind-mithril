@@ -18,9 +18,9 @@ import HabitDateStore from "../../store/habit-date-store";
 
 let canvasHeight, canvasWidth;
 const margin = {
-  top: 50,
+  top: 0,
   right: 0,
-  bottom: 20,
+  bottom: 0,
   left: 0,
 };
 
@@ -50,7 +50,7 @@ const addLegend = (svg) => {
   const gText = controlsSvg.append("g").attr("class", "controls")
     .attr("transform", "translate(265, 40) scale(0.8)");
   const gLegend = legendSvg.append("g").attr("class", "legend")
-    .attr("transform", "translate(25, 20) scale(2)");
+    .attr("transform", "translate(20, 30) scale(2)");
 
   // Borrowing the habit label for the legend
   let habitLabelValue;
@@ -89,11 +89,11 @@ const addLegend = (svg) => {
       showHabitLabel();
     })
     .on("cellout", function (d) {
-      habitLabel.textContent = "Selected:";
+      habitLabel.textContent = "Habit:";
       habitSpan.textContent = d.target.__data__;
       habitSpan.textContent = habitLabelValue;
 
-      habitLabelSm.textContent = "Selected:";
+      habitLabelSm.textContent = "Habit:";
       habitSpanSm.textContent = d.target.__data__;
       habitSpanSm.textContent = habitLabelValueSm;
     })
@@ -116,7 +116,6 @@ const zooms = function (e) {
     tbound = -canvasHeight * scale*3,
     bbound = canvasHeight * scale*3;
   scale = globalZoom ? globalZoom : scale;
-  console.log('scale :>> ', scale);
   const currentTranslation = [margin.left, margin.top];
   globalZoom = null;
   globalTranslate = null;
@@ -124,8 +123,6 @@ const zooms = function (e) {
     (globalTranslate ? globalTranslate[0] : (currentTranslation[0] + transform.x)),
     (globalTranslate ? ((currentTranslation[1] + globalTranslate[1])) : (currentTranslation[1] + transform.y))
   ];
-
-  console.log(translation);
   select(".canvas").attr(
     "transform",
     "translate(" +
@@ -185,8 +182,8 @@ const renderTree = function (
   if (rootData.name === "") return;
   
   // SETTINGS
-  let scale = isDemo ? 3 : 4;
-  let clickScale = 2;
+  let scale = isDemo ? 4 : 5;
+  let clickScale = 2.2;
   let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
   let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
   console.log('currentXTranslate :>> ', currentXTranslate);
@@ -287,12 +284,10 @@ const renderTree = function (
   };
 
   const handleZoom = function (event, node) {
-    if (!event || !node || event.deltaY >= 0 || deadNode(event))
-    //   return reset();
+    if (!event || !node || event.deltaY >= 0 || deadNode(event)) return reset();
     event.preventDefault();
     globalZoom = clickScale;
     globalTranslate = [node.x, node.y];
-    console.log("ZOOM NO RESET");
     setActiveNode(node.data);
     expand(node);
     updateCurrentHabit(node, false);
@@ -353,13 +348,8 @@ const renderTree = function (
         node: node,
         content: node.data
       });
-      // globalTranslate = [node.x, node.y]
       handleStatusToggle(node);
       handleZoom(event, node.parent);
-      // renderTree(svg, isDemo, zoomer, {
-      //   node: node,
-      //   scale: clickedZoom ? clickScale : scale,
-      // });
     });
     selection
       .on("mousewheel.zoom", handleZoom, { passive: true })
@@ -381,17 +371,17 @@ const renderTree = function (
         }, 500);
 
       });
-      //     debugger;
-      // const manager = new Hammer.Manager(svg);
-      // // Create a recognizer
-      // const DoubleTap = new Hammer.Tap({
-      //   event: 'doubletap',
-      //   taps: 2
-      // });
+      const manager = new Hammer.Manager(document.querySelector('.canvas'));
+      // Create a recognizer
+      const DoubleTap = new Hammer.Tap({
+        event: 'doubletap',
+        taps: 2
+      });
     // debugger;
-    // // Add the recognizer to the manager
-    // manager.add(DoubleTap);
-    // manager.on('doubletap', handleNodeToggle)
+    manager.add(DoubleTap);
+    manager.on('doubletap', () => {
+      console.log("dt");
+    })
 
     function handleStatusToggle(node) {
       if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status
@@ -414,11 +404,11 @@ const renderTree = function (
   };
 
   function calibrateViewPort() {
-    viewportY = canvasHeight/90;
+    viewportY = -100;
     viewportW = canvasWidth * 3;
-    viewportX = viewportW / 2// + (globalTranslate ? (globalTranslate[0] / 2) : 0);
+    viewportX = viewportW / 2;
     viewportH =
-      canvasHeight * 5;// + (globalTranslate ? (globalTranslate[1] / 2) : 0);
+      canvasHeight * 5;
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
   }
 
@@ -436,7 +426,6 @@ const renderTree = function (
   function clickedZoom(e, that) {
     if (e?.defaultPrevented || typeof that === "undefined") return; // panning, not clicking
     const transformer = getTransform(that, clickScale);
-    // globalTranslate = transformer.translate;
     select(".canvas")
       .transition()
       .ease(easeCircleOut)
@@ -611,35 +600,35 @@ const renderTree = function (
 
 
     // MY LABELS (for modified tree traversal)
-  enteringNodes
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 5)
-    .attr("dy", 25)
-    .style("fill", "green")
-    .text(cumulativeValue);
-  enteringNodes //VALUE label
-    .append("text")
-    .attr("class", "label")
-    .attr("dx", 45)
-    .attr("dy", -25)
-    .style("fill", "red")
-    .text((d) => {
-      return d.data.content;
-    });
+  // enteringNodes
+  //   .append("text")
+  //   .attr("class", "label")
+  //   .attr("dx", 5)
+  //   .attr("dy", 25)
+  //   .style("fill", "green")
+  //   .text(cumulativeValue);
+  // enteringNodes //VALUE label
+  //   .append("text")
+  //   .attr("class", "label")
+  //   .attr("dx", 45)
+  //   .attr("dy", -25)
+  //   .style("fill", "red")
+  //   .text((d) => {
+  //     return d.data.content;
+  //   });
     
     //
-    enteringNodes
-      .append("g")
-      .attr("transform", "translate(" + "-12" + "," + "35" + ") scale( 1.5 )")
-      .append("path")
-      .attr("class", "expand-arrow")
-      .attr("d", (d) => {
-        return d._children
-          ? "M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
-          : null;
-      })
-      .style("fill", "red");
+  enteringNodes
+    .append("g")
+    .attr("transform", "translate(" + "-12" + "," + "35" + ") scale( 1.5 )")
+    .append("path")
+    .attr("class", "expand-arrow")
+    .attr("d", (d) => {
+      return d._children
+        ? "M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+        : null;
+    })
+    .style("fill", "red");
     
   const gButton = gCircle
     .append("g")
