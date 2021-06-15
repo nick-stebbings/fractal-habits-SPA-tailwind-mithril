@@ -25,7 +25,8 @@ const DateSelector = function () {
         DateStore.current() && DateTime.fromSQL(DateStore.current().h_date);
       [minDate, maxDate] = updatedMinAndMaxForCurrentHabit();
 
-      if (!m.route.param('demo') && newDate()) {
+      // if (!m.route.param('demo') && newDate()) {
+      if(false){
         DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() }).then(DateStore.index).then(
           () => {
             maxDate = DateTime.fromMillis(
