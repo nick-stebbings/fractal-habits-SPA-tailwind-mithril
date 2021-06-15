@@ -18,17 +18,17 @@ const CalendarWidget = {
     }
     const currentHabit = HabitStore.current();
     let trackedDates = HabitDateStore.list()?.length;
-    trackedDates == 0 && HabitDateStore.indexForHabitPeriod(currentHabit.id, 7).then(
+    (currentHabit && trackedDates == 0) && HabitDateStore.indexForHabitPeriod(currentHabit?.id, 7).then(
       (data) => {
         statuses(
-          data.map((date) => ({
+          data?.map((date) => ({
             date_id: date.date_id,
             completed_status: date.completed_status,
           }))
         );
         console.log(data, 'habit statuses');
         console.log('HabitDateStore.list() :>> ', HabitDateStore.list());
-        const dates = statuses().map((statusObj) => {
+        const dates = statuses() && statuses().map((statusObj) => {
           return DateStore.dateFromDateObjectArray(
             statusObj.date_id,
             DateStore.list()
@@ -43,7 +43,7 @@ const CalendarWidget = {
   view: () => (
     <div className="top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full h-full pt-1">
       <div className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex w-full gap-2 bg-transparent" style="max-width:60%">
-        {calendarDates().map((date, idx) => <DateCard date={date} current={date} completedStatus={statuses()[idx]?.completed_status} />)}
+        {calendarDates()?.map((date, idx) => <DateCard date={date} current={date} completedStatus={statuses() && statuses()[idx]?.completed_status} />)}
       </div>
     </div>
   ),
