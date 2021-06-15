@@ -1,8 +1,7 @@
 import DateTime from 'luxon/src/datetime.js';
 import DateStore from '../../../../../../store/date-store';
 import HabitStore from '../../../../../../store/habit-store';
-import { resetContextStates, updatedMinAndMaxForCurrentHabit, changedDate } from '../../../../../../assets/scripts/controller';
-import { isTouchDevice } from '../../../../../../assets/scripts/utilities';
+import { resetContextStates, updatedMinAndMaxForCurrentHabit, changedDate, outOfDateBoundary, newDate } from '../../../../../../assets/scripts/controller';
 
 const sanitiseForDataList = function (date) {
   return typeof date === 'object' && typeof date.h_date === 'string'
@@ -24,23 +23,22 @@ const DateSelector = function () {
       const todaysDate = DateTime.now().startOf("day");
       currentHabitDate =
         DateStore.current() && DateTime.fromSQL(DateStore.current().h_date);
-
       [minDate, maxDate] = updatedMinAndMaxForCurrentHabit();
-      if (DateStore.current() && maxDate < todaysDate) {
-        DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() });
-        maxDate = DateTime.fromMillis(
-          DateTime.fromSQL(DateStore.current().h_date).ts
-        );
-        resetContextStates();
+
+      if (!m.route.param('demo') && newDate()) {
+        DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() }).then(DateStore.index).then(
+          () => {
+            maxDate = DateTime.fromMillis(
+              DateTime.fromSQL(DateStore.current().h_date).ts
+            );
+            newDate(false);
+          }
+        ).then(m.redraw)
       }
       const dateInputs = document.querySelectorAll("#date-today");
       const prevDateSelector = document.getElementById("prev-date-selector");
       const nextDateSelector = document.getElementById("next-date-selector");
       [...dateInputs].forEach((input) => {
-        // if (isTouchDevice()) {
-        //   input.disabled = true;
-        // }
-
         input.addEventListener("change", (e) => {
           e.stopPropagation();
           dateIndex = DateStore.listForHabit()
@@ -80,7 +78,7 @@ const DateSelector = function () {
           id="date-today"
           tabIndex="3"
           required
-          className="sm:h-10 w-full h-6 px-4 py-1 mt-1 xl:text-xl"
+          className="sm:h-10 xl:text-xl w-full h-6 px-4 py-1 mt-1"
           type="date"
           value={DateStore.currentDate()}
           max={String(DateStore.currentDate())}

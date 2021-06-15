@@ -14,11 +14,11 @@ import TreeStore from '../store/habit-tree-store';
 import HabitDateStore from '../store/habit-date-store.js';
 
 import cloudMan from '../assets/images/cloud-man-vector.svg';
-import { openModal, openSpinner, addIntersectionObserver } from '../assets/scripts/animations';
+import { openModal, openSpinner } from '../assets/scripts/animations';
 import {
   changedFromDemo,
   newRecord,
-  preLoadHabitDateData,
+  outOfDateBoundary,
   changeOfModelContext,
   updateDomainSelectors,
   resetContextStates,
@@ -36,7 +36,7 @@ function loadTreeData() {
   }
 };
 
-const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain()|| newRecord());
+const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain()|| newRecord() || outOfDateBoundary());
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
@@ -45,7 +45,7 @@ export default {
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
-    // addIntersectionObserver();
+
     const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {
       selector.addEventListener("change", (e) => {
@@ -59,13 +59,10 @@ export default {
     });
   },
   oninit: () => {
-    // console.log(
-    //   "resetNeeded() && isVisPage() :>> ",
-    //   resetNeeded() && isVisPage()
-    // );
     if (resetNeeded() && isVisPage()) {
       loadTreeData();
       resetContextStates();
+      console.log('visRedrawn :>> ');
     }
     if (changeOfModelContext()) {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());

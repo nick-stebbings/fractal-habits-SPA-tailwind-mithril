@@ -8,7 +8,7 @@ import {
 import tree from '../../../../../assets/images/icons/tree.svg';
 
 const DateCard = {
-  view: ({ attrs: { date, completedStatus } }) => {
+  view: ({ attrs: { date, completedStatus, today } }) => {
     const [weekday, month, monthday] = date
       .toLocaleString({
         month: 'short',
@@ -17,11 +17,15 @@ const DateCard = {
       })
       .split(/\W+/);
     return (
-      <div className="date-card bg-gray-50 rounded-3xl flex flex-col items-center justify-start flex-grow gap-1 p-2 pt-2 -mt-2">
+      <div
+        className="date-card bg-gray-50 rounded-3xl flex flex-col items-center justify-start flex-grow gap-1 p-2 pt-2 -mt-2"
+        style={`border-color:#e3922f; border-width:${
+          today ? '3px' : '0'
+        }`}
+      >
         <span className="font-std block uppercase">{weekday}</span>
         <span className="font-std block text-5xl">{monthday}</span>
         <span className="block">{month}</span>
-        {console.log(completedStatus)}
         <svg className="w-10 h-10 mt-1" viewBox="0 0 48 48">
           <g transform="translate(12, 14)">
             <circle

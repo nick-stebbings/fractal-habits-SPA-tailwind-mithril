@@ -10,9 +10,10 @@ const changedFromDemo = stream();
 const changedToDemo = stream();
 const outOfDateBoundary = stream();
 const changedDate = stream();
+const newDate = stream();
 const changedDomain = stream();
 const newRecord = stream();
-const parsedDates = DateStore.listForHabit().map(
+const parsedDates = () => DateStore.listForHabit().map(
   (d) => DateTime.fromSQL(d?.h_date).ts
 );
 
@@ -46,17 +47,6 @@ function preLoadHabitDateData() {
 };
 
 function changeOfModelContext() {
-  // Reset the data when we have switched from demo to real or back
-  // changedFromDemo(
-  //   m.route.param("demo") &&
-  //     DomainStore.current() &&
-  //     DomainStore.current()?.name !== "Sports"
-  // );
-  // changedFromDemo(
-  //   (!m.route.param("demo") &&
-  //     DomainStore.current() &&
-  //     ['Sports', 'Mind', 'Health', 'Giving', 'Career'].includes(DomainStore.current()?.name)
-  //   ));
   // Reset the current date when you switch to a habit with no record of that date
   outOfDateBoundary(
     HabitStore.current() &&
@@ -65,11 +55,13 @@ function changeOfModelContext() {
   );
 
   const todaysDate = DateTime.now().startOf("day");
-  const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates));
-  if (DateStore.current() && maxDate < todaysDate) {
-    outOfDateBoundary(true);
+  const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
+
+  if (DateStore.listForHabit() && maxDate < todaysDate) {
+    newDate(true);
   };
-  return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || changedDate());
+
+  return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || newDate());
 };
 
 function updateDomainSelectors() {
@@ -106,8 +98,8 @@ const resetContextStates = () => {
 };
 
 function updatedMinAndMaxForCurrentHabit () {
-  const minDate = DateTime.fromMillis(Math.min.apply(null, parsedDates));
-  const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates));
+  const minDate = DateTime.fromMillis(Math.min.apply(null, parsedDates()));
+  const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
   return [minDate, maxDate];
 };
 
@@ -115,8 +107,9 @@ export {
   newRecord,
   changedFromDemo,
   changedDate,
+  newDate,
   changedDomain,
-  preLoadHabitDateData,
+  outOfDateBoundary,
   changeOfModelContext,
   updateDomainSelectors,
   resetContextStates,

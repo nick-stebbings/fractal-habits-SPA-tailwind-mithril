@@ -12,7 +12,7 @@ function sanitiseForValueChange(date) {
 const todaysDate = new Date().toDateInputValue();
 
 const DateStore = Object.assign(clientRoutes(basePath), {
-  current: stream([]),
+  current: stream([{id: 1}]),
 
   get: (id) => DateStore.show_one(id)
     .then((response) => JSON.parse(response.data))
@@ -43,7 +43,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
   indexDatesOfHabit: (habit) => {
     if (typeof habit === undefined) listForHabit([{ id: 1 }]);
     return DateStore.listForHabit(
-      DateStore.filterForHabit(habit)?.sort((a, b) => (DateStore.to_h_date(b) - DateStore.to_h_date(a))),
+      DateStore.filterForHabit(habit)?.sort((a, b) => (DateStore.to_h_date(a) - DateStore.to_h_date(b))),
     );
   },
 
@@ -53,7 +53,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
     .then((response) => response.data)
     .then(DateStore.current)
     .then(() => {
-      window.FlashMessage.success('Dates were added to the database!');
+      console.log('Dates were added to the database!');
     })
     .catch(handleErrorType),
 });
