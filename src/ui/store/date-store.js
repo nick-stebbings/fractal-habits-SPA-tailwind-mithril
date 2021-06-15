@@ -34,7 +34,7 @@ const DateStore = Object.assign(clientRoutes(basePath), {
 
   to_h_date: (sqlDate) => DateTime.fromSQL(sqlDate.h_date),
 
-  dateFromDateObjectArray: (dateId, array) => DateStore.to_h_date(array.filter((dateObject) => dateObject.id === dateId)[0]),
+  dateFromDateObjectArray: (dateId, array) => array.length > 0 && DateStore.to_h_date(array.filter((dateObject) => dateObject.id === dateId)[0]),
 
   filterForHabit: (habit) => (habit
     ? DateStore.list().filter((date) => DateStore.to_h_date(date) >= DateTime.fromSQL(habit.initiation_date)).sort((a, b) => a - b)
@@ -42,10 +42,9 @@ const DateStore = Object.assign(clientRoutes(basePath), {
 
   indexDatesOfHabit: (habit) => {
     if (typeof habit === undefined) listForHabit([{ id: 1 }]);
-    DateStore.listForHabit(
-      DateStore.filterForHabit(habit).sort((a, b) =>
-        DateStore.to_h_date(a) >= DateStore.to_h_date(b) ? 1 : -1
-      ));
+    return DateStore.listForHabit(
+      DateStore.filterForHabit(habit)?.sort((a, b) => (DateStore.to_h_date(b) - DateStore.to_h_date(a))),
+    );
   },
 
   filterById: (dateId) => DateStore.list().filter((date) => date.id === +dateId),

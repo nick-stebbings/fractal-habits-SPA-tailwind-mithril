@@ -300,7 +300,14 @@ module Hht
         habit_date_list = habit_date_repo
           .habit_dates_for_one_habit_node(habit_id)
           .to_a
-          .map(&:to_h)
+          .map do |struct|
+            { 
+              date_id: struct.date_id,
+              date: struct.h_date,
+              completed_status: struct.completed_status,
+              habit_id: struct.habit_id
+            }
+          end
         halt(404, { message: 'No Habit Dates Found' }.to_json) unless habit_date_list.length > 0
         halt(422, { message: 'Invalid Length' }.to_json) unless length > 0
 

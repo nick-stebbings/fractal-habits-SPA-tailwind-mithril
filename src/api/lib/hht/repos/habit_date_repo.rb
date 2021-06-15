@@ -32,13 +32,18 @@ module Hht
       end
 
       def all_as_json
-        { habit_dates: habit_dates.order(:date_id).map do |habit_date|
+        { habit_dates: habit_dates_with_dates.order(:h_date).map do |habit_date|
           {
             'date_id' => habit_date.fetch(:date_id),
             'habit_id' => habit_date.fetch(:habit_id),
             'completed_status' => habit_date.fetch(:completed_status)
           }
         end }.to_json
+      end
+
+      def habit_dates_with_dates
+        habit_dates
+          .join(:dates, {id: :date_id}).select
       end
 
       def query(criteria)
@@ -56,9 +61,9 @@ module Hht
           .where(habit_id: habit_id)
           .map{|habit| habit[:date_id] }
         
-        habit_dates
+        habit_dates_with_dates
           .where(date_id: date_ids, habit_id: habit_id)
-          .order(:date_id)
+          .order(:h_date)
       end
     end
   end

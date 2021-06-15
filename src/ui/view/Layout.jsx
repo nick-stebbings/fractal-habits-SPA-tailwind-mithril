@@ -59,10 +59,10 @@ export default {
     });
   },
   oninit: () => {
-    console.log(
-      "resetNeeded() && isVisPage() :>> ",
-      resetNeeded() && isVisPage()
-    );
+    // console.log(
+    //   "resetNeeded() && isVisPage() :>> ",
+    //   resetNeeded() && isVisPage()
+    // );
     if (resetNeeded() && isVisPage()) {
       loadTreeData();
       resetContextStates();

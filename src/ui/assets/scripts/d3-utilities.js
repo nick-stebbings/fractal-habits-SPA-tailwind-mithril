@@ -186,7 +186,6 @@ const renderTree = function (
   let clickScale = 2.2;
   let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
   let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
-  console.log('currentXTranslate :>> ', currentXTranslate);
 
   const zoomBase = canvas;
   let levelsWide;
@@ -370,7 +369,7 @@ const renderTree = function (
       handleZoom(event, node.parent);
     });
     selection
-      .on("mousewheel.zoom", handleZoom, { passive: true })
+      .on("mousewheel.zoom", handleZoom)
       .on("touchstart", handleHover, { passive: true })
       .on("touchend", handleNodeToggle, { passive: true })
       .on("click", handleNodeToggle)

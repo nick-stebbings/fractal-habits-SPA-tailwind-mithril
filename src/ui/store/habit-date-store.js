@@ -35,11 +35,11 @@ const HabitDateStore = Object.assign(clientRoutes(basePath), {
     (habitDate) => habitDate.habit_id == +habitId,
   ),
 
+  filterByDate: (dateId) => HabitDateStore.list()?.filter((habitDate) => habitDate.date_id === +dateId),
+
   runFilter: (habitId) => HabitDateStore.list(HabitDateStore.filterListByHabitId(habitId)),
 
-  runDateFilterOnCurrentList: (dateId) => HabitDateStore.list(
-    HabitDateStore.list().filter((habitDate) => habitDate.date_id === +dateId),
-  ),
+  runDateFilterOnCurrentList: (dateId) => HabitDateStore.list(HabitDateStore.filterByDate(dateId)),
 
   runUpdate: (isDemo, values, domainId) => {
     const payload = JSON.stringify(values);

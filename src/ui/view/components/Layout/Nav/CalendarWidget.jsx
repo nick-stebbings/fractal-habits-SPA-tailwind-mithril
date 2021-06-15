@@ -11,14 +11,17 @@ const statuses = stream([]);
 
 const CalendarWidget = {
   oninit: () => {
-    if (DateStore.list().length === 0) {
+    const notUptoDate =
+      HabitDateStore.filterByDate(DateStore.current()?.id).length === 0;
+    const currentHabit = HabitStore.current();
+
+    if (DateStore.listForHabit().length === 0 || notUptoDate) {
       DateStore.index().then(() => {
-        DateStore.indexDatesOfHabit(HabitStore.current()?.id);
+        DateStore.indexDatesOfHabit(currentHabit?.id);
       });
     }
-    const currentHabit = HabitStore.current();
-    let trackedDates = HabitDateStore.list()?.length;
-    (currentHabit && trackedDates == 0) && HabitDateStore.indexForHabitPeriod(currentHabit?.id, 7).then(
+    const trackedDates = HabitDateStore.list()?.length;
+    (currentHabit && trackedDates == 0 || notUptoDate) && HabitDateStore.indexForHabitPeriod(currentHabit?.id, 7).then(
       (data) => {
         statuses(
           data?.map((date) => ({
@@ -27,18 +30,17 @@ const CalendarWidget = {
           }))
         );
         console.log(data, 'habit statuses');
-        console.log('HabitDateStore.list() :>> ', HabitDateStore.list());
+        console.log(' :>> ',DateStore.listForHabit());
         const dates = statuses() && statuses().map((statusObj) => {
           return DateStore.dateFromDateObjectArray(
             statusObj.date_id,
-            DateStore.list()
+            DateStore.listForHabit()
           );
         });
-
         calendarDates(dates);
-        console.log('calendarDates() :>> ', calendarDates());
+        console.log('calendarDates() :>> ', calendarDates().map(date => date.toLocaleString()));
       }
-    );
+    ).then(m.redraw).catch(console.log);
   },
   view: () => (
     <div className="top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full h-full pt-1">
