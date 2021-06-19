@@ -43,7 +43,7 @@ function changeOfModelContext() {
   changedToDemo(
     m.route.param("demo") &&
     HabitDateStore.list().length === 28 &&
-    HabitDateStore.list()[0].habit_id === 1
+    HabitDateStore.list()[0].habit_id !== 1
     );
     // Reset the current date when you switch to a habit with no record of that date
     outOfDateBoundary(

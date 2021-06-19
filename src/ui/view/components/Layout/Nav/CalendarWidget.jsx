@@ -16,7 +16,8 @@ const CalendarWidget = {
     const notUptoDate =
       HabitDateStore.filterByDate(DateStore.current()?.id)?.length === 0;
     const currentHabit = HabitStore.current();
-
+    console.log('notUptoDate :>> ', notUptoDate);
+    console.log('DateStore.listForHabit().length === 0 :>> ', DateStore.listForHabit());
     if (DateStore.listForHabit().length === 0 || notUptoDate || changeOfModelContext()) {
       console.log('reloaded habit date list :>> ');
       DateStore.index().then(() => {

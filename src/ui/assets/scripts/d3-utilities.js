@@ -369,10 +369,10 @@ const renderTree = function (
       handleZoom(event, node.parent);
     });
     selection
-      .on("mousewheel.zoom", handleZoom)
+      .on("mousewheel.zoom", handleZoom, { passive: true })
       .on("touchstart", handleHover, { passive: true })
       .on("touchend", handleNodeToggle, { passive: true })
-      .on("click", handleNodeToggle)
+      .on("click", handleNodeToggle, { passive: true })
       .on("mouseleave", function () {
         const g = select(this);
         g.select(".tooltip").transition().duration(50).style("opacity", "0");
@@ -387,7 +387,6 @@ const renderTree = function (
         setTimeout(() => {
           currentTooltip = false;
         }, 500);
-
       });
 
     const manager = new Hammer.Manager(

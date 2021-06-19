@@ -11,19 +11,17 @@ import HabitStore from '../store/habit-store';
 import NodeStore from '../store/habit-node-store';
 import DateStore from '../store/date-store';
 import TreeStore from '../store/habit-tree-store';
+import {populateStores} from '../routes';
 import HabitDateStore from '../store/habit-date-store.js';
 
 import cloudMan from '../assets/images/cloud-man-vector.svg';
 import { openModal, openSpinner } from '../assets/scripts/animations';
 import {
   changedFromDemo,
-  newRecord,
-  outOfDateBoundary,
   changeOfModelContext,
   updateDomainSelectors,
   resetContextStates,
   changedDate,
-  changedDomain,
   preLoadHabitDateData,
 } from '../assets/scripts/controller';
 
@@ -36,6 +34,8 @@ function loadTreeData() {
     ).then(m.redraw);
   }
 };
+
+const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain()|| newRecord() || outOfDateBoundary());
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
@@ -58,18 +58,18 @@ export default {
     });
   },
   oninit: () => {
-    if (changeOfModelContext()) {
+    if (changeOfModelContext() || changedDate()) {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());
-      HabitStore.indexHabitsOfDomain(DomainStore.current().id);
       updateDomainSelectors();
-      
-      if (isVisPage() && TreeStore.current().name === '') {
-        loadTreeData();
-        console.log('visRedrawn :>> ');
-      }
-      resetContextStates();
+      if (isVisPage()) loadTreeData();
       preLoadHabitDateData();
+      resetContextStates();
     }
+    // if (isVisPage() && changedDate()) {
+    //   resetContextStates();
+    //   loadTreeData();
+    //   console.log("visRedrawn :>> ", TreeStore.root());
+    // }
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },

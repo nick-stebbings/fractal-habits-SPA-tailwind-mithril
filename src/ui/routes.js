@@ -155,9 +155,6 @@ function populateStores({demo}) {
       })
       .catch((err) => {
         DateStore.clear()
-        console.log(DateStore.current(), 'date current');
-        console.log(DomainStore.current(), 'domain current');
-        console.log(HabitStore.current(), 'habit current');
         spinnerState(false);
         console.log(err, "Error loading data!");
       });
@@ -255,4 +252,4 @@ const Routes = MenuRoutes.reduce(
 
 const DefaultRoute = "/";
 
-export { Routes, DefaultRoute };
+export { Routes, DefaultRoute, populateStores };
