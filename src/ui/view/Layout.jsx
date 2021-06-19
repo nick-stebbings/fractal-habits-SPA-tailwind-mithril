@@ -64,12 +64,13 @@ export default {
       if (isVisPage()) loadTreeData();
       preLoadHabitDateData();
       resetContextStates();
+      changedDate(false);
     }
-    // if (isVisPage() && changedDate()) {
-    //   resetContextStates();
-    //   loadTreeData();
-    //   console.log("visRedrawn :>> ", TreeStore.root());
-    // }
+    if (isVisPage() && changedDate()) {
+      resetContextStates();
+      loadTreeData();
+      console.log("visRedrawn :>> ", TreeStore.root());
+    }
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },

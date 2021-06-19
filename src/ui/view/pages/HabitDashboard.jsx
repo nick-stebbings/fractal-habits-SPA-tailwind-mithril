@@ -134,14 +134,14 @@ const HabitDashboard = {
             attrs.modalType("confirm");
             openModal(true);
           }
-          m.redraw();
+          // m.redraw();
         }
       });
 
       row.addEventListener("mouseout", (e) => {
         e.stopPropagation();
         if (e.currentTarget.tagName === "TR") {
-          e.currentTarget.style.backgroundColor = "white";
+          e.currentTarget.style.backgroundColor = "#fefefe";
         }
       });
     });

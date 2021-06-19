@@ -6,29 +6,49 @@ import HabitDateStore from '../../../../store/habit-date-store';
 import DateStore from '../../../../store/date-store';
 
 import DateCard from './UI/DateCard.jsx';
-import { changeOfModelContext } from "../../../../assets/scripts/controller";
 
+import { changeOfModelContext, changedDate, newRecord } from "../../../../assets/scripts/controller";
 const calendarDates = stream([]);
 const statuses = stream([]);
 
 const CalendarWidget = {
   oninit: () => {
-    const notUptoDate =
-      HabitDateStore.filterByDate(DateStore.current()?.id)?.length === 0;
+    const notUptoDate = HabitDateStore.filterByDate(DateStore.current()?.id)?.length === 0;
     const currentHabit = HabitStore.current();
-    console.log('notUptoDate :>> ', notUptoDate);
-    console.log('DateStore.listForHabit().length === 0 :>> ', DateStore.listForHabit());
-    if (DateStore.listForHabit().length === 0 || notUptoDate || changeOfModelContext()) {
-      console.log('reloaded habit date list :>> ');
-      DateStore.index().then(() => {
-        DateStore.indexDatesOfHabit(
-          currentHabit?.id
-        );
-      });
+    console.log("(DateStore.current() :>> ", DateStore.current());
+    // console.log('notUptoDate :>> ', notUptoDate);
+    // console.log('DateStore.listForHabit().length === 0 :>> ', DateStore.listForHabit());
+    // console.log(
+    //   " HabitDateStore.filterByDate(DateStore.current()?.id)>> ",
+    //   HabitDateStore.filterByDate(DateStore.current()?.id)
+    // );
+    if (DateStore.listForHabit().length === 0 || changedDate() || changeOfModelContext()) {
+      const dates =
+        statuses() &&
+        statuses()
+          .map((statusObj) => {
+            return (
+              DateStore.dateFromDateObjectArray(
+                statusObj.date_id,
+                DateStore.listForHabit().reverse()
+              ) || ""
+            );
+          })
+          .slice(-7);
+
+      console.log(dates, "dates");
+      calendarDates(dates);
+      m.redraw();
+      // console.log('reloaded habit date list :>> ');
+      // DateStore.index().then(() => {
+      //   DateStore.indexDatesOfHabit(
+      //     currentHabit?.id
+      //   );
+      // });
     }
 
     const trackedDates = HabitDateStore.list()?.length;
-    if (calendarDates()?.length === 0 || notUptoDate) {
+    if (!m.route.param('demo') && calendarDates()?.length === 0 || notUptoDate) {
       HabitDateStore.indexForHabitPeriod(currentHabit?.id, 28)
         .then((data) => {
           statuses(

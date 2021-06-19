@@ -1,6 +1,7 @@
 // src/view/components/Layout/Nav/UI/Buttons/FeaturePill.jsx
 import DomainStore from '../../../../../../store/domain-store';
 import { handleErrorType } from '../../../../../../store/client';
+import { newRecord } from '../../../../../../assets/scripts/controller';
 
 const FeaturePill = {
   oncreate: (vnode) => {
@@ -13,6 +14,7 @@ const FeaturePill = {
       })
         .then(() => {
           vnode.attrs.modalType(true);
+          newRecord(true);
         })
         .then(() => {
           m.redraw();
@@ -22,7 +24,7 @@ const FeaturePill = {
   },
   view: ({ attrs }) => (
     <div
-      className="bg-balance-basic-gray nav-pill h-36 rounded-full my-1 text-xxl flex items-center justify-center py-1 mx-4"
+      className="bg-balance-basic-gray nav-pill h-36 text-xxl flex items-center justify-center py-1 mx-4 my-1 rounded-full"
       style={`cursor: pointer; clip-path: url(${attrs.clipPathUrl})`}
     >
       <span>{attrs.title}</span>

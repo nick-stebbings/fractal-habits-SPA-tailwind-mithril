@@ -43,8 +43,8 @@ function changeOfModelContext() {
   changedToDemo(
     m.route.param("demo") &&
     HabitDateStore.list().length === 28 &&
-    HabitDateStore.list()[0].habit_id !== 1
-    );
+    HabitDateStore.list()[0].date_id !== 1
+  );
     // Reset the current date when you switch to a habit with no record of that date
     outOfDateBoundary(
       HabitStore.current() &&
@@ -52,21 +52,22 @@ function changeOfModelContext() {
       DateTime.fromSQL(DateStore.current()?.h_date)
       );
       
+      const todaysDate = DateTime.now().startOf("day");
+      const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
+      
+      if (DateStore.listForHabit() && (maxDate < todaysDate)) {
+        newDate(true);
+      };
+      // Sanity check logs::
+      console.log('newRecord() :>> ', newRecord());
+      console.log("changedFromDemo() :>> ", changedFromDemo());
+      console.log("changedToDemo() :>> ", changedToDemo());
+      console.log("changedDomain() :>> ", changedDomain());
+      console.log("newDate() :>> ", newDate());
+      console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
       console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());
-  const todaysDate = DateTime.now().startOf("day");
-  const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
-
-  if (DateStore.listForHabit() && (maxDate < todaysDate)) {
-    newDate(true);
-  };
-console.log('newRecord() :>> ', newRecord());
-console.log("changedFromDemo() :>> ", changedFromDemo());
-console.log("changedToDemo() :>> ", changedToDemo());
-console.log("changedDomain() :>> ", changedDomain());
-console.log("newDate() :>> ", newDate());
-console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
-  return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || newDate());
-};
+      return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || newDate());
+    };
 
 function updateDomainSelectors() {
   document.querySelectorAll(".domain-selector").forEach((selector) => {
