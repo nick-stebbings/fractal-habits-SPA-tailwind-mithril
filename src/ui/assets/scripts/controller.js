@@ -19,48 +19,52 @@ const parsedDates = () => DateStore.listForHabit().map(
 
 function preLoadHabitDateData() {
   if (!m.route.param("demo")) {
-    if (
-      HabitDateStore.fullList().length == 0 ||
-      NodeStore.list().length == 0 ||
-      m.route.param("currentHabit")
-    ) {
-      if (
-        HabitStore.current()?.name !== "Select a Life-Domain to start tracking"
-      )
-        return;
+    return DomainStore.index().then(
       HabitDateStore.index()
-        .then(NodeStore.index)
-        .then(() => {
-          HabitStore.sortByDate();
-          HabitStore.current() &&
-            HabitDateStore.runFilter(HabitStore.current()?.id);
-          DateStore.current() &&
-            HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
-        })
-        .then(m.redraw);
-    }
+      .then(NodeStore.index)
+      .then(() => {
+        HabitStore.sortByDate();
+        HabitStore.current() &&
+        HabitDateStore.runFilter(HabitStore.current()?.id);
+        DateStore.current() &&
+        HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
+      }).then(m.redraw)
+    )
   } else {
     HabitStore.current() && HabitDateStore.runFilter(HabitStore.current()?.id);
-    DateStore.current() &&
-      HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
+    // DateStore.current() &&
+    //   HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
   }
 };
 
 function changeOfModelContext() {
-  // Reset the current date when you switch to a habit with no record of that date
-  outOfDateBoundary(
-    HabitStore.current() &&
+  // Reset when you switch data sources
+  changedFromDemo(!m.route.param("demo") && HabitStore.current()?.name !== 'Select a Life-Domain to start tracking' && DomainStore.current()?.name === 'Sports');
+  changedToDemo(
+    m.route.param("demo") &&
+    HabitDateStore.list().length === 28 &&
+    HabitDateStore.list()[0].habit_id === 1
+    );
+    // Reset the current date when you switch to a habit with no record of that date
+    outOfDateBoundary(
+      HabitStore.current() &&
       DateTime.fromSQL(HabitStore.current()?.initiation_date) >
-        DateTime.fromSQL(DateStore.current()?.h_date)
-  );
-
+      DateTime.fromSQL(DateStore.current()?.h_date)
+      );
+      
+      console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());
   const todaysDate = DateTime.now().startOf("day");
   const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
 
-  if (DateStore.listForHabit() && maxDate < todaysDate) {
+  if (DateStore.listForHabit() && (maxDate < todaysDate)) {
     newDate(true);
   };
-
+console.log('newRecord() :>> ', newRecord());
+console.log("changedFromDemo() :>> ", changedFromDemo());
+console.log("changedToDemo() :>> ", changedToDemo());
+console.log("changedDomain() :>> ", changedDomain());
+console.log("newDate() :>> ", newDate());
+console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
   return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || newDate());
 };
 
@@ -79,21 +83,15 @@ function updateDomainSelectors() {
 };
 
 const resetContextStates = () => {
-  if (changedFromDemo()) {
-    changedToDemo(false);
-    changedFromDemo(false);
-  };
+  newRecord(false) ;
+  changedFromDemo(false) ;
+  changedToDemo(false);
+  changedDomain(false);
+  newDate(false);
   if (outOfDateBoundary()) {
     let newListForHabit = DateStore.filterForHabit(HabitStore.current());
     DateStore.current(newListForHabit[newListForHabit.length - 1]);
     outOfDateBoundary(false);
-  }
-  if (newRecord()) {
-    newRecord(false);
-  }
-  if (changedDomain() || changedDate()) {
-    changedDomain(false);
-    changedDate(false);
   }
 };
 
@@ -113,5 +111,6 @@ export {
   changeOfModelContext,
   updateDomainSelectors,
   resetContextStates,
-  updatedMinAndMaxForCurrentHabit
+  updatedMinAndMaxForCurrentHabit,
+  preLoadHabitDateData,
 };

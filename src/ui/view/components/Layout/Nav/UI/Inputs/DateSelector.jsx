@@ -25,16 +25,16 @@ const DateSelector = function () {
         DateStore.current() && DateTime.fromSQL(DateStore.current().h_date);
       [minDate, maxDate] = updatedMinAndMaxForCurrentHabit();
 
-      // if (!m.route.param('demo') && newDate()) {
-      if(false){
+      if (!m.route.param('demo') && newDate()) {
         DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() }).then(DateStore.index).then(
           () => {
+            DateStore.indexDatesOfHabit(DateStore.current()?.id)
             maxDate = DateTime.fromMillis(
               DateTime.fromSQL(DateStore.current().h_date).ts
             );
             newDate(false);
           }
-        ).then(m.redraw)
+        )
       }
       const dateInputs = document.querySelectorAll("#date-today");
       const prevDateSelector = document.getElementById("prev-date-selector");

@@ -24,6 +24,7 @@ import {
   resetContextStates,
   changedDate,
   changedDomain,
+  preLoadHabitDateData,
 } from '../assets/scripts/controller';
 
 function loadTreeData() {
@@ -35,8 +36,6 @@ function loadTreeData() {
     ).then(m.redraw);
   }
 };
-
-const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain()|| newRecord() || outOfDateBoundary());
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
@@ -59,17 +58,17 @@ export default {
     });
   },
   oninit: () => {
-    if (resetNeeded() && isVisPage()) {
-      loadTreeData();
-      resetContextStates();
-      console.log('visRedrawn :>> ');
-    }
     if (changeOfModelContext()) {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());
       HabitStore.indexHabitsOfDomain(DomainStore.current().id);
       updateDomainSelectors();
+      
+      if (isVisPage() && TreeStore.current().name === '') {
+        loadTreeData();
+        console.log('visRedrawn :>> ');
+      }
       resetContextStates();
-      m.redraw();
+      preLoadHabitDateData();
     }
   },
   view: ({

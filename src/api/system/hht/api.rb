@@ -310,9 +310,9 @@ module Hht
           end
         halt(404, { message: 'No Habit Dates Found' }.to_json) unless habit_date_list.length > 0
         halt(422, { message: 'Invalid Length' }.to_json) unless length > 0
-
+        habit_dates = length > habit_date_list.length ? habit_date_list : habit_date_list.slice(-length, length)
         status 200
-        json (json({habit_dates: habit_date_list.slice(-length, length)}))
+        json (json({habit_dates: habit_dates}))
       end
 
       post '' do

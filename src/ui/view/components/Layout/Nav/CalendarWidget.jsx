@@ -6,6 +6,7 @@ import HabitDateStore from '../../../../store/habit-date-store';
 import DateStore from '../../../../store/date-store';
 
 import DateCard from './UI/DateCard.jsx';
+import { changeOfModelContext } from "../../../../assets/scripts/controller";
 
 const calendarDates = stream([]);
 const statuses = stream([]);
@@ -15,15 +16,18 @@ const CalendarWidget = {
     const notUptoDate =
       HabitDateStore.filterByDate(DateStore.current()?.id)?.length === 0;
     const currentHabit = HabitStore.current();
-    console.log("notUptoDate :>> ", notUptoDate);
 
-    // if (DateStore.listForHabit().length === 0 || notUptoDate) {
-    //   DateStore.index().then(() => {
-    //     DateStore.indexDatesOfHabit(currentHabit?.id);
-    //   });
-    // }
+    if (DateStore.listForHabit().length === 0 || notUptoDate || changeOfModelContext()) {
+      console.log('reloaded habit date list :>> ');
+      DateStore.index().then(() => {
+        DateStore.indexDatesOfHabit(
+          currentHabit?.id
+        );
+      });
+    }
+
     const trackedDates = HabitDateStore.list()?.length;
-    (calendarDates()?.length === 0 || notUptoDate) &&
+    if (calendarDates()?.length === 0 || notUptoDate) {
       HabitDateStore.indexForHabitPeriod(currentHabit?.id, 28)
         .then((data) => {
           statuses(
@@ -32,8 +36,11 @@ const CalendarWidget = {
               completed_status: date.completed_status,
             }))
           );
-          // console.log(data, "habit statuses");
-          // console.log(" :>> ", DateStore.listForHabit());
+          console.log(data, "habit statuses");
+          console.log(
+            "DateStore.listForHabit().reverse() ",
+            DateStore.listForHabit().reverse()
+          );
           const dates =
             statuses() &&
             statuses()
@@ -46,10 +53,12 @@ const CalendarWidget = {
                 );
               })
               .slice(-7);
+          
+          console.log(dates, 'dates');
           calendarDates(dates);
-        })
-        .then(m.redraw)
+        }).then(m.redraw)
         .catch(console.log);
+    }
   },
   view: () => (
     <div className="top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full h-full pt-1">

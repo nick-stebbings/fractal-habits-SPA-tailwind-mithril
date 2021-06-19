@@ -8,6 +8,8 @@ const HabitDateStore = Object.assign(clientRoutes(basePath), {
 
   clear: () => {
     HabitDateStore.current = stream({});
+    HabitDateStore.list = stream([]);
+    HabitDateStore.fullList = stream([]);
   },
 
   list: stream([]),
