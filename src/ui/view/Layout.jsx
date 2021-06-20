@@ -23,7 +23,8 @@ import {
   resetContextStates,
   changedDate,
   preLoadHabitDateData,
-} from '../assets/scripts/controller';
+  newRecord,
+} from "../assets/scripts/controller";
 
 function loadTreeData() {
   if (DomainStore.current() && DateStore.current()) {
@@ -62,9 +63,9 @@ export default {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());
       updateDomainSelectors();
       if (isVisPage()) loadTreeData();
-      preLoadHabitDateData();
+      if(!newRecord()) preLoadHabitDateData();
       resetContextStates();
-      changedDate(false);
+      changedDate("updating");
     }
     if (isVisPage() && changedDate()) {
       resetContextStates();

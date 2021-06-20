@@ -116,6 +116,7 @@ const HabitDashboard = {
           NodeStore.runCurrentFilterByHabit(HabitStore.current());
 
           // Add toggle status event
+          
           if (e.target.tagName == "circle") {
             if (demoData) return;
             const currentStatusCol = e.target.getAttribute("fill");

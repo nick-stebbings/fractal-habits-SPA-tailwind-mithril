@@ -16,15 +16,14 @@ const CalendarWidget = {
     const notUptoDate = HabitDateStore.filterByDate(DateStore.current()?.id)?.length === 0;
     const currentHabit = HabitStore.current();
     console.log("(DateStore.current() :>> ", DateStore.current());
-    // console.log('notUptoDate :>> ', notUptoDate);
+    console.log('changedDate() :>> ', changedDate());
     // console.log('DateStore.listForHabit().length === 0 :>> ', DateStore.listForHabit());
     // console.log(
     //   " HabitDateStore.filterByDate(DateStore.current()?.id)>> ",
     //   HabitDateStore.filterByDate(DateStore.current()?.id)
     // );
-    if (DateStore.listForHabit().length === 0 || changedDate() || changeOfModelContext()) {
-      const dates =
-        statuses() &&
+    if (!m.route.param('demo') && DateStore.listForHabit().length === 0 || (changedDate() == 'updating') || changeOfModelContext()) {
+      calendarDates(statuses() &&
         statuses()
           .map((statusObj) => {
             return (
@@ -34,21 +33,11 @@ const CalendarWidget = {
               ) || ""
             );
           })
-          .slice(-7);
-
-      console.log(dates, "dates");
-      calendarDates(dates);
-      m.redraw();
-      // console.log('reloaded habit date list :>> ');
-      // DateStore.index().then(() => {
-      //   DateStore.indexDatesOfHabit(
-      //     currentHabit?.id
-      //   );
-      // });
+          .slice(-7));
+      changedDate(false);
     }
 
-    const trackedDates = HabitDateStore.list()?.length;
-    if (!m.route.param('demo') && calendarDates()?.length === 0 || notUptoDate) {
+    if (!m.route.param('demo') && (calendarDates()?.length === 0 || notUptoDate)) {
       HabitDateStore.indexForHabitPeriod(currentHabit?.id, 28)
         .then((data) => {
           statuses(
@@ -56,11 +45,6 @@ const CalendarWidget = {
               date_id: date.date_id,
               completed_status: date.completed_status,
             }))
-          );
-          console.log(data, "habit statuses");
-          console.log(
-            "DateStore.listForHabit().reverse() ",
-            DateStore.listForHabit().reverse()
           );
           const dates =
             statuses() &&
@@ -74,8 +58,6 @@ const CalendarWidget = {
                 );
               })
               .slice(-7);
-          
-          console.log(dates, 'dates');
           calendarDates(dates);
         }).then(m.redraw)
         .catch(console.log);
