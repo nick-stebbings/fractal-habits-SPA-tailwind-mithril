@@ -7,37 +7,20 @@ import DateStore from '../../../../store/date-store';
 
 import DateCard from './UI/DateCard.jsx';
 
-import { changeOfModelContext, changedDate, newRecord } from "../../../../assets/scripts/controller";
-const calendarDates = stream([]);
-const statuses = stream([]);
+import { changeOfModelContext, changedDate } from "../../../../assets/scripts/controller";
+export const calendarDates = stream([]);
+const statuses = stream();
 
 const CalendarWidget = {
   oninit: () => {
-    const notUptoDate = HabitDateStore.filterByDate(DateStore.current()?.id)?.length === 0;
+    const notUptoDate =
+      HabitDateStore.filterByDate(DateStore.current()?.id)?.length === 0;
     const currentHabit = HabitStore.current();
-    console.log("(DateStore.current() :>> ", DateStore.current());
-    console.log('changedDate() :>> ', changedDate());
-    // console.log('DateStore.listForHabit().length === 0 :>> ', DateStore.listForHabit());
-    // console.log(
-    //   " HabitDateStore.filterByDate(DateStore.current()?.id)>> ",
-    //   HabitDateStore.filterByDate(DateStore.current()?.id)
-    // );
-    if (!m.route.param('demo') && DateStore.listForHabit().length === 0 || (changedDate() == 'updating') || changeOfModelContext()) {
-      calendarDates(statuses() &&
-        statuses()
-          .map((statusObj) => {
-            return (
-              DateStore.dateFromDateObjectArray(
-                statusObj.date_id,
-                DateStore.listForHabit().reverse()
-              ) || ""
-            );
-          })
-          .slice(-7));
-      changedDate(false);
-    }
+    const noParams = !m.route.param("demo");
+    console.log(notUptoDate, 'notUptoDate')
+    console.log(calendarDates(), "calendarDates()");
 
-    if (!m.route.param('demo') && (calendarDates()?.length === 0 || notUptoDate)) {
+    if (!m.route.param("demo") && (calendarDates()?.length === 0 || calendarDates().some(date => date === ''))) {
       HabitDateStore.indexForHabitPeriod(currentHabit?.id, 28)
         .then((data) => {
           statuses(
@@ -59,20 +42,39 @@ const CalendarWidget = {
               })
               .slice(-7);
           calendarDates(dates);
-        }).then(m.redraw)
+        })
+        .then(m.redraw)
         .catch(console.log);
+    } else if ((noParams && DateStore.listForHabit().length === 0) || changedDate() == "updating" || changeOfModelContext()) {
+      calendarDates(
+        statuses() &&
+        statuses()
+          .map((statusObj) => {
+            return (
+              DateStore.dateFromDateObjectArray(
+                statusObj.date_id,
+                DateStore.listForHabit().reverse()
+              ) || ""
+            );
+          })
+          .slice(-7)
+      );
+      changedDate(false);
     }
   },
   view: () => (
     <div className="top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full h-full pt-1">
       <div
         className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex w-full gap-2 bg-transparent"
-        style="max-width:60%"
+        style="max-width:15%"
       >
         {calendarDates()?.map((date, idx) => (
           <DateCard
             date={date}
-            today={date.toLocaleString() === DateTime.now().startOf("day").toLocaleString()}
+            today={
+              date.toLocaleString() ===
+              DateTime.fromSQL(DateStore.current()?.h_date).toLocaleString()
+            }
             completedStatus={statuses() && statuses()[idx]?.completed_status}
           />
         ))}

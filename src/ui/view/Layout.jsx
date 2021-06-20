@@ -25,6 +25,7 @@ import {
   preLoadHabitDateData,
   newRecord,
 } from "../assets/scripts/controller";
+import { changedDomain } from '../../../../../Users/nicko/h2/src/ui/assets/scripts/controller.js';
 
 function loadTreeData() {
   if (DomainStore.current() && DateStore.current()) {
@@ -63,14 +64,14 @@ export default {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());
       updateDomainSelectors();
       if (isVisPage()) loadTreeData();
-      if(!newRecord()) preLoadHabitDateData();
+      if (!(newRecord() || changedDomain())) preLoadHabitDateData();
       resetContextStates();
       changedDate("updating");
     }
     if (isVisPage() && changedDate()) {
+      console.log("visRedrawn :>> ", TreeStore.root());
       resetContextStates();
       loadTreeData();
-      console.log("visRedrawn :>> ", TreeStore.root());
     }
   },
   view: ({

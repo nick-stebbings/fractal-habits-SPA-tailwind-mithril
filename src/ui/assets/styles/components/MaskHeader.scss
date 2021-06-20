@@ -307,14 +307,14 @@ span.logo svg path,
     display:none;
   }  
   body[class^="scroll"] div.mask-wrapper:hover {
-    height: 6.3rem;
+    height: 5rem;
   }
 
   div.mask-wrapper:hover {
     #current-habit-label {
       @apply fixed top-10 max-w-7xl overflow-auto;
     }
-    height: 6.3rem;
+    height: 5rem;
   }
 
   .nav-label-primary div span i {

@@ -17,6 +17,7 @@ import {
 
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
+import {calendarDates} from "../components/Layout/Nav/CalendarWidget.jsx";
 import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
 import { setRouteToBasePath, invert } from "../../assets/scripts/utilities";
 
@@ -52,11 +53,11 @@ const HabitDashboard = {
       HabitStore.current(
         HabitStore.filterById(m.route.param("currentHabit"))[0]
       );
-      NodeStore.index();
     }
-
     HabitStore.current() &&
       NodeStore.runCurrentFilterByHabit(HabitStore.current());
+    console.log(HabitStore.current(), 'current from dash')
+    console.log(calendarDates(), 'current from dash')
   },
   oncreate: ({ attrs }) => {
     const demoData = m.route.param("demo");
@@ -66,11 +67,13 @@ const HabitDashboard = {
     document.getElementById("sort-name-desc").addEventListener("click", (e) => {
       invert(nameOrderAsc);
       HabitStore.sortByName(nameOrderAsc());
+      setRouteToBasePath();
       m.redraw();
     });
     document.getElementById("sort-date-desc").addEventListener("click", (e) => {
       invert(dateOrderAsc);
       HabitStore.sortByDate(dateOrderAsc());
+      setRouteToBasePath();
       m.redraw();
     });
     document
@@ -78,6 +81,7 @@ const HabitDashboard = {
       .addEventListener("click", (e) => {
         invert(statusOrderAsc);
         HabitStore.sortByStatus(statusOrderAsc());
+        setRouteToBasePath();
         m.redraw();
       });
 
@@ -92,7 +96,7 @@ const HabitDashboard = {
     
     if (m.route.param("currentHabit")) {
       let param = m.route.param('currentHabit');
-      document.querySelector(`tr:nth-child(${param})`).scrollIntoView();
+      // document.querySelector(`tr:nth-child(${param})`).scrollIntoView(); TODO reinstate
     }
 
     // Add hover/active styles
@@ -103,20 +107,18 @@ const HabitDashboard = {
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
           // Stop the query parameters from persisting past first load
-            setRouteToBasePath();
+            if(m.route.params) setRouteToBasePath();
 
           // Add selected styles
           const habitName =
             e.currentTarget.querySelector("p:first-child")?.textContent;
           document.querySelector(".selected").classList.remove("selected");
           e.currentTarget.classList.add("selected");
-
           // Set the current habit and node
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
           NodeStore.runCurrentFilterByHabit(HabitStore.current());
-
-          // Add toggle status event
           
+          // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;
             const currentStatusCol = e.target.getAttribute("fill");
@@ -124,25 +126,22 @@ const HabitDashboard = {
             e.target.setAttribute(
               "fill",
               currentStatusCol === positiveCol ? negativeCol : positiveCol
-            );
+              );
             makePatchOrPutRequest(demoData, String(currentStatus))
               .then(HabitDateStore.index)
               .then(m.redraw);
-          }
+            }
 
           // Add delete  event
           if (e.target.tagName == "BUTTON") {
             attrs.modalType("confirm");
             openModal(true);
           }
-          // m.redraw();
-        }
-      });
-
-      row.addEventListener("mouseout", (e) => {
-        e.stopPropagation();
-        if (e.currentTarget.tagName === "TR") {
-          e.currentTarget.style.backgroundColor = "#fefefe";
+          calendarDates([]);
+          m.route.set(
+            m.route.param("demo") ? `/habits/list?demo=true` : `/habits/list`,
+            { currentHabit: HabitStore.current()?.id }
+          );
         }
       });
     });
@@ -247,7 +246,7 @@ const HabitDashboard = {
                         ).toLocaleString()}
                       </p>
                     </td>
-                    <td class="flex py-2 border-b border-gray-200 justify-center" style="width: 100%">
+                    <td class="border-b border-gray-200 justify-center">
                       <span class="relative inline-block px-3 py-1 font-semibold leading-tight">
                         <span class="relative">
                           <svg class="h-12 w-12">

@@ -18,6 +18,7 @@ const parsedDates = () => DateStore.listForHabit().map(
 );
 
 function preLoadHabitDateData() {
+  console.log('preloaded habit data')
   if (!m.route.param("demo")) {
     return DomainStore.index().then(
       HabitDateStore.index()
@@ -47,7 +48,7 @@ function changeOfModelContext() {
   );
     // Reset the current date when you switch to a habit with no record of that date
     outOfDateBoundary(
-      HabitStore.current() &&
+      HabitStore.current() && changedDate() &&
       DateTime.fromSQL(HabitStore.current()?.initiation_date) >
       DateTime.fromSQL(DateStore.current()?.h_date)
       );

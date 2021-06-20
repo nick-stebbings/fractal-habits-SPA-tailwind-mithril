@@ -4,7 +4,6 @@ import HabitStore from "../../../store/habit-store.js";
 import DomainStore from "../../../store/domain-store.js";
 
 import GeneralButton from "../Layout/Nav/UI/Buttons/GeneralButton.jsx";
-import { openModal } from "../../../assets/scripts/animations.js";
 
 const currentInput = stream("");
 const toggleButton = stream("Filter");

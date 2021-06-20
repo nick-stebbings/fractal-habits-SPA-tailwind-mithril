@@ -8,6 +8,7 @@ import Layout from "./view/Layout.jsx";
 import { importData } from "./store/populateDummyData";
 import DomainStore from "./store/domain-store";
 import HabitStore from "./store/habit-store";
+import HabitDateStore from "./store/habit-date-store";
 import DateStore from "./store/date-store";
 import NodeStore from "./store/habit-node-store";
 
@@ -147,9 +148,15 @@ function populateStores({demo}) {
         handleErrorType(message, "info");
       });
 
-    Promise.all([habitLoad, domainLoad, dateLoad, nodeLoad])
+    let habitDateLoad = HabitDateStore.index()
+      .catch((err) => {
+        handleErrorType(message, "info");
+      });
+
+    Promise.all([habitLoad, domainLoad, dateLoad, nodeLoad, habitDateLoad])
       .then(() => {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+        HabitDateStore.filterListByHabitId(HabitStore.current().id);
         m.redraw();
         spinnerState(false);
       })
