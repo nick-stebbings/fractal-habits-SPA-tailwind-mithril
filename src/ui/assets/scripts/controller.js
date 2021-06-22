@@ -60,14 +60,14 @@ function changeOfModelContext() {
         newDate(true);
       };
       // Sanity check logs::
-      // console.log('newRecord() :>> ', newRecord());
-      // console.log("changedFromDemo() :>> ", changedFromDemo());
-      // console.log("changedToDemo() :>> ", changedToDemo());
-      // console.log("changedDomain() :>> ", changedDomain());
-      // console.log("newDate() :>> ", newDate());
-      // console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
-      // console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());
-      return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || newDate());
+      console.log('newRecord() :>> ', newRecord());
+      console.log("changedFromDemo() :>> ", changedFromDemo());
+      console.log("changedToDemo() :>> ", changedToDemo());
+      console.log("changedDomain() :>> ", changedDomain());
+      console.log("newDate() :>> ", newDate());
+      console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
+      console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());
+      return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain());
     };
 
 function updateDomainSelectors() {

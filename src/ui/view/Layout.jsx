@@ -4,15 +4,12 @@ import LogoLink from './components/Layout/Nav/UI/Buttons/LogoLink.jsx';
 import Modal from './components/Layout/Modal.jsx';
 import MaskHeader from './components/Layout/Nav/MaskHeader.jsx';
 import MainStage from './components/Layout/MainStage.jsx';
-import PillSection from './components/Layout/PillSection.jsx';
 
 import DomainStore from '../store/domain-store';
 import HabitStore from '../store/habit-store';
-import NodeStore from '../store/habit-node-store';
 import DateStore from '../store/date-store';
 import TreeStore from '../store/habit-tree-store';
-import {populateStores} from '../routes';
-import HabitDateStore from '../store/habit-date-store.js';
+import { calendarDates } from "./components/Layout/Nav/CalendarWidget.jsx";
 
 import cloudMan from '../assets/images/cloud-man-vector.svg';
 import { openModal, openSpinner } from '../assets/scripts/animations';
@@ -54,6 +51,7 @@ export default {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
         updateDomainSelectors();
         resetContextStates();
+        calendarDates([]);
         if (isVisPage()) loadTreeData();
         m.redraw();
       });
@@ -64,7 +62,7 @@ export default {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());
       updateDomainSelectors();
       if (isVisPage()) loadTreeData();
-      if (!(newRecord() || changedDomain())) preLoadHabitDateData();
+      if (!(newRecord() || changedDomain() || changedDate())) preLoadHabitDateData();
       resetContextStates();
       changedDate("updating");
     }

@@ -19,7 +19,7 @@ const DateCard = {
     return (
       <div
         className="date-card bg-gray-50 rounded-3xl flex flex-col items-center justify-start flex-grow gap-1 p-2 pt-2 -mt-3"
-        style={`border-color: ${today ? '#e3922f' : '#fefefe'}; box-sizing: initial; border-width: 3px`}
+        style={`border-color: ${today ? '#e3922f' : '#fefefe'}; box-sizing: initial; border-width: 3px; max-width:75px`}
       >
         <span className="font-std block uppercase">{weekday}</span>
         <span className="font-std block text-sm">{monthday}</span>

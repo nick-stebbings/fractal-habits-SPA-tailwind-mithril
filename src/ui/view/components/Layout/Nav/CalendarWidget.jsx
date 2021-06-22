@@ -59,14 +59,14 @@ const CalendarWidget = {
           })
           .slice(-7)
       );
-      changedDate(false);
     }
+    changedDate(false);
   },
   view: () => (
     <div className="top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full h-full pt-1">
       <div
-        className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex w-full gap-2 bg-transparent"
-        style="max-width:15%"
+        className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex justify-end w-full gap-2 bg-transparent"
+        style="max-width:75%"
       >
         {calendarDates()?.map((date, idx) => (
           <DateCard
