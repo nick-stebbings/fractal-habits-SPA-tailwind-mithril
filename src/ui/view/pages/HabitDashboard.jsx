@@ -17,7 +17,7 @@ import {
 
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
-import {calendarDates} from "../components/Layout/Nav/CalendarWidget.jsx";
+import {calendarDates} from "../Layout.jsx";
 import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
 import { setRouteToBasePath, invert } from "../../assets/scripts/utilities";
 
@@ -52,7 +52,8 @@ const HabitDashboard = {
     if (m.route.param("currentHabit")) {
       HabitStore.current(
         HabitStore.filterById(m.route.param("currentHabit"))[0]
-      );
+        );
+        console.log('handled current habit param')
     }
     HabitStore.current() &&
       NodeStore.runCurrentFilterByHabit(HabitStore.current());
@@ -96,7 +97,7 @@ const HabitDashboard = {
     
     if (m.route.param("currentHabit")) {
       let param = m.route.param('currentHabit');
-      // document.querySelector(`tr:nth-child(${param})`).scrollIntoView(); TODO reinstate
+      document.querySelector(`tr:nth-child(${Math.max(param-1, 1)})`).scrollIntoView();
     }
 
     // Add hover/active styles
@@ -106,9 +107,6 @@ const HabitDashboard = {
       // Add click event for TR (Rows)
       row.addEventListener("click", (e) => {
         if (e.currentTarget.tagName === "TR") {
-          // Stop the query parameters from persisting past first load
-            if(m.route.params) setRouteToBasePath();
-
           // Add selected styles
           const habitName =
             e.currentTarget.querySelector("p:first-child")?.textContent;
@@ -117,7 +115,6 @@ const HabitDashboard = {
           // Set the current habit and node
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
           NodeStore.runCurrentFilterByHabit(HabitStore.current());
-          
           // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;
@@ -138,10 +135,9 @@ const HabitDashboard = {
             openModal(true);
           }
           calendarDates([]);
-          m.route.set(
-            m.route.param("demo") ? `/habits/list?demo=true` : `/habits/list`,
-            { currentHabit: HabitStore.current()?.id }
-          );
+          // Stop the query parameters from persisting past first load
+          // setRouteToBasePath();
+          m.redraw();
         }
       });
     });

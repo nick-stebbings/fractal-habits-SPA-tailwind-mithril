@@ -29,7 +29,7 @@ function preLoadHabitDateData() {
         HabitDateStore.runFilter(HabitStore.current()?.id);
         DateStore.current() &&
         HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
-      }).then(m.redraw)
+      })
     )
   } else {
     HabitStore.current() && HabitDateStore.runFilter(HabitStore.current()?.id);
@@ -59,14 +59,14 @@ function changeOfModelContext() {
       if (DateStore.listForHabit() && (maxDate < todaysDate)) {
         newDate(true);
       };
-      // Sanity check logs::
-      console.log('newRecord() :>> ', newRecord());
-      console.log("changedFromDemo() :>> ", changedFromDemo());
-      console.log("changedToDemo() :>> ", changedToDemo());
-      console.log("changedDomain() :>> ", changedDomain());
-      console.log("newDate() :>> ", newDate());
-      console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
-      console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());
+      // // // Sanity check logs::
+      // console.log('newRecord() :>> ', newRecord());
+      // console.log("changedFromDemo() :>> ", changedFromDemo());
+      // console.log("changedToDemo() :>> ", changedToDemo());
+      // console.log("changedDomain() :>> ", changedDomain());
+      // console.log("newDate() :>> ", newDate());
+      // console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
+      // console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());
       return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain());
     };
 

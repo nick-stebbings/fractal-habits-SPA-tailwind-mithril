@@ -1,7 +1,7 @@
 import DateTime from 'luxon/src/datetime.js';
 import DateStore from '../../../../../../store/date-store';
 import HabitStore from '../../../../../../store/habit-store';
-import { resetContextStates, updatedMinAndMaxForCurrentHabit, changedDate, outOfDateBoundary, newDate } from '../../../../../../assets/scripts/controller';
+import { resetContextStates, updatedMinAndMaxForCurrentHabit, changedDate, changeOfModelContext, newDate } from '../../../../../../assets/scripts/controller';
 
 const sanitiseForDataList = function (date) {
   return typeof date === 'object' && typeof date.h_date === 'string'
@@ -33,6 +33,7 @@ const DateSelector = function () {
               DateTime.fromSQL(DateStore.current().h_date).ts
             );
             newDate(false);
+console.log(changeOfModelContext(), 'change od model context after new date insertion');
             m.redraw();
           }
         )

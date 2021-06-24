@@ -9,7 +9,7 @@ import DateSelector from "../Nav/UI/Inputs/DateSelector.jsx";
 
 import "../../../../assets/styles/components/MaskHeader.scss";
 
-const MaskHeader = function () {
+const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
   return {
     view: () => (
       <div
@@ -19,7 +19,7 @@ const MaskHeader = function () {
             : "mask-wrapper bg-balance-pshades-dark"
         }
       >
-        <CalendarWidget />
+        <CalendarWidget calendarDates={calendarDates} statuses={statuses}/>
         <header
           className={
             m.route.param("demo") ? "bg-gray-600" : "bg-balance-pshades-dark"

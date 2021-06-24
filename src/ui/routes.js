@@ -23,7 +23,6 @@ import { handleErrorType } from "./assets/scripts/utilities";
 import { registerEventListeners } from "./assets/scripts/animations.js";
 
 // Copy
-
 let cardCopy = [
   {
     title: "Everyone Loves a Streak",
@@ -157,6 +156,7 @@ function populateStores({demo}) {
       .then(() => {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
         HabitDateStore.filterListByHabitId(HabitStore.current().id);
+        console.log('Full reload of data')
         m.redraw();
         spinnerState(false);
       })

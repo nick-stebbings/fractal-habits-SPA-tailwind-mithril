@@ -1,8 +1,6 @@
 import {
   positiveCol,
   negativeCol,
-  noNodeCol,
-  neutralCol,
 } from '../../../../../assets/scripts/d3-utilities';
 
 import tree from '../../../../../assets/images/icons/tree.svg';

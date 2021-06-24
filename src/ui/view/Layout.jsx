@@ -7,9 +7,13 @@ import MainStage from './components/Layout/MainStage.jsx';
 
 import DomainStore from '../store/domain-store';
 import HabitStore from '../store/habit-store';
+import HabitDateStore from '../store/habit-date-store';
 import DateStore from '../store/date-store';
 import TreeStore from '../store/habit-tree-store';
-import { calendarDates } from "./components/Layout/Nav/CalendarWidget.jsx";
+
+import stream from "mithril/stream";
+export const calendarDates = stream([]);
+const statuses = stream();
 
 import cloudMan from '../assets/images/cloud-man-vector.svg';
 import { openModal, openSpinner } from '../assets/scripts/animations';
@@ -33,9 +37,6 @@ function loadTreeData() {
     ).then(m.redraw);
   }
 };
-
-const resetNeeded = () => (changeOfModelContext() || changedDate() || changedDomain()|| newRecord() || outOfDateBoundary());
-
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
 export default {
@@ -43,6 +44,69 @@ export default {
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
+  },
+  oninit: () => {
+        const noParams = !m.route.param("demo");
+        if (
+          noParams &&
+          (calendarDates()?.length === 0 ||
+            calendarDates().some((date) => date === ""))
+        ) {
+          HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 28)
+            .then((data) => {
+              statuses(
+                data?.map((date) => ({
+                  date_id: date.date_id,
+                  completed_status: date.completed_status,
+                }))
+              );
+              const dates =
+                statuses() &&
+                statuses()
+                  .map((statusObj) => {
+                    return (
+                      DateStore.dateFromDateObjectArray(
+                        statusObj.date_id,
+                        DateStore.listForHabit().reverse()
+                      ) || ""
+                    );
+                  })
+                  .slice(-7);
+              calendarDates(dates);
+              changedDate(true);
+            })
+            .catch(console.log);
+        } else if (
+          (noParams && DateStore.listForHabit().length === 0) ||
+          changeOfModelContext()
+        ) {
+          calendarDates(
+            statuses() &&
+              statuses()
+                .map((statusObj) => {
+                  return (
+                    DateStore.dateFromDateObjectArray(
+                      statusObj.date_id,
+                      DateStore.listForHabit().reverse()
+                    ) || ""
+                  );
+                })
+                .slice(-7)
+          );
+        }
+    if (changeOfModelContext() || changedDate()) {
+      console.log("changeOfModelContext() :>> ", changeOfModelContext());
+      updateDomainSelectors();
+      if (isVisPage()) loadTreeData();
+      if (!(newRecord() || changedDomain() || changedDate()))
+        preLoadHabitDateData();
+      resetContextStates();
+    }
+    if (isVisPage() && changedDate()) {
+      console.log("visRedrawn :>> ", TreeStore.root());
+      resetContextStates();
+      loadTreeData();
+    }
 
     const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {
@@ -57,21 +121,6 @@ export default {
       });
     });
   },
-  oninit: () => {
-    if (changeOfModelContext() || changedDate()) {
-      console.log("changeOfModelContext() :>> ", changeOfModelContext());
-      updateDomainSelectors();
-      if (isVisPage()) loadTreeData();
-      if (!(newRecord() || changedDomain() || changedDate())) preLoadHabitDateData();
-      resetContextStates();
-      changedDate("updating");
-    }
-    if (isVisPage() && changedDate()) {
-      console.log("visRedrawn :>> ", TreeStore.root());
-      resetContextStates();
-      loadTreeData();
-    }
-  },
   view: ({
     attrs: { spinnerState, isIndex, modalType },
     children: componentNodes,
@@ -79,13 +128,19 @@ export default {
     <div>
       <Modal spinnerNeeded={spinnerState} modalType={modalType} />
       <LogoLink isDemo={changedFromDemo} />
-      <div id="app" className="bg-gray-50 flex flex-col items-center m-0 overflow-x-hidden">
-        <MaskHeader />
+      <div
+        id="app"
+        className="bg-gray-50 flex flex-col items-center m-0 overflow-x-hidden"
+      >
+        <MaskHeader calendarDates={calendarDates} statuses={statuses} />
         <div className="sm-selector-container top-1 md:top-1 inset-x-16 absolute z-40 flex flex-wrap w-2/3">
           <DomainSelector />
           <DateSelector />
         </div>
-        <MainStage isIndex={isIndex} modalType={modalType}>
+        <MainStage
+          isIndex={isIndex}
+          modalType={modalType}
+        >
           {componentNodes[0]}
           {componentNodes[1]}
           {componentNodes[2]}
