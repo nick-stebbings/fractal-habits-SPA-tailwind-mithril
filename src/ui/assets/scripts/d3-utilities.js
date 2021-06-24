@@ -310,7 +310,6 @@ const renderTree = function (
   const handleNodeToggle = function (event, node) {
     const targ = event.target;
     if (targ.tagName == "circle") {
-      event.stopPropagation();
       if (
         targ.closest(".the-node").classList.contains("active") ||
         deadNode(event)
@@ -355,20 +354,23 @@ const renderTree = function (
     }
   };
 
-  const handleEvents = function (selection) {
-    selection.on("contextmenu", function (event, node) {
-      event.preventDefault();
-      if (deadNode(event)) return reset();
-      setActiveNode(node);
-      renderTree(svg, isDemo, zoomer, {
-        event: event,
-        node: node,
-        content: node.data
-      });
-      handleStatusToggle(node);
-      handleZoom(event, node.parent);
+  const handleStatusChange = (event, node) => {
+    event.preventDefault();
+    console.log(node);
+    if (deadNode(event)) return reset();
+    setActiveNode(node);
+    renderTree(svg, isDemo, zoomer, {
+      event: event,
+      node: node,
+      content: node.data
     });
+    handleStatusToggle(node);
+    handleZoom(event, node.parent);
+  };
+
+  const handleEvents = function (selection) {
     selection
+      .on("contextmenu", handleStatusChange)
       .on("mousewheel.zoom", handleZoom, { passive: true })
       .on("touchstart", handleHover, { passive: true })
       .on("touchend", handleNodeToggle, { passive: true })
@@ -389,42 +391,39 @@ const renderTree = function (
         }, 500);
       });
 
-    const manager = new Hammer.Manager(
-      document.querySelector("#vis div svg:last-of-type")
-    );
-    // Create a recognizer
-    const DoubleTap = new Hammer.Tap({
-      event: 'doubletap',
-      taps: 2
+    selection._groups[0].forEach(node => {
+      const manager = new Hammer.Manager(node);
+      // Create a recognizer
+      const singleTap = new Hammer.Tap({event: 'singletap'});
+      const doubleTap = new Hammer.Tap({
+        event: 'doubletap',
+        taps: 2
+      });
+      manager.add([doubleTap, singleTap]);
+      manager.get("singletap").requireFailure("doubletap");
+      manager.on('doubletap', (ev) => {
+        handleStatusChange(ev, node.__data__);
+      })
     });
-    // debugger;
-    manager.add(DoubleTap);
-    manager.on('doubletap', (ev) => {
-      handleZoom(ev, ev.target.closest('.the-node'));
-      handleNodeToggle();
-      alert(ev);
-      alert(ev.target.closest(".the-node"));
-    })
-
-    function handleStatusToggle(node) {
-      if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status
-      const nodeContent = parseTreeValues(node.data.content);
-      NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
-      HabitStore.runCurrentFilterByNode(NodeStore.current().id);
-
-      const currentStatus = nodeContent.status;
-      node.data.content = node.data.content.replace(
-        /true|false|incomplete/,
-        oppositeStatus(currentStatus)
-      );
-      const nodeId = NodeStore.current().id;
-      HabitStore.runCurrentFilterByNode(nodeId);
-      if (!node.data.name.includes("Sub-Habit")) {
-        // If this was not a 'ternarising' sub habit that we created for more even distribution
-        makePatchOrPutRequest(isDemo, currentStatus);
-      }
-    }
   };
+  function handleStatusToggle(node) {
+    if (!rootData.leaves().includes(node) || node._children) return; // Non-leaf nodes have auto-generated cumulative status
+    const nodeContent = parseTreeValues(node.data.content);
+    NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
+    HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+
+    const currentStatus = nodeContent.status;
+    node.data.content = node.data.content.replace(
+      /true|false|incomplete/,
+      oppositeStatus(currentStatus)
+    );
+    const nodeId = NodeStore.current().id;
+    HabitStore.runCurrentFilterByNode(nodeId);
+    if (!node.data.name.includes("Sub-Habit")) {
+      // If this was not a 'ternarising' sub habit that we created for more even distribution
+      makePatchOrPutRequest(isDemo, currentStatus);
+    }
+  }
 
   function calibrateViewPort() {
     viewportY = canvasWidth < 768 ? -250 : -200;
@@ -452,7 +451,7 @@ const renderTree = function (
     select(".canvas")
       .transition()
       .ease(easeCircleOut)
-      .duration(10)
+      .duration(750)
       .attr(
         "transform",
         "translate(" +

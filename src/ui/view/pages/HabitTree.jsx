@@ -112,6 +112,7 @@ const HabitTree = function () {
         .classed("h-screen", true)
         .classed("w-full", true)
         .append("svg")
+        .classed('vis-div', 'true')
         .attr("width", "100%")
         .attr("height", "100%")
         .attr("style", "pointer-events: all");
