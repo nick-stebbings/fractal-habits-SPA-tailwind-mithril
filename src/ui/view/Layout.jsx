@@ -25,8 +25,8 @@ import {
   changedDate,
   preLoadHabitDateData,
   newRecord,
+  changedDomain
 } from "../assets/scripts/controller";
-import { changedDomain } from '../../../../../Users/nicko/h2/src/ui/assets/scripts/controller.js';
 
 function loadTreeData() {
   if (DomainStore.current() && DateStore.current()) {
