@@ -182,7 +182,7 @@ const renderTree = function (
   if (rootData.name === "") return;
   
   // SETTINGS
-  let scale = isDemo ? 4 : 5;
+  let scale = isDemo ? 5 : 6;
   let clickScale = 2.2;
   let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
   let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
@@ -198,12 +198,12 @@ const renderTree = function (
 
   if (canvasWidth < 600) {
     levelsWide = zoomClicked ? 8 : 4;
-    levelsHigh = zoomClicked ? 0.5 : 2;
+    levelsHigh = zoomClicked ? 0.2 : 2;
   } else {
-    levelsWide = zoomClicked ? 10 : 5;
+    levelsWide = zoomClicked ? 15 : 10;
     levelsHigh = 2;
   }
-  const nodeRadius = (canvasWidth < 600 ? 10 : 8) * scale;
+  const nodeRadius = (canvasWidth < 600 ? 12 : 10) * scale;
   let widthBeteen = isDemo ? scale / 3 : 1;
   const dx = ((canvasWidth / levelsHigh)) / clickScale;
   const dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);

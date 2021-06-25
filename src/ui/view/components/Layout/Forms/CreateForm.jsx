@@ -55,7 +55,7 @@ const processFormData = function (dom, attrs) {
           newRecord(true);
           openModal(false);
           TreeStore.clear();
-          m.route.set(m.route.get(), null);
+          m.redraw();
         })
         .catch(() => {
           console.log('Could not submit data.');
