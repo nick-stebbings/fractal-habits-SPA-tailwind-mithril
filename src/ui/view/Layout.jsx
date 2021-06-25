@@ -44,6 +44,20 @@ export default {
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
+
+    const domainSelectors = document.querySelectorAll(".domain-selector");
+    [...domainSelectors].forEach((selector) => {
+      selector.addEventListener("change", (e) => {
+        DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
+        HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+        console.log('hi');
+        updateDomainSelectors();
+        resetContextStates();
+        calendarDates([]);
+        if (isVisPage()) loadTreeData();
+        m.redraw();
+      });
+    });
   },
   oninit: () => {
         const noParams = !m.route.param("demo");
@@ -75,6 +89,7 @@ export default {
               calendarDates(dates);
               changedDate(true);
             })
+            .then(m.redraw)
             .catch(console.log);
         } else if (
           (noParams && DateStore.listForHabit().length === 0) ||
@@ -107,19 +122,6 @@ export default {
       resetContextStates();
       loadTreeData();
     }
-
-    const domainSelectors = document.querySelectorAll(".domain-selector");
-    [...domainSelectors].forEach((selector) => {
-      selector.addEventListener("change", (e) => {
-        DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
-        HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        updateDomainSelectors();
-        resetContextStates();
-        calendarDates([]);
-        if (isVisPage()) loadTreeData();
-        m.redraw();
-      });
-    });
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },
