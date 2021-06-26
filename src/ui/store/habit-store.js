@@ -50,7 +50,6 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
   indexHabitsOfDomain: (id) => {
     HabitStore.runFilterByDomain(id);
     HabitStore.sortByDate();
-    HabitStore.current(HabitStore.list()[0]);
   },
 
   filterByDomainId: (id) =>

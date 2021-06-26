@@ -141,6 +141,7 @@ export default {
         <MainStage
           isIndex={isIndex}
           modalType={modalType}
+          isVis={isVisPage()}
         >
           {componentNodes[0]}
           {componentNodes[1]}

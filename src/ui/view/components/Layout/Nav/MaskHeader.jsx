@@ -19,7 +19,7 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
             : "mask-wrapper bg-balance-pshades-dark"
         }
       >
-        <CalendarWidget calendarDates={calendarDates} statuses={statuses}/>
+        <CalendarWidget calendarDates={calendarDates} statuses={statuses} />
         <header
           className={
             m.route.param("demo") ? "bg-gray-600" : "bg-balance-pshades-dark"
@@ -169,6 +169,11 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
           </span>
           <span class="block max-h-12 md:block overflow-auto sm:hidden">
             {HabitStore.current()?.name}
+          </span>
+          <span class="block max-h-12 md:block overflow-auto sm:hidden">
+            {console.log(HabitStore.current()?.description)}
+
+            {HabitStore.current()?.description}
           </span>
         </div>
       </div>

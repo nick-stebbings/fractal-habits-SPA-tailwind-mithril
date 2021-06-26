@@ -4,6 +4,7 @@ import {
 } from '../../../../../assets/scripts/d3-utilities';
 
 import tree from '../../../../../assets/images/icons/tree.svg';
+import HabitStore from '../../../../../store/habit-store'
 
 const DateCard = {
   view: ({ attrs: { date, completedStatus, today } }) => {
@@ -17,7 +18,9 @@ const DateCard = {
     return (
       <div
         className="date-card bg-gray-50 rounded-3xl flex flex-col items-center justify-start flex-grow gap-1 p-2 pt-2 -mt-3"
-        style={`border-color: ${today ? '#e3922f' : '#fefefe'}; box-sizing: initial; border-width: 3px; max-width:75px`}
+        style={`border-color: ${
+          today ? "#e3922f" : "#fefefe"
+        }; box-sizing: initial; border-width: 3px; max-width:125px`}
       >
         <span className="font-std block uppercase">{weekday}</span>
         <span className="font-std block text-sm">{monthday}</span>
@@ -28,20 +31,28 @@ const DateCard = {
               r="20"
               cx="12"
               cy="12"
-              fill={completedStatus === 'true' ? positiveCol : negativeCol}
+              fill={completedStatus === "true" ? positiveCol : negativeCol}
               stroke="black"
             />
           </g>
         </svg>
         <i className="fa-solid fa-circle-info" />
         <m.route.Link
-          href={m.route.param('demo') ? '/' : '/?demo=true'}
+          href={
+            !m.route.param("demo")
+              ? `habits/list?currentHabit=${HabitStore.current()?.id}`
+              : `habits/list?demo=true&currentHabit=${HabitStore.current()?.id}`
+          }
           selector="a"
         >
           <img src={tree} className="w-12 h-12" alt="Link to habit tree page" />
         </m.route.Link>
         <m.route.Link
-          href={m.route.param('demo') ? '/' : '/?demo=true'}
+          href={
+            !m.route.param("demo")
+              ? "/vis/habit-tree"
+              : "/vis/habit-tree?demo=true"
+          }
           selector="a"
         >
           <svg

@@ -53,12 +53,9 @@ const HabitDashboard = {
       HabitStore.current(
         HabitStore.filterById(m.route.param("currentHabit"))[0]
         );
-        console.log('handled current habit param')
     }
     HabitStore.current() &&
       NodeStore.runCurrentFilterByHabit(HabitStore.current());
-    console.log(HabitStore.current(), 'current from dash')
-    console.log(calendarDates(), 'current from dash')
   },
   oncreate: ({ attrs }) => {
     const demoData = m.route.param("demo");
@@ -97,7 +94,8 @@ const HabitDashboard = {
     
     if (m.route.param("currentHabit")) {
       let param = m.route.param('currentHabit');
-      document.querySelector(`tr:nth-child(${Math.max(param-1, 1)})`).scrollIntoView();
+      document.querySelector(`tr:nth-child(${Math.max(param - 1, 1)})`)?.scrollIntoView();
+      setRouteToBasePath();
     }
 
     // Add hover/active styles
@@ -110,7 +108,7 @@ const HabitDashboard = {
           // Add selected styles
           const habitName =
             e.currentTarget.querySelector("p:first-child")?.textContent;
-          document.querySelector(".selected").classList.remove("selected");
+          document.querySelector(".selected")?.classList.remove("selected");
           e.currentTarget.classList.add("selected");
           // Set the current habit and node
           HabitStore.current(HabitStore.filterByName(habitName)[0]);

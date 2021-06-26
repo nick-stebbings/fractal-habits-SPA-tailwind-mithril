@@ -39,12 +39,12 @@ function invert(inputStream) {
   inputStream(!inputStream());
 };
 
-const setRouteToBasePath = function (habitParam = false) {
+const setRouteToBasePath = function (habitParam = null) {
   let url = m.route.get();
   let newUrl = m.route.param("demo")
     ? url.split("demo=true")[0] + "demo=true"
     : url.split("?")[0];
-  m.route.set(newUrl, {currentHabit: habitParam});
+  m.route.set(newUrl, (habitParam ? {currentHabit: habitParam} : {}));
 };
 
 const handleAndRethrow = function (err) {

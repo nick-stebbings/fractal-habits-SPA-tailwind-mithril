@@ -468,7 +468,7 @@ const renderTree = function (
     select(".canvas")
       .transition()
       .ease(easeCubicOut)
-      .duration(isDemo ? 0 : 800)
+      .duration(isDemo ? 0 : 2000)
       .attr(
         "transform",
         "translate(" +
