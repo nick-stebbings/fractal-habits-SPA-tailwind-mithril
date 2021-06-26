@@ -20,7 +20,6 @@ const CalendarWidget = {
         className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex justify-end w-full gap-2 bg-transparent"
         style="max-width:75%"
       >
-        {console.log(statuses())}
         {calendarDates()?.map((date, idx) => (
           <DateCard
             date={date}

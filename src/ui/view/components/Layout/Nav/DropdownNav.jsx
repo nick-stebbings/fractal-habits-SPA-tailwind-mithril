@@ -33,7 +33,13 @@ const DropdownNav = (function () {
             // Allow finding the top of the page again using active nav list item
             document.body.scroll(0, 0);
           }
-          const idx = ['nav-visualise', 'nav-habits'].indexOf(id);
+          const links = ['nav-visualise', 'nav-habits'];
+          const idx = links.indexOf(id);
+          // console.log('id :>> ', id);
+          // console.log('idx :>> ', document.getElementById(links[idx]));
+          // navItem?.classList.add('active');
+          // document.getElementById(links[1-idx])?.classList.remove('active');
+
           const menuVisible = (document.querySelector(
             '.mask-wrapper',
           ).style.height === '5rem');

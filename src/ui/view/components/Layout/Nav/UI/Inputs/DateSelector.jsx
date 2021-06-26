@@ -38,6 +38,15 @@ const DateSelector = function () {
         )
       }
       const dateInputs = document.querySelectorAll("#date-today");
+      document.addEventListener("input", (e) => {
+        if((e.target.value).search(/\d\d-\d\d-\d\d/) === -1) return;
+        dateIndex = DateStore.listForHabit()
+          .map(sanitiseForDataList)
+          .indexOf(e.target.value);
+        let newDate = DateStore.listForHabit()[dateIndex];
+        DateStore.current(newDate);
+        changedDate(true);
+      });
       const prevDateSelector = document.getElementById("prev-date-selector");
       const nextDateSelector = document.getElementById("next-date-selector");
       [...dateInputs].forEach((input) => {
@@ -49,6 +58,7 @@ const DateSelector = function () {
           let newDate = DateStore.listForHabit()[dateIndex];
           DateStore.current(newDate);
           changedDate(true);
+          m.redraw();
         });
       });
       prevDateSelector.addEventListener("click", () => {
