@@ -16,9 +16,6 @@ const FeaturePill = {
           vnode.attrs.modalType(true);
           newRecord(true);
         })
-        .then(() => {
-          m.redraw();
-        })
         .catch(handleErrorType);
     });
   },

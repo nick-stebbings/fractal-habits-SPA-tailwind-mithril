@@ -55,6 +55,8 @@ const processFormData = function (dom, attrs) {
           newRecord(true);
           openModal(false);
           TreeStore.clear();
+        })
+        .then(() => {
           m.redraw();
         })
         .catch(() => {

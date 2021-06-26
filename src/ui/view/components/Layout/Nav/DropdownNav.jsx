@@ -39,7 +39,10 @@ const DropdownNav = (function () {
         });
       });
       document.querySelector('.date-card-wrapper').addEventListener('mouseenter', showMegaMenu);
-      document.querySelector('.nav-container').addEventListener('click', showMegaMenu);
+      document.querySelector('.nav-container').addEventListener('click', (e) => {
+        if (!(e.target.classList.contains('nav-container'))) return;
+        showMegaMenu();
+      });
       document.querySelector('.date-card-wrapper').addEventListener('mouseleave', hideMegaMenu);
       document.querySelector('nav.nav').addEventListener('mouseenter', hideMegaMenu);
     },

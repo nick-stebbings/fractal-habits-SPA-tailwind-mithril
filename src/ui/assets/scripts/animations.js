@@ -1,4 +1,5 @@
 import Hammer from 'hammerjs';
+import { debounce } from './d3-utilities';
 
 const openSpinner = function (open = true) {
   const modalOverlay = document.querySelector('#modal_overlay');
@@ -115,7 +116,7 @@ const registerEventListeners = (function () {
         openModal(false);
       }
     });
-    document.body.addEventListener('scroll', handleScroll);
+    document.body.addEventListener('scroll', debounce(handleScroll, 500));
 
     const removeBodyScrollClass = () => body.setAttribute('class', '');
     const scrollUp = 'scroll-up';
