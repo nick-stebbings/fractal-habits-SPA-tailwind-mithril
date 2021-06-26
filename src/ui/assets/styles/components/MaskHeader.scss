@@ -122,7 +122,7 @@ li.hoverable {
     height: 350px;
 
     .mega-menu-wrapper {
-      background: no-repeat 0.5rem -0.25rem $watermarkimage;
+      background: no-repeat -0.5rem -2.25rem $watermarkimage;
       margin-top: 1.2rem;
       padding-right: 0.6em;
       @apply flex h-full;
@@ -227,6 +227,10 @@ li.hoverable {
 
 #subnav .nav-links > li.hoverable {
   @apply bg-balance-tershades-gray pr-0;
+}
+
+#subnav .nav-links > li.hoverable:hover .habit-description-label {
+  display:none;
 }
 
 #subnav .nav-links > li.hoverable:hover {

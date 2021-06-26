@@ -13,12 +13,14 @@ const DropdownNav = (function () {
       }
     });
     document.querySelector('.mask-wrapper').style.zIndex = '40';
+    document.querySelector('.habit-description-label').style.opacity = '1';
   };
   const hideMegaMenu = () => {
     document.querySelector('.mask-wrapper').style.height = '5rem';
     [...document.querySelectorAll('.mega-menu')].forEach((menu) => {
       menu.style.display = 'none';
     });
+    document.querySelector('.habit-description-label').style.opacity = '0';
     document.querySelector('.mask-wrapper').style.zIndex = '10';
   };
   return {
