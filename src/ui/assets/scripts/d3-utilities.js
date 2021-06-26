@@ -3,7 +3,7 @@ import { scaleOrdinal, scaleLinear } from "d3-scale";
 import { zoomIdentity } from "d3-zoom";
 import { linkVertical } from "d3-shape";
 import { tree } from "d3-hierarchy";
-import { easeCircleOut } from "d3-ease";
+import { easeCubic, easeCircleOut, easeCubicOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
 import { isTouchDevice } from "./utilities";
@@ -48,7 +48,7 @@ const addLegend = (svg) => {
   const legendSvg = select("svg.legendSvg");
   const controlsSvg = select("svg.controlsSvg");
   const gText = controlsSvg.append("g").attr("class", "controls")
-    .attr("transform", "translate(265, 40) scale(0.8)");
+    .attr("transform", "translate(180, 40) scale(0.7)");
   const gLegend = legendSvg.append("g").attr("class", "legend")
     .attr("transform", "translate(20, 30) scale(2)");
 
@@ -59,15 +59,25 @@ const addLegend = (svg) => {
   let habitSpan = habitLabel.nextElementSibling;
   let habitLabelSm = document.getElementById("current-habit-sm");
   let habitSpanSm = habitLabelSm.nextElementSibling;
-  if (isTouchDevice()) {
-    gText.append("text").text("Swipe Left ----> Next Day");
-    gText.append("text").text("Swipe Right ----> Last Day").attr("y", - 25);
+  if (isTouchDevice() || canvasWidth < 760) {
+    gText.append("text").text("Single Tap ----> Select Habit").attr("y", -100);
+    gText
+      .append("text")
+      .text("Tap & Hold ---> View Details")
+      .attr("y", -25).attr("x", 265);
+    gText.append("text").text("Double Tap ---> Toggle Habit").attr("y", 0).attr("x", 275);
+    gText.append("text").text("Swipe Left ---> Next Day");
+    gText.append("text").text("Swipe Right ---> Last Day").attr("y", -25);
   } else {
-    gText.append("text").text("L/Click ----> Habit Select");
+    gText.append("text").text("L/Click ---> Habit Select");
     gText
       .append('text')
       .attr('y', 25)
-      .text('R/Click --> Toggle Status');
+      .text('R/Click ------> Tick It Off');
+    gText
+      .append("text")
+      .text("Zoom Habit -> Centre View")
+      .attr("y", -25);
   }
 
   const colorLegend = legendColor()
@@ -198,7 +208,7 @@ const renderTree = function (
 
   if (canvasWidth < 600) {
     levelsWide = zoomClicked ? 8 : 4;
-    levelsHigh = zoomClicked ? 0.2 : 2;
+    levelsHigh = zoomClicked ? 0.5 : 3;
   } else {
     levelsWide = zoomClicked ? 15 : 10;
     levelsHigh = 2;
@@ -365,7 +375,13 @@ const renderTree = function (
       content: node.data
     });
     handleStatusToggle(node);
-    handleZoom(event, node.parent);
+    
+    renderTree(svg, isDemo, zoomer, {
+      event: event,
+      node: node,
+      content: node.data
+    });
+    // handleZoom(event, node.parent);
   };
 
   const handleEvents = function (selection) {
@@ -397,7 +413,8 @@ const renderTree = function (
       const singleTap = new Hammer.Tap({event: 'singletap'});
       const doubleTap = new Hammer.Tap({
         event: 'doubletap',
-        taps: 2
+        taps: 2,
+        interval: 700
       });
       manager.add([doubleTap, singleTap]);
       manager.get("singletap").requireFailure("doubletap");
@@ -426,9 +443,9 @@ const renderTree = function (
   }
 
   function calibrateViewPort() {
-    viewportY = canvasWidth < 768 ? -250 : -200;
+    viewportY = canvasWidth < 768 ? -300 : -250;
     viewportW = canvasWidth * 3;
-    viewportX = viewportW / 2;
+    viewportX = viewportW / 2 + 3* nodeRadius;
     viewportH =
       canvasHeight * 5;
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
@@ -450,8 +467,8 @@ const renderTree = function (
     const transformer = getTransform(that, clickScale);
     select(".canvas")
       .transition()
-      .ease(easeCircleOut)
-      .duration(750)
+      .ease(easeCubicOut)
+      .duration(isDemo ? 0 : 800)
       .attr(
         "transform",
         "translate(" +
@@ -509,8 +526,8 @@ const renderTree = function (
     .classed("link", true)
     .attr("stroke-opacity", (d) =>
       !activeNode || (activeNode && activeNode.descendants().includes(d.source))
-        ? 0.5
-        : 0.2
+        ? 0.55
+        : 0.3
     )
     .attr(
       "d",
@@ -533,7 +550,7 @@ const renderTree = function (
     .style("opacity", (d) => {
       if (!activeNode || (activeNode && d.ancestors().includes(activeNode)))
         return "1";
-      return !zoomClicked ? "1" : "0.2";
+      return !zoomClicked ? "1" : "0.4";
     })
     .style("stroke-width", (d) =>
       activeNode !== undefined && d.ancestors().includes(activeNode)
@@ -566,14 +583,16 @@ const renderTree = function (
     .append("rect")
     .attr("width", 25)
     .attr("height", 25)
-    .attr("x", -5)
-    .attr("y", -5);
+    .attr("x", -10)
+    .attr("y", -15);
 
   gTooltip
     .append("rect")
     .attr("width", 300)
-    .attr("height", 60)
-    .attr("rx", nodeRadius / 8);
+    .attr("height", 100)
+    .attr("x", -10)
+    .attr("y", -15)
+    .attr("rx", nodeRadius / 3);
 
   // Split the name label into two parts:
   gTooltip
@@ -620,7 +639,7 @@ const renderTree = function (
     //
   enteringNodes
     .append("g")
-    .attr("transform", "translate(" + "-12" + "," + "35" + ") scale( 1.5 )")
+    .attr("transform", "translate(" + "-20" + "," + "55" + ") scale( 2.5 )")
     .append("path")
     .attr("class", "expand-arrow")
     .attr("d", (d) => {
@@ -633,12 +652,12 @@ const renderTree = function (
   const gButton = gCircle
     .append("g")
     .classed("habit-label-dash-button", true)
-    .attr("transform", `translate(${65}, 40)`)
+    .attr("transform", `translate(${60}, 0), scale(1.75)`)
     .attr("style", "opacity: 0");
 
   gButton
     .append("rect")
-    .attr("rx", nodeRadius / 2)
+    .attr("rx", nodeRadius / 4)
     .attr("width", 100)
     .attr("height", 30)
     .on("click", (e) => {
@@ -659,7 +678,7 @@ const renderTree = function (
   if (!isDemo) {
     gButton
       .append("rect")
-      .attr("rx", nodeRadius / 2)
+      .attr("rx", nodeRadius / 4)
       .attr("x", 90)
       .attr("width", 100)
       .attr("height", 30)
@@ -680,7 +699,7 @@ const renderTree = function (
     gButton
     .append("rect")
     .attr("style", (d) => d.parent ? "opacity: 0" : "opacity: 1")
-    .attr("rx", nodeRadius / 2)
+    .attr("rx", nodeRadius / 4)
     .attr("x", 175)
     .attr("width", 110)
     .attr("height", 30)
@@ -743,7 +762,7 @@ const renderTree = function (
             return d > 0;
           })
           .transition()
-          .ease(easeCircleOut)
+          .ease(easeCubic)
           .attr("r", function (d) {
             return d;
           })

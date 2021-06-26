@@ -136,8 +136,8 @@ const HabitDashboard = {
           }
           calendarDates([]);
           // Stop the query parameters from persisting past first load
-          // setRouteToBasePath();
-          m.redraw();
+          setRouteToBasePath(HabitStore.current()?.id);
+          // m.redraw();
         }
       });
     });

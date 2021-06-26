@@ -81,7 +81,7 @@ console.log(changeOfModelContext(), 'change od model context after new date inse
           id="date-today"
           tabIndex="3"
           required
-          className="sm:h-10 xl:text-xl w-full h-6 px-4 py-1 mt-1"
+          className="sm:h-10 xl:text-xl md:px-4 md:py-1 w-full h-6 px-2 pb-2 mt-1"
           type="date"
           value={DateStore.currentDate()}
           max={String(DateStore.currentDate())}

@@ -75,7 +75,6 @@ function updateDomainSelectors() {
     let current = DomainStore.current();
     let newIndex = DomainStore.list().indexOf(current);
     selector.selectedIndex = newIndex;
-    m.redraw();
   });
 
   Array.from(document.querySelectorAll(".domain-selector option"))

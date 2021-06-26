@@ -89,7 +89,6 @@ export default {
               calendarDates(dates);
               changedDate(true);
             })
-            .then(m.redraw)
             .catch(console.log);
         } else if (
           (noParams && DateStore.listForHabit().length === 0) ||

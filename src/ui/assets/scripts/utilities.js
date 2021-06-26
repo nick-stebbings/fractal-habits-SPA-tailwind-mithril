@@ -39,12 +39,12 @@ function invert(inputStream) {
   inputStream(!inputStream());
 };
 
-const setRouteToBasePath = function () {
+const setRouteToBasePath = function (habitParam = false) {
   let url = m.route.get();
   let newUrl = m.route.param("demo")
     ? url.split("demo=true")[0] + "demo=true"
     : url.split("?")[0];
-  m.route.set(newUrl, null);
+  m.route.set(newUrl, {currentHabit: habitParam});
 };
 
 const handleAndRethrow = function (err) {
@@ -92,3 +92,4 @@ const handleErrorType = function (err, type = "warning") {
   throw err;
 };
 export { isTouchDevice, handleAndRethrow, invert, handleErrorType, addActiveMenuStyles, redraw, setRouteToBasePath };
+ 

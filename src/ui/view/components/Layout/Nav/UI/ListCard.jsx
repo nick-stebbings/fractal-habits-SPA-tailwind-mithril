@@ -25,7 +25,6 @@ const ListCard = {
             HabitStore.filterById(+e.target.getAttribute('data-id'))[0],
           );
           calendarDates([]);
-          m.redraw();
         }
       })}
       <div className="habit-list-details">

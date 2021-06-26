@@ -2,6 +2,14 @@ g.nodes {
   cursor: pointer;
   pointer-events: all;
 }
+.controlsSvg {
+	width: 500px;
+	right:0;
+}
+
+.legendSvg, .controlsSvg {
+  pointer-events: none;
+}
 
 .the-node.active circle {
   stroke: #5568d2;
@@ -48,4 +56,11 @@ body[class^="scroll"] .legendSvg, body[class^="scroll"] .controlsSvg {
 
 g.tooltip rect:first-of-type {
 	fill: #47301f !important;
+}
+
+@media only screen and (min-width: 760px) {
+	.controlsSvg {
+		width: 250px;
+		right:0;
+	}
 }
