@@ -33,7 +33,6 @@ const DateSelector = function () {
               DateTime.fromSQL(DateStore.current().h_date).ts
             );
             newDate(false);
-console.log(changeOfModelContext(), 'change od model context after new date insertion');
             m.redraw();
           }
         )

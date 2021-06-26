@@ -57,6 +57,8 @@ module Hht
 
       def habit_dates_for_one_habit_node(habit_id)
         date_ids = dates
+          .order(:h_date)
+          .distinct(:h_date)
           .assoc(:habits)
           .where(habit_id: habit_id)
           .map{|habit| habit[:date_id] }

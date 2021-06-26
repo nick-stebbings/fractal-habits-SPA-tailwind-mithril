@@ -1,9 +1,9 @@
 import {
   positiveCol,
   negativeCol,
+  noNodeCol
 } from '../../../../../assets/scripts/d3-utilities';
 
-import tree from '../../../../../assets/images/icons/tree.svg';
 import HabitStore from '../../../../../store/habit-store'
 
 const DateCard = {
@@ -15,15 +15,25 @@ const DateCard = {
         day: 'numeric',
       })
       .split(/\W+/);
+    const statusColour = (function () {
+      switch (completedStatus) {
+        case true:
+          return positiveCol
+        case false:
+          return negativeCol
+        default:
+          return noNodeCol
+      }
+    }());
     return (
       <div
-        className="date-card bg-gray-50 rounded-3xl flex flex-col items-center justify-start flex-grow gap-1 p-2 pt-2 -mt-3"
+        className="date-card bg-gray-50 rounded-3xl flex flex-col items-center justify-start flex-grow gap-1 p-2 pt-1 -mt-2.5"
         style={`border-color: ${
           today ? "#e3922f" : "#fefefe"
         }; box-sizing: initial; border-width: 3px; max-width:125px`}
       >
-        <span className="font-std block uppercase">{weekday}</span>
-        <span className="font-std block text-sm">{monthday}</span>
+        <span className="font-std block uppercase">{weekday||<br></br>}</span>
+        <span className="font-std block text-xl">{monthday}</span>
         <span className="block">{month}</span>
         <svg className="w-10 h-10 mt-1" viewBox="0 0 48 48">
           <g transform="translate(12, 14)">
@@ -31,7 +41,7 @@ const DateCard = {
               r="20"
               cx="12"
               cy="12"
-              fill={completedStatus === "true" ? positiveCol : negativeCol}
+              fill={statusColour}
               stroke="black"
             />
           </g>
@@ -45,16 +55,7 @@ const DateCard = {
           }
           selector="a"
         >
-          <img src={tree} className="w-12 h-12" alt="Link to habit tree page" />
-        </m.route.Link>
-        <m.route.Link
-          href={
-            !m.route.param("demo")
-              ? "/vis/habit-tree"
-              : "/vis/habit-tree?demo=true"
-          }
-          selector="a"
-        >
+          {" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-10 h-10"

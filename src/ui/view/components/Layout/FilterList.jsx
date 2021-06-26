@@ -42,6 +42,7 @@ const FilterList = function () {
     },
     view: ({ attrs }) => (
       <div class="mb-4">
+        
         <h2 class="text-grey-darkest">
           Current Habits for {DomainStore.current().name}
         </h2>
