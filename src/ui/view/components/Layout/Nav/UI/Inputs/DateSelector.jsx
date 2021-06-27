@@ -93,7 +93,7 @@ const DateSelector = function () {
           className="sm:h-10 xl:text-xl md:px-4 md:py-1 w-full h-6 px-2 pb-2 mt-1"
           type="date"
           value={DateStore.currentDate()}
-          max={String(DateStore.currentDate())}
+          max={String(DateStore.listForHabit().slice(-1)[0])}
           list="current-habit-date-list"
         />
         <datalist id="current-habit-date-list">

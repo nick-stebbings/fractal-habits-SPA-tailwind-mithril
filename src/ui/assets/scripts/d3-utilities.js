@@ -48,7 +48,7 @@ const addLegend = (svg) => {
   const legendSvg = select("svg.legendSvg");
   const controlsSvg = select("svg.controlsSvg");
   const gText = controlsSvg.append("g").attr("class", "controls")
-    .attr("transform", "translate(180, 40) scale(0.7)");
+    .attr("transform", "translate(300, 40) scale(0.7)");
   const gLegend = legendSvg.append("g").attr("class", "legend")
     .attr("transform", "translate(20, 30) scale(2)");
 
@@ -73,10 +73,10 @@ const addLegend = (svg) => {
     gText
       .append('text')
       .attr('y', 25)
-      .text('R/Click ------> Tick It Off');
+      .text('R/Click -> Select Parent/Tick Off Child');
     gText
       .append("text")
-      .text("Zoom Habit -> Centre View")
+      .text("Zoom On Habit -> Centre View")
       .attr("y", -25);
   }
 
@@ -192,7 +192,7 @@ const renderTree = function (
   if (rootData.name === "") return;
   
   // SETTINGS
-  let scale = isDemo ? 5 : 6;
+  let scale = isDemo ? 5 : 9;
   let clickScale = 2.2;
   let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
   let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
@@ -214,7 +214,7 @@ const renderTree = function (
     levelsHigh = 2;
   }
   const nodeRadius = (canvasWidth < 600 ? 12 : 10) * scale;
-  let widthBeteen = isDemo ? scale / 3 : 1;
+  let widthBeteen = canvasWidth > 600 ? scale / 1 : 2;
   const dx = ((canvasWidth / levelsHigh)) / clickScale;
   const dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
 
@@ -396,7 +396,7 @@ const renderTree = function (
         g.select(".tooltip").transition().duration(50).style("opacity", "0");
         g.select(".habit-label-dash-button")
           .transition()
-          .delay(500)
+          .delay(1000)
           .duration(150)
           .style("opacity", "0");
         setTimeout(() => {

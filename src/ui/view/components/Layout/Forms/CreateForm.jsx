@@ -57,7 +57,7 @@ const processFormData = function (dom, attrs) {
           TreeStore.clear();
         })
         .then(() => {
-          m.redraw();
+          m.route.set('/');
         })
         .catch(() => {
           console.log('Could not submit data.');

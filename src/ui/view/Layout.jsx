@@ -50,7 +50,6 @@ export default {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        console.log('hi');
         updateDomainSelectors();
         resetContextStates();
         calendarDates([]);
@@ -112,7 +111,7 @@ export default {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());
       updateDomainSelectors();
       if (isVisPage()) loadTreeData();
-      if (!(newRecord() || changedDomain() || changedDate()))
+      if (!(changedDomain() || changedDate()))
         preLoadHabitDateData();
       resetContextStates();
     }

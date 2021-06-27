@@ -135,7 +135,7 @@ const HabitDashboard = {
           calendarDates([]);
           // Stop the query parameters from persisting past first load
           setRouteToBasePath(HabitStore.current()?.id);
-          // m.redraw();
+          m.redraw();
         }
       });
     });
