@@ -47,6 +47,7 @@ const DropdownNav = (function () {
           menuVisible ? showMegaMenu(idx) : hideMegaMenu();
         });
       });
+      document.querySelector('#current-habit-label').addEventListener('click', showMegaMenu);
       document.querySelector('.date-card-wrapper').addEventListener('mouseenter', showMegaMenu);
       document.querySelector('.nav-container').addEventListener('click', (e) => {
         if (!(e.target.classList.contains('nav-container'))) return;

@@ -53,6 +53,7 @@ div.mask-wrapper {
   }
 
   #current-habit-label span {
+    pointer-events: all;
     @apply -mt-2;
   }
 }
