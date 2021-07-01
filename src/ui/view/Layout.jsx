@@ -48,10 +48,11 @@ export default {
     [...domainSelectors].forEach((selector) => {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
-        HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+        HabitStore.indexHabitsOfDomain(DomainStore.current().id, true);
+        
         updateDomainSelectors();
         resetContextStates();
-        calendarDates([]);
+
         if (isVisPage()) loadTreeData();
         m.redraw();
       });
@@ -132,7 +133,6 @@ export default {
       resetContextStates();
       loadTreeData();
     }
-    console.log("HabitStore.current() :>> ", HabitStore.current());
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },

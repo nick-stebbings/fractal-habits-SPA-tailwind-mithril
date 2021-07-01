@@ -20,6 +20,10 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       id: 1,
     });
   },
+  noHabitMessage: () => ({ 
+      name: "There are no habits yet for this domain",
+      id: 1,
+    }),
 
   list: stream([]),
   fullList: stream([]),
@@ -47,8 +51,13 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       .then(log)
       .catch(handleErrorType),
 
-  indexHabitsOfDomain: (id) => {
+  indexHabitsOfDomain: (id, resetCurrent = false) => {
     HabitStore.runFilterByDomain(id);
+    const replacementCurrentHabit =
+      HabitStore.list().length == 0
+        ? HabitStore.noHabitMessage()
+        : HabitStore.list()[HabitStore.list().length - 1];
+    resetCurrent && HabitStore.current(replacementCurrentHabit);
     HabitStore.sortByDate();
   },
 
