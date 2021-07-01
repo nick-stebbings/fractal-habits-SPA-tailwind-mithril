@@ -49,21 +49,16 @@ export default {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         HabitStore.indexHabitsOfDomain(DomainStore.current().id, true);
-        
+        calendarDates([]);
         updateDomainSelectors();
-        resetContextStates();
-
         if (isVisPage()) loadTreeData();
+        resetContextStates();
         m.redraw();
       });
     });
   },
   oninit: ({ attrs: { spinnerState, modalType } }) => {
     const noParams = !m.route.param("demo");
-    console.log(
-      "calendarDates().length !== DateStore.listForHabit().length :>> ",
-      calendarDates().length !== DateStore.listForHabit().length
-    );
     if (
       noParams &&
       (calendarDates()?.length === 0 ||

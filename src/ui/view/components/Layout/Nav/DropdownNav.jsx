@@ -5,7 +5,8 @@ import HoverableLink from './UI/Buttons/HoverableLink.jsx';
 const DropdownNav = (function () {
   const showMegaMenu = (id) => {
     document.querySelector('.mask-wrapper').style.height = '357px';
-    [...document.querySelectorAll('.mega-menu')].forEach((menu, idx) => {
+    const menus = [...document.querySelectorAll('.mega-menu')];
+    menus.forEach((menu, idx) => {
       if (id === idx) {
         menu.style.display = 'block';
       } else {
@@ -13,7 +14,7 @@ const DropdownNav = (function () {
       }
     });
     document.querySelector('.mask-wrapper').style.zIndex = '40';
-    document.querySelector('.habit-description-label').style.opacity = '1';
+    menus.every((menu) => menu.style.display === 'none') && (document.querySelector('.habit-description-label').style.opacity = '1');
   };
   const hideMegaMenu = () => {
     document.querySelector('.mask-wrapper').style.height = '5rem';

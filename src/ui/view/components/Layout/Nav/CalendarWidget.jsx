@@ -7,7 +7,7 @@ import DateCard from './UI/DateCard.jsx';
 import { changedDate } from "../../../../assets/scripts/controller";
 
 const CalendarWidget = {
-  oninit: ({ attrs: { calendarDates, statuses } }) => {
+  oninit: ({ attrs: { calendarDates } }) => {
     changedDate(false);
     console.log('calendarDates :>> ', calendarDates().map(d => d.toLocaleString()));
     

@@ -4,6 +4,7 @@ import HabitStore from "../../../store/habit-store.js";
 import DomainStore from "../../../store/domain-store.js";
 
 import GeneralButton from "../Layout/Nav/UI/Buttons/GeneralButton.jsx";
+import { isTouchDevice } from "../../../assets/scripts/utilities.js";
 
 const currentInput = stream("");
 const toggleButton = stream("Filter");
@@ -53,11 +54,11 @@ const FilterList = function () {
             placeholder="Type and press enter to filter"
             value={currentInput()}
           />
-          <GeneralButton
+          {!isTouchDevice() && <GeneralButton
             color="hover:bg-bg-balance-buttonbg-reset-lighter bg-balance-buttonbg-reset"
             label={toggleButton()}
             name="reset"
-          />
+          />}
         </div>
       </div>
     ),

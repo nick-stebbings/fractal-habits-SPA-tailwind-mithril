@@ -33,8 +33,6 @@ function preLoadHabitDateData() {
     )
   } else {
     HabitStore.current() && HabitDateStore.runFilter(HabitStore.current()?.id);
-    // DateStore.current() &&
-    //   HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
   }
 };
 
