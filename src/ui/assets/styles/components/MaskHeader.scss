@@ -169,7 +169,7 @@ li.hoverable {
           width: 33%;
           @apply flex mb-4 pt-4 shadow-md;
           h3 {
-            line-height: 2rem;
+            line-height: 1.8rem;
             @apply pr-2;
           }
 
@@ -191,7 +191,7 @@ li.hoverable {
           }
 
           p {
-            @apply px-4 mt-2;
+            @apply px-4 mt-1;
           }
         }
 

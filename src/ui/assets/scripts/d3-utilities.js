@@ -220,7 +220,7 @@ const renderTree = function (
     levelsWide = zoomClicked ? 15 : 12;
     levelsHigh = zoomClicked ? 0.5 : 3;
   } else {
-    levelsWide = 15;
+    levelsWide = 12;
     levelsHigh = 2;
   }
   levelsWide *= (isDemo ? 8: 8)
@@ -297,7 +297,7 @@ const renderTree = function (
 
   const reset = function () {
     if (zoomBase === undefined) return;
-    scale = isDemo ? 3 : 4;
+    scale = isDemo ? 5 : 9;
     svg.attr("viewBox", defaultView);
     expandTree();
     activeNode = null;
