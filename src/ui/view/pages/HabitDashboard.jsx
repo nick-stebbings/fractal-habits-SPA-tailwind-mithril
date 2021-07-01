@@ -124,8 +124,7 @@ const HabitDashboard = {
               currentStatusCol === positiveCol ? negativeCol : positiveCol
               );
             makePatchOrPutRequest(demoData, String(currentStatus))
-              .then(HabitDateStore.index)
-              .then(m.redraw);
+              .then(HabitDateStore.index);
             }
 
           // Add delete  event
@@ -135,8 +134,7 @@ const HabitDashboard = {
           }
           calendarDates([]);
           // Stop the query parameters from persisting past first load
-          setRouteToBasePath(HabitStore.current()?.id);
-          m.redraw();
+          if (!e.target.tagName == "circle") setRouteToBasePath(HabitStore.current()?.id);
         }
       });
     });
