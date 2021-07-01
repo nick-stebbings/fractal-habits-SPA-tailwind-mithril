@@ -206,11 +206,11 @@ const renderTree = function (
     .classed("canvas", true)
     .attr("transform", `scale(${clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
 
-  if (canvasWidth < 600) {
+  if (canvasWidth < 768) {
     levelsWide = zoomClicked ? 8 : 4;
     levelsHigh = zoomClicked ? 0.5 : 3;
   } else {
-    levelsWide = zoomClicked ? 15 : 10;
+    levelsWide = zoomClicked ? 12 : 5;
     levelsHigh = 2;
   }
   const nodeRadius = (canvasWidth < 600 ? 12 : 10) * scale;
@@ -267,6 +267,7 @@ const renderTree = function (
     let descendantsToCollapse = node
       .descendants()
       .filter((n) => n.depth == minExpandedDepth);
+    console.log(node.descendants());
 
     // For collapsing cousin nodes (saving width)
     let nodeCousins = [];
@@ -347,7 +348,10 @@ const renderTree = function (
   };
 
   const handleHover = (e, d) => {
+    // If it is an animated concentric circle, delegate to parent node
+    if (e.target.classList.length === 0) { d = e.target.parentElement.__data__ }
     if (parseTreeValues(d.data.content).status === "") return;
+    e.stopPropagation();
     // Hide labels if they are not part of the current subtree
     if (!(activeNode !== undefined && d.ancestors().includes(activeNode))) { return }
     if (!currentTooltip) {
@@ -470,7 +474,7 @@ const renderTree = function (
     select(".canvas")
       .transition()
       .ease(easeCubicOut)
-      .duration(isDemo ? 0 : 2000)
+      .duration(isDemo ? 0 : 750)
       .attr(
         "transform",
         "translate(" +
@@ -653,7 +657,7 @@ const renderTree = function (
   const gButton = gCircle
     .append("g")
     .classed("habit-label-dash-button", true)
-    .attr("transform", `translate(${60}, 0), scale(1.75)`)
+    .attr("transform", `translate(${130}, 0), scale(1.75)`)
     .attr("style", "opacity: 0");
 
   gButton
@@ -725,6 +729,7 @@ const renderTree = function (
       // Credit: Andrew Reid
 
       const gCircle = svg.selectAll("g.the-node.solid.active g:first-child");
+      gCircle.on("mouseover", handleHover);
       const pulseScale = scaleLinear()
         .range(["#d0790f", "#5568d2", "#3349c1"])
         .domain([0, 3 * nodeRadius]);
