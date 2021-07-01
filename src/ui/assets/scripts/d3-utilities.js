@@ -266,8 +266,7 @@ const renderTree = function (
     // For collapsing the nodes 'two levels lower' than selected
     let descendantsToCollapse = node
       .descendants()
-      .filter((n) => n.depth == minExpandedDepth);
-    console.log(node.descendants());
+      .filter((n) => n.depth >= minExpandedDepth);
 
     // For collapsing cousin nodes (saving width)
     let nodeCousins = [];
@@ -328,10 +327,7 @@ const renderTree = function (
         return reset();
       setActiveNode(node.data);
       expand(node);
-      node.children &&
-        node.children.forEach((childNode) => {
-          collapse(childNode);
-        });
+
       collapseAroundAndUnder(node, false, true);
       updateCurrentHabit(node, false);
       // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
