@@ -60,7 +60,7 @@ const HeroSection = {
             </h3>
           </div>
         ) : (
-          <h2>Choose a life domain:</h2>
+          !m.route.param('demo') && <h2>Choose a life domain:</h2>
         )}
         <div className="domain-pills">
           {[

@@ -93,10 +93,10 @@ const HabitDashboard = {
       );
     
     if (m.route.param("currentHabit")) {
-      setRouteToBasePath();
       if (isTouchDevice()) return;
       let param = m.route.param('currentHabit');
       document.querySelector(`tr:nth-child(${Math.max(param - 1, 1)})`)?.scrollIntoView();
+      setRouteToBasePath();
     }
 
     // Add hover/active styles

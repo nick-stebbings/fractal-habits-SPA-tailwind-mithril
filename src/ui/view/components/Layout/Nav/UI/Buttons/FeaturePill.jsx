@@ -6,6 +6,7 @@ import { newRecord } from '../../../../../../assets/scripts/controller';
 const FeaturePill = {
   oncreate: (vnode) => {
     vnode.dom.addEventListener('click', () => {
+      if (m.route.param('demo')) return;
       DomainStore.submit({
         name: vnode.attrs.name,
         description: vnode.attrs.name,
@@ -25,7 +26,7 @@ const FeaturePill = {
       className="bg-balance-basic-gray nav-pill h-36 text-xxl flex items-center justify-center py-1 mx-4 my-1 rounded-full"
       style={`cursor: pointer; clip-path: url(${attrs.clipPathUrl})`}
     >
-      <span>{attrs.title}</span>
+      <span>{!m.route.param('demo') && attrs.title}</span>
     </div>
   ),
 };

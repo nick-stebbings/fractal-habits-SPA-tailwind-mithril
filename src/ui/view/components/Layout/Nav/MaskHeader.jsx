@@ -167,9 +167,9 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
           >
             HABIT:
           </span>
-          <span class="block max-h-12 md:block overflow-auto sm:hidden">
+          <div class="block max-h-12 md:block overflow-auto sm:hidden">
             {HabitStore.current()?.name}
-          </span>
+          </div>
         </div>
       </div>
     ),

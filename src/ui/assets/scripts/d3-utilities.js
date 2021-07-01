@@ -62,19 +62,25 @@ const addLegend = (svg) => {
   let habitLabelSm = document.getElementById("current-habit-sm");
   let habitSpanSm = habitLabelSm.nextElementSibling;
   if (isTouchDevice() || canvasWidth < 768) {
-    gText.append("text").text("Single Tap ----> Select Habit").attr("y", -40);
-    gText.append("text").text("Double Tap ----> Toggle Habit").attr("y", 35);
+    gText
+      .append("text")
+      .text("Single Tap -> Select Habit & Focus")
+      .attr("y", -40);
+    gText
+      .append("text")
+      .text("Double Tap -> Select Family/Tick Off Habit")
+      .attr("y", 35);
     gText.append("text").text("Swipe Left ---> Next Day").attr("y", 10);
     gText.append("text").text("Swipe Right ---> Last Day").attr("y", -15);
   } else {
-    gText.append("text").text("L/Click ---> Habit Select");
+    gText.append("text").text("L/Click ---> Select Habit & Focus");
     gText
       .append('text')
       .attr('y', 25)
-      .text('R/Click -> Select Family/Tick Off Child');
+      .text('R/Click -> Select Family/Tick Off Habit');
     gText
       .append("text")
-      .text("Zoom On Habit -> Centre View")
+      .text("Zoom On Habit -> Select Family & Centre")
       .attr("y", -25);
   }
   const setLabel = function (d) {
@@ -211,15 +217,15 @@ const renderTree = function (
     .attr("transform", `scale(${clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
   const smallScreen = canvasWidth < 768;
   if (smallScreen) {
-    levelsWide = zoomClicked ? 8 : 4;
+    levelsWide = zoomClicked ? 15 : 12;
     levelsHigh = zoomClicked ? 0.5 : 3;
   } else {
     levelsWide = 15;
     levelsHigh = 2;
   }
-  levelsWide *= (isDemo ? 8: 1)
+  levelsWide *= (isDemo ? 8: 8)
   levelsHigh *= (isDemo ? 1: 1)
-  const nodeRadius = (smallScreen ? 12 : 10) * scale;
+  const nodeRadius = (smallScreen ? 8 : 10) * scale;
   let widthBeteen = smallScreen ? scale / 1 : 2;
   let dx = ((canvasWidth / levelsHigh)) / clickScale;
   let dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
@@ -302,7 +308,6 @@ const renderTree = function (
 
   const handleZoom = function (event, node) {
     if (!event || !node || event.deltaY >= 0 || deadNode(event)) return reset();
-    event.preventDefault();
     globalZoom = clickScale;
     globalTranslate = [node.x, node.y];
     setActiveNode(node.data);

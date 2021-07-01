@@ -244,12 +244,16 @@ const Routes = MenuRoutes.reduce(
               [
                 m(LogoSection),
                 m(SloganSection),
-                m('div', { class: 'cta-header' }, 'Choose a life domain:'),
+                m(
+                  "div",
+                  { class: m.route.param("demo") ? "cta-header hidden " : "cta-header" },
+                  "Choose a life domain:"
+                ),
                 m(PillSection, {
                   modalType: modalType,
                   pillTitles: ["Spirituality", "Mental Health", "Giving"],
                 }),
-                m(FeatureCardSection, {cardCopy}),
+                m(FeatureCardSection, { cardCopy }),
               ]
             ),
         }),
