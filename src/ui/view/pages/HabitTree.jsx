@@ -28,7 +28,9 @@ const HabitTree = function () {
   let svg;
 
   const debounceInterval = 350;
-  const zoomer = zoom().scaleExtent([0, 5]).on("zoom", zooms);
+  const zoomer = zoom()
+    .scaleExtent([0, 5]).duration(10000)
+    .on("zoom", zooms);
 
   function updateStoresAndRenderTree(modalType) {
     DateStore.current()?.id &&
@@ -145,12 +147,14 @@ const HabitTree = function () {
       document
         .getElementById("collapse-tree")
         .addEventListener("click", (e) => {
+          const isActive = e.target.classList.contains('active');
+          isActive ? e.target.classList.remove("active") : e.target.classList.add('active');
           e.target.textContent.includes("Collapse")
             ? collapseTree()
             : expandTree();
           e.target.textContent = e.target.textContent.includes("Collapse")
-            ? "Expand Tree"
-            : "Collapse Tree";
+            ? "Expand"
+            : "Collapse";
           renderTree(
             svg,
             demoData,

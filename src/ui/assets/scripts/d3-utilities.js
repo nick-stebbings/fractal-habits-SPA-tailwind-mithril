@@ -3,7 +3,7 @@ import { scaleOrdinal, scaleLinear } from "d3-scale";
 import { zoomIdentity } from "d3-zoom";
 import { linkVertical } from "d3-shape";
 import { tree } from "d3-hierarchy";
-import { easeCubic, easeCircleOut, easeCubicOut } from "d3-ease";
+import { easeCubic, easeCircleOut, easeCubicOut, easePolyOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
 import { isTouchDevice } from "./utilities";
@@ -39,6 +39,8 @@ const d3SetupCanvas = function (document) {
 
   return { canvasWidth, canvasHeight };
 };
+const showHabitLabel = () =>
+  (document.querySelector(".mask-wrapper").style.height = "5rem");
 
 const addLegend = (svg) => {
   const ordinal = scaleOrdinal()
@@ -48,7 +50,7 @@ const addLegend = (svg) => {
   const legendSvg = select("svg.legendSvg");
   const controlsSvg = select("svg.controlsSvg");
   const gText = controlsSvg.append("g").attr("class", "controls")
-    .attr("transform", "translate(300, 40) scale(0.7)");
+    .attr("transform", "translate(280, 40) scale(0.7)");
   const gLegend = legendSvg.append("g").attr("class", "legend")
     .attr("transform", "translate(20, 30) scale(2)");
 
@@ -59,15 +61,11 @@ const addLegend = (svg) => {
   let habitSpan = habitLabel.nextElementSibling;
   let habitLabelSm = document.getElementById("current-habit-sm");
   let habitSpanSm = habitLabelSm.nextElementSibling;
-  if (isTouchDevice() || canvasWidth < 760) {
-    gText.append("text").text("Single Tap ----> Select Habit").attr("y", -100);
-    gText
-      .append("text")
-      .text("Tap & Hold ---> View Details")
-      .attr("y", -25).attr("x", 265);
-    gText.append("text").text("Double Tap ---> Toggle Habit").attr("y", 0).attr("x", 275);
-    gText.append("text").text("Swipe Left ---> Next Day");
-    gText.append("text").text("Swipe Right ---> Last Day").attr("y", -25);
+  if (isTouchDevice() || canvasWidth < 768) {
+    gText.append("text").text("Single Tap ----> Select Habit").attr("y", -40);
+    gText.append("text").text("Double Tap ----> Toggle Habit").attr("y", 35);
+    gText.append("text").text("Swipe Left ---> Next Day").attr("y", 10);
+    gText.append("text").text("Swipe Right ---> Last Day").attr("y", -15);
   } else {
     gText.append("text").text("L/Click ---> Habit Select");
     gText
@@ -79,7 +77,16 @@ const addLegend = (svg) => {
       .text("Zoom On Habit -> Centre View")
       .attr("y", -25);
   }
+  const setLabel = function (d) {
+    habitLabel.textContent = "Key:";
+    habitLabelValue = habitSpan.textContent;
+    habitSpan.textContent = d.target.__data__;
 
+    habitLabelSm.textContent = "Key:";
+    habitLabelValueSm = habitSpanSm.textContent;
+    habitSpanSm.textContent = d.target.__data__;
+    showHabitLabel();
+  };
   const colorLegend = legendColor()
     .labels(["", "", "", "", ""])
     .orient("horizontal")
@@ -98,6 +105,7 @@ const addLegend = (svg) => {
       habitSpanSm.textContent = d.target.__data__;
       showHabitLabel();
     })
+    .on("cellclick", (d) => setLabel(d))
     .on("cellout", function (d) {
       habitLabel.textContent = "Habit:";
       habitSpan.textContent = d.target.__data__;
@@ -116,9 +124,6 @@ const setHabitLabel = (data) => {
   document.getElementById("current-habit").nextElementSibling.textContent = data?.name 
   document.getElementById("current-habit-sm").nextElementSibling.textContent = data?.name 
 };
-
-const showHabitLabel = () =>
-  (document.querySelector(".mask-wrapper").style.height = "5rem");
 
 const zooms = function (e) {
   const transform = e.transform;
@@ -196,7 +201,6 @@ const renderTree = function (
   let clickScale = 2.2;
   let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
   let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
-
   const zoomBase = canvas;
   let levelsWide;
   let levelsHigh;
@@ -205,18 +209,22 @@ const renderTree = function (
     .append("g")
     .classed("canvas", true)
     .attr("transform", `scale(${clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
-
-  if (canvasWidth < 768) {
+  const smallScreen = canvasWidth < 768;
+  if (smallScreen) {
     levelsWide = zoomClicked ? 8 : 4;
     levelsHigh = zoomClicked ? 0.5 : 3;
   } else {
-    levelsWide = zoomClicked ? 12 : 5;
+    levelsWide = 15;
     levelsHigh = 2;
   }
-  const nodeRadius = (canvasWidth < 600 ? 12 : 10) * scale;
-  let widthBeteen = canvasWidth > 600 ? scale / 1 : 2;
-  const dx = ((canvasWidth / levelsHigh)) / clickScale;
-  const dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
+  levelsWide *= (isDemo ? 8: 1)
+  levelsHigh *= (isDemo ? 1: 1)
+  const nodeRadius = (smallScreen ? 12 : 10) * scale;
+  let widthBeteen = smallScreen ? scale / 1 : 2;
+  let dx = ((canvasWidth / levelsHigh)) / clickScale;
+  let dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
+  dy *= (zoomClicked && !smallScreen ? 4 : 2);
+  console.log('zoomClicked :>> ', zoomClicked);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let activeNode;
@@ -227,7 +235,8 @@ const renderTree = function (
   svg
     .attr("viewBox", defaultView)
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .call(zoomer);
+    .call(zoomer)
+    .on("dblclick.zoom", null);;
   if (select("svg .legend").empty() && select("svg .controls").empty())
     addLegend();
 
@@ -328,7 +337,7 @@ const renderTree = function (
       setActiveNode(node.data);
       expand(node);
 
-      collapseAroundAndUnder(node, false, true);
+      collapseAroundAndUnder(node, isDemo, true);
       updateCurrentHabit(node, false);
       // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
       renderTree(svg, isDemo, zoomer, {
@@ -445,7 +454,7 @@ const renderTree = function (
   }
 
   function calibrateViewPort() {
-    viewportY = canvasWidth < 768 ? -300 : -250;
+    viewportY = smallScreen ? -300 : -250;
     viewportW = canvasWidth * 3;
     viewportX = viewportW / 2 + 3* nodeRadius;
     viewportH =
@@ -469,8 +478,8 @@ const renderTree = function (
     const transformer = getTransform(that, clickScale);
     select(".canvas")
       .transition()
-      .ease(easeCubicOut)
-      .duration(isDemo ? 0 : 750)
+      .ease(easePolyOut)
+      .duration(isDemo ? 0 : 550)
       .attr(
         "transform",
         "translate(" +

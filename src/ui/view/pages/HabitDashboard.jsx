@@ -19,7 +19,7 @@ import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 import {calendarDates} from "../Layout.jsx";
 import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
-import { setRouteToBasePath, invert } from "../../assets/scripts/utilities";
+import { setRouteToBasePath, invert, isTouchDevice } from "../../assets/scripts/utilities";
 
 const nameOrderAsc = stream(true);
 const dateOrderAsc = stream(true);
@@ -93,9 +93,10 @@ const HabitDashboard = {
       );
     
     if (m.route.param("currentHabit")) {
+      setRouteToBasePath();
+      if (isTouchDevice()) return;
       let param = m.route.param('currentHabit');
       document.querySelector(`tr:nth-child(${Math.max(param - 1, 1)})`)?.scrollIntoView();
-      setRouteToBasePath();
     }
 
     // Add hover/active styles
