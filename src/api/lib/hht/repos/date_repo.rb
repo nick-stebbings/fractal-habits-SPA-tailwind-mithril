@@ -104,7 +104,7 @@ module Hht
           )
           INSERT INTO
             dates (h_date)
-          SELECT
+          SELECT DISTINCT
             generate_series
           FROM
             series

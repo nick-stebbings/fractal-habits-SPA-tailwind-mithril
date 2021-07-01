@@ -56,7 +56,7 @@ function changeOfModelContext() {
       const todaysDate = DateTime.now().startOf("day");
       const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
       
-      if (DateStore.listForHabit() && (maxDate < todaysDate)) {
+      if (DateStore.listForHabit() && !newDate() && (maxDate < todaysDate)) {
         newDate(true);
       };
       // // // Sanity check logs::
@@ -64,7 +64,7 @@ function changeOfModelContext() {
       // console.log("changedFromDemo() :>> ", changedFromDemo());
       // console.log("changedToDemo() :>> ", changedToDemo());
       // console.log("changedDomain() :>> ", changedDomain());
-      // console.log("newDate() :>> ", newDate());
+      console.log("newDate() :>> ", newDate());
       // console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
       // console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());
       return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain());

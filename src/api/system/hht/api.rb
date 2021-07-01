@@ -312,7 +312,7 @@ module Hht
         halt(422, { message: 'Invalid Length' }.to_json) unless length > 0
         habit_dates = length > habit_date_list.length ? habit_date_list : habit_date_list.slice(-length, length)
         status 200
-        json (json({habit_dates: habit_dates}))
+        json json({habit_dates: habit_dates})
       end
 
       post '' do
@@ -362,7 +362,6 @@ module Hht
         halt(404, { message: 'No Date Found' }.to_json) unless date
 
         created = date_repo.create(date)
-
         halt(422, { message: unwrap_validation_error(created) }.to_json) unless created.success?
         status 204
       end

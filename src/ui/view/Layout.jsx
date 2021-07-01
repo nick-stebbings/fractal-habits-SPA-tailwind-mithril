@@ -65,7 +65,7 @@ export default {
           (calendarDates()?.length === 0 ||
             calendarDates().some((date) => date === ""))
         ) {
-          HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 28)
+          HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
             .then((data) => {
               statuses(
                 data?.map((date) => ({
@@ -73,6 +73,7 @@ export default {
                   completed_status: date.completed_status,
                 }))
               );
+              console.log('statuses() :>> ', statuses());
               const dates =
                 statuses() &&
                 statuses()

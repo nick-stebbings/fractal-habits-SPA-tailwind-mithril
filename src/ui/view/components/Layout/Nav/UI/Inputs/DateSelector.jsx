@@ -28,12 +28,14 @@ const DateSelector = function () {
       if (newDate()) {
         DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() }).then(DateStore.index).then(
           () => {
+            console.log(newDate());
+            debugger;
             DateStore.indexDatesOfHabit(DateStore.current()?.id)
+            console.log('DateStore.listForHabit() :>> ', DateStore.listForHabit());
             maxDate = DateTime.fromMillis(
               DateTime.fromSQL(DateStore.current().h_date).ts
             );
             newDate(false);
-            m.redraw();
           }
         )
       }
