@@ -331,7 +331,7 @@ const renderTree = function (
         node.children.forEach((childNode) => {
           collapse(childNode);
         });
-      collapseAroundAndUnder(node, true, true);
+      collapseAroundAndUnder(node, false, true);
       updateCurrentHabit(node, false);
       // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
       renderTree(svg, isDemo, zoomer, {
@@ -348,6 +348,8 @@ const renderTree = function (
 
   const handleHover = (e, d) => {
     if (parseTreeValues(d.data.content).status === "") return;
+    // Hide labels if they are not part of the current subtree
+    if (!(activeNode !== undefined && d.ancestors().includes(activeNode))) { return }
     if (!currentTooltip) {
       svg.select("g.tooltip").transition();
       currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
@@ -362,7 +364,7 @@ const renderTree = function (
       });
       currentButton.transition().delay(200).duration(850).style("opacity", "1");
     }
-  };
+  };;
 
   const handleStatusChange = (event, node) => {
     event.preventDefault();
@@ -538,6 +540,12 @@ const renderTree = function (
 
   const nodes = gNode.selectAll("g.node").data(rootData.descendants());
 
+  const activeOrNonActiveOpacity = (d, dimmedOpacity) => {
+    if (!activeNode || (activeNode && d.ancestors().includes(activeNode)))
+      return "1";
+    return !zoomClicked ? "1" : dimmedOpacity;
+  };
+
   const enteringNodes = nodes
     .enter()
     .append("g")
@@ -547,11 +555,7 @@ const renderTree = function (
         : "the-node solid"
     )
     .style("fill", nodeStatusColours)
-    .style("opacity", (d) => {
-      if (!activeNode || (activeNode && d.ancestors().includes(activeNode)))
-        return "1";
-      return !zoomClicked ? "1" : "0.4";
-    })
+    .style("opacity", (d) => activeOrNonActiveOpacity(d, "0.5"))
     .style("stroke-width", (d) =>
       activeNode !== undefined && d.ancestors().includes(activeNode)
         ? "2px"
@@ -573,11 +577,8 @@ const renderTree = function (
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
-    .attr(
-      "transform",
-      `translate(${(nodeRadius / 8) * scale}, 75), scale(2)`
-    )
-    .attr("opacity", "0");
+    .attr("transform", `translate(${(nodeRadius / 8) * scale}, 75), scale(2)`)
+    .attr("opacity", (d) => activeOrNonActiveOpacity(d, "0") );
 
   gTooltip
     .append("rect")
