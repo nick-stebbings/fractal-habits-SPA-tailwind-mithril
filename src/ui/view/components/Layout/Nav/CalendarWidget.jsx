@@ -9,7 +9,12 @@ import { changedDate } from "../../../../assets/scripts/controller";
 const CalendarWidget = {
   oninit: ({ attrs: { calendarDates, statuses } }) => {
     changedDate(false);
-    console.log('calendarDates :>> ', calendarDates());
+    console.log('calendarDates :>> ', calendarDates().map(d => d.toLocaleString()));
+    
+            console.log(
+              "DateStore.listForHabit() :>> ",
+              DateStore.listForHabit()
+            );
   },
   view: ({ attrs: { calendarDates, statuses } }) => (
     <div className="top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full h-full pt-1">

@@ -24,7 +24,6 @@ import {
   resetContextStates,
   changedDate,
   preLoadHabitDateData,
-  newRecord,
   changedDomain
 } from "../assets/scripts/controller";
 
@@ -58,62 +57,74 @@ export default {
       });
     });
   },
-  oninit: () => {
-        const noParams = !m.route.param("demo");
-        if (
-          noParams &&
-          (calendarDates()?.length === 0 ||
-            calendarDates().some((date) => date === ""))
-        ) {
-          HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
-            .then((data) => {
-              statuses(
-                data?.map((date) => ({
-                  date_id: date.date_id,
-                  completed_status: date.completed_status,
-                }))
-              );
-              console.log('statuses() :>> ', statuses());
-              const dates =
-                statuses() &&
-                statuses()
-                  .map((statusObj) => {
-                    return (
-                      DateStore.dateFromDateObjectArray(
-                        statusObj.date_id,
-                        DateStore.listForHabit().reverse()
-                      ) || ""
-                    );
-                  })
-                  .slice(-7);
-              calendarDates(dates);
-              changedDate(true);
-            })
-            .catch(console.log);
-        } else if (
-          (noParams && DateStore.listForHabit().length === 0) ||
-          changeOfModelContext()
-        ) {
-          calendarDates(
-            statuses() &&
-              statuses()
-                .map((statusObj) => {
-                  return (
-                    DateStore.dateFromDateObjectArray(
-                      statusObj.date_id,
-                      DateStore.listForHabit().reverse()
-                    ) || ""
-                  );
-                })
-                .slice(-7)
+  oninit: ({ attrs: { spinnerState, modalType } }) => {
+    const noParams = !m.route.param("demo");
+    console.log(
+      "calendarDates().length !== DateStore.listForHabit().length :>> ",
+      calendarDates().length !== DateStore.listForHabit().length
+    );
+    if (
+      noParams &&
+      (calendarDates()?.length === 0 ||
+        calendarDates().some((date) => date === "") ||
+        calendarDates().length !== DateStore.listForHabit().length)
+    ) {
+      openModal(true);
+      spinnerState(true);
+      HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
+        .then((data) => {
+          statuses(
+            data?.slice(-7).map((date) => ({
+              date_id: date.date_id,
+              completed_status: date.completed_status,
+            }))
           );
-        }
+          console.log("statuses() :>> ", statuses());
+          const dates =
+            statuses() &&
+            statuses()
+              .map((statusObj) => {
+                return (
+                  DateStore.dateFromDateObjectArray(
+                    statusObj.date_id,
+                    DateStore.listForHabit().reverse()
+                  ) || ""
+                );
+              })
+              .slice(-7);
+          DateStore.listForHabit(DateStore.listForHabit().slice(-7));
+          calendarDates(dates);
+        })
+        .then(() => {
+          spinnerState(false);
+          openModal(false);
+          changedDate(true);
+          m.redraw();
+        })
+        .catch(console.log);
+    } else if (
+      (noParams && DateStore.listForHabit().length === 0) ||
+      changeOfModelContext()
+    ) {
+      calendarDates(
+        statuses() &&
+          statuses()
+            .map((statusObj) => {
+              return (
+                DateStore.dateFromDateObjectArray(
+                  statusObj.date_id,
+                  DateStore.listForHabit().reverse()
+                ) || ""
+              );
+            })
+            .slice(-7)
+      );
+    }
     if (changeOfModelContext() || changedDate()) {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());
       updateDomainSelectors();
       if (isVisPage()) loadTreeData();
-      if (!(changedDomain() || changedDate()))
-        preLoadHabitDateData();
+      if (!(changedDomain() || changedDate())) preLoadHabitDateData();
       resetContextStates();
     }
     if (isVisPage() && changedDate()) {
@@ -121,6 +132,7 @@ export default {
       resetContextStates();
       loadTreeData();
     }
+    console.log("HabitStore.current() :>> ", HabitStore.current());
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },
@@ -138,11 +150,7 @@ export default {
           <DomainSelector />
           <DateSelector />
         </div>
-        <MainStage
-          isIndex={isIndex}
-          modalType={modalType}
-          isVis={isVisPage()}
-        >
+        <MainStage isIndex={isIndex} modalType={modalType} isVis={isVisPage()}>
           {componentNodes[0]}
           {componentNodes[1]}
           {componentNodes[2]}

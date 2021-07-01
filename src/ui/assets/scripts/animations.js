@@ -4,16 +4,17 @@ import { debounce } from './d3-utilities';
 const openSpinner = function (open = true) {
   const modalOverlay = document.querySelector('#modal_overlay');
   open
-    ? modalOverlay.classList.remove('hidden')
-    : modalOverlay.classList.add('hidden');
+    ? modalOverlay?.classList.remove('hidden')
+    : modalOverlay?.classList.add('hidden');
 };
 
 const openModal = function (open = true) {
   const modalOverlay = document.querySelector('#modal_overlay');
+  if (!modalOverlay) return;
   const modal = modalOverlay.querySelector('#modal');
-  const modalCl = modal.classList;
+  const modalCl = modal?.classList;
   if (open) {
-    modalOverlay.classList.remove('hidden');
+    modalOverlay?.classList.remove('hidden');
     setTimeout(() => {
       modalCl.remove('opacity-0');
       modalCl.remove('-translate-y-full');

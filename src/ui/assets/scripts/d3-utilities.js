@@ -224,7 +224,6 @@ const renderTree = function (
   let dx = ((canvasWidth / levelsHigh)) / clickScale;
   let dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
   dy *= (zoomClicked && !smallScreen ? 4 : 2);
-  console.log('zoomClicked :>> ', zoomClicked);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let activeNode;
