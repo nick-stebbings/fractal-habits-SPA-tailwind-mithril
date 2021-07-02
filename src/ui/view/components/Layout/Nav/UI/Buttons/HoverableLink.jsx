@@ -7,7 +7,7 @@ const HoverableLink = {
       <div className="mega-menu">
         <div className={m.route.param('demo') ? 'mega-menu-wrapper bg-gray-600' : 'mega-menu-wrapper bg-balance-pshades-dark'}>
           <div className="inset-wrapper" />
-          <div className="hero-message -mt-8">
+          <div className="hero-message">
             <h2>View your Habits</h2>
             <p>
               Track and visualise using these views:

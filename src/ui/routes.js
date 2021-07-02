@@ -24,6 +24,10 @@ import { registerEventListeners } from "./assets/scripts/animations.js";
 
 // Photo Urls
 import womanJournalling from "./assets/images/photos/journalling-person.jpg";
+import manReadingAtomicHabits from "./assets/images/photos/man-reading-james-clear.jpg";
+import longRoad from "./assets/images/photos/long-road.jpg";
+import fernLeaf from "./assets/images/photos/fern-leaf.jpg";
+import snail from "./assets/images/photos/snail.jpg";
 
 // Copy
 let cardCopy = [
@@ -33,46 +37,64 @@ let cardCopy = [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
     long: [
       "If you know the satisfaction of completing a list, or marking off a running streak, you know that feeling of a job well done, and how it can motivate.",
-      "<blockquote>Habit formation is a long race. It often takes time for the desired results to appear. And while you are waiting for the long-term rewards of your efforts to accumulate, you need a reason to stick with it in the short-term. You need some immediate feedback that shows you are on the right path.</blockquote><figcaption><a href='https://jamesclear.com/habit-tracker'>James Clear - author of 'Atomic Habits'</a></figcaption>",
-      `<figure class='my-3 object-cover'><img src=${womanJournalling} alt='Woman writing in a journal' /><figcaption>Photo by <a href='https://unsplash.com/@ana_tavares?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Ana Tavares</a> on <a href='https://unsplash.com/collections/3737173/holos-habit-website?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption></figure>`,
+      "<blockquote>Habit formation is a long race. It often takes time for the desired results to appear. And while you are waiting for the long-term rewards of your efforts to accumulate, you need a reason to stick with it in the short-term. You need some immediate feedback that shows you are on the right path.</blockquote><figcaption><a target='_blank' href='https://jamesclear.com/habit-tracker'>James Clear - author of 'Atomic Habits'</a></figcaption>",
+      `<figure class='my-3 object-cover'><img src=${womanJournalling} alt='Woman writing in a journal' /><figcaption>Photo by <a target='_blank' href='https://unsplash.com/@ana_tavares?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Ana Tavares</a> on <a target='_blank' href='https://unsplash.com/collections/3737173/holos-habit-website?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption></figure>`,
       "By marking off something that we do every day, we are creating a personal contract, one that gets stronger as time goes on. <em>HabitFract</em> helps keep the habit streak going, and helps you to use atomic habits as the building blocks for change.",
-      "<figcaption>Background Photo by <a href='https://unsplash.com/@prophsee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Prophsee Journals</a> on <a href='https://unsplash.com/s/photos/habit?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption>"
+      "<figcaption>Background Photo by <a target='_blank' href='https://unsplash.com/@prophsee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Prophsee Journals</a> on <a target='_blank' href='https://unsplash.com/s/photos/habit?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption>",
     ],
   },
   {
-    title: "Everyone Loves a Streak",
+    title: "Use Metrics to Build Habit Momentum",
     short:
-      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+      "Do something once and it's an event. Do it many times and you're on a roll. Build bigger habit structures by completing small actions every day.",
     long: [
-      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
-      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+      "Once you get into the idea of consistency over quantity, start stacking habits, even of the smallest magnitude, and you'll be accumulating the 'compound interest of self improvement'.",
+      `<figure class='my-3 object-cover'><img src=${manReadingAtomicHabits} alt='Man reading Atomic Habits by James Clear' /><figcaption>Photo by <a target='_blank' href='https://unsplash.com/@nublson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Nubelson Fernandes</a> on <a target='_blank' href='https://unsplash.com/s/photos/habit?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption></figure>`,
+      "<blockquote>If you can get 1 percent better each day for one year, you’ll end up thirty-seven times better by the time you’re done</blockquote><figcaption><a target='_blank' href=https://jamesclear.com/continuous-improvement'>James Clear - author of 'Atomic Habits'</a></figcaption>",
+      "Not only is this an effective mechanism for change, it reminds you that the path to achieving grand objectives begins with your day-to-day actions.",
     ],
   },
   {
-    title: "Everyone Loves a Streak",
+    title: "Stack Habits... to Infinity!",
     short:
-      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+      "Where do you see yourself in 10 years? What a nebulous question. Concentrate on the now and you'll know the sky is the limit.",
     long: [
-      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
-      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+      "<br/><blockquote>A journey of a thousand miles begins with a single step.</blockquote><figcaption>Old Chinese proverb</figcaption>",
+      "But what does a single step begin with? What if you can barely walk to begin with?<br/><br/>",
+      "<blockquote>How long is a piece of string?<br />Twice the distance from the middle to then end.</blockquote><figcaption>Old Grandad joke</figcaption>",
+      `<figure class='my-3 object-cover'><img src=${longRoad} alt='Long Straight Road in Autumn' /><figcaption>Photo by <a target='_blank' href='https://unsplash.com/@impatrickt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Patrick Tomasso</a> on <a href='https://unsplash.com/s/photos/journey?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a>
+  </figcaption></figure>`,
+      "Build up from <em>Think of a business idea</em>, right up to <em>Float it on the stock exchange</em>.",
+      "Break down <em>Run a marathon</em> right down to <em>Tie my shoelaces</em>. Then keep stacking habits.",
+      "Because we don't always know where we are headed.",
     ],
   },
   {
-    title: "Everyone Loves a Streak",
+    title: "Be Like the Snail & You'll Float Like a Cloud",
     short:
-      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+      "Learn how to inhabit a fractal structure, and you can learn how to SCALE. A snail's spiral shell is the same shape as a galaxy. We can use this. ",
     long: [
-      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
-      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+      "Did you know that the tallest tree fern in the world is 20m in height - another natural fractal wonder!",
+      "By recreating the same strucure and shape at greater and greater magnitudes, the sky really is the limit.",
+      `<figure class='my-3 object-cover'><img src=${fernLeaf} alt='Fern leaf showing a fractal structure' /><figcaption>Photo by <a target='_blank' href='https://unsplash.com/@olenkasergienko?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Olena Sergienko</a> on <a target='_blank' href='https://unsplash.com/s/photos/fern?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a>
+  </figcaption></figure>`,
+      "<blockquote>The true power of fractals lies in the fact that their complexity comes from a few simple actions done over and over again</blockquote><figcaption><a target='_blank' href='https://www.linkedin.com/pulse/one-simple-habit-20-being-fractal-deepa-d-souza'>Deepa D'souza - entrepeneur</a></figcaption>",
+      "Build up hierarchies of habits, with no limit on the top or the bottom. By arranging and tracking your behaviour in such a way, you can create a streak of massive proportions (for some, streaking itself is an ambition).",
     ],
   },
+
   {
-    title: "Everyone Loves a Streak",
+    title: "Use The Power of the Mimic",
     short:
-      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
+      "Learn from the behaviour of others by visualising it, then emulating it",
     long: [
-      "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
-      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+      "<br /><blockquote>Most people are other people. Their thoughts are someone else's opinions, their lives a mimicry, their passions a quotation.</blockquote><figcaption>Oscar Wilde</figcaption>",
+      "Not me. Well... maybe I was a little inspired by <a target='_blank' href='https://workflowy.com/list-maker/'>Workflowy</a>.",
+      "We all need a little inspiration from others sometimes. If you are not sure where to start with building your habits, <em>HabitFract</em> allows the loading of demo data.",
+      "By switching data source, you can navigate the behavioural structure of other people, or organisations/business's habits. We learn by mimicry, so if someone is allowing you to copy, why not? I envision a type of social network where we can learn directly from each other's actions.",
+      `<figure class='my-3 object-cover'><img src=${snail} alt='Snail looking blankly' /><figcaption><a target='_blank'  href='https://unsplash.com/@tumbao1949?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>James Wainscoat</a> on <a href='https://unsplash.com/s/photos/snail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption></figure>`,
+      "For now, the demo data is populated by information scraped from <a target='_blank' href= https://www.wikihow.com/Main-Page'>wikiHow</a>, taking 5 life-domains and copying instructions for various habits.",
+      "You can use this to explore the power of the visualisation tools of <em>HabitFract</em>. Click <a href='/?demo=true'>HERE</a> to switch to the demo version, but be sure to do a full reload on your device once you have switched data sources.<br/>",
     ],
   },
 ];

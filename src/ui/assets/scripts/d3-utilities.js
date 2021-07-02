@@ -65,13 +65,13 @@ const addLegend = (svg) => {
     gText
       .append("text")
       .text("Single Tap -> Select Habit & Focus")
-      .attr("y", -40);
+      .attr("y", -45);
     gText
       .append("text")
       .text("Double Tap -> Select Family/Tick Off Habit")
-      .attr("y", 35);
-    gText.append("text").text("Swipe Left ---> Next Day").attr("y", 10);
-    gText.append("text").text("Swipe Right ---> Last Day").attr("y", -15);
+      .attr("y", 30);
+    gText.append("text").text("Swipe Left ---> Next Day").attr("y", 5);
+    gText.append("text").text("Swipe Right ---> Last Day").attr("y", -10);
   } else {
     gText.append("text").text("L/Click ---> Select Habit & Focus");
     gText

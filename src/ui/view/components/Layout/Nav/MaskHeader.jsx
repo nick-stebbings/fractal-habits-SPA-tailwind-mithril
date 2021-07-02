@@ -95,17 +95,17 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
                     </span>
                     <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none xl:-mt-3 w-56 h-full bg-white rounded-full">
                       <span className="lg:pt-2 text-balance-sshades-brighten flex justify-around block w-full mb-1">
-                        <i
+                        {HabitStore.current()?.initiation_date && <i
                           id="prev-date-selector"
                           className="fa fa-chevron-circle-left pt-2 pr-2"
                           aria-hidden="true"
-                        />
+                        />}
                         <DateSelector></DateSelector>
-                        <i
+                        {HabitStore.current()?.initiation_date && <i
                           id="next-date-selector"
                           className="fa fa-chevron-circle-right pt-2"
                           aria-hidden="true"
-                        />
+                        />}
                       </span>
                     </div>
                   </div>

@@ -106,14 +106,14 @@
 }
 
 .feature-card.img-loaded:nth-child(5)::after {
-  background-image: url('../../images/photos/screenshot-demo-data2.png');  
+  background-image: url('../../images/photos/demo-data.png');  
 }
 
 .feature-card p, .feature-card blockquote {
   font-size: 1.3rem;
   line-height: 1.4; 
   font-weight: 200;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
 }
 
 .feature-card blockquote { 
@@ -153,6 +153,13 @@
 
 figcaption {
   @apply font-sans font-extralight text-xs text-right mt-2;
+}
+
+figure figcaption {
+  font-size: 0.5rem;
+}
+#app figure figcaption a {
+  text-decoration: none;
 }
 
 .feature-card h2 {
@@ -268,6 +275,10 @@ figcaption {
 
   p blockquote {
     position: relative;
+  }
+
+  .feature-card p {
+    font-size: 0.9rem;
   }
 
   p.long-content {

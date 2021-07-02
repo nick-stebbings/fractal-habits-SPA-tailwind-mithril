@@ -1,22 +1,13 @@
-import habitPyramidMan from '../../../assets/images/pyramid_dude.svg';
-
 import GeneralButton from './Nav/UI/Buttons/GeneralButton.jsx';
 import LogoLink from './Nav/UI/Buttons/LogoLink.jsx';
 import ResponsiveNavGroup from './Nav/ResponsiveNavGroup.jsx';
 
-import MenuRoutes from "../../../menu-routes";
+import MenuRoutes from '../../../menu-routes';
 
 const Footer = {
   view: () => (
     <div className="w-full">
-      <img
-        src={habitPyramidMan}
-        className="md:w-1/2 sm:w-3/4 w-full"
-        alt="Aspirational man looking at habit pyramid"
-      />
-      <footer
-        className="justify-betwee flex flex-col items-center px-4 text-gray-100"
-      >
+      <footer className="bg-balance-basic-black text-gray-50 rounded-3xl flex flex-col items-center h-full px-4 pb-12 rounded-b-none">
         <div className="container py-6">
           <h1 className="lg:text-2xl text-lg font-bold text-center">
             Please leave feedback if you have any bug reports or ideas for
@@ -27,14 +18,14 @@ const Footer = {
               <div className="flex flex-col flex-wrap justify-between">
                 <form
                   method="get"
-                  enctype="text/plain"
+                  encType="text/plain"
                   className="p-0"
                   action="mailto:nickofstebbs@gmail.com"
                 >
                   <label htmlFor="comment" className="flex w-full">
                     <textarea
                       name="comment"
-                      className="focus:outline-none flex w-full p-2 m-1 text-sm text-black appearance-none"
+                      className="focus:outline-none flex w-full p-2 m-1 text-xl text-black appearance-none"
                       placeholder="Leave your comment"
                       required
                     />
@@ -47,15 +38,16 @@ const Footer = {
                       placeholder="Enter your email"
                       required
                     />
-                  <GeneralButton
-                    id="submit-comments"
-                    name="submit-comments"
-                    label="Submit"
-                    color="bg-balance-buttonbg-reset hover:bg-balance-buttonbg-resetlighter"
+                    <GeneralButton
+                      id="submit-comments"
+                      name="submit-comments"
+                      label="Submit"
+                      color="bg-balance-buttonbg-reset hover:bg-balance-buttonbg-resetlighter"
                     >
-                    Submit Comment
-                  </GeneralButton>
-                    </label>
+                      Submit
+
+                    </GeneralButton>
+                  </label>
                 </form>
               </div>
             </div>
@@ -63,12 +55,12 @@ const Footer = {
         </div>
         <div className="md:flex-row flex flex-col items-center justify-between">
           <LogoLink />
-          <ul className="flex w-full h-full mt-6">
+          <ul className="flex w-full h-full mt-1">
             {MenuRoutes.map((route) => (
               <ResponsiveNavGroup
                 id={`nav-${route.label.toLowerCase()}`}
                 class={
-                  MenuRoutes.selected === route.label ? "active" : "inactive"
+                  MenuRoutes.selected === route.label ? 'active' : 'inactive'
                 }
                 label={route.label}
                 url={`${route.path}`}

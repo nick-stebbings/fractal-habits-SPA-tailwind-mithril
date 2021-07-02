@@ -4,7 +4,6 @@ const GeneralButton = {
       className="button-container general-button"
     >
       <span className={attrs.color && attrs.color}>
-        :
         <button
           type="submit"
           id={attrs.id}

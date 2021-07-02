@@ -4,6 +4,7 @@ import LogoLink from './components/Layout/Nav/UI/Buttons/LogoLink.jsx';
 import Modal from './components/Layout/Modal.jsx';
 import MaskHeader from './components/Layout/Nav/MaskHeader.jsx';
 import MainStage from './components/Layout/MainStage.jsx';
+import Footer from './components/Layout/Footer.jsx';
 
 import DomainStore from '../store/domain-store';
 import HabitStore from '../store/habit-store';
@@ -158,6 +159,7 @@ export default {
         </MainStage>
         {componentNodes[4]}
       </div>
+      <Footer></Footer>
     </div>
   ),
 };
