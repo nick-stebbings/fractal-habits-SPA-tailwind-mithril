@@ -23,7 +23,7 @@ const FeaturePill = {
   },
   view: ({ attrs }) => (
     <div
-      className="bg-balance-basic-gray nav-pill h-36 text-xxl flex items-center justify-center py-1 mx-4 my-1 rounded-full"
+      className="bg-balance-basic-gray nav-pill h-36 text-md flex items-center justify-center py-1 mx-4 my-1 rounded-full"
       style={`cursor: pointer; clip-path: url(${attrs.clipPathUrl})`}
     >
       <span>{!m.route.param('demo') && attrs.title}</span>

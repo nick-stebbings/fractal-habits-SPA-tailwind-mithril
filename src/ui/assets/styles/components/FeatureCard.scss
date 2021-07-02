@@ -21,7 +21,8 @@
     }
     
     .wide > h2 {
-      @apply text-center w-full mb-12;
+      @apply text-center w-full;
+      margin-bottom: clamp(10vw, .1vw, 6rem);
       width: 75%;
     }
 
@@ -80,7 +81,7 @@
 .feature-card-content {
   transition: max-height 1s ease-in;
   overflow: hidden;
-  padding: 2em;
+  padding: clamp(4vw, .1vw, 2rem);
   max-height: 256px;
   border-radius: 1.5rem;
   margin-left: clamp(4vw, .1vw, 6rem);
@@ -170,6 +171,10 @@ figcaption {
 @media only screen and (min-width: 768px) {
   .feature-card::after {
     width:100%;
+  }
+
+  .long-content-wrapper {
+    max-height: 85%;
   }
 
   #app .feature-card > .feature-card-content {

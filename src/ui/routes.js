@@ -32,10 +32,11 @@ let cardCopy = [
     short:
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
     long: [
-      "If you know the satisfaction of completing a list, or marking off a running streak, you know the that gratifying sense of completion.",
+      "If you know the satisfaction of completing a list, or marking off a running streak, you know that feeling of a job well done, and how it can motivate.",
       "<blockquote>Habit formation is a long race. It often takes time for the desired results to appear. And while you are waiting for the long-term rewards of your efforts to accumulate, you need a reason to stick with it in the short-term. You need some immediate feedback that shows you are on the right path.</blockquote><figcaption><a href='https://jamesclear.com/habit-tracker'>James Clear - author of 'Atomic Habits'</a></figcaption>",
       `<figure class='my-3 object-cover'><img src=${womanJournalling} alt='Woman writing in a journal' /><figcaption>Photo by <a href='https://unsplash.com/@ana_tavares?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Ana Tavares</a> on <a href='https://unsplash.com/collections/3737173/holos-habit-website?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption></figure>`,
-      "By marking off something that we do every day, we are creating a personal contract, one that gets stronger as time goes on. <em>HabitFract</em> helps keep the habit streak going, and helps you to use atomic habits as the building blocks for change."
+      "By marking off something that we do every day, we are creating a personal contract, one that gets stronger as time goes on. <em>HabitFract</em> helps keep the habit streak going, and helps you to use atomic habits as the building blocks for change.",
+      "<figcaption>Background Photo by <a href='https://unsplash.com/@prophsee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Prophsee Journals</a> on <a href='https://unsplash.com/s/photos/habit?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption>"
     ],
   },
   {
@@ -252,7 +253,7 @@ const Routes = MenuRoutes.reduce(
                 m(
                   "div",
                   { class: m.route.param("demo") ? "cta-header hidden " : "cta-header" },
-                  "Choose a life domain:"
+                  "Choose a life area"
                 ),
                 m(PillSection, {
                   modalType: modalType,

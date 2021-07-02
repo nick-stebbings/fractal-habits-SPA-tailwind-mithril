@@ -74,7 +74,7 @@ const DropdownNav = (function () {
             ))}
           </ul>
           <div className="md:block hidden" id="current-habit-label">
-            <span id="current-habit">Habit:</span>
+            <span id="current-habit">Habit</span>
             {m(
               'span',
               HabitStore.current()
