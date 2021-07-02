@@ -22,16 +22,21 @@ import FeatureCardSection from "./view/components/Layout/FeatureCardSection.jsx"
 import { handleErrorType } from "./assets/scripts/utilities";
 import { registerEventListeners } from "./assets/scripts/animations.js";
 
+// Photo Urls
+import womanJournalling from "./assets/images/photos/journalling-person.jpg";
+
 // Copy
 let cardCopy = [
   {
     title: "Everyone Loves a Streak",
     short:
-      "If you know the satisfaction of completing a list, or marking off a running streak, you know the satisfaction from a sense  completion.",
-    long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
-      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ]
+    long: [
+      "If you know the satisfaction of completing a list, or marking off a running streak, you know the that gratifying sense of completion.",
+      "<blockquote>Habit formation is a long race. It often takes time for the desired results to appear. And while you are waiting for the long-term rewards of your efforts to accumulate, you need a reason to stick with it in the short-term. You need some immediate feedback that shows you are on the right path.</blockquote><figcaption><a href='https://jamesclear.com/habit-tracker'>James Clear - author of 'Atomic Habits'</a></figcaption>",
+      `<figure class='my-3 object-cover'><img src=${womanJournalling} alt='Woman writing in a journal' /><figcaption>Photo by <a href='https://unsplash.com/@ana_tavares?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Ana Tavares</a> on <a href='https://unsplash.com/collections/3737173/holos-habit-website?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption></figure>`,
+      "By marking off something that we do every day, we are creating a personal contract, one that gets stronger as time goes on. <em>HabitFract</em> helps keep the habit streak going, and helps you to use atomic habits as the building blocks for change."
+    ],
   },
   {
     title: "Everyone Loves a Streak",
@@ -40,7 +45,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ]
+    ],
   },
   {
     title: "Everyone Loves a Streak",
@@ -49,7 +54,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ]
+    ],
   },
   {
     title: "Everyone Loves a Streak",
@@ -58,7 +63,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ]
+    ],
   },
   {
     title: "Everyone Loves a Streak",
@@ -67,7 +72,7 @@ let cardCopy = [
     long: [
       "HabitFract seeks to channel our minds' in-built completion-satisfaction mechanism to drive behavioural change.",
       "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    ]
+    ],
   },
 ];
 

@@ -105,14 +105,53 @@
 }
 
 .feature-card.img-loaded:nth-child(5)::after {
-  background-image: url('../../images/photos/screenshot-demo-data.png');  
+  background-image: url('../../images/photos/screenshot-demo-data2.png');  
 }
 
-.feature-card p {
-  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+.feature-card p, .feature-card blockquote {
+  font-size: 1.3rem;
   line-height: 1.4; 
   font-weight: 200;
   margin-bottom: 1.75rem;
+}
+
+.feature-card blockquote { 
+  margin-top: 1rem;
+  position: relative;
+  font-size: 0.75em;
+  width: 80%;
+  margin: 0 auto;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.feature-card blockquote::before, .feature-card blockquote::after, {
+  position: absolute;
+  font-family: "Font Awesome 5 Free";
+  content: '';
+  width: 3rem;
+  height: 3rem;
+  color: black;
+  opacity: 0.1;
+  font-weight: 900;
+  font-size: 3.5rem;
+}
+
+#app .feature-card blockquote::before {
+  content: '\f10d';
+  top: -40px;
+  left: -38px;
+}
+
+#app .feature-card blockquote::after, {
+  content: '\f10e';
+  bottom: 0px;
+  right: -26px;
+}
+
+figcaption {
+  @apply font-sans font-extralight text-xs text-right mt-2;
 }
 
 .feature-card h2 {
@@ -218,8 +257,16 @@
     display: none;
   }
 
-  p.long-content {
+  p.long-content, #long-content-wrapper {
     display: initial;
+  }
+
+  p blockquote {
+    position: relative;
+  }
+
+  p.long-content {
+    @apply text-xl;
   }
 
   #app .wrapper > .feature-card-section >.feature-card::after, .wrapper > .feature-card-section >.feature-card.wide::after {
