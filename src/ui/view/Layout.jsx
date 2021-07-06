@@ -13,7 +13,7 @@ import DateStore from '../store/date-store';
 import TreeStore from '../store/habit-tree-store';
 
 import stream from "mithril/stream";
-export const calendarDates = stream([]);
+export const calendarDates = stream(['', '','', '','', '','']);
 const statuses = stream();
 
 import cloudMan from '../assets/images/cloud-man-vector.svg';
@@ -53,64 +53,69 @@ export default {
     addSwipeGestures();
 
     // First time user interaction tooltips:
-    if (!m.route.param('demo') && HabitStore.current()?.name === 'Select a Life-Domain to start tracking') {
-      // First page load
-      setTimeout(() => {
-        tippy(".nav-pill:nth-of-type(1)", {
-          content: "This is an example of a life area you might want to track",
-          showOnCreate: true,
-          inertia: true,
-          maxWidth: 150,
-        });
-      }, 7500);
-      setTimeout(() => {
-        tippy(".nav-pill:nth-of-type(2)", {
-          content: "This DEMO of the app only offers a few areas to choose...",
-          showOnCreate: true,
-          inertia: true,
-          maxWidth: 150,
-        });
-      }, 12500);
-      setTimeout(() => {
-        tippy(".nav-pill:nth-of-type(3)", {
-          content: "...so pick an area to start adding habits!",
-          showOnCreate: true,
-          inertia: true,
-          maxWidth: 150,
-        });
-      }, 17500);
-      // After first habit creation
-      if (HabitStore.fullList().length === 1) {
-        if (isTouchDevice()) {
+    document.addEventListener('DOMContentLoaded', () => {
+      let currentLabel = document.querySelector(",current-habit-label-sm");
+      if (!m.route.param('demo') && currentLabel.lastChild.textContent === 'Select a Life-Domain to start tracking') {
+        console.log('HabitStore.current() :>> ', HabitStore.list());
+        if (HabitStore.list().length === 0) {
+          // First page load
           setTimeout(() => {
-            tippy(".domain-selector:first-of-type", {
-              content:
-                "Once you have added several life-domains, switch between them here.",
+            tippy(".nav-pill:nth-of-type(1)", {
+              content: "This is an example of a life area you might want to track",
               showOnCreate: true,
               inertia: true,
               maxWidth: 150,
             });
           }, 7500);
           setTimeout(() => {
-            tippy("#date-today", {
-              content: "You can select date here, but also swipe left/right on any screen to move in time",
-              showOnCreate: true,
-              inertia: true,
-              maxWidth: 150,
-            });
-          }, 17500);
-        } else {
-          setTimeout(() => {
-            tippy("#date-today", {
-              content: "You can change the current tracking date here.",
+            tippy(".nav-pill:nth-of-type(2)", {
+              content: "This DEMO of the app only offers a few areas to choose...",
               showOnCreate: true,
               inertia: true,
               maxWidth: 150,
             });
           }, 12500);
+          setTimeout(() => {
+            tippy(".nav-pill:nth-of-type(3)", {
+              content: "...so pick an area to start adding habits!",
+              showOnCreate: true,
+              inertia: true,
+              maxWidth: 150,
+            });
+          }, 17500);
+        } else if (HabitStore.list().length === 1) {
+          // After first habit creation
+          if (isTouchDevice()) {
+            setTimeout(() => {
+              tippy(".domain-selector:first-of-type", {
+                content:
+                  "Once you have added several life-domains, switch between them here.",
+                showOnCreate: true,
+                inertia: true,
+                maxWidth: 150,
+              });
+            }, 7500);
+            setTimeout(() => {
+              tippy("#date-today", {
+                content: "You can select date here, but also swipe left/right on any screen to move in time",
+                showOnCreate: true,
+                inertia: true,
+                maxWidth: 150,
+              });
+            }, 17500);
+          } else {
+            setTimeout(() => {
+              tippy("#date-today", {
+                content: "You can change the current tracking date here.",
+                showOnCreate: true,
+                inertia: true,
+                maxWidth: 150,
+              });
+            }, 12500);
+          }
         }
       }
-    };
+    });
 
     // Domain change event handling
     const domainSelectors = document.querySelectorAll(".domain-selector");
@@ -130,9 +135,12 @@ export default {
     const noParams = !m.route.param("demo");
     if (
       noParams &&
-      (calendarDates()?.length === 0 ||
-        calendarDates().some((date) => date === "") ||
-        calendarDates().length !== DateStore.listForHabit().length)
+      HabitStore.current()?.name !== "Select a Life-Domain to start tracking" &&
+      calendarDates() && (
+        calendarDates()?.length === 0 ||
+          calendarDates().some((date) => date === "") ||
+          calendarDates().length !== DateStore.listForHabit().length
+      )
     ) {
       openModal(true);
       spinnerState(true);

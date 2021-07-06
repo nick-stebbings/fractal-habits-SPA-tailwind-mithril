@@ -111,7 +111,7 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
                   </div>
                 </div>
                 <div className="lg:block sm:w-3/5 lg:border-none lg:w-auto lg:mt-1 text-md md:px-0 lg:flex-row flex flex-wrap items-center justify-around hidden px-4 py-1 mt-3 mr-3">
-                  <div className=" xl:block lg:border-1 border-balance-tershades-gray lg:flex-row-reverse bg-balance-tershades-light lg:bg-gray-700 lg:py-0 lg:rounded-3xl lg:rounded-t-none flex-nowrap flex items-center justify-between hidden py-2 pl-4 mb-2 mb-6 mr-1 border-2 rounded-full">
+                  <div className=" xl:block lg:border-1 border-balance-tershades-gray lg:flex-row-reverse bg-balance-tershades-light lg:bg-gray-700 lg:py-0 lg:rounded-3xl lg:rounded-t-none flex-nowrap flex items-center justify-between hidden py-2 pl-4 mr-1 border-2 rounded-full">
                     <img
                       className="lg:border-1 lg:border-balance-tershades-gray lg:rounded-3xl lg:rounded-t-none border-1 border-balance-tershades-light flex flex-none object-cover w-10 h-10 rounded-full"
                       src="https://images.unsplash.com/photo-1597020642626-3c9b687eba70?ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8bWFuJ3MlMjBmYWNlfHwwfHx8&ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=120&h=200&q=60"

@@ -12,8 +12,8 @@ const MainStage = {
         ? children
         : m(
           attrs.isVis
-            ? 'section.cards.flex-1.h-full.w-full.absolute.overflow-x-0.bg-transparent.z-50'
-            : 'section.cards.flex-1.h-full.w-full.absolute.overflow-x-0.bg-transparent.z-50.px-4',
+            ? 'section.cards.flex-1.h-full.w-full.overflow-x-0.bg-transparent.z-50'
+            : 'section.cards.flex-1.h-full.w-full.overflow-x-0.bg-transparent.z-50.px-4',
           [children[0]],
         )}
     </main>

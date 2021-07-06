@@ -34,7 +34,7 @@ const FeatureCard = {
           {vnode.attrs.shortContent}
         </h3>
         <div
-          className="long-content-wrapper rounded-3xl md:p-6 xl:p-8 xl:overflow-y-auto hidden p-4 font-serif tracking-tight text-left text-justify text-black bg-gray-100"
+          className="long-content-wrapper rounded-3xl md:p-6 md:pb-24 xl:px-8 xl:overflow-y-auto hidden p-4 font-serif tracking-tight text-left text-justify text-black bg-gray-100"
           style="max-height: 92%"
         >
           {vnode.attrs.longContent.map((paragraphText) => (

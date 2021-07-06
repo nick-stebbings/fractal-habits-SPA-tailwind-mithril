@@ -21,7 +21,7 @@ const ExpandTextButton = {
 
         const height = contentContainer.scrollHeight;
         const { maxHeight } = window.getComputedStyle(contentContainer);
-        contentContainer.style.maxHeight = (maxHeight === '256px' ? `${height + 16}px` : '256px');
+        contentContainer.style.maxHeight = (maxHeight === '356px' ? `${height + 16}px` : '356px');
       }}
       className="button font-std hover:bg-balance-basic-digblue rounded-l-2xl rounded-b-2xl bottom-6 absolute px-4 font-semibold py-1 tracking-widest uppercase"
     >

@@ -9,12 +9,6 @@ import { changedDate } from "../../../../assets/scripts/controller";
 const CalendarWidget = {
   oninit: ({ attrs: { calendarDates } }) => {
     changedDate(false);
-    console.log(
-      "calendarDates :>> ",
-      calendarDates().map((d) => d.toLocaleString())
-    );
-
-    console.log("DateStore.listForHabit() :>> ", DateStore.listForHabit());
   },
   view: ({ attrs: { calendarDates, statuses } }) => (
     <div className="top-28 rounded-3xl lg:flex right-6 flex-nowrap absolute justify-end hidden w-full h-full pt-1">
@@ -28,7 +22,7 @@ const CalendarWidget = {
 
         <i className="fa-solid fa-circle-info" />
         <m.route.Link
-        className={"absolute top-3 right-3"}
+          className={"absolute top-3 right-3"}
           href={
             !m.route.param("demo")
               ? `habits/list?currentHabit=${HabitStore.current()?.id}`
@@ -53,7 +47,7 @@ const CalendarWidget = {
           </svg>
         </m.route.Link>
         <m.route.Link
-        className={"absolute top-16 right-3"}
+          className={"absolute top-16 right-3"}
           href={
             !m.route.param("demo")
               ? `habits/new?currentHabit=${HabitStore.current()?.id}`
@@ -82,16 +76,17 @@ const CalendarWidget = {
         className="date-card-wrapper rounded-3xl flex-end -mt-14 border-1 flex justify-end w-full gap-2 bg-transparent"
         style="max-width:75%"
       >
-        {calendarDates()?.map((date, idx) => (
-          <DateCard
-            date={date}
-            today={
-              date.toLocaleString() ===
-              DateTime.fromSQL(DateStore.current()?.h_date).toLocaleString()
-            }
-            completedStatus={statuses() && statuses()[idx]?.completed_status}
-          />
-        ))}
+        {calendarDates() &&
+          calendarDates().map((date, idx) => (
+            <DateCard
+              date={date}
+              today={
+                date.toLocaleString() ===
+                DateTime.fromSQL(DateStore.current()?.h_date).toLocaleString()
+              }
+              completedStatus={statuses() && statuses()[idx]?.completed_status}
+            />
+          ))}
       </div>
     </div>
   ),

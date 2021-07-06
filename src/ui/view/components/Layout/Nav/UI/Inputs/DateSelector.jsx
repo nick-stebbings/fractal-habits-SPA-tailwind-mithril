@@ -1,7 +1,7 @@
 import DateTime from 'luxon/src/datetime.js';
 import DateStore from '../../../../../../store/date-store';
 import HabitStore from '../../../../../../store/habit-store';
-import { updatedMinAndMaxForCurrentHabit, changedDate, changeOfModelContext } from '../../../../../../assets/scripts/controller';
+import { updatedMinAndMaxForCurrentHabit, changedDate, newDate } from '../../../../../../assets/scripts/controller';
 
 const sanitiseForDataList = function (date) {
   return typeof date === 'object' && typeof date.h_date === 'string'

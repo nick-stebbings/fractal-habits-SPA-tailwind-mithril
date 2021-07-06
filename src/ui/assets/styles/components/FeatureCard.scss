@@ -81,8 +81,8 @@
 .feature-card-content {
   transition: max-height 1s ease-in;
   overflow: hidden;
-  padding: clamp(4vw, .1vw, 2rem);
-  max-height: 256px;
+  padding: clamp(1vw, 0.05vw, 0.5rem);
+  max-height: 356px;
   border-radius: 1.5rem;
   margin-left: clamp(4vw, .1vw, 6rem);
   margin-bottom: 8rem;
@@ -245,6 +245,11 @@ figure figcaption, figcaption:last-child {
   .feature-card {
     padding: 6rem clamp(4vw, 0.1vw, 6rem) 4rem;
   }
+
+  .long-content, .long-content-wrapper {
+    display:initial;
+  }
+
   .feature-card-section {
     grid-row-gap: 12rem;
     grid-template-rows: unset;

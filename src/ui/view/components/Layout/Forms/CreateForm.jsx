@@ -57,7 +57,7 @@ const processFormData = function (dom, attrs) {
           TreeStore.clear();
         })
         .then(() => {
-          m.route.set('/');
+          m.route.set(m.route.get(), null);
         })
         .catch(() => {
           console.log('Could not submit data.');
@@ -71,7 +71,6 @@ const processFormData = function (dom, attrs) {
 const CreateForm = {
   onupdate: () => {
     HabitStore.runCurrentFilterByNode(NodeStore.current().id);
-    console.log('updated')
   },
   oncreate: ({ attrs, dom }) => {
     if (m.route.param('demo')) return;
