@@ -60,23 +60,11 @@ const addIntersectionObserver = function () {
     threshold: 0.3,
     rootMargin: '0px 0px -100px 0px',
   };
-  const callback = (entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const respNav = document.querySelector('#hamburger');
-      respNav.checked = false;
-      if (!entry.target.classList.contains('slide-center')) {
-        entry.target.classList.add('slide-center');
-      } else {
-        entry.target.classList.remove('slide-center');
-      }
-      observer.unobserve(entry.target);
-    });
-  };
-  const observer = new IntersectionObserver(callback, options);
+
   const observerForPageFooter = new IntersectionObserver((entries) => {
     const buttonGroup = document.querySelector('#create-new-habit-child .button-group');
     const habitInput = document.querySelector('.sub-section-container:last-of-type');
+    console.log('entries :>> ', entries);
     if (!entries[0].isIntersecting) {
       buttonGroup && (buttonGroup.style.opacity = 1);
       habitInput && (habitInput.style.opacity = 1);
@@ -89,15 +77,6 @@ const addIntersectionObserver = function () {
       habitInput.style.opacity = (habitInput.style.opacity === 0 ? 1 : 0);
     }
   }, options);
-
-  const infoCardsL = document.querySelectorAll('section.info-cards div.left-slider');
-  const infoCardsR = document.querySelectorAll('section.info-cards div.right-slider');
-  infoCardsL && infoCardsL.forEach((infoCard) => {
-    observer.observe(infoCard);
-  });
-  infoCardsR && infoCardsR.forEach((infoCard) => {
-    observer.observe(infoCard);
-  });
 
   const pageFooter = document.querySelector('footer');
   observerForPageFooter && observerForPageFooter.observe(pageFooter);

@@ -21,6 +21,7 @@ import {
   openModal,
   openSpinner,
   addSwipeGestures,
+  addIntersectionObserver,
 } from "../assets/scripts/animations";
 import {
   changedFromDemo,
@@ -51,6 +52,7 @@ export default {
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
     addSwipeGestures();
+    addIntersectionObserver();
 
     // First time user interaction tooltips:
     document.addEventListener('DOMContentLoaded', () => {
