@@ -155,7 +155,7 @@ figcaption {
   @apply font-sans font-extralight text-xs text-right mt-2;
 }
 
-figure figcaption {
+figure figcaption, figcaption:last-child {
   font-size: 0.5rem;
 }
 #app figure figcaption a {
@@ -186,7 +186,7 @@ figure figcaption {
 
   #app .feature-card > .feature-card-content {
     position: relative;
-    width: 75%;
+    width: 95%;
     min-height: fit-content;
   }
 

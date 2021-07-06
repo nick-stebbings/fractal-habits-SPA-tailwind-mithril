@@ -9,7 +9,7 @@ const Footer = {
     <div className="w-full">
       <footer className="bg-balance-basic-black text-gray-50 rounded-3xl flex flex-col items-center h-full px-4 pb-12 rounded-b-none">
         <div className="container py-6">
-          <h1 className="lg:text-2xl text-lg font-bold text-center">
+          <h1 className="lg:text-2xl text-lg text-center">
             Please leave feedback if you have any bug reports or ideas for
             improvement, I'd love to hear them!
           </h1>

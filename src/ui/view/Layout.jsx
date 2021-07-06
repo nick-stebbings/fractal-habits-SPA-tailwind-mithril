@@ -31,6 +31,7 @@ import {
   preLoadHabitDateData,
   changedDomain
 } from "../assets/scripts/controller";
+import { isTouchDevice } from '../assets/scripts/utilities.js';
 
 function loadTreeData() {
   if (DomainStore.current() && DateStore.current()) {
@@ -45,13 +46,14 @@ const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
 export default {
   oncreate: ({ attrs: { spinnerState, modalType } }) => {
+    // Data preload handling
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
     addSwipeGestures();
 
     // First time user interaction tooltips:
-    if (HabitStore.current()?.name === 'Select a Life-Domain to start tracking') {
+    if (!m.route.param('demo') && HabitStore.current()?.name === 'Select a Life-Domain to start tracking') {
       // First page load
       setTimeout(() => {
         tippy(".nav-pill:nth-of-type(1)", {
@@ -77,17 +79,40 @@ export default {
           maxWidth: 150,
         });
       }, 17500);
-      // First habit creation
-      setTimeout(() => {
-        tippy(".nav-pill:nth-of-type(1)", {
-          content: "This is an example of a life area you might want to track",
-          showOnCreate: true,
-          inertia: true,
-          maxWidth: 150,
-        });
-      }, 7500);
-    }
+      // After first habit creation
+      if (HabitStore.fullList().length === 1) {
+        if (isTouchDevice()) {
+          setTimeout(() => {
+            tippy(".domain-selector:first-of-type", {
+              content:
+                "Once you have added several life-domains, switch between them here.",
+              showOnCreate: true,
+              inertia: true,
+              maxWidth: 150,
+            });
+          }, 7500);
+          setTimeout(() => {
+            tippy("#date-today", {
+              content: "You can select date here, but also swipe left/right on any screen to move in time",
+              showOnCreate: true,
+              inertia: true,
+              maxWidth: 150,
+            });
+          }, 17500);
+        } else {
+          setTimeout(() => {
+            tippy("#date-today", {
+              content: "You can change the current tracking date here.",
+              showOnCreate: true,
+              inertia: true,
+              maxWidth: 150,
+            });
+          }, 12500);
+        }
+      }
+    };
 
+    // Domain change event handling
     const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {
       selector.addEventListener("change", (e) => {
@@ -101,7 +126,7 @@ export default {
       });
     });
   },
-  oninit: ({ attrs: { spinnerState, modalType } }) => {
+  oninit: ({ attrs: { spinnerState } }) => {
     const noParams = !m.route.param("demo");
     if (
       noParams &&

@@ -199,6 +199,26 @@ input[type="date"] {
 }
 
 @media (min-width: 768px) {
+  footer ul li:first-of-type h2 {
+    @apply text-right;
+  }
+
+  footer ul li:last-of-type h2 {
+    @apply px-0 ml-2;
+  }
+
+  footer ul, footer ul li {
+    @apply w-full;
+  }
+  
+  footer ul li:first-of-type li {
+    @apply justify-end px-0;
+  }
+
+  footer ul li:last-of-type {
+    @apply ml-2;
+  }
+
   thead tr, tbody tr {
     display: inline-table;
   }

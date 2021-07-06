@@ -1,7 +1,7 @@
 import DateTime from 'luxon/src/datetime.js';
 import DateStore from '../../../../../../store/date-store';
 import HabitStore from '../../../../../../store/habit-store';
-import { resetContextStates, updatedMinAndMaxForCurrentHabit, changedDate, changeOfModelContext, newDate } from '../../../../../../assets/scripts/controller';
+import { updatedMinAndMaxForCurrentHabit, changedDate, changeOfModelContext } from '../../../../../../assets/scripts/controller';
 
 const sanitiseForDataList = function (date) {
   return typeof date === 'object' && typeof date.h_date === 'string'
@@ -36,7 +36,7 @@ const DateSelector = function () {
           }
         )
       }
-      const dateInputs = document.querySelectorAll("#date-today");
+      const dateInputs = document.querySelectorAll(".date-today");
       document.addEventListener("input", (e) => {
         if((e.target.value).search(/\d\d-\d\d-\d\d/) === -1) return;
         dateIndex = DateStore.listForHabit()
@@ -49,7 +49,7 @@ const DateSelector = function () {
       const prevDateSelector = document.getElementById("prev-date-selector");
       const nextDateSelector = document.getElementById("next-date-selector");
       [...dateInputs].forEach((input) => {
-        input.addEventListener("change", (e) => {
+        input?.addEventListener("change", (e) => {
           e.stopPropagation();
           dateIndex = DateStore.listForHabit()
             .map(sanitiseForDataList)
@@ -60,7 +60,7 @@ const DateSelector = function () {
           m.redraw();
         });
       });
-      prevDateSelector.addEventListener("click", () => {
+      prevDateSelector?.addEventListener("click", () => {
         if (!HabitStore.current()) return;
         if (currentHabitDate?.toLocaleString() !== minDate?.toLocaleString()) {
           dateIndex--;
@@ -71,7 +71,7 @@ const DateSelector = function () {
         changedDate(true);
         m.redraw();
       });
-      nextDateSelector.addEventListener("click", () => {
+      nextDateSelector?.addEventListener("click", () => {
         if (!HabitStore.current()) return;
         if (currentHabitDate.toLocaleString() !== maxDate.toLocaleString()) {
           dateIndex++;
@@ -89,7 +89,7 @@ const DateSelector = function () {
           id="date-today"
           tabIndex="3"
           required
-          className="sm:h-10 xl:text-xl md:px-4 md:py-1 w-full h-6 px-2 mt-1"
+          className="date-today sm:h-10 xl:text-xl xl:px-2 md:py-1 w-full h-6 px-1 mt-1"
           type="date"
           value={DateStore.currentDate()}
           max={String(DateStore.listForHabit().slice(-1)[0])}

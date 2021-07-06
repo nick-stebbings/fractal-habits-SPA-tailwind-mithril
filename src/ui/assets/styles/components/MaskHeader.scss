@@ -75,7 +75,7 @@ body[class^="scroll"] .mask-wrapper {
 }
 
 @media (min-width: 640px) {
-  .sm-selector-container #date-today {
+  .sm-selector-container .date-today {
     transform: translateY(-0.22rem);
   }
 }

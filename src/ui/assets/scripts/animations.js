@@ -13,6 +13,7 @@ const openModal = function (open = true) {
   if (!modalOverlay) return;
   const modal = modalOverlay.querySelector('#modal');
   const modalCl = modal?.classList;
+  if (!modalCl) return;
   if (open) {
     modalOverlay?.classList.remove('hidden');
     setTimeout(() => {

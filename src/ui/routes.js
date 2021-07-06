@@ -64,17 +64,17 @@ let cardCopy = [
       "<blockquote>How long is a piece of string?<br />Twice the distance from the middle to then end.</blockquote><figcaption>Old Grandad joke</figcaption>",
       `<figure class='my-3 object-cover'><img src=${longRoad} alt='Long Straight Road in Autumn' /><figcaption>Photo by <a target='_blank' href='https://unsplash.com/@impatrickt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Patrick Tomasso</a> on <a href='https://unsplash.com/s/photos/journey?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a>
   </figcaption></figure>`,
-      "Build up from <em>Think of a business idea</em>, right up to <em>Float it on the stock exchange</em>.",
-      "Break down <em>Run a marathon</em> right down to <em>Tie my shoelaces</em>. Then keep stacking habits.",
-      "Because we don't always know where we are headed.",
+      "Build up from <em>'Think of a business idea'</em>, right up to <em>'Float on the stock exchange'</em>.",
+      "Break down <em>'Run a marathon'</em> right down to <em>'Tie my shoelaces'</em>. Then keep stacking habits...",
+      "...because we don't always know where we are headed.",
     ],
   },
   {
-    title: "Be Like the Snail & You'll Float Like a Cloud",
+    title: "Use The Power of the Mimic",
     short:
-      "Learn how to inhabit a fractal structure, and you can learn how to SCALE. A snail's spiral shell is the same shape as a galaxy. We can use this. ",
+      "Be like the 🐌 & you'll float like a ☁️. i.e. If you learn how to inhabit a fractal structure in your behaviour, then you can learn how to scale - like, (ahem) - a snail. A 🐌's spiral shell is the same shape as a galaxy 🌌",
     long: [
-      "Did you know that the tallest tree fern in the world is 20m in height - another natural fractal wonder!",
+      "Did you know that the tallest tree fern in the world is 20m in height - another natural fractal wonder, just like the snail!",
       "By recreating the same strucure and shape at greater and greater magnitudes, the sky really is the limit.",
       `<figure class='my-3 object-cover'><img src=${fernLeaf} alt='Fern leaf showing a fractal structure' /><figcaption>Photo by <a target='_blank' href='https://unsplash.com/@olenkasergienko?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Olena Sergienko</a> on <a target='_blank' href='https://unsplash.com/s/photos/fern?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a>
   </figcaption></figure>`,
@@ -84,9 +84,9 @@ let cardCopy = [
   },
 
   {
-    title: "Use The Power of the Mimic",
+    title: "Visualise the Tree to Grow Tall, Strong, and Mighty",
     short:
-      "Learn from the behaviour of others by visualising it, then emulating it",
+      "Learn from the behaviour of others by first visualising their patterns, then emulating them in your own way.",
     long: [
       "<br /><blockquote>Most people are other people. Their thoughts are someone else's opinions, their lives a mimicry, their passions a quotation.</blockquote><figcaption>Oscar Wilde</figcaption>",
       "Not me. Well... maybe I was a little inspired by <a target='_blank' href='https://workflowy.com/list-maker/'>Workflowy</a>.",

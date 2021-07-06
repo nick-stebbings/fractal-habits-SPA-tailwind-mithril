@@ -89,7 +89,7 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
                       </span>
                     </div>
                   </div>
-                  <div className="nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 text-sm text-black rounded-full">
+                  <div className="date-today nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 text-sm text-black rounded-full">
                     <span className="lg:hidden xl:block md:pt-6 xl:pt-3 pt-0 pb-0 mx-4 mb-1 ml-6">
                       <label htmlFor="date-today">Date</label>
                     </span>
@@ -165,7 +165,7 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
             id="current-habit-sm"
             class="block sm:hidden md:block ml-3 pr-2 py-0"
           >
-            HABIT:
+            HABIT
           </span>
           <div class="block max-h-12 md:block overflow-auto sm:hidden">
             {HabitStore.current()?.name}
