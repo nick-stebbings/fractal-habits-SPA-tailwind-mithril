@@ -71,6 +71,7 @@ const processFormData = function (dom, attrs) {
 const CreateForm = {
   onupdate: () => {
     HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+    console.log('updated')
   },
   oncreate: ({ attrs, dom }) => {
     if (m.route.param('demo')) return;

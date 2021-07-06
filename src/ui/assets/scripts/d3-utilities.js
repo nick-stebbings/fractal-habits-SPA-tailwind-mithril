@@ -113,11 +113,11 @@ const addLegend = (svg) => {
     })
     .on("cellclick", (d) => setLabel(d))
     .on("cellout", function (d) {
-      habitLabel.textContent = "Habit:";
+      habitLabel.textContent = "Habit";
       habitSpan.textContent = d.target.__data__;
       habitSpan.textContent = habitLabelValue;
 
-      habitLabelSm.textContent = "Habit:";
+      habitLabelSm.textContent = "Habit";
       habitSpanSm.textContent = d.target.__data__;
       habitSpanSm.textContent = habitLabelValueSm;
     })

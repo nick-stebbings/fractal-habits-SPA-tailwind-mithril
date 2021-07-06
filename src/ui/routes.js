@@ -275,7 +275,7 @@ const Routes = MenuRoutes.reduce(
                 m(
                   "div",
                   { class: m.route.param("demo") ? "cta-header hidden " : "cta-header" },
-                  "Choose a life area"
+                  "Choose a life domain ..."
                 ),
                 m(PillSection, {
                   modalType: modalType,

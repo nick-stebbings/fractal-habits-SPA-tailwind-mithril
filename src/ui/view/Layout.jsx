@@ -48,8 +48,45 @@ export default {
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
-    
     addSwipeGestures();
+
+    // First time user interaction tooltips:
+    if (HabitStore.current()?.name === 'Select a Life-Domain to start tracking') {
+      // First page load
+      setTimeout(() => {
+        tippy(".nav-pill:nth-of-type(1)", {
+          content: "This is an example of a life area you might want to track",
+          showOnCreate: true,
+          inertia: true,
+          maxWidth: 150,
+        });
+      }, 7500);
+      setTimeout(() => {
+        tippy(".nav-pill:nth-of-type(2)", {
+          content: "This DEMO of the app only offers a few areas to choose...",
+          showOnCreate: true,
+          inertia: true,
+          maxWidth: 150,
+        });
+      }, 12500);
+      setTimeout(() => {
+        tippy(".nav-pill:nth-of-type(3)", {
+          content: "...so pick an area to start adding habits!",
+          showOnCreate: true,
+          inertia: true,
+          maxWidth: 150,
+        });
+      }, 17500);
+      // First habit creation
+      setTimeout(() => {
+        tippy(".nav-pill:nth-of-type(1)", {
+          content: "This is an example of a life area you might want to track",
+          showOnCreate: true,
+          inertia: true,
+          maxWidth: 150,
+        });
+      }, 7500);
+    }
 
     const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {
