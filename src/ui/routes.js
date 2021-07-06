@@ -90,11 +90,11 @@ let cardCopy = [
     long: [
       "<br /><blockquote>Most people are other people. Their thoughts are someone else's opinions, their lives a mimicry, their passions a quotation.</blockquote><figcaption>Oscar Wilde</figcaption>",
       "Not me. Well... maybe I was a little inspired by <a target='_blank' href='https://workflowy.com/list-maker/'>Workflowy</a>.",
-      "We all need a little inspiration from others sometimes. If you are not sure where to start with building your habits, <em>HabitFract</em> allows the loading of demo data.",
-      "By switching data source, you can navigate the behavioural structure of other people, or organisations/business's habits. We learn by mimicry, so if someone is allowing you to copy, why not? I envision a type of social network where we can learn directly from each other's actions.",
-      `<figure class='my-3 object-cover'><img src=${snail} alt='Snail looking blankly' class="mx-auto" /><figcaption><a target='_blank'  href='https://unsplash.com/@tumbao1949?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>James Wainscoat</a> on <a href='https://unsplash.com/s/photos/snail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption></figure>`,
+      "We all need a little inspiration from others sometimes. If you are not sure where to start with building your habits, <em>HabitFract</em> allows you to load a full set of DEMO habits.",
+      "By switching data source to this DEMO data, you can start to navigate the behavioural structure of other people, or copy the habits of organisations and businesses. We learn by mimicry, so if someone is allowing you to copy, why not? I envision a type of social network where we can learn directly from each other's actions.",
+      `<figure class='my-3 object-cover'><img src=${snail} alt='Snail looking blankly' class="mx-auto" /><figcaption><a target='_blank' href='https://unsplash.com/@tumbao1949?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>James Wainscoat</a> on <a href='https://unsplash.com/s/photos/snail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></figcaption></figure>`,
       "For now, the demo data is populated by information scraped from <a target='_blank' href= https://www.wikihow.com/Main-Page'>wikiHow</a>, taking 5 life-domains and copying instructions for various habits.",
-      "You can use this to explore the power of the visualisation tools of <em>HabitFract</em>. Click <a href='/?demo=true'>HERE</a> to switch to the demo version, but be sure to do a full reload on your device once you have switched data sources.<br/>",
+      "You can use this to explore the power of the visualisation tools of <em>HabitFract</em>. Click <a href='#!/?demo=true'>HERE</a> to switch to the demo version, but be sure to do a full reload on your device once you have switched data sources.<br/>",
     ],
   },
 ];

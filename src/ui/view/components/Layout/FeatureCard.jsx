@@ -30,7 +30,7 @@ const FeatureCard = {
         {vnode.attrs.title}
       </h2>
       <div className="feature-card-content lg:rounded-full md:feature-card-content-wide bg-balance-basic-black opacity-90 text-gray-50 z-20 mt-8 font-serif font-bold leading-10 tracking-wide">
-        <h3 className="mb-4 text-xl font-light leading-8 tracking-wide">
+        <h3 className="md:mx-6 px-4 mb-4 text-xl font-light leading-8 tracking-wide">
           {vnode.attrs.shortContent}
         </h3>
         <div

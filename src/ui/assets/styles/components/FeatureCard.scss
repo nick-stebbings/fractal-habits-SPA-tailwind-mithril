@@ -22,7 +22,7 @@
     
     .wide > h2 {
       @apply text-center w-full;
-      margin-bottom: clamp(10vw, .1vw, 6rem);
+      margin-bottom: clamp(5vw, .1vw, 4rem);
       width: 75%;
     }
 
@@ -163,7 +163,7 @@ figure figcaption, figcaption:last-child {
 }
 
 .feature-card h2 {
-  font-size: clamp(2rem, 3vw, 3.75rem);
+  font-size:2rem;
   text-shadow:
       -1px 1px 0 #E0E0E0,
       1px 1px 0 #E0E0E0;
@@ -207,6 +207,11 @@ figure figcaption, figcaption:last-child {
     bottom: 1rem;
     right: calc(50% - 6rem);
   }
+
+  #app .feature-card h2 {
+    margin: 4rem auto;
+    width:100%;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -216,7 +221,7 @@ figure figcaption, figcaption:last-child {
   .feature-card-section {
     grid-row-gap: 0;
     grid-template-columns: repeat(13, 1fr);
-    grid-template-rows: repeat(17, 100px);
+    grid-template-rows: repeat(17, 150px);
   }
   .feature-card:nth-child(2) {
     grid-column: span 5;
