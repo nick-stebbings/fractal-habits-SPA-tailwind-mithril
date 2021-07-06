@@ -17,7 +17,11 @@ export const calendarDates = stream([]);
 const statuses = stream();
 
 import cloudMan from '../assets/images/cloud-man-vector.svg';
-import { openModal, openSpinner } from '../assets/scripts/animations';
+import {
+  openModal,
+  openSpinner,
+  addSwipeGestures,
+} from "../assets/scripts/animations";
 import {
   changedFromDemo,
   changeOfModelContext,
@@ -44,6 +48,8 @@ export default {
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
+    
+    addSwipeGestures();
 
     const domainSelectors = document.querySelectorAll(".domain-selector");
     [...domainSelectors].forEach((selector) => {

@@ -2,7 +2,7 @@ import { select } from "d3-selection"
 import { scaleOrdinal, scaleLinear } from "d3-scale";
 import { zoomIdentity } from "d3-zoom";
 import { linkVertical } from "d3-shape";
-import { tree } from "d3-hierarchy";
+import { tree, cluster } from "d3-hierarchy";
 import { easeCubic, easeCircleOut, easeCubicOut, easePolyOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
@@ -521,7 +521,7 @@ const renderTree = function (
     });
   }
 
-  const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
+  const treeLayout = cluster().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   treeLayout(rootData);
 
   const gLink = canvas

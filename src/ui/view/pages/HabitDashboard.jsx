@@ -18,7 +18,7 @@ import {
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 import {calendarDates} from "../Layout.jsx";
-import { openModal, addSwipeGestures } from "../../assets/scripts/animations";
+import { openModal } from "../../assets/scripts/animations";
 import { setRouteToBasePath, invert, isTouchDevice } from "../../assets/scripts/utilities";
 
 const nameOrderAsc = stream(true);
@@ -59,7 +59,6 @@ const HabitDashboard = {
   },
   oncreate: ({ attrs }) => {
     const demoData = m.route.param("demo");
-    addSwipeGestures();
 
     // Add sorting events
     document.getElementById("sort-name-desc").addEventListener("click", (e) => {

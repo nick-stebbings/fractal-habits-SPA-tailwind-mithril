@@ -37,7 +37,7 @@ const openModal = function (open = true) {
 };
 
 const addSwipeGestures = function () {
-  const swipeBase = document.querySelector('#app');
+  const swipeBase = document.querySelector('main');
   const manager = new Hammer.Manager(swipeBase);
   const Swipe = new Hammer.Swipe();
   const nextDate = document.getElementById('next-date-selector');
@@ -45,8 +45,7 @@ const addSwipeGestures = function () {
 
   manager.add(Swipe);
   manager.on('swipe', (e) => {
-    console.log(e)
-    if (Math.abs(e.deltaX) > 5) {
+    if (Math.abs(e.deltaX) > 500) {
       const dispEvent = new Event('click');
       e.deltaX > 0
         ? prevDate.dispatchEvent(dispEvent)
