@@ -71,7 +71,7 @@ body[class^="scroll"] .sm-selector-container, body[class^="scroll"] #hamburger-w
 }
 
 body[class^="scroll"] .mask-wrapper {
-  mask: initial;
+  mask: block;
 }
 
 @media (min-width: 640px) {

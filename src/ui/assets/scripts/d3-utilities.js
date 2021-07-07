@@ -102,6 +102,7 @@ const addLegend = (svg) => {
     .shapeRadius(10)
     .shapePadding(-5)
     .on("cellover", function (d) {
+      console.log('didit :>> ', didit);
       habitLabel.textContent = "Key:";
       habitLabelValue = habitSpan.textContent;
       habitSpan.textContent = d.target.__data__;
@@ -111,7 +112,6 @@ const addLegend = (svg) => {
       habitSpanSm.textContent = d.target.__data__;
       showHabitLabel();
     })
-    .on("cellclick", (d) => setLabel(d))
     .on("cellout", function (d) {
       habitLabel.textContent = "Habit";
       habitSpan.textContent = d.target.__data__;
@@ -203,7 +203,7 @@ const renderTree = function (
   if (rootData.name === "") return;
   
   // SETTINGS
-  let scale = isDemo ? 5 : 9;
+  let scale = isDemo ? 9 : 14;
   let clickScale = 2.2;
   let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
   let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
@@ -521,7 +521,7 @@ const renderTree = function (
     });
   }
 
-  const treeLayout = cluster().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
+  const treeLayout = tree().size(canvasWidth, canvasHeight).nodeSize([dy, dx]);
   treeLayout(rootData);
 
   const gLink = canvas
