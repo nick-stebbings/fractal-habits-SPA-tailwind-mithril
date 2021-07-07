@@ -280,7 +280,11 @@ figure figcaption, figcaption:last-child {
   }
 
   p.long-content, #long-content-wrapper {
-    display: initial;
+    display: block;
+  }
+
+  #long-content-wrapper {
+    overflow: hidden;
   }
 
   p blockquote {

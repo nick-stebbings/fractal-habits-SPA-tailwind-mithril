@@ -6,7 +6,7 @@ import MenuRoutes from '../../../menu-routes';
 
 const Footer = {
   view: () => (
-    <div className="w-full">
+    <div className="w-full bg-gray-50">
       <footer className="bg-balance-basic-black text-gray-50 rounded-3xl flex flex-col items-center h-full px-4 pb-12 rounded-b-none">
         <div className="container py-6">
           <h1 className="lg:text-2xl text-lg text-center">
