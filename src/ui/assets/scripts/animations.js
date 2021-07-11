@@ -1,5 +1,7 @@
 import Hammer from 'hammerjs';
 import { debounce } from './d3-utilities';
+import { isTouchDevice } from "./utilities";
+import HabitStore from '../../store/habit-store';
 
 const openSpinner = function (open = true) {
   const modalOverlay = document.querySelector('#modal_overlay');
@@ -82,6 +84,70 @@ const addIntersectionObserver = function () {
   observerForPageFooter && observerForPageFooter.observe(pageFooter);
 };
 
+const addTooltips = function () {
+  if (m.route.param("demo")) return;
+  if (HabitStore.list().length === 0) {
+    // First time user interaction tooltips:
+    // First page load
+    setTimeout(() => {
+      tippy(".nav-pill:nth-of-type(1)", {
+        content: "This is an example of a life area you might want to track",
+        showOnCreate: true,
+        inertia: true,
+        maxWidth: 150,
+      });
+    }, 7500);
+    setTimeout(() => {
+      tippy(".nav-pill:nth-of-type(2)", {
+        content: "This DEMO of the app only offers a few areas to choose...",
+        showOnCreate: true,
+        inertia: true,
+        maxWidth: 150,
+      });
+    }, 12500);
+    setTimeout(() => {
+      tippy(".nav-pill:nth-of-type(3)", {
+        content: "...so pick an area to start adding habits!",
+        showOnCreate: true,
+        inertia: true,
+        maxWidth: 150,
+      });
+    }, 17500);
+  } else if (HabitStore.list().length === 1) {
+    console.log('hi');
+    // After first habit creation
+    setTimeout(() => {
+      tippy(".domain-selector:first-of-type", {
+        content:
+          "Once you have added several life-domains, switch between them here.",
+        showOnCreate: true,
+        inertia: true,
+        maxWidth: 150,
+      });
+    }, 7500);
+    if (isTouchDevice()) {
+      setTimeout(() => {
+        tippy("#date-today", {
+          content:
+            "You can select date here, but also swipe left/right on any screen to move in time",
+          showOnCreate: true,
+          inertia: true,
+          maxWidth: 150,
+        });
+      }, 17500);
+    } else {
+      setTimeout(() => {
+        tippy("nav #date-today", {
+          content: "You can change the current tracked date here.",
+          showOnCreate: true,
+          inertia: true,
+          maxWidth: 150,
+        });
+      }, 12500);
+    }
+  }
+};
+
 const registerEventListeners = (function () {
   const { body } = document;
   document.addEventListener('DOMContentLoaded', () => {
@@ -124,5 +190,5 @@ const registerEventListeners = (function () {
 }());
 
 export {
-  registerEventListeners, openModal, openSpinner, addSwipeGestures, addIntersectionObserver,
+  registerEventListeners, openModal, openSpinner, addSwipeGestures, addIntersectionObserver, addTooltips
 };

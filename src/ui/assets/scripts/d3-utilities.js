@@ -136,8 +136,10 @@ const zooms = function (e) {
   let scale = transform.k,
     tbound = -canvasHeight * scale*3,
     bbound = canvasHeight * scale*3;
+    console.log('globalZoom :>> ', globalZoom);
   scale = globalZoom ? globalZoom : scale;
   const currentTranslation = [margin.left, margin.top];
+  console.log('globalZoom :>> ', globalZoom);
   globalZoom = null;
   globalTranslate = null;
   const translation = [
@@ -204,12 +206,13 @@ const renderTree = function (
   
   // SETTINGS
   let scale = isDemo ? 9 : 14;
-  let clickScale = 2.2;
+  let clickScale = 3.2;
   let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
   let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
   const zoomBase = canvas;
   let levelsWide;
   let levelsHigh;
+  let zoomedInView = Object.keys(zoomClicked).length === 0;
   svg.selectAll("*").remove();
   const canvas = svg
     .append("g")
@@ -223,13 +226,14 @@ const renderTree = function (
     levelsWide = 12;
     levelsHigh = 2;
   }
+  console.log('clickedZoom, zoomClicked :>> ', clickedZoom, zoomClicked);
   levelsWide *= (isDemo ? 8: 8)
   levelsHigh *= (isDemo ? 1: 1)
   const nodeRadius = (smallScreen ? 8 : 10) * scale;
-  let widthBeteen = smallScreen ? scale / 1 : 2;
-  let dx = ((canvasWidth / levelsHigh)) / clickScale;
-  let dy = (canvasHeight / levelsWide) * (clickedZoom ? 2 * widthBeteen : widthBeteen);
-  dy *= (zoomClicked && !smallScreen ? 4 : 2);
+  let dx = ((canvasWidth / levelsHigh)) / 2;
+  let dy = (canvasHeight / levelsWide) * 4;
+  console.log("dy :>> ", dy, zoomClicked && !smallScreen);
+  dy *= (zoomedInView && !smallScreen ? 2 : 10);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let activeNode;
@@ -297,9 +301,10 @@ const renderTree = function (
 
   const reset = function () {
     if (zoomBase === undefined) return;
-    scale = isDemo ? 5 : 9;
+    scale = isDemo ? 9 : 14;
     svg.attr("viewBox", defaultView);
     expandTree();
+    zoomClicked = {};
     activeNode = null;
     document.querySelector(".the-node.active") &&
       document.querySelector(".the-node.active").classList.remove("active");
@@ -396,7 +401,7 @@ const renderTree = function (
       node: node,
       content: node.data
     });
-    // handleZoom(event, node.parent);
+    handleZoom(event, node.parent);
   };
 
   const handleEvents = function (selection) {
@@ -458,9 +463,9 @@ const renderTree = function (
   }
 
   function calibrateViewPort() {
-    viewportY = smallScreen ? -300 : -250;
-    viewportW = canvasWidth * 3;
-    viewportX = viewportW / 2 + 3* nodeRadius;
+    viewportY = smallScreen ? -400 : -450;
+    viewportW = canvasWidth;
+    viewportX = viewportW / clickScale + (clickScale*2* nodeRadius);
     viewportH =
       canvasHeight * 5;
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
@@ -590,23 +595,23 @@ const renderTree = function (
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
-    .attr("transform", `translate(${(nodeRadius / 8) * scale}, 75), scale(2)`)
+    .attr("transform", `translate(${(nodeRadius) / scale}, 75), scale(2)`)
     .attr("opacity", (d) => activeOrNonActiveOpacity(d, "0") );
 
   gTooltip
     .append("rect")
-    .attr("width", 25)
-    .attr("height", 25)
-    .attr("x", -10)
-    .attr("y", -15);
+    .attr("width", 3)
+    .attr("height", 45)
+    .attr("x", -6)
+    .attr("y", -25);
 
   gTooltip
     .append("rect")
-    .attr("width", 300)
+    .attr("width", 275)
     .attr("height", 100)
-    .attr("x", -10)
-    .attr("y", -15)
-    .attr("rx", nodeRadius / 3);
+    .attr("x", -6)
+    .attr("y", -10)
+    .attr("rx", 15);
 
   // Split the name label into two parts:
   gTooltip
@@ -666,12 +671,13 @@ const renderTree = function (
   const gButton = gCircle
     .append("g")
     .classed("habit-label-dash-button", true)
-    .attr("transform", `translate(${130}, 0), scale(1.75)`)
+    .attr("transform", `translate(${200}, -50), scale(2.75)`)
     .attr("style", "opacity: 0");
 
   gButton
     .append("rect")
-    .attr("rx", nodeRadius / 4)
+    .attr("rx", 35)
+    .attr("y", 5)
     .attr("width", 100)
     .attr("height", 30)
     .on("click", (e) => {
@@ -679,8 +685,8 @@ const renderTree = function (
     });
   gButton
     .append("text")
-    .attr("x", 10)
-    .attr("y", 20)
+    .attr("x", 35)
+    .attr("y", m.route.param("demo") ? 25 : 30)
     .text((d) => "DETAILS")
     .on("click", (e, n) => {
       HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
@@ -692,8 +698,8 @@ const renderTree = function (
   if (!isDemo) {
     gButton
       .append("rect")
-      .attr("rx", nodeRadius / 4)
-      .attr("x", 90)
+      .attr("rx", 15)
+      .attr("y", -20)
       .attr("width", 100)
       .attr("height", 30)
       .on("click", (e) => {
@@ -701,8 +707,8 @@ const renderTree = function (
       });
     gButton
       .append("text")
-      .attr("x", 100)
-      .attr("y", 20)
+      .attr("x", 35)
+      .attr("y", (d) => d.parent ? 0 : 5)
       .text((d) => "APPEND")
       .on("click", (e, n) => {
         openModal(true);
@@ -711,25 +717,26 @@ const renderTree = function (
         m.redraw();
       });
     gButton
-    .append("rect")
-    .attr("style", (d) => d.parent ? "opacity: 0" : "opacity: 1")
-    .attr("rx", nodeRadius / 4)
-    .attr("x", 175)
-    .attr("width", 110)
-    .attr("height", 30)
-    .on("click", (e) => {
-      e.stopPropagation();
-    });
+      .append("rect")
+      .attr("style", (d) => (d.parent ? "opacity: 0" : "opacity: 1"))
+      .attr("rx", 15)
+      .attr("y", -45)
+      .attr("width", 100)
+      .attr("height", 30)
+      .on("click", (e) => {
+        e.stopPropagation();
+      });
     gButton
-    .append("text")
-    .attr("x", 195)
-    .attr("y", 20)
-    .text((d) => "PREPEND")
-    .on("click", (e, n) => {
-      openModal(true);
-      updateCurrentHabit(n, false);
-      modalType("d3vis-prepend");
-      m.redraw();
+      .append("text")
+      .attr("style", (d) => (d.parent ? "opacity: 0" : "opacity: 1"))
+      .attr("x", 13)
+      .attr("y", -20)
+      .text((d) => "PREPEND")
+      .on("click", (e, n) => {
+        openModal(true);
+        updateCurrentHabit(n, false);
+        modalType("d3vis-prepend");
+        m.redraw();
       });
     };
       

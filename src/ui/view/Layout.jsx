@@ -22,6 +22,7 @@ import {
   openSpinner,
   addSwipeGestures,
   addIntersectionObserver,
+  addTooltips
 } from "../assets/scripts/animations";
 import {
   changedFromDemo,
@@ -53,71 +54,7 @@ export default {
     if (modalType()) openModal(true);
     addSwipeGestures();
     addIntersectionObserver();
-
-    // First time user interaction tooltips:
-    document.addEventListener('DOMContentLoaded', () => {
-      let currentLabel = document.querySelector(",current-habit-label-sm");
-      if (!m.route.param('demo') && currentLabel.lastChild.textContent === 'Select a Life-Domain to start tracking') {
-        console.log('HabitStore.current() :>> ', HabitStore.list());
-        if (HabitStore.list().length === 0) {
-          // First page load
-          setTimeout(() => {
-            tippy(".nav-pill:nth-of-type(1)", {
-              content: "This is an example of a life area you might want to track",
-              showOnCreate: true,
-              inertia: true,
-              maxWidth: 150,
-            });
-          }, 7500);
-          setTimeout(() => {
-            tippy(".nav-pill:nth-of-type(2)", {
-              content: "This DEMO of the app only offers a few areas to choose...",
-              showOnCreate: true,
-              inertia: true,
-              maxWidth: 150,
-            });
-          }, 12500);
-          setTimeout(() => {
-            tippy(".nav-pill:nth-of-type(3)", {
-              content: "...so pick an area to start adding habits!",
-              showOnCreate: true,
-              inertia: true,
-              maxWidth: 150,
-            });
-          }, 17500);
-        } else if (HabitStore.list().length === 1) {
-          // After first habit creation
-          if (isTouchDevice()) {
-            setTimeout(() => {
-              tippy(".domain-selector:first-of-type", {
-                content:
-                  "Once you have added several life-domains, switch between them here.",
-                showOnCreate: true,
-                inertia: true,
-                maxWidth: 150,
-              });
-            }, 7500);
-            setTimeout(() => {
-              tippy("#date-today", {
-                content: "You can select date here, but also swipe left/right on any screen to move in time",
-                showOnCreate: true,
-                inertia: true,
-                maxWidth: 150,
-              });
-            }, 17500);
-          } else {
-            setTimeout(() => {
-              tippy("#date-today", {
-                content: "You can change the current tracking date here.",
-                showOnCreate: true,
-                inertia: true,
-                maxWidth: 150,
-              });
-            }, 12500);
-          }
-        }
-      }
-    });
+    addTooltips();
 
     // Domain change event handling
     const domainSelectors = document.querySelectorAll(".domain-selector");
