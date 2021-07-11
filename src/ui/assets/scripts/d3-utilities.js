@@ -247,7 +247,7 @@ const renderTree = function (
   const nodeRadius = (smallScreen ? 8 : 10) * scale;
   let dx = ((canvasWidth / levelsHigh)) / 2;
   let dy = (canvasHeight / levelsWide) * 4;
-  dy *= (zoomedInView && !smallScreen ? 2 : 10);
+  dy *= (zoomedInView && !smallScreen ? 4 : 10);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let activeNode;
@@ -315,7 +315,7 @@ const renderTree = function (
 
   const reset = function () {
     if (zoomBase === undefined) return;
-    scale = isDemo ? 9 : 14;
+    scale = isDemo ? 8 : 14;
     svg.attr("viewBox", defaultView);
     expandTree();
     zoomClicked = {};
@@ -475,7 +475,7 @@ const renderTree = function (
   function calibrateViewPort() {
     viewportY = smallScreen ? -800 : -550;
     viewportW = canvasWidth;
-    viewportX = viewportW / clickScale + (clickScale * ((!isDemo || smallScreen) ? 3 : 10) * nodeRadius);
+    viewportX = viewportW / clickScale + (clickScale * ((!isDemo || smallScreen) ? 3.5 : 10) * nodeRadius);
     viewportH =
       canvasHeight * 5;
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;

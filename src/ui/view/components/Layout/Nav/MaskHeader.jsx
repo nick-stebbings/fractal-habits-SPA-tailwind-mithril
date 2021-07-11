@@ -89,11 +89,11 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
                       </span>
                     </div>
                   </div>
-                  <div className="date-today nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none lg:-mt-3 lg:mr-2 flex items-center justify-between pr-2 mt-2 text-sm text-black rounded-full">
+                  <div className="date-today nav-label-primary bg-gradient-to-l sm:flex-col lg:flex-row border-balance-pshades-dark max-w-12 from-balance-tershades-desat to-balance-tershades-gray lg:rounded-t-none lg:-mt-3 lg:mr-2 rounded-3xl flex items-center justify-between pr-2 mt-2 text-sm text-black">
                     <span className="lg:hidden xl:block md:pt-6 xl:pt-3 pt-0 pb-0 mx-4 mb-1 ml-6">
                       <label htmlFor="date-today">Date</label>
                     </span>
-                    <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none xl:-mt-3 w-56 h-full bg-white rounded-full">
+                    <div className="lg:pr-0 lg:w-auto lg:rounded-3xl lg:rounded-t-none xl:-mt-3 rounded-3xl w-56 h-full bg-white">
                       <span className="lg:pt-2 text-balance-sshades-brighten flex justify-around block w-full mb-1">
                         {HabitStore.current()?.initiation_date && <i
                           id="prev-date-selector"
