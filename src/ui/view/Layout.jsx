@@ -48,11 +48,10 @@ const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
 export default {
   oncreate: ({ attrs: { spinnerState, modalType } }) => {
-    // Data preload handling
     openSpinner(true);
     spinnerState.map(openSpinner);
     if (modalType()) openModal(true);
-    addSwipeGestures();
+    if(isTouchDevice()) addSwipeGestures();
     addIntersectionObserver();
     addTooltips();
 

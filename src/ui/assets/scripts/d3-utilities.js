@@ -475,7 +475,7 @@ const renderTree = function (
   function calibrateViewPort() {
     viewportY = smallScreen ? -800 : -550;
     viewportW = canvasWidth;
-    viewportX = viewportW / clickScale + (clickScale*10* nodeRadius);
+    viewportX = viewportW / clickScale + (clickScale * ((!isDemo || smallScreen) ? 3 : 10) * nodeRadius);
     viewportH =
       canvasHeight * 5;
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
