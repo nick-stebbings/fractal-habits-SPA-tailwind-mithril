@@ -130,16 +130,15 @@ const setHabitLabel = (data) => {
   document.getElementById("current-habit").nextElementSibling.textContent = data?.name 
   document.getElementById("current-habit-sm").nextElementSibling.textContent = data?.name 
 };
-
+let zoomsG;
 const zooms = function (e) {
   const transform = e.transform;
   let scale = transform.k,
     tbound = -canvasHeight * scale*3,
     bbound = canvasHeight * scale*3;
-    console.log('globalZoom :>> ', globalZoom);
   scale = globalZoom ? globalZoom : scale;
   const currentTranslation = [margin.left, margin.top];
-  console.log('globalZoom :>> ', globalZoom);
+  zoomsG = e.transform;
   globalZoom = null;
   globalTranslate = null;
   const translation = [
@@ -187,6 +186,20 @@ const makePatchOrPutRequest = function (isDemo, currentStatus) {
   return HabitDateStore.runUpdate(isDemo, requestBody, DomainStore.current().id);
 };
 
+const setNormalTransform = function (zoomClicked, zoomsG, clickScale) {
+  zoomsG?.k && (zoomsG.k = clickScale);
+
+  if (zoomsG?.x && Object.keys(zoomClicked).length > 0) {
+    // Set the translation for a movement back to 'normal zoom' by feeding the node coordinates and multiplying by the current 'normal' scale
+    zoomsG.x = zoomsG.k * -(zoomClicked?.node.__data__
+      ? zoomClicked?.node.__data__.x
+      : zoomClicked?.node.x);
+    zoomsG.y = zoomsG.k * -(zoomClicked?.node.__data__
+      ? zoomClicked?.node.__data__.y
+      : zoomClicked?.node.y);
+  }
+};
+
 const renderTree = function (
   svg,
   isDemo,
@@ -203,22 +216,26 @@ const renderTree = function (
 
   let rootData = TreeStore.root();
   if (rootData.name === "") return;
+  let clickScale = 4.2;
+  setNormalTransform(zoomClicked, zoomsG, clickScale);
+
+  let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
+  let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
   
   // SETTINGS
   let scale = isDemo ? 9 : 14;
-  let clickScale = 3.2;
-  let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
-  let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
   const zoomBase = canvas;
+  const smallScreen = canvasWidth < 768;
+  const zoomedInView = Object.keys(zoomClicked).length === 0;
   let levelsWide;
   let levelsHigh;
-  let zoomedInView = Object.keys(zoomClicked).length === 0;
+
   svg.selectAll("*").remove();
   const canvas = svg
     .append("g")
     .classed("canvas", true)
     .attr("transform", `scale(${clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
-  const smallScreen = canvasWidth < 768;
+
   if (smallScreen) {
     levelsWide = zoomClicked ? 15 : 12;
     levelsHigh = zoomClicked ? 0.5 : 3;
@@ -226,13 +243,10 @@ const renderTree = function (
     levelsWide = 12;
     levelsHigh = 2;
   }
-  console.log('clickedZoom, zoomClicked :>> ', clickedZoom, zoomClicked);
-  levelsWide *= (isDemo ? 8: 8)
-  levelsHigh *= (isDemo ? 1: 1)
+  levelsWide *= 8
   const nodeRadius = (smallScreen ? 8 : 10) * scale;
   let dx = ((canvasWidth / levelsHigh)) / 2;
   let dy = (canvasHeight / levelsWide) * 4;
-  console.log("dy :>> ", dy, zoomClicked && !smallScreen);
   dy *= (zoomedInView && !smallScreen ? 2 : 10);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
@@ -311,11 +325,11 @@ const renderTree = function (
     zoomBase.call(zoomer.transform, zoomIdentity);
   };
 
-  const handleZoom = function (event, node) {
+  const handleZoom = function (event, node, forParent = false) {
     if (!event || !node || event.deltaY >= 0 || deadNode(event)) return reset();
     globalZoom = clickScale;
     globalTranslate = [node.x, node.y];
-    setActiveNode(node.data);
+    setActiveNode(forParent ? node.parent.data : node.data);
     expand(node);
     updateCurrentHabit(node, false);
     renderTree(svg, isDemo, zoomer, {
@@ -341,23 +355,22 @@ const renderTree = function (
       if (
         targ.closest(".the-node").classList.contains("active") ||
         deadNode(event)
-      )
-        return reset();
-      setActiveNode(node.data);
-      expand(node);
+      ) return reset();
 
-      collapseAroundAndUnder(node, isDemo, true);
+      activeNodeAnimation();
+      setActiveNode(node.data);
+      
       updateCurrentHabit(node, false);
-      // We don't want to zoomClick, just select the active subtree, so don't pass the event just enough to identify active node
+      expand(node);
       renderTree(svg, isDemo, zoomer, {
         event: event,
         node: node,
         content: node.data,
         scale: clickedZoom ? clickScale : scale,
       });
-      activeNodeAnimation();
       setHabitLabel(node.data);
       showHabitLabel();
+      collapseAroundAndUnder(node, false, false);
     }
   };
 
@@ -386,22 +399,19 @@ const renderTree = function (
 
   const handleStatusChange = (event, node) => {
     event.preventDefault();
-    console.log(node);
+    const opts = {
+      event, node,
+      content: node.data,
+    };
     if (deadNode(event)) return reset();
-    setActiveNode(node);
-    renderTree(svg, isDemo, zoomer, {
-      event: event,
-      node: node,
-      content: node.data
-    });
+    setActiveNode(node.data);
+    renderTree(svg, isDemo, zoomer, opts);
     handleStatusToggle(node);
     
-    renderTree(svg, isDemo, zoomer, {
-      event: event,
-      node: node,
-      content: node.data
-    });
-    handleZoom(event, node.parent);
+    setHabitLabel(node.data);
+    handleZoom(event, node.parent, true);
+    zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
+    renderTree(svg, isDemo, zoomer, opts);
   };
 
   const handleEvents = function (selection) {
@@ -463,9 +473,9 @@ const renderTree = function (
   }
 
   function calibrateViewPort() {
-    viewportY = smallScreen ? -400 : -450;
+    viewportY = smallScreen ? -800 : -550;
     viewportW = canvasWidth;
-    viewportX = viewportW / clickScale + (clickScale*2* nodeRadius);
+    viewportX = viewportW / clickScale + (clickScale*10* nodeRadius);
     viewportH =
       canvasHeight * 5;
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
@@ -676,7 +686,7 @@ const renderTree = function (
 
   gButton
     .append("rect")
-    .attr("rx", 35)
+    .attr("rx", 15)
     .attr("y", 5)
     .attr("width", 100)
     .attr("height", 30)
@@ -685,14 +695,15 @@ const renderTree = function (
     });
   gButton
     .append("text")
-    .attr("x", 35)
-    .attr("y", m.route.param("demo") ? 25 : 30)
+    .attr("x", 15)
+    .attr("y", isDemo ? 25 : 30)
     .text((d) => "DETAILS")
     .on("click", (e, n) => {
       HabitStore.current(HabitStore.filterByName(n.data.name)[0]);
       let currentId = HabitStore.current()?.id;
       m.route.set(
-        m.route.param("demo") ? `/habits/list?demo=true` : `/habits/list`, { currentHabit: currentId }
+        m.route.param("demo") ? `/habits/list?demo=true` : `/habits/list`,
+        { currentHabit: currentId }
       );
     });
   if (!isDemo) {
@@ -707,8 +718,8 @@ const renderTree = function (
       });
     gButton
       .append("text")
-      .attr("x", 35)
-      .attr("y", (d) => d.parent ? 0 : 5)
+      .attr("x", 15)
+      .attr("y", (d) => d.parent ? 2 : 5)
       .text((d) => "APPEND")
       .on("click", (e, n) => {
         openModal(true);
@@ -729,7 +740,7 @@ const renderTree = function (
     gButton
       .append("text")
       .attr("style", (d) => (d.parent ? "opacity: 0" : "opacity: 1"))
-      .attr("x", 13)
+      .attr("x", 12)
       .attr("y", -20)
       .text((d) => "PREPEND")
       .on("click", (e, n) => {

@@ -71,10 +71,9 @@ export default {
     });
   },
   oninit: ({ attrs: { spinnerState } }) => {
-    const noParams = !m.route.param("demo");
+    const isnotDemo = !m.route.param("demo");
     if (
-      noParams &&
-      HabitStore.current()?.name !== "Select a Life-Domain to start tracking" &&
+      isnotDemo && HabitStore.current()?.name !== "Select a Life-Domain to start tracking" && HabitDateStore.list().length === 0 &&
       calendarDates() && (
         calendarDates()?.length === 0 ||
           calendarDates().some((date) => date === "") ||
@@ -115,7 +114,7 @@ export default {
         })
         .catch(console.log);
     } else if (
-      (noParams && DateStore.listForHabit().length === 0) ||
+      (isnotDemo && DateStore.listForHabit().length === 0) ||
       changeOfModelContext()
     ) {
       calendarDates(
