@@ -229,7 +229,7 @@ const Routes = MenuRoutes.reduce(
                 .catch(console.log)
             : null;
         },
-        render: (e) =>
+        render: () =>
           menuSection.label === "Visualise"
             ? m(
                 d3visPageMaker(

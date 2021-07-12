@@ -10,6 +10,7 @@ const LogoLink = {
     {
       selector: 'span',
       href: m.route.param('demo') ? '/' : '/?demo=true',
+      options: { replace: true },
       class: 'logo-link',
     },
     <svg viewBox="0 0 48 48">
