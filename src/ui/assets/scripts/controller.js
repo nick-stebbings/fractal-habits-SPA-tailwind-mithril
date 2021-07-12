@@ -29,7 +29,7 @@ function preLoadHabitDateData() {
         HabitDateStore.runFilter(HabitStore.current()?.id);
         DateStore.current() &&
         HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
-      })
+      }).then(m.redraw)
     )
   } else {
     HabitStore.current() && HabitDateStore.runFilter(HabitStore.current()?.id);
