@@ -77,7 +77,7 @@ const addLegend = (svg) => {
     gText
       .append('text')
       .attr('y', 25)
-      .text('R/Click -> Select Family/Tick Off Habit');
+      .text('R/Click -> Select Family');
     gText
       .append("text")
       .text("Zoom On Habit -> Select Family & Centre")
