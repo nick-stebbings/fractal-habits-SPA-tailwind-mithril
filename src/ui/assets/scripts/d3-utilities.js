@@ -389,7 +389,7 @@ const renderTree = function (
     handleStatusToggle(node);
     
     setHabitLabel(node.data);
-    handleZoom(event, node.parent, true);
+    handleZoom(event, node?.parent, true);
     zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
     renderTree(svg, isDemo, zoomer, opts);
   };
