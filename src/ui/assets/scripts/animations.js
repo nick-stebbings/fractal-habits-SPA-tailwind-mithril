@@ -66,13 +66,20 @@ const addIntersectionObserver = function () {
   };
 
   const observerForPageFooter = new IntersectionObserver((entries) => {
+    const controls = document.querySelector('.controlsSvg');
+    const legend = document.querySelector('.legendSvg');
     const buttonGroup = document.querySelector('#create-new-habit-child .button-group');
     const habitInput = document.querySelector('.sub-section-container:last-of-type');
-    console.log('entries :>> ', entries);
     if (!entries[0].isIntersecting) {
       buttonGroup && (buttonGroup.style.opacity = 1);
       habitInput && (habitInput.style.opacity = 1);
       return;
+    }
+    if (legend) {
+      legend.style.opacity = legend.style.opacity === 0 ? 1 : 0;
+    }
+    if (controls) {
+      controls.style.opacity = controls.style.opacity === 0 ? 1 : 0;
     }
     if (buttonGroup) {
       buttonGroup.style.opacity = (buttonGroup.style.opacity === 0 ? 1 : 0);
@@ -188,6 +195,12 @@ const registerEventListeners = (function () {
       // Todo: add this and the logo as 'keyboard pressable' events for accessibility
       hamburgerCheckbox.checked = !hamburgerCheckbox.checked;
     });
+
+    const d3legend = document.querySelector(".legendSvg");
+    d3legend && d3legend.addEventListener('mouseover', (e) => {
+      console.log('e :>> ', e);
+      e.target.style.bottom = '0';
+    })
 
     document.getElementById('modal_overlay') && document.getElementById('modal_overlay').addEventListener('click', (e) => {
       if (e.target.id.includes('close-modal')) {

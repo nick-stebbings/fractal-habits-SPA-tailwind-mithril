@@ -30,7 +30,7 @@ const FeatureCardSection = {
     <div className="wrapper mb-12">
       <div className="wrapper feature-card-section xl:grid flex flex-col overflow-hidden">
         {attrs.cardCopy
-          && attrs.cardCopy.map((content, idx) => {
+          && attrs.cardCopy.map((content) => {
             const {
               title,
               short: shortContentParagaph,

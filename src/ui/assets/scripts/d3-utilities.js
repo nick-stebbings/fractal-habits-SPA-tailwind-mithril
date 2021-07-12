@@ -94,33 +94,13 @@ const addLegend = (svg) => {
     showHabitLabel();
   };
   const colorLegend = legendColor()
-    .labels(["", "", "", "", ""])
     .orient("horizontal")
-    .labels(["", "", "", "", ""])
-    .orient("horizontal")
+    .labels(["Completed", "Not Recorded", "Incomplete", "", ""])
+    .orient("vertical")
     .shape("circle")
-    .shapeRadius(10)
+    .shapeRadius(15)
     .shapePadding(-5)
-    .on("cellover", function (d) {
-      console.log('didit :>> ', didit);
-      habitLabel.textContent = "Key:";
-      habitLabelValue = habitSpan.textContent;
-      habitSpan.textContent = d.target.__data__;
-
-      habitLabelSm.textContent = "Key:";
-      habitLabelValueSm = habitSpanSm.textContent;
-      habitSpanSm.textContent = d.target.__data__;
-      showHabitLabel();
-    })
-    .on("cellout", function (d) {
-      habitLabel.textContent = "Habit";
-      habitSpan.textContent = d.target.__data__;
-      habitSpan.textContent = habitLabelValue;
-
-      habitLabelSm.textContent = "Habit";
-      habitSpanSm.textContent = d.target.__data__;
-      habitSpanSm.textContent = habitLabelValueSm;
-    })
+    .on("cellover", console.log)
     .scale(ordinal);
 
   gLegend.call(colorLegend);
@@ -247,7 +227,7 @@ const renderTree = function (
   const nodeRadius = (smallScreen ? 8 : 10) * scale;
   let dx = ((canvasWidth / levelsHigh)) / 2;
   let dy = (canvasHeight / levelsWide) * 4;
-  dy *= (zoomedInView && !smallScreen ? 4 : 10);
+  dy *= (zoomedInView && !smallScreen ? 10 : 14);
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let activeNode;

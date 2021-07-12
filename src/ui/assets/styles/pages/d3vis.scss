@@ -8,7 +8,18 @@ g.nodes {
 }
 
 .legendSvg, .controlsSvg {
-  pointer-events: none;
+	pointer-events: none;
+}
+
+.legendSvg {
+	left: 0.25rem;
+	transition: bottom 0.3s ease-in;
+	bottom:-9.75rem;
+	z-index: 100;
+	@apply h-72 w-72;
+	text {
+    font-size:0.5rem;
+	}
 }
 
 .the-node.active circle {

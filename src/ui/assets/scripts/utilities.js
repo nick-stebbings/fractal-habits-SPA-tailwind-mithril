@@ -76,7 +76,7 @@ const handleErrorType = function (err, type = "warning") {
       : err;
   const opts = {
     interactive: true,
-    timeout: 1000 
+    timeout: 2000 
   };
   switch (type) {
     case "info":
