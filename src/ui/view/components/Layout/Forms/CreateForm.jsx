@@ -21,7 +21,7 @@ const processFormData = function (dom, attrs) {
     });
   dom
     .querySelector('form button[type=submit]')
-    .addEventListener('click', (e) => {
+    .addEventListener('click', () => {
       const form = document.querySelector(`form#create-${attrs.resourceName}`);
       const inputs = [...form.querySelectorAll('input')];
       if (inputs.some((i) => !i.validity.valid)) {
@@ -46,6 +46,7 @@ const processFormData = function (dom, attrs) {
         data.parent_node_id = (attrs.modalType() === 'd3vis-prepend' ? `D${data.domain_id}` : HabitStore.current().id);
       } else {
         // Assume it is the front page modal and thus a root node
+        console.log(data);
         data.parent_node_id = null;
       }
 

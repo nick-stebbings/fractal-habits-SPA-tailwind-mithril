@@ -129,6 +129,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
           newList.pop();
         newList.push(current);
         HabitStore.fullList(newList);
+        HabitStore.current(current);
         return current;
       })
       .then(() => {
@@ -145,16 +146,6 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
         (habit) => habit.habit_node_id === +nodeId
       )[0]
     ),
-
-  runReplace: (id, value) =>
-    HabitStore.replace(id, value).catch((e) => {
-      // TODO update list/current
-    }),
-
-  runUpdate: (id, value) =>
-    HabitStore.update(id, value).catch((e) => {
-      // TODO update list/current
-    }),
 
   runDelete: (id) =>
     HabitStore.delete(id)
