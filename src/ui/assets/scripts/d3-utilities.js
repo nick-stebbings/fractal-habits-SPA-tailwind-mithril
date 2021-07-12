@@ -358,6 +358,7 @@ const renderTree = function (
 
   const handleStatusChange = (event, node) => {
     event.preventDefault();
+    if (node.children) return;
     const opts = {
       event,
       node,

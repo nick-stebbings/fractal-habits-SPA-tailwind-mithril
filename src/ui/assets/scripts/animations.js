@@ -102,7 +102,7 @@ const addTooltips = function () {
     console.log('HabitStore.current() :>> ', HabitStore.fullList());
     // First time user interaction tooltips:
     // First page load
-    let modalIsVisible = getElementById('modal_overlay');
+    let modalIsVisible = document.getElementById('modal_overlay') && !document.getElementById('modal_overlay').classList.includes('hidden');
     setTimeout(() => {
       if (HabitDateStore.list().length > 0 || modalIsVisible) return;
       tippy(".nav-pill:nth-of-type(1)", {

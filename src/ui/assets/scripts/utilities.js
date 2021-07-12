@@ -14,7 +14,7 @@ const addActiveMenuStyles = function () {
     if (menuCardButton.getAttribute("href").endsWith(currentPath)) {
       menuCard.classList.add("active");
       menuCardButton.classList.add("active");
-      menuCardButton.textContent = "YOU ARE HERE";
+      menuCardButton.textContent = "Your Are Here";
     } else if (menuCard.classList.contains("active")) {
       menuCard.classList.toggle("active");
       menuCardButton.classList.toggle("active");
