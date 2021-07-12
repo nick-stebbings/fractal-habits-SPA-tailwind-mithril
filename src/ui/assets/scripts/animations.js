@@ -102,8 +102,9 @@ const addTooltips = function () {
     console.log('HabitStore.current() :>> ', HabitStore.fullList());
     // First time user interaction tooltips:
     // First page load
+    let modalIsVisible = getElementById('modal_overlay');
     setTimeout(() => {
-      if (HabitDateStore.list().length > 0) return;
+      if (HabitDateStore.list().length > 0 || modalIsVisible) return;
       tippy(".nav-pill:nth-of-type(1)", {
         content: "This is an example of a life area you might want to track",
         showOnCreate: true,
@@ -112,7 +113,7 @@ const addTooltips = function () {
       });
     }, 7500);
     setTimeout(() => {
-      if (HabitDateStore.list().length > 0) return;
+      if (HabitDateStore.list().length > 0 || modalIsVisible) return;
       tippy(".nav-pill:nth-of-type(2)", {
         content: "This DEMO of the app only offers a few areas to choose...",
         showOnCreate: true,
@@ -121,7 +122,7 @@ const addTooltips = function () {
       });
     }, 12500);
     setTimeout(() => {
-      if (HabitDateStore.list().length > 0) return;
+      if (HabitDateStore.list().length > 0 || modalIsVisible) return;
       tippy(".nav-pill:nth-of-type(3)", {
         content: "...so pick an area to start adding habits!",
         showOnCreate: true,

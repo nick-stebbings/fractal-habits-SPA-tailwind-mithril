@@ -31,15 +31,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-      - name: Build and push API
-        id: docker_build_api
-        uses: docker/build-push-action@v2
-        with:
-          context: ./src/api
-          file: ./src/api/Dockerfile
-          push: true
-          tags: nickstebb/hht-api:latest
           
       - name: Build and push frontend
         id: docker_build_front

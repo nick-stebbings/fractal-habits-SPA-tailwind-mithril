@@ -40,13 +40,16 @@ const processFormData = function (dom, attrs) {
       }); // Assign values while swapping for snake_case
 
       data.domain_id = attrs.domain().id;
-      if (attrs.resourceName === 'new-habit-child') {
+      if (attrs.resourceName === "new-habit-child" || HabitStore.current()?.id) {
         // Assign a -1 id for parent if it is a d3vis-prepend modalType (root node)
         // Then pass the domain_id as a string to signal to the API to reorder nodes
-        data.parent_node_id = (attrs.modalType() === 'd3vis-prepend' ? `D${data.domain_id}` : HabitStore.current().id);
+        data.parent_node_id =
+          attrs.modalType() === "d3vis-prepend"
+            ? `D${data.domain_id}`
+            : HabitStore.current().id;
+        console.log(data);
       } else {
         // Assume it is the front page modal and thus a root node
-        console.log(data);
         data.parent_node_id = null;
       }
 
@@ -138,7 +141,7 @@ const CreateForm = {
             name: 'initiation-date',
             class: 'form-input w-3/4 sm:w-2/3 md:w-1/2',
             max: String(DateStore.currentDate()),
-            min: '2021-01-01',
+            min: '2021-06-01',
           }),
         ),
       ])}

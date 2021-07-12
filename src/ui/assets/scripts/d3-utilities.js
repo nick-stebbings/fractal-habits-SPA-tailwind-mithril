@@ -342,6 +342,8 @@ const renderTree = function (
       
       updateCurrentHabit(node, false);
       expand(node);
+      
+      zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
       renderTree(svg, isDemo, zoomer, {
         event: event,
         node: node,
@@ -352,6 +354,25 @@ const renderTree = function (
       showHabitLabel();
       collapseAroundAndUnder(node, false, false);
     }
+  };
+
+  const handleStatusChange = (event, node) => {
+    event.preventDefault();
+    const opts = {
+      event,
+      node,
+      content: node.data,
+    };
+    if (deadNode(event)) return reset();
+    setActiveNode(node.data)
+    expand(node);
+    renderTree(svg, isDemo, zoomer, opts);
+    handleStatusToggle(node);
+
+    setHabitLabel(node.data);
+    handleZoom(event, node?.parent, true);
+    zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
+    renderTree(svg, isDemo, zoomer, opts);
   };
 
   const handleHover = (e, d) => {
@@ -375,23 +396,6 @@ const renderTree = function (
       });
       currentButton.transition().delay(200).duration(850).style("opacity", "1");
     }
-  };;
-
-  const handleStatusChange = (event, node) => {
-    event.preventDefault();
-    const opts = {
-      event, node,
-      content: node.data,
-    };
-    if (deadNode(event)) return reset();
-    setActiveNode(node.data);
-    renderTree(svg, isDemo, zoomer, opts);
-    handleStatusToggle(node);
-    
-    setHabitLabel(node.data);
-    handleZoom(event, node?.parent, true);
-    zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
-    renderTree(svg, isDemo, zoomer, opts);
   };
 
   const handleEvents = function (selection) {
