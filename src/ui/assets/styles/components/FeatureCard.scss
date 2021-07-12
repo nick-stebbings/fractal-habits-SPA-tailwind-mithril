@@ -210,7 +210,7 @@ figure figcaption, figcaption:last-child {
 
   #app .feature-card h2 {
     margin: 4rem auto;
-    width:100%;
+    width: 80%;
   }
 }
 
@@ -252,7 +252,8 @@ figure figcaption, figcaption:last-child {
   }
 
   .long-content, .long-content-wrapper {
-    display:initial;
+    display:block;
+    overflow:hidden;
   }
 
   .feature-card-section {
@@ -347,7 +348,7 @@ figure figcaption, figcaption:last-child {
   }
 
   .wrapper .feature-card:nth-child(2n) h2 {
-    left: 58vw;
+    left:36vw;
     text-align: right;
   }
 

@@ -31,7 +31,8 @@ import {
   resetContextStates,
   changedDate,
   preLoadHabitDateData,
-  changedDomain
+  changedDomain,
+  newRecord
 } from "../assets/scripts/controller";
 import { isTouchDevice } from '../assets/scripts/utilities.js';
 
@@ -130,7 +131,7 @@ export default {
             .slice(-7)
       );
     }
-    if (changeOfModelContext() || changedDate()) {
+    if (changeOfModelContext() || changedDate() || newRecord()) {
       console.log("changeOfModelContext() :>> ", changeOfModelContext());
       updateDomainSelectors();
       if (isVisPage()) loadTreeData();

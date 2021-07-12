@@ -129,7 +129,7 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
           newList.pop();
         newList.push(current);
         HabitStore.fullList(newList);
-        HabitStore.clear();
+        HabitStore.current(current);
         return current;
       })
       .then(() => {

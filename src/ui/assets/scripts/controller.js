@@ -65,7 +65,7 @@ function changeOfModelContext() {
       console.log("newDate() :>> ", newDate());
       console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
       console.log(' HabitDateStore.list() :>> ',  HabitStore.list());
-      return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain());
+      return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || newDate() || newRecord());
     };
 
 function updateDomainSelectors() {
