@@ -318,6 +318,7 @@ module Hht
       post '' do
         habit = MultiJson.load(request.body.read, symbolize_keys: true)
         habit = sanitise_values(habit)
+        
         created = habit_repo.create(habit)
 
         halt(400, { message: unwrap_validation_error(created) }.to_json) unless created.success?
