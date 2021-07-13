@@ -52,6 +52,7 @@ const processFormData = function (dom, attrs) {
         // Assume it is the front page modal and thus a root node
         data.parent_node_id = null;
       }
+      debugger;
 
       DateStore.submit({ h_date: data.initiation_date })
         .then(() => HabitStore.submit(data))
