@@ -27,6 +27,7 @@ import {
   updateDomainSelectors,
   resetContextStates,
   calendarDates,
+  newRecord,
   statuses,
   preLoadHabitDateData,
   loadTreeData,
@@ -65,13 +66,17 @@ export default {
     });
   },
   oninit: ({ attrs: { spinnerState } }) => {
-    if (changedDate()) return;
+    if (changedDate()) {
+      if (isVisPage()) loadTreeData();
+      return;
+    }
     if (DateStore.list().length > 0 && changeOfModelContext()) {
+      let habitReload = newRecord() && HabitStore.index();
       let habitDateReload = preLoadHabitDateData();
       fetching(true);
       spinnerState(true);
       openModal(true);
-      Promise.all([habitDateReload]).then(() => populateCalendar()).then(() => {
+      Promise.all([habitReload, habitDateReload]).then(() => populateCalendar()).then(() => {
         resetContextStates();
         fetching(false);
         spinnerState(false);

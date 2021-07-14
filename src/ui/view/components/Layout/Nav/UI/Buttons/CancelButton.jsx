@@ -1,11 +1,12 @@
 import { openModal } from '../../../../../../assets/scripts/animations';
+import { newRecord } from '../../../../../../assets/scripts/controller';
 
 const CancelButton = {
   oncreate: ({ attrs, dom }) => {
     dom.addEventListener('click', () => {
       openModal(false);
+      newRecord(true);
       attrs.modalType && attrs.modalType(false);
-
       [...document.querySelectorAll('.not-added')].forEach((label) => label.classList.remove('not-added'));
     });
   },
