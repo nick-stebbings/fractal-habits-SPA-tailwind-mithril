@@ -21,7 +21,7 @@ import {
 } from "../assets/scripts/animations";
 import {
   fetching,
-  changedHabit,
+  changedDate,
   changedFromDemo,
   changeOfModelContext,
   updateDomainSelectors,
@@ -30,10 +30,9 @@ import {
   statuses,
   preLoadHabitDateData,
   loadTreeData,
-  populateCalendar
+  populateCalendar,
 } from "../assets/scripts/controller";
 import { isTouchDevice } from '../assets/scripts/utilities.js';
-import { changedDate, newRecord } from '../../../../../Users/nicko/h2/src/ui/assets/scripts/controller';
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
