@@ -1,7 +1,7 @@
 import HabitStore from '../../../../../store/habit-store.js';
 
 import GeneralButton from './Buttons/GeneralButton.jsx';
-import { calendarDates } from '../../../../Layout.jsx';
+import { changedHabit } from '../../../../../assets/scripts/controller';
 
 const ListCard = {
   oncreate: () => {
@@ -24,6 +24,7 @@ const ListCard = {
           HabitStore.current(
             HabitStore.filterById(+e.target.getAttribute('data-id'))[0],
           );
+          changedHabit(true);
           m.redraw();
         }
       })}

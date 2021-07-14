@@ -21,6 +21,7 @@ import {
 } from "../assets/scripts/animations";
 import {
   fetching,
+  changedHabit,
   changedFromDemo,
   changeOfModelContext,
   updateDomainSelectors,
@@ -32,7 +33,7 @@ import {
   populateCalendar
 } from "../assets/scripts/controller";
 import { isTouchDevice } from '../assets/scripts/utilities.js';
-import { changedDate } from '../../../../../Users/nicko/h2/src/ui/assets/scripts/controller';
+import { changedDate, newRecord } from '../../../../../Users/nicko/h2/src/ui/assets/scripts/controller';
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
@@ -53,11 +54,12 @@ export default {
         updateDomainSelectors();
         HabitStore.indexHabitsOfDomain(DomainStore.current()?.id, true);
         if (isVisPage()) loadTreeData();
-        Promise.all([preLoadHabitDateData(), populateCalendar()]).then(() => {
+        spinnerState(true);
+        fetching(true);
+        Promise.all([preLoadHabitDateData()]).then(() => populateCalendar()).then(() => {
           resetContextStates();
           fetching(false);
           spinnerState(false);
-          openModal(false);
           m.redraw();
         });
       });
@@ -65,9 +67,9 @@ export default {
   },
   oninit: ({ attrs: { spinnerState } }) => {
     if (changedDate()) return;
-    let habitDateReload = preLoadHabitDateData();
+    console.log('changedHabit() :>> ', changedHabit());
     if (DateStore.list().length > 0 && changeOfModelContext()) {
-      console.log('triggered update :>> ');
+      let habitDateReload = preLoadHabitDateData();
       fetching(true);
       spinnerState(true);
       openModal(true);
@@ -81,6 +83,7 @@ export default {
     }
   },
   onupdate: ({ attrs: { spinnerState } }) => {
+    console.log("changedHabit() :>> ", changedHabit());
     if (fetching()) return;
     console.log('rerender :>> ', fetching());
     let treeReload = isVisPage() && loadTreeData();

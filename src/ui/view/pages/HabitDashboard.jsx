@@ -79,7 +79,6 @@ const HabitDashboard = {
         invert(statusOrderAsc);
         HabitStore.sortByStatus(statusOrderAsc());
         setRouteToBasePath();
-        changedHabit(true);
         m.redraw();
       });
 
@@ -132,7 +131,7 @@ const HabitDashboard = {
             attrs.modalType("confirm");
             openModal(true);
           }
-          calendarDates([]);
+          changedHabit(true);
           // Stop the query parameters from persisting past first load
           if (!e.target.tagName == "circle") setRouteToBasePath(HabitStore.current()?.id);
         }
