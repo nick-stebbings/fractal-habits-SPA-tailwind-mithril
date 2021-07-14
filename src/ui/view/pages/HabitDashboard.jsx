@@ -19,6 +19,7 @@ import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 import {calendarDates} from "../Layout.jsx";
 import { openModal } from "../../assets/scripts/animations";
+import { changedHabit } from "../../assets/scripts/controller";
 import { setRouteToBasePath, invert, isTouchDevice } from "../../assets/scripts/utilities";
 
 const nameOrderAsc = stream(true);
@@ -79,6 +80,7 @@ const HabitDashboard = {
         invert(statusOrderAsc);
         HabitStore.sortByStatus(statusOrderAsc());
         setRouteToBasePath();
+        changedHabit(true);
         m.redraw();
       });
 
@@ -135,6 +137,7 @@ const HabitDashboard = {
           // Stop the query parameters from persisting past first load
           if (!e.target.tagName == "circle") setRouteToBasePath(HabitStore.current()?.id);
         }
+        m.redraw();
       });
     });
   },

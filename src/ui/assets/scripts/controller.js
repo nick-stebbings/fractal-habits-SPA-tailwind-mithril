@@ -12,28 +12,24 @@ const outOfDateBoundary = stream();
 const changedDate = stream();
 const newDate = stream();
 const changedDomain = stream();
+const changedHabit = stream();
 const newRecord = stream();
 const parsedDates = () => DateStore.listForHabit().map(
   (d) => DateTime.fromSQL(d?.h_date).ts
 );
 
 function preLoadHabitDateData() {
-  console.log('preloaded habit data')
-  if (!m.route.param("demo")) {
-    return DomainStore.index().then(
-      HabitDateStore.index()
-      .then(NodeStore.index)
-      .then(() => {
-        HabitStore.sortByDate();
-        HabitStore.current() &&
+  console.log('preloaded habit date data')
+  if (m.route.param("demo")) return;
+  return HabitDateStore.index()
+    .then(NodeStore.index)
+    .then(() => {
+      HabitStore.sortByDate();
+      HabitStore.current() &&
         HabitDateStore.runFilter(HabitStore.current()?.id);
-        DateStore.current() &&
+      DateStore.current() &&
         HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
-      })
-    )
-  } else {
-    HabitStore.current() && HabitDateStore.runFilter(HabitStore.current()?.id);
-  }
+    });
 };
 
 function changeOfModelContext() {
@@ -44,29 +40,32 @@ function changeOfModelContext() {
     HabitDateStore.list().length === 28 &&
     HabitDateStore.list()[0].date_id !== 1
   );
-    // Reset the current date when you switch to a habit with no record of that date
-    outOfDateBoundary(
-      HabitStore.current() && changedDate() &&
-      DateTime.fromSQL(HabitStore.current()?.initiation_date) >
-      DateTime.fromSQL(DateStore.current()?.h_date)
-      );
-      
-      const todaysDate = DateTime.now().startOf("day");
-      const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
-      
-      if (DateStore.listForHabit() && !newDate() && (maxDate < todaysDate)) {
-        newDate(true);
-      };
-      // // // Sanity check logs::
-      console.log('newRecord() :>> ', newRecord());
-      console.log("changedFromDemo() :>> ", changedFromDemo());
-      console.log("changedToDemo() :>> ", changedToDemo());
-      console.log("changedDomain() :>> ", changedDomain());
-      console.log("newDate() :>> ", newDate());
-      console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
-      console.log(' HabitDateStore.list() :>> ',  HabitStore.list());
-      return (newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || newDate() || newRecord());
-    };
+  // Reset the current date when you switch to a habit with no record of that date
+  outOfDateBoundary(
+    HabitStore.current() && changedDate() &&
+    DateTime.fromSQL(HabitStore.current()?.initiation_date) >
+    DateTime.fromSQL(DateStore.current()?.h_date)
+    );
+    
+  const todaysDate = DateTime.now().startOf("day");
+  const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
+  
+  if (DateStore.listForHabit() && !newDate() && (maxDate < todaysDate)) {
+    newDate(true);
+  };
+  
+  let needRefresh = newRecord() || changedFromDemo() || changedToDemo() || outOfDateBoundary() || changedDomain() || changedHabit() || newDate()|| changedDate() || newRecord()
+  if (needRefresh) {
+    // // // // Sanity check logs::
+    console.log("newRecord() :>> ", newRecord());
+    console.log("changedFromDemo() :>> ", changedFromDemo());
+    console.log("changedToDemo() :>> ", changedToDemo());
+    console.log("changedDomain() :>> ", changedDomain());
+    console.log("newDate() :>> ", newDate());
+    console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
+    console.log(' HabitDateStore.list() :>> ',  HabitStore.list());}
+  return needRefresh;
+};
 
 function updateDomainSelectors() {
   document.querySelectorAll(".domain-selector").forEach((selector) => {
@@ -87,6 +86,8 @@ const resetContextStates = () => {
   changedFromDemo(false) ;
   changedToDemo(false);
   changedDomain(false);
+  changedDate(false);
+  changedHabit(false);
   newDate(false);
   if (outOfDateBoundary()) {
     let newListForHabit = DateStore.filterForHabit(HabitStore.current());
@@ -107,6 +108,7 @@ export {
   changedDate,
   newDate,
   changedDomain,
+  changedHabit,
   outOfDateBoundary,
   changeOfModelContext,
   updateDomainSelectors,

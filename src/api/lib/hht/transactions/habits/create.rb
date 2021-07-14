@@ -29,7 +29,7 @@ module Hht
           .by_id(habit_id)
           .one
           .habit_node_id
-          .to_i unless (habit_id.is_a?(String) && (habit_id[0] == 'D' || habit_id == ''))
+          .to_i unless habit_id.is_a?(String) && (habit_id[0] == 'D') || habit_id == '' || habit_id.nil?
 
           # It is necessary to create a habit_node and give an id for validation
           parent_id = domain_root_node.exist? ? (parent_node_id || habit_id) : nil

@@ -38,13 +38,45 @@ import { isTouchDevice } from '../assets/scripts/utilities.js';
 
 function loadTreeData() {
   if (DomainStore.current() && DateStore.current()) {
-    TreeStore.index(
+    return TreeStore.index(
       m.route.param("demo"),
       DomainStore.current()?.id,
       DateStore.current()?.id
-    ).then(m.redraw);
+    );
   }
 };
+
+function populateCalendar(spinnerState) {
+  return HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
+    .then((data) => {
+      statuses(
+        data?.slice(-7).map((date) => ({
+          date_id: date.date_id,
+          completed_status: date.completed_status,
+        }))
+      );
+      const dates =
+        statuses() &&
+        statuses()
+          .map((statusObj) => {
+            return (
+              DateStore.dateFromDateObjectArray(
+                statusObj.date_id,
+                DateStore.listForHabit().reverse()
+              ) || ""
+            );
+          })
+          .slice(-7);
+      DateStore.listForHabit(DateStore.listForHabit().slice(-7));
+      calendarDates(dates);
+    })
+    .then(() => {
+      spinnerState(false);
+      openModal(false);
+      changedDate(true);
+    })
+}
+
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
 export default {
@@ -61,88 +93,26 @@ export default {
     [...domainSelectors].forEach((selector) => {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
-        HabitStore.indexHabitsOfDomain(DomainStore.current().id, true);
-        calendarDates([]);
         updateDomainSelectors();
+        HabitStore.indexHabitsOfDomain(DomainStore.current()?.id);
         if (isVisPage()) loadTreeData();
         resetContextStates();
-        m.redraw();
+
+        populateCalendar(spinnerState)
+          .then(m.redraw);
+        console.log('changed domain :>> ');
       });
     });
   },
   oninit: ({ attrs: { spinnerState } }) => {
-    const isnotDemo = !m.route.param("demo");
-    if (
-      isnotDemo && HabitStore.current()?.name !== "Select a Life-Domain to start tracking" && HabitDateStore.list().length === 0 &&
-      calendarDates() && (
-        calendarDates()?.length === 0 ||
-          calendarDates().some((date) => date === "") ||
-          calendarDates().length !== DateStore.listForHabit().length
-      )
-    ) {
-      openModal(true);
-      spinnerState(true);
-      HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
-        .then((data) => {
-          statuses(
-            data?.slice(-7).map((date) => ({
-              date_id: date.date_id,
-              completed_status: date.completed_status,
-            }))
-          );
-          console.log("statuses() :>> ", statuses());
-          const dates =
-            statuses() &&
-            statuses()
-              .map((statusObj) => {
-                return (
-                  DateStore.dateFromDateObjectArray(
-                    statusObj.date_id,
-                    DateStore.listForHabit().reverse()
-                  ) || ""
-                );
-              })
-              .slice(-7);
-          DateStore.listForHabit(DateStore.listForHabit().slice(-7));
-          calendarDates(dates);
-        })
-        .then(() => {
-          spinnerState(false);
-          openModal(false);
-          changedDate(true);
-          m.redraw();
-        })
-        .catch(console.log);
-    } else if (
-      (isnotDemo && DateStore.listForHabit().length === 0) ||
-      changeOfModelContext()
-    ) {
-      calendarDates(
-        statuses() &&
-          statuses()
-            .map((statusObj) => {
-              return (
-                DateStore.dateFromDateObjectArray(
-                  statusObj.date_id,
-                  DateStore.listForHabit().reverse()
-                ) || ""
-              );
-            })
-            .slice(-7)
-      );
-    }
-    if (changeOfModelContext() || changedDate() || newRecord()) {
-      console.log("changeOfModelContext() :>> ", changeOfModelContext());
-      updateDomainSelectors();
-      if (isVisPage()) loadTreeData();
-      if (!(changedDomain() || changedDate())) preLoadHabitDateData();
-      resetContextStates();
-    }
-    if (isVisPage() && changedDate()) {
-      console.log("visRedrawn :>> ", TreeStore.root());
-      resetContextStates();
-      loadTreeData();
-    }
+    let treeReload = isVisPage() && loadTreeData();
+    let habitDateReload = changedDomain() && preLoadHabitDateData();
+    let calendarReload = populateCalendar(spinnerState);
+    changeOfModelContext() &&
+      Promise.all([treeReload, habitDateReload, calendarReload]).then(() => {
+        resetContextStates();
+        m.redraw();
+      });
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },

@@ -134,20 +134,23 @@ function populateStores({demo}) {
         ? "Habits Indexed"
         : "Habits loaded from the Store"
     );
-    let habitLoad = (HabitStore.current()?.name == "Select a Life-Domain to start tracking" // If we still have default habit data
-    ? HabitStore.index()
-    : Promise.resolve(HabitStore.fullList())
+    let habitLoad = (
+      (HabitStore.current()?.name == "Select a Life-Domain to start tracking" ||
+      HabitStore.current()?.name ==
+        "There are no habits yet for this domain") // If we still have default habit data
+        ? HabitStore.index()
+        : HabitStore.index() || Promise.resolve(HabitStore.fullList())
     )
       .then((habits) => {
         return new Promise((resolve, reject) => {
-            habits.length !== 0
-              ? resolve(habits)
-              : reject("There are no habits to load, yet!");
-          })}
-        )
-        .catch((message) => {
-          handleErrorType(message, "info");
+          habits.length !== 0
+            ? resolve(habits)
+            : reject("There are no habits to load, yet!");
         });
+      })
+      .catch((message) => {
+        handleErrorType(message, "info");
+      });
 
     console.log(DomainStore.current()?.name == "No Domains Registered" ? 'Domains Indexed' : 'Domains loaded from the Store');
     let domainLoad = (DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
@@ -184,6 +187,7 @@ function populateStores({demo}) {
       .then(() => {
         HabitStore.indexHabitsOfDomain(DomainStore.current().id);
         HabitDateStore.filterListByHabitId(HabitStore.current().id);
+        console.log(HabitStore.fullList(), HabitStore.current(), DomainStore.current(), DateStore.listForHabit())
         console.log('Full reload of data')
         m.redraw();
         spinnerState(false);

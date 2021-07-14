@@ -318,7 +318,7 @@ module Hht
       post '' do
         habit = MultiJson.load(request.body.read, symbolize_keys: true)
         habit = sanitise_values(habit)
-        
+        (habit[:parent_node_id] = nil) if habit[:parent_node_id] == ''
         created = habit_repo.create(habit)
 
         halt(400, { message: unwrap_validation_error(created) }.to_json) unless created.success?
