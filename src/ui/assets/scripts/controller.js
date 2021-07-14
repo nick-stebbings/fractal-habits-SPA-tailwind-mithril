@@ -93,6 +93,8 @@ function updateDomainSelectors() {
 function preLoadHabitDateData() {
   console.log('preloaded habit date data')
   if (m.route.param("demo")) return;
+  
+  DateStore.indexDatesOfHabit(HabitStore.current());
   return HabitDateStore.index()
     .then(NodeStore.index)
     .then(() => {

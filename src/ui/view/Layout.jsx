@@ -32,6 +32,7 @@ import {
   populateCalendar
 } from "../assets/scripts/controller";
 import { isTouchDevice } from '../assets/scripts/utilities.js';
+import { changedDate } from '../../../../../Users/nicko/h2/src/ui/assets/scripts/controller';
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
@@ -52,30 +53,50 @@ export default {
         updateDomainSelectors();
         HabitStore.indexHabitsOfDomain(DomainStore.current()?.id, true);
         if (isVisPage()) loadTreeData();
-        resetContextStates();
-        populateCalendar()
-          .then(m.redraw);
+        Promise.all([preLoadHabitDateData(), populateCalendar()]).then(() => {
+          resetContextStates();
+          fetching(false);
+          spinnerState(false);
+          openModal(false);
+          m.redraw();
+        });
       });
     });
   },
   oninit: ({ attrs: { spinnerState } }) => {
-    DateStore.list().length > 0 && populateCalendar(spinnerState, openModal);
-  },
-  onupdate: ({ attrs: { spinnerState } }) => {
-    if (fetching()) return;
-    console.log('rerender :>> ', fetching());
-    let treeReload = isVisPage() && loadTreeData();
+    if (changedDate()) return;
     let habitDateReload = preLoadHabitDateData();
-    let calendarReload = populateCalendar();
-    changeOfModelContext() && fetching(true) && 
-    spinnerState(true) && openModal(true) &&
-      Promise.all([treeReload, habitDateReload, calendarReload]).then(() => {
+    if (DateStore.list().length > 0 && changeOfModelContext()) {
+      console.log('triggered update :>> ');
+      fetching(true);
+      spinnerState(true);
+      openModal(true);
+      Promise.all([habitDateReload]).then(() => populateCalendar()).then(() => {
         resetContextStates();
         fetching(false);
         spinnerState(false);
         openModal(false);
         m.redraw();
       });
+    }
+  },
+  onupdate: ({ attrs: { spinnerState } }) => {
+    if (fetching()) return;
+    console.log('rerender :>> ', fetching());
+    let treeReload = isVisPage() && loadTreeData();
+    changeOfModelContext() &&
+      fetching(true) &&
+      spinnerState(true) &&
+      openModal(true) &&
+      Promise.all([treeReload, preLoadHabitDateData()]).then(() => populateCalendar()).then(
+        () => {
+          resetContextStates();
+          fetching(false);
+          spinnerState(false);
+          openModal(false);
+          m.redraw();
+        }
+      );
   },
   view: ({
     attrs: { spinnerState, isIndex, modalType },
