@@ -35,7 +35,6 @@ const DateStore = Object.assign(clientRoutes(basePath), {
   to_h_date: (sqlDate) => DateTime.fromSQL(sqlDate.h_date),
 
   dateFromDateObjectArray: (dateId, array) => {
-    debugger;
     return array.length > 0 && DateStore.to_h_date(array.filter((dateObject) => dateObject.id === dateId)[0])
   },
 

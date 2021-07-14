@@ -17,9 +17,8 @@ import {
 
 import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
-import {calendarDates} from "../Layout.jsx";
 import { openModal } from "../../assets/scripts/animations";
-import { changedHabit } from "../../assets/scripts/controller";
+import { changedHabit, calendarDates } from "../../assets/scripts/controller";
 import { setRouteToBasePath, invert, isTouchDevice } from "../../assets/scripts/utilities";
 
 const nameOrderAsc = stream(true);

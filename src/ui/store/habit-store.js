@@ -38,7 +38,6 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
           HabitStore.current(list[list.length - 1]);
           return list;
         }
-        HabitStore.current(list[list.length - 1]);
         return HabitStore.fullList();
       })
       .catch(handleErrorType),

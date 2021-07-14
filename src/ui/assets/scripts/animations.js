@@ -99,7 +99,7 @@ const addTooltips = function () {
     if (HabitStore.current().name !== "Select a Life-Domain to start tracking") return
     // First time user interaction tooltips:
     // First page load
-    let modalIsVisible = document.getElementById('modal_overlay') && !(document.getElementById('modal_overlay').classList.contains('hidden'));
+    let modalIsVisible = document.getElementById('modal_overlay') && (document.getElementById('modal_overlay').classList.contains('hidden'));
     setTimeout(() => {
       if (HabitDateStore.list().length > 0 || modalIsVisible) return;
       tippy(".nav-pill:nth-of-type(1)", {

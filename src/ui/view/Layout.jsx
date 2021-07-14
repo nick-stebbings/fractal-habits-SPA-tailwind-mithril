@@ -1,3 +1,5 @@
+import cloudMan from '../assets/images/cloud-man-vector.svg';
+
 import DomainSelector from './components/Layout/Nav/UI/Inputs/DomainSelector.jsx';
 import DateSelector from './components/Layout/Nav/UI/Inputs/DateSelector.jsx';
 import LogoLink from './components/Layout/Nav/UI/Buttons/LogoLink.jsx';
@@ -6,17 +8,10 @@ import MaskHeader from './components/Layout/Nav/MaskHeader.jsx';
 import MainStage from './components/Layout/MainStage.jsx';
 import Footer from './components/Layout/Footer.jsx';
 
+import DateStore from '../store/date-store';
 import DomainStore from '../store/domain-store';
 import HabitStore from '../store/habit-store';
-import HabitDateStore from '../store/habit-date-store';
-import DateStore from '../store/date-store';
-import TreeStore from '../store/habit-tree-store';
 
-import stream from "mithril/stream";
-export const calendarDates = stream(['', '','', '','', '','']);
-const statuses = stream();
-
-import cloudMan from '../assets/images/cloud-man-vector.svg';
 import {
   openModal,
   openSpinner,
@@ -25,57 +20,18 @@ import {
   addTooltips
 } from "../assets/scripts/animations";
 import {
+  fetching,
   changedFromDemo,
   changeOfModelContext,
   updateDomainSelectors,
   resetContextStates,
-  changedDate,
+  calendarDates,
+  statuses,
   preLoadHabitDateData,
-  changedDomain,
-  newRecord
+  loadTreeData,
+  populateCalendar
 } from "../assets/scripts/controller";
 import { isTouchDevice } from '../assets/scripts/utilities.js';
-
-function loadTreeData() {
-  if (DomainStore.current() && DateStore.current()) {
-    return TreeStore.index(
-      m.route.param("demo"),
-      DomainStore.current()?.id,
-      DateStore.current()?.id
-    );
-  }
-};
-
-function populateCalendar(spinnerState) {
-  return HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
-    .then((data) => {
-      statuses(
-        data?.slice(-7).map((date) => ({
-          date_id: date.date_id,
-          completed_status: date.completed_status,
-        }))
-      );
-      const dates =
-        statuses() &&
-        statuses()
-          .map((statusObj) => {
-            return (
-              DateStore.dateFromDateObjectArray(
-                statusObj.date_id,
-                DateStore.listForHabit().reverse()
-              ) || ""
-            );
-          })
-          .slice(-7);
-      DateStore.listForHabit(DateStore.listForHabit().slice(-7));
-      calendarDates(dates);
-    })
-    .then(() => {
-      spinnerState(false);
-      openModal(false);
-      changedDate(true);
-    })
-}
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
 
@@ -97,20 +53,27 @@ export default {
         HabitStore.indexHabitsOfDomain(DomainStore.current()?.id);
         if (isVisPage()) loadTreeData();
         resetContextStates();
-
-        populateCalendar(spinnerState)
+        populateCalendar()
           .then(m.redraw);
-        console.log('changed domain :>> ');
       });
     });
   },
   oninit: ({ attrs: { spinnerState } }) => {
+    DateStore.list().length > 0 && populateCalendar(spinnerState, openModal);
+  },
+  onupdate: ({ attrs: { spinnerState } }) => {
+    if (fetching()) return;
+    console.log('rerender :>> ', fetching());
     let treeReload = isVisPage() && loadTreeData();
-    let habitDateReload = changedDomain() && preLoadHabitDateData();
-    let calendarReload = populateCalendar(spinnerState);
-    changeOfModelContext() &&
+    let habitDateReload = preLoadHabitDateData();
+    let calendarReload = populateCalendar();
+    changeOfModelContext() && fetching(true) && 
+    spinnerState(true) && openModal(true) &&
       Promise.all([treeReload, habitDateReload, calendarReload]).then(() => {
         resetContextStates();
+        fetching(false);
+        spinnerState(false);
+        openModal(false);
         m.redraw();
       });
   },

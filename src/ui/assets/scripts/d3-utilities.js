@@ -745,7 +745,7 @@ const renderTree = function (
       const pulseScale = scaleLinear()
         .range(["#d0790f", "#5568d2", "#3349c1"])
         .domain([0, 3 * nodeRadius]);
-      const pulseData = [0, nodeRadius, nodeRadius * 2, nodeRadius * 3];
+      const pulseData = [0, nodeRadius, nodeRadius * 2, nodeRadius * 2];
       const pulseCircles = gCircle
         .append("g")
         .classed("active-circle", true)
@@ -770,7 +770,7 @@ const renderTree = function (
       function transition() {
         let data = pulseData.map(function (d) {
           return d == 3 * nodeRadius ? 0 : d + nodeRadius;
-        });
+        }).slice(0,-2);
 
         var i = 0;
         // Grow circles
