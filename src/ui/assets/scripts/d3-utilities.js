@@ -3,10 +3,11 @@ import { scaleOrdinal, scaleLinear } from "d3-scale";
 import { zoomIdentity } from "d3-zoom";
 import { linkVertical } from "d3-shape";
 import { tree, cluster } from "d3-hierarchy";
-import { easeCubic, easeCircleOut, easeCubicOut, easePolyOut } from "d3-ease";
+import { easeCubic, easePolyOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
 import { isTouchDevice } from "./utilities";
+import { changedHabit, populateCalendar } from "./controller";
 import Hammer from 'hammerjs';
 
 import TreeStore from "../../store/habit-tree-store";
@@ -27,7 +28,7 @@ const margin = {
 let modalType;
 const positiveCol = "#93cc96";
 const negativeCol = "#f2aa53";
-const noNodeCol = "#634a36";
+const noNodeCol = "#888";
 const neutralCol = "#888";
 let globalZoom, globalTranslate;
 
@@ -374,6 +375,7 @@ const renderTree = function (
     handleZoom(event, node?.parent, true);
     zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
     renderTree(svg, isDemo, zoomer, opts);
+    populateCalendar().then(m.redraw);
   };
 
   const handleHover = (e, d) => {

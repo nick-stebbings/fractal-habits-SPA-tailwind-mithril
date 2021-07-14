@@ -67,7 +67,6 @@ export default {
   },
   oninit: ({ attrs: { spinnerState } }) => {
     if (changedDate()) return;
-    console.log('changedHabit() :>> ', changedHabit());
     if (DateStore.list().length > 0 && changeOfModelContext()) {
       let habitDateReload = preLoadHabitDateData();
       fetching(true);
@@ -83,7 +82,6 @@ export default {
     }
   },
   onupdate: ({ attrs: { spinnerState } }) => {
-    console.log("changedHabit() :>> ", changedHabit());
     if (fetching()) return;
     console.log('rerender :>> ', fetching());
     let treeReload = isVisPage() && loadTreeData();

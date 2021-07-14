@@ -4,8 +4,6 @@ import {
   noNodeCol,
 } from '../../../../../assets/scripts/d3-utilities';
 
-import HabitStore from '../../../../../store/habit-store';
-
 const DateCard = {
   view: ({ attrs: { date, completedStatus, today } }) => {
     const [weekday, month, monthday] = date
