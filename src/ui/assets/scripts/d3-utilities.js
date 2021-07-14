@@ -453,7 +453,7 @@ const renderTree = function (
     HabitStore.runCurrentFilterByNode(nodeId);
     if (!node.data.name.includes("Sub-Habit")) {
       // If this was not a 'ternarising' sub habit that we created for more even distribution
-      makePatchOrPutRequest(isDemo, currentStatus);
+      makePatchOrPutRequest(isDemo, currentStatus).then(m.redraw);
     }
   }
 
@@ -631,8 +631,7 @@ const renderTree = function (
       }`;
     });
 
-
-    // MY LABELS (for modified tree traversal)
+  // MY LABELS (for modified tree traversal)
   // enteringNodes
   //   .append("text")
   //   .attr("class", "label")
@@ -806,7 +805,7 @@ const renderTree = function (
       showHabitLabel();
       transition();
     };
-};;
+};
 
 function expandTree() {
   expand(TreeStore.root());
