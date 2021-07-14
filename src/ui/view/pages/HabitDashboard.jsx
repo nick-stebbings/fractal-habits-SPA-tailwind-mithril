@@ -113,7 +113,7 @@ const HabitDashboard = {
           e.currentTarget.classList.add("selected");
           // Set the current habit and node
           HabitStore.current(HabitStore.filterByName(habitName)[0]);
-          NodeStore.runCurrentFilterByHabit(HabitStore.current());
+          HabitStore.current()?.id && NodeStore.runCurrentFilterByHabit(HabitStore.current());
           // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;

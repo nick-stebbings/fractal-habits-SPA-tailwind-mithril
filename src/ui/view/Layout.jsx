@@ -50,7 +50,7 @@ export default {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         updateDomainSelectors();
-        HabitStore.indexHabitsOfDomain(DomainStore.current()?.id);
+        HabitStore.indexHabitsOfDomain(DomainStore.current()?.id, true);
         if (isVisPage()) loadTreeData();
         resetContextStates();
         populateCalendar()

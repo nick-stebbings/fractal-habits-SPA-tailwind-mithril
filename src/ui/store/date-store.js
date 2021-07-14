@@ -35,7 +35,10 @@ const DateStore = Object.assign(clientRoutes(basePath), {
   to_h_date: (sqlDate) => DateTime.fromSQL(sqlDate.h_date),
 
   dateFromDateObjectArray: (dateId, array) => {
-    return array.length > 0 && DateStore.to_h_date(array.filter((dateObject) => dateObject.id === dateId)[0])
+    const filteredList = array.filter(
+      (dateObject) => dateObject.id === dateId
+    );
+    return filteredList.length > 0 && DateStore.to_h_date(filteredList[0]);
   },
 
   filterForHabit: (habit) => (habit
