@@ -61,8 +61,9 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
     HabitStore.sortByDate();
   },
 
-  filterByDomainId: (id) =>
-    HabitStore.fullList().filter((habit) => habit.domain_id === id),
+  filterByDomainId: (id) => {
+    console.log('HabitStore.fullList().filter((habit) => habit.domain_id === id) :>> ', HabitStore.fullList().filter((habit) => habit.domain_id === id), id);
+    return HabitStore.fullList().filter((habit) => habit.domain_id === id)},
 
   filterById: (id) => HabitStore.fullList().filter((habit) => habit.id === +id),
 

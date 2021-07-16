@@ -190,6 +190,7 @@ function populateStores({demo}) {
       })
     .then(() => {
       HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+      console.log("indexed habits of  :>> ", DomainStore.current().id);
       DateStore.indexDatesOfHabit(HabitStore.current());
       HabitDateStore.filterListByHabitId(HabitStore.current().id);
       console.log(

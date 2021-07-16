@@ -71,10 +71,11 @@ export default {
   oninit: ({ attrs: { spinnerState } }) => {
     if (changedDate()) {
       changedDate(false);
-      if (isVisPage()) loadTreeData().then(m.redraw);
+      if (isVisPage()) (DomainStore.current() && DateStore.current()) && loadTreeData().then(m.redraw);
       return;
     }
-    if (!defaultHabit && DateStore.list().length > 0 && changeOfModelContext()) {
+    console.log('(!defaultHabit && DateStore.list().length > 0 && changeOfModelContext())  :>> ', (!defaultHabit() && DateStore.list().length > 0 && changeOfModelContext()) );
+    if (!defaultHabit() && DateStore.list().length > 0 && changeOfModelContext()) {
       let habitReload = (newRecord() || newDate()) && HabitStore.index();
       let dateReload = newDate() && DateStore.index();
       fetching(true);
@@ -95,7 +96,7 @@ export default {
   },
   onupdate: ({ attrs: { spinnerState } }) => {
     if (fetching()) return;
-    if (defaultHabit) return;
+    if (defaultHabit()) return;
     console.log('rerender :>> ', fetching());
     console.log("istree :>> ", isVisPage());
     let treeReload = isVisPage() && loadTreeData();
@@ -105,7 +106,7 @@ export default {
       openModal(true) &&
       Promise.all([treeReload, preLoadHabitDateData()]).then(() => populateCalendar()).then(
         () => {
-          resetContextStates();
+          // resetContextStates();
           fetching(false);
           spinnerState(false);
           openModal(false);

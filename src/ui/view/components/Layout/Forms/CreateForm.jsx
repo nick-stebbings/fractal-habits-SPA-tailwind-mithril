@@ -59,7 +59,6 @@ const processFormData = function (dom, attrs) {
         .then(() => {
           console.log('rerouted :>> ');
           newRecord(true);
-          TreeStore.clear();
         })
         .then(() => {
           console.log('reload page :>> ');

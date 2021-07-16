@@ -113,13 +113,11 @@ function preLoadHabitDateData() {
 };
 
 function loadTreeData() {
-  if (DomainStore.current() && DateStore.current()) {
-    return TreeStore.index(
-      m.route.param("demo"),
-      DomainStore.current()?.id,
-      DateStore.current()?.id
-    );
-  }
+  return TreeStore.index(
+    m.route.param("demo"),
+    DomainStore.current()?.id,
+    DateStore.current()?.id
+  );
 }
 
 function populateCalendar() {

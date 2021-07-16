@@ -206,7 +206,7 @@ const registerEventListeners = (function () {
       e.target.style.bottom = '0';
     })
 
-    modalElement.addEventListener('click', (e) => {
+    modalElement && modalElement.addEventListener('click', (e) => {
       if (e.target.id.includes('close-modal')) {
         openModal(false);
       }

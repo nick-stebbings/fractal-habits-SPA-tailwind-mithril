@@ -351,9 +351,16 @@ const renderTree = function (
         content: node.data,
         scale: clickedZoom ? clickScale : scale,
       });
+  
       setHabitLabel(node.data);
       showHabitLabel();
       collapseAroundAndUnder(node, false, false);
+      if (!isDemo) {
+        const nodeContent = parseTreeValues(node.data.content);
+        NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
+        HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+        populateCalendar();
+      }
     }
   };
 
@@ -369,13 +376,13 @@ const renderTree = function (
     setActiveNode(node.data)
     expand(node);
     renderTree(svg, isDemo, zoomer, opts);
-    handleStatusToggle(node);
+    let statusChange = handleStatusToggle(node);
 
     setHabitLabel(node.data);
     handleZoom(event, node?.parent, true);
     zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
     renderTree(svg, isDemo, zoomer, opts);
-    populateCalendar().then(m.redraw);
+    Promise.all([statusChange, (!isDemo && populateCalendar())]);
   };
 
   const handleHover = (e, d) => {
@@ -455,7 +462,7 @@ const renderTree = function (
     HabitStore.runCurrentFilterByNode(nodeId);
     if (!node.data.name.includes("Sub-Habit")) {
       // If this was not a 'ternarising' sub habit that we created for more even distribution
-      makePatchOrPutRequest(isDemo, currentStatus).then(m.redraw);
+      return makePatchOrPutRequest(isDemo, currentStatus).then(m.redraw);
     }
   }
 
