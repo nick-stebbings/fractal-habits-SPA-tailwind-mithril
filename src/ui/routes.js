@@ -140,7 +140,7 @@ function populateStores({demo}) {
       HabitStore.current()?.name ==
         "There are no habits yet for this domain") // If we still have default habit data
         ? HabitStore.index()
-        : Promise.resolve(HabitStore.fullList())
+        : HabitStore.index() || Promise.resolve(HabitStore.fullList())
     )
       .then((habits) => {
         return new Promise((resolve, reject) => {
