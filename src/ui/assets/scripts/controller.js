@@ -124,6 +124,7 @@ function loadTreeData() {
 }
 
 function populateCalendar() {
+  console.log('populating calendar>> ', HabitStore.listForHabit());
   return DateStore.listForHabit().length > 0 && HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
     .then((data) => {
       statuses(
