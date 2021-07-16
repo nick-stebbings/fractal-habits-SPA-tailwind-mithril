@@ -70,7 +70,9 @@ function changeOfModelContext() {
     console.log("changedDomain() :>> ", changedDomain());
     console.log("newDate() :>> ", newDate());
     console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
-    console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());}
+    console.log(' HabitDateStore.list() :>> ', HabitDateStore.list());
+  }
+  debugger;
   return needRefresh;
 };
 
@@ -103,7 +105,7 @@ function preLoadHabitDateData() {
   return HabitDateStore.index()
     .then(NodeStore.index)
     .then(() => {
-      HabitStore.sortByDate();
+      console.log(HabitStore.sortByDate());
       console.log('HabitStore.list() :>> ', HabitStore.list());
       HabitStore.current() &&
         HabitDateStore.runFilter(HabitStore.current()?.id);
