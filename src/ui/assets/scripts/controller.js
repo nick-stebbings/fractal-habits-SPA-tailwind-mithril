@@ -71,8 +71,8 @@ function changeOfModelContext() {
     console.log("newDate() :>> ", newDate());
     console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
     console.log(' HabitDateStore.list() :>> ', HabitDateStore.list());
+    debugger;
   }
-  debugger;
   return needRefresh;
 };
 
@@ -100,7 +100,7 @@ function updateDomainSelectors() {
 function preLoadHabitDateData() {
   console.log('preloaded habit date data')
   if (m.route.param("demo")) return;
-  
+  fetching(true);
   DateStore.indexDatesOfHabit(HabitStore.current());
   return HabitDateStore.index()
     .then(NodeStore.index)
@@ -111,6 +111,7 @@ function preLoadHabitDateData() {
         HabitDateStore.runFilter(HabitStore.current()?.id);
       DateStore.current() &&
         HabitDateStore.runDateFilterOnCurrentList(DateStore.current()?.id);
+      fetching(false);
     });
 };
 

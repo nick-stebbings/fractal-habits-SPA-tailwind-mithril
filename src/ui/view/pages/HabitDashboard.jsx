@@ -122,8 +122,7 @@ const HabitDashboard = {
               "fill",
               currentStatusCol === positiveCol ? negativeCol : positiveCol
               );
-            makePatchOrPutRequest(demoData, String(currentStatus))
-              .then(HabitDateStore.index);
+            makePatchOrPutRequest(demoData, String(currentStatus));
             }
 
           // Add delete  event
