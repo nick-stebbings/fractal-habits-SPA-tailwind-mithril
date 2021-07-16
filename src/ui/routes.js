@@ -140,14 +140,12 @@ function populateStores({demo}) {
       HabitStore.current()?.name ==
         "There are no habits yet for this domain") // If we still have default habit data
         ? HabitStore.index()
-        : HabitStore.index() || Promise.resolve(HabitStore.fullList())
+        : Promise.resolve(HabitStore.fullList())
     )
       .then((habits) => {
-        return new Promise((resolve, reject) => {
-          habits.length !== 0
-            ? resolve(habits)
-            : reject("There are no habits to load, yet!");
-        });
+        return habits.length !== 0
+            ? Promise.resolve(habits)
+            : Promise.reject("There are no habits to load, yet!");
       })
       .catch((message) => {
         handleErrorType(message, "info");
