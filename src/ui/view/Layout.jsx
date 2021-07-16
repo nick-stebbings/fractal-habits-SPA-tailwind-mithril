@@ -32,10 +32,13 @@ import {
   preLoadHabitDateData,
   loadTreeData,
   populateCalendar,
+  newDate,
 } from "../assets/scripts/controller";
 import { isTouchDevice } from '../assets/scripts/utilities.js';
 
 const isVisPage = () => m.route.get().split('/')[1] === 'vis';
+const defaultHabit = () => [
+    "Select a Life-Domain to start tracking", "There are no habits yet for this domain"].includes(HabitStore.current()?.name);
 
 export default {
   oncreate: ({ attrs: { spinnerState, modalType } }) => {
@@ -52,7 +55,7 @@ export default {
       selector.addEventListener("change", (e) => {
         DomainStore.runFilterCurrent(e.target.selectedOptions[0].value);
         updateDomainSelectors();
-        HabitStore.indexHabitsOfDomain(DomainStore.current()?.id, true);
+        HabitStore.indexHabitsOfDomain(+DomainStore.current()?.id, true);
         if (isVisPage()) loadTreeData();
         spinnerState(true);
         fetching(true);
@@ -67,27 +70,34 @@ export default {
   },
   oninit: ({ attrs: { spinnerState } }) => {
     if (changedDate()) {
-      if (isVisPage()) loadTreeData();
+      changedDate(false);
+      if (isVisPage()) loadTreeData().then(m.redraw);
       return;
     }
-    if (DateStore.list().length > 0 && changeOfModelContext()) {
-      let habitReload = newRecord() && HabitStore.index();
-      let habitDateReload = preLoadHabitDateData();
+    if (!defaultHabit && DateStore.list().length > 0 && changeOfModelContext()) {
+      let habitReload = (newRecord() || newDate()) && HabitStore.index();
+      let dateReload = newDate() && DateStore.index();
       fetching(true);
       spinnerState(true);
       openModal(true);
-      Promise.all([habitReload, habitDateReload]).then(() => populateCalendar()).then(() => {
-        resetContextStates();
-        fetching(false);
-        spinnerState(false);
-        openModal(false);
-        m.redraw();
-      });
+      Promise.all([dateReload, habitReload])
+        .then(() => preLoadHabitDateData())
+        .then(() => populateCalendar())
+        .then(() => {
+          DateStore.indexDatesOfHabit(HabitStore.current());
+          resetContextStates();
+          fetching(false);
+          spinnerState(false);
+          openModal(false);
+          m.route.set(m.route.get(), null);
+        });
     }
   },
   onupdate: ({ attrs: { spinnerState } }) => {
     if (fetching()) return;
+    if (defaultHabit) return;
     console.log('rerender :>> ', fetching());
+    console.log("istree :>> ", isVisPage());
     let treeReload = isVisPage() && loadTreeData();
     changeOfModelContext() &&
       fetching(true) &&

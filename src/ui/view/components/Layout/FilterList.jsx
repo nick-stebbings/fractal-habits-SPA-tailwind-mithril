@@ -12,7 +12,7 @@ const redrawLoadAndToggle = function () {
   toggleButton(toggleButton() == "Clear" ? "Filter" : "Clear");
 
   m.redraw();
-  HabitStore.indexHabitsOfDomain(HabitStore.current().domain_id);
+  HabitStore.indexHabitsOfDomain(+HabitStore.current().domain_id);
   HabitStore.list(HabitStore.filterByName(currentInput()));
 };
 
@@ -27,12 +27,12 @@ const FilterList = function () {
         redrawLoadAndToggle();
       });
 
-      document
-        .querySelector("button[name=reset]")
-        .addEventListener("click", (e) => {
-          currentInput("");
-          redrawLoadAndToggle();
-        });
+      const resetButton = document
+        .querySelector("button[name=reset]");
+      resetButton && resetButton.addEventListener("click", (e) => {
+        currentInput("");
+        redrawLoadAndToggle();
+      });
 
       if (
         DomainStore.current()?.name !== "No Domains Registered" ||

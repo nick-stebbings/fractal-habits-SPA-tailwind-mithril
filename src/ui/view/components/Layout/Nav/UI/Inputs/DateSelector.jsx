@@ -1,6 +1,7 @@
 import DateTime from 'luxon/src/datetime.js';
 import DateStore from '../../../../../../store/date-store';
 import HabitStore from '../../../../../../store/habit-store';
+import HabitDateStore from '../../../../../../store/habit-date-store';
 import { updatedMinAndMaxForCurrentHabit, changedDate, newDate } from '../../../../../../assets/scripts/controller';
 
 const sanitiseForDataList = function (date) {
@@ -28,7 +29,7 @@ const DateSelector = function () {
       if (newDate()) {
         DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() }).then(DateStore.index).then(
           () => {
-            DateStore.indexDatesOfHabit(DateStore.current()?.id)
+            DateStore.indexDatesOfHabit(HabitStore.current())
             maxDate = DateTime.fromMillis(
               DateTime.fromSQL(DateStore.current().h_date).ts
             );

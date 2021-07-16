@@ -102,7 +102,7 @@ const HabitTree = function () {
         oldWindowWidth(document.body.getBoundingClientRect().width);
       }, debounceInterval);
 
-      if (HabitStore.list().length > 0 && TreeStore.root()?.name == "") {
+      if (DomainStore.list().length > 0 && TreeStore.root()?.name == "") {
         updateStoresAndRenderTree(attrs.modalType);
         console.log("Habit Tree indexed");
       }

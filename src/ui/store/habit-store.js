@@ -116,20 +116,24 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
 
   submit: (attrs) =>
     HabitStore.create(attrs)
-      .then((response) => ({
-        ...response.data,
-        ...JSON.parse(response.config.data),
-      }))
+      .then((response) => {
+        return {
+          ...JSON.parse(response.data),
+          ...JSON.parse(response.config.data),
+        }
+      })
       .then((current) => {
         let newList = HabitStore.fullList();
+        current.domain_id = +current.domain_id; 
         if (
           newList.length == 1 &&
           newList[0].name === "Select a Life-Domain to start tracking"
         )
-          newList.pop();
+        newList.pop();
         newList.push(current);
         HabitStore.fullList(newList);
         HabitStore.current(current);
+        HabitStore.indexHabitsOfDomain(+current?.domain_id);
         return current;
       })
       .then(() => {

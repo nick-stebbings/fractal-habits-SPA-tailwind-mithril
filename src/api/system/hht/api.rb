@@ -323,7 +323,7 @@ module Hht
 
         halt(400, { message: unwrap_validation_error(created) }.to_json) unless created.success?
         status 201
-        json({ id: created.flatten.to_s }.to_json)
+        json({ id: created.flatten[0].value! }.to_json)
       end
 
       delete '/:habit_id' do |id|

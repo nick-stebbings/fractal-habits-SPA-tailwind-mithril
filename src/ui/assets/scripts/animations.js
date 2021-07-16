@@ -194,13 +194,19 @@ const registerEventListeners = (function () {
       hamburgerCheckbox.checked = !hamburgerCheckbox.checked;
     });
 
+    const modalElement = document.getElementById('modal_overlay');
+
+    if (modalElement && !modalElement.classList.contains('hidden')) {
+      console.log("modal up :>> ", modalElement.style.display);
+    }
+
     const d3legend = document.querySelector(".legendSvg");
     d3legend && d3legend.addEventListener('mouseover', (e) => {
       console.log('e :>> ', e);
       e.target.style.bottom = '0';
     })
 
-    document.getElementById('modal_overlay') && document.getElementById('modal_overlay').addEventListener('click', (e) => {
+    modalElement.addEventListener('click', (e) => {
       if (e.target.id.includes('close-modal')) {
         openModal(false);
       }

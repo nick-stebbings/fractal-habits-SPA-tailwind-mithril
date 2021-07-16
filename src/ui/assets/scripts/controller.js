@@ -45,6 +45,10 @@ function changeOfModelContext() {
   const todaysDate = DateTime.now().startOf("day");
   const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
   if (DateStore.listForHabit() && !newDate() && (maxDate < todaysDate)) {
+    console.log('DateStore.listForHabit() :>> ', maxDate);
+    console.log('DateStore.listForHabit() :>> ', todaysDate);
+        console.log('HabitDate list :>> ', HabitDateStore.list());
+    // debugger;
     newDate(true);
   };
 
@@ -66,7 +70,7 @@ function changeOfModelContext() {
     console.log("changedDomain() :>> ", changedDomain());
     console.log("newDate() :>> ", newDate());
     console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
-    console.log(' HabitDateStore.list() :>> ',  HabitStore.list());}
+    console.log(' HabitDateStore.list() :>> ',  HabitDateStore.list());}
   return needRefresh;
 };
 
@@ -77,6 +81,7 @@ function updatedMinAndMaxForCurrentHabit () {
 };
 
 function updateDomainSelectors() {
+  
   document.querySelectorAll(".domain-selector").forEach((selector) => {
     let current = DomainStore.current();
     let newIndex = DomainStore.list().indexOf(current);
@@ -99,6 +104,7 @@ function preLoadHabitDateData() {
     .then(NodeStore.index)
     .then(() => {
       HabitStore.sortByDate();
+      console.log('HabitStore.list() :>> ', HabitStore.list());
       HabitStore.current() &&
         HabitDateStore.runFilter(HabitStore.current()?.id);
       DateStore.current() &&
@@ -117,7 +123,7 @@ function loadTreeData() {
 }
 
 function populateCalendar() {
-  return HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
+  return DateStore.listForHabit().length > 0 && HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
     .then((data) => {
       statuses(
         data?.slice(-7).map((date) => ({
@@ -142,6 +148,9 @@ function populateCalendar() {
     })
     .then(() => {
       changedDate(true);
+    })
+    .catch((error) => {
+      console.log('Could not populate calendar', error)
     });
 };
 

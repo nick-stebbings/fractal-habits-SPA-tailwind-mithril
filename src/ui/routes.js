@@ -134,12 +134,13 @@ function populateStores({demo}) {
         ? "Habits Indexed"
         : "Habits loaded from the Store"
     );
+    console.log("object :>> ", HabitStore.current()?.name);
     let habitLoad = (
       (HabitStore.current()?.name == "Select a Life-Domain to start tracking" ||
       HabitStore.current()?.name ==
         "There are no habits yet for this domain") // If we still have default habit data
         ? HabitStore.index()
-        : HabitStore.index() || Promise.resolve(HabitStore.fullList())
+        : Promise.resolve(HabitStore.fullList())
     )
       .then((habits) => {
         return new Promise((resolve, reject) => {
@@ -168,38 +169,48 @@ function populateStores({demo}) {
         handleErrorType(message, "info");
       });
     
-    let nodeLoad = NodeStore.index()
-      .catch((err) => {
+    const notInitialLoad = () => HabitStore.current() &&
+      HabitStore.current()?.name != "Select a Life-Domain to start tracking";
+    const nodeLoad = () => notInitialLoad() && NodeStore.index() .catch((err) => {
         handleErrorType(message, "info");
       });
     
-    let dateLoad = DateStore.index()
-      .catch((err) => {
+    const dateLoad = () => notInitialLoad() && DateStore.index() .catch((err) => {
         handleErrorType(message, "info");
       });
 
-    let habitDateLoad = HabitDateStore.index()
-      .catch((err) => {
-        handleErrorType(message, "info");
-      });
+    const habitDateLoad = () => notInitialLoad() && HabitDateStore.index()
+        .catch((err) => {
+          handleErrorType(message, "info");
+        });
 
-    Promise.all([habitLoad, domainLoad, dateLoad, nodeLoad, habitDateLoad])
-      .then(() => {
-        HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-        HabitDateStore.filterListByHabitId(HabitStore.current().id);
-        console.log(HabitStore.fullList(), HabitStore.current(), DomainStore.current(), DateStore.listForHabit())
-        console.log('Full reload of data')
-        m.redraw();
-        spinnerState(false);
+    return Promise.all([habitLoad, domainLoad])
+    .then(() => {
+      return Promise.all([dateLoad(), nodeLoad(), habitDateLoad()])
       })
-      .catch((err) => {
-        DateStore.clear()
-        spinnerState(false);
-        console.log(err, "Error loading data!");
-      });
+    .then(() => {
+      HabitStore.indexHabitsOfDomain(DomainStore.current().id);
+      DateStore.indexDatesOfHabit(HabitStore.current());
+      HabitDateStore.filterListByHabitId(HabitStore.current().id);
+      console.log(
+        HabitStore.fullList(),
+        HabitStore.list(),
+        HabitStore.current(),
+        DomainStore.current(),
+        DateStore.list(),
+        DateStore.listForHabit()
+      );
+      console.log('Full reload of data')
+      spinnerState(false);
+    })
+    .catch((err) => {
+      DateStore.clear()
+      spinnerState(false);
+      console.log(err, "Error loading data!");
+    });
   } else {
     // Load Demo data
-    importData
+    return importData
       .init()
       .then(() => {
         spinnerState(false);
@@ -233,8 +244,9 @@ const Routes = MenuRoutes.reduce(
                 .catch(console.log)
             : null;
         },
-        render: () =>
-          menuSection.label === "Visualise"
+        render: () => {
+
+          return menuSection.label === "Visualise"
             ? m(
                 d3visPageMaker(
                   Layout,
@@ -253,7 +265,7 @@ const Routes = MenuRoutes.reduce(
                     { spinnerState, modalType },
                     m(component, { modalType })
                   ),
-              }),
+              })},
       };
     });
 
