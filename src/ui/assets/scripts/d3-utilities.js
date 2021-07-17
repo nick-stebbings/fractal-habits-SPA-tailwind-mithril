@@ -299,7 +299,7 @@ const renderTree = function (
     if (!event || !node || event.deltaY >= 0 || deadNode(event)) return reset();
     globalZoom = clickScale;
     globalTranslate = [node.x, node.y];
-    setActiveNode(forParent ? node.parent.data : node.data);
+    setActiveNode(forParent ? node.data : node.data);
     expand(node);
     updateCurrentHabit(node, false);
     renderTree(svg, isDemo, zoomer, {
