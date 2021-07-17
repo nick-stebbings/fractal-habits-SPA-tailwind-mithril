@@ -161,6 +161,9 @@ figure figcaption, figcaption:last-child {
 #app figure figcaption a {
   text-decoration: none;
 }
+#app figure img {
+  margin: 0 auto;
+}
 
 .feature-card h2 {
   font-size:2rem;
