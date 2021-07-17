@@ -2,7 +2,7 @@ import Hammer from 'hammerjs';
 import { debounce } from './d3-utilities';
 import { isTouchDevice } from "./utilities";
 import HabitStore from '../../store/habit-store';
-import HabitDateStore from '../../store/habit-store';
+import HabitDateStore from '../../store/habit-date-store';
 import DomainStore from '../../store/domain-store';
 
 const openSpinner = function (open = true) {
