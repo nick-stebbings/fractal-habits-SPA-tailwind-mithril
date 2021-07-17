@@ -92,8 +92,7 @@ function updateDomainSelectors() {
 function preLoadHabitDateData() {
   if (m.route.param("demo")) return;
   fetching(true);
-  return HabitDateStore.index()
-    .then(NodeStore.index)
+  return NodeStore.index()
     .then(() => {
       HabitStore.current() &&
         HabitDateStore.runFilter(HabitStore.current()?.id);

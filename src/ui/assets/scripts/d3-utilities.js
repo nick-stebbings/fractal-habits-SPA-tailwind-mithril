@@ -133,9 +133,15 @@ const cumulativeValue = (node) => {
     if (node?._children) {
       return +( sumChildrenValues(node, true) >= node._children.length && node._children.every((n) => cumulativeValue(n) === 1) )
     }
-    return node && node.children
-      ? +(sumChildrenValues(node) >= node.children.length && node.children.every(n => cumulativeValue(n) === 1))
-      : [undefined, "incomplete", false, ''].includes(content) ? 0 : 1;
+    if (![undefined, "incomplete", false, ''].includes(content)) {
+      return 1
+    } else if (node && node.children)
+      return node && node.children
+        ? +(
+            sumChildrenValues(node) >= node.children.length &&
+            node.children.every((n) => cumulativeValue(n) === 1)
+          )
+        : 0
   } catch (err) {
     console.log("Could not accumulate.");
   }
@@ -328,7 +334,6 @@ const renderTree = function (
       expand(node);
       
       zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
-
   
       setHabitLabel(node.data);
       showHabitLabel();

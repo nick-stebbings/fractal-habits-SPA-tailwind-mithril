@@ -97,6 +97,12 @@ const addIntersectionObserver = function () {
 };
 
 const addTooltips = function () {
+  console.log('object :>> ', HabitStore.list());
+  console.log(
+    "object :>> ",HabitStore.current().name,
+    HabitDateStore.list().length > 0,
+    m.route.param("demo") || DomainStore.list().length > 1
+  );
   if (m.route.param("demo") || DomainStore.list().length > 1) return;
   if (HabitStore.list().length === 0) {
     if (HabitStore.current().name !== "Select a Life-Domain to start tracking") return

@@ -20,6 +20,7 @@ const DateSelector = function () {
     oninit: () => {
       DateStore.indexDatesOfHabit(HabitStore.current());
       dateIndex = DateStore.listForHabit().indexOf(DateStore.current());
+      [minDate, maxDate] = updatedMinAndMaxForCurrentHabit();
     },
     oncreate: () => {
       currentHabitDate =
@@ -27,19 +28,19 @@ const DateSelector = function () {
       [minDate, maxDate] = updatedMinAndMaxForCurrentHabit();
 
       if (newDate()) {
-        DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() }).then(DateStore.index).then(
-          () => {
-            DateStore.indexDatesOfHabit(HabitStore.current())
+        DateStore.submit({ h_date: maxDate.plus({ days: 1 }).toISODate() })
+          .then(DateStore.index)
+          .then(() => {
+            DateStore.indexDatesOfHabit(HabitStore.current());
             maxDate = DateTime.fromMillis(
               DateTime.fromSQL(DateStore.current().h_date).ts
             );
             newDate(false);
-          }
-        )
+          });
       }
       const dateInputs = document.querySelectorAll(".date-today");
       document.addEventListener("input", (e) => {
-        if((e.target.value).search(/\d\d-\d\d-\d\d/) === -1) return;
+        if (e.target.value.search(/\d\d-\d\d-\d\d/) === -1) return;
         dateIndex = DateStore.listForHabit()
           .map(sanitiseForDataList)
           .indexOf(e.target.value);
@@ -93,10 +94,11 @@ const DateSelector = function () {
           className="date-today sm:h-10 xl:text-xl xl:px-2 md:py-1 w-full h-6 px-1 mt-1"
           type="date"
           value={DateStore.currentDate()}
-          min={String(DateStore.listForHabit()[0])}
+          min={minDate && minDate.toLocaleString()}
           max={String(todaysDate)}
           list="current-habit-date-list"
         />
+        {console.log(minDate && minDate.toLocaleString())}
         <datalist id="current-habit-date-list">
           {HabitStore.current() &&
             DateStore.listForHabit().map((dateElement) =>

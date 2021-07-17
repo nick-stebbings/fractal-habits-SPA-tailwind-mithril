@@ -54,7 +54,6 @@ export default {
     if (modalType()) openModal(true);
     if(isTouchDevice()) addSwipeGestures();
     addIntersectionObserver();
-    addTooltips();
 
     // Domain change event handling
     const domainSelectors = document.querySelectorAll(".domain-selector");
@@ -77,6 +76,7 @@ export default {
     });
   },
   oninit: ({ attrs: { spinnerState } }) => {
+    addTooltips();
     if (changedDate()) {
       changedDate(false);
       if (isVisPage())
