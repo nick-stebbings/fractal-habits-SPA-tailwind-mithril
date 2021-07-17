@@ -8,6 +8,7 @@ const CancelButton = {
       newRecord(true);
       attrs.modalType && attrs.modalType(false);
       [...document.querySelectorAll('.not-added')].forEach((label) => label.classList.remove('not-added'));
+      m.route.set(m.route.get(), null);
     });
   },
   view: ({ attrs }) => (
