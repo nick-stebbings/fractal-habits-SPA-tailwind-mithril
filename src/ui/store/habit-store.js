@@ -20,10 +20,10 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       id: 1,
     });
   },
-  noHabitMessage: () => ({ 
-      name: "There are no habits yet for this domain",
-      id: 1,
-    }),
+  noHabitMessage: () => ({
+    name: "There are no habits yet for this domain",
+    id: 1,
+  }),
 
   list: stream([]),
   fullList: stream([]),
@@ -52,18 +52,18 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       .catch(handleErrorType),
 
   indexHabitsOfDomain: (id, resetCurrent = false) => {
-    HabitStore.runFilterByDomain(id);
+    HabitStore.runFilterByDomain(+id);
     const replacementCurrentHabit =
       HabitStore.list().length == 0
         ? HabitStore.noHabitMessage()
         : HabitStore.list()[HabitStore.list().length - 1];
-    resetCurrent && HabitStore.current(replacementCurrentHabit);
+    if (resetCurrent) HabitStore.current(replacementCurrentHabit);
     HabitStore.sortByDate();
   },
 
   filterByDomainId: (id) => {
-    console.log('HabitStore.fullList().filter((habit) => habit.domain_id === id) :>> ', HabitStore.fullList().filter((habit) => habit.domain_id === id), id);
-    return HabitStore.fullList().filter((habit) => habit.domain_id === id)},
+    return HabitStore.fullList().filter((habit) => habit.domain_id === +id)
+  },
 
   filterById: (id) => HabitStore.fullList().filter((habit) => habit.id === +id),
 
@@ -142,8 +142,8 @@ const HabitStore = Object.assign(clientRoutes(basePath), {
       })
       .catch(handleErrorType),
 
-  runFilterByDomain: (domainId) =>
-    HabitStore.list(HabitStore.filterByDomainId(domainId)),
+  runFilterByDomain: (domainId) => {
+    return HabitStore.list(HabitStore.filterByDomainId(domainId))},
 
   runCurrentFilterByNode: (nodeId) =>
     HabitStore.current(

@@ -19,6 +19,7 @@ import SloganSection from "./view/components/Layout/SloganSection.jsx";
 import FeatureCardSection from "./view/components/Layout/FeatureCardSection.jsx";
 
 // Utils
+import { changedHabit } from "./assets/scripts/controller";
 import { handleErrorType } from "./assets/scripts/utilities";
 import { registerEventListeners } from "./assets/scripts/animations.js";
 
@@ -134,7 +135,6 @@ function populateStores({demo}) {
         ? "Habits Indexed"
         : "Habits loaded from the Store"
     );
-    console.log("object :>> ", HabitStore.current()?.name);
     let habitLoad = (
       (HabitStore.current()?.name == "Select a Life-Domain to start tracking" ||
       HabitStore.current()?.name ==
@@ -184,11 +184,10 @@ function populateStores({demo}) {
 
     return Promise.all([habitLoad, domainLoad])
     .then(() => {
+      if(!changedHabit()) HabitStore.indexHabitsOfDomain(DomainStore.current().id, true);
       return Promise.all([dateLoad(), nodeLoad(), habitDateLoad()])
       })
     .then(() => {
-      HabitStore.indexHabitsOfDomain(DomainStore.current().id);
-      console.log("indexed habits of  :>> ", DomainStore.current().id);
       DateStore.indexDatesOfHabit(HabitStore.current());
       HabitDateStore.filterListByHabitId(HabitStore.current().id);
       console.log(
@@ -203,7 +202,8 @@ function populateStores({demo}) {
       spinnerState(false);
     })
     .catch((err) => {
-      DateStore.clear()
+      DateStore.clear();
+      changedHabit(false);
       spinnerState(false);
       console.log(err, "Error loading data!");
     });

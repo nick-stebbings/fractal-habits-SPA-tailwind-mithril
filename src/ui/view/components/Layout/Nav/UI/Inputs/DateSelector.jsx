@@ -15,13 +15,13 @@ const DateSelector = function () {
   let maxDate;
   let minDate;
   let currentHabitDate;
+  const todaysDate = DateTime.now().startOf("day");
   return {
     oninit: () => {
       DateStore.indexDatesOfHabit(HabitStore.current());
       dateIndex = DateStore.listForHabit().indexOf(DateStore.current());
     },
     oncreate: () => {
-      const todaysDate = DateTime.now().startOf("day");
       currentHabitDate =
         DateStore.current() && DateTime.fromSQL(DateStore.current().h_date);
       [minDate, maxDate] = updatedMinAndMaxForCurrentHabit();
@@ -94,7 +94,7 @@ const DateSelector = function () {
           type="date"
           value={DateStore.currentDate()}
           min={String(DateStore.listForHabit()[0])}
-          max={String(DateStore.listForHabit().slice(-1)[0])}
+          max={String(todaysDate)}
           list="current-habit-date-list"
         />
         <datalist id="current-habit-date-list">

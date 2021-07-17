@@ -1,7 +1,7 @@
 // src/view/components/Layout/Nav/UI/Buttons/FeaturePill.jsx
 import DomainStore from '../../../../../../store/domain-store';
 import { handleErrorType } from '../../../../../../store/client';
-import { newRecord } from '../../../../../../assets/scripts/controller';
+import { fetching, newRecord } from '../../../../../../assets/scripts/controller';
 
 const FeaturePill = {
   oncreate: (vnode) => {
@@ -15,6 +15,7 @@ const FeaturePill = {
       })
         .then(() => {
           vnode.attrs.modalType(true);
+          fetching(true);
           newRecord(true);
           m.redraw();
         })

@@ -1,12 +1,10 @@
 import HabitStore from '../../../../store/habit-store.js';
-import TreeStore from '../../../../store/habit-tree-store.js';
-import DateStore from '../../../../store/date-store.js';
 import NodeStore from '../../../../store/habit-node-store.js';
 import DomainStore from '../../../../store/domain-store.js';
-import HabitDate from '../../../../store/habit-date-store.js';
+import DateStore from '../../../../store/date-store.js';
 
 import { openModal } from '../../../../assets/scripts/animations';
-import { newRecord, populateCalendar } from '../../../../assets/scripts/controller';
+import { fetching, newRecord, populateCalendar } from '../../../../assets/scripts/controller';
 import FormHeader from './FormHeader.jsx';
 import FormBody from './FormBody.jsx';
 import InputGroup from './FormInputGroup.jsx';
@@ -47,7 +45,7 @@ const processFormData = function (dom, attrs) {
         data.parent_node_id =
           attrs.modalType() === "d3vis-prepend"
             ? `D${data.domain_id}`
-            : HabitStore.current().id;
+            : HabitStore.current()?.id;
       } else {
         // Assume it is the front page modal and thus a root node
         data.parent_node_id = null;
@@ -57,11 +55,10 @@ const processFormData = function (dom, attrs) {
       const habitAddition = HabitStore.submit(data);
       Promise.all([dateAddition, habitAddition])
         .then(() => {
-          console.log('rerouted :>> ');
+          fetching(true);
           newRecord(true);
         })
         .then(() => {
-          console.log('reload page :>> ');
           m.route.set(m.route.get(), null)
           populateCalendar().then(m.redraw);
         })

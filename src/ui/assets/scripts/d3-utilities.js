@@ -56,12 +56,6 @@ const addLegend = (svg) => {
     .attr("transform", "translate(20, 30) scale(2)");
 
   // Borrowing the habit label for the legend
-  let habitLabelValue;
-  let habitLabelValueSm;
-  let habitLabel = document.getElementById("current-habit");
-  let habitSpan = habitLabel.nextElementSibling;
-  let habitLabelSm = document.getElementById("current-habit-sm");
-  let habitSpanSm = habitLabelSm.nextElementSibling;
   if (isTouchDevice() || canvasWidth < 768) {
     gText
       .append("text")
@@ -84,16 +78,6 @@ const addLegend = (svg) => {
       .text("Zoom On Habit -> Select Family & Centre")
       .attr("y", -25);
   }
-  const setLabel = function (d) {
-    habitLabel.textContent = "Key:";
-    habitLabelValue = habitSpan.textContent;
-    habitSpan.textContent = d.target.__data__;
-
-    habitLabelSm.textContent = "Key:";
-    habitLabelValueSm = habitSpanSm.textContent;
-    habitSpanSm.textContent = d.target.__data__;
-    showHabitLabel();
-  };
   const colorLegend = legendColor()
     .orient("horizontal")
     .labels(["Completed", "Not Recorded", "Incomplete", "", ""])
@@ -101,7 +85,6 @@ const addLegend = (svg) => {
     .shape("circle")
     .shapeRadius(15)
     .shapePadding(-5)
-    .on("cellover", console.log)
     .scale(ordinal);
 
   gLegend.call(colorLegend);

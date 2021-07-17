@@ -20,6 +20,9 @@ const openModal = function (open = true) {
   if (!modalCl) return;
   if (open) {
     modalOverlay?.classList.remove('hidden');
+    [...document.querySelectorAll('div[id^="tippy"]')].forEach(tooltip => {
+      tooltip?.classList.add("hidden");
+    });
     setTimeout(() => {
       modalCl.remove('opacity-0');
       modalCl.remove('-translate-y-full');
@@ -195,17 +198,6 @@ const registerEventListeners = (function () {
     });
 
     const modalElement = document.getElementById('modal_overlay');
-
-    if (modalElement && !modalElement.classList.contains('hidden')) {
-      console.log("modal up :>> ", modalElement.style.display);
-    }
-
-    const d3legend = document.querySelector(".legendSvg");
-    d3legend && d3legend.addEventListener('mouseover', (e) => {
-      console.log('e :>> ', e);
-      e.target.style.bottom = '0';
-    })
-
     modalElement && modalElement.addEventListener('click', (e) => {
       if (e.target.id.includes('close-modal')) {
         openModal(false);

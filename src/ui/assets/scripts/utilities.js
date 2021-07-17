@@ -8,13 +8,12 @@ const addActiveMenuStyles = function () {
   // Apply active state classes to card matching route
   const navButtons = document.querySelectorAll("button.menu-card-button");
   const currentPath = window.location.href.split("#!")[1];
-
   Array.from(navButtons).forEach((menuCardButton) => {
     const menuCard = menuCardButton.parentNode.parentNode;
-    if (menuCardButton.getAttribute("href").endsWith(currentPath)) {
+    if (currentPath !== '' && menuCardButton.getAttribute("href").endsWith(currentPath)) {
       menuCard.classList.add("active");
       menuCardButton.classList.add("active");
-      menuCardButton.textContent = "Your Are Here";
+      menuCardButton.textContent = "You Are Here";
     } else if (menuCard.classList.contains("active")) {
       menuCard.classList.toggle("active");
       menuCardButton.classList.toggle("active");
@@ -92,4 +91,3 @@ const handleErrorType = function (err, type = "warning") {
   throw err;
 };
 export { isTouchDevice, handleAndRethrow, invert, handleErrorType, addActiveMenuStyles, redraw, setRouteToBasePath };
- 

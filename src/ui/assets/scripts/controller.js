@@ -26,10 +26,11 @@ const parsedDates = () => DateStore.listForHabit().map(
 );
 
 function changeOfModelContext() {
+  const isDemo = m.route.param("demo");
   // Reset when you switch data sources
-  changedFromDemo(!m.route.param("demo") && HabitStore.current()?.name !== 'Select a Life-Domain to start tracking' && DomainStore.current()?.name === 'Sports');
+  changedFromDemo(!isDemo && HabitStore.current()?.name !== 'Select a Life-Domain to start tracking' && DomainStore.current()?.name === 'Sports');
   changedToDemo(
-    m.route.param("demo") &&
+    isDemo &&
     HabitDateStore.list().length === 28 &&
     HabitDateStore.list()[0].date_id !== 1
   );
@@ -39,31 +40,23 @@ function changeOfModelContext() {
     HabitStore.current() && changedDate() &&
     DateTime.fromSQL(HabitStore.current()?.initiation_date) >
     DateTime.fromSQL(DateStore.current()?.h_date)
-    );
-
+  );
   // Set indicator when a new date needs to be automatically added
   const todaysDate = DateTime.now().startOf("day");
   const maxDate = DateTime.fromMillis(Math.max.apply(null, parsedDates()));
-  if (DateStore.listForHabit() && !newDate() && (maxDate < todaysDate)) {
-    console.log('DateStore.listForHabit() :>> ', maxDate);
-    console.log('DateStore.listForHabit() :>> ', todaysDate);
-        console.log('HabitDate list :>> ', HabitDateStore.list());
-    // debugger;
-    newDate(true);
-  };
+  if (!isDemo && DateStore.listForHabit().length > 0 && !newDate() && (maxDate < todaysDate)) console.log(newDate(true));
 
   let needRefresh =
     changedFromDemo() ||
     changedToDemo() ||
     outOfDateBoundary() ||
     changedDomain() ||
-    changedHabit() ||
     newRecord() ||
     newDate() ||
     changedDate() ||
     newRecord();
   if (needRefresh && !changedDate()) {
-    // // // // Sanity check logs::
+    // Sanity check logs::
     console.log("newRecord() :>> ", newRecord());
     console.log("changedFromDemo() :>> ", changedFromDemo());
     console.log("changedToDemo() :>> ", changedToDemo());
@@ -71,7 +64,6 @@ function changeOfModelContext() {
     console.log("newDate() :>> ", newDate());
     console.log("outOfDateBoundary() :>> ", outOfDateBoundary());
     console.log(' HabitDateStore.list() :>> ', HabitDateStore.list());
-    debugger;
   }
   return needRefresh;
 };
@@ -98,15 +90,11 @@ function updateDomainSelectors() {
 };
 
 function preLoadHabitDateData() {
-  console.log('preloaded habit date data')
   if (m.route.param("demo")) return;
   fetching(true);
-  DateStore.indexDatesOfHabit(HabitStore.current());
   return HabitDateStore.index()
     .then(NodeStore.index)
     .then(() => {
-      console.log(HabitStore.sortByDate());
-      console.log('HabitStore.list() :>> ', HabitStore.list());
       HabitStore.current() &&
         HabitDateStore.runFilter(HabitStore.current()?.id);
       DateStore.current() &&
@@ -124,9 +112,9 @@ function loadTreeData() {
 }
 
 function populateCalendar() {
-  console.log('populating calendar>> ', HabitStore.listForHabit());
   return DateStore.listForHabit().length > 0 && HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
-    .then((data) => {
+  .then((data) => {
+    DateStore.indexDatesOfHabit(HabitStore.current());
       statuses(
         data?.slice(-7).map((date) => ({
           date_id: date.date_id,
@@ -140,12 +128,13 @@ function populateCalendar() {
             return (
               DateStore.dateFromDateObjectArray(
                 statusObj.date_id,
-                DateStore.listForHabit().reverse()
+                DateStore.listForHabit()
               ) || ""
             );
           })
           .slice(-7);
       DateStore.listForHabit(DateStore.listForHabit().slice(-7));
+    console.log("dates :>> ", DateStore.listForHabit());
       calendarDates(dates);
     })
     .then(() => {
@@ -157,12 +146,12 @@ function populateCalendar() {
 };
 
 const resetContextStates = () => {
-  newRecord(false) ;
+  fetching(false);
+  newRecord(false);
   changedFromDemo(false) ;
   changedToDemo(false);
   changedDomain(false);
   changedDate(false);
-  changedHabit(false);
   newDate(false);
   if (outOfDateBoundary()) {
     let newListForHabit = DateStore.filterForHabit(HabitStore.current());
