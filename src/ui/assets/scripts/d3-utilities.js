@@ -328,12 +328,7 @@ const renderTree = function (
       expand(node);
       
       zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
-      renderTree(svg, isDemo, zoomer, {
-        event: event,
-        node: node,
-        content: node.data,
-        scale: clickedZoom ? clickScale : scale,
-      });
+
   
       setHabitLabel(node.data);
       showHabitLabel();
