@@ -98,7 +98,7 @@ const addIntersectionObserver = function () {
 
 const addTooltips = function () {
   if (m.route.param("demo") || DomainStore.list().length > 1) return;
-  if (HabitStore.fullList().length === 0) {
+  if (HabitStore.list().length === 0) {
     if (HabitStore.current().name !== "Select a Life-Domain to start tracking") return
     // First time user interaction tooltips:
     // First page load
