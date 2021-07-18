@@ -123,7 +123,7 @@ const HabitDashboard = {
               "fill",
               currentStatusCol === positiveCol ? negativeCol : positiveCol
               );
-            makePatchOrPutRequest(demoData, String(currentStatus));
+            makePatchOrPutRequest(demoData, String(currentStatus)).then(m.redraw);
             }
 
           // Add delete  event
