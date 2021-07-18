@@ -320,6 +320,9 @@ const renderTree = function (
   }
 
   const handleNodeToggle = function (event, node) {
+    setActiveNode(node.data);
+    activeNodeAnimation();
+    console.log('node.data :>> ', node.data);
     const targ = event.target;
     if (targ.tagName == "circle") {
       if (
@@ -327,9 +330,6 @@ const renderTree = function (
         deadNode(event)
       ) return reset();
 
-      activeNodeAnimation();
-      setActiveNode(node.data);
-      
       updateCurrentHabit(node, false);
       expand(node);
       
@@ -351,13 +351,15 @@ const renderTree = function (
   const handleStatusChange = (event, node) => {
     event.preventDefault();
     if (node.children) return;
+    setActiveNode(node.data)
+    activeNodeAnimation();
     const opts = {
       event,
       node,
       content: node.data,
     };
     if (deadNode(event)) return reset();
-    setActiveNode(node.data)
+
     expand(node);
     renderTree(svg, isDemo, zoomer, opts);
     let statusChange = handleStatusToggle(node);
@@ -731,7 +733,7 @@ const renderTree = function (
     function activeNodeAnimation() {
       // https://stackoverflow.com/questions/45349849/concentric-emanating-circles-d3
       // Credit: Andrew Reid
-
+console.log('trigger :>> ');
       const gCircle = svg.selectAll("g.the-node.solid.active g:first-child");
       gCircle.on("mouseover", handleHover);
       const pulseScale = scaleLinear()

@@ -1,5 +1,3 @@
-
-import DateStore from '../../../../store/date-store';
 import HabitStore from '../../../../store/habit-store';
 
 import { pendingCalendarRefresh } from '../../../../assets/scripts/controller';
@@ -28,7 +26,6 @@ const DropdownNav = (function () {
     document.querySelector('.mask-wrapper').style.zIndex = '10';
   };
   const checkAndUpdateCalendar = () => {
-    const currentHabitLabel = document.querySelector('#current-habit-label span+span');
     if (HabitStore.current() && pendingCalendarRefresh()) {
       pendingCalendarRefresh(false);
       m.redraw();
