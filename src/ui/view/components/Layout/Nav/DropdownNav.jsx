@@ -24,6 +24,10 @@ const DropdownNav = (function () {
     document.querySelector('.habit-description-label').style.opacity = '0';
     document.querySelector('.mask-wrapper').style.zIndex = '10';
   };
+  const checkAndUpdateCalendar = () => {
+    const currentHabitLabel = document.querySelector('#current-habit-label span+span');
+    if (HabitStore.current() && (currentHabitLabel.textContent !== HabitStore.current().name)) m.redraw();
+  };
   return {
     oncreate: () => {
       [...document
@@ -47,13 +51,19 @@ const DropdownNav = (function () {
           menuVisible ? showMegaMenu(idx) : hideMegaMenu();
         });
       });
-      document.querySelector('#current-habit-label').addEventListener('click', showMegaMenu);
-      document.querySelector('.date-card-wrapper').addEventListener('mouseenter', showMegaMenu);
+      const calendarWidget = document.querySelector('.date-card-wrapper');
+      const habitLabel = document.querySelector('#current-habit-label');
+      const menuVisible = (document.querySelector('.mask-wrapper').style.height
+        === '5rem');
+
+      habitLabel.addEventListener('click', menuVisible ? hideMegaMenu : showMegaMenu);
+      calendarWidget.addEventListener('mouseenter', showMegaMenu);
+      calendarWidget.addEventListener('mouseenter', checkAndUpdateCalendar);
+      calendarWidget.addEventListener('mouseleave', hideMegaMenu);
       document.querySelector('.nav-container').addEventListener('click', (e) => {
         if (!(e.target.classList.contains('nav-container'))) return;
         showMegaMenu();
       });
-      document.querySelector('.date-card-wrapper').addEventListener('mouseleave', hideMegaMenu);
       document.querySelector('nav.nav').addEventListener('mouseenter', hideMegaMenu);
     },
     view: ({ attrs: { routes } }) => (
