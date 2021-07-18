@@ -118,10 +118,6 @@ const HabitDashboard = {
             if (demoData) return;
             const currentStatusCol = e.target.getAttribute("fill");
             const currentStatus = currentStatusCol === positiveCol;
-            e.target.setAttribute(
-              "fill",
-              currentStatusCol === positiveCol ? negativeCol : positiveCol
-              );
             makePatchOrPutRequest(demoData, String(currentStatus));
             }
 
