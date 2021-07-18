@@ -116,8 +116,13 @@ const HabitDashboard = {
           // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;
+            console.log('e.target :>> ', e.target);
             const currentStatusCol = e.target.getAttribute("fill");
             const currentStatus = currentStatusCol === positiveCol;
+            e.target.setAttribute(
+              "fill",
+              currentStatusCol === positiveCol ? negativeCol : positiveCol
+              );
             makePatchOrPutRequest(demoData, String(currentStatus));
             }
 
