@@ -14,6 +14,7 @@ const changedToDemo = stream();
 const outOfDateBoundary = stream();
 const changedDate = stream();
 const newDate = stream();
+const pendingCalendarRefresh = stream(false);
 const changedDomain = stream();
 const changedHabit = stream();
 const newRecord = stream();
@@ -114,26 +115,25 @@ function populateCalendar() {
   return DateStore.listForHabit().length > 0 && HabitDateStore.indexForHabitPeriod(HabitStore.current()?.id, 14)
   .then((data) => {
     DateStore.indexDatesOfHabit(HabitStore.current());
-      statuses(
-        data?.slice(-7).map((date) => ({
-          date_id: date.date_id,
-          completed_status: date.completed_status,
-        }))
-      );
-      const dates =
-        statuses() &&
-        statuses()
-          .map((statusObj) => {
-            return (
-              DateStore.dateFromDateObjectArray(
-                statusObj.date_id,
-                DateStore.listForHabit()
-              ) || ""
-            );
-          })
-          .slice(-7);
+    let newStatusInfo = data?.slice(-7).map((date) => ({
+      date_id: date.date_id,
+      completed_status: date.completed_status,
+    }));
+    newStatusInfo.habitId = HabitStore.current().id
+    statuses(newStatusInfo);
+    const dates =
+      statuses() &&
+      statuses()
+        .map((statusObj) => {
+          return (
+            DateStore.dateFromDateObjectArray(
+              statusObj.date_id,
+              DateStore.listForHabit()
+            ) || ""
+          );
+        })
+        .slice(-7);
       DateStore.listForHabit(DateStore.listForHabit().slice(-7));
-    console.log("dates :>> ", DateStore.listForHabit());
       calendarDates(dates);
     })
     .then(() => {
@@ -174,6 +174,7 @@ export {
   updatedMinAndMaxForCurrentHabit,
   loadTreeData,
   populateCalendar,
+  pendingCalendarRefresh,
   calendarDates,
   statuses,
   preLoadHabitDateData,

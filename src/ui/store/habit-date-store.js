@@ -24,6 +24,10 @@ const HabitDateStore = Object.assign(clientRoutes(basePath), {
 
   indexForHabitPeriod: (id, length) => HabitDateStore.showPeriodForHabit(id, length)
     .then((response) => JSON.parse(response.data).habit_dates)
+    .then((dates) => {
+      HabitDateStore.current(dates[0])
+      return dates;
+    })
     .then(HabitDateStore.list)
     .catch(handleErrorType),
 

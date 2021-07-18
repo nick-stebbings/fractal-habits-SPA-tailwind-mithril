@@ -302,6 +302,9 @@ span.logo svg path,
   @apply focus:outline-none focus:outline-shadow active:outline-dashed;
 }
 
+#app .nav-container .active {
+  @apply border-balance-sshades-brighten border-2;
+}
 
 @media (min-width: 1024px) {
   div.mask-wrapper {
@@ -325,23 +328,6 @@ span.logo svg path,
   .nav-label-primary div span i {
     line-height: 3rem;
   }
-}
-
-@media (min-width: 1024px) and (max-width: 1339px) {
-  /* Stack domain, date selectors; */  
-
-  // .nav-label-primary:first-of-type {
-  //   @apply z-20;
-  // }
-  // .nav-label-primary:last-of-type {
-  //   top: 1.85rem;
-  //   left: 15.05rem;
-  //   margin-right: 0.55rem;
-  //   width:14.5rem;
-  //   border: 0;
-  //   @apply relative z-0;
-  // }
-
 }
 
 @media (min-width: 1340px) {

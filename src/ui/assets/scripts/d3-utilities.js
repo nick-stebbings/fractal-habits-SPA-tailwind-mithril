@@ -7,7 +7,7 @@ import { easeCubic, easePolyOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
 import { isTouchDevice } from "./utilities";
-import { changedHabit, populateCalendar } from "./controller";
+import { populateCalendar, pendingCalendarRefresh } from "./controller";
 import Hammer from 'hammerjs';
 
 import TreeStore from "../../store/habit-tree-store";
@@ -342,6 +342,7 @@ const renderTree = function (
         const nodeContent = parseTreeValues(node.data.content);
         NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
         HabitStore.runCurrentFilterByNode(NodeStore.current().id);
+        pendingCalendarRefresh(true);
         populateCalendar();
       }
     }

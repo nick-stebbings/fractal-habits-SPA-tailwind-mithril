@@ -137,7 +137,7 @@ const MaskHeader = function ({attrs: {calendarDates, statuses}}) {
                       class={
                         MenuRoutes.selected === route.label
                           ? "active"
-                          : "inactive"
+                          : ""
                       }
                       label={route.label}
                       url={`${route.path}`}

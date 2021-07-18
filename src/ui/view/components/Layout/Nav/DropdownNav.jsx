@@ -1,5 +1,8 @@
+
+import DateStore from '../../../../store/date-store';
 import HabitStore from '../../../../store/habit-store';
 
+import { pendingCalendarRefresh } from '../../../../assets/scripts/controller';
 import HoverableLink from './UI/Buttons/HoverableLink.jsx';
 
 const DropdownNav = (function () {
@@ -26,7 +29,10 @@ const DropdownNav = (function () {
   };
   const checkAndUpdateCalendar = () => {
     const currentHabitLabel = document.querySelector('#current-habit-label span+span');
-    if (HabitStore.current() && (currentHabitLabel.textContent !== HabitStore.current().name)) m.redraw();
+    if (HabitStore.current() && pendingCalendarRefresh()) {
+      pendingCalendarRefresh(false);
+      m.redraw();
+    }
   };
   return {
     oncreate: () => {
@@ -40,23 +46,28 @@ const DropdownNav = (function () {
           }
           const links = ['nav-visualise', 'nav-habits'];
           const idx = links.indexOf(id);
-          // console.log('id :>> ', id);
-          // console.log('idx :>> ', document.getElementById(links[idx]));
-          // navItem?.classList.add('active');
-          // document.getElementById(links[1-idx])?.classList.remove('active');
-
-          const menuVisible = (document.querySelector(
-            '.mask-wrapper',
-          ).style.height === '5rem');
-          menuVisible ? showMegaMenu(idx) : hideMegaMenu();
+          const oppositeLink = document.querySelector("li.hoverable #" + links[1 - idx]);
+          navItem?.classList.add('active');
+          oppositeLink?.parentNode.classList.remove("active");
+          oppositeLink?.parentNode.classList.add("inactive");
+          document.querySelector("#current-habit-label")?.classList.add("inactive");
+          document.querySelector("#current-habit-label")?.classList.remove("active");
+          
+          document.querySelector(".mask-wrapper").style.height === "5rem" ? showMegaMenu(idx) : hideMegaMenu();
         });
       });
       const calendarWidget = document.querySelector('.date-card-wrapper');
       const habitLabel = document.querySelector('#current-habit-label');
-      const menuVisible = (document.querySelector('.mask-wrapper').style.height
-        === '5rem');
 
-      habitLabel.addEventListener('click', menuVisible ? hideMegaMenu : showMegaMenu);
+      habitLabel.addEventListener("click", (e) => {
+        const menuVisible =
+        document.querySelector(".mask-wrapper").style.height === "5rem";
+        e.currentTarget.classList.toggle('active');
+        [...document
+          .querySelectorAll('.nav li.hoverable')].forEach((navItem) => { navItem.classList.remove('active')});
+        menuVisible ? showMegaMenu() : hideMegaMenu();
+      });
+
       calendarWidget.addEventListener('mouseenter', showMegaMenu);
       calendarWidget.addEventListener('mouseenter', checkAndUpdateCalendar);
       calendarWidget.addEventListener('mouseleave', hideMegaMenu);
@@ -75,7 +86,7 @@ const DropdownNav = (function () {
               <HoverableLink
                 label={route.label}
                 href={Object.keys(route.subpaths)[0]}
-                class={routes.selected === route.label ? 'active' : 'inactive'}
+                class={routes.selected === route.label ? 'active' : ''}
                 id={`nav-${route.label.toLowerCase()}`}
                 subpaths={route.subpaths}
               >
