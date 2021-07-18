@@ -133,15 +133,15 @@ const cumulativeValue = (node) => {
     if (node?._children) {
       return +( sumChildrenValues(node, true) >= node._children.length && node._children.every((n) => cumulativeValue(n) === 1) )
     }
-    if (![undefined, "incomplete", false, ''].includes(content)) {
-      return 1
+    if ([undefined, "incomplete", false, ''].includes(content)) {
+      return 0
     } else if (node && node.children)
       return node && node.children
         ? +(
             sumChildrenValues(node) >= node.children.length &&
             node.children.every((n) => cumulativeValue(n) === 1)
           )
-        : 0
+        : 1
   } catch (err) {
     console.log("Could not accumulate.");
   }
@@ -733,7 +733,6 @@ const renderTree = function (
     function activeNodeAnimation() {
       // https://stackoverflow.com/questions/45349849/concentric-emanating-circles-d3
       // Credit: Andrew Reid
-console.log('trigger :>> ');
       const gCircle = svg.selectAll("g.the-node.solid.active g:first-child");
       gCircle.on("mouseover", handleHover);
       const pulseScale = scaleLinear()
