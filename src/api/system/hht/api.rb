@@ -61,7 +61,7 @@ module Hht
       'yaml.yaml_container' # For the 'dummy data' Yaml loader
     ]
 
-    namespace '/api' do
+    namespace '' do
       %i[get post put patch delete].each do |method|
         send(method, '') do
           halt(405, { message: 'Verb Not Permitted' }.to_json)
@@ -69,7 +69,7 @@ module Hht
       end
     end
 
-    namespace '/api/demo' do
+    namespace '/demo' do
       get '' do
         length = params['tracking_length'].to_i
         YAMLStore.ready ? YAMLStore.get_data : (YAML = YAMLStore.new(length))
@@ -114,7 +114,7 @@ module Hht
       end
     end
 
-    namespace '/api/habit_trees/nodes' do
+    namespace '/habit_trees/nodes' do
       get '' do
         nodes_list = habit_node_repo.all_as_json
         halt(404, { message: 'No Nodes Found' }.to_json) unless nodes_list
@@ -170,7 +170,7 @@ module Hht
       end
     end
 
-    namespace '/api/habit_trees' do
+    namespace '/habit_trees' do
       %i[put patch delete].each do |method|
         send(method, '') do
           halt(405, { message: 'Verb Not Permitted' }.to_json)
@@ -183,7 +183,7 @@ module Hht
         date_id = params[:date_id].to_i
 
         if params[:demo] == 'true'
-          halt(302, { message: 'Use the /api/demo path for demo data.' }.to_json)
+          halt(302, { message: 'Use the /demo path for demo data.' }.to_json)
         end
 
         root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
@@ -212,7 +212,7 @@ module Hht
       end
     end
 
-    namespace '/api/domains' do
+    namespace '/domains' do
       get '' do
         domain_list = domain_repo.all_as_json
         halt(404, { message: 'No Domains Found' }.to_json) unless domain_list
@@ -278,7 +278,7 @@ module Hht
       end
     end
 
-    namespace '/api/habits' do
+    namespace '/habits' do
       get '' do
         habit_list = habit_repo.all_as_json
         halt(404, { message: 'No Habits Found' }.to_json) unless habit_list
@@ -341,7 +341,7 @@ module Hht
       end
     end
 
-    namespace '/api/dates' do
+    namespace '/dates' do
       get '' do
         date_list = date_repo.all_as_json
         halt(404, { message: 'No Dates Found' }.to_json) unless date_list
@@ -374,7 +374,7 @@ module Hht
       end
     end
 
-    namespace '/api/habit_dates' do
+    namespace '/habit_dates' do
       get '' do
         habit_date_list = habit_date_repo.all_as_json
         halt(404, { message: 'No Habit Dates Found' }.to_json) unless habit_date_list
