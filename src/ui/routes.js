@@ -306,4 +306,4 @@ const Routes = MenuRoutes.reduce(
 
 const DefaultRoute = "/";
 
-export { Routes, DefaultRoute, populateStores };
+export { Routes, populateStores };
