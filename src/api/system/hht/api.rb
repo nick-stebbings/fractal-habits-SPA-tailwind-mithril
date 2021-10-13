@@ -37,12 +37,12 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://api.habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
     end
 
     options '*' do
       response.headers['Allow'] = 'GET, POST, OPTIONS, DELETE, PUT, PATCH'
-      response.headers['Access-Control-Allow-Origin'] = 'https://api.habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
       response.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
       200
     end
@@ -78,7 +78,7 @@ module Hht
         YAMLStore.ready ? YAMLStore.get_data : (YAML = YAMLStore.new(length))
         demo_data_payload = YAMLStore.get_data
         status 200
-        JSON.parse(json demo_data_payload)
+        json demo_data_payload
       end
 
       get '/domain/:id/habit_tree' do |id|
