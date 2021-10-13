@@ -30,7 +30,6 @@ module Hht
       register Sinatra::Namespace
       register Sinatra::CrossOrigin
       enable :cross_origin
-      set :allow_origin, :any
       set :allow_methods, %i[get post options delete put patch]
       set :allow_credentials, true
       set :max_age, '1728000'
@@ -38,13 +37,13 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = '*'
+      response.headers['Access-Control-Allow-Origin'] = 'https://api.habfract.life'
     end
 
     options '*' do
       response.headers['Allow'] = 'GET, POST, OPTIONS, DELETE, PUT, PATCH'
-      response.headers['Access-Control-Allow-Origin'] = '*'
-      response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
+      response.headers['Access-Control-Allow-Origin'] = 'https://api.habfract.life'
+      response.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
       200
     end
 
@@ -65,7 +64,7 @@ module Hht
       'yaml.yaml_container' # For the 'dummy data' Yaml loader
     ]
 
-    namespace '' do
+    namespace '/' do
       %i[get post put patch delete].each do |method|
         send(method, '') do
           halt(405, { message: 'Verb Not Permitted' }.to_json)
@@ -79,7 +78,7 @@ module Hht
         YAMLStore.ready ? YAMLStore.get_data : (YAML = YAMLStore.new(length))
         demo_data_payload = YAMLStore.get_data
         status 200
-        json demo_data_payload
+        JSON.parse(json demo_data_payload)
       end
 
       get '/domain/:id/habit_tree' do |id|
