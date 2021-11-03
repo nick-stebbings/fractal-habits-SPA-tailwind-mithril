@@ -98,7 +98,6 @@ const DateSelector = function () {
           max={String(todaysDate)}
           list="current-habit-date-list"
         />
-        {console.log(minDate && minDate.toLocaleString())}
         <datalist id="current-habit-date-list">
           {HabitStore.current() &&
             DateStore.listForHabit().map((dateElement) =>

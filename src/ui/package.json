@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode=development --hot --config webpack.config.js",
     "dev:analyze": "npm start -- --env.addons=bundleanalyzer",
-    "build": "export NODE_ENV=production && webpack --display-error-details --mode production --config prod.webpack.config.js",
+    "build": "export NODE_ENV=production && webpack --display-error-details --mode production --config prod.webpack.config.js --verbose",
     "build:analyze": "npm run-script build -- --env.addons=bundleanalyzer"
   },
   "author": "Nicholas Stebbings",
@@ -19,6 +19,7 @@
     "@babel/runtime": "^7.13.10",
     "@fullhuman/postcss-purgecss": "^4.0.3",
     "@tailwindcss/custom-forms": "^0.2.1",
+    "@webpack-cli/serve": "^1.6.0",
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -56,7 +57,7 @@
     "url-loader": "^4.1.1",
     "webpack": "^4.41.3",
     "webpack-bundle-analyzer": "^4.4.1",
-    "webpack-cli": "^3.3.10",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^5.7.3"
   },

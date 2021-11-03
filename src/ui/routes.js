@@ -100,8 +100,8 @@ let cardCopy = [
   },
 ];
 
-const spinnerState = stream(true); 
-const visSpinnerComponent = stream({ view: () => m("p", "Loading") }); 
+const spinnerState = stream(true);
+const visSpinnerComponent = stream({ view: () => m("p", "Loading") });
 const modalType = stream(false);
 
 const d3visPageMaker = function (layout, component, spinnerState, modalType) {
@@ -114,7 +114,7 @@ const d3visPageMaker = function (layout, component, spinnerState, modalType) {
     // Pass unique selection id to the vis component for d3 selection
     const d3Container = m("div", { id: divId }, [
       m("svg.controlsSvg", {
-        class: "bottom-0 fixed right-0 h-14 hidden md:block"
+        class: "bottom-0 fixed right-0 h-14 hidden md:block",
       }),
     ]);
 
@@ -122,13 +122,15 @@ const d3visPageMaker = function (layout, component, spinnerState, modalType) {
       layout,
       { spinnerState, modalType },
       m(component, { divId, modalType }, [
-      m("svg.legendSvg", { class: "bottom-1 w-36 fixed h-12"}), d3Container])
+        m("svg.legendSvg", { class: "bottom-1 w-36 fixed h-12" }),
+        d3Container,
+      ])
     );
   };
   return page;
 };
 
-function populateStores({demo}) {
+function populateStores({ demo }) {
   if (!demo) {
     console.log(
       HabitStore.current()?.name == "Select a Life-Domain to start tracking"
@@ -136,25 +138,29 @@ function populateStores({demo}) {
         : "Habits loaded from the Store"
     );
     let habitLoad = (
-      (HabitStore.current()?.name == "Select a Life-Domain to start tracking" ||
-      HabitStore.current()?.name ==
-        "There are no habits yet for this domain") // If we still have default habit data
+      HabitStore.current()?.name == "Select a Life-Domain to start tracking" ||
+      HabitStore.current()?.name == "There are no habits yet for this domain" // If we still have default habit data
         ? HabitStore.index()
         : Promise.resolve(HabitStore.fullList())
     )
       .then((habits) => {
         return habits.length !== 0
-            ? Promise.resolve(habits)
-            : Promise.reject("There are no habits to load, yet!");
+          ? Promise.resolve(habits)
+          : Promise.reject("There are no habits to load, yet!");
       })
       .catch((message) => {
         handleErrorType(message, "info");
       });
 
-    console.log(DomainStore.current()?.name == "No Domains Registered" ? 'Domains Indexed' : 'Domains loaded from the Store');
-    let domainLoad = (DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
-      ? DomainStore.index()
-      : Promise.resolve(DomainStore.list())
+    console.log(
+      DomainStore.current()?.name == "No Domains Registered"
+        ? "Domains Indexed"
+        : "Domains loaded from the Store"
+    );
+    let domainLoad = (
+      DomainStore.current()?.name == "No Domains Registered" // If we still have default domain data
+        ? DomainStore.index()
+        : Promise.resolve(DomainStore.list())
     )
       .then((domains) => {
         return new Promise((resolve, reject) => {
@@ -166,47 +172,54 @@ function populateStores({demo}) {
       .catch((message) => {
         handleErrorType(message, "info");
       });
-    
-    const notInitialLoad = () => HabitStore.current() &&
+
+    const notInitialLoad = () =>
+      HabitStore.current() &&
       HabitStore.current()?.name != "Select a Life-Domain to start tracking";
-    const nodeLoad = () => notInitialLoad() && NodeStore.index() .catch((err) => {
-        handleErrorType(message, "info");
-      });
-    
-    const dateLoad = () => notInitialLoad() && DateStore.index() .catch((err) => {
+    const nodeLoad = () =>
+      notInitialLoad() &&
+      NodeStore.index().catch((err) => {
         handleErrorType(message, "info");
       });
 
-    const habitDateLoad = () => notInitialLoad() && HabitDateStore.index()
-        .catch((err) => {
-          handleErrorType(message, "info");
-        });
+    const dateLoad = () =>
+      notInitialLoad() &&
+      DateStore.index().catch((err) => {
+        handleErrorType(message, "info");
+      });
+
+    const habitDateLoad = () =>
+      notInitialLoad() &&
+      HabitDateStore.index().catch((err) => {
+        handleErrorType(message, "info");
+      });
 
     return Promise.all([habitLoad, domainLoad])
-    .then(() => {
-      if(!changedHabit()) HabitStore.indexHabitsOfDomain(DomainStore.current().id, true);
-      return Promise.all([dateLoad(), nodeLoad(), habitDateLoad()])
+      .then(() => {
+        if (!changedHabit())
+          HabitStore.indexHabitsOfDomain(DomainStore.current().id, true);
+        return Promise.all([dateLoad(), nodeLoad(), habitDateLoad()]);
       })
-    .then(() => {
-      DateStore.indexDatesOfHabit(HabitStore.current());
-      HabitDateStore.filterListByHabitId(HabitStore.current().id);
-      console.log(
-        HabitStore.fullList(),
-        HabitStore.list(),
-        HabitStore.current(),
-        DomainStore.current(),
-        DateStore.list(),
-        DateStore.listForHabit()
-      );
-      console.log('Full reload of data')
-      spinnerState(false);
-    })
-    .catch((err) => {
-      DateStore.clear();
-      changedHabit(false);
-      spinnerState(false);
-      console.log(err, "Error loading data!");
-    });
+      .then(() => {
+        DateStore.indexDatesOfHabit(HabitStore.current());
+        HabitDateStore.filterListByHabitId(HabitStore.current().id);
+        console.log(
+          HabitStore.fullList(),
+          HabitStore.list(),
+          HabitStore.current(),
+          DomainStore.current(),
+          DateStore.list(),
+          DateStore.listForHabit()
+        );
+        console.log("Full reload of data");
+        spinnerState(false);
+      })
+      .catch((err) => {
+        DateStore.clear();
+        changedHabit(false);
+        spinnerState(false);
+        console.log(err, "Error loading data!");
+      });
   } else {
     // Load Demo data
     return importData
@@ -221,7 +234,7 @@ function populateStores({demo}) {
         console.log(err);
       });
   }
-};
+}
 
 // Map MenuRoutes object -> Mithril router objects with rendering functions
 const Routes = MenuRoutes.reduce(
@@ -244,7 +257,6 @@ const Routes = MenuRoutes.reduce(
             : null;
         },
         render: () => {
-
           return menuSection.label === "Visualise"
             ? m(
                 d3visPageMaker(
@@ -264,7 +276,8 @@ const Routes = MenuRoutes.reduce(
                     { spinnerState, modalType },
                     m(component, { modalType })
                   ),
-              })},
+              });
+        },
       };
     });
 
@@ -289,7 +302,11 @@ const Routes = MenuRoutes.reduce(
                 m(SloganSection),
                 m(
                   "div",
-                  { class: m.route.param("demo") ? "cta-header hidden " : "cta-header" },
+                  {
+                    class: m.route.param("demo")
+                      ? "cta-header hidden "
+                      : "cta-header",
+                  },
                   "Choose a life domain ..."
                 ),
                 m(PillSection, {
@@ -306,4 +323,4 @@ const Routes = MenuRoutes.reduce(
 
 const DefaultRoute = "/";
 
-export { Routes, populateStores };
+export { Routes, populateStores, DefaultRoute };

@@ -19,7 +19,11 @@ import FilterList from "../components/Layout/FilterList.jsx";
 import CancelButton from "../components/Layout/Nav/UI/Buttons/CancelButton.jsx";
 import { openModal } from "../../assets/scripts/animations";
 import { changedHabit, calendarDates } from "../../assets/scripts/controller";
-import { setRouteToBasePath, invert, isTouchDevice } from "../../assets/scripts/utilities";
+import {
+  setRouteToBasePath,
+  invert,
+  isTouchDevice,
+} from "../../assets/scripts/utilities";
 
 const nameOrderAsc = stream(true);
 const dateOrderAsc = stream(true);
@@ -52,7 +56,7 @@ const HabitDashboard = {
     if (m.route.param("currentHabit")) {
       HabitStore.current(
         HabitStore.filterById(m.route.param("currentHabit"))[0]
-        );
+      );
     }
     HabitStore.current() &&
       NodeStore.runCurrentFilterByHabit(HabitStore.current());
@@ -90,11 +94,13 @@ const HabitDashboard = {
       selectedHabitName.parentNode.parentNode.parentNode.parentNode.classList.add(
         "selected"
       );
-    
+
     if (m.route.param("currentHabit")) {
       if (isTouchDevice()) return;
-      let param = m.route.param('currentHabit');
-      document.querySelector(`tr:nth-child(${Math.max(param - 1, 1)})`)?.scrollIntoView();
+      let param = m.route.param("currentHabit");
+      document
+        .querySelector(`tr:nth-child(${Math.max(param - 1, 1)})`)
+        ?.scrollIntoView();
       setRouteToBasePath();
     }
 
@@ -111,20 +117,24 @@ const HabitDashboard = {
           document.querySelector(".selected")?.classList.remove("selected");
           e.currentTarget.classList.add("selected");
           // Set the current habit and node
-          HabitStore.current(HabitStore.filterByName(habitName)[0]);
-          HabitStore.current()?.id && NodeStore.runCurrentFilterByHabit(HabitStore.current());
+          if (demoData) return;
+          HabitStore.indexHabitsOfDomain(DomainStore.current()?.id);
+          HabitStore.current(HabitStore.filterByName(habitName)[0]); // NEW
+          HabitStore.current()?.id &&
+            NodeStore.runCurrentFilterByHabit(HabitStore.current());
           // Add toggle status event
           if (e.target.tagName == "circle") {
             if (demoData) return;
-            console.log('e.target :>> ', e.target);
             const currentStatusCol = e.target.getAttribute("fill");
             const currentStatus = currentStatusCol === positiveCol;
             e.target.setAttribute(
               "fill",
               currentStatusCol === positiveCol ? negativeCol : positiveCol
-              );
-            makePatchOrPutRequest(demoData, String(currentStatus)).then(m.redraw);
-            }
+            );
+            makePatchOrPutRequest(demoData, String(currentStatus)).then(
+              m.redraw
+            );
+          }
 
           // Add delete  event
           if (e.target.tagName == "BUTTON") {
@@ -133,7 +143,8 @@ const HabitDashboard = {
           }
           changedHabit(true);
           // Stop the query parameters from persisting past first load
-          if (!e.target.tagName == "circle") setRouteToBasePath(HabitStore.current()?.id);
+          if (!e.target.tagName == "circle")
+            setRouteToBasePath(HabitStore.current()?.id);
         }
         m.redraw();
       });

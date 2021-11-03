@@ -1,4 +1,4 @@
-import { select } from "d3-selection"
+import { select } from "d3-selection";
 import { scaleOrdinal, scaleLinear } from "d3-scale";
 import { zoomIdentity } from "d3-zoom";
 import { linkVertical } from "d3-shape";
@@ -7,8 +7,12 @@ import { easeCubic, easePolyOut } from "d3-ease";
 import { legendColor } from "d3-svg-legend";
 import { openModal } from "./animations";
 import { isTouchDevice } from "./utilities";
-import { populateCalendar, pendingCalendarRefresh } from "./controller";
-import Hammer from 'hammerjs';
+import {
+  populateCalendar,
+  pendingCalendarRefresh,
+  newRecord,
+} from "./controller";
+import Hammer from "hammerjs";
 
 import TreeStore from "../../store/habit-tree-store";
 import NodeStore from "../../store/habit-node-store";
@@ -50,9 +54,13 @@ const addLegend = (svg) => {
 
   const legendSvg = select("svg.legendSvg");
   const controlsSvg = select("svg.controlsSvg");
-  const gText = controlsSvg.append("g").attr("class", "controls")
+  const gText = controlsSvg
+    .append("g")
+    .attr("class", "controls")
     .attr("transform", "translate(280, 40) scale(0.7)");
-  const gLegend = legendSvg.append("g").attr("class", "legend")
+  const gLegend = legendSvg
+    .append("g")
+    .attr("class", "legend")
     .attr("transform", "translate(20, 30) scale(2)");
 
   // Borrowing the habit label for the legend
@@ -69,10 +77,7 @@ const addLegend = (svg) => {
     gText.append("text").text("Swipe Right ---> Last Day").attr("y", -10);
   } else {
     gText.append("text").text("L/Click ---> Select Habit & Focus");
-    gText
-      .append('text')
-      .attr('y', 25)
-      .text('R/Click -> Tick Off Habit');
+    gText.append("text").attr("y", 25).text("R/Click -> Tick Off Habit");
     gText
       .append("text")
       .text("Zoom On Habit -> Select Family & Centre")
@@ -90,58 +95,62 @@ const addLegend = (svg) => {
   gLegend.call(colorLegend);
 };
 
-const setHabitLabel = (data) => { 
-  document.getElementById("current-habit").nextElementSibling.textContent = data?.name 
-  document.getElementById("current-habit-sm").nextElementSibling.textContent = data?.name 
+const setHabitLabel = (data) => {
+  document.getElementById("current-habit").nextElementSibling.textContent =
+    data?.name;
+  document.getElementById("current-habit-sm").nextElementSibling.textContent =
+    data?.name;
 };
 let zoomsG;
 const zooms = function (e) {
   const transform = e.transform;
   let scale = transform.k,
-    tbound = -canvasHeight * scale*3,
-    bbound = canvasHeight * scale*3;
+    tbound = -canvasHeight * scale * 3,
+    bbound = canvasHeight * scale * 3;
   scale = globalZoom ? globalZoom : scale;
   const currentTranslation = [margin.left, margin.top];
   zoomsG = e.transform;
   globalZoom = null;
   globalTranslate = null;
   const translation = [
-    (globalTranslate ? globalTranslate[0] : (currentTranslation[0] + transform.x)),
-    (globalTranslate ? ((currentTranslation[1] + globalTranslate[1])) : (currentTranslation[1] + transform.y))
+    globalTranslate ? globalTranslate[0] : currentTranslation[0] + transform.x,
+    globalTranslate
+      ? currentTranslation[1] + globalTranslate[1]
+      : currentTranslation[1] + transform.y,
   ];
   select(".canvas").attr(
     "transform",
-    "translate(" +
-      translation +
-      ")" +
-      " scale(" +
-      scale +
-      ")"
+    "translate(" + translation + ")" + " scale(" + scale + ")"
   );
 };
 
 const deadNode = (event) =>
-  event.target.__data__.data && parseTreeValues(event.target.__data__.data.content)
-    ?.status == "";
+  event.target.__data__.data &&
+  parseTreeValues(event.target.__data__.data.content)?.status == "";
 
-const sumChildrenValues = (node, hidden=false) => hidden ? node._children.reduce((sum, n) => sum + n.value, 0) : 
-  node.children.reduce((sum, n) => sum + n.value, 0);
+const sumChildrenValues = (node, hidden = false) =>
+  hidden
+    ? node._children.reduce((sum, n) => sum + n.value, 0)
+    : node.children.reduce((sum, n) => sum + n.value, 0);
 
 const cumulativeValue = (node) => {
   const content = parseTreeValues(node.data.content).status;
   try {
     if (node?._children) {
-      return +( sumChildrenValues(node, true) >= node._children.length && node._children.every((n) => cumulativeValue(n) === 1) )
+      return +(
+        sumChildrenValues(node, true) >= node._children.length &&
+        node._children.every((n) => cumulativeValue(n) === 1)
+      );
     }
-    if (![undefined, "incomplete", false, ''].includes(content)) {
-      return 1
+    if (![undefined, "incomplete", false, ""].includes(content)) {
+      return 1;
     } else if (node && node.children)
       return node && node.children
         ? +(
             sumChildrenValues(node) >= node.children.length &&
             node.children.every((n) => cumulativeValue(n) === 1)
           )
-        : 0
+        : 0;
   } catch (err) {
     console.log("Could not accumulate.");
   }
@@ -153,7 +162,11 @@ const makePatchOrPutRequest = function (isDemo, currentStatus) {
     date_id: DateStore.current().id,
     completed_status: oppositeStatus(currentStatus),
   };
-  return HabitDateStore.runUpdate(isDemo, requestBody, DomainStore.current().id);
+  return HabitDateStore.runUpdate(
+    isDemo,
+    requestBody,
+    DomainStore.current().id
+  );
 };
 
 const setNormalTransform = function (zoomClicked, zoomsG, clickScale) {
@@ -161,12 +174,16 @@ const setNormalTransform = function (zoomClicked, zoomsG, clickScale) {
 
   if (zoomsG?.x && Object.keys(zoomClicked).length > 0) {
     // Set the translation for a movement back to 'normal zoom' by feeding the node coordinates and multiplying by the current 'normal' scale
-    zoomsG.x = zoomsG.k * -(zoomClicked?.node.__data__
-      ? zoomClicked?.node.__data__.x
-      : zoomClicked?.node.x);
-    zoomsG.y = zoomsG.k * -(zoomClicked?.node.__data__
-      ? zoomClicked?.node.__data__.y
-      : zoomClicked?.node.y);
+    zoomsG.x =
+      zoomsG.k *
+      -(zoomClicked?.node.__data__
+        ? zoomClicked?.node.__data__.x
+        : zoomClicked?.node.x);
+    zoomsG.y =
+      zoomsG.k *
+      -(zoomClicked?.node.__data__
+        ? zoomClicked?.node.__data__.y
+        : zoomClicked?.node.y);
   }
 };
 
@@ -191,7 +208,7 @@ const renderTree = function (
 
   let currentXTranslate = globalTranslate ? -globalTranslate[0] : margin.left;
   let currentYTranslate = globalTranslate ? -globalTranslate[1] : margin.top;
-  
+
   // SETTINGS
   let scale = isDemo ? 9 : 14;
   const zoomBase = canvas;
@@ -204,7 +221,10 @@ const renderTree = function (
   const canvas = svg
     .append("g")
     .classed("canvas", true)
-    .attr("transform", `scale(${clickScale}), translate(${currentXTranslate},${currentYTranslate})`);
+    .attr(
+      "transform",
+      `scale(${clickScale}), translate(${currentXTranslate},${currentYTranslate})`
+    );
 
   if (smallScreen) {
     levelsWide = zoomClicked ? 15 : 12;
@@ -213,11 +233,11 @@ const renderTree = function (
     levelsWide = 12;
     levelsHigh = 2;
   }
-  levelsWide *= 8
+  levelsWide *= 8;
   const nodeRadius = (smallScreen ? 8 : 10) * scale;
-  let dx = ((canvasWidth / levelsHigh)) / 2;
+  let dx = canvasWidth / levelsHigh / 2;
   let dy = (canvasHeight / levelsWide) * 4;
-  dy *= (zoomedInView && !smallScreen ? 10 : 14);
+  dy *= zoomedInView && !smallScreen ? 10 : 14;
 
   let viewportX, viewportY, viewportW, viewportH, defaultView;
   let activeNode;
@@ -229,7 +249,7 @@ const renderTree = function (
     .attr("viewBox", defaultView)
     .attr("preserveAspectRatio", "xMidYMid meet")
     .call(zoomer)
-    .on("dblclick.zoom", null);;
+    .on("dblclick.zoom", null);
   if (select("svg .legend").empty() && select("svg .controls").empty())
     addLegend();
 
@@ -239,7 +259,7 @@ const renderTree = function (
 
   const setActiveNode = (clickedNode) => {
     activeNode = findNodeByContent(clickedNode);
-    return activeNode
+    return activeNode;
   };
 
   const findNodeByContent = (node) => {
@@ -322,19 +342,19 @@ const renderTree = function (
   const handleNodeToggle = function (event, node) {
     setActiveNode(node.data);
     activeNodeAnimation();
-    console.log('node.data :>> ', node.data);
     const targ = event.target;
     if (targ.tagName == "circle") {
       if (
         targ.closest(".the-node").classList.contains("active") ||
         deadNode(event)
-      ) return reset();
+      )
+        return reset();
 
       updateCurrentHabit(node, false);
       expand(node);
-      
+
       zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
-  
+
       setHabitLabel(node.data);
       showHabitLabel();
       collapseAroundAndUnder(node, false, false);
@@ -343,7 +363,7 @@ const renderTree = function (
         NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
         HabitStore.runCurrentFilterByNode(NodeStore.current().id);
         pendingCalendarRefresh(true);
-        populateCalendar();
+        populateCalendar().then(m.redraw);
       }
     }
   };
@@ -351,7 +371,7 @@ const renderTree = function (
   const handleStatusChange = (event, node) => {
     event.preventDefault();
     if (node.children) return;
-    setActiveNode(node.data)
+    setActiveNode(node.data);
     activeNodeAnimation();
     const opts = {
       event,
@@ -362,22 +382,26 @@ const renderTree = function (
 
     expand(node);
     renderTree(svg, isDemo, zoomer, opts);
-    let statusChange = handleStatusToggle(node);
+    handleStatusToggle(node);
 
     setHabitLabel(node.data);
     handleZoom(event, node?.parent, true);
-    zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
+    // zoomsG?.k && setNormalTransform(zoomClicked, zoomsG, clickScale);
     renderTree(svg, isDemo, zoomer, opts);
-    Promise.all([statusChange, (!isDemo && populateCalendar())]);
+    newRecord(true);
   };
 
   const handleHover = (e, d) => {
     // If it is an animated concentric circle, delegate to parent node
-    if (e.target.classList.length === 0) { d = e.target.parentElement.__data__ }
+    if (e.target.classList.length === 0) {
+      d = e.target.parentElement.__data__;
+    }
     if (parseTreeValues(d.data.content).status === "") return;
     e.stopPropagation();
     // Hide labels if they are not part of the current subtree
-    if (!(activeNode !== undefined && d.ancestors().includes(activeNode))) { return }
+    if (!(activeNode !== undefined && d.ancestors().includes(activeNode))) {
+      return;
+    }
     if (!currentTooltip) {
       svg.select("g.tooltip").transition();
       currentTooltip = svg.selectAll("g.tooltip").filter((t) => {
@@ -417,20 +441,20 @@ const renderTree = function (
         }, 500);
       });
 
-    selection._groups[0].forEach(node => {
+    selection._groups[0].forEach((node) => {
       const manager = new Hammer.Manager(node);
       // Create a recognizer
-      const singleTap = new Hammer.Tap({event: 'singletap'});
+      const singleTap = new Hammer.Tap({ event: "singletap" });
       const doubleTap = new Hammer.Tap({
-        event: 'doubletap',
+        event: "doubletap",
         taps: 2,
-        interval: 700
+        interval: 700,
       });
       manager.add([doubleTap, singleTap]);
       manager.get("singletap").requireFailure("doubletap");
-      manager.on('doubletap', (ev) => {
+      manager.on("doubletap", (ev) => {
         handleStatusChange(ev, node.__data__);
-      })
+      });
     });
   };
   function handleStatusToggle(node) {
@@ -455,9 +479,10 @@ const renderTree = function (
   function calibrateViewPort() {
     viewportY = smallScreen ? -800 : -550;
     viewportW = canvasWidth;
-    viewportX = viewportW / clickScale + (clickScale * ((!isDemo || smallScreen) ? 3.5 : 10) * nodeRadius);
-    viewportH =
-      canvasHeight * 5;
+    viewportX =
+      viewportW / clickScale +
+      clickScale * (!isDemo || smallScreen ? 3.5 : 10) * nodeRadius;
+    viewportH = canvasHeight * 5;
     defaultView = `${viewportX} ${viewportY} ${viewportW} ${viewportH}`;
   }
 
@@ -494,7 +519,8 @@ const renderTree = function (
   function updateCurrentHabit(node, redraw = true) {
     const nodeContent = parseTreeValues(node.data.content);
     NodeStore.runCurrentFilterByMptt(nodeContent.left, nodeContent.right);
-    HabitStore.current() && HabitStore.runCurrentFilterByNode(NodeStore.current()?.id);
+    HabitStore.current() &&
+      HabitStore.runCurrentFilterByNode(NodeStore.current()?.id);
     redraw && m.redraw();
   }
 
@@ -577,16 +603,13 @@ const renderTree = function (
   activeNode && activeNodeAnimation();
 
   // Append circles and add hover event
-  gCircle
-    .append("circle")
-    .attr("r", nodeRadius)
-    .on("mouseenter", handleHover);
+  gCircle.append("circle").attr("r", nodeRadius).on("mouseenter", handleHover);
 
   const gTooltip = enteringNodes
     .append("g")
     .classed("tooltip", true)
-    .attr("transform", `translate(${(nodeRadius) / scale}, 75), scale(2)`)
-    .attr("opacity", (d) => activeOrNonActiveOpacity(d, "0") );
+    .attr("transform", `translate(${nodeRadius / scale}, 75), scale(2)`)
+    .attr("opacity", (d) => activeOrNonActiveOpacity(d, "0"));
 
   gTooltip
     .append("rect")
@@ -643,8 +666,8 @@ const renderTree = function (
   //   .text((d) => {
   //     return d.data.content;
   //   });
-    
-    //
+
+  //
   enteringNodes
     .append("g")
     .attr("transform", "translate(" + "-20" + "," + "55" + ") scale( 2.5 )")
@@ -656,7 +679,7 @@ const renderTree = function (
         : null;
     })
     .style("fill", "red");
-    
+
   const gButton = gCircle
     .append("g")
     .classed("habit-label-dash-button", true)
@@ -698,7 +721,7 @@ const renderTree = function (
     gButton
       .append("text")
       .attr("x", 15)
-      .attr("y", (d) => d.parent ? 2 : 5)
+      .attr("y", (d) => (d.parent ? 2 : 5))
       .text((d) => "APPEND")
       .on("click", (e, n) => {
         openModal(true);
@@ -728,78 +751,79 @@ const renderTree = function (
         modalType("d3vis-prepend");
         m.redraw();
       });
-    };
-      
-    function activeNodeAnimation() {
-      // https://stackoverflow.com/questions/45349849/concentric-emanating-circles-d3
-      // Credit: Andrew Reid
-console.log('trigger :>> ');
-      const gCircle = svg.selectAll("g.the-node.solid.active g:first-child");
-      gCircle.on("mouseover", handleHover);
-      const pulseScale = scaleLinear()
-        .range(["#d0790f", "#5568d2", "#3349c1"])
-        .domain([0, 3 * nodeRadius]);
-      const pulseData = [0, nodeRadius, nodeRadius * 2, nodeRadius * 2];
-      const pulseCircles = gCircle
-        .append("g")
-        .classed("active-circle", true)
-        .attr("stroke-opacity", (d) => {
-          return activeNode && d.data.content === activeNode.data.content
-            ? "1"
-            : "0";
+  }
+
+  function activeNodeAnimation() {
+    // https://stackoverflow.com/questions/45349849/concentric-emanating-circles-d3
+    // Credit: Andrew Reid
+    const gCircle = svg.selectAll("g.the-node.solid.active g:first-child");
+    gCircle.on("mouseover", handleHover);
+    const pulseScale = scaleLinear()
+      .range(["#d0790f", "#5568d2", "#3349c1"])
+      .domain([0, 3 * nodeRadius]);
+    const pulseData = [0, nodeRadius, nodeRadius * 2, nodeRadius * 2];
+    const pulseCircles = gCircle
+      .append("g")
+      .classed("active-circle", true)
+      .attr("stroke-opacity", (d) => {
+        return activeNode && d.data.content === activeNode.data.content
+          ? "1"
+          : "0";
+      })
+      .selectAll("circle")
+      .data(pulseData)
+      .enter()
+      .append("circle")
+      .attr("r", function (d) {
+        return d;
+      })
+      .attr("fill", "none")
+      .style("stroke-width", "4")
+      .style("stroke", function (d) {
+        return pulseScale(d);
+      });
+
+    function transition() {
+      let data = pulseData
+        .map(function (d) {
+          return d == 3 * nodeRadius ? 0 : d + nodeRadius;
         })
-        .selectAll("circle")
-        .data(pulseData)
-        .enter()
-        .append("circle")
+        .slice(0, -2);
+
+      var i = 0;
+      // Grow circles
+      pulseCircles
+        .data(data)
+        .filter(function (d) {
+          return d > 0;
+        })
+        .transition()
+        .ease(easeCubic)
         .attr("r", function (d) {
           return d;
         })
-        .attr("fill", "none")
-        .style("stroke-width", "4")
+        .style("stroke", function (d) {
+          return pulseScale(d);
+        })
+        .style("opacity", function (d) {
+          return d == 3 * nodeRadius ? 0 : 1;
+        })
+        .duration(500);
+
+      // Reset pulseCircles where r == 0
+      pulseCircles
+        .filter(function (d) {
+          return d == 0;
+        })
+        .attr("r", 0)
+        .style("opacity", 1)
         .style("stroke", function (d) {
           return pulseScale(d);
         });
-
-      function transition() {
-        let data = pulseData.map(function (d) {
-          return d == 3 * nodeRadius ? 0 : d + nodeRadius;
-        }).slice(0,-2);
-
-        var i = 0;
-        // Grow circles
-        pulseCircles
-          .data(data)
-          .filter(function (d) {
-            return d > 0;
-          })
-          .transition()
-          .ease(easeCubic)
-          .attr("r", function (d) {
-            return d;
-          })
-          .style("stroke", function (d) {
-            return pulseScale(d);
-          })
-          .style("opacity", function (d) {
-            return d == 3 * nodeRadius ? 0 : 1;
-          })
-          .duration(500);
-
-        // Reset pulseCircles where r == 0
-        pulseCircles
-          .filter(function (d) {
-            return d == 0;
-          })
-          .attr("r", 0)
-          .style("opacity", 1)
-          .style("stroke", function (d) {
-            return pulseScale(d);
-          });
-      }
-      showHabitLabel();
-      transition();
-    };
+    }
+    showHabitLabel();
+    transition();
+  }
 };
 
 function expandTree() {
@@ -840,24 +864,24 @@ const parseTreeValues = (valueString) => {
 };
 
 const oppositeStatus = (current) =>
-  current === undefined || current === "false" || current == 'incomplete' ? "true" : "false";
+  current === undefined || current === "false" || current == "incomplete"
+    ? "true"
+    : "false";
 
 const nodeStatusColours = (d) => {
-  if (
-    typeof d === "undefined" ||
-    typeof d.data.content === "undefined"
-  )
+  if (typeof d === "undefined" || typeof d.data.content === "undefined")
     return neutralCol;
   const status = parseTreeValues(d.data.content).status;
-  if (status == "false" && TreeStore.root().leaves().includes(d)) return negativeCol;
+  if (status == "false" && TreeStore.root().leaves().includes(d))
+    return negativeCol;
   if (status === "") return noNodeCol;
   switch (cumulativeValue(d)) {
     case 1:
       return positiveCol;
-      case 0:
-        return negativeCol;
-      default:
-        return neutralCol;
+    case 0:
+      return neutralCol;
+    default:
+      return negativeCol;
   }
 };
 
@@ -882,5 +906,5 @@ export {
   neutralCol,
   negativeCol,
   noNodeCol,
-  makePatchOrPutRequest
+  makePatchOrPutRequest,
 };
