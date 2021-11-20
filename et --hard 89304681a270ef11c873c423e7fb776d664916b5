@@ -1,0 +1,3316 @@
+[33mcommit 21a4c522e14641af725de88cd6f67abd9444a3bf[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Nov 3 23:27:26 2021 +1300
+
+     Alter Dockerfile
+
+[33mcommit 06bac0e1f269e3d9b14d2e99d383f0f5aa9fd965[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Nov 3 23:23:28 2021 +1300
+
+    Add rerender of calendar on vis page
+
+[33mcommit bdf52b56ab71d78174c91af7486d9481d110bb18[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Nov 3 23:20:10 2021 +1300
+
+    Fix conflict with main
+
+[33mcommit d25b3f972d09b3a06511e4921aa8828dfba8d642[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Nov 3 23:16:16 2021 +1300
+
+    Alter node version
+
+[33mcommit 9544cd1144ff4e48861f0b681967ae12cb8988c0[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Nov 3 22:55:08 2021 +1300
+
+    Remove excess deps
+
+[33mcommit e1ee342739c1f88de0dd512184d72bda801ddd1e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Nov 3 22:50:00 2021 +1300
+
+    Remove tailwind forms
+
+[33mcommit 0d88e47f59591526d6c2291c52667df5a2fdb2b6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Nov 3 22:37:41 2021 +1300
+
+    Fix state management refresh issues
+
+[33mcommit 897bf00a7f1bc0595212352c6b8697af0ed982ea[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Oct 13 21:15:39 2021 +1300
+
+    Change api response headers
+
+[33mcommit 3a1f9d23a13359f82f2f6a60664948240786fc7b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Oct 13 21:06:25 2021 +1300
+
+    Change api response headers
+
+[33mcommit 52c99a2623175042796408c81fbb3cbade0e8147[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Oct 2 11:10:36 2021 +1300
+
+    Add access control header
+
+[33mcommit 37379ec6f66985f2d15e479628d3bff24a1bb365[m
+Merge: 083a129 0c814b0
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Sep 27 04:02:26 2021 +1300
+
+    Merge branch 'main' of git+ssh://github.com/nick-stebbings/fractal-habits-SPA-tailwind-mithril into main
+
+[33mcommit 0c814b043b8dbd9e04771f60affde857cf550713[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Thu Sep 30 16:03:17 2021 +1300
+
+    Update main.yml
+    
+    add frontend push
+
+[33mcommit 083a129b8a2e52f8edb3911b7fcfde32ad12b14d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Sep 27 04:01:25 2021 +1300
+
+    Update namespaces in api
+
+[33mcommit 814d03a3d1e09c7b462b472690c0ed0b30c7dea2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Sep 27 03:50:17 2021 +1300
+
+    Update namespaces in api
+
+[33mcommit d3d780a23f87eb920b86ea29309080a5f66156da[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Sep 27 03:34:28 2021 +1300
+
+    Add new api route
+
+[33mcommit 89304681a270ef11c873c423e7fb776d664916b5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 16:34:28 2021 +1200
+
+    Add rerender of calendar on vis page
+
+[33mcommit 6af11d9917531fb2b88064489ae96d498dac7c29[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 15:43:07 2021 +1200
+
+    Add rerender of calendar on vis page
+
+[33mcommit f6ab591e6a3b0f292a03b32cffbbb5992f4ab920[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 15:33:15 2021 +1200
+
+    Add calendar date refresh on vis page
+
+[33mcommit bb19451cda6f8df41b22799f740b2aeb3c621568[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 14:24:37 2021 +1200
+
+    Add possible rerender on calendar widget menu opening
+
+[33mcommit 05ddf4e9b18b428def1504750196eafc17e78324[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 14:14:41 2021 +1200
+
+    Change toggling of circle colour on habit dash
+
+[33mcommit 7e206ef6c08c42a953cbdbfa8e0f614148761142[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 14:01:24 2021 +1200
+
+    Change toggling of circle colour on habit dash
+
+[33mcommit e97afd32ab0d9f3b8280d9262b03247d54f66e96[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 13:51:54 2021 +1200
+
+    Change toggling of circle colour on habit dash
+
+[33mcommit c35ada94709e170dcecab1fada28294cae3570ce[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 11:18:55 2021 +1200
+
+    Try out removing parent focus on node toggle
+
+[33mcommit 8cbcecf2abfdc5678984b51b587cdf13af530be3[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 18 11:18:08 2021 +1200
+
+    Fix accumulating node statuses
+
+[33mcommit 101bf6d3b051cb1c1db6212f08a8e527e19f99d3[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jul 17 21:03:35 2021 +1200
+
+    Tweak conditions for tooltips
+
+[33mcommit 852b918b33b9da2cf2d27c6eb9dc86d93c352f2a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jul 17 20:43:24 2021 +1200
+
+    Tweak conditions for tooltips
+
+[33mcommit bbe0526468cd6240f35b8f33d83232ded8cc3baa[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jul 17 20:32:56 2021 +1200
+
+    Tweak conditions for tooltips
+
+[33mcommit 9eec439514b71ffb5644d009a7641836db46b29e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jul 17 19:53:16 2021 +1200
+
+    Change client url
+
+[33mcommit 62cd11620c275ea45e818e5fd69f35d439997974[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jul 17 19:50:03 2021 +1200
+
+    Change client url
+
+[33mcommit 9e4d4240d0a973271aafb5244ef6d9bb531c6db6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jul 17 19:32:13 2021 +1200
+
+    Change client url
+
+[33mcommit 33fbee295ce61421a18d7e2c59f2d8c32d82c5cd[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jul 17 19:31:35 2021 +1200
+
+    Fix habit change rerendering
+
+[33mcommit 798b7d2ea49fdab6be97c52d820b7ff0c93080ac[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 17:41:49 2021 +1200
+
+     Change habit preloading
+
+[33mcommit 7afbf4649600eb77a1346c83b6935d9d810db8cb[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 17:29:35 2021 +1200
+
+     Change habit preloading
+
+[33mcommit ab69f2741942f2247ab8d878c27bf2ceb1ef7844[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 17:15:58 2021 +1200
+
+     Change habit preloading
+
+[33mcommit b5b74d2e2da04206470ca200fd206730902cf70b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 16:54:11 2021 +1200
+
+     Change client url
+
+[33mcommit f4eadb7fe1434bab263fe4c943ac439662ca5281[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 16:11:36 2021 +1200
+
+     Change client url
+
+[33mcommit 08f89cb4f879a867801f56f25e0dba91436ac58b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 16:02:35 2021 +1200
+
+     Change client url
+
+[33mcommit 189a53d53623dc3c0758a78937288143cd92ae77[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 16:01:50 2021 +1200
+
+    Change reloading order
+
+[33mcommit 77acafcd3a394d408877a5ca14532ac9fb75d495[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 15:12:26 2021 +1200
+
+    Change main.yml
+
+[33mcommit 5eda3a54b01956091e4230560f205e5999c3d7ba[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 15:05:24 2021 +1200
+
+    Change client
+
+[33mcommit 3682f6259256b2569167a235ae7fa84378c8d28b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 16 15:04:59 2021 +1200
+
+    Rerender optimisations
+
+[33mcommit fc6c1cb90a64be5d5e01eab21de033c3c8f97c88[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 16:39:34 2021 +1200
+
+    Add an extra redraw
+
+[33mcommit 3d2d047cea110fc03fae344a722de4f3d500fb48[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 16:20:01 2021 +1200
+
+    Add an extra redraw
+
+[33mcommit f979c035708794a075a996df0c61a42373176d07[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 16:14:14 2021 +1200
+
+    Add an extra redraw
+
+[33mcommit 928d86aa70d6be705a0044018e683b7aca31f2c4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 15:59:10 2021 +1200
+
+    Add another rerender on the vis change habit event
+
+[33mcommit 573358ece40cf4dc841679584bdc520b47fe9b18[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 15:51:01 2021 +1200
+
+    Fix habit change indicator
+
+[33mcommit 925b4772cfe20f8c2901627f727ea24bfca8ac9a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 15:23:35 2021 +1200
+
+    Get calendar widget state updating
+
+[33mcommit 1b2b99cd312c3d1ab6f7610ea0a81891ba31d27c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 13:42:20 2021 +1200
+
+    Change client url
+
+[33mcommit 1d8d0a2c9906c6c4ad9763d0f7e25652cf6f9e7e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 13:22:40 2021 +1200
+
+    Fix rendering cycles
+
+[33mcommit eb09c92bc72aeeb294773c9f14bf3242fa43e533[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 13:16:25 2021 +1200
+
+    Remove debugger lines
+
+[33mcommit 189ee6a8e654b99e34d3dd0c91eca5bc7a37a377[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 14 12:24:56 2021 +1200
+
+    Refactor layout reload/rerender
+
+[33mcommit 9ab167c5e451eb5f6fd27cdca4b29c4e6466a7fc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jul 13 15:34:48 2021 +1200
+
+    Add redraw
+
+[33mcommit ba71b4ad778e10c402d4fa7fcf1b689e7d5f24d9[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 18:27:30 2021 +1200
+
+    Add redraw
+
+[33mcommit 865e562da5880fbed7b83d4ab3e46ee50ad6ec59[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 18:01:48 2021 +1200
+
+    Add redraw
+
+[33mcommit e33e7d9e4a366de76782d651c08915a680347a05[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 17:52:30 2021 +1200
+
+    Add redraw
+
+[33mcommit 13b6791bdf41d7e79e397b65c5f007e95d55b45b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 17:42:16 2021 +1200
+
+    Add test for domain addition
+
+[33mcommit 26eb09191bac8386c787ebc1655746094263e98b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 17:33:35 2021 +1200
+
+    Test second domain addition bug
+
+[33mcommit 5987c70e13d336026b3bbeef404e35d804ed7689[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 17:22:54 2021 +1200
+
+    Test second domain addition bug
+
+[33mcommit 0c62da14702fa77ca8d752b977754e322d09ed6a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 17:13:02 2021 +1200
+
+    Test second domain addition bug
+
+[33mcommit 28feb906dd04d4d3e4980d26f39f69773a222448[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 16:57:01 2021 +1200
+
+    Remove habitstore current
+
+[33mcommit dc2e029724d8e4fb06fe214760324a4239529d6a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 14:59:05 2021 +1200
+
+    Remove habitstore current
+
+[33mcommit 05381da9a6ea772523875ca8ed52b891fa13c2aa[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 14:37:44 2021 +1200
+
+    Frontend glitch fixes
+
+[33mcommit 56a30687bb6b8b6bb7f7fdb92e3ec87f04956d53[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 14:33:55 2021 +1200
+
+    Add intersection observer for controls
+
+[33mcommit 8b843d6a61c98a6ae06901e6c6b8028d4b35a796[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jul 12 12:47:35 2021 +1200
+
+    Correct tooltip placement and timings
+
+[33mcommit 22bffad550bd9aaaef25993081876146492b45db[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 11 19:53:18 2021 +1200
+
+    Fix visual bug on date selector and add min value
+
+[33mcommit f1e89d9820734a5c9550359b44826f9f8eb5d6ba[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 11 19:43:15 2021 +1200
+
+    Fix x translation on viewport
+
+[33mcommit 36e5f987b153392d0bbe3e606ab01f1f115745c7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 11 19:38:17 2021 +1200
+
+    Fix majority of jumpy zoom issues
+
+[33mcommit 7f395d80d592c0a16ca42d2535a193c54a709440[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jul 11 18:11:14 2021 +1200
+
+    fix tooltip positioning
+
+[33mcommit 07fd39d7f225e1b68eb2b543400d55e90963323a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 7 21:07:13 2021 +1200
+
+    Add tooltips
+
+[33mcommit ed9e024229240e9035be0bbdf1e3f381b97488f7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jul 7 18:07:12 2021 +1200
+
+    Fix hidden wrapper for long content
+
+[33mcommit 42a0c0ff798d2562561092d000bddee371525e9a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jul 6 20:38:32 2021 +1200
+
+    Add intersection observe back in
+
+[33mcommit 9d6a8b190fc443203f0589fa8333f9dd4251f86e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jul 6 20:34:13 2021 +1200
+
+    Visual tweaks
+
+[33mcommit 66ca1115eb4e1305651dee9afc0063685b8ad6d5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jul 6 20:16:05 2021 +1200
+
+    Fix clipping of text
+
+[33mcommit 11d1fa41ab890d12548558b3493e9ad6a8f337ab[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jul 6 18:59:05 2021 +1200
+
+    Ui tweaks
+
+[33mcommit 828b7b0c5799f6a2297ae6540029c6c01770d163[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jul 6 18:57:29 2021 +1200
+
+    Add tooltips
+
+[33mcommit ac303570878409d90df36e3cd23c25b671e8a3be[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jul 6 17:44:31 2021 +1200
+
+    Add tooltips to first page load
+
+[33mcommit a8ae4ce3f51ff05d66f3da34cfd98c4beaca934b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jul 6 17:18:48 2021 +1200
+
+    Set swipe on vis and correct sensitivity
+
+[33mcommit 2d69e773ddeb72aead44d5afae6fff291e89683e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jul 3 00:50:33 2021 +1200
+
+    Finish copy for front page
+
+[33mcommit 65e6daa5289323cde8db6565e5d05dbff0551b3e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 2 21:18:51 2021 +1200
+
+    Fix card padding and typography
+
+[33mcommit a99971426e657e15ac0d4a7c400c9842f2dda45d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jul 2 20:32:58 2021 +1200
+
+    Make first card content work on mob
+
+[33mcommit 5f983207daf15f71462edfc65cd8c611f3de1e47[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 22:19:40 2021 +1200
+
+    Bugfix patch
+
+[33mcommit 08c9e25d27e924232b590c78ff96dd4efb5e76a6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 20:22:53 2021 +1200
+
+    Minor visual adjustments
+
+[33mcommit 4338dbe5e35dfae14dfa4cccc3c7ed1c443ffe28[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 19:36:14 2021 +1200
+
+    Fix up habit descrtiption box and labels
+
+[33mcommit 0c94d692f00a64e6c9c1ed6443d95df66a9fe58f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 19:09:51 2021 +1200
+
+    Fix bug with date resetting at every habit change on dashboard.
+
+[33mcommit 4addadb69cd101f042676fdac2abef6ef75e6fe4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 19:00:00 2021 +1200
+
+    Fix description behind menu bug
+
+[33mcommit 0901124add0d7e17763c14b88bbbedb17bf18c20[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 18:26:15 2021 +1200
+
+    Fix domain not refreshing current habit bug
+
+[33mcommit 3bb8dfeee6c84bd76e6e074806b87e4cca96cd05[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 17:59:17 2021 +1200
+
+    Add modal and fix changing of habit on vis/rerendering calendarwidget
+
+[33mcommit 5cb4df4fc26f44882066f614a489e48f2b5c173b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 17:17:22 2021 +1200
+
+    Fix duplicate date database entries
+
+[33mcommit 132962140ad15600124d00c59e2354a0e36be0f1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 15:21:31 2021 +1200
+
+    Make transitions less jerky
+
+[33mcommit 3045d67e83091ce9f3a88c3808241c9549e30e3e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 13:46:13 2021 +1200
+
+    Fix collapsing of children nodes
+
+[33mcommit 047a08f3579c16f2b447bc50fc672be7d41d7839[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 13:32:28 2021 +1200
+
+    Handle active habit not showing label on vis
+
+[33mcommit af0a57565ddc4186f32e23fef297436f9d8a470f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jul 1 13:07:57 2021 +1200
+
+    Hide labels for non-current selected tree
+
+[33mcommit a7884c63c30289355ad5610bb804bda4919bc775[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 27 21:03:43 2021 +1200
+
+    Fix modal not showing bug
+
+[33mcommit d8ed168206af07a1582f57b154cd14777076b31d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 27 00:26:09 2021 +1200
+
+    Adjust menu toggling for active states
+
+[33mcommit 23a83c41218572192c0345f5ea926b4106804628[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 26 23:39:15 2021 +1200
+
+    Add description box to menu gap
+
+[33mcommit 0942123bee7774a335a881f9b9870e52ec20dc86[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 26 23:24:18 2021 +1200
+
+    Temporarily remove watermark
+
+[33mcommit 9a7aeb90625f09491c2c5fcb3196177a43e40216[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 26 22:27:36 2021 +1200
+
+    Fix date duplication bug messing up calendar widger
+
+[33mcommit 33298859d8c4863692707fcb164b8ade0eb70803[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 26 21:52:02 2021 +1200
+
+    Fix dropdown not toggling on click
+
+[33mcommit 2f2a5bc48b7a26f9860f82e65270ab6396512e24[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 26 21:07:45 2021 +1200
+
+    Adjust transitions
+
+[33mcommit e0ebf41692c92f14109bc3e74faf5ddb96d9374f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 25 19:01:01 2021 +1200
+
+    Increase vis scale
+
+[33mcommit f24a542e4e1fe94ba17b797654c2cce77bc4a176[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 25 18:56:36 2021 +1200
+
+    Fix domain no longer chaning
+
+[33mcommit 35a5eb97a801b5b1468a34e49fe1d1acd6593b4d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 24 23:29:43 2021 +1200
+
+    Fix wrong path on import
+
+[33mcommit 26eb82e0d49c69144a9aa4abde148f0a4630adc8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 24 23:17:05 2021 +1200
+
+    Add doubletap gestures for habit toggling
+
+[33mcommit b5c0dd45b9bdb13c7f232bf29d912fded65d6e0b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 24 23:16:03 2021 +1200
+
+    Add doubletap facility for mobile habit toggling
+
+[33mcommit 0fad0089fb4516820a5ec19aff439d026ea083f7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 24 22:11:42 2021 +1200
+
+    Tweak button styles
+
+[33mcommit 9ca34c5364c8a5ff0c2f96d0b96ed39444c2c96f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 24 22:07:55 2021 +1200
+
+    Get calendar widget to redraw after moving date selector
+
+[33mcommit d5491e3a94392bde998c1975f2410df2024aee81[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jun 22 21:24:47 2021 +1200
+
+    Fix calendar widget not changing on domain change
+
+[33mcommit e01123027430cc95009f4f044a0f3547e578f11d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 20 17:35:30 2021 +1200
+
+    Change client url
+
+[33mcommit f46466fcec7def15a47b4168133cc4920dea6171[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 20 17:34:22 2021 +1200
+
+    Fix most global state issues
+
+[33mcommit 71a9fd4ce91606ce7d6f49e34a86d39b9e16f25c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 20 15:23:56 2021 +1200
+
+    Fix bug with new domain resetting current
+
+[33mcommit b02cd8c682eca67c9508ec6a83ae67b339b1cbd5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 20 11:10:43 2021 +1200
+
+    Fix breaking changes after menu streak widget
+
+[33mcommit cad0238971fd38e45266e2f516d830dd31a4d817[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 20 10:21:51 2021 +1200
+
+    Roll back Layout controller changes
+
+[33mcommit 17bf16455c09dcd98a37c527d1e2193de92efd73[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 19 21:31:12 2021 +1200
+
+    Fix changed to/from demo indicators
+
+[33mcommit f2c45ec6ccf1558885e367d8f2e96fa5042c8607[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jun 16 01:05:25 2021 +1200
+
+    Change date addition
+
+[33mcommit 4f4311575782a135ab91b9071198e22c68e0d68b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jun 16 00:55:13 2021 +1200
+
+    Add changes to Date calendar widget
+
+[33mcommit 78e25fe5a1e66ba301225935ce6f3f08a991e204[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jun 15 23:21:13 2021 +1200
+
+    Add sorting to dates on habit_date api route
+
+[33mcommit c1206ba6fdffc9f1c3e56132db54c7987d003474[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jun 15 21:58:09 2021 +1200
+
+    Change client url
+
+[33mcommit 282617d65156f72fbf84f9367575718a0054e7c5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 13 21:33:59 2021 +1200
+
+    Tweak mobile gestures
+
+[33mcommit 4a1c1a275f4134a9837fd23a70a8d0afe05ca69f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 13 20:53:31 2021 +1200
+
+    Tweak doubletap gesture response
+
+[33mcommit 85f064b79bf54558c80fdc790b0dbf12bfa3846c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 13 20:34:31 2021 +1200
+
+    Date card height adjust
+
+[33mcommit 337ed969974a42a6f62fec595db75b1e2dcb9014[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 13 19:37:30 2021 +1200
+
+    Tweak scale for mobile
+
+[33mcommit e7fa57dd417e6aa0069810e61a1bad1fae9b2fc6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 13 19:18:30 2021 +1200
+
+    Add double tap gesture
+
+[33mcommit a71b9c74e69c97521d08baa5be419b30f18f95ee[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 13 19:11:45 2021 +1200
+
+    Tweak scale
+
+[33mcommit 3c2ffb198983b13091f9ab7e253d96c97b502e46[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 13 18:37:03 2021 +1200
+
+    Fix collapsed nodes not having correct cumulative value
+
+[33mcommit 82d4c5ce3ba5a024f9a36a1f49b7582c48d758e4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 13 17:59:57 2021 +1200
+
+    Figure out translation after habit toggle
+
+[33mcommit c9dac35bccbc4094f9884e750c339697db929493[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 11 22:44:55 2021 +1200
+
+    Add github actions for api
+
+[33mcommit 47294eca560226e7f8b6741d36e8332b3915743f[m
+Merge: f7d774c de6c0f5
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 11 22:42:08 2021 +1200
+
+    Merger changes
+
+[33mcommit de6c0f54fce73b7e6f58f993f7bb0af5b6ed7b71[m[33m ([m[1;32mfrontpage[m[33m)[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 11 22:40:34 2021 +1200
+
+    Many tweaks to frontend
+
+[33mcommit a91ed0a5eb24c3cdc0544c92987476ae700206d1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 11 21:00:17 2021 +1200
+
+    Scroll into view when moving to habit list
+
+[33mcommit 95fd9be93e8150558749bddd553134f4caf15ffa[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 11 19:58:40 2021 +1200
+
+    Fix table layou
+
+[33mcommit 945f238e3778ddd68e3b8e93088f1e7fa759552a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 11 18:18:55 2021 +1200
+
+    gesture
+
+[33mcommit 29c8ce8c805d11767e3f57b9a2bc080b7a1e24a2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Jun 11 11:12:13 2021 +1200
+
+    Fix zooming actions
+
+[33mcommit b487b2c92a26fed9cb757712a42020a62bedf612[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 10 18:04:35 2021 +1200
+
+    Fix alignment issues on menu
+
+[33mcommit f7d774ca5fa70960a7181e99a78c2b20df8001f4[m
+Merge: 65611e5 5f5d421
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 10 13:53:07 2021 +1200
+
+    Update api habit date routes
+
+[33mcommit 5f5d421b2ebeec894b417cb85e107ca8d4c5c6bf[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 10 00:03:35 2021 +1200
+
+    Add habit date limit
+
+[33mcommit 06490e98216337ac0e56dd37a1339799dd5f5c0d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jun 9 23:56:07 2021 +1200
+
+    Tweak calendar widget
+
+[33mcommit 65611e5bd6e9fbeabf2130d0f6765ab000f78e7a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jun 9 23:45:19 2021 +1200
+
+    Change client domain
+
+[33mcommit 392d61c78a52972d33ed75cc699a1f25bbe060a2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jun 9 23:44:22 2021 +1200
+
+    Fix habit dates length bug
+
+[33mcommit 29abc2233011bf94d10e659ebd4892445e468da5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jun 9 23:09:46 2021 +1200
+
+    Tweak date cards
+
+[33mcommit 4cb07fefb24243bd8eb137fb9c7d84934e37995b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jun 9 22:44:21 2021 +1200
+
+    Get dates showing on cards
+
+[33mcommit 7f64cad0b429a35bd79fc9571d83338a4eb37034[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Jun 9 21:58:58 2021 +1200
+
+    Add date card functionality
+
+[33mcommit 74631fcf3cb2f77596a2157d1b6e5715ce3b687d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jun 8 22:13:03 2021 +1200
+
+    Componentise date card
+
+[33mcommit 530be5506ed6ac946a6c4c27e8853a59faba8832[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jun 8 21:23:03 2021 +1200
+
+    Get dates and statuses from backend
+
+[33mcommit 31cccd79b320a7f05993b4c562a3a3788b44de04[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Jun 8 19:56:19 2021 +1200
+
+    Add CalendarWidget
+
+[33mcommit af17be8099141f0c4ec8789031466e4d0d799356[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Jun 7 22:05:35 2021 +1200
+
+    Major bug hunt on frontend
+
+[33mcommit aa2e331bbbed14843d1e46bca4ea30faeb739aad[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 6 22:22:57 2021 +1200
+
+    Responsive card bug fix
+
+[33mcommit 26c06fd91eff75f1fa40a8176bcdc305e5523a74[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 6 21:17:50 2021 +1200
+
+    Fix alignment issues on large screens
+
+[33mcommit e120207e2bf979d0b782a25ccb8bd1a7fe0c26e3[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Jun 6 21:00:23 2021 +1200
+
+    Fix css transplant issues
+
+[33mcommit cde295fc5edbb7ddea79f40ea669b973b434d7fd[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 5 22:38:00 2021 +1200
+
+    Fix frontend bugs
+
+[33mcommit 6cd4af0466ca03b4bb7e2d9e7ef8ee26a51d2b26[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 5 21:46:49 2021 +1200
+
+    Correct tooltip button positions
+
+[33mcommit bff56d40f267eb312fd03605b44ac99a6d7a86d8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 5 21:36:54 2021 +1200
+
+    Fix style bugs
+
+[33mcommit 9443b35d99c92148e66d2a8bfdfd6a01640600db[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 5 20:21:39 2021 +1200
+
+    Fix date selector responsive positioning
+
+[33mcommit 654449f6a41851c8f9355cbc66272aefbfda1fb3[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Jun 5 18:37:27 2021 +1200
+
+    Fix initial layout issues after transplanting front page
+
+[33mcommit 7ea1bf26793184d73e9abbbfe6b18fee0b883fc6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Jun 3 19:25:52 2021 +1200
+
+    add image
+
+[33mcommit ac6f6845a9e6a319e24a402bf35710769b218f1e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 25 16:29:17 2021 +1200
+
+    Fix completed_status absence from habit_date per habit route
+
+[33mcommit 8f7e1551e84817e8c63e648fdb3d9340aeb1de56[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 25 14:29:19 2021 +1200
+
+    Add habit_date for habit route
+
+[33mcommit 7322d2f125d193fae0c583afebd1cb803b29237d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 25 14:08:56 2021 +1200
+
+    Add method for getting habit/date adjacency matrix data
+
+[33mcommit 83c5aa771e0bd8fc1adbfb3e56b4be60e9939bf7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 18:05:20 2021 +1200
+
+    Add toggleable aspect to menu for touchscreens
+
+[33mcommit 121dc05fef03c4815722e6a497f0485ed7035e0b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 17:24:48 2021 +1200
+
+    Finish footer styling
+
+[33mcommit 1e51a6331a8226049925dd27785b27b2c56ecef3[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 17:24:13 2021 +1200
+
+    Finish footer styling
+
+[33mcommit 5d7d703257cb92e3dd707ce06ad19aa45b416e0b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 15:20:09 2021 +1200
+
+    Make front page snappy
+
+[33mcommit ef0eeaff13f275aafbc5e381bd050cb175e01e4a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 14:59:23 2021 +1200
+
+    Make front page snappy
+
+[33mcommit c443b589578289c6a60e7ee3bdbfde803bb40f0c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 13:43:53 2021 +1200
+
+    Feature section sliders
+
+[33mcommit 8075ff7b265bdbc8fac19d1193770ad299fac353[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 09:49:44 2021 +1200
+
+    tweak webpack conf
+
+[33mcommit 671d52c39b0a96b6b68d4d1b5daa96cbfee56f39[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 22:27:33 2021 +1200
+
+    tweak webpack config
+
+[33mcommit a423a9c85391fbded9e91d6bf5ffbfeac0845aed[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 22:07:16 2021 +1200
+
+    tweak webpack config
+
+[33mcommit fd874ac2f4e1fc54a76b8690395edd2f5595ebb5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 21:55:47 2021 +1200
+
+    tweak webpack config
+
+[33mcommit 36bf2dbefd7ec06b63eeec039cce17cecf470f71[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 21:37:50 2021 +1200
+
+    move index files
+
+[33mcommit dd99a4890236d440e8008418208c7e53590f1df8[m[33m ([m[1;32mdev[m[33m)[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 23 21:11:23 2021 +1200
+
+    Update buggy menu;
+
+[33mcommit 4ae87aa04faa70bf897fc1c8ac41e28d6d2503c8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 19:08:00 2021 +1200
+
+    Fix date dropdown not matching DateStore current
+
+[33mcommit 8d352c364459d0ed237fdc3427cea549135a1eaa[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 18:12:13 2021 +1200
+
+    Fix out of bounds date bug
+
+[33mcommit 39207f2c62ae834f4fea713d2b98058010b2404f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 16:36:28 2021 +1200
+
+    Fix path resolution after folder restructure
+
+[33mcommit 57ec450470c55bba054f06c1a7f1d12ac7041710[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 15:53:48 2021 +1200
+
+    tweak dockerfile
+
+[33mcommit 281f063e056b7320f9480613325b717a36eb1055[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 15:38:45 2021 +1200
+
+    tweak dockerfile
+
+[33mcommit f9639f9e75d70f0f831e410fe6ae22b92f5688da[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 15:04:32 2021 +1200
+
+    tweak dockerfile
+
+[33mcommit 0dc84f94934cc1f1a8cc9fe320c700f4555b230d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 14:58:14 2021 +1200
+
+    change github actions file
+
+[33mcommit 37b6175c1b81dbb08c22b1767ca6e76b1ec2ebb3[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 14:52:49 2021 +1200
+
+    change github actions file
+
+[33mcommit 00928a51f71dc3b203e9ee63c820c1edecbeb284[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 14:50:41 2021 +1200
+
+    change github actions file
+
+[33mcommit a940d4cb0171cfb4e461f820f9f1878baa17a882[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 14:49:27 2021 +1200
+
+    change github actions file
+
+[33mcommit 78e96e9ba3cbd7faccb4a11d16e2a621cca67a29[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 14:46:51 2021 +1200
+
+    change github actions file
+
+[33mcommit 88b0d1eb80ca83a5bb8d2c14423b1446d8c0b5c2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 14:42:41 2021 +1200
+
+    change dockerfile
+
+[33mcommit e921cb800a05569f29b6e1fd35d6e561b7895eec[m
+Merge: 3681aab cecda66
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 14:41:00 2021 +1200
+
+    Merge branch 'main' of git+ssh://github.com/nick-stebbings/fractal-habits-SPA-tailwind-mithril into main
+
+[33mcommit 3681aabc397580cc1069f8962fe1e5df0887462b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 14:40:30 2021 +1200
+
+    tidy ordering of frontend/backend
+
+[33mcommit cecda66d033ac8dc12c8dd12b086e95f281c5ee5[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 22 14:37:59 2021 +1200
+
+    Update main.yml
+
+[33mcommit 6562b0c351d6515a48a6151ae86535c476b6c615[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 22 09:42:47 2021 +1200
+
+    change dockerfile
+
+[33mcommit ddee049402d044f4c621d204b8a9c8b71c703c5e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 21 21:10:40 2021 +1200
+
+    Tweak intersection observer styles
+
+[33mcommit 235c0e3dfe62fdcdda2c8d7c7d4f9ebb1f5275a5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 21 19:18:59 2021 +1200
+
+    Add intersection observer
+
+[33mcommit 878811add93c4ce5dec8ec3fe62e45316eece260[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 21 18:34:05 2021 +1200
+
+    Update Layout view
+
+[33mcommit 85d73aa47fe5f024d94ed266d3e4be95206706aa[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 21 17:59:45 2021 +1200
+
+    Fix model update problem
+
+[33mcommit bae6a87df1c669e1fde8eda81049d1cf731d45e4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 21 16:27:19 2021 +1200
+
+    add controller
+
+[33mcommit 4feb2d96534ef5289b767f45de0975734542171b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 20 20:50:30 2021 +1200
+
+    fix bug with domain selector
+
+[33mcommit 9f4003d98068055ce487a2b0a90158315f95ba0f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 20 20:37:28 2021 +1200
+
+    Fix selectedIndex omission on domainselector
+
+[33mcommit 71e2581cd5e650868748784a8aab36d4a3f91e77[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 20 19:11:57 2021 +1200
+
+    Refactor preloading of habit dates to Layout view
+
+[33mcommit 7211ed4fc5998f4d578e3f4423f3fff3e0de4193[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 20 18:47:41 2021 +1200
+
+    Refactor Layout.jsx to separate responsibilities
+
+[33mcommit f7f9c4a8e5c20233d8ee014b4c5ef629d59804fd[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 20 15:17:05 2021 +1200
+
+    Fix verbose passive event listener warnings
+
+[33mcommit c1746064804117c4a20a35a1b2db5cfe104dd082[m
+Merge: ec3a4dd 337ea7f
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 20 14:23:16 2021 +1200
+
+    Fix diffs with main
+
+[33mcommit ec3a4ddfb49ab23e81cb0275ba21a8abf6fc3ac7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 20 14:20:51 2021 +1200
+
+    tweak styles
+
+[33mcommit de164b2c4924b52595e3cbed585d9d79ebf4dded[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 20 14:07:24 2021 +1200
+
+    Add code splitting for vis pages on preload (onmatch)
+
+[33mcommit 3848d8610a4c5c64572406de9a81d878d8f978a1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 22:08:44 2021 +1200
+
+    Optimise bundling
+
+[33mcommit 337ea7f22b552d42b41014f4a453b3ea5f7f1fbf[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 18:46:36 2021 +1200
+
+    change Dockerfile
+
+[33mcommit 199842d8d4ef12d05164d415a5093869a6a9af96[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 18:30:51 2021 +1200
+
+    change client url
+
+[33mcommit e5417b15777fa50165afc47922673c342df2bf4f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 18:13:16 2021 +1200
+
+    fix server typo
+
+[33mcommit 1a60f1569f0648ca62f1c5f39234173954ad2b9d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 18:01:04 2021 +1200
+
+    Update css  link
+
+[33mcommit f72ae8d52c0d813d6b997b46b6e299550697fb8a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 16:21:46 2021 +1200
+
+    Update dockerfiles
+
+[33mcommit 9151060c6d3cbb9ef7a8d5b5f96cb15b2b25d18d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 14:34:21 2021 +1200
+
+    dockerfile
+
+[33mcommit 40373476ef748b87e5d9990fc9ed729d920915a5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 14:30:50 2021 +1200
+
+    dockerfile
+
+[33mcommit 2de679acc9c75377cef3ff1001140317b0d717c8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 17 14:23:11 2021 +1200
+
+    change dockerfile
+
+[33mcommit 0eaca2b12e8385bb91105ebe7148caf43142f0d2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 20:29:57 2021 +1200
+
+    Tweak build
+
+[33mcommit 343c5acab1647b10812c98217e9b46de4109854e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 19:57:08 2021 +1200
+
+    change client port
+
+[33mcommit 0fd1c6d927b7a2296e108b5e9f4a5c4bff4b1065[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 19:37:36 2021 +1200
+
+    Dockerfile tweak
+
+[33mcommit 974ededb80f7bb67f5fc08f0821358d0f9892c7c[m
+Merge: 3c4c761 e42d5e2
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 19:27:26 2021 +1200
+
+    Merge branch 'main' of git+ssh://github.com/nick-stebbings/fractal-habits-SPA-tailwind-mithril into main
+
+[33mcommit e42d5e2e3e9203c5984c82b4746ed90bdee97896[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 15 19:17:33 2021 +1200
+
+    Update main.yml
+
+[33mcommit 399ef670d5f1425c9cd173d12599d9e18b88f217[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 15 19:13:07 2021 +1200
+
+    Update main.yml
+
+[33mcommit 6080780a08ec24eaf341664513e865f8811fa9ba[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 15 19:03:20 2021 +1200
+
+    Update main.yml
+
+[33mcommit ccf330d2362db2bc7c6e5cf042cf481486ef5276[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 15 18:38:01 2021 +1200
+
+    Update main.yml
+
+[33mcommit 621e8d1a9a5704c2dc9ce762000a28fd4db78373[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 15 18:30:24 2021 +1200
+
+    Update main.yml
+
+[33mcommit c30521103e69855aa601ddb5c03a67c80b687b5f[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 15 18:25:50 2021 +1200
+
+    Update main.yml
+
+[33mcommit 4e6ae946ea4934df24fa291aa4000e59829745ed[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 15 18:12:08 2021 +1200
+
+    Update main.yml
+
+[33mcommit b0f50707c75d9db36592fb8575f502ca89e6559b[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Sat May 15 18:09:15 2021 +1200
+
+    dockerhub_push
+    
+    Push api image to DH
+
+[33mcommit 3c4c761bc1f550b5e5d828343eef1a5faac2d2ca[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 17:20:34 2021 +1200
+
+    Fix more habit appendage bugs from d3vis
+
+[33mcommit 94b583606e288dbc30bfefd507c946861e938217[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 16:46:54 2021 +1200
+
+    Fix habit append bug
+
+[33mcommit dc3ddcefa80b488835e9459c5073940406cd26f0[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 16:14:49 2021 +1200
+
+    Fix habit prepending bug
+
+[33mcommit f49ef4cc56eb8772e38bb24409641f93d67b5857[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 14:45:06 2021 +1200
+
+    Fix bug on parsing new domain id
+
+[33mcommit 54d2c7c722cd95832fdf78a34e0786ad88b9dbe0[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 15 11:09:03 2021 +1200
+
+    Fix buggy menu hovering
+
+[33mcommit 6a7eb6c9e7a8541ee7f70201a2bbcb57ba7d8eb7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 14 21:56:31 2021 +1200
+
+    Tweak hero typography
+
+[33mcommit 4be48ad3a35cba6472853b35ef32f1b16f443578[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 14 20:13:52 2021 +1200
+
+    Tweak hero styles
+
+[33mcommit 0dd82ae584b2693c9bd666828e964ad960038695[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 14 00:32:16 2021 +1200
+
+    Add footer styles
+
+[33mcommit 5cca3563c1b17b6580ff013a92ecefeac3bfa7fc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 13 22:01:29 2021 +1200
+
+    Add new footer
+
+[33mcommit 44d1f46b7aa256e054f67fe95bdd3de890ce4592[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 13 21:51:52 2021 +1200
+
+    Add eslint again
+
+[33mcommit 7b6438a305bb8517c158ef62a4eb2f6f488de14e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 13 18:27:26 2021 +1200
+
+    Update dockerfile
+
+[33mcommit 642505ec37feb7281da782a4b40fb40ec0123358[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Wed May 12 17:45:55 2021 +1200
+
+    Update vhost.conf
+
+[33mcommit dfdcdddaec6d7519899182a31bd54c4dca4dc79c[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Wed May 12 17:28:58 2021 +1200
+
+    Delete .env.test
+
+[33mcommit ad9e985679ae8dc531f3ce306f5e3fb10f95b970[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Wed May 12 17:28:09 2021 +1200
+
+    Rename .env.development.example to .env.example
+
+[33mcommit 8f8d666e08a2c228f6ff8786ccc93df94cc15ec3[m
+Author: Nicholas Stebbings <47646783+nick-stebbings@users.noreply.github.com>
+Date:   Wed May 12 17:27:50 2021 +1200
+
+    Rename .env.development to .env.development.example
+
+[33mcommit 669a86ecd9544fe0262f9387f356521cf53c92aa[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 16:34:59 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit 129063ae3dd86f11adb63ff7d5d935e195f79019[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 15:48:21 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit a3625116451c12b334f85341808df139ee59271a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 15:38:29 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit 0dfe0852fe8b6a498e23c82ad73c7ebdd45ae165[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 14:07:46 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit f360f7c3ddcd1d6e70f103974aac11558fdd471c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 13:34:51 2021 +1200
+
+    Change Gemfile
+
+[33mcommit a00c9f86b04ace5be177a31d48c0e135a8db526a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 13:17:21 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit 46191d73634b210df525c7fd5eefc0166d954841[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 13:15:08 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit c696cd64fddfe44c3acdf410a4790e3ba08e694b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 13:13:50 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit 65330e4ea1bef5422e6793d1f3c85ac22370a318[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 13:08:14 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit a564c89340f5abf88d16240a30757373638c204f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 13:07:34 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit 792f931ad86fa5ef461c712d067b5177bc6a1c6a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 13:06:35 2021 +1200
+
+    Change Dockerfile
+
+[33mcommit 4f4cdefd7ca20ab142efee7f655ff868bac8809c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 12:43:10 2021 +1200
+
+    Add API Dockerfile and vhost config
+
+[33mcommit 3b45de410efbd9de5a995616045ed845140a84fd[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed May 12 11:30:25 2021 +1200
+
+    Fix breaking changes to dry-system 0.19
+
+[33mcommit fe810fa1ead2ccd4da58360e7fb30ffb23e4234a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 11 16:41:52 2021 +1200
+
+    Tidy up api.rb
+
+[33mcommit d109e8fae6623242d3e2e8ef7b73fe0726fd4fc9[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 11 16:20:50 2021 +1200
+
+    Fix/clean up api spec
+
+[33mcommit d6fb1d39971ca0438af85770bbc464ad79a16581[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 11 09:52:32 2021 +1200
+
+    Add input sanitising helper to api
+
+[33mcommit 4d48be8141d61f638f2068e1d69a0eddb2ef95ca[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 11 09:42:19 2021 +1200
+
+    Fix habit nodes mutating at every root insertion bug
+
+[33mcommit 52aa10112a36cd861904127a79ad26d02d378657[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 10 21:11:13 2021 +1200
+
+    Fix tree not reloading after habit append bug
+
+[33mcommit 298405e65e34a3eae7f5807bb0e967d0d4d667b7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 10 20:27:11 2021 +1200
+
+    Fix root node appendage not constructing d3 tree correctly afterwards
+
+[33mcommit 4886af832710ec48b82ee9369a1ee9b78bfd77d3[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon May 10 19:43:12 2021 +1200
+
+    Fix the bug from hell (habit date insertion_
+
+[33mcommit 544f3e42dcabd5cc0c695e9c779001d2c9c1f711[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 9 17:03:33 2021 +1200
+
+    Tweak habit_date insertion
+
+[33mcommit b5f87aae570d4f6747649bda80b3def24ce26112[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 9 16:41:59 2021 +1200
+
+    Fix not adding habit_dates on date insertion bug
+
+[33mcommit 3ed5b59c655caab7c147a78ef61262946c6f57d4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 9 15:46:13 2021 +1200
+
+    Fix date duplication error by adding subquery
+
+[33mcommit 5ed13c37fa1e8b12cda0eb4f42e93d89959c4e10[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun May 9 14:53:26 2021 +1200
+
+    Tweaked sql for date insertion
+
+[33mcommit 4bcbf756be43daa56902f372458bb92b78c43550[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 7 23:02:53 2021 +1200
+
+    Refactor habit_node transaction
+
+[33mcommit c8d663d6f8e66ca733a1c3c5d568ade6df1fe96b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 7 22:47:55 2021 +1200
+
+    Add method for incrementing all lft/rgt nodes by 1
+
+[33mcommit 85ed1e8b9023a6a11b9d0ec89b4538be27116b8c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri May 7 20:06:29 2021 +1200
+
+    Fix auto new date insertion off by one error
+
+[33mcommit 2dfcc6889d4cff628b94b9c55df5ab53a1127fd6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 6 21:46:12 2021 +1200
+
+    Add prepend node frontend logic
+
+[33mcommit 143add220adb35404d50908db78f6fe4f2cddc02[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 6 21:34:08 2021 +1200
+
+    Add
+
+[33mcommit bfbac80b131f0be5f35affe9a54023c1fa4f44be[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 6 21:14:25 2021 +1200
+
+    Correct bug in new node delete cascade method
+
+[33mcommit 57a624962c2a6f5b1b414935c06b8eb456b6af8a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 6 20:44:40 2021 +1200
+
+    Remove 'on delete cascade' so  not messing up mptt
+
+[33mcommit 6dd0620f870dd68b227c872b3cb450e4999e22cc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 6 20:00:27 2021 +1200
+
+    Move a utility function to the module
+
+[33mcommit db3f4d6672846f1dc38d632cbefdb4ea2421ec6a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 6 19:43:28 2021 +1200
+
+    Fix extra habit_node api call not needed
+
+[33mcommit 37f8be5f1c6e7372241bc2da4acc2fedd797a381[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu May 6 19:09:47 2021 +1200
+
+    Fix bug with single parent nodes not changing status
+
+[33mcommit da2c968bb5a4c3755f25194a95c2a9b78ce26112[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 23:50:25 2021 +1200
+
+    Fix bug where ancestor nodes didn't toggle status and accumulate
+
+[33mcommit 4cb3971e5e50fc793546baf8d0d7b996f1995ff0[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 22:44:52 2021 +1200
+
+    Add habit_node method for finding single parent ancestor nodes
+
+[33mcommit bd5fa02ec24bf8f52325a416f92abb8af1daeefd[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 21:18:21 2021 +1200
+
+    Tidy up legends
+
+[33mcommit 690fa0c45fc8ad3c91e54b623906f3dc7fa0c963[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 21:11:13 2021 +1200
+
+    Fix panning limit issue
+
+[33mcommit aeb1b99bc0dabac29d8558d04e8ad9e4face580e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 21:06:27 2021 +1200
+
+    Fix root node not completing bug
+
+[33mcommit d453069e9a9de1c3dc686f202ed1dc33d59a55ef[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 20:53:59 2021 +1200
+
+    Tweak scaling, panning issues
+
+[33mcommit 92a70eaf3ca566932741f187110a9d2f0ac264f1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 20:07:59 2021 +1200
+
+    Fix query strings persisting and track current habit from vis to list page
+
+[33mcommit 2b1a709bbad29dd6dd667e158dd8a2ba88fb1326[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 19:18:32 2021 +1200
+
+    Minor refactor
+
+[33mcommit 8609a57478785f8bcf65c4765f995e073d7eaa8d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue May 4 18:37:53 2021 +1200
+
+    Make tree expansion only expand one level on click node
+
+[33mcommit 24563c7167babba159d7f1f341d55d0a016894ea[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 1 21:17:43 2021 +1200
+
+    Tweak swipe gesture interval
+
+[33mcommit 2b6ff87cdd0e2b12975f8936081f16513c296ca5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 1 21:11:34 2021 +1200
+
+    Add labels for small screen
+
+[33mcommit 05267b471100f348cfff6dd84acaa5746f2332fb[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 1 20:41:37 2021 +1200
+
+    Add filter button toggle
+
+[33mcommit b81fbd953c3cf75b009d2dab52749505a107b057[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 1 20:07:58 2021 +1200
+
+    Fix status completion sort function
+
+[33mcommit 628c86761b73ad1085ba7b8ac6b4295b3e7f539d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 1 19:58:13 2021 +1200
+
+    Fix habit not appending to correct node onn vis screen
+
+[33mcommit 5a0219a283e03b9a73994f449b5a9151df8df932[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 1 10:50:20 2021 +1200
+
+    Delete button nodelist not refreshed before deletion
+
+[33mcommit 6454c3ac5434c95aa3f600202579315e9c2b1c44[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat May 1 10:36:47 2021 +1200
+
+    Fix habit dashboard preload
+
+[33mcommit 5ad735e64ba8e16560aa62143bd6a206fae63172[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 30 23:41:21 2021 +1200
+
+    Fix discrepancy between HabitStore and DomainStore post routes
+
+[33mcommit b2a1d36b24f3dfeb937d507c22646e15d4c49b6c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 30 22:40:08 2021 +1200
+
+    Add Promise.all to preload of data
+
+[33mcommit cc52f397217d6fd835214a152d7984006720fe1a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 27 20:06:19 2021 +1200
+
+    Fix color bug on habitdash
+    =
+
+[33mcommit 7f6ac8138ce74e3454216c2dee635dd58d231308[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 27 19:26:44 2021 +1200
+
+    Fix selector z-indec
+
+[33mcommit c60f06114cb684262a88032ca3a3557d49580a21[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 27 19:08:49 2021 +1200
+
+    Fix responsive nav bugs
+
+[33mcommit 89ef8e740330fcffb65a0d240c31ec95c7bd8f5e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 27 18:43:26 2021 +1200
+
+    Add habit-create/append client side validation
+
+[33mcommit 92e41e023ae7674f8a1e78669ba6717a8f81a266[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 27 18:22:04 2021 +1200
+
+    Add links to hoverable.li
+
+[33mcommit eac57fdd1eae8bf7a072ffe090b99ff035bf934c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 27 17:36:04 2021 +1200
+
+    Add max date to all date inputs
+
+[33mcommit 530b9d29eb53a5cac633f74453cd4056f2aa1523[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 26 17:53:05 2021 +1200
+
+    Fix default sort order (by date) of habits
+
+[33mcommit 6e3c29b1b07f553352c3d1a57a9622dd96858cea[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 26 16:35:01 2021 +1200
+
+    Fix habit label not updating (without redrawing)
+
+[33mcommit 8f373fde9fa312daf3f4ce35736f2d79e5ac9ea5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 26 16:23:42 2021 +1200
+
+    Fix 'dead node' events triggering
+
+[33mcommit a145ed2706e1d9ebba9aef5d6230d94b29ff7a01[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 26 16:04:18 2021 +1200
+
+    Add filtering of 'no data' nodes from active click event
+
+[33mcommit 77fe5cca4a9683ff3368dfa42a186aa6964ea8a1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 26 15:36:05 2021 +1200
+
+    Fix 'domain always resetting' bug
+
+[33mcommit 3e05d95abe57ecf16ad65a15fbc4ea3fc4319ecf[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 25 17:42:40 2021 +1200
+
+    Update non-demo data label/node names
+
+[33mcommit c29b83166f50d2fa56086ac3652fc35b43354684[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 24 21:54:30 2021 +1200
+
+    Add arrow labels for collapsed trees
+
+[33mcommit 230a0d27ae2a648189860fcd623a1aacf43d2189[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 24 18:53:08 2021 +1200
+
+    Add swiper functionality
+
+[33mcommit 901ecc5bcc8e1f4ac35999c1d37a8985aa01b738[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 24 18:09:26 2021 +1200
+
+    Add domain selector memory/refresh
+
+[33mcommit b201c30a20c043e1738951ceb092e083332ed1eb[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 24 17:43:42 2021 +1200
+
+    Add domain/date selectors visible when no small nav open
+
+[33mcommit 87733df9df9994af6d2c09b383e8e0bbd9e75fa8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Apr 21 21:05:41 2021 +1200
+
+    Fix habitdash not loading habitdates bug
+
+[33mcommit 3c920276fcc53d9f902c3ccbb2c2661c71654020[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Apr 21 21:00:26 2021 +1200
+
+    Fix HabitDash node colours
+
+[33mcommit d206527e4bfd6a51842da1a57875b1759fa1c830[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Apr 21 20:28:54 2021 +1200
+
+    Add concentric cirlces for activeNode
+
+[33mcommit ea8ea45df9617e6055981343ac46f31c2663e1c7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Apr 21 19:19:15 2021 +1200
+
+    Fix edge cases of no-node status completion
+
+[33mcommit fd2813cc4b17037b0cc6799f38b5e65b1a8d1be1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 19 18:19:39 2021 +1200
+
+    Add habit append to correct domain from vis
+
+[33mcommit 3add18748650a8c2bb446371c5256585c86490f7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 19 18:08:07 2021 +1200
+
+    Rename formNeeded stream
+
+[33mcommit b70bf4e15e0e387be94866efe32345f85799bb2d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 19 18:03:49 2021 +1200
+
+    Fix possible multiple domain root node edge case
+
+[33mcommit 7a8dfbb0efb563a94fec516d5b7d7af19ae5b4e8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 16 20:32:48 2021 +1200
+
+    Tweak scales
+
+[33mcommit bea6eea00d38934e6476b87edd7e1d2c51697696[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 16 19:58:34 2021 +1200
+
+    Tweak transitions
+
+[33mcommit a1062fa51a7e7cdb27d93d48d76e311825aaa39d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 16 19:42:17 2021 +1200
+
+    Tweak legend/add controls explanation
+
+[33mcommit 3864534c50934fae1f0b057550fc32bb5b32a228[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 16 19:08:21 2021 +1200
+
+    Fix legend
+
+[33mcommit 150b0cb1ce7039b65163968831e8fb20022fff8e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 16 18:45:47 2021 +1200
+
+    Add correct highlighting arrangement on default
+
+[33mcommit 0c68dbb79c80442a1f55626bd65b098a98b62226[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 16 17:56:23 2021 +1200
+
+    Fix bug when switching to a habit with a later initiation date than current date
+
+[33mcommit 469abfabed775f06b97b130767bbd442143c1fd8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 16 09:06:55 2021 +1200
+
+    Add separate dialog box/style for modal confirmations
+
+[33mcommit a69eacac040253a8442bebf41cba622339650ab2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 15 21:25:16 2021 +1200
+
+    Add modal link for d3 tree 'append'
+
+[33mcommit d62b686d2896e769b6de5730cec4c39e79f55bd1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 15 20:27:21 2021 +1200
+
+    Add trailing effect on tooltips
+
+[33mcommit d6c74e627bb8038d0679ed7debde33c9c919bdce[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 15 19:59:58 2021 +1200
+
+    Adjust opacity of non selected nodes
+
+[33mcommit 1dfe0fa7537dca16d1cde192fe097fd98d4da091[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 15 18:31:29 2021 +1200
+
+    Fix leaf node status changing when partially collapsed
+
+[33mcommit 3c7dd8615a9a2118822c175be76f8ada092862b8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 15 17:41:34 2021 +1200
+
+    Fix bug with persistence of different domains on demodata
+
+[33mcommit 843f9384b3dfba9ffa6201192681717d1938be3e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 15 17:07:39 2021 +1200
+
+    Fix rendering order (double render needed for rgtclick) and refactor
+
+[33mcommit 05c5b2f8461ccd0245db16231e0528946bff0966[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 15 15:29:54 2021 +1200
+
+    Get correct rendering order for habit status changes
+
+[33mcommit cb35af8a4b8079071ff49df8943a24499085a03b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Apr 14 19:31:25 2021 +1200
+
+    Get different wheel/click/rgtclick events for subtree selection/zooms
+
+[33mcommit e475bb94daf1264db34ed75b16f8f94f86abb25e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Apr 14 19:04:03 2021 +1200
+
+    Add 'no node' color'
+
+[33mcommit 9a9c972fd5e6e855c29927abb8e3a1092f9daab6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 13 18:02:19 2021 +1200
+
+    Fix non persisting demo data after 3rd state added
+
+[33mcommit 9518eddf4c83315b2195b20a0706cf173df6953a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 13 16:45:12 2021 +1200
+
+    Fix color status changes including 'incomplete'
+
+[33mcommit ff84333250e0999604f8cf4b5d7e4688e9c87589[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 13 00:11:52 2021 +1200
+
+    Add minor css tweaks
+
+[33mcommit 1c5dae0cde75467f0d67fa61b6f1fb9ec666a166[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 12 23:25:03 2021 +1200
+
+    Add legend to tree
+
+[33mcommit 2fb7e51254fb2d5eea7c8bf9c75fb2e18c9df30d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 12 22:41:04 2021 +1200
+
+    Add node toggle to right click
+
+[33mcommit b51ef6f762b4a3ef879dd6e46a65364bf1620eaf[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 12 22:22:44 2021 +1200
+
+    Add opacity to active subtree
+
+[33mcommit a0cb56e74ce601f30f3885a34a13eed87403ebf4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 12 21:21:31 2021 +1200
+
+    Add active state to node after click and rerender
+
+[33mcommit 965f2627810d45467778c77387a715c7d582a430[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 12 20:14:55 2021 +1200
+
+    Fix root node not changing status
+
+[33mcommit 277300c99b4f12a1682f3a67f237a9931767b113[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 12 04:01:03 2021 +1200
+
+    Get habit nodes to delete habit on cascade
+
+[33mcommit 98ae6c1c041619673c5bef74fc0701241ddf4268[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 23:22:51 2021 +1200
+
+    Add route link on tree tooltip
+
+[33mcommit e7fa1077af504aa48e657eb349282bade686fa03[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 22:16:42 2021 +1200
+
+    Add habit name to label
+
+[33mcommit 19279fcd3642e9f13f67d4649b0789b6678063f0[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 21:53:01 2021 +1200
+
+    Add tooltip
+
+[33mcommit 56f0893a3352f465804e949d6f5d1931daeb86fb[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 21:05:59 2021 +1200
+
+    Tweak styles
+
+[33mcommit 7cab18bb4ce254176b05efdc3401d749d40a74ee[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 20:32:35 2021 +1200
+
+    Tweak nav labels
+
+[33mcommit b23143f3dfc9feeae4b0c1516423287a1d7d576b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 19:40:03 2021 +1200
+
+    Habit list redraw order
+
+[33mcommit 1bc72598d4bd150c4704f99cb0ec43dbc11eb447[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 19:33:31 2021 +1200
+
+    Status change on habit list toggle click
+
+[33mcommit 982f739ffc8c0cab7b4510609abd6e43a900d20a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 18:24:19 2021 +1200
+
+    Add table responsiveness/habit selection
+
+[33mcommit 563d1423217adddb100a0f4fdc9359d5b0d3a5d6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 17:46:49 2021 +1200
+
+    Tidy up table responsiveness
+
+[33mcommit 8aa1cf6c5cac8a80a32adbf85ca5883903cea320[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 15:23:33 2021 +1200
+
+    Debug date selector
+
+[33mcommit 1534324adbb27001238376ac88623473e605d3cc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 11 09:11:40 2021 +1200
+
+    Adapt date selection algo (date comparison with strings)
+
+[33mcommit 1cbfe721ca94fd42f700303a913efddc2170a13e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 10 20:18:36 2021 +1200
+
+    Add colour for 'No record of tracking'
+
+[33mcommit 41a05b074265aa6d57464c79973b9163be3216a0[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 10 19:55:08 2021 +1200
+
+    Fix 'cumulative status' for SubHabits
+
+[33mcommit 08c1379c435a4bbb5c9a5ce25b4148c1849b187a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 10 19:22:58 2021 +1200
+
+    Get demo data persisting while api runs
+
+[33mcommit f0c8e3d6a7267d92b99f4915338f9659fb2a81ca[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 10 12:33:19 2021 +1200
+
+    Componentize filter
+
+[33mcommit f30c767c8e79b184aa4ccc4b23b85dc7ea1ae50f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 10 12:12:43 2021 +1200
+
+    Get filter working without bugs
+
+[33mcommit e8dd53de711bbedffd3a37885a05481497506822[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 10 11:58:32 2021 +1200
+
+    Get filter working on press return
+
+[33mcommit 09fbc7a20415176f0d731083c1b8ccdf929011bd[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 10 11:26:23 2021 +1200
+
+    Fix list card selected status
+
+[33mcommit 8a229f222fc537de1d25e7a08c048d4e0215f6db[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 10 09:26:25 2021 +1200
+
+    Fix modal problem again
+
+[33mcommit 276faa8a4d6cd90aa4a2c921e14b3b5c41a0303b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 9 20:44:58 2021 +1200
+
+    Change button active states
+
+[33mcommit 4dd8b84aa7d92d19208b6dec904d70d70de2df6c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 9 15:40:04 2021 +1200
+
+    Refactor styles
+
+[33mcommit efe108ca8b5f6052fe03d95ff425a2cbdb110f31[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 9 15:20:42 2021 +1200
+
+    Refactor global styles
+
+[33mcommit 04951cd0133d76f8495b5ab7198b278227ce5e16[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 9 15:19:56 2021 +1200
+
+    Refactor typography styles
+
+[33mcommit eed7d3b6b641fe3c569219276640021ccb5636e0[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 9 15:16:59 2021 +1200
+
+    Minor refactor
+
+[33mcommit 5a8faf951972ac5ee822d2a79011c8c9b886e5bc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 9 15:04:51 2021 +1200
+
+    refactor styles
+
+[33mcommit 9cab193e4db39947a448748967d6bf18d6dd9e0d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 9 13:48:44 2021 +1200
+
+    View folder rearrangement
+
+[33mcommit 7e8d8259fcb9820ab53e998c1209945020719a70[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 9 13:25:47 2021 +1200
+
+    Refactor view folder structure
+
+[33mcommit b0a00b30d26c514c555f0f1e0a39c0de4fac6501[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 23:25:56 2021 +1200
+
+    Add mouseout to allow current habit to linger
+
+[33mcommit 43dcbf87fe3bf4ec26b16d8b15a982a07f511c1c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 23:10:28 2021 +1200
+
+    Add tree for each domain for Demo data
+
+[33mcommit 762f1229050f9158062ae3ea9f04bc1df177c71e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 22:10:25 2021 +1200
+
+    Add expand/collapse tree button
+
+[33mcommit 96bf6a9dc52e6a5ca0e942e853ef89d37c9dab86[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 22:00:54 2021 +1200
+
+    Persist Demo data habit node statuses
+
+[33mcommit 9c7bccdd5650fab74b327fbb8e5b40139a632156[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 20:43:10 2021 +1200
+
+    Add Demo data update route for habit_dates
+
+[33mcommit 39954614b71621f16967cfbe756a7a279b8cde9e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 19:54:24 2021 +1200
+
+    Get PUT route working for habit_dates resource
+
+[33mcommit 158488a14a8abffdceaa58dbf5df95eae0791936[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 19:34:45 2021 +1200
+
+    Fix json parsing bug in cumulative status function
+
+[33mcommit 4ba5ac048f1cb6eee9ab56fae25503d0e904c651[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 16:28:42 2021 +1200
+
+    Fix mptt values
+
+[33mcommit 7f4ed7bbcdf82c93b99e7914c33cd42db11e1ef0[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 8 09:52:05 2021 +1200
+
+    Map tree nodes to cumulative completed status
+
+[33mcommit 6fbdb9ddbb141d1a3d4328ced6dbefa742fecfe2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Apr 7 18:02:11 2021 +1200
+
+    Tweak scales of tree zoom
+
+[33mcommit dbfe940b1896bc019a5df094feacd9dfc98920cc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Apr 7 17:15:09 2021 +1200
+
+    Attempt to move domain/date pickers on responsive nav
+
+[33mcommit ae7225cf9f4217a4c9b82d0248613713ad01f4c1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 6 22:21:54 2021 +1200
+
+    Add bezier links to tree
+
+[33mcommit 160bf0d083d32b09c3569375a6c3fd33e37e251a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 6 21:21:00 2021 +1200
+
+    Get zoom and collapse of tree working concurrently
+
+[33mcommit 697d6ff5459c61ff1235a21646fde47459fff8aa[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 6 20:27:08 2021 +1200
+
+    Get tree to zoom into correct area
+
+[33mcommit 6fcfc94a37079233317e568bf91442f18487c401[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 6 19:57:24 2021 +1200
+
+    Add collapsing of nodes that are futher than 3 depth from current node clicked
+
+[33mcommit e4dab9f36fce8b1dfe738610b74c6703a86ad169[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 6 19:35:27 2021 +1200
+
+    Add collapse all button to habit tree
+
+[33mcommit 7c83311f67c48ff9423daae055a95bf0cc0d9611[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Apr 6 09:02:55 2021 +1200
+
+    Add Allow methods header to pass preflight
+
+[33mcommit a7be20c580df08754a4c8696b60c2536e7e3636e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 5 18:03:04 2021 +1200
+
+    Refactor d3 functions into a module
+
+[33mcommit d31527b08b52fe8f13cc41bf81eea5af21c70ed7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 5 09:59:18 2021 +1200
+
+    Formulate habit_date request body
+
+[33mcommit 7ed68a497f014932a37474fdda0d38525a4c5019[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Apr 5 00:14:48 2021 +1200
+
+    Compose habit_date for store based upon d3 hierarchy node
+
+[33mcommit 230c42a16e7a0475863bf2139b9e61c3adc6f8d1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 23:22:19 2021 +1200
+
+    Add json methods to habit_date_repo
+
+[33mcommit e31e91e2afad95dc64fbcc1e4f5485401e285179[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 23:18:27 2021 +1200
+
+    Add habit_date replace route
+
+[33mcommit bac9d5f7b969d9de64c2c0b8cd92224b7311fa00[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 23:13:11 2021 +1200
+
+    Add habit_date client route
+
+[33mcommit 60c8df4698cbf17c000aab90d79eee4ac5d2af5e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 21:27:17 2021 +1200
+
+    Add selected state for parent in habit list on create
+
+[33mcommit 4c1ed9b79f40b6cd2a1e47ef5bdf364bb034e4d9[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 21:11:12 2021 +1200
+
+    Get basic child appending functionality
+
+[33mcommit 858f7b1988fd92ace71216f6541a0bd6f9933291[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 20:13:00 2021 +1200
+
+    Add selected state for habit appending parent
+
+[33mcommit f9677f7816ca295616aa87d6c348daedbe8ac904[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 19:54:34 2021 +1200
+
+    Add habit selection for appending new habits
+
+[33mcommit ea286138aaee2b8300d5783bf78bc22f528c7cfe[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 17:12:23 2021 +1200
+
+    Make common button components
+
+[33mcommit fe466278d452694439bdbba31ec7be981362f30e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 16:38:40 2021 +1200
+
+    Style reset/clear button
+
+[33mcommit 9d8f2a7358bddbcca376beb193d072e0a35a87e6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 16:14:51 2021 +1200
+
+    Consolidate color schemes
+
+[33mcommit 8b607b2374506a35b426f167dcc8afe44e315e2a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 15:10:35 2021 +1200
+
+    Add habit list filter
+
+[33mcommit f09e003e8e65a15ba965dca5ca2782feddd809d2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 14:03:48 2021 +1200
+
+    Get DateStore traversal binding with the date-picker on realdata
+
+[33mcommit 8cb1a2dda7f6ca03aa29c2c4c40aa042d5869cbb[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Apr 4 11:20:00 2021 +1200
+
+    Fix demo data initiation date field
+
+[33mcommit 0d390129d55a901c9f6ab021990281d30da5349c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 3 15:07:05 2021 +1300
+
+    Move date selector to its own component
+
+[33mcommit ba0466710c737e631981a722b169882222865454[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 3 13:26:32 2021 +1300
+
+    Extract YAML store/repo to a class
+
+[33mcommit e17e361cb42a0d1b42389c963140c5757e731715[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Apr 3 09:58:34 2021 +1300
+
+    Get Date selector updating on arrow change
+
+[33mcommit 7af5fe94ab801ebce60ffce9149420fe15233a19[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 2 21:42:32 2021 +1300
+
+    Add datalist for current habit date options
+
+[33mcommit 3563df0d8dcb046721e667ff51fa6ef978e6e760[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 2 16:15:33 2021 +1300
+
+    Handle edge case of nodes without habits (exclude them)
+
+[33mcommit fbf379634b5b60f6cd2db559e83717c4e3d159b4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 2 15:33:26 2021 +1300
+
+    Refactor habit_tree routes
+
+[33mcommit 5c2ce3bb39ee28352a4ac865899978132f5cd39c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Apr 2 11:16:05 2021 +1300
+
+    Refactor Subtree class
+
+[33mcommit f55073fdb13d4bfd40014dcd8ba83468dbc78d91[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 1 16:41:03 2021 +1300
+
+    Add completed status to non-demo habit tree nodes
+
+[33mcommit 018c194df21e37c904301d5cb3c959eba58f4911[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 1 15:09:24 2021 +1300
+
+    Add queries for habit_dates
+
+[33mcommit d911e010ac2e1c81d291a12c0982c26321200881[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 1 14:11:10 2021 +1300
+
+    Format subsection containers
+
+[33mcommit f21d0d830432058c281e8ec06b4c58fe61df9987[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 1 13:53:13 2021 +1300
+
+    Add habit list filter ui
+
+[33mcommit 0a21ba5b55d531683333ab938e7e66c3b09dd653[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 1 02:55:53 2021 +1300
+
+    Add subqueries to habit repo for getting completed per day
+
+[33mcommit 0a230d63dd343986a66f64dbeb47dc422622912b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 1 00:45:24 2021 +1300
+
+    Add demo explanation labels
+
+[33mcommit 43b4e361c98edbcf9ac7129752d88df5d64b2fa4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Apr 1 00:08:03 2021 +1300
+
+    Fix annoying scroll/body class removal
+
+[33mcommit b30e9dac487e48f4356548aee954ffe0f8d35639[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 31 22:49:38 2021 +1300
+
+    Add close-modal event delegation
+
+[33mcommit 7638999f7150300ef2649b4159f1783d3550cb0e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 31 22:38:18 2021 +1300
+
+    Fix blank state modal redraw
+
+[33mcommit 66c328fe9b7bad3d24147e777685a346c1d3adb4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 31 22:26:19 2021 +1300
+
+    Fix before route promise ordering for blank state
+
+[33mcommit e0b50306a628c70f8be0166e483cde41e59f9bdd[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 31 21:18:21 2021 +1300
+
+    Fix date selector event removal
+
+[33mcommit ddbbe77233b745af0f44a1631c65bede57287023[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 31 10:59:51 2021 +1300
+
+    Fix spinner loading when no data (app start)
+
+[33mcommit 94d68e84aa841f10180798ef731e4b15fc641532[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 31 10:18:33 2021 +1300
+
+    FIx spinner loading/unloading
+
+[33mcommit 9e7d9e2523180d41943903e97ac1a1f572cc2eda[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 31 08:01:15 2021 +1300
+
+    Add window resize programatic zoom
+
+[33mcommit 6e476fd5507976d9452ea1791cca2aa3ca0b5186[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 31 06:09:09 2021 +1300
+
+    Add zoom to habit tree
+
+[33mcommit e589de4e0c9caa8b711c881a77c82ca2307dc60d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 30 16:42:50 2021 +1300
+
+    Fix concurrent running of different data sources, switch with param
+
+[33mcommit fef93b0150ecb4bc372d5c1bed27baa8c7a64e02[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 30 11:11:41 2021 +1300
+
+    Confirm demo store working
+
+[33mcommit 5f4912cb9b6435b21337ed8d85be390615eafcc1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 30 10:31:52 2021 +1300
+
+    Preserve URL encoding on passing demo parameter
+
+[33mcommit c36145247465848732b3504881e9490d225f2468[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 30 08:21:58 2021 +1300
+
+    Turn off autostruct and return arrays of relations from populate_data method
+
+[33mcommit d054a41b38b907464e35c72a5200e7b3f7256085[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 20:53:21 2021 +1300
+
+    Insert YAML data into queryable relations
+
+[33mcommit f980a98ce65e09f72ce575e000491e94e8c8edd9[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 20:15:57 2021 +1300
+
+    Add route for domain specific YAML-to-ternarised JSON
+
+[33mcommit 05e1e606a81739188bc7f842252678f546dbfc7d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 17:40:50 2021 +1300
+
+    Fix overflow on small heights
+
+[33mcommit ff40ce20086e61abc93255b5f55560f27236bf2d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 17:31:35 2021 +1300
+
+    Get SQL powered frontend working with all relations creation
+
+[33mcommit fceaa37897ebda44b84e913a79a62459c8fa591f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 17:16:49 2021 +1300
+
+    Fix domain dropdown issues
+
+[33mcommit 44c4c91bfa3325e70f01d8fbbfef50defaeb2f59[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 16:28:24 2021 +1300
+
+    Date order bugfix part 2
+
+[33mcommit 29f0eb2477f4576accea5190cd5d9a054aa740c2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 16:24:56 2021 +1300
+
+    Fix DateStore ordering bug
+
+[33mcommit d83faf8a6c6fbc6514fc4547f09c8e2802cae24c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 15:42:42 2021 +1300
+
+    Fix date not updating on vis pages
+
+[33mcommit 08873f8b526072e3d33fb43798de05e2c5080708[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 11:00:42 2021 +1300
+
+    Consolidate Store calls into minimum
+
+[33mcommit 551733f00a6e76a843f72f3ddee18f3350160176[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 10:21:27 2021 +1300
+
+    Adjust domain list update after insertion
+
+[33mcommit c3bfb60f3b4b5362cb6a0c44a5caaa0b5b1c24dc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 09:43:36 2021 +1300
+
+    Refine order of store indexing on route match
+
+[33mcommit 000296f91865678eb1438de01a1e80fbc39db442[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 09:11:32 2021 +1300
+
+    Add parameterised demo routing
+
+[33mcommit f86fd6271dbdefec7c32efa045cc72e64af84989[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 09:04:24 2021 +1300
+
+    Add YAML data population of local stores
+
+[33mcommit f077cd7d9209baa251e2773af0c61edef2b92f7e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 29 00:44:31 2021 +1300
+
+    Add demo data and set minimum API calls
+
+[33mcommit aabda8974d3ef0085178da321bf518f99ed5dc31[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 28 23:57:22 2021 +1300
+
+    Get payload for demodata with required fields
+
+[33mcommit 58de90f9368bad7d961b413aba643425ea92f260[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 28 18:28:22 2021 +1300
+
+    Add mptt method for YAML converted data
+
+[33mcommit a758077940248ed2313740059cd06aa1ad8b5b2d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 28 17:49:17 2021 +1300
+
+    Make first working tree-ternarise/listify methods
+
+[33mcommit 1419caae9613179e7a5373dc0b3e0b8605c287af[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 28 09:59:02 2021 +1300
+
+    Populate YAML relations with entities
+
+[33mcommit 7f734b8bbee99fe51e64e9396d72bed4c22a72ce[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 27 20:23:16 2021 +1300
+
+    Started demo data route
+
+[33mcommit 6d52c473779420da3790b250cf53e1340d3b9bb8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 27 18:43:39 2021 +1300
+
+    Tidy files
+
+[33mcommit 872479f0c5c52a9ba522cfbf2677092e3cc15750[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 27 16:03:57 2021 +1300
+
+    Major subtree/habit_nodes refactor
+
+[33mcommit 5211679b748e016ca086fbc10dac8e7ce50c93ff[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 27 10:50:10 2021 +1300
+
+    TreeNode traversal method
+
+[33mcommit 6587b499790b7d3c88cc79a4f6224385421b8d61[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 27 03:32:50 2021 +1300
+
+    Add detail to habit-creation page
+
+[33mcommit 63c912439f48e88c76d52f66072bea8abc89484b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 27 02:17:02 2021 +1300
+
+    Split habit node list and habit list components
+
+[33mcommit 7fd3c07491473ee1fa468343648d5012ca55e6a7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 27 02:01:53 2021 +1300
+
+    Add habit list to habit create form
+
+[33mcommit d228383401c66ef7595a994be6d9c895fe67e9bf[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 27 00:31:15 2021 +1300
+
+    Refine habit_date insertion
+
+[33mcommit fd2369ca4c71500f4cddcfcb7c2b46d155598d68[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 26 23:36:18 2021 +1300
+
+    Get habit_date contract/transactions called from habit creation transaction
+
+[33mcommit 81740778a3503dc3d481f80973688bf9cda4ebf2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 26 23:04:17 2021 +1300
+
+    Add simple habit_date contract validation
+
+[33mcommit 1d1605578003c1505f840f08ef3115289e672038[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 26 22:45:18 2021 +1300
+
+    Start 'tree balancing' algorithm
+
+[33mcommit 775ec5d24ce818f7b8fe3ab408a781677f21bb5e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 26 20:11:51 2021 +1300
+
+    Tweak nav styles
+
+[33mcommit bc54b90cc12cad0c7c298b3b3714fdd4f866bbe2[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 26 18:37:04 2021 +1300
+
+    Style selected habit label
+
+[33mcommit 945f4251bb03affe9266349a2c2b9f9a95c7e061[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 26 17:24:41 2021 +1300
+
+    Add 'habits per domain' route and client method
+
+[33mcommit fd722886fead640f95ad6c36b857b78554ee96de[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 26 14:01:39 2021 +1300
+
+    Make date-picker in maskheader reactive
+
+[33mcommit 4dfa1e7944308b3ef307de1405037c9d14814913[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 26 08:54:31 2021 +1300
+
+    Make DateStore.current track the date input in maskheader
+
+[33mcommit 6dd6825e4bfb4ca0b146e8e544802924754857b5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 25 18:48:01 2021 +1300
+
+    Get two different data sources working with domain select changes
+
+[33mcommit b70039161e79533ebea70ee78c8d8cc58d595843[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 25 17:42:48 2021 +1300
+
+    Refactor d3 page so debouncing just renders not making AJAX
+
+[33mcommit e831ba4b5471ac0efde7e79c5ee3d846ecc8bd40[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 25 15:39:04 2021 +1300
+
+    Integrate YamlDemo with habit/domain classes and habit mapper
+
+[33mcommit bb498e95c2f3b9977bfbe61d0b07fd3f030f28c1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 25 09:38:12 2021 +1300
+
+    Fix patch/put on domains by adding transactions
+
+[33mcommit 051481e1ca51686577a603ee4214a3d98b4581ce[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 23 22:11:11 2021 +1300
+
+    Make HabitTree data correspond to Domain change on select
+
+[33mcommit 279b96b75f48821c7b720be34b67a7186f37a40e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 23 21:07:46 2021 +1300
+
+    Fix habit_tree no root node error
+
+[33mcommit ef571be038b79f4b5fcfbb82f066ed24ec95820f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 23 20:24:21 2021 +1300
+
+    Integrate YAML adapter
+
+[33mcommit 72af4f13e636844c803e5f22a150442e8146ea8b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 23 19:47:44 2021 +1300
+
+    Fix horrendous 'send back id' bug for Domain resource
+
+[33mcommit ef510329da7665eeff4f9da1cd645d968879f308[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 23 16:07:39 2021 +1300
+
+    Fix menu not toggling when clicking active
+
+[33mcommit 404fa2a16fd9326daddc114d9cae6052332fa4ec[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 23 15:47:22 2021 +1300
+
+    Fix styles on disabled resp-nav links
+
+[33mcommit 91136c9f0f35a95ed044b90c950ce00a3621575e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 23 15:30:32 2021 +1300
+
+    Add mega-menu active/focus states
+
+[33mcommit 46efe3b0e3947bdc345077bb29daab9c63061df9[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 23 14:40:39 2021 +1300
+
+    Add under construction to in progress menu items
+
+[33mcommit 45f5405025a369982d862e5f34c17b7b1846ba4a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 22 22:04:34 2021 +1300
+
+    Map domain yaml to ROM::Structs
+
+[33mcommit 737425cb8d8d428ba54132ab6d43d87f4021f2e6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 22 21:47:14 2021 +1300
+
+    Fix yaml representation
+
+[33mcommit 6ccaac624a78c1abbd3126a48550c50dbfd25c4c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 22 17:56:02 2021 +1300
+
+    Add error messages for different status'
+
+[33mcommit 2e01cb170f88a3bcbd6eaea77cb46a7f3d3af227[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 22 17:36:16 2021 +1300
+
+    Fix devserver port error
+
+[33mcommit 9c930063768ca943508c0c72b2810afe210ef36a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 22 17:23:40 2021 +1300
+
+    Apply Eslint fixes
+
+[33mcommit 43234a281d03f4ec742beed80355d818dc9881ae[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 22 16:56:55 2021 +1300
+
+    Add eslint rules
+
+[33mcommit 385b82aaeda341813e62d61e04c8ce747895ba73[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 22 16:44:32 2021 +1300
+
+    Refactor and fix date transaction
+
+[33mcommit 64ef9e78dcb618c298140692a60b73b693129b57[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 22 15:39:43 2021 +1300
+
+    Create demo data JSON from web scrapes
+
+[33mcommit 6f6487152bd4d4891fe32611623163a498c808c3[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 23:20:36 2021 +1300
+
+    Add date insertion algorithm
+
+[33mcommit 2b3974d647f45627a8e28b2b3fdee357310ae288[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 21:54:04 2021 +1300
+
+    Add method for calculating SQL 'upto' date
+
+[33mcommit 5af782052de56763a004930f8031ea7e56ab6015[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 21:28:34 2021 +1300
+
+    Create method in date transaction for checking date insertion start
+
+[33mcommit 53dc0530a9b1179d23ff22a9d5d50d62ded9958f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 19:23:02 2021 +1300
+
+    Add date insertion SQL to date repo
+
+[33mcommit a066cf38ebc765ea5a43183e230025491d43e82e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 18:43:22 2021 +1300
+
+    Populate Header date field
+
+[33mcommit 9f5966ed6e84639cbf5f0347431c106d74d81863[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 18:38:01 2021 +1300
+
+    Fix border issue on nav
+
+[33mcommit 6ad7e48db1a41e0395c87fb2eaed507e4026d134[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 18:17:36 2021 +1300
+
+    Move custom error handling to utils
+
+[33mcommit e2409ca263aa1f22ce84e1cbbe1871b9e22c873d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 18:16:13 2021 +1300
+
+    Remove dist files accidentally pushed
+
+[33mcommit fe9aee745a7876d2364c352a6fd10ae02686799e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 17:53:02 2021 +1300
+
+    Refactor flash errors.
+
+[33mcommit 08a333a903a3fb289f9dd6a261b14140f2da45cc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 17:42:35 2021 +1300
+
+    Update Date contract validation
+
+[33mcommit a4eb39e7bc27c30360cc2bb63bf89d674ba009ef[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 17:29:03 2021 +1300
+
+    Add Ruby date parsing and contract validation
+
+[33mcommit c30a56167a18101a388854f4675fea9f939683e6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 16:17:42 2021 +1300
+
+    Catch duplicate Domain insertion
+
+[33mcommit 931627a113633365b178b8acef181e9218f9f429[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 09:31:33 2021 +1300
+
+    Fix modal habit FormData transmission
+
+[33mcommit ef340ac13882056efc6efc4538e9618c6ba2d594[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 21 09:01:20 2021 +1300
+
+    POST
+
+[33mcommit 2a4cbb5b3585009626e35a007971b4fc9d5f2043[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 20 17:43:52 2021 +1300
+
+    Fix modal layout on smaller screens
+
+[33mcommit 76714989c18622632a3aa235c1ab4d580f907edb[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 20 15:49:41 2021 +1300
+
+    Fix route erorr handling in promise chain
+
+[33mcommit f68adb792afd57920b19a90379785e7c091bbf89[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 20 14:15:20 2021 +1300
+
+    Align modal buttons to bottom right
+
+[33mcommit 97197f50e3a491e2dcf2d58c64803beecd0c878e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 20 12:21:43 2021 +1300
+
+    Fix form labels and ids
+
+[33mcommit b15ea582a404b96c372088c65ce178272f0c3373[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 20 11:51:50 2021 +1300
+
+    Add flashJS styles
+
+[33mcommit a329db401eb45ef9457753f465f85416eafbb33b[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 20 00:15:39 2021 +1300
+
+    Add get and post routes to habit resource
+
+[33mcommit c8d3110d3bb562b4c5509bb52a1142d4eab77b65[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 19 23:43:44 2021 +1300
+
+    Add date transaction
+
+[33mcommit 47999a1410833098465a99b4c272102ea8aac87f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 19 22:48:24 2021 +1300
+
+    Add habit transactions
+
+[33mcommit ddedb195b3ab25454952764a13a1847b3e558ad7[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 19 22:30:56 2021 +1300
+
+    Add habit contracts
+
+[33mcommit 118469ff808d11418ac0f2ed44a4f5bee155f28c[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 19 22:10:53 2021 +1300
+
+    Add domain contract
+
+[33mcommit 20b123a4c830e5ccd0025854937b25c139c93452[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 19 21:54:56 2021 +1300
+
+    Alter input widths responsive
+
+[33mcommit fd2bf420d42d6311c25120174fb1013e92661092[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 18 22:12:13 2021 +1300
+
+    Tweak ui alignments
+
+[33mcommit de68b9b7e3da19b411adc619be5ae5033b315c1f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 18 21:14:43 2021 +1300
+
+    Tweak menucard positioning
+
+[33mcommit 0ea2bd4aa5defd70436a5061e8077ae9e571f849[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 18 20:51:44 2021 +1300
+
+    Obsess over pixel-perfect UI and typography
+
+[33mcommit 284cf9271c12d719cf98260b184055f19e88cc40[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 18 18:02:41 2021 +1300
+
+    Fix CORS in production
+
+[33mcommit 43f3c391242dcdfaeb00d1f886a92ab87ed86b70[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 18 16:31:21 2021 +1300
+
+    Add new frontend changes from other branch
+
+[33mcommit 08a1f8322c80e7058695ffcb9b6c9cfc78fb636f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 18 15:26:56 2021 +1300
+
+    Tidy up dependencies
+
+[33mcommit 5bc5f56fae21c99533a8f27ef2301965c606bdaa[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 18 09:52:42 2021 +1300
+
+    Style form responsively
+
+[33mcommit 571b944d03401b0b1a8255ca99a74ce653ed5ef5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 17 11:41:21 2021 +1300
+
+    Add breapoints and habit form for modal
+
+[33mcommit fd5291d0357e9eaea0d5d44d1564abf746f0ccdf[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 16 16:52:41 2021 +1300
+
+    Fix pixel perfect bug issues
+
+[33mcommit d0af3fd23202d8d016934902a400cb2caf3b7e51[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Mar 16 16:34:05 2021 +1300
+
+    Add animated modal component
+
+[33mcommit 8fefa0698ee4e632b93428e588af8ccc0defd4a8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 15 23:29:31 2021 +1300
+
+    Add current domain to select from store
+
+[33mcommit e2f066a6337795f246d886aa3abeb3f4c70e9fd1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 15 22:35:12 2021 +1300
+
+    Add d3 rerender on windows resize with debounce
+
+[33mcommit 4047dfe055794687959e4613019532914ceae2b9[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 15 22:14:12 2021 +1300
+
+    Apply hover states to megamenu buttons
+
+[33mcommit 553899abf19b7dd73cf722f93a87a851066d8200[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 15 20:57:22 2021 +1300
+
+    Add hover/active to responsive nav links
+
+[33mcommit 82b5f6d70e2b7e0540c7d63fe8777cab17e7ee88[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 15 19:38:21 2021 +1300
+
+    Tidy up nav links and logo hover states
+
+[33mcommit f8dd6e56e18d8021c36427e5873485c1d67ca450[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 15 19:18:34 2021 +1300
+
+    Fix nav-link transitions
+
+[33mcommit 119b10a0263f3ca05a43ef67a4fb7ef470f8629e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 14 21:14:32 2021 +1300
+
+    Subnav icons
+
+[33mcommit 354dd64295c43745c6914f99ac4400703dbda3a1[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 14 20:10:27 2021 +1300
+
+    Add megamenu icons
+
+[33mcommit 923b85698e87fbfd33a22a8e876f0b92a6a32d9e[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 14 16:30:07 2021 +1300
+
+    Add subnav menu items
+
+[33mcommit 929e0b534bf5fbd68bb7ee85287136dddfc08409[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 14 09:52:56 2021 +1300
+
+    Align responsive nav submenu lists
+
+[33mcommit f4109a6f552a540a3a56213be07c4a5d9a8efa7d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Mar 14 08:37:51 2021 +1300
+
+    Fix font loader
+
+[33mcommit ae263e0edbf80a1eed4d1df96110c531f1ecccd4[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 13 21:24:09 2021 +1300
+
+    Fix menu colors and MenuCard alignment
+
+[33mcommit eb95bb124701e63cf0cb3add16195fb16830b28f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 13 18:53:39 2021 +1300
+
+    Fix alignment of nav on sm-md
+
+[33mcommit 58cd41a5f74e2aaffadd1ffe054384503f8a23f5[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 13 17:55:58 2021 +1300
+
+    Make responsive nav buttons bigger on sm screens
+
+[33mcommit 58fc988cfd96eadb162a366b3eaedf8e8261b841[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 13 17:34:28 2021 +1300
+
+    Center tree diagram and make responsive on reload
+
+[33mcommit 5729f0701c1913843647c4cecfe136a2da7e5d27[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 13 17:09:48 2021 +1300
+
+    Move habit_tree into its own store file
+
+[33mcommit 3e1d3453f942412eac22facc3085497fd8819d83[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 13 16:55:40 2021 +1300
+
+    Change Anchor links to m.Links
+
+[33mcommit 08c825b549bcf3971d7bbb970449cd49cba63587[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 13 16:26:00 2021 +1300
+
+    Fix responsive nav hover on md and lower
+
+[33mcommit bfb9ece30fb82311e872c268503fa5d52a23d173[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Mar 13 16:11:30 2021 +1300
+
+    Fix rspec after API move
+
+[33mcommit b4fdfb8848d2ef590f9edfb0365f1f74880f8456[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 12 23:19:44 2021 +1300
+
+    Refactor MegaMenu routes object in main routes file
+
+[33mcommit 0ec956765c774ed10c72f15cee70bc3d46785edc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 12 22:12:38 2021 +1300
+
+    Componentise hero section
+
+[33mcommit a50fe9dd0bea0d631975c8d9323ee96484a59576[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 12 22:01:13 2021 +1300
+
+    Add main routing page
+
+[33mcommit 88ce31b7757ecfb5e0c6a127b743ecdfdd2f7b80[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Mar 12 20:41:04 2021 +1300
+
+    Fix Rake task/Environment variables errors
+
+[33mcommit c8778fb350423cd6f500e32a6edb411428504890[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Mar 11 11:27:26 2021 +1300
+
+    Wire up habit_node view
+
+[33mcommit 79096b907e33b633720cf2e1d1e8cd7644b15e22[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 8 16:50:13 2021 +1300
+
+    Fix SASS url resolution
+
+[33mcommit 3f3acce4a00798633a6973fb101de4e703d53349[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Mar 8 10:51:24 2021 +1300
+
+    Add API and restructure files
+
+[33mcommit f3328952e06dba6740d978a9af2450687c227b71[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 3 16:42:16 2021 +1300
+
+    Refactor styles
+
+[33mcommit 8a6d08e002f5c00a2449dc2ab4ca37f75d5b37c6[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 3 16:14:20 2021 +1300
+
+    Refactor styles
+
+[33mcommit 7402dfd0f2fd3f79bfecfca046772cc3e49bd96a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Wed Mar 3 15:03:32 2021 +1300
+
+    Fix subnav
+
+[33mcommit 8329caf3af9f629ca4d3e844691d33bc8c8e6284[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Feb 28 16:39:25 2021 +1300
+
+    Fix subnav transitions
+
+[33mcommit 4404af9d878a10f0ab447ebb9ed46b76f640e086[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sat Feb 27 10:32:48 2021 +1300
+
+    Add slash svg to nav
+
+[33mcommit b7e48f91939f8d9add1d71f8a94a72d2dba54472[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Feb 26 20:51:30 2021 +1300
+
+    Add subnav
+
+[33mcommit b6e0f576562abcdbdffcec5c73e0088847d367cc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Fri Feb 26 13:46:12 2021 +1300
+
+    Fix colour scheme config
+
+[33mcommit bb2d158f60b153f10a4f3d6ba28b7f13eeee782a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Thu Feb 25 10:31:46 2021 +1300
+
+    Move Domain/Day pills to top navbar
+
+[33mcommit 4edb75d51fa4e01327568903bec0e4d0b725a8ac[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Feb 23 09:31:31 2021 +1300
+
+    Componentise dashboard
+
+[33mcommit aec52e96fcd9e8d6fc1096e26dfa756cfc10174d[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Feb 23 08:24:45 2021 +1300
+
+    Hero section responsiveness
+
+[33mcommit 990106b4f5530ac02a0b8a8ca598493595677667[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Tue Feb 23 07:36:04 2021 +1300
+
+    Add hero section and flex
+
+[33mcommit 47819592f3b2463701703919252ea3b36a91fa2f[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Feb 22 19:19:54 2021 +1300
+
+    Fix responsive navbar
+
+[33mcommit c429478cf275cad882f9a19d64073297666a26fc[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Mon Feb 22 13:46:52 2021 +1300
+
+    Add fib watermark
+
+[33mcommit 7f82c8c8277758748b1cc77d7662f4d1748de57a[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Feb 21 17:27:29 2021 +1300
+
+    Add footer component and partial
+
+[33mcommit 3845e46156733f56160f20d1ddeee3b8817784e8[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Feb 21 16:40:21 2021 +1300
+
+    Setup babel
+
+[33mcommit dd3f9351ba2e94a60d55b02eaab3edfbd8581183[m
+Author: Nick Stebb <nickolarse@riseup.net>
+Date:   Sun Feb 21 09:59:42 2021 +1300
+
+    Setup postcss
