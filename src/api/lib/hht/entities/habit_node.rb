@@ -25,8 +25,15 @@ module Entities
     end
 
     def to_tree_node_with_habit_status(date_id)
-      completed_status = habit_id && @@habit_date_repo.completed_status_for_query(date_id, habit_id)
-      Tree::TreeNode.new(@@habit_repo.by_id(habit_id).one.name, "L#{lft}R#{rgt}-#{completed_status}")
+      if(habit_id)
+        habit = @@habit_repo.by_id(habit_id).one
+        init_date = habit.initiation_date
+        date_tuple_of_current = @@habit_repo.dates.to_a.select {|d| d.id == date_id}[0]
+
+        init_date_older_than_date_tuple = !date_tuple_of_current.nil? && date_tuple_of_current.h_date.to_date.jd > init_date.to_date.jd # Is this habit 'active' on this date?
+        completed_status = init_date_older_than_date_tuple ? @@habit_date_repo.completed_status_for_query(date_id, habit_id) : 'OOB'
+        return Tree::TreeNode.new(habit.name, "L#{lft}R#{rgt}-#{completed_status}")
+      end
     end
 
     def has_habit_node?

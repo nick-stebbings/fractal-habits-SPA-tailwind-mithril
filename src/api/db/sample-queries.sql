@@ -53,11 +53,11 @@ FROM
   generate_series(
     (
       select
-        (initiation_date + '1 day' :: interval) -- remove 1 day interval if initiation date to be included
+        (initiation_date + '1 day' :: interval)
       FROM
         last_date_entry
     ),
-    now(),
+    (now() + "1 year"::interval)::timestamptz,
     '1 day' :: interval
   );
   
