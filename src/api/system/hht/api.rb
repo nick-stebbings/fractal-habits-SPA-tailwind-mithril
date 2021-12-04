@@ -190,7 +190,6 @@ module Hht
         end
 
         root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
-        # binding.pry
         if root_node.exist?
           (tree = Subtree.generate(root_node.to_a.first.id, date_id))
         else
@@ -199,6 +198,31 @@ module Hht
         end
         status 200
         tree.to_d3_json 
+      end
+
+      # Get root node tree for domain for a week of dates starting with a date_id
+      get '/weekly' do
+        dom_id = params[:domain_id].to_i
+        start_date_id = params[:start_date_id].to_i
+
+        if params[:demo] == 'true'
+          halt(302, { message: 'Use the /demo path for demo data.' }.to_json)
+        end
+        
+        root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
+        trees = {}
+
+        if root_node.exist?
+          root_id = root_node.to_a.first.id
+          start_date_id.upto(start_date_id + 6) { |date_id| 
+            trees[date_id] = Subtree.generate(root_id, date_id).to_d3_json
+          }
+        else
+          halt(404,
+          { message: 'No nodes for this domain' }.to_json)
+        end
+
+        puts trees.to_json
       end
 
       post '' do
