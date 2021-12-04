@@ -222,7 +222,7 @@ module Hht
           { message: 'No nodes for this domain' }.to_json)
         end
 
-        puts trees.to_json
+        trees.to_json
       end
 
       post '' do
