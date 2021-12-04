@@ -12,7 +12,7 @@ module Hht
       end
 
       def delete(pk)
-        Hht::Transactions::Habits::Delete.new.call(pk)
+        Hht::Transactions::Habits::Delete.new.call({id: pk})
       end
 
       def query(conditions)

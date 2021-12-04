@@ -334,7 +334,8 @@ module Hht
         habit = habit_repo.as_json(id)
         halt(404, { message: 'Habit Not Found' }.to_json) unless habit
 
-        habit_repo.delete(id.to_i)
+        deleted = habit_repo.delete(id.to_i)
+        halt(400, { message: unwrap_validation_error(deleted) }.to_json) unless deleted.success?
         status 204
       end
 
