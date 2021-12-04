@@ -211,7 +211,7 @@ module Hht
         
         root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
         trees = {}
-
+        start_date_id = [start_date_id, 1].max
         if root_node.exist?
           root_id = root_node.to_a.first.id
           start_date_id.upto(start_date_id + 6) { |date_id| 
