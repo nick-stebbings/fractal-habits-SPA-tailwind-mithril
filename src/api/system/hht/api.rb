@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      # response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' #'https://habfract.life'
     end
 
     options '*' do
@@ -190,6 +190,7 @@ module Hht
         end
 
         root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
+        # binding.pry
         if root_node.exist?
           (tree = Subtree.generate(root_node.to_a.first.id, date_id))
         else
@@ -197,7 +198,7 @@ module Hht
           { message: 'No nodes for this domain' }.to_json)
         end
         status 200
-        tree.to_d3_json
+        tree.to_d3_json 
       end
 
       post '' do
