@@ -24,7 +24,7 @@ VALUES
 UPDATE
   habits
 SET
-  initiation_date = date_trunc('day', (now() - '1 month' :: interval);
+  initiation_date = date_trunc('day', (now() - '1 month' :: interval));
 
 -- insert enough habit nodes to create a small heirarchy under the seed domain ('Physical').
 INSERT INTO
