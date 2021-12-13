@@ -37,8 +37,8 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' #'https://habfract.life'
-    end
+      response.headers['Access-Control-Allow-Origin'] ='https://habfract.life'
+    end #'http://localhost:3000' #
 
     options '*' do
       response.headers['Allow'] = 'GET, POST, OPTIONS, DELETE, PUT, PATCH'
