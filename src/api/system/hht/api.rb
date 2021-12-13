@@ -37,12 +37,11 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' #'https://habfract.life'
     end
 
     options '*' do
       response.headers['Allow'] = 'GET, POST, OPTIONS, DELETE, PUT, PATCH'
-      # response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
       response.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
       200
     end
@@ -168,7 +167,9 @@ module Hht
         node = habit_node_repo.as_json(node_id)
         halt(404, { message: 'Node Not Found' }.to_json) unless node
 
-        habit_node_repo.delete({ id: node_id.to_i })
+        deleted = habit_node_repo.delete({ id: node_id.to_i })
+
+        halt(400, { message: unwrap_validation_error(deleted) }.to_json) unless deleted.length > 0
         status 204
       end
     end
