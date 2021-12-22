@@ -53,7 +53,7 @@ FROM
       FROM
         last_date_entry
     ),
-    now(),
+    now() + '1 year' :: interval,
     '1 day' :: interval
   );
 
