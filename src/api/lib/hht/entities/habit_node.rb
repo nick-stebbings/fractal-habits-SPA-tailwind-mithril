@@ -13,7 +13,7 @@ module Entities
       @lft = attributes[:lft]
       @rgt = attributes[:rgt]
       @id = attributes[:id].to_i
-      @habit_id = (has_habit_node? && @@habit_repo.habit_for_habit_node(id).one.to_h.has_value?(id)) ? @@habit_repo.habit_for_habit_node(id).one.id : nil
+      @habit_id = (has_habit_node? && !@@habit_repo.habit_for_habit_node(id).one.nil?) ? @@habit_repo.habit_for_habit_node(id).one.id : nil
     end
 
     def to_s
