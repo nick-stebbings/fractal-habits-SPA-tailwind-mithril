@@ -8,6 +8,7 @@ module Hht
         params do
           required(:habit_id).filled(:integer)
           required(:date_id).filled(:integer)
+          required(:completed_status).filled(:bool)
         end
 
         rule(:habit_id) do

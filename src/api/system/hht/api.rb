@@ -414,12 +414,19 @@ module Hht
       end
 
       post '' do
-        habit_date = MultiJson.load(request.body.read, symbolize_keys: true)
-        halt(404, { message: 'No Habit Date Found' }.to_json) unless habit_date
-
-        created = habit_date_repo.create(habit_date)
-
-        halt(422, { message: unwrap_validation_error(created) }.to_json) unless created.success?
+        payload = MultiJson.load(request.body.read, symbolize_keys: true)
+        habit_dates = payload[:habit_dates]
+        if habit_dates.length < 1
+          return
+        end
+        
+        date = date_repo.by_id(payload[:date_id])
+        halt(404, { message: 'No Habit Date Found' }.to_json) unless date.exist?
+        success_monads = habit_dates.map { |hd|
+        created = habit_date_repo.create(hd)
+      }
+      
+      halt(422, { message: unwrap_validation_error(success_monads.find { |monad| monad.failure? }) }.to_json) unless success_monads.all? { |monad| monad.success? }
         status 204
       end
 

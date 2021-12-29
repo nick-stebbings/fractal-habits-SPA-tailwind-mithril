@@ -9,6 +9,9 @@ module Hht
       commands delete: :by_pk
 
       def create(attrs)
+        if by_attrs(attrs).exist?
+          return update(attrs)
+        end
         Hht::Transactions::HabitDates::Create.new.call(attrs)
       end
 
