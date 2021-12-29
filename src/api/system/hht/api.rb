@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'#'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'#'http://localhost:3000'
     end
 
     options '*' do
@@ -426,6 +426,7 @@ module Hht
         created = habit_date_repo.create(hd)
       }
       
+      # binding.pry
       halt(422, { message: unwrap_validation_error(success_monads.find { |monad| monad.failure? }) }.to_json) unless success_monads.all? { |monad| monad.success? }
         status 204
       end
