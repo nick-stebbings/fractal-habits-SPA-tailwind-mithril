@@ -27,6 +27,9 @@ module Entities
     def to_tree_node_with_habit_status(date_id)
       if(habit_id)
         habit = @@habit_repo.by_id(habit_id).one
+        if !habit
+          return
+        end
         init_date = habit.initiation_date
         date_tuple_of_current = @@habit_repo.dates.to_a.select {|d| d.id == date_id}[0]
         init_date_older_than_date_tuple = !(date_tuple_of_current.nil?) && (date_tuple_of_current.h_date.to_date.jd >= init_date.to_date.jd) # Is this habit 'active' on this date?

@@ -9,7 +9,8 @@ module Hht
       commands delete: :by_pk
 
       def create(attrs)
-        if by_attrs(attrs).exist?
+        tuple = by_attrs(attrs.reject { |k, _v| k == :completed_status })
+        if tuple.exist?
           return update(attrs)
         end
         Hht::Transactions::HabitDates::Create.new.call(attrs)
