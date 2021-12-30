@@ -11,10 +11,10 @@ RUN bundle install
 COPY . /home/app
 RUN chown -R app:app /home/app
 
-EXPOSE 4567
+EXPOSE 4568
 
 WORKDIR /home/app
 CMD ["RACK_ENV=production", "rake", "db:migrate"]
-CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4567"]
+CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4568"]
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
