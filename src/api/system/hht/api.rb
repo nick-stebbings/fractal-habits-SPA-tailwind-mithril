@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://api.habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
     end
 
     options '*' do
