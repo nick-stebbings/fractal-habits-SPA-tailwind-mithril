@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' # 'https://habfract.life'
     end
 
     options '*' do
@@ -441,9 +441,21 @@ module Hht
 
         halt(422, { message: unwrap_validation_error(updated) }.to_json) unless updated.success?
         status 204
+      end      
+      
+      delete '/:habit_id/:date_id' do |habit_id, date_id|
+        habit = habit_repo.as_json(habit_id)
+        halt(404, { message: 'Habit Not Found' }.to_json) unless habit
+        
+        date = date_repo.as_json(date_id)
+        halt(404, { message: 'date Not Found' }.to_json) unless date
+
+        deleted = habit_date_repo.delete(habit_id.to_i, date_id.to_i)
+        halt(400, { message: unwrap_validation_error(deleted) }.to_json) unless deleted.success?
+        status 204
       end
 
-      %i[patch delete].each do |method|
+      %i[patch].each do |method|
         send(method, '') do
           halt(405, { message: 'Verb Not Permitted' }.to_json)
         end

@@ -7,6 +7,7 @@ module Persistence
         attribute :habit_id, Types::Integer
         attribute :date_id, Types::Integer
         attribute :completed_status, Types::Nominal::Bool
+        primary_key :habit_id, :date_id
 
         associations do
           belongs_to :date

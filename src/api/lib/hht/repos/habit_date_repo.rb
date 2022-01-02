@@ -5,7 +5,6 @@ module Hht
     class HabitDateRepo < ROM::Repository[:habit_dates]
       include Import['persistence.container']
       include Dry::Monads[:result]
-
       commands delete: :by_pk
 
       def create(attrs)
