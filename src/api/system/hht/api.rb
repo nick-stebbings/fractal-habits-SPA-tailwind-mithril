@@ -448,10 +448,13 @@ module Hht
         halt(404, { message: 'Habit Not Found' }.to_json) unless habit
         
         date = date_repo.as_json(date_id)
-        halt(404, { message: 'date Not Found' }.to_json) unless date
-
+        halt(404, { message: 'Date Not Found' }.to_json) unless date
+        
         deleted = habit_date_repo.delete(habit_id.to_i, date_id.to_i)
-        halt(400, { message: unwrap_validation_error(deleted) }.to_json) unless deleted.success?
+        halt(404, { message: 'HabitDate Not Found' }.to_json) unless deleted
+
+        halt(400, { message: unwrap_validation_error(deleted) }.to_json) unless deleted
+
         status 204
       end
 
