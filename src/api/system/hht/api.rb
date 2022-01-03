@@ -420,11 +420,15 @@ module Hht
           return
         end
         
-        date = date_repo.by_id(payload[:date_id])
-        halt(404, { message: 'No Habit Date Found' }.to_json) unless date.exist?
         success_monads = habit_dates.map { |hd|
-        created = habit_date_repo.create(hd)
-      }
+          date = date_repo.by_id(hd[:date_id])
+          return Dry::Monads::Failure.new(hd[:date_id]) unless date.exist?
+      
+          habit = habit_repo.by_id(hd[:habit_id])
+          return Dry::Monads::Failure.new(hd[:habit_id]) unless habit.exist?
+
+          created = habit_date_repo.create(hd)
+        }
       
         halt(422, { message: unwrap_validation_error(success_monads.find { |monad| monad.failure? }) }.to_json) unless success_monads.all? { |monad| monad.success? }
         
