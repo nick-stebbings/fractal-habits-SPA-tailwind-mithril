@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' # 'https://habfract.life'
     end
 
     options '*' do
@@ -356,8 +356,8 @@ module Hht
       end
 
       delete '/:habit_id' do |id|
-        habit = habit_repo.as_json(id)
-        halt(404, { message: 'Habit Not Found' }.to_json) unless habit
+        habit = habit_repo.by_id(id)
+        halt(404, { message: 'Habit Not Found' }.to_json) unless habit.exist?
 
         deleted = habit_repo.delete(id.to_i)
         halt(400, { message: unwrap_validation_error(deleted) }.to_json) unless deleted.success?
@@ -365,39 +365,6 @@ module Hht
       end
 
       %i[patch delete].each do |method|
-        send(method, '') do
-          halt(405, { message: 'Verb Not Permitted' }.to_json)
-        end
-      end
-    end
-
-    namespace '/dates' do
-      get '' do
-        date_list = date_repo.all_as_json
-        halt(404, { message: 'No Dates Found' }.to_json) unless date_list
-
-        status 200
-        json date_list
-      end
-
-      get '/:date_id' do |id|
-        date = date_repo.as_json(id)
-        halt(404, { message: 'No Date Found' }.to_json) unless date
-
-        status 200
-        json date
-      end
-
-      post '' do
-        date = MultiJson.load(request.body.read, symbolize_keys: true)
-        halt(404, { message: 'No Date Found' }.to_json) unless date
-
-        created = date_repo.create(date)
-        halt(422, { message: unwrap_validation_error(created) }.to_json) unless created.success?
-        status 204
-      end
-
-      %i[put patch delete].each do |method|
         send(method, '') do
           halt(405, { message: 'Verb Not Permitted' }.to_json)
         end
