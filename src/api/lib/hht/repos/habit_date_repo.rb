@@ -10,6 +10,7 @@ module Hht
       def create(attrs)
         tuple = by_attrs(attrs.reject { |k, _v| k == :completed_status })
         if tuple.exist?
+          attrs[:completed_status] = 'true'
           return update(attrs)
         end
         Hht::Transactions::HabitDates::Create.new.call(attrs)
