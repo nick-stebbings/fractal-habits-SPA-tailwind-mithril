@@ -206,7 +206,7 @@ module Hht
           (0..depth).each do |i|
             results.push(tree.to_d3_json(i))
           end  
-          json results
+          results
         else 
           tree.to_d3_json(0)
         end
