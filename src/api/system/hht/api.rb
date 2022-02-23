@@ -11,6 +11,7 @@ require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
 require File.join(APP_ROOT, 'lib', 'yaml_store')
 
+require 'pry'
 module Hht
   YAML = YAMLStore.new # For demo data
 
@@ -36,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://demo.habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
     end
 
     options '*' do
@@ -217,7 +218,7 @@ module Hht
         if root_node.exist?
           root_id = root_node.to_a.first.id
           start_date_id.upto(start_date_id + 6) { |date_id| 
-            trees[date_id] = Subtree.generate(root_id, date_id, depth).to_d3_json(depth)
+            trees[date_id] = Subtree.generate(root_id, date_id).to_d3_json(depth)
           }
         else
           halt(404,
@@ -237,7 +238,7 @@ module Hht
         date_id = params[:date_id].to_i
         depth = (params[:depth] || 3).to_i
 
-        tree = Subtree.generate(root_id, date_id, depth)
+        tree = Subtree.generate(root_id, date_id)
         halt(404, { message: 'No habit data found!' }.to_json) unless tree
         status 200
         tree.to_d3_json(depth)
@@ -254,8 +255,15 @@ module Hht
       end
 
       get '/:domain_id' do |id|
-        status 200
-        json domain_repo.as_json(id)
+        halt(400, { message: "Not a valid domain" }.to_json) unless domain_repo.domains.to_a.length >= id.to_i
+        if params['habit_node_depths'] == 'true'
+          node_depths = habit_node_repo.habit_nodes.read("SELECT * FROM habit_node_depths_" + id.to_s)
+          status 200
+          json({ habit_nodes: node_depths.map{ |n| n } }.to_json)
+        else
+          status 200
+          json domain_repo.as_json(id)
+        end
       end
 
       get '/:domain_id/habits' do |id|

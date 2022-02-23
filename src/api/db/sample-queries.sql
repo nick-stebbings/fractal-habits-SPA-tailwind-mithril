@@ -1,13 +1,5 @@
 -- domain seed
-INSERT INTO
-  domains (name, description, rank, hashtag)
-VALUES
-  (
-    'Physical Health',
-    'Eating, sleeping, not being chased by a bear...',
-    1,
-    '#physical'
-  );
+INSERT INTO domains (name, description, rank, hashtag) VALUES ( 'Physical Health', 'Eating, sleeping, not being chased by a bear...', 1, '#physical' );
 
 -- habit seed
 INSERT INTO
@@ -58,6 +50,30 @@ FROM
   );
 
 insert into habit_dates values (1,1,true);
+
+CREATE OR REPLACE FUNCTION get_dom_nodes (integer) 
+    RETURNS TABLE ( id INT, parent_id INT,
+        lft INT,
+        rgt INT
+) 
+AS $$
+BEGIN
+    RETURN QUERY SELECT
+        hn.id, hn.parent_id, hn.lft, hn.rgt from habits as h inner join habit_nodes as hn on h.habit_node_id = hn.id where h.domain_id = $1;
+END; $$ 
+LANGUAGE 'plpgsql';
+
+create view habit_node_depths_1 as (WITH dn as (select * from get_dom_nodes(1)) SELECT hn.id, (COUNT(parent.id) - 1) AS depth
+FROM dn AS hn
+CROSS JOIN dn AS parent
+WHERE hn.lft BETWEEN parent.lft AND parent.rgt
+GROUP BY hn.id ORDER BY hn.id);
+
+create view habit_node_depths_2 as (WITH dn as (select * from get_dom_nodes(2)) SELECT hn.id, (COUNT(parent.id) - 1) AS depth
+FROM dn AS hn
+CROSS JOIN dn AS parent
+WHERE hn.lft BETWEEN parent.lft AND parent.rgt
+GROUP BY hn.id ORDER BY hn.id);
 
 -- TODO:
 -- convert d3fc generated data into boolean values to be inserted into node_date for each LEAF NODE (id's 3,4,6,7), for each date
