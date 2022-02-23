@@ -11,7 +11,6 @@ require_relative 'container'
 require File.join(APP_ROOT, 'lib', 'subtree')
 require File.join(APP_ROOT, 'lib', 'yaml_store')
 
-require 'pry'
 module Hht
   YAML = YAMLStore.new # For demo data
 
@@ -37,7 +36,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' # 'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://demo.habfract.life'
     end
 
     options '*' do
