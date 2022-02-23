@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' # 'https://habfract.life'
     end
 
     options '*' do
@@ -185,12 +185,11 @@ module Hht
       get '' do
         dom_id = params[:domain_id].to_i
         date_id = params[:date_id].to_i
-        depth = (params[:depth] || 3).to_i
 
         if params[:demo] == 'true'
           halt(302, { message: 'Use the /demo path for demo data.' }.to_json)
         end
-
+        
         root_node = habit_node_repo.habit_nodes.root_id_of_domain(dom_id)
         if root_node.exist?
           (tree = Subtree.generate(root_node.to_a.first.id, date_id))
@@ -198,8 +197,20 @@ module Hht
           halt(404,
           { message: 'No nodes for this domain' }.to_json)
         end
+
         status 200
-        tree.to_d3_json(depth)
+        if !params[:depth].nil?
+                    binding.pry
+          depth = (params[:depth] || 3).to_i
+          results = []
+
+          (0..depth).each do |i|
+            results.push(tree.to_d3_json(i))
+          end  
+          json results
+        else 
+          tree.to_d3_json(0)
+        end
       end
 
       # Get root node tree for domain for a week of dates starting with a date_id
@@ -259,7 +270,7 @@ module Hht
         if params['habit_node_depths'] == 'true'
           node_depths = habit_node_repo.habit_nodes.read("SELECT * FROM habit_node_depths_" + id.to_s)
           status 200
-          json({ habit_nodes: node_depths.map{ |n| n } }).to_json
+          { habit_nodes: node_depths.map{ |n| n } }.to_json
         else
           status 200
           json domain_repo.as_json(id)
