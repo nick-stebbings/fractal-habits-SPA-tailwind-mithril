@@ -259,7 +259,7 @@ module Hht
         if params['habit_node_depths'] == 'true'
           node_depths = habit_node_repo.habit_nodes.read("SELECT * FROM habit_node_depths_" + id.to_s)
           status 200
-          json({ habit_nodes: node_depths.map{ |n| n } }.to_json)
+          json({ habit_nodes: node_depths.map{ |n| n } }).to_json
         else
           status 200
           json domain_repo.as_json(id)
