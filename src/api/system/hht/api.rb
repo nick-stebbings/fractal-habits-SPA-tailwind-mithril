@@ -200,7 +200,6 @@ module Hht
 
         status 200
         if !params[:depth].nil?
-                    binding.pry
           depth = (params[:depth] || 3).to_i
           results = []
 
