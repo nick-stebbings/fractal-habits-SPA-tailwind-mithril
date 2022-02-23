@@ -63,3 +63,8 @@ insert into habit_dates values (1,1,true);
 -- convert d3fc generated data into boolean values to be inserted into node_date for each LEAF NODE (id's 3,4,6,7), for each date
 
 
+-- update habit_nodes set rgt = 2;
+-- insert into domains values (2, 'Career', 'Get the job you deserve', 2,'');
+-- insert into habit_nodes values (2,null,1,2);
+-- insert into habits values (2, 'Get your dream job', 'Do not settle for less', '2022-01-01 00:00:00+13'::timestamptz, 2, 2);
+-- update habit_nodes set rgt = 2;

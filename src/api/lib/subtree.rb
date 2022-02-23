@@ -26,6 +26,7 @@ end
 # Acts as a Repo for methods pertaining to SQL -> Tree:TreeNode -> JSON conversion and subsequent manipulation
 class Subtree
   attr_reader :root_node
+  EMPTY_CHILDREN = { 'children' => [] }
 
   @@node_repo = Hht::Container.resolve('repos.habit_node_repo')
 
@@ -44,29 +45,33 @@ class Subtree
       parent_id = node.parent_id
       new_tree_node = node.to_tree_node_with_habit_status(date_id)
       node_dict[id.to_s] = new_tree_node unless node_dict[id.to_s]
-      (node_dict[parent_id.to_s] << new_tree_node) unless node_dict[parent_id.to_s].nil?
+      (node_dict[parent_id.to_s] << new_tree_node) unless new_tree_node.nil? || node_dict[parent_id.to_s].nil?
     end
-
+    
     @root_node = node_dict[root_id]
     self
   end
 
-  def as_d3_json
+  def as_d3_json(depth)
     root_json = @root_node.as_json
     new_json = { 'content' => root_json[:content].to_s, 'name' => root_json[:name].to_s }
 
-    children_json = if root_json['children']
+    if(depth == 0) 
+      return new_json.merge(EMPTY_CHILDREN)
+    end
+    
+    children_json = if !root_json['children'].nil? && root_json['children'].size > 0
                       { 'content' => root_json[:content].to_s, 'children' => root_json['children'].map do |child|
-                                                                               Subtree.new(child).as_d3_json
+                                                                               Subtree.new(child).as_d3_json(depth-1)
                                                                              end }
                     else
-                      { 'children' => [] }
+                      EMPTY_CHILDREN
                     end
     new_json.merge(children_json)
   end
 
-  def to_d3_json
-    as_d3_json.to_json
+  def to_d3_json(depth)
+    as_d3_json(depth).to_json
   end
 
   class << self
@@ -77,6 +82,8 @@ class Subtree
 
       nodes_array = nodes.to_a
       root_node = @@node_repo.by_id(root_id).one
+
+
       subtree = Subtree.new(root_node.to_tree_node_with_habit_status(date_id), nodes_array)
       subtree.build_from_tuples(root_node, date_id, @@node_repo)
       subtree

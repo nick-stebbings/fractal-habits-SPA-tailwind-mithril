@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] ='https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' # 'https://habfract.life'
     end
 
     options '*' do
@@ -185,6 +185,7 @@ module Hht
       get '' do
         dom_id = params[:domain_id].to_i
         date_id = params[:date_id].to_i
+        depth = (params[:depth] || 3).to_i
 
         if params[:demo] == 'true'
           halt(302, { message: 'Use the /demo path for demo data.' }.to_json)
@@ -198,13 +199,14 @@ module Hht
           { message: 'No nodes for this domain' }.to_json)
         end
         status 200
-        tree.to_d3_json 
+        tree.to_d3_json(depth)
       end
 
       # Get root node tree for domain for a week of dates starting with a date_id
       get '/weekly' do
         dom_id = params[:domain_id].to_i
         start_date_id = params[:start_date_id].to_i
+        depth = (params[:depth] || 3).to_i
 
         if params[:demo] == 'true'
           halt(302, { message: 'Use the /demo path for demo data.' }.to_json)
@@ -216,7 +218,7 @@ module Hht
         if root_node.exist?
           root_id = root_node.to_a.first.id
           start_date_id.upto(start_date_id + 6) { |date_id| 
-            trees[date_id] = Subtree.generate(root_id, date_id).to_d3_json
+            trees[date_id] = Subtree.generate(root_id, date_id, depth).to_d3_json(depth)
           }
         else
           halt(404,
@@ -234,10 +236,12 @@ module Hht
       # Get subtree by root node id
       get '/:root_id' do |root_id|
         date_id = params[:date_id].to_i
-        tree = Subtree.generate(root_id, date_id)
+        depth = (params[:depth] || 3).to_i
+
+        tree = Subtree.generate(root_id, date_id, depth)
         halt(404, { message: 'No habit data found!' }.to_json) unless tree
         status 200
-        tree.to_d3_json
+        tree.to_d3_json(depth)
       end
     end
 
