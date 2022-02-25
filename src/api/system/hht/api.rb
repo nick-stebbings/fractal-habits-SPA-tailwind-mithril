@@ -208,7 +208,7 @@ module Hht
           end  
           results
         else 
-          json tree.to_d3_json(tree.depth)
+          json tree.to_d3_json(tree.depth || 100)
         end
       end
 
