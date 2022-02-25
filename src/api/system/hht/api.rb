@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://demo.habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
     end
 
     options '*' do
@@ -246,12 +246,22 @@ module Hht
       # Get subtree by root node id
       get '/:root_id' do |root_id|
         date_id = params[:date_id].to_i
-        depth = (params[:depth] || 3).to_i
 
         tree = Subtree.generate(root_id, date_id)
         halt(404, { message: 'No habit data found!' }.to_json) unless tree
+
         status 200
-        json tree.to_d3_json(depth)
+        if !params[:depth].nil?
+          depth = (params[:depth] || 3).to_i
+          results = []
+          
+          (0..depth).each do |i|
+            results.push(tree.as_d3_json(i))
+          end  
+          json results
+        else 
+          json tree.to_d3_json(tree.root_node.depth || 100)
+        end
       end
     end
 
