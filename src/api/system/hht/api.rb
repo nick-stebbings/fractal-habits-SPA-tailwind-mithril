@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://demo.habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
     end
 
     options '*' do
@@ -208,7 +208,7 @@ module Hht
           end  
           results
         else 
-          tree.to_d3_json(tree.depth)
+          json tree.to_d3_json(tree.depth)
         end
       end
 
@@ -235,7 +235,7 @@ module Hht
           { message: 'No nodes for this domain' }.to_json)
         end
 
-        trees.to_json
+        json trees.to_json
       end
 
       post '' do
@@ -251,7 +251,7 @@ module Hht
         tree = Subtree.generate(root_id, date_id)
         halt(404, { message: 'No habit data found!' }.to_json) unless tree
         status 200
-        tree.to_d3_json(depth)
+        json tree.to_d3_json(depth)
       end
     end
 
