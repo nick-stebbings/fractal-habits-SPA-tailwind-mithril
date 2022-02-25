@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'https://demo.habfract.life'
     end
 
     options '*' do
@@ -202,13 +202,13 @@ module Hht
         if !params[:depth].nil?
           depth = (params[:depth] || 3).to_i
           results = []
-
+          
           (0..depth).each do |i|
-            results.push(tree.to_d3_json(i))
+            results.push(tree.as_d3_json(i))
           end  
-          results
+          json results
         else 
-          json tree.to_d3_json(tree.depth || 100)
+          json tree.to_d3_json(tree.root_node.depth || 100)
         end
       end
 
