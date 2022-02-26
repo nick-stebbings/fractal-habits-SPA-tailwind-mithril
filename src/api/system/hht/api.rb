@@ -37,7 +37,7 @@ module Hht
     end
 
     before do
-      response.headers['Access-Control-Allow-Origin'] = 'https://habfract.life'
+      response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000' # 'https://habfract.life'
     end
 
     options '*' do
@@ -208,7 +208,7 @@ module Hht
           end  
           json results
         else 
-          json tree.to_d3_json(tree.root_node.depth || 100)
+          tree.to_d3_json(tree.root_node.depth || 100)
         end
       end
 
@@ -235,7 +235,7 @@ module Hht
           { message: 'No nodes for this domain' }.to_json)
         end
 
-        json trees.to_json
+        trees.to_json
       end
 
       post '' do
@@ -260,7 +260,7 @@ module Hht
           end  
           json results
         else 
-          json tree.to_d3_json(tree.root_node.depth || 100)
+          tree.to_d3_json(tree.root_node.depth || 100)
         end
       end
     end
